@@ -100,7 +100,7 @@ var server = {
     return function (forced, isRecent) {
       //Check state
       if (state && !forced) { 
-        console.log("Gmail notifier is busy right now.")
+        console.log("Gmail notifier listening at " + feed + " is busy right now. Try it later")
         return;
       }
       if (state && forced) {
