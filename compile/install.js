@@ -1,13 +1,18 @@
 var fs      = require('fs'), 
     program = require('commander'),
     clc     = require('cli-color'),
-    spawn   = require('child_process').spawn;
+    spawn   = require('child_process').spawn,
+    exec    = require('child_process').exec;
 /** Command Line setup **/
 program
   .version('0.0.1')
   .option('-r, --run', 
     'Run extension in a clean profile ' +
     '(equivalent to cfx run). No xpi file will be generated in this mode!'
+  )
+  .option('-w, --wget', 
+    'Run extension in current profile ' +
+    'Wget and Extension auto installer are required.'
   )
   .option('-e, --xpi', 
     'Create XPI file in cLinux dir'
@@ -16,6 +21,27 @@ program
     'Show jsConsole in run mode'
   )
   .parse(process.argv);
+/** Wget **/
+var installer = function (callback) {
+  var child;
+
+  var cmd = "ls src/*.xpi"
+  child = exec(cmd, {}, function (error, stdout, stderr) {
+      if (stdout) {
+        cmd = 'compile\\wget --post-file=' + /.*/.exec(stdout) + ' http://localhost:8888/';
+        console.log(cmd);
+        child = exec(cmd, {}, function (error, stdout, stderr) {
+          if (stdout)
+            console.log(stdout);
+          if (stderr)
+            console.log(clc.red(stderr));
+        });
+      }
+      if (stderr)
+        console.log(clc.red(stderr));
+  });
+}
+  
 /** Find SDK **/
 fs.readdir(".", function (err, files) {
   if (err) throw new Error(err);
@@ -44,23 +70,38 @@ fs.readdir(".", function (err, files) {
         stage += 1;
         break;
       case 1:
+        stage += 1;
+        break;
       case 2:
         cfx.stdin.write("cd ..\n");
         stage += 1;
+        break;
       case 3:
         cfx.stdin.write("cd src\n");
         stage += 1;
+        break;
       case 4:
         cfx.stdin.write(
           "cfx --templatedir=../template " + 
-          (program.xpi ? "xpi" : (
+          ((program.xpi || program.wget) ? "xpi" : (
             "run" + (program.jsconsole ? " --binary-args -jsconsole" : "")
           )) + "\n"
         );
         stage += 1;
+        break;
       case 5:
         cfx.stdin.write("exit\n");
         stage += 1;
+        break;
+      case 6:
+        stage += 1;
+        break;
+      case 7:
+        if (program.wget) {
+          setTimeout(function(){installer()}, 1000);
+        }
+        stage += 1;
+        break;
     }
   });
   cfx.stderr.on('data', function (data) {
