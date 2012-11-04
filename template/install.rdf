@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>{jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls}</em:id>
+    <em:version>0.1.1</em:version>
+    <em:type>2</em:type>
+    <em:bootstrap>true</em:bootstrap>
+    <em:unpack>false</em:unpack>
+
+    <!-- Firefox -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>13.0</em:minVersion>
+        <em:maxVersion>14.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <!-- Front End MetaData -->
+    <em:name>Gmail Notifier</em:name>
+    <em:description>Yet another Gmail notifier</em:description>
+    <em:creator>InBasic</em:creator>
+
+  </Description>
+</RDF>

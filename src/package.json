@@ -1,0 +1,1 @@
+{"license": "", "description": "Gmail Notifier", "contributors": [], "author": "inbasic", "url": "", "dependencies": ["api-utils", "addon-kit"], "version": "0.1.1", "lib": "lib", "fullName": "Yet another Gmail Notifier!", "main": "main", "id": "jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls", "name": "gmail-notifier"}
