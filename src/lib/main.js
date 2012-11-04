@@ -32,15 +32,15 @@ exports.main = function() {
   gButton = toolbarbutton.ToolbarButton({
     id: "igmail-notifier",
     label: _("gmail"),
-    tooltiptext: _("gmail"),
+    tooltiptext: _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2"),
     image: data.url("gmail[U].png"),
     onClick: function (e) {
-      if (e.button == 1) {
-        tabs.open({url: options.email.url, inBackground: true});
+      if (e.button == 1 || e.button == 2) {
+        checkAllMails(true);
       }
     },
     onCommand: function () {
-      checkAllMails(true);
+      tabs.open({url: options.email.url, inBackground: false});
     }
   });
   //Timer
@@ -249,7 +249,7 @@ var checkAllMails = (function () {
       play();
     }
     //Tooltiptext
-    gButton.tooltiptext = text ? text.replace(/ \- /g, "\n") : _("gmail");
+    gButton.tooltiptext = text ? text.replace(/ \- /g, "\n") : _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2");
     //Icon
     var isRed = false,
         isGray = false;
