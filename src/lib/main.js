@@ -38,10 +38,6 @@ exports.main = function() {
       if (e.button == 1) {
         tabs.open({url: options.email.url, inBackground: true});
       }
-      else if (e.button == 2) {
-        tabs.open(options.email.url);
-      }
-      return true;
     },
     onCommand: function () {
       checkAllMails(true);
@@ -190,7 +186,7 @@ var server = {
           if (!isRecent) tabs.open(options.email.url);
           
           if (callback) callback.apply(pointer, [xml, null, false, "unknown", 
-            isRecent ? null : [_("warning"), _("msg1")]]);
+            isRecent ? null : ["", _("msg1")]]);
           return;
         }
         //Gmail not logged-in && no error && no force
@@ -238,7 +234,14 @@ var checkAllMails = (function () {
     var text = "";
     var showAlert = isForced;
     results.forEach(function (r, i) {
-      if (r.msgObj) text += (text ? " - " : "") + r.msgObj[0] + " (" + r.msgObj[1] + ")";
+      if (r.msgObj) {
+        if (typeof(r.msgObj[1]) == "number") {
+          text += (text ? " - " : "") + r.msgObj[0] + " (" + r.msgObj[1] + ")";
+        }
+        else {
+          text += (text ? " - " : "") + r.msgObj[0] + " " + r.msgObj[1];
+        }
+      }
       showAlert = showAlert || r.alert;
     });
     if (showAlert && text) {
