@@ -100,7 +100,7 @@ var server = {
     return function (forced, isRecent) {
       //Check state
       if (state && !forced) { 
-        console.log("Gmail notifier listening at " + feed + " is busy right now. Try it later")
+        console.log("Gmail notifier listening at " + feed + " is busy right now. Try it later, or try force option")
         return;
       }
       if (state && forced) {
@@ -143,6 +143,7 @@ var server = {
         state = false;
         //Gmail logged-in && has count && new count && forced
         if (exist && count && newUnread && forced) {
+                                              /* xml, count, showAlert, color, message */
           if (callback) callback.apply(pointer, [xml, count, true, "red", [xml.title, count]])
           return;
         }
@@ -153,12 +154,12 @@ var server = {
         }
         //Gmail logged-in && has count && old count && forced
         if (exist && count && !newUnread && forced) {
-          if (callback) callback.apply(pointer, [xml, count, false, "red", [xml.title, count]])
+          if (callback) callback.apply(pointer, [xml, count, true, "red", [xml.title, count]])
           return;
         }
         //Gmail logged-in && has count && old count && no forces
         if (exist && count && !newUnread && !forced) {
-          if (callback) callback.apply(pointer, [xml, count, false, "red"])
+          if (callback) callback.apply(pointer, [xml, count, false, "red", [xml.title, count]])
           return;
         }
         //Gmail logged-in && has no-count && new count && forced
@@ -231,12 +232,13 @@ var checkAllMails = (function () {
   }
   function step2 () {
     //Notifications
-    var text = "";
+    var text = "", tooltiptext = "";
     var showAlert = isForced;
     results.forEach(function (r, i) {
       if (r.msgObj) {
         if (typeof(r.msgObj[1]) == "number") {
-          text += (text ? " - " : "") + r.msgObj[0] + " (" + r.msgObj[1] + ")";
+          if (r.alert) text += (text ? " - " : "") + r.msgObj[0] + " (" + r.msgObj[1] + ")";
+          tooltiptext += (tooltiptext ? "\n" : "") + r.msgObj[0] + " (" + r.msgObj[1] + ")";
         }
         else {
           text += (text ? " - " : "") + r.msgObj[0] + " " + r.msgObj[1];
@@ -249,7 +251,7 @@ var checkAllMails = (function () {
       play();
     }
     //Tooltiptext
-    gButton.tooltiptext = text ? text.replace(/ \- /g, "\n") : _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2");
+    gButton.tooltiptext = tooltiptext ? tooltiptext : _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2");
     //Icon
     var isRed = false,
         isGray = false;
