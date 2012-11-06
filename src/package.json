@@ -15,5 +15,42 @@
   "lib": "lib", 
   "main": "main", 
   
+  "preferences": [{
+      "name": "period",
+      "title": "Check for new emails every (seconds):",
+      "description": "Minimum period time is 10 seconds. This setting takes place after first restart.",
+      "type": "integer",
+      "value": 15
+  },
+  {
+      "name": "url",
+      "title": "Gmail address",
+      "description": "What is the gmail web address",
+      "type": "string",
+      "value":   "https://www.gmail.com"
+  },
+  {
+      "name": "feed",
+      "title": "Feed format",
+      "description": "Gmail feed format. %d will be replaced with an integer",
+      "type": "string",
+      "value": "https://mail.google.com/mail/u/%d/feed/atom"
+  },
+  {
+      "name": "notification",
+      "title": "Display desktop notification for new emails:",
+      "description": "",
+      "type": "bool",
+      "value": true
+  },
+  {
+      "name": "alert",
+      "title": "Play alert sound for new emails:",
+      "description": "",
+      "type": "bool",
+      "value": true
+  }
+  ],
+
   "id": "jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls" 
 }

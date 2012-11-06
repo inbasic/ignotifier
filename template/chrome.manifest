@@ -1,3 +1,2 @@
 content   igmailnotifier                  chrome/content/
-skin      igmailnotifier  classic/1.0     chrome/skin/
 locale    igmailnotifier  en-US           chrome/locale/en-US/

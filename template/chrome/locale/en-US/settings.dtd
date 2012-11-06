@@ -1,0 +1,2 @@
+<!ENTITY period.label "Check for new mails every:">
+<!ENTITY period.description "The number is in seconds and the minimum period is 10 Secs">

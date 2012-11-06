@@ -1,33 +1,34 @@
 ﻿var tabs = require("tabs"),
     self = require("self"),
     timer = require("timers"),
+    prefs = require("simple-prefs").prefs,
     notifications = require("notifications"),
     toolbarbutton = require("toolbarbutton"),
     _ = require("l10n").get,
     data = self.data,
     {XMLHttpRequest} = require("xhr"),
     {Cc, Ci, Cu} = require('chrome');
-/* Internal options */
-var options = {
+/* Internal settings */
+var settings = {
   email: {
     feeds: [
-      "https://mail.google.com/mail/u/0/feed/atom", 
-      "https://mail.google.com/mail/u/1/feed/atom",
-      "https://mail.google.com/mail/u/2/feed/atom",
-      "https://mail.google.com/mail/u/3/feed/atom"
+      prefs.feed.replace("%d", 0), 
+      prefs.feed.replace("%d", 1), 
+      prefs.feed.replace("%d", 2), 
+      prefs.feed.replace("%d", 3)
     ],
-    url: "https://www.gmail.com"
+    url: prefs.url
   },
   move: {
     toolbarID: "nav-bar", 
     forceMove: false
   },
-  period: 15,
+  period: (prefs.period > 10 ? prefs.period : 10),
   firstTime: 1
 };
 /* Initialize */
-var gmail, clock;
-exports.main = function() {
+var gButton, clock;
+exports.main = function(options, callbacks) {
   //Gmail button
   gButton = toolbarbutton.ToolbarButton({
     id: "igmail-notifier",
@@ -40,19 +41,19 @@ exports.main = function() {
       }
     },
     onCommand: function () {
-      tabs.open({url: options.email.url, inBackground: false});
+      tabs.open({url: settings.email.url, inBackground: false});
     }
   });
   //Timer
   timer.setInterval(function () {
     checkAllMails();
-  }, options.period * 1000);
+  }, settings.period * 1000);
   timer.setTimeout(function () {
     checkAllMails();
-  }, options.firstTime * 1000);
+  }, settings.firstTime * 1000);
   //Install
   if (options.loadReason == "install") {
-    gmail.moveTo(options.move);
+    gButton.moveTo(settings.move);
   }
 };
 /* Server */
@@ -184,7 +185,7 @@ var server = {
         }
         //Gmail not logged-in && no error && forced
         if (!exist && normal && forced) {
-          if (!isRecent) tabs.open(options.email.url);
+          if (!isRecent) tabs.open(settings.email.url);
           
           if (callback) callback.apply(pointer, [xml, null, false, "unknown", 
             isRecent ? null : ["", _("msg1")]]);
@@ -215,12 +216,12 @@ var server = {
 }
 /* checkAllMails */
 var checkAllMails = (function () {
-  var len = options.email.feeds.length,
+  var len = settings.email.feeds.length,
       pushCount,
       isForced,
       results = [],
       gClients = [];
-  options.email.feeds.forEach(function (feed, index) {
+  settings.email.feeds.forEach(function (feed, index) {
     gClients[index] = new server.mCheck(feed, step1);
   });
   
@@ -247,8 +248,8 @@ var checkAllMails = (function () {
       showAlert = showAlert || r.alert;
     });
     if (showAlert && text) {
-      notify(_("gmail"), text);
-      play();
+      if (prefs.notification) notify(_("gmail"), text);
+      if (prefs.alert) play();
     }
     //Tooltiptext
     gButton.tooltiptext = tooltiptext ? tooltiptext : _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2");

@@ -6,20 +6,21 @@
     <em:type>2</em:type>
     <em:bootstrap>true</em:bootstrap>
     <em:unpack>false</em:unpack>
+    <em:optionsType>2</em:optionsType>
 
     <!-- Firefox -->
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-        <em:minVersion>13.0</em:minVersion>
-        <em:maxVersion>14.*</em:maxVersion>
+        <em:minVersion>15.0</em:minVersion>
+        <em:maxVersion>17.*</em:maxVersion>
       </Description>
     </em:targetApplication>
 
     <!-- Front End MetaData -->
-    <em:name>Gmail Notifier</em:name>
-    <em:description>Yet another Gmail notifier</em:description>
-    <em:creator>InBasic</em:creator>
+    <em:name></em:name>
+    <em:description>Y</em:description>
+    <em:creator></em:creator>
 
   </Description>
 </RDF>
