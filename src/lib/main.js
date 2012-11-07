@@ -10,18 +10,17 @@ var tabs = require("tabs"),
     {XMLHttpRequest} = require("xhr"),
     {Cc, Ci, Cu} = require('chrome');
 /* Internal config */
+const FEED = "https://mail.google.com/mail/u/%d/feed/atom";
+const URL = "https://www.gmail.com";
 var config = {
-  _feed: "https://mail.google.com/mail/u/%d/feed/atom",
-  _url: "https://www.gmail.com",
-  
   email: {
     feeds: [
-      (prefs.feed || config._feed).replace("%d", 0), 
-      (prefs.feed || config._feed).replace("%d", 1), 
-      (prefs.feed || config._feed).replace("%d", 2), 
-      (prefs.feed || config._feed).replace("%d", 3)
+      (prefs.feed || FEED).replace("%d", 0), 
+      (prefs.feed || FEED).replace("%d", 1), 
+      (prefs.feed || FEED).replace("%d", 2), 
+      (prefs.feed || FEED).replace("%d", 3)
     ],
-    url: prefs.url || config._url
+    url: prefs.url || URL
   },
   move: {
     toolbarID: "nav-bar", 
@@ -276,8 +275,8 @@ var checkAllMails = (function () {
         <svg height='16' width='20' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'> \
           <image x='0' y='3' height='10' width='16' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAKCAIAAAAy3EnLAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKhAAAAgklEQVQoU22QsRWAIAxE2YpZ3IZp2CDDWKaztbPieXAQQcKjQPN/LhDOGLnvlJ6c3Y2SYcFOOBSRsi+RmekCelzH4TiNRslCuoC+jjPRAJjzCX9npX0Bd7Acm8QutiWo4onM4dz4rD9VtwTSrcDZKs01SkvCTDsv25x1pNHboUcOhRfmUFFAGpPmbQAAAABJRU5ErkJggg=='></image> \
           <rect x='11' y='7' width='8' height='9' fill='#ffecdd'/> \
-          <text x='12' y='15' font-size='10' font-family='Arial' fill='#440000'>%d</text> \
-        </svg>"
+          <text x='12' y='15' font-size='10' font-family='Arial' font-weight='bold' fill='#440000'>%d</text> \
+        </svg>";
       gButton.image = "data:image/svg+xml;base64," + window.btoa(svg.replace("%d", total < 10 ? total : "+"));
     }
     else if (isGray) gButton.image = data.url("gmail[G].png");

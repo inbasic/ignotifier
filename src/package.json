@@ -11,7 +11,7 @@
   
   "url": "", 
   "dependencies": ["api-utils", "addon-kit"], 
-  "version": "0.1.3", 
+  "version": "0.1.4", 
   "lib": "lib", 
   "main": "main", 
   
