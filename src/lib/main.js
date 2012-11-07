@@ -1,6 +1,7 @@
-﻿var tabs = require("tabs"),
+var tabs = require("tabs"),
     self = require("self"),
     timer = require("timers"),
+    window = require("window-utils").activeBrowserWindow,
     prefs = require("simple-prefs").prefs,
     notifications = require("notifications"),
     toolbarbutton = require("toolbarbutton"),
@@ -8,16 +9,19 @@
     data = self.data,
     {XMLHttpRequest} = require("xhr"),
     {Cc, Ci, Cu} = require('chrome');
-/* Internal settings */
-var settings = {
+/* Internal config */
+var config = {
+  _feed: "https://mail.google.com/mail/u/%d/feed/atom",
+  _url: "https://www.gmail.com",
+  
   email: {
     feeds: [
-      (prefs.feed || "https://mail.google.com/mail/u/%d/feed/atom").replace("%d", 0), 
-      (prefs.feed || "https://mail.google.com/mail/u/%d/feed/atom").replace("%d", 1), 
-      (prefs.feed || "https://mail.google.com/mail/u/%d/feed/atom").replace("%d", 2), 
-      (prefs.feed || "https://mail.google.com/mail/u/%d/feed/atom").replace("%d", 3)
+      (prefs.feed || config._feed).replace("%d", 0), 
+      (prefs.feed || config._feed).replace("%d", 1), 
+      (prefs.feed || config._feed).replace("%d", 2), 
+      (prefs.feed || config._feed).replace("%d", 3)
     ],
-    url: prefs.url || "https://www.gmail.com"
+    url: prefs.url || config._url
   },
   move: {
     toolbarID: "nav-bar", 
@@ -41,19 +45,19 @@ exports.main = function(options, callbacks) {
       }
     },
     onCommand: function () {
-      tabs.open({url: settings.email.url, inBackground: false});
+      tabs.open({url: config.email.url, inBackground: false});
     }
   });
   //Timer
   timer.setInterval(function () {
     checkAllMails();
-  }, settings.period * 1000);
+  }, config.period * 1000);
   timer.setTimeout(function () {
     checkAllMails();
-  }, settings.firstTime * 1000);
+  }, config.firstTime * 1000);
   //Install
   if (options.loadReason == "install") {
-    gButton.moveTo(settings.move);
+    gButton.moveTo(config.move);
   }
 };
 /* Server */
@@ -192,7 +196,7 @@ var server = {
         }
         //Gmail not logged-in && no error && forced
         if (!exist && normal && forced) {
-          if (!isRecent) tabs.open(settings.email.url);
+          if (!isRecent) tabs.open(config.email.url);
           
           if (callback) callback.apply(pointer, [xml, null, false, "unknown", 
             isRecent ? null : ["", _("msg1")]]);
@@ -222,12 +226,12 @@ var server = {
 }
 /* checkAllMails */
 var checkAllMails = (function () {
-  var len = settings.email.feeds.length,
+  var len = config.email.feeds.length,
       pushCount,
       isForced,
       results = [],
       gClients = [];
-  settings.email.feeds.forEach(function (feed, index) {
+  config.email.feeds.forEach(function (feed, index) {
     gClients[index] = new server.mCheck(feed, step1);
   });
   
@@ -239,13 +243,14 @@ var checkAllMails = (function () {
   }
   function step2 () {
     //Notifications
-    var text = "", tooltiptext = "";
+    var text = "", tooltiptext = "", total = 0;
     var showAlert = isForced;
     results.forEach(function (r, i) {
       if (r.msgObj) {
         if (typeof(r.msgObj[1]) == "number") {
           if (r.alert) text += (text ? " - " : "") + r.msgObj[0] + " (" + r.msgObj[1] + ")";
           tooltiptext += (tooltiptext ? "\n" : "") + r.msgObj[0] + " (" + r.msgObj[1] + ")";
+          total += r.msgObj[1];
         }
         else {
           text += (text ? " - " : "") + r.msgObj[0] + " " + r.msgObj[1];
@@ -266,7 +271,15 @@ var checkAllMails = (function () {
       if (r.color == "red") isRed = true;
       if (r.color == "gray") isGray = true;
     });
-    if (isRed) gButton.image = data.url("gmail[R].png");
+    if (isRed) {
+      var svg = "\
+        <svg height='16' width='20' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'> \
+          <image x='0' y='3' height='10' width='16' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAKCAIAAAAy3EnLAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKhAAAAgklEQVQoU22QsRWAIAxE2YpZ3IZp2CDDWKaztbPieXAQQcKjQPN/LhDOGLnvlJ6c3Y2SYcFOOBSRsi+RmekCelzH4TiNRslCuoC+jjPRAJjzCX9npX0Bd7Acm8QutiWo4onM4dz4rD9VtwTSrcDZKs01SkvCTDsv25x1pNHboUcOhRfmUFFAGpPmbQAAAABJRU5ErkJggg=='></image> \
+          <rect x='11' y='7' width='8' height='9' fill='#ffecdd'/> \
+          <text x='12' y='15' font-size='10' font-family='Arial' fill='#440000'>%d</text> \
+        </svg>"
+      gButton.image = "data:image/svg+xml;base64," + window.btoa(svg.replace("%d", total < 10 ? total : "+"));
+    }
     else if (isGray) gButton.image = data.url("gmail[G].png");
     if (!isRed && !isGray) gButton.image = data.url("gmail[U].png");
   }
