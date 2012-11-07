@@ -12,12 +12,12 @@
 var settings = {
   email: {
     feeds: [
-      prefs.feed.replace("%d", 0), 
-      prefs.feed.replace("%d", 1), 
-      prefs.feed.replace("%d", 2), 
-      prefs.feed.replace("%d", 3)
+      (prefs.feed || "https://mail.google.com/mail/u/%d/feed/atom").replace("%d", 0), 
+      (prefs.feed || "https://mail.google.com/mail/u/%d/feed/atom").replace("%d", 1), 
+      (prefs.feed || "https://mail.google.com/mail/u/%d/feed/atom").replace("%d", 2), 
+      (prefs.feed || "https://mail.google.com/mail/u/%d/feed/atom").replace("%d", 3)
     ],
-    url: prefs.url
+    url: prefs.url || "https://www.gmail.com"
   },
   move: {
     toolbarID: "nav-bar", 
@@ -64,22 +64,29 @@ var server = {
       xml = req.responseXML;
     }
     else {
+      if (!req.responseText) return;
+      
       var parser = Cc["@mozilla.org/xmlextras/domparser;1"].createInstance(Ci.nsIDOMParser);
       xml = parser.parseFromString(req.responseText, "text/xml");
     }
     return {
       get fullcount () {
-        return parseInt(xml.getElementsByTagName("fullcount")[0].childNodes[0].nodeValue)
+        var temp = 0;
+        try {temp = parseInt(xml.getElementsByTagName("fullcount")[0].childNodes[0].nodeValue)} catch(e){}
+        return temp;
       },
       get title () {
-        var temp = xml.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+        var temp = "";
         try {
+          temp = xml.getElementsByTagName("title")[0].childNodes[0].nodeValue;
           temp = temp.match(/[^ ]+@.+\.[^ ]+/)[0];
         } catch(e) {}
         return temp;
       },
       get authorized () {
-        return xml.getElementsByTagName("TITLE")[0].childNodes[0].nodeValue;
+        var temp = "";
+        try {temp = xml.getElementsByTagName("TITLE")[0].childNodes[0].nodeValue;} catch(e){}
+        return temp;
       },
       get enteries () {
         return Array.prototype.slice.call( xml.getElementsByTagName("entry") ) 
@@ -198,9 +205,8 @@ var server = {
         }
         //Gmail not logged-in && error && forced
         if (!exist && !normal && forced) {
-          notifier(_("error"), _("msg2"));
-          
-          if (callback) callback.apply(pointer, [xml, null, false, "unknown"])
+          if (callback) callback.apply(pointer, [xml, null, false, "unknown", 
+          isRecent ? null : [_("error"), _("msg2")]]);
           return;
         }
         //Gmail not logged-in && error && no force
