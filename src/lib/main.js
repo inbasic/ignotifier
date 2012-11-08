@@ -27,7 +27,8 @@ var config = {
     forceMove: false
   },
   period: (prefs.period > 10 ? prefs.period : 10),
-  firstTime: 1
+  firstTime: 1,
+  image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAKCAIAAAAy3EnLAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKhAAAAgklEQVQoU22QsRWAIAxE2YpZ3IZp2CDDWKaztbPieXAQQcKjQPN/LhDOGLnvlJ6c3Y2SYcFOOBSRsi+RmekCelzH4TiNRslCuoC+jjPRAJjzCX9npX0Bd7Acm8QutiWo4onM4dz4rD9VtwTSrcDZKs01SkvCTDsv25x1pNHboUcOhRfmUFFAGpPmbQAAAABJRU5ErkJggg=="
 };
 /* Initialize */
 var gButton, clock;
@@ -271,12 +272,12 @@ var checkAllMails = (function () {
       if (r.color == "gray") isGray = true;
     });
     if (isRed) {
-      var svg = "\
-        <svg height='16' width='20' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'> \
-          <image x='0' y='3' height='10' width='16' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAKCAIAAAAy3EnLAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKhAAAAgklEQVQoU22QsRWAIAxE2YpZ3IZp2CDDWKaztbPieXAQQcKjQPN/LhDOGLnvlJ6c3Y2SYcFOOBSRsi+RmekCelzH4TiNRslCuoC+jjPRAJjzCX9npX0Bd7Acm8QutiWo4onM4dz4rD9VtwTSrcDZKs01SkvCTDsv25x1pNHboUcOhRfmUFFAGpPmbQAAAABJRU5ErkJggg=='></image> \
-          <rect x='11' y='7' width='8' height='9' fill='#ffecdd'/> \
-          <text x='12' y='15' font-size='10' font-family='Arial' font-weight='bold' fill='#440000'>%d</text> \
-        </svg>";
+      var svg = 
+        "<svg height='16' width='20' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'>" +
+          "<image x='0' y='3' height='10' width='16' xlink:href='" + config.image + "'></image>" +
+          "<circle cx='15' cy='11' r='5' fill='" + prefs.backgroundColor + "'/>" +
+          "<text x='12' y='15' font-size='10' font-family='Arial' font-weight='bold' fill='" + prefs.textColor + "'>%d</text>" +
+        "</svg>";
       gButton.image = "data:image/svg+xml;base64," + window.btoa(svg.replace("%d", total < 10 ? total : "+"));
     }
     else if (isGray) gButton.image = data.url("gmail[G].png");

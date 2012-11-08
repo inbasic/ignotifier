@@ -24,14 +24,14 @@
   },
   {
       "name": "url",
-      "title": "Gmail address",
+      "title": "Gmail address:",
       "description": "What is the gmail web address",
       "type": "string",
       "value":   "https://www.gmail.com"
   },
   {
       "name": "feed",
-      "title": "Feed format",
+      "title": "Feed format:",
       "description": "Gmail feed format. %d will be replaced with an integer",
       "type": "string",
       "value": "https://mail.google.com/mail/u/%d/feed/atom"
@@ -49,6 +49,20 @@
       "description": "",
       "type": "bool",
       "value": true
+  },
+  {
+      "name": "textColor",
+      "title": "Counter notifocation text color:",
+      "description": "",
+      "type": "string",
+      "value": "#FFFFFF"
+  },
+  {
+      "name": "backgroundColor",
+      "title": "Counter notifocation background color:",
+      "description": "",
+      "type": "string",
+      "value": "#3C0000"
   }
   ],
 
