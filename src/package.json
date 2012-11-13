@@ -11,7 +11,7 @@
   
   "url": "", 
   "dependencies": ["api-utils", "addon-kit"], 
-  "version": "0.1.4", 
+  "version": "0.1.5", 
   "lib": "lib", 
   "main": "main", 
   
@@ -55,16 +55,15 @@
       "title": "Counter notifocation text color:",
       "description": "",
       "type": "string",
-      "value": "#FFFFFF"
+      "value": "#000"
   },
   {
       "name": "backgroundColor",
       "title": "Counter notifocation background color:",
       "description": "",
       "type": "string",
-      "value": "#3C0000"
-  }
-  ],
+      "value": "#FF0"
+  }],
 
   "id": "jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls" 
 }

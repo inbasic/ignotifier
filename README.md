@@ -14,4 +14,4 @@ Folders description:
 
 ###How to compile ignotifier
 1. Open a new terminal in the root dir (directory contains src, addon-sdk-*, preview, and compile folders)
-2. Run "node compile\install.js" to run cLinux in a new Firefox profile. To make xpi run "node compile\install.js --xpi"
+2. Run "node compile\install.js" to run ignotifier in a new Firefox profile. To make xpi run "node compile\install.js --xpi"
