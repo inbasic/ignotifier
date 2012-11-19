@@ -52,7 +52,22 @@ exports.main = function(options, callbacks) {
       }
     },
     onCommand: function () {
-      tabs.open({url: config.email.url, inBackground: false});
+      if (!emailFeeds.length) {
+        tabs.open({url: config.email.url.replace("%d", 0), inBackground: false});
+      }
+      else if (emailFeeds.length == 1) {
+        tabs.open({url: config.email.url.replace("%d", emailFeeds[0][0]), inBackground: false});
+      }
+      else {
+        var items = [];
+        console.log(emailFeeds);
+        emailFeeds.sort(function (a, b) {return a[0] > b[0]});
+        emailFeeds.forEach(function (identifier){items.push(identifier[1])});
+        var rtn = prompts(_("msg4"), _("msg5"), items);
+        if (rtn[0]) {
+          tabs.open({url: config.email.url.replace("%d", rtn[1]), inBackground: false});
+        }
+      }
     }
   });
   //Timer
@@ -109,7 +124,7 @@ var server = {
    * callback: callback function [xml, count, color, [title, text]]
    * pointer: callback this pointer
    */
-  mCheck: function (feed, callback, pointer) {
+  mCheck: function (identifier, feed, callback, pointer) {
     var state = false,
         msgs = [];
     /*
@@ -161,66 +176,66 @@ var server = {
         //Gmail logged-in && has count && new count && forced
         if (exist && count && newUnread && forced) {
                                               /* xml, count, showAlert, color, message */
-          if (callback) callback.apply(pointer, [xml, count, true, "red", [xml.title, count]])
+          if (callback) callback.apply(pointer, [identifier, xml, count, true, "red", [xml.title, count]])
           return;
         }
         //Gmail logged-in && has count && new count && no force
         if (exist && count && newUnread && !forced) {
-          if (callback) callback.apply(pointer, [xml, count, true, "red", [xml.title, count]])
+          if (callback) callback.apply(pointer, [identifier, xml, count, true, "red", [xml.title, count]])
           return;
         }
         //Gmail logged-in && has count && old count && forced
         if (exist && count && !newUnread && forced) {
-          if (callback) callback.apply(pointer, [xml, count, true, "red", [xml.title, count]])
+          if (callback) callback.apply(pointer, [identifier, xml, count, true, "red", [xml.title, count]])
           return;
         }
         //Gmail logged-in && has count && old count && no forces
         if (exist && count && !newUnread && !forced) {
-          if (callback) callback.apply(pointer, [xml, count, false, "red", [xml.title, count]])
+          if (callback) callback.apply(pointer, [identifier, xml, count, false, "red", [xml.title, count]])
           return;
         }
         //Gmail logged-in && has no-count && new count && forced
         if (exist && !count && newUnread && forced) {
-          if (callback) callback.apply(pointer, [xml, 0, false, "gray"])
+          if (callback) callback.apply(pointer, [identifier, xml, 0, false, "gray"])
           return;
         }
         //Gmail logged-in && has no-count && new count && no force
         if (exist && !count && !newUnread && !forced) {
-          if (callback) callback.apply(pointer, [xml, 0, false, "gray"])
+          if (callback) callback.apply(pointer, [identifier, xml, 0, false, "gray"])
           return;
         }
         //Gmail logged-in && has no-count && old count && forced
         if (exist && !count && !newUnread && forced) {
-          if (callback) callback.apply(pointer, [xml, 0, false, "gray"])
+          if (callback) callback.apply(pointer, [identifier, xml, 0, false, "gray"])
           return;
         }
         //Gmail logged-in && has no-count && old count && no forced
         if (exist && !count && !newUnread && !forced) {
-          if (callback) callback.apply(pointer, [xml, 0, false, "gray"])
+          if (callback) callback.apply(pointer, [identifier, xml, 0, false, "gray"])
           return;
         }
         //Gmail not logged-in && no error && forced
         if (!exist && normal && forced) {
-          if (!isRecent) tabs.open(config.email.url);
+          if (!isRecent) tabs.open(config.email.url.replace("%d", 0));
           
-          if (callback) callback.apply(pointer, [xml, null, false, "unknown", 
+          if (callback) callback.apply(pointer, [identifier, xml, null, false, "unknown", 
             isRecent ? null : ["", _("msg1")]]);
           return;
         }
         //Gmail not logged-in && no error && no force
         if (!exist && normal && !forced) {
-          if (callback) callback.apply(pointer, [xml, null, false, "unknown"])
+          if (callback) callback.apply(pointer, [identifier, xml, null, false, "unknown"])
           return;
         }
         //Gmail not logged-in && error && forced
         if (!exist && !normal && forced) {
-          if (callback) callback.apply(pointer, [xml, null, false, "unknown", 
+          if (callback) callback.apply(pointer, [identifier, xml, null, false, "unknown", 
           isRecent ? null : [_("error"), _("msg2")]]);
           return;
         }
         //Gmail not logged-in && error && no force
         if (!exist && !normal && !forced) {
-          if (callback) callback.apply(pointer, [xml, null, false, "unknown"])
+          if (callback) callback.apply(pointer, [identifier, xml, null, false, "unknown"])
           return;
         }
         debug("Gmail Notifier: Some unpredicted condition just happend: exist:" + exist + " count:" + count + " normal:" + normal + " newUnread:" + newUnread);
@@ -230,6 +245,8 @@ var server = {
   }
 }
 /* checkAllMails */
+var emailFeeds = [];
+
 var checkAllMails = (function () {
   var len = config.email.feeds.length,
       pushCount,
@@ -237,16 +254,18 @@ var checkAllMails = (function () {
       results = [],
       gClients = [];
   config.email.feeds.forEach(function (feed, index) {
-    gClients[index] = new server.mCheck(feed, step1);
+    gClients[index] = new server.mCheck(index, feed, step1);
   });
   
-  function step1(xml, count, alert, color, msgObj) {
-    results.push({xml: xml, count: count, alert: alert, color: color, msgObj: msgObj});
+  function step1(identifier, xml, count, alert, color, msgObj) {
+    results.push({identifier: identifier, xml: xml, count: count, alert: alert, color: color, msgObj: msgObj});
     
     pushCount -= 1;
     if (!pushCount) step2();
   }
   function step2 () {
+    //clear old feeds
+    emailFeeds = [];
     //Notifications
     var text = "", tooltiptext = "", total = 0;
     var showAlert = isForced;
@@ -256,6 +275,8 @@ var checkAllMails = (function () {
           if (r.alert) text += (text ? " - " : "") + r.msgObj[0] + " (" + r.msgObj[1] + ")";
           tooltiptext += (tooltiptext ? "\n" : "") + r.msgObj[0] + " (" + r.msgObj[1] + ")";
           total += r.msgObj[1];
+          
+          emailFeeds.push([r.identifier, r.msgObj[0]]);
         }
         else {
           text += (text ? " - " : "") + r.msgObj[0] + " " + r.msgObj[1];
@@ -304,7 +325,7 @@ var notify = (function () {
     notifications.notify({
       title: title, 
       text: text,
-      iconURL: data.url("gmail[R].png")
+      iconURL: data.url("notification.png")
     });
   }
 })();
@@ -319,3 +340,13 @@ var debug = function (text) {
     console.log(text);
   }
 }
+/* Prompt */
+var prompts = (function () {
+  var prompts = Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
+  return function (title, content, items) {
+    var selected = {};
+    var result = prompts.select(null, title, content, items.length, items, selected);
+    return [result, selected.value];
+  }
+})();
+
