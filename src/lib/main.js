@@ -11,7 +11,7 @@ var tabs = require("tabs"),
     {Cc, Ci, Cu} = require('chrome');
 /* Internal config */
 const FEED = "https://mail.google.com/mail/u/%d/feed/atom";
-const URL = "https://www.gmail.com";
+const URL = "https://mail.google.com/mail/u/0/#inbox";
 var config = {
   //Gmail
   email: {
@@ -60,12 +60,11 @@ exports.main = function(options, callbacks) {
       }
       else {
         var items = [];
-        console.log(emailFeeds);
         emailFeeds.sort(function (a, b) {return a[0] > b[0]});
         emailFeeds.forEach(function (identifier){items.push(identifier[1])});
         var rtn = prompts(_("msg4"), _("msg5"), items);
         if (rtn[0]) {
-          tabs.open({url: config.email.url.replace("%d", rtn[1]), inBackground: false});
+          tabs.open({url: config.email.url.replace("%d", emailFeeds[rtn[1]][0]), inBackground: false});
         }
       }
     }
@@ -349,4 +348,3 @@ var prompts = (function () {
     return [result, selected.value];
   }
 })();
-
