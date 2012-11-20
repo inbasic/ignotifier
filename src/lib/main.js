@@ -10,18 +10,12 @@ var tabs = require("tabs"),
     {XMLHttpRequest} = require("xhr"),
     {Cc, Ci, Cu} = require('chrome');
 /* Internal config */
-const FEED = "https://mail.google.com/mail/u/%d/feed/atom";
-const URL = "https://mail.google.com/mail/u/0/#inbox";
+const FEEDS = "https://mail.google.com/mail/u/0/feed/atom, https://mail.google.com/mail/u/1/feed/atom, https://mail.google.com/mail/u/2/feed/atom, https://mail.google.com/mail/u/3/feed/atom";
+const URL = "https://mail.google.com/mail/u/0";
 var config = {
   //Gmail
   email: {
-    feeds: [
-      (prefs.feed || FEED).replace("%d", 0), 
-      (prefs.feed || FEED).replace("%d", 1), 
-      (prefs.feed || FEED).replace("%d", 2), 
-      (prefs.feed || FEED).replace("%d", 3)
-    ],
-    url: prefs.url || URL
+    feeds: (prefs.feeds || FEEDS).split(",")
   },
   //Timing
   period: (prefs.period > 10 ? prefs.period : 10),
@@ -38,8 +32,12 @@ var config = {
   debug: false
 };
 /* Initialize */
-var gButton, clock;
+var gButton, unreadObjs = [];
 exports.main = function(options, callbacks) {
+  //Check Feed formats
+  config.email.feeds.forEach(function (feed, index) {
+    config.email.feeds[index] = feed.replace(/^\s\s*/, '').replace(/\s\s*$/, '')
+  });
   //Gmail button
   gButton = toolbarbutton.ToolbarButton({
     id: "igmail-notifier",
@@ -52,19 +50,18 @@ exports.main = function(options, callbacks) {
       }
     },
     onCommand: function () {
-      if (!emailFeeds.length) {
-        tabs.open({url: config.email.url.replace("%d", 0), inBackground: false});
+      if (!unreadObjs.length) {
+        tabs.open({url: URL, inBackground: false});
       }
-      else if (emailFeeds.length == 1) {
-        tabs.open({url: config.email.url.replace("%d", emailFeeds[0][0]), inBackground: false});
+      else if (unreadObjs.length == 1) {
+        tabs.open({url: unreadObjs[0].link, inBackground: false});
       }
       else {
         var items = [];
-        emailFeeds.sort(function (a, b) {return a[0] > b[0]});
-        emailFeeds.forEach(function (identifier){items.push(identifier[1])});
+        unreadObjs.forEach(function (obj){items.push(obj.account)});
         var rtn = prompts(_("msg4"), _("msg5"), items);
         if (rtn[0]) {
-          tabs.open({url: config.email.url.replace("%d", emailFeeds[rtn[1]][0]), inBackground: false});
+          tabs.open({url: unreadObjs[rtn[1]].link, inBackground: false});
         }
       }
     }
@@ -108,6 +105,13 @@ var server = {
         } catch(e) {}
         return temp;
       },
+      get link () {
+        var temp = "https://mail.google.com/mail/u/0/";
+        try {
+          temp = xml.getElementsByTagName("link")[0].getAttribute("href")
+        } catch(e) {}
+        return temp;
+      },
       get authorized () {
         var temp = "";
         try {temp = xml.getElementsByTagName("TITLE")[0].childNodes[0].nodeValue;} catch(e){}
@@ -123,7 +127,7 @@ var server = {
    * callback: callback function [xml, count, color, [title, text]]
    * pointer: callback this pointer
    */
-  mCheck: function (identifier, feed, callback, pointer) {
+  mCheck: function (feed, callback, pointer) {
     var state = false,
         msgs = [];
     /*
@@ -172,80 +176,79 @@ var server = {
           normal = true;
         }
         state = false;
+        
+        debug("Gmail Notifier: exist:" + exist + " count:" + count + " normal:" + normal + " newUnread:" + newUnread);
         //Gmail logged-in && has count && new count && forced
         if (exist && count && newUnread && forced) {
                                               /* xml, count, showAlert, color, message */
-          if (callback) callback.apply(pointer, [identifier, xml, count, true, "red", [xml.title, count]])
+          if (callback) callback.apply(pointer, [xml, count, true, "red", [xml.title, count]])
           return;
         }
         //Gmail logged-in && has count && new count && no force
         if (exist && count && newUnread && !forced) {
-          if (callback) callback.apply(pointer, [identifier, xml, count, true, "red", [xml.title, count]])
+          if (callback) callback.apply(pointer, [xml, count, true, "red", [xml.title, count]])
           return;
         }
         //Gmail logged-in && has count && old count && forced
         if (exist && count && !newUnread && forced) {
-          if (callback) callback.apply(pointer, [identifier, xml, count, true, "red", [xml.title, count]])
+          if (callback) callback.apply(pointer, [xml, count, true, "red", [xml.title, count]])
           return;
         }
         //Gmail logged-in && has count && old count && no forces
         if (exist && count && !newUnread && !forced) {
-          if (callback) callback.apply(pointer, [identifier, xml, count, false, "red", [xml.title, count]])
+          if (callback) callback.apply(pointer, [xml, count, false, "red", [xml.title, count]])
           return;
         }
         //Gmail logged-in && has no-count && new count && forced
         if (exist && !count && newUnread && forced) {
-          if (callback) callback.apply(pointer, [identifier, xml, 0, false, "gray"])
+          if (callback) callback.apply(pointer, [xml, 0, false, "gray"])
           return;
         }
         //Gmail logged-in && has no-count && new count && no force
         if (exist && !count && !newUnread && !forced) {
-          if (callback) callback.apply(pointer, [identifier, xml, 0, false, "gray"])
+          if (callback) callback.apply(pointer, [xml, 0, false, "gray"])
           return;
         }
         //Gmail logged-in && has no-count && old count && forced
         if (exist && !count && !newUnread && forced) {
-          if (callback) callback.apply(pointer, [identifier, xml, 0, false, "gray"])
+          if (callback) callback.apply(pointer, [xml, 0, false, "gray"])
           return;
         }
         //Gmail logged-in && has no-count && old count && no forced
         if (exist && !count && !newUnread && !forced) {
-          if (callback) callback.apply(pointer, [identifier, xml, 0, false, "gray"])
+          if (callback) callback.apply(pointer, [xml, 0, false, "gray"])
           return;
         }
         //Gmail not logged-in && no error && forced
         if (!exist && normal && forced) {
-          if (!isRecent) tabs.open(config.email.url.replace("%d", 0));
+          if (!isRecent) tabs.open(URL);
           
-          if (callback) callback.apply(pointer, [identifier, xml, null, false, "unknown", 
+          if (callback) callback.apply(pointer, [xml, null, false, "unknown", 
             isRecent ? null : ["", _("msg1")]]);
           return;
         }
         //Gmail not logged-in && no error && no force
         if (!exist && normal && !forced) {
-          if (callback) callback.apply(pointer, [identifier, xml, null, false, "unknown"])
+          if (callback) callback.apply(pointer, [xml, null, false, "unknown"])
           return;
         }
         //Gmail not logged-in && error && forced
         if (!exist && !normal && forced) {
-          if (callback) callback.apply(pointer, [identifier, xml, null, false, "unknown", 
+          if (callback) callback.apply(pointer, [xml, null, false, "unknown", 
           isRecent ? null : [_("error"), _("msg2")]]);
           return;
         }
         //Gmail not logged-in && error && no force
         if (!exist && !normal && !forced) {
-          if (callback) callback.apply(pointer, [identifier, xml, null, false, "unknown"])
+          if (callback) callback.apply(pointer, [xml, null, false, "unknown"])
           return;
         }
-        debug("Gmail Notifier: Some unpredicted condition just happend: exist:" + exist + " count:" + count + " normal:" + normal + " newUnread:" + newUnread);
       }
       req.send(null);
     }
   }
 }
 /* checkAllMails */
-var emailFeeds = [];
-
 var checkAllMails = (function () {
   var len = config.email.feeds.length,
       pushCount,
@@ -253,18 +256,18 @@ var checkAllMails = (function () {
       results = [],
       gClients = [];
   config.email.feeds.forEach(function (feed, index) {
-    gClients[index] = new server.mCheck(index, feed, step1);
+    gClients[index] = new server.mCheck(feed, step1);
   });
   
-  function step1(identifier, xml, count, alert, color, msgObj) {
-    results.push({identifier: identifier, xml: xml, count: count, alert: alert, color: color, msgObj: msgObj});
+  function step1(xml, count, alert, color, msgObj) {
+    results.push({xml: xml, count: count, alert: alert, color: color, msgObj: msgObj});
     
     pushCount -= 1;
     if (!pushCount) step2();
   }
   function step2 () {
     //clear old feeds
-    emailFeeds = [];
+    unreadObjs = [];
     //Notifications
     var text = "", tooltiptext = "", total = 0;
     var showAlert = isForced;
@@ -275,7 +278,7 @@ var checkAllMails = (function () {
           tooltiptext += (tooltiptext ? "\n" : "") + r.msgObj[0] + " (" + r.msgObj[1] + ")";
           total += r.msgObj[1];
           
-          emailFeeds.push([r.identifier, r.msgObj[0]]);
+          unreadObjs.push({link: r.xml.link, account: r.msgObj[0]});
         }
         else {
           text += (text ? " - " : "") + r.msgObj[0] + " " + r.msgObj[1];
@@ -287,6 +290,7 @@ var checkAllMails = (function () {
       if (prefs.notification) notify(_("gmail"), text);
       if (prefs.alert) play();
     }
+    unreadObjs.sort(function(a,b){return a.link > b.link})
     //Tooltiptext
     gButton.tooltiptext = tooltiptext ? tooltiptext : _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2");
     //Icon
@@ -300,7 +304,7 @@ var checkAllMails = (function () {
       var svg = 
         "<svg height='16' width='20' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'>" +
           "<image x='0' y='3' height='10' width='16' xlink:href='" + config.image + "'></image>" +
-          "<circle cx='15' cy='11' r='5' fill='" + config.backgroundColor + "'/>" +
+          "<circle cx='15' cy='11.1' r='5.2' fill='" + config.backgroundColor + "'/>" +
           "<text x='12' y='15' font-size='10' font-family='Arial' font-weight='bold' fill='" + config.textColor + "'>%d</text>" +
         "</svg>";
       gButton.image = "data:image/svg+xml;base64," + window.btoa(svg.replace("%d", total < 10 ? total : "+"));

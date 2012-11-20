@@ -23,18 +23,11 @@
       "value": 15
   },
   {
-      "name": "url",
-      "title": "Gmail address:",
-      "description": "What is the gmail web address",
+      "name": "feeds",
+      "title": "Gmail feeds:",
+      "description": "Separate feeds by \",\". This setting takes place after first restart.",
       "type": "string",
-      "value":   "https://mail.google.com/mail/u/%d/#inbox"
-  },
-  {
-      "name": "feed",
-      "title": "Feed format:",
-      "description": "Gmail feed format. %d will be replaced with an integer",
-      "type": "string",
-      "value": "https://mail.google.com/mail/u/%d/feed/atom"
+      "value": "https://mail.google.com/mail/u/0/feed/atom, https://mail.google.com/mail/u/1/feed/atom, https://mail.google.com/mail/u/2/feed/atom, https://mail.google.com/mail/u/3/feed/atom"
   },
   {
       "name": "notification",
