@@ -10,20 +10,30 @@ var tabs = require("tabs"),
     {XMLHttpRequest} = require("xhr"),
     {Cc, Ci, Cu} = require('chrome');
 /* Internal config */
-const FEEDS = "https://mail.google.com/mail/u/0/feed/atom, https://mail.google.com/mail/u/1/feed/atom, https://mail.google.com/mail/u/2/feed/atom, https://mail.google.com/mail/u/3/feed/atom";
 const URL = "https://mail.google.com/mail/u/0";
 var config = {
   //Gmail
   email: {
-    feeds: (prefs.feeds || FEEDS).split(",")
+    get feeds() {
+      const FEEDS = "https://mail.google.com/mail/u/0/feed/atom," + 
+        "https://mail.google.com/mail/u/1/feed/atom," + 
+        "https://mail.google.com/mail/u/2/feed/atom," + 
+        "https://mail.google.com/mail/u/3/feed/atom";
+      var temp = (prefs.feeds || FEEDS).split(",");
+      //Check Feed formats
+      temp.forEach(function (feed, index) {
+        temp[index] = feed.replace(/^\s\s*/, '').replace(/\s\s*$/, '')
+      });
+      return temp;
+    }
   },
   //Timing
-  period: (prefs.period > 10 ? prefs.period : 10),
+  get period () {return (prefs.period > 10 ? prefs.period : 10)},
   firstTime: 1,
   //Toolbar
   image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAKCAIAAAAy3EnLAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKhAAAAgklEQVQoU22QsRWAIAxE2YpZ3IZp2CDDWKaztbPieXAQQcKjQPN/LhDOGLnvlJ6c3Y2SYcFOOBSRsi+RmekCelzH4TiNRslCuoC+jjPRAJjzCX9npX0Bd7Acm8QutiWo4onM4dz4rD9VtwTSrcDZKs01SkvCTDsv25x1pNHboUcOhRfmUFFAGpPmbQAAAABJRU5ErkJggg==",
-  textColor: prefs.textColor || "#000",
-  backgroundColor: prefs.backgroundColor || "#FF0",
+  get textColor () {return prefs.textColor || "#000"},
+  get backgroundColor () {return prefs.backgroundColor || "#FF0"},
   move: {
     toolbarID: "nav-bar", 
     forceMove: false
@@ -34,10 +44,6 @@ var config = {
 /* Initialize */
 var gButton, unreadObjs = [];
 exports.main = function(options, callbacks) {
-  //Check Feed formats
-  config.email.feeds.forEach(function (feed, index) {
-    config.email.feeds[index] = feed.replace(/^\s\s*/, '').replace(/\s\s*$/, '')
-  });
   //Gmail button
   gButton = toolbarbutton.ToolbarButton({
     id: "igmail-notifier",
@@ -304,8 +310,8 @@ var checkAllMails = (function () {
       var svg = 
         "<svg height='16' width='20' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'>" +
           "<image x='0' y='3' height='10' width='16' xlink:href='" + config.image + "'></image>" +
-          "<circle cx='15' cy='11.1' r='5.2' fill='" + config.backgroundColor + "'/>" +
-          "<text x='12' y='15' font-size='10' font-family='Arial' font-weight='bold' fill='" + config.textColor + "'>%d</text>" +
+          "<circle cx='15' cy='11' r='5' fill='" + config.backgroundColor + "'/>" +
+          "<text x='15' y='14' font-size='10' text-anchor='middle' font-family='Arial' font-weight='bold' fill='" + config.textColor + "'>%d</text>" +
         "</svg>";
       gButton.image = "data:image/svg+xml;base64," + window.btoa(svg.replace("%d", total < 10 ? total : "+"));
     }
