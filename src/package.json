@@ -2,7 +2,7 @@
   "fullName": "Gmail Notifier (restartless)",
   "name": "gmail-notifier",
   
-  "description": "Multi-account Gmail Notifier", 
+  "description": "Multi-account Gmail notifier (without storing passwords locally)", 
 
   "license": "mozilla public license 1.1", 
 
@@ -10,8 +10,7 @@
   "contributors": [], 
   
   "url": "", 
-  "dependencies": ["api-utils", "addon-kit"], 
-  "version": "0.1.6b3", 
+  "version": "0.1.7", 
   "lib": "lib", 
   "main": "main", 
   
@@ -55,7 +54,7 @@
       "title": "Counter notifocation background color:",
       "description": "",
       "type": "string",
-      "value": "#FF0"
+      "value": "#FFB"
   }],
 
   "id": "jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls" 

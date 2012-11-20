@@ -1,19 +1,21 @@
-var tabs = require("tabs"),
-    self = require("self"),
-    timer = require("timers"),
-    window = require("window-utils").activeBrowserWindow,
-    prefs = require("simple-prefs").prefs,
-    notifications = require("notifications"),
-    toolbarbutton = require("toolbarbutton"),
-    _ = require("l10n").get,
-    data = self.data,
-    {XMLHttpRequest} = require("xhr"),
-    {Cc, Ci, Cu} = require('chrome');
-/* Internal config */
-const URL = "https://mail.google.com/mail/u/0";
+/** Require **/
+var tabs             = require("tabs"),
+    self             = require("self"),
+    timer            = require("timers"),
+    notifications    = require("notifications"),
+    toolbarbutton    = require("toolbarbutton"),
+    window           = require("window-utils").activeBrowserWindow,
+    prefs            = require("simple-prefs").prefs,
+    _                = require("l10n").get,
+    data             = self.data,
+    {Cc, Ci, Cu}     = require('chrome'),
+    {XMLHttpRequest} = require("xhr");
+
+/** Internal configurations **/
 var config = {
   //Gmail
   email: {
+    url: "https://mail.google.com/mail/u/0",
     get feeds() {
       const FEEDS = "https://mail.google.com/mail/u/0/feed/atom," + 
         "https://mail.google.com/mail/u/1/feed/atom," + 
@@ -31,17 +33,20 @@ var config = {
   get period () {return (prefs.period > 10 ? prefs.period : 10)},
   firstTime: 1,
   //Toolbar
-  image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAKCAIAAAAy3EnLAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKhAAAAgklEQVQoU22QsRWAIAxE2YpZ3IZp2CDDWKaztbPieXAQQcKjQPN/LhDOGLnvlJ6c3Y2SYcFOOBSRsi+RmekCelzH4TiNRslCuoC+jjPRAJjzCX9npX0Bd7Acm8QutiWo4onM4dz4rD9VtwTSrcDZKs01SkvCTDsv25x1pNHboUcOhRfmUFFAGpPmbQAAAABJRU5ErkJggg==",
+  image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAKCAIAAAAy3EnLA" +
+    "AAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABp0RVh0U29mdHdhcmUAU" +
+    "GFpbnQuTkVUIHYzLjUuMTAw9HKhAAAAgklEQVQoU22QsRWAIAxE2YpZ3IZp2CDDWKaztbPie" +
+    "XAQQcKjQPN/LhDOGLnvlJ6c3Y2SYcFOOBSRsi+RmekCelzH4TiNRslCuoC+jjPRAJjzCX9np" +
+    "X0Bd7Acm8QutiWo4onM4dz4rD9VtwTSrcDZKs01SkvCTDsv25x1pNHboUcOhRfmUFFAGpPmb" +
+    "QAAAABJRU5ErkJggg==",
   get textColor () {return prefs.textColor || "#000"},
-  get backgroundColor () {return prefs.backgroundColor || "#FF0"},
-  move: {
-    toolbarID: "nav-bar", 
-    forceMove: false
-  },
-  //
+  get backgroundColor () {return prefs.backgroundColor || "#FFB"},
+  move: {toolbarID: "nav-bar", forceMove: false},
+  //Debug
   debug: false
 };
-/* Initialize */
+
+/** Initialize **/
 var gButton, unreadObjs = [];
 exports.main = function(options, callbacks) {
   //Gmail button
@@ -57,7 +62,7 @@ exports.main = function(options, callbacks) {
     },
     onCommand: function () {
       if (!unreadObjs.length) {
-        tabs.open({url: URL, inBackground: false});
+        tabs.open({url: config.email.url, inBackground: false});
       }
       else if (unreadObjs.length == 1) {
         tabs.open({url: unreadObjs[0].link, inBackground: false});
@@ -84,7 +89,8 @@ exports.main = function(options, callbacks) {
     gButton.moveTo(config.move);
   }
 };
-/* Server */
+
+/** Server **/
 var server = {
   parse: function (req) {
     var xml;
@@ -94,13 +100,17 @@ var server = {
     else {
       if (!req.responseText) return;
       
-      var parser = Cc["@mozilla.org/xmlextras/domparser;1"].createInstance(Ci.nsIDOMParser);
+      var parser = Cc["@mozilla.org/xmlextras/domparser;1"]
+        .createInstance(Ci.nsIDOMParser);
       xml = parser.parseFromString(req.responseText, "text/xml");
     }
     return {
       get fullcount () {
         var temp = 0;
-        try {temp = parseInt(xml.getElementsByTagName("fullcount")[0].childNodes[0].nodeValue)} catch(e){}
+        try {
+          temp = parseInt(xml.getElementsByTagName("fullcount")[0].childNodes[0]
+            .nodeValue);
+        } catch(e){}
         return temp;
       },
       get title () {
@@ -120,7 +130,9 @@ var server = {
       },
       get authorized () {
         var temp = "";
-        try {temp = xml.getElementsByTagName("TITLE")[0].childNodes[0].nodeValue;} catch(e){}
+        try {
+          temp = xml.getElementsByTagName("TITLE")[0].childNodes[0].nodeValue;
+        } catch(e){}
         return temp;
       },
       get enteries () {
@@ -227,7 +239,7 @@ var server = {
         }
         //Gmail not logged-in && no error && forced
         if (!exist && normal && forced) {
-          if (!isRecent) tabs.open(URL);
+          if (!isRecent) tabs.open(config.email.url);
           
           if (callback) callback.apply(pointer, [xml, null, false, "unknown", 
             isRecent ? null : ["", _("msg1")]]);
@@ -254,7 +266,8 @@ var server = {
     }
   }
 }
-/* checkAllMails */
+
+/** checkAllMails **/
 var checkAllMails = (function () {
   var len = config.email.feeds.length,
       pushCount,
@@ -310,8 +323,8 @@ var checkAllMails = (function () {
       var svg = 
         "<svg height='16' width='20' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'>" +
           "<image x='0' y='3' height='10' width='16' xlink:href='" + config.image + "'></image>" +
-          "<circle cx='15' cy='11' r='5' fill='" + config.backgroundColor + "'/>" +
-          "<text x='15' y='14' font-size='10' text-anchor='middle' font-family='Arial' font-weight='bold' fill='" + config.textColor + "'>%d</text>" +
+          "<circle cx='15' cy='10.6' r='5' fill='" + config.backgroundColor + "'/>" +
+          "<text x='15' y='14' font-size='8.5' text-anchor='middle' font-family='Arial' font-weight='bold' fill='" + config.textColor + "'>%d</text>" +
         "</svg>";
       gButton.image = "data:image/svg+xml;base64," + window.btoa(svg.replace("%d", total < 10 ? total : "+"));
     }
@@ -328,7 +341,8 @@ var checkAllMails = (function () {
     gClients.forEach(function(gClient, index){gClient(forced, index ? true : false)});
   }
 })();
-/* Notifier */
+
+/** Notifier **/
 var notify = (function () {
   return function (title, text) {
     notifications.notify({
@@ -338,18 +352,14 @@ var notify = (function () {
     });
   }
 })();
-/* Player */
+
+/** Player **/
 var play = function () {
   var sound = Cc["@mozilla.org/sound;1"].createInstance(Ci.nsISound);
   sound.playEventSound(0);
 }
-/* Debuger */
-var debug = function (text) {
-  if (config.debug) {
-    console.log(text);
-  }
-}
-/* Prompt */
+
+/** Prompt **/
 var prompts = (function () {
   var prompts = Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
   return function (title, content, items) {
@@ -358,3 +368,10 @@ var prompts = (function () {
     return [result, selected.value];
   }
 })();
+
+/** Debuger **/
+var debug = function (text) {
+  if (config.debug) {
+    console.log(text);
+  }
+}

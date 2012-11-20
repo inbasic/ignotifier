@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-
-<!DOCTYPE vbox SYSTEM "chrome://igmailnotifier/locale/settings.dtd">
-
-<vbox xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-  <setting type="bool" pref="extensions.myaddon.bool" title="Boolean" desc="Stored as a boolean preference" />
-</vbox>
