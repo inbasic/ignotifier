@@ -28,7 +28,9 @@ var installer = function (callback) {
   var cmd = "ls src/*.xpi"
   child = exec(cmd, {}, function (error, stdout, stderr) {
       if (stdout) {
-        cmd = 'compile\\wget --post-file=' + /.*/.exec(stdout) + ' http://localhost:8888/';
+        cmd = (isWindows ? 'compile\\wget' : 'wget') + 
+              ' --post-file=' + /.*/.exec(stdout) + 
+              ' http://localhost:8888/';
         console.log(cmd);
         child = exec(cmd, {}, function (error, stdout, stderr) {
           if (stdout)
@@ -43,6 +45,8 @@ var installer = function (callback) {
 }
   
 /** Find SDK **/
+var isWindows = !!process.platform.match(/^win/);
+
 fs.readdir(".", function (err, files) {
   if (err) throw new Error(err);
 
@@ -57,27 +61,29 @@ fs.readdir(".", function (err, files) {
     }
   });
   if (!files.length) throw new Error("Addon-sdk not found");
-  var sdk = "./" + files[0] + "/bin";
+  var sdk = "./" + files[0] + (isWindows ? "/bin" : "");
   console.log(clc.green("SDK found: " + files[0]));
   /** Execute cfx **/
-  var cfx = spawn('cmd', [], { cwd: sdk });
+  var cfx = spawn(isWindows ? 'cmd' : 'bash', [], { cwd: sdk });
+  if (!isWindows) cfx.stdin.write("echo Bash\n");
+
   var stage = 0;
   cfx.stdout.on('data', function (data) {
     console.log(clc.gray(data));
     switch (stage) {
       case 0:
-        cfx.stdin.write("activate\n");
+        cfx.stdin.write(isWindows ? "activate\n" : "echo step 1&&source bin/activate\n");
         stage += 1;
         break;
       case 1:
         stage += 1;
         break;
       case 2:
-        cfx.stdin.write("cd ..\n");
+        cfx.stdin.write("echo step 2&&cd ..\n");
         stage += 1;
         break;
       case 3:
-        cfx.stdin.write("cd src\n");
+        cfx.stdin.write("echo step 3&&cd src\n");
         stage += 1;
         break;
       case 4:
@@ -90,12 +96,12 @@ fs.readdir(".", function (err, files) {
         stage += 1;
         break;
       case 5:
-        cfx.stdin.write("exit\n");
+        cfx.stdin.write("echo step 5&&exit\n");
         stage += 1;
         break;
       case 6:
         stage += 1;
-        break;
+        if (isWindows) break;
       case 7:
         if (program.wget) {
           setTimeout(function(){installer()}, 1000);
