@@ -21,7 +21,8 @@ var config = {
         "https://mail.google.com/mail/u/1/feed/atom," + 
         "https://mail.google.com/mail/u/2/feed/atom," + 
         "https://mail.google.com/mail/u/3/feed/atom";
-      var temp = (prefs.feeds || FEEDS).split(",");
+      //server only supports atom feeds
+      var temp = (prefs.feeds.replace(/rss20/g, "atom10") || FEEDS).split(",");
       //Check Feed formats
       temp.forEach(function (feed, index) {
         temp[index] = feed.replace(/^\s\s*/, '').replace(/\s\s*$/, '')
@@ -43,7 +44,7 @@ var config = {
   get backgroundColor () {return prefs.backgroundColor || "#FFB"},
   move: {toolbarID: "nav-bar", forceMove: false},
   //Debug
-  debug: false
+  debug: true
 };
 
 /** Initialize **/
@@ -109,8 +110,14 @@ var server = {
       get fullcount () {
         var temp = 0;
         try {
-          temp = parseInt(xml.getElementsByTagName("fullcount")[0].childNodes[0]
-            .nodeValue);
+          var tags = xml.getElementsByTagName("fullcount");
+          if (tags.length) {
+            temp = parseInt(tags[0].childNodes[0].nodeValue);
+          }
+          else { //atom does not provide fullcount attribute
+          console.log(xml.getElementsByTagName("entry").length);
+            temp = xml.getElementsByTagName("entry").length;
+          }
         } catch(e){}
         return temp;
       },
