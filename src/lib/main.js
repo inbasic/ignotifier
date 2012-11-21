@@ -58,6 +58,7 @@ exports.main = function(options, callbacks) {
     onClick: function (e) {
       if (e.button == 1 || e.button == 2) {
         checkAllMails(true);
+        e.preventDefault();
       }
     },
     onCommand: function () {
