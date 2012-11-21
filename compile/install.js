@@ -47,7 +47,7 @@ var installer = function (callback) {
 /** Find SDK **/
 var isWindows = !!process.platform.match(/^win/);
 
-fs.readdir(".", function (err, files) {
+fs.readdir("..", function (err, files) {
   if (err) throw new Error(err);
 
   files = files.filter(function (file) {
@@ -61,7 +61,7 @@ fs.readdir(".", function (err, files) {
     }
   });
   if (!files.length) throw new Error("Addon-sdk not found");
-  var sdk = "./" + files[0] + (isWindows ? "/bin" : "");
+  var sdk = "../" + files[0] + (isWindows ? "/bin" : "");
   console.log(clc.green("SDK found: " + files[0]));
   /** Execute cfx **/
   var cfx = spawn(isWindows ? 'cmd' : 'bash', [], { cwd: sdk });
@@ -79,7 +79,7 @@ fs.readdir(".", function (err, files) {
         stage += 1;
         break;
       case 2:
-        cfx.stdin.write("echo step 2&&cd ..\n");
+        cfx.stdin.write("echo step 2&&cd " + __dirname + "/..\n");
         stage += 1;
         break;
       case 3:
@@ -89,8 +89,8 @@ fs.readdir(".", function (err, files) {
       case 4:
         cfx.stdin.write(
           "cfx --templatedir=../template " + 
-          ((program.xpi || program.wget) ? "xpi" : (
-            "run" + (program.jsconsole ? " --binary-args -jsconsole" : "")
+          ((program.xpi || program.wget) ? "xpi&&echo step 4" : (
+            "run" + (program.jsconsole ? " --binary-args -jsconsole" : "") + "&&echo step 4"
           )) + "\n"
         );
         stage += 1;
