@@ -46,14 +46,14 @@
       "name": "textColor",
       "title": "Counter notifocation text color:",
       "description": "",
-      "type": "string",
+      "type": "color",
       "value": "#000"
   },
   {
       "name": "backgroundColor",
       "title": "Counter notifocation background color:",
       "description": "",
-      "type": "string",
+      "type": "color",
       "value": "#FFB"
   }],
 

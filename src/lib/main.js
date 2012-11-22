@@ -44,7 +44,7 @@ var config = {
   get backgroundColor () {return prefs.backgroundColor || "#FFB"},
   move: {toolbarID: "nav-bar", forceMove: false},
   //Debug
-  debug: true
+  debug: false
 };
 
 /** Initialize **/
@@ -115,7 +115,6 @@ var server = {
             temp = parseInt(tags[0].childNodes[0].nodeValue);
           }
           else { //atom does not provide fullcount attribute
-          console.log(xml.getElementsByTagName("entry").length);
             temp = xml.getElementsByTagName("entry").length;
           }
         } catch(e){}
@@ -331,8 +330,8 @@ var checkAllMails = (function () {
       var svg = 
         "<svg height='16' width='20' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'>" +
           "<image x='0' y='3' height='10' width='16' xlink:href='" + config.image + "'></image>" +
-          "<circle cx='15' cy='10.6' r='5' fill='" + config.backgroundColor + "'/>" +
-          "<text x='15' y='14' font-size='8.5' text-anchor='middle' font-family='Arial' font-weight='bold' fill='" + config.textColor + "'>%d</text>" +
+          "<circle cx='15' cy='11' r='5' fill='" + config.backgroundColor + "'/>" +
+          "<text x='15' y='14' font-size='10' text-anchor='middle' font-family='Courier' font-weight='bold' fill='" + config.textColor + "'>%d</text>" +
         "</svg>";
       gButton.image = "data:image/svg+xml;base64," + window.btoa(svg.replace("%d", total < 10 ? total : "+"));
     }
