@@ -48,21 +48,33 @@ var config = {
 };
 
 /** Initialize **/
-var gButton, unreadObjs = [];
+var gButton, unreadObjs = [], loggedins  = [];
 exports.main = function(options, callbacks) {
   //Gmail button
   gButton = toolbarbutton.ToolbarButton({
     id: "igmail-notifier",
     label: _("gmail"),
-    tooltiptext: _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2"),
+    tooltiptext: _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2") + "\n" + _("tooltip3"),
     image: data.url("gmail[U].png"),
     onClick: function (e) {
-      if (e.button == 1 || e.button == 2) {
+      if (e.button == 0 && e.ctrlKey) {
+        var items = [];
+        loggedins.forEach(function (obj) {
+          items.push(obj.label);
+        });      
+        var obj = prompts(_("msg4"), _("msg6"), items);
+        if (obj[0]) {
+          tabs.open({url: loggedins[obj[1]].link, inBackground: false});
+        }
+      }
+      else if (e.button == 1 || e.button == 2) {
         checkAllMails(true);
         e.preventDefault();
       }
     },
-    onCommand: function () {
+    onCommand: function (e) {
+      if (e.ctrlKey) return;
+    
       if (!unreadObjs.length) {
         tabs.open({url: config.email.url, inBackground: false});
       }
@@ -294,10 +306,12 @@ var checkAllMails = (function () {
   function step2 () {
     //clear old feeds
     unreadObjs = [];
+    loggedins  = [];
     //Notifications
     var text = "", tooltiptext = "", total = 0;
     var showAlert = isForced;
     results.forEach(function (r, i) {
+      //
       if (r.msgObj) {
         if (typeof(r.msgObj[1]) == "number") {
           if (r.alert) text += (text ? " - " : "") + r.msgObj[0] + " (" + r.msgObj[1] + ")";
@@ -311,6 +325,10 @@ var checkAllMails = (function () {
         }
       }
       showAlert = showAlert || r.alert;
+      //Menuitems
+      if (r.count !== null) {
+        loggedins.push({label: r.xml.title, link: r.xml.link});
+      }
     });
     if (showAlert && text) {
       if (prefs.notification) notify(_("gmail"), text);
@@ -318,7 +336,7 @@ var checkAllMails = (function () {
     }
     unreadObjs.sort(function(a,b){return a.link > b.link})
     //Tooltiptext
-    gButton.tooltiptext = tooltiptext ? tooltiptext : _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2");
+    gButton.tooltiptext = tooltiptext ? tooltiptext : _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2") + "\n" + _("tooltip3");
     //Icon
     var isRed = false,
         isGray = false;
