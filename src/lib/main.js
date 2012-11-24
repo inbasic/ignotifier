@@ -157,19 +157,26 @@ var server = {
         } catch(e) {}
         return temp;
       },
+      get label () {
+        var label = "";
+        try {
+          var tagline = xml.getElementsByTagName("tagline")[0].childNodes[0].nodeValue;
+          if (tagline) {
+            var match = tagline.match(/\'(.*)\' label/);
+            if (match.length == 2) {
+              label = match[1];
+            }
+          }
+        } catch(e) {}
+        return label;
+      },
       get link () {
         var temp = "https://mail.google.com/mail/u/0/";
         try {
           //Inbox href
-          temp = xml.getElementsByTagName("link")[0].getAttribute("href");
-          //Try to extract the label
-          var tagline = xml.getElementsByTagName("tagline")[0].childNodes[0].nodeValue;
-          if (tagline) {
-            var label = tagline.match(/\'(.*)\' label/);
-            if (label.length == 2) {
-              temp += "/?shva=1#label/" + label[1];
-            }
-          }
+          var label = this.label;
+          temp = xml.getElementsByTagName("link")[0].getAttribute("href") + 
+            (label ? "/?shva=1#label/" + label : "");
         } catch(e) {}
         return temp;
       },
@@ -340,11 +347,14 @@ var checkAllMails = (function () {
       //
       if (r.msgObj) {
         if (typeof(r.msgObj[1]) == "number") {
-          if (r.alert) text += (text ? " - " : "") + r.msgObj[0] + " (" + r.msgObj[1] + ")";
-          tooltiptext += (tooltiptext ? "\n" : "") + r.msgObj[0] + " (" + r.msgObj[1] + ")";
+          var label = r.xml.label;
+        
+          if (r.alert) text += (text ? " - " : "") + r.msgObj[0] + (label ? "/" + label : "") + " (" + r.msgObj[1] + ")";
+          tooltiptext += (tooltiptext ? "\n" : "") + r.msgObj[0] + (label ? "/" + label : "") + " (" + r.msgObj[1] + ")";
           total += r.msgObj[1];
           
-          unreadObjs.push({link: r.xml.link, account: r.msgObj[0]});
+          
+          unreadObjs.push({link: r.xml.link, account: r.msgObj[0] + (label ? " [" + label + "]" : label)});
         }
         else {
           text += (text ? " - " : "") + r.msgObj[0] + " " + r.msgObj[1];
