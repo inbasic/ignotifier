@@ -44,7 +44,7 @@ var config = {
   get backgroundColor () {return prefs.backgroundColor || "#FFB"},
   move: {toolbarID: "nav-bar", forceMove: false},
   //Debug
-  debug: false
+  debug: true
 };
 
 /** Initialize **/
@@ -57,6 +57,10 @@ exports.main = function(options, callbacks) {
     tooltiptext: _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2") + "\n" + _("tooltip3"),
     image: data.url("gmail[U].png"),
     onClick: function (e) {
+      debug("[onClick] ctrlKey: " + e.ctrlKey);
+      debug("[onClick] altKey: " + e.altKey);
+      debug("[onClick] shiftKey: " + e.shiftKey);
+      
       if (e.button == 0 && (e.ctrlKey || e.altKey)) {
         //In case where user also listening on different labels than inbox, there would be duplicated elements
         var temp = (function (arr){
@@ -88,6 +92,11 @@ exports.main = function(options, callbacks) {
       }
     },
     onCommand: function (e) {
+      debug("[onCommand] ctrlKey: " + e.ctrlKey);
+      debug("[onCommand] altKey: " + e.altKey);
+      debug("[onCommand] shiftKey: " + e.shiftKey);
+    
+    
       if (e.ctrlKey || e.altKey) return;
     
       if (!unreadObjs.length) {
