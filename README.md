@@ -1,4 +1,4 @@
-#Gmail Notifier (ignotifier)
+##Gmail Notifier (ignotifier)
 Multi-account Gmail notifier (without storing passwords locally)
 
 ###General information
@@ -18,6 +18,7 @@ Folders description:
 2. Run "node compile\install.js" to run ignotifier in a new Firefox profile. To make xpi run "node compile\install.js --xpi". For more options use "--help"
 
 ###How to try precompiled latest version
-1. Browse the src directory
-2. Download the raw *.xpi file
-3. Drag and drop it into Firefox
+1. Select the right branch
+2. Browse the src directory
+3. Download the raw *.xpi file
+4. Drag and drop it into Firefox
