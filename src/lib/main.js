@@ -57,14 +57,29 @@ exports.main = function(options, callbacks) {
     tooltiptext: _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2") + "\n" + _("tooltip3"),
     image: data.url("gmail[U].png"),
     onClick: function (e) {
-      if (e.button == 0 && e.ctrlKey) {
+      if (e.button == 0 && (e.ctrlKey || e.altKey)) {
+        //In case where user also listening on different labels than inbox, there would be duplicated elements
+        var temp = (function (arr){
+          arr.forEach(function (item, index){
+            for (var i = index + 1; i < arr.length; i++){
+              var compare = false;
+              for (var att in item) {
+                if (item[att] == arr[i][att]) {compare = true; break;}
+              }
+              if (compare) {delete arr[index]}
+            }
+          });
+          
+          return arr.filter(function (item){return item});
+        })(loggedins);
+        //Display prompt
         var items = [];
-        loggedins.forEach(function (obj) {
+        temp.forEach(function (obj) {
           items.push(obj.label);
         });      
         var obj = prompts(_("msg4"), _("msg6"), items);
         if (obj[0]) {
-          tabs.open({url: loggedins[obj[1]].link, inBackground: false});
+          tabs.open({url: temp[obj[1]].link, inBackground: false});
         }
       }
       else if (e.button == 1 || e.button == 2) {
@@ -73,7 +88,7 @@ exports.main = function(options, callbacks) {
       }
     },
     onCommand: function (e) {
-      if (e.ctrlKey) return;
+      if (e.ctrlKey || e.altKey) return;
     
       if (!unreadObjs.length) {
         tabs.open({url: config.email.url, inBackground: false});
