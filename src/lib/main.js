@@ -44,7 +44,7 @@ var config = {
   get backgroundColor () {return prefs.backgroundColor || "#FFB"},
   move: {toolbarID: "nav-bar", forceMove: false},
   //Debug
-  debug: true
+  debug: false
 };
 
 /** Initialize **/
@@ -57,20 +57,15 @@ exports.main = function(options, callbacks) {
     tooltiptext: _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2") + "\n" + _("tooltip3"),
     image: data.url("gmail[U].png"),
     onClick: function (e) {
-      debug("[onClick] ctrlKey: " + e.ctrlKey);
-      debug("[onClick] altKey: " + e.altKey);
-      debug("[onClick] shiftKey: " + e.shiftKey);
+      debug("[onClick] ctrlKey: " + e.ctrlKey + ", altKey: " + e.altKey + ", shiftKey: " + e.shiftKey);
       
       if (e.button == 0 && (e.ctrlKey || e.altKey)) {
         //In case where user also listening on different labels than inbox, there would be duplicated elements
-        var temp = (function (arr){
-          arr.forEach(function (item, index){
-            for (var i = index + 1; i < arr.length; i++){
-              var compare = false;
-              for (var att in item) {
-                if (item[att] == arr[i][att]) {compare = true; break;}
-              }
-              if (compare) {delete arr[index]}
+        var temp = (function (arr) {
+          debug(JSON.stringify(arr));
+          arr.forEach(function (item, index) {
+            for (var i = index + 1; i < arr.length; i++) {
+              if (item.label == arr[i].label) {delete arr[index]}
             }
           });
           
@@ -83,7 +78,8 @@ exports.main = function(options, callbacks) {
         });      
         var obj = prompts(_("msg4"), _("msg6"), items);
         if (obj[0]) {
-          tabs.open({url: temp[obj[1]].link, inBackground: false});
+          //Always open inbox not labels
+          tabs.open({url: temp[obj[1]].link.replace(/\?.*/, ""), inBackground: false});
         }
       }
       else if (e.button == 1 || e.button == 2) {
@@ -92,11 +88,8 @@ exports.main = function(options, callbacks) {
       }
     },
     onCommand: function (e) {
-      debug("[onCommand] ctrlKey: " + e.ctrlKey);
-      debug("[onCommand] altKey: " + e.altKey);
-      debug("[onCommand] shiftKey: " + e.shiftKey);
-    
-    
+      debug("[onCommand] ctrlKey: " + e.ctrlKey + ", altKey: " + e.altKey + ", shiftKey: " + e.shiftKey);
+
       if (e.ctrlKey || e.altKey) return;
     
       if (!unreadObjs.length) {
@@ -167,7 +160,16 @@ var server = {
       get link () {
         var temp = "https://mail.google.com/mail/u/0/";
         try {
-          temp = xml.getElementsByTagName("link")[0].getAttribute("href")
+          //Inbox href
+          temp = xml.getElementsByTagName("link")[0].getAttribute("href");
+          //Try to extract the label
+          var tagline = xml.getElementsByTagName("tagline")[0].childNodes[0].nodeValue;
+          if (tagline) {
+            var label = tagline.match(/\'(.*)\' label/);
+            if (label.length == 2) {
+              temp += "/?shva=1#label/" + label[1];
+            }
+          }
         } catch(e) {}
         return temp;
       },
@@ -238,7 +240,7 @@ var server = {
         }
         state = false;
         
-        debug("Gmail Notifier: exist:" + exist + " count:" + count + " normal:" + normal + " newUnread:" + newUnread);
+        debug("Exist: " + exist + ", Counts: " + count + ", Access: " + normal + ", New: " + newUnread);
         //Gmail logged-in && has count && new count && forced
         if (exist && count && newUnread && forced) {
                                               /* xml, count, showAlert, color, message */
