@@ -43,6 +43,13 @@
       "value": true
   },
   {
+      "name": "alphabetic",
+      "title": "Use alphabetic sort order for accounts:",
+      "description": "The default order type is logged-in time order",
+      "type": "bool",
+      "value": false
+  },
+  {
       "name": "textColor",
       "title": "Counter notifocation text color:",
       "description": "",

@@ -350,17 +350,22 @@ var checkAllMails = (function () {
     loggedins  = [];
     //Notifications
     var text = "", tooltiptext = "", total = 0;
-    var showAlert = isForced;
+    var showAlert = false;
     //Sort accounts
     results.sort(function(a,b) {
-      var l1 = a.xml.link,
-          l2 = b.xml.link,
-          n = Math.min(l1.length, l2.length),
-          l3 = l1.substr(0, n),
-          l4 = l2.substr(0, n);
-          
-      if (l3 == l4) {return l1 > l2;}
-      else          {return l3 > l4;}
+      var var1, var2;
+      if (prefs.alphabetic) {
+        var1 = a.xml.title;
+        var2 = b.xml.title;
+      }
+      else {
+        var1 = a.xml.link;
+        var2 = b.xml.link;
+      }
+      
+      if (var1 > var2) return 1;
+      if (var1 < var2) return -1;
+      return 0;
     });
     //Execute
     results.forEach(function (r, i) {
@@ -384,9 +389,11 @@ var checkAllMails = (function () {
         loggedins.push({label: r.xml.title, link: r.xml.link});
       }
     });
-    if (showAlert && text) {
-      if (prefs.notification) notify(_("gmail"), text);
-      if (prefs.alert) play();
+    if (prefs.notification && (isForced || showAlert) && text) {
+      notify(_("gmail"), text);
+    }
+    if (prefs.alert && showAlert && text && prefs.notification) {
+      play();
     }
     //unreadObjs.sort(function(a,b){return a.link > b.link});
     //loggedins.sort(function(a,b){return a.link > b.link});
