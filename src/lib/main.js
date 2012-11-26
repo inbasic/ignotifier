@@ -17,11 +17,12 @@ var config = {
   email: {
     url: "https://mail.google.com/mail/u/0",
     get feeds() {
+      //Default feed
       const FEEDS = "https://mail.google.com/mail/u/0/feed/atom," + 
         "https://mail.google.com/mail/u/1/feed/atom," + 
         "https://mail.google.com/mail/u/2/feed/atom," + 
         "https://mail.google.com/mail/u/3/feed/atom";
-      //server only supports atom feeds
+      //server implementation only supports atom feeds
       var temp = (prefs.feeds.replace(/rss20/g, "atom10") || FEEDS).split(",");
       //Check Feed formats
       temp.forEach(function (feed, index) {
@@ -43,6 +44,7 @@ var config = {
   get textColor () {return prefs.textColor || "#000"},
   get backgroundColor () {return prefs.backgroundColor || "#FFB"},
   move: {toolbarID: "nav-bar", forceMove: false},
+  defaultTooltip: _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2") + "\n" + _("tooltip3"),
   //Debug
   debug: false
 };
@@ -54,7 +56,7 @@ exports.main = function(options, callbacks) {
   gButton = toolbarbutton.ToolbarButton({
     id: "igmail-notifier",
     label: _("gmail"),
-    tooltiptext: _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2") + "\n" + _("tooltip3"),
+    tooltiptext: config.defaultTooltip,
     image: data.url("gmail[U].png"),
     onClick: function (e) {
       debug("[onClick] ctrlKey: " + e.ctrlKey + ", altKey: " + e.altKey + ", shiftKey: " + e.shiftKey);
@@ -77,7 +79,7 @@ exports.main = function(options, callbacks) {
           items.push(obj.label);
         });      
         var obj = prompts(_("msg4"), _("msg6"), items);
-        if (obj[0]) {
+        if (obj[0] && obj[1] != -1) {
           //Always open inbox not labels
           tabs.open({url: temp[obj[1]].link.replace(/\?.*/, ""), inBackground: false});
         }
@@ -102,7 +104,7 @@ exports.main = function(options, callbacks) {
         var items = [];
         unreadObjs.forEach(function (obj){items.push(obj.account)});
         var rtn = prompts(_("msg4"), _("msg5"), items);
-        if (rtn[0]) {
+        if (rtn[0] && rtn[1] != -1) {
           tabs.open({url: unreadObjs[rtn[1]].link, inBackground: false});
         }
       }
@@ -123,7 +125,7 @@ exports.main = function(options, callbacks) {
 
 /** Server **/
 var server = {
-  parse: function (req) {
+  parse: function (req, feed) {
     var xml;
     if (req.responseXML) {
       xml = req.responseXML;
@@ -175,8 +177,14 @@ var server = {
         try {
           //Inbox href
           var label = this.label;
-          temp = xml.getElementsByTagName("link")[0].getAttribute("href") + 
-            (label ? "/?shva=1#label/" + label : "");
+          var id = /u\/\d/.exec(feed);  //Sometimes id is wrong in the feed structure!
+          temp = xml.getElementsByTagName("link")[0].getAttribute("href");
+          if (id.length) {
+            temp = temp.replace(/u\/\d/, id[0]);
+          };
+          if (label) {
+            temp += "/?shva=1#label/" + label;
+          }
         } catch(e) {}
         return temp;
       },
@@ -219,7 +227,7 @@ var server = {
       req.open('GET', feed, true);
       req.onreadystatechange = function () {
         if (req.readyState != 4) return;
-        var xml = new server.parse(req);
+        var xml = new server.parse(req, feed);
         
         var count = 0;
         var normal = false; //not logged-in but normal response from gmail
@@ -305,7 +313,7 @@ var server = {
         //Gmail not logged-in && error && forced
         if (!exist && !normal && forced) {
           if (callback) callback.apply(pointer, [xml, null, false, "unknown", 
-          isRecent ? null : [_("error"), _("msg2")]]);
+          isRecent ? null : [_("error") + ": ", _("msg2")]]);
           return;
         }
         //Gmail not logged-in && error && no force
@@ -343,17 +351,27 @@ var checkAllMails = (function () {
     //Notifications
     var text = "", tooltiptext = "", total = 0;
     var showAlert = isForced;
+    //Sort accounts
+    results.sort(function(a,b) {
+      var l1 = a.xml.link,
+          l2 = b.xml.link,
+          n = Math.min(l1.length, l2.length),
+          l3 = l1.substr(0, n),
+          l4 = l2.substr(0, n);
+          
+      if (l3 == l4) {return l1 > l2;}
+      else          {return l3 > l4;}
+    });
+    //Execute
     results.forEach(function (r, i) {
       //
       if (r.msgObj) {
         if (typeof(r.msgObj[1]) == "number") {
           var label = r.xml.label;
-        
-          if (r.alert) text += (text ? " - " : "") + r.msgObj[0] + (label ? "/" + label : "") + " (" + r.msgObj[1] + ")";
-          tooltiptext += (tooltiptext ? "\n" : "") + r.msgObj[0] + (label ? "/" + label : "") + " (" + r.msgObj[1] + ")";
+          var data = r.msgObj[0] + (label ? "/" + label : "") + " (" + r.msgObj[1] + ")";
+          if (r.alert) text += (text ? " - " : "") + data;
+          tooltiptext += (tooltiptext ? "\n" : "") + data;
           total += r.msgObj[1];
-          
-          
           unreadObjs.push({link: r.xml.link, account: r.msgObj[0] + (label ? " [" + label + "]" : label)});
         }
         else {
@@ -370,9 +388,10 @@ var checkAllMails = (function () {
       if (prefs.notification) notify(_("gmail"), text);
       if (prefs.alert) play();
     }
-    unreadObjs.sort(function(a,b){return a.link > b.link})
+    //unreadObjs.sort(function(a,b){return a.link > b.link});
+    //loggedins.sort(function(a,b){return a.link > b.link});
     //Tooltiptext
-    gButton.tooltiptext = tooltiptext ? tooltiptext : _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2") + "\n" + _("tooltip3");
+    gButton.tooltiptext = tooltiptext ? tooltiptext : config.defaultTooltip;
     //Icon
     var isRed = false,
         isGray = false;
