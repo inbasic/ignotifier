@@ -59,9 +59,11 @@ exports.main = function(options, callbacks) {
     tooltiptext: config.defaultTooltip,
     image: data.url("gmail[U].png"),
     onClick: function (e) {
-      debug("[onClick] ctrlKey: " + e.ctrlKey + ", altKey: " + e.altKey + ", shiftKey: " + e.shiftKey);
-      
-      if (e.button == 0 && (e.ctrlKey || e.altKey)) {
+      if (e.button == 1) {
+        checkAllMails(true);
+      }
+      else if (e.button == 2) {
+        e.preventDefault();
         //In case where user also listening on different labels than inbox, there would be duplicated elements
         var temp = (function (arr) {
           debug(JSON.stringify(arr));
@@ -84,16 +86,8 @@ exports.main = function(options, callbacks) {
           tabs.open({url: temp[obj[1]].link.replace(/\?.*/, ""), inBackground: false});
         }
       }
-      else if (e.button == 1 || e.button == 2) {
-        checkAllMails(true);
-        e.preventDefault();
-      }
     },
     onCommand: function (e) {
-      debug("[onCommand] ctrlKey: " + e.ctrlKey + ", altKey: " + e.altKey + ", shiftKey: " + e.shiftKey);
-
-      if (e.ctrlKey || e.altKey) return;
-    
       if (!unreadObjs.length) {
         tabs.open({url: config.email.url, inBackground: false});
       }
