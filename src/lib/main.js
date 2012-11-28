@@ -5,7 +5,8 @@ var tabs             = require("tabs"),
     notifications    = require("notifications"),
     toolbarbutton    = require("toolbarbutton"),
     window           = require("window-utils").activeBrowserWindow,
-    prefs            = require("simple-prefs").prefs,
+    sp               = require("simple-prefs"),
+    prefs            = sp.prefs,
     _                = require("l10n").get,
     data             = self.data,
     {Cc, Ci, Cu}     = require('chrome'),
@@ -59,7 +60,8 @@ exports.main = function(options, callbacks) {
     tooltiptext: config.defaultTooltip,
     image: data.url("gmail[U].png"),
     onClick: function (e) {
-      if (e.button == 1) {
+      if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
+        e.preventDefault();
         checkAllMails(true);
       }
       else if (e.button == 2) {
@@ -422,6 +424,21 @@ var checkAllMails = (function () {
     gClients.forEach(function(gClient, index){gClient(forced, index ? true : false)});
   }
 })();
+
+/** Prefs **/
+sp.on("reset", function() {
+  prefs.backgroundColor = "#FFB";
+  prefs.textColor       = "#000";
+  prefs.alphabetic      = false;
+  prefs.alert           = true;
+  prefs.notification    = true;
+  prefs.period          = 15;
+  prefs.feeds           = 
+    "https://mail.google.com/mail/u/0/feed/atom," + 
+    "https://mail.google.com/mail/u/1/feed/atom," + 
+    "https://mail.google.com/mail/u/2/feed/atom," + 
+    "https://mail.google.com/mail/u/3/feed/atom";
+});
 
 /** Notifier **/
 var notify = (function () {
