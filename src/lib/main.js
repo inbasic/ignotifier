@@ -427,6 +427,7 @@ var checkAllMails = (function () {
 
 /** Prefs **/
 sp.on("reset", function() {
+  if (!window.confirm(_("msg7"))) return
   prefs.backgroundColor = "#FFB";
   prefs.textColor       = "#000";
   prefs.alphabetic      = false;
@@ -455,6 +456,7 @@ var notify = (function () {
 var play = function () {
   var sound = Cc["@mozilla.org/sound;1"].createInstance(Ci.nsISound);
   sound.playEventSound(0);
+  console.log('Sound played!');
 }
 
 /** Prompt **/
