@@ -389,7 +389,6 @@ var checkAllMails = (function () {
       notify(_("gmail"), text);
     }
     
-    console.log('Alert state:' + showAlert);
     if (prefs.alert && (isForced || showAlert) && text) {
       play();
     }
