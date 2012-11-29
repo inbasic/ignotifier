@@ -60,9 +60,9 @@ exports.ToolbarButton = function ToolbarButton(options) {
       tbb.setAttribute("class", "toolbarbutton-1 chromeclass-toolbar-additional");
       tbb.setAttribute("label", options.label);
       tbb.setAttribute('tooltiptext', options.tooltiptext);
-      tbb.addEventListener("command", function() {
+      tbb.addEventListener("command", function(e) {
         if (options.onCommand)
-          options.onCommand({}); // TODO: provide something?
+          options.onCommand(e); // TODO: provide something?
 
         if (options.panel) {
           options.panel.show(tbb);

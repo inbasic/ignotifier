@@ -5,7 +5,8 @@ var tabs             = require("tabs"),
     notifications    = require("notifications"),
     toolbarbutton    = require("toolbarbutton"),
     window           = require("window-utils").activeBrowserWindow,
-    prefs            = require("simple-prefs").prefs,
+    sp               = require("simple-prefs"),
+    prefs            = sp.prefs,
     _                = require("l10n").get,
     data             = self.data,
     {Cc, Ci, Cu}     = require('chrome'),
@@ -17,11 +18,12 @@ var config = {
   email: {
     url: "https://mail.google.com/mail/u/0",
     get feeds() {
+      //Default feed
       const FEEDS = "https://mail.google.com/mail/u/0/feed/atom," + 
         "https://mail.google.com/mail/u/1/feed/atom," + 
         "https://mail.google.com/mail/u/2/feed/atom," + 
         "https://mail.google.com/mail/u/3/feed/atom";
-      //server only supports atom feeds
+      //server implementation only supports atom feeds
       var temp = (prefs.feeds.replace(/rss20/g, "atom10") || FEEDS).split(",");
       //Check Feed formats
       temp.forEach(function (feed, index) {
@@ -43,26 +45,51 @@ var config = {
   get textColor () {return prefs.textColor || "#000"},
   get backgroundColor () {return prefs.backgroundColor || "#FFB"},
   move: {toolbarID: "nav-bar", forceMove: false},
+  defaultTooltip: _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2") + "\n" + _("tooltip3"),
   //Debug
-  debug: true
+  debug: false
 };
 
 /** Initialize **/
-var gButton, unreadObjs = [];
+var gButton, unreadObjs = [], loggedins  = [];
 exports.main = function(options, callbacks) {
   //Gmail button
   gButton = toolbarbutton.ToolbarButton({
     id: "igmail-notifier",
     label: _("gmail"),
-    tooltiptext: _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2"),
+    tooltiptext: config.defaultTooltip,
     image: data.url("gmail[U].png"),
     onClick: function (e) {
-      if (e.button == 1 || e.button == 2) {
-        checkAllMails(true);
+      if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
         e.preventDefault();
+        checkAllMails(true);
+      }
+      else if (e.button == 2) {
+        e.preventDefault();
+        //In case where user also listening on different labels than inbox, there would be duplicated elements
+        var temp = (function (arr) {
+          debug(JSON.stringify(arr));
+          arr.forEach(function (item, index) {
+            for (var i = index + 1; i < arr.length; i++) {
+              if (item.label == arr[i].label) {delete arr[index]}
+            }
+          });
+          
+          return arr.filter(function (item){return item});
+        })(loggedins);
+        //Display prompt
+        var items = [];
+        temp.forEach(function (obj) {
+          items.push(obj.label);
+        });      
+        var obj = prompts(_("msg4"), _("msg6"), items);
+        if (obj[0] && obj[1] != -1) {
+          //Always open inbox not labels
+          tabs.open({url: temp[obj[1]].link.replace(/\?.*/, ""), inBackground: false});
+        }
       }
     },
-    onCommand: function () {
+    onCommand: function (e) {
       if (!unreadObjs.length) {
         tabs.open({url: config.email.url, inBackground: false});
       }
@@ -73,7 +100,7 @@ exports.main = function(options, callbacks) {
         var items = [];
         unreadObjs.forEach(function (obj){items.push(obj.account)});
         var rtn = prompts(_("msg4"), _("msg5"), items);
-        if (rtn[0]) {
+        if (rtn[0] && rtn[1] != -1) {
           tabs.open({url: unreadObjs[rtn[1]].link, inBackground: false});
         }
       }
@@ -94,7 +121,7 @@ exports.main = function(options, callbacks) {
 
 /** Server **/
 var server = {
-  parse: function (req) {
+  parse: function (req, feed) {
     var xml;
     if (req.responseXML) {
       xml = req.responseXML;
@@ -115,7 +142,6 @@ var server = {
             temp = parseInt(tags[0].childNodes[0].nodeValue);
           }
           else { //atom does not provide fullcount attribute
-          console.log(xml.getElementsByTagName("entry").length);
             temp = xml.getElementsByTagName("entry").length;
           }
         } catch(e){}
@@ -129,10 +155,32 @@ var server = {
         } catch(e) {}
         return temp;
       },
+      get label () {
+        var label = "";
+        try {
+          var tagline = xml.getElementsByTagName("tagline")[0].childNodes[0].nodeValue;
+          if (tagline) {
+            var match = tagline.match(/\'(.*)\' label/);
+            if (match.length == 2) {
+              label = match[1];
+            }
+          }
+        } catch(e) {}
+        return label;
+      },
       get link () {
         var temp = "https://mail.google.com/mail/u/0/";
         try {
-          temp = xml.getElementsByTagName("link")[0].getAttribute("href")
+          //Inbox href
+          var label = this.label;
+          var id = /u\/\d/.exec(feed);  //Sometimes id is wrong in the feed structure!
+          temp = xml.getElementsByTagName("link")[0].getAttribute("href");
+          if (id.length) {
+            temp = temp.replace(/u\/\d/, id[0]);
+          };
+          if (label) {
+            temp += "/?shva=1#label/" + label;
+          }
         } catch(e) {}
         return temp;
       },
@@ -175,7 +223,7 @@ var server = {
       req.open('GET', feed, true);
       req.onreadystatechange = function () {
         if (req.readyState != 4) return;
-        var xml = new server.parse(req);
+        var xml = new server.parse(req, feed);
         
         var count = 0;
         var normal = false; //not logged-in but normal response from gmail
@@ -203,7 +251,7 @@ var server = {
         }
         state = false;
         
-        debug("Gmail Notifier: exist:" + exist + " count:" + count + " normal:" + normal + " newUnread:" + newUnread);
+        debug("Exist: " + exist + ", Counts: " + count + ", Access: " + normal + ", New: " + newUnread);
         //Gmail logged-in && has count && new count && forced
         if (exist && count && newUnread && forced) {
                                               /* xml, count, showAlert, color, message */
@@ -261,7 +309,7 @@ var server = {
         //Gmail not logged-in && error && forced
         if (!exist && !normal && forced) {
           if (callback) callback.apply(pointer, [xml, null, false, "unknown", 
-          isRecent ? null : [_("error"), _("msg2")]]);
+          isRecent ? null : [_("error") + ": ", _("msg2")]]);
           return;
         }
         //Gmail not logged-in && error && no force
@@ -295,31 +343,59 @@ var checkAllMails = (function () {
   function step2 () {
     //clear old feeds
     unreadObjs = [];
+    loggedins  = [];
     //Notifications
     var text = "", tooltiptext = "", total = 0;
-    var showAlert = isForced;
+    var showAlert = false;
+    //Sort accounts
+    results.sort(function(a,b) {
+      var var1, var2;
+      if (prefs.alphabetic) {
+        var1 = a.xml.title;
+        var2 = b.xml.title;
+      }
+      else {
+        var1 = a.xml.link;
+        var2 = b.xml.link;
+      }
+      
+      if (var1 > var2) return 1;
+      if (var1 < var2) return -1;
+      return 0;
+    });
+    //Execute
     results.forEach(function (r, i) {
+      //
       if (r.msgObj) {
         if (typeof(r.msgObj[1]) == "number") {
-          if (r.alert) text += (text ? " - " : "") + r.msgObj[0] + " (" + r.msgObj[1] + ")";
-          tooltiptext += (tooltiptext ? "\n" : "") + r.msgObj[0] + " (" + r.msgObj[1] + ")";
+          var label = r.xml.label;
+          var data = r.msgObj[0] + (label ? "/" + label : "") + " (" + r.msgObj[1] + ")";
+          if (r.alert) text += (text ? " - " : "") + data;
+          tooltiptext += (tooltiptext ? "\n" : "") + data;
           total += r.msgObj[1];
-          
-          unreadObjs.push({link: r.xml.link, account: r.msgObj[0]});
+          unreadObjs.push({link: r.xml.link, account: r.msgObj[0] + (label ? " [" + label + "]" : label)});
         }
         else {
           text += (text ? " - " : "") + r.msgObj[0] + " " + r.msgObj[1];
         }
       }
       showAlert = showAlert || r.alert;
+      //Menuitems
+      if (r.count !== null) {
+        loggedins.push({label: r.xml.title, link: r.xml.link});
+      }
     });
-    if (showAlert && text) {
-      if (prefs.notification) notify(_("gmail"), text);
-      if (prefs.alert) play();
+    if (prefs.notification && (isForced || showAlert) && text) {
+      notify(_("gmail"), text);
     }
-    unreadObjs.sort(function(a,b){return a.link > b.link})
+    
+    if (prefs.alert && (isForced || showAlert) && text) {
+      play();
+    }
+    //unreadObjs.sort(function(a,b){return a.link > b.link});
+    //loggedins.sort(function(a,b){return a.link > b.link});
     //Tooltiptext
-    gButton.tooltiptext = tooltiptext ? tooltiptext : _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2");
+    gButton.tooltiptext = tooltiptext ? tooltiptext : config.defaultTooltip;
     //Icon
     var isRed = false,
         isGray = false;
@@ -331,8 +407,8 @@ var checkAllMails = (function () {
       var svg = 
         "<svg height='16' width='20' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'>" +
           "<image x='0' y='3' height='10' width='16' xlink:href='" + config.image + "'></image>" +
-          "<circle cx='15' cy='10.6' r='5' fill='" + config.backgroundColor + "'/>" +
-          "<text x='15' y='14' font-size='8.5' text-anchor='middle' font-family='Arial' font-weight='bold' fill='" + config.textColor + "'>%d</text>" +
+          "<circle cx='15' cy='11' r='5' fill='" + config.backgroundColor + "'/>" +
+          "<text x='15' y='14' font-size='10' text-anchor='middle' font-family='Courier' font-weight='bold' fill='" + config.textColor + "'>%d</text>" +
         "</svg>";
       gButton.image = "data:image/svg+xml;base64," + window.btoa(svg.replace("%d", total < 10 ? total : "+"));
     }
@@ -349,6 +425,22 @@ var checkAllMails = (function () {
     gClients.forEach(function(gClient, index){gClient(forced, index ? true : false)});
   }
 })();
+
+/** Prefs **/
+sp.on("reset", function() {
+  if (!window.confirm(_("msg7"))) return
+  prefs.backgroundColor = "#FFB";
+  prefs.textColor       = "#000";
+  prefs.alphabetic      = false;
+  prefs.alert           = true;
+  prefs.notification    = true;
+  prefs.period          = 15;
+  prefs.feeds           = 
+    "https://mail.google.com/mail/u/0/feed/atom," + 
+    "https://mail.google.com/mail/u/1/feed/atom," + 
+    "https://mail.google.com/mail/u/2/feed/atom," + 
+    "https://mail.google.com/mail/u/3/feed/atom";
+});
 
 /** Notifier **/
 var notify = (function () {

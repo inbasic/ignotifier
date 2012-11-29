@@ -10,21 +10,21 @@
   "contributors": [], 
   
   "url": "", 
-  "version": "0.1.7", 
+  "version": "0.1.9", 
   "lib": "lib", 
   "main": "main", 
   
   "preferences": [{
       "name": "period",
       "title": "Check for new emails every (seconds):",
-      "description": "Minimum period time is 10 seconds. This setting takes place after first restart.",
+      "description": "Minimum time period is 10 seconds. [Restart required]",
       "type": "integer",
       "value": 15
   },
   {
       "name": "feeds",
       "title": "Gmail feeds:",
-      "description": "Separate feeds by \",\". This setting takes place after first restart.",
+      "description": "Separate feeds by \",\" (Comma). [Restart required]",
       "type": "string",
       "value": "https://mail.google.com/mail/u/0/feed/atom, https://mail.google.com/mail/u/1/feed/atom, https://mail.google.com/mail/u/2/feed/atom, https://mail.google.com/mail/u/3/feed/atom"
   },
@@ -43,18 +43,31 @@
       "value": true
   },
   {
+      "name": "alphabetic",
+      "title": "Sort account selections alphabetically:",
+      "description": "The default order type is logged-in order",
+      "type": "bool",
+      "value": false
+  },
+  {
       "name": "textColor",
       "title": "Counter notifocation text color:",
       "description": "",
-      "type": "string",
+      "type": "color",
       "value": "#000"
   },
   {
       "name": "backgroundColor",
       "title": "Counter notifocation background color:",
       "description": "",
-      "type": "string",
+      "type": "color",
       "value": "#FFB"
+  },
+  {
+      "type": "control",
+      "label": "Reset",
+      "name": "reset",
+      "title": "Reset all settings back:"
   }],
 
   "id": "jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls" 
