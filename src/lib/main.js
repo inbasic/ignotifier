@@ -388,7 +388,7 @@ var checkAllMails = (function () {
     if (prefs.notification && (isForced || showAlert) && text) {
       notify(_("gmail"), text);
     }
-    if (prefs.alert && showAlert && text && prefs.notification) {
+    if (prefs.alert && showAlert && text) {
       play();
     }
     //unreadObjs.sort(function(a,b){return a.link > b.link});
