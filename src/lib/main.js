@@ -388,7 +388,7 @@ var checkAllMails = (function () {
     if (prefs.notification && (isForced || showAlert) && text) {
       notify(_("gmail"), text);
     }
-    if (prefs.alert && showAlert && text) {
+    if (prefs.alert && (isForced || showAlert) && text) {
       play();
     }
     //unreadObjs.sort(function(a,b){return a.link > b.link});
@@ -456,7 +456,6 @@ var notify = (function () {
 var play = function () {
   var sound = Cc["@mozilla.org/sound;1"].createInstance(Ci.nsISound);
   sound.playEventSound(0);
-  console.log('Sound played!');
 }
 
 /** Prompt **/
