@@ -389,7 +389,7 @@ var checkAllMails = (function () {
       notify(_("gmail"), text);
     }
     
-    if (prefs.alert && (isForced || showAlert) && text) {
+    if (prefs.alert && (showAlert) && text) {
       play();
     }
     //unreadObjs.sort(function(a,b){return a.link > b.link});
