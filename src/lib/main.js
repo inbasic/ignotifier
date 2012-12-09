@@ -72,8 +72,11 @@ function open (url, inBackground) {
   tabs.open({url: url, inBackground: inBackground ? inBackground : false});
 }
 /** Initialize **/
-var gButton, unreadObjs = [], loggedins  = [];
+var OS, gButton, unreadObjs = [], loggedins  = [];
 exports.main = function(options, callbacks) {
+  //OS detection, required by sound
+  var runtime = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULRuntime);
+  OS = runtime.OS;
   //Gmail button
   gButton = toolbarbutton.ToolbarButton({
     id: "igmail-notifier",
@@ -471,6 +474,8 @@ var notify = (function () {
 /** Player **/
 var play = function () {
   var sound = Cc["@mozilla.org/sound;1"].createInstance(Ci.nsISound);
+  
+  if(OS == "Darwin") sound.beep();
   sound.playEventSound(0);
 }
 
