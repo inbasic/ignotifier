@@ -4,6 +4,7 @@ var tabs             = require("tabs"),
     timer            = require("timers"),
     notifications    = require("notifications"),
     toolbarbutton    = require("toolbarbutton"),
+    windows          = require("windows").browserWindows,
     window           = require("window-utils").activeBrowserWindow,
     sp               = require("simple-prefs"),
     prefs            = sp.prefs,
@@ -16,13 +17,13 @@ var tabs             = require("tabs"),
 var config = {
   //Gmail
   email: {
-    url: "https://mail.google.com/mail/u/0",
+    base: "https://mail.google.com/mail/u/0",
+    url: "https://mail.google.com/mail/u/0/?shva=1#inbox",
+    FEEDS: "https://mail.google.com/mail/u/0/feed/atom," + 
+      "https://mail.google.com/mail/u/1/feed/atom," + 
+      "https://mail.google.com/mail/u/2/feed/atom," + 
+      "https://mail.google.com/mail/u/3/feed/atom",
     get feeds() {
-      //Default feed
-      const FEEDS = "https://mail.google.com/mail/u/0/feed/atom," + 
-        "https://mail.google.com/mail/u/1/feed/atom," + 
-        "https://mail.google.com/mail/u/2/feed/atom," + 
-        "https://mail.google.com/mail/u/3/feed/atom";
       //server implementation only supports atom feeds
       var temp = (prefs.feeds.replace(/rss20/g, "atom10") || FEEDS).split(",");
       //Check Feed formats
@@ -49,7 +50,27 @@ var config = {
   //Debug
   debug: false
 };
-
+/** Open new Tab or reuse old tabs to open the url **/
+function open (url, inBackground) {
+  for each(var tab in windows.activeWindow.tabs) {
+    console.log(tab.title);
+  
+    try {
+      var url1 = /\/\/(.*)/.exec(tab.url)[1],
+          url2 = /\/\/(.*)/.exec(url)[1];
+      if (url1.indexOf(url2) == 0) {
+        if (tabs.activeTab == tab) {
+          notify(_("gmail"), _("msg8"));
+        }
+        else {
+          tab.activate();
+        }
+        return;
+      }
+    }catch(e) {}
+  }
+  tabs.open({url: url, inBackground: inBackground ? inBackground : false});
+}
 /** Initialize **/
 var gButton, unreadObjs = [], loggedins  = [];
 exports.main = function(options, callbacks) {
@@ -69,9 +90,10 @@ exports.main = function(options, callbacks) {
         //In case where user also listening on different labels than inbox, there would be duplicated elements
         var temp = (function (arr) {
           debug(JSON.stringify(arr));
+          
           arr.forEach(function (item, index) {
             for (var i = index + 1; i < arr.length; i++) {
-              if (item.label == arr[i].label) {delete arr[index]}
+              if (arr[i] && item.label == arr[i].label) {delete arr[index]}
             }
           });
           
@@ -85,23 +107,23 @@ exports.main = function(options, callbacks) {
         var obj = prompts(_("msg4"), _("msg6"), items);
         if (obj[0] && obj[1] != -1) {
           //Always open inbox not labels
-          tabs.open({url: temp[obj[1]].link.replace(/\?.*/, ""), inBackground: false});
+          open(temp[obj[1]].link.replace(/\?.*/ , "") + "?shva=1#inbox");
         }
       }
     },
     onCommand: function (e) {
       if (!unreadObjs.length) {
-        tabs.open({url: config.email.url, inBackground: false});
+        open(config.email.url);
       }
       else if (unreadObjs.length == 1) {
-        tabs.open({url: unreadObjs[0].link, inBackground: false});
+        open(unreadObjs[0].link);
       }
       else {
         var items = [];
         unreadObjs.forEach(function (obj){items.push(obj.account)});
         var rtn = prompts(_("msg4"), _("msg5"), items);
         if (rtn[0] && rtn[1] != -1) {
-          tabs.open({url: unreadObjs[rtn[1]].link, inBackground: false});
+          open(unreadObjs[rtn[1]].link);
         }
       }
     }
@@ -169,18 +191,17 @@ var server = {
         return label;
       },
       get link () {
-        var temp = "https://mail.google.com/mail/u/0/";
+        var temp = config.email.base,
+            label;
         try {
           //Inbox href
-          var label = this.label;
+          label = this.label;
           var id = /u\/\d/.exec(feed);  //Sometimes id is wrong in the feed structure!
           temp = xml.getElementsByTagName("link")[0].getAttribute("href");
           if (id.length) {
             temp = temp.replace(/u\/\d/, id[0]);
           };
-          if (label) {
-            temp += "/?shva=1#label/" + label;
-          }
+          temp += "/?shva=1#" + (label ? "label/" + label : "inbox");
         } catch(e) {}
         return temp;
       },
@@ -295,7 +316,7 @@ var server = {
         }
         //Gmail not logged-in && no error && forced
         if (!exist && normal && forced) {
-          if (!isRecent) tabs.open(config.email.url);
+          if (!isRecent) open(config.email.url);
           
           if (callback) callback.apply(pointer, [xml, null, false, "unknown", 
             isRecent ? null : ["", _("msg1")]]);
@@ -392,8 +413,6 @@ var checkAllMails = (function () {
     if (prefs.alert && (showAlert) && text) {
       play();
     }
-    //unreadObjs.sort(function(a,b){return a.link > b.link});
-    //loggedins.sort(function(a,b){return a.link > b.link});
     //Tooltiptext
     gButton.tooltiptext = tooltiptext ? tooltiptext : config.defaultTooltip;
     //Icon
@@ -435,11 +454,7 @@ sp.on("reset", function() {
   prefs.alert           = true;
   prefs.notification    = true;
   prefs.period          = 15;
-  prefs.feeds           = 
-    "https://mail.google.com/mail/u/0/feed/atom," + 
-    "https://mail.google.com/mail/u/1/feed/atom," + 
-    "https://mail.google.com/mail/u/2/feed/atom," + 
-    "https://mail.google.com/mail/u/3/feed/atom";
+  prefs.feeds           = config.email.FEEDS;
 });
 
 /** Notifier **/
