@@ -83,13 +83,15 @@ exports.main = function(options, callbacks) {
     label: _("gmail"),
     tooltiptext: config.defaultTooltip,
     image: data.url("gmail[U].png"),
-    onMousedown: function (e) { //Linux problem for onClick
+    onClick: function (e) { //Linux problem for onClick
       if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
         e.preventDefault();
+        e.stopPropagation();
         checkAllMails(true);
       }
       else if (e.button == 2) {
         e.preventDefault();
+        e.stopPropagation();
         //In case where user also listening on different labels than inbox, there would be duplicated elements
         var temp = (function (arr) {
           debug(JSON.stringify(arr));

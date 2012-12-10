@@ -71,9 +71,6 @@ exports.ToolbarButton = function ToolbarButton(options) {
       if (options.onClick) {
           tbb.addEventListener("click", options.onClick, true); 
       }
-      if (options.onMousedown) {
-          tbb.addEventListener("click", options.onMousedown, true); 
-      }
 
       // add toolbarbutton to palette
       ($("navigator-toolbox") || $("mail-toolbox")).palette.appendChild(tbb);
