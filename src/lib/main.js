@@ -17,8 +17,7 @@ var tabs             = require("tabs"),
 var config = {
   //Gmail
   email: {
-    base: "https://mail.google.com/mail/u/0",
-    url: "https://mail.google.com/mail/u/0/?shva=1#inbox",
+    url: "https://mail.google.com/mail/u/0",
     FEEDS: "https://mail.google.com/mail/u/0/feed/atom," + 
       "https://mail.google.com/mail/u/1/feed/atom," + 
       "https://mail.google.com/mail/u/2/feed/atom," + 
@@ -50,13 +49,24 @@ var config = {
   //Debug
   debug: false
 };
+/** URL parser **/
+function url_parse (url) {
+  var temp = /(http.*):\/\/w{0,3}\.*([^\?]*)[^\#]*#*([^\&]*)/.exec(url.replace("gmail", "mail.google"));
+
+  return {
+    protocol: temp[1] ? temp[1] : "https",
+    base: temp[2] ? temp[2].replace(/\/$/, '') : config.email.url,
+    label: temp[3] ? temp[3] : "inbox"
+  }
+}
 /** Open new Tab or reuse old tabs to open the url **/
 function open (url, inBackground) {
   for each(var tab in windows.activeWindow.tabs) {
     try {
-      var url1 = /\/\/(.*)/.exec(tab.url)[1],
-          url2 = /\/\/(.*)/.exec(url)[1];
-      if (url1.indexOf(url2) == 0) {
+      var parse1 = url_parse(tab.url),
+          parse2 = url_parse(url);     
+      
+      if (parse1.base == parse2.base && parse1.label == parse2.label) {
         if (tabs.activeTab == tab) {
           notify(_("gmail"), _("msg8"));
         }
@@ -110,7 +120,7 @@ exports.main = function(options, callbacks) {
         var obj = prompts(_("msg4"), _("msg6"), items);
         if (obj[0] && obj[1] != -1) {
           //Always open inbox not labels
-          open(temp[obj[1]].link.replace(/\?.*/ , "") + "?shva=1#inbox");
+          open(temp[obj[1]].link.replace(/\?.*/ , ""));
         }
       }
     },
@@ -194,7 +204,7 @@ var server = {
         return label;
       },
       get link () {
-        var temp = config.email.base,
+        var temp = config.email.url,
             label;
         try {
           //Inbox href
@@ -204,7 +214,9 @@ var server = {
           if (id.length) {
             temp = temp.replace(/u\/\d/, id[0]);
           };
-          temp += "/?shva=1#" + (label ? "label/" + label : "inbox");
+          if (label) {
+            temp += "/?shva=1#label/" + label;
+          }
         } catch(e) {}
         return temp;
       },
@@ -475,8 +487,7 @@ var notify = (function () {
 var play = function () {
   var sound = Cc["@mozilla.org/sound;1"].createInstance(Ci.nsISound);
   
-  if(OS == "Darwin") sound.beep();
-  sound.playEventSound(0);
+  sound.playEventSound(OS == "Linux" ? 1 : 0);
 }
 
 /** Prompt **/
