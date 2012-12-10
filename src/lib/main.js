@@ -83,7 +83,7 @@ exports.main = function(options, callbacks) {
     label: _("gmail"),
     tooltiptext: config.defaultTooltip,
     image: data.url("gmail[U].png"),
-    onClick: function (e) {
+    onMousedown: function (e) { //Linux problem for onClick
       if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
         e.preventDefault();
         checkAllMails(true);
