@@ -53,8 +53,6 @@ var config = {
 /** Open new Tab or reuse old tabs to open the url **/
 function open (url, inBackground) {
   for each(var tab in windows.activeWindow.tabs) {
-    console.log(tab.title);
-  
     try {
       var url1 = /\/\/(.*)/.exec(tab.url)[1],
           url2 = /\/\/(.*)/.exec(url)[1];
