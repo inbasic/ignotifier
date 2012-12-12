@@ -46,12 +46,14 @@ var config = {
   get backgroundColor () {return prefs.backgroundColor || "#FFB"},
   move: {toolbarID: "nav-bar", forceMove: false},
   defaultTooltip: _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2") + "\n" + _("tooltip3"),
+  //Homepage:
+  homepage: "http://ignotifier1.notlong.com/",
   //Debug
   debug: false
 };
 /** URL parser **/
 function url_parse (url) {
-  var temp = /^(http.*):\/\/w{0,3}\.*([^\#\?]*)[^\#]*#*(.*)$/.exec(url.replace("gmail", "mail.google"));
+  var temp = /^(http.*):\/\/w{0,3}\.*([^\#\?]*)[^\#]*#*([^\/]*)/.exec(url.replace("gmail", "mail.google"));
 
   return {
     protocol: temp[1] ? temp[1] : "https",
@@ -152,8 +154,17 @@ exports.main = function(options, callbacks) {
   if (options.loadReason == "install") {
     gButton.moveTo(config.move);
   }
+  if (options.loadReason == "upgrade" || options.loadReason == "install") {
+    timer.setTimeout(function () {
+      welcome();
+    }, 3000);
+  }
 };
 
+/** Welcome page **/
+var welcome = function () {
+  open(config.homepage);
+}
 /** Server **/
 var server = {
   parse: function (req, feed) {
