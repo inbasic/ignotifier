@@ -51,7 +51,7 @@ var config = {
 };
 /** URL parser **/
 function url_parse (url) {
-  var temp = /(http.*):\/\/w{0,3}\.*([^\?]*)[^\#]*#*([^\&]*)/.exec(url.replace("gmail", "mail.google"));
+  var temp = /^(http.*):\/\/w{0,3}\.*([^\#\?]*)[^\#]*#*(.*)$/.exec(url.replace("gmail", "mail.google"));
 
   return {
     protocol: temp[1] ? temp[1] : "https",
