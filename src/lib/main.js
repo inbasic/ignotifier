@@ -36,12 +36,17 @@ var config = {
   get period () {return (prefs.period > 10 ? prefs.period : 10)},
   firstTime: 1,
   //Toolbar
-  image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAKCAIAAAAy3EnLA" +
-    "AAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABp0RVh0U29mdHdhcmUAU" +
-    "GFpbnQuTkVUIHYzLjUuMTAw9HKhAAAAgklEQVQoU22QsRWAIAxE2YpZ3IZp2CDDWKaztbPie" +
-    "XAQQcKjQPN/LhDOGLnvlJ6c3Y2SYcFOOBSRsi+RmekCelzH4TiNRslCuoC+jjPRAJjzCX9np" +
-    "X0Bd7Acm8QutiWo4onM4dz4rD9VtwTSrcDZKs01SkvCTDsv25x1pNHboUcOhRfmUFFAGpPmb" +
-    "QAAAABJRU5ErkJggg==",
+  color: {
+    get red () {return prefs.red},
+    get blue () {return prefs.blue},
+    get gray () {return prefs.gray}
+  },
+  image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAIAAAD5gJpuA" +
+  "AAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwAAADsABataJCQAAABp0RVh0U29mdHdhcmUAUGF" +
+  "pbnQuTkVUIHYzLjUuMTAw9HKhAAAAiUlEQVQoU3WRsRWAIAxE2YpZ2IZp2IBhLNPZ2lnxPAicI" +
+  "JFHgeR/LqA7vNd5xXinZE6UiDmusCg5l33kPDNdwBlnCIbTaJQY0gWcazgTDUBzXuHrrLQt4A7" +
+  "MYSe82JYggieio33js26KbAlKt4L2Vmkdo7QkzLTxss1ZWxpnG/TI+Sb8/Wbuq/AAklNxjGS0d" +
+  "nUAAAAASUVORK5CYII=",
   get textColor () {return prefs.textColor || "#000"},
   get backgroundColor () {return prefs.backgroundColor || "#FFB"},
   move: {toolbarID: "nav-bar", forceMove: false},
@@ -81,6 +86,53 @@ function open (url, inBackground) {
   }
   tabs.open({url: url, inBackground: inBackground ? inBackground : false});
 }
+/** icon designer**/
+var icon = function (number, code) {
+  code = code + "";
+  var hueRotate = 0, saturate = 1;
+  switch (code) {
+    case "0": // Blue
+      hueRotate = -140; 
+      saturate = 1
+      break;
+    case "1": // Brown
+      hueRotate = 40;
+      saturate = 1
+      break;  
+    case "2": // Gray
+      hueRotate = 0; 
+      saturate = 0;
+      break;
+    case "3": // Green
+      hueRotate = 130;
+      saturate = 1;
+      break;
+    case "4": // Pink
+      hueRotate = -50;
+      saturate = 1;
+      break;
+    case "5": // Purple
+      hueRotate = -100;
+      saturate = 1;
+      break;
+    case "6": // Red
+      hueRotate = 0;
+      saturate = 1;
+  }
+  var svg = 
+    "<svg height='16' width='20' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'>" +
+      "<filter id='fil'>" +
+        "<feColorMatrix type='hueRotate' values='" + hueRotate + "'/>" +
+        "<feColorMatrix type='saturate' values='" + saturate + "'/>" +
+      "</filter>" +
+      "<image x='2' y='3' width='16' height='11' filter='url(#fil)' xlink:href='" + config.image + "'></image>" +
+      (number ? 
+        "<circle cx='15' cy='11' r='5' fill='" + config.backgroundColor + "'/>" +
+        "<text x='15' y='14' font-size='10' text-anchor='middle' font-family='Courier' font-weight='bold' fill='" + config.textColor + "'>" + (number < 10 ? number : "+") + "</text>"
+      : "")  +
+    "</svg>";
+  return "data:image/svg+xml;base64," + window.btoa(svg);
+}
 /** Initialize **/
 var OS, gButton, unreadObjs = [], loggedins  = [];
 exports.main = function(options, callbacks) {
@@ -92,7 +144,7 @@ exports.main = function(options, callbacks) {
     id: "igmail-notifier",
     label: _("gmail"),
     tooltiptext: config.defaultTooltip,
-    image: data.url("gmail[U].png"),
+    image: icon(null, config.color.blue),
     onClick: function (e) { //Linux problem for onClick
       if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
         e.preventDefault();
@@ -154,17 +206,19 @@ exports.main = function(options, callbacks) {
   if (options.loadReason == "install") {
     gButton.moveTo(config.move);
   }
+  //Welcome page
   if (options.loadReason == "upgrade" || options.loadReason == "install") {
-    timer.setTimeout(function () {
-      welcome();
-    }, 3000);
+    welcome();
   }
 };
 
 /** Welcome page **/
 var welcome = function () {
-  open(config.homepage);
+  timer.setTimeout(function () {
+    open(config.homepage);
+  }, 3000);
 }
+
 /** Server **/
 var server = {
   parse: function (req, feed) {
@@ -448,17 +502,10 @@ var checkAllMails = (function () {
       if (r.color == "red") isRed = true;
       if (r.color == "gray") isGray = true;
     });
-    if (isRed) {
-      var svg = 
-        "<svg height='16' width='20' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'>" +
-          "<image x='0' y='3' height='10' width='16' xlink:href='" + config.image + "'></image>" +
-          "<circle cx='15' cy='11' r='5' fill='" + config.backgroundColor + "'/>" +
-          "<text x='15' y='14' font-size='10' text-anchor='middle' font-family='Courier' font-weight='bold' fill='" + config.textColor + "'>%d</text>" +
-        "</svg>";
-      gButton.image = "data:image/svg+xml;base64," + window.btoa(svg.replace("%d", total < 10 ? total : "+"));
-    }
-    else if (isGray) gButton.image = data.url("gmail[G].png");
-    if (!isRed && !isGray) gButton.image = data.url("gmail[U].png");
+
+    if (isRed)             gButton.image = icon(total, config.color.red);
+    else if (isGray)       gButton.image = icon(null, config.color.gray);
+    if (!isRed && !isGray) gButton.image = icon(null, config.color.blue);
   }
 
   return function (forced) {
@@ -481,6 +528,9 @@ sp.on("reset", function() {
   prefs.notification    = true;
   prefs.period          = 15;
   prefs.feeds           = config.email.FEEDS;
+  prefs.red             = 6;
+  prefs.gray            = 2;
+  prefs.blue            = 0;
 });
 
 /** Notifier **/
@@ -489,7 +539,7 @@ var notify = (function () {
     notifications.notify({
       title: title, 
       text: text,
-      iconURL: data.url("notification.png")
+      iconURL: icon(null, config.color.red)
     });
   }
 })();
