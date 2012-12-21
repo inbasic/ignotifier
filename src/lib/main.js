@@ -57,6 +57,7 @@ var config = {
   //Debug
   debug: false
 };
+
 /** URL parser **/
 function url_parse (url) {
   var temp = /^(http.*):\/\/w{0,3}\.*([^\#\?]*)[^\#]*#*([^\/]*)/.exec(url.replace("gmail", "mail.google"));
@@ -67,6 +68,7 @@ function url_parse (url) {
     label: temp[3] ? temp[3] : "inbox"
   }
 }
+
 /** Open new Tab or reuse old tabs to open the url **/
 function open (url, inBackground) {
   for each(var tab in windows.activeWindow.tabs) {
@@ -87,6 +89,7 @@ function open (url, inBackground) {
   }
   tabs.open({url: url, inBackground: inBackground ? inBackground : false});
 }
+
 /** icon designer**/
 var icon = function (number, code) {
   code = code + "";
@@ -134,6 +137,7 @@ var icon = function (number, code) {
     "</svg>";
   return "data:image/svg+xml;base64," + window.btoa(svg);
 }
+
 /** Initialize **/
 var OS, gButton, unreadObjs = [], loggedins  = [];
 exports.main = function(options, callbacks) {
