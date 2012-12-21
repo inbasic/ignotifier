@@ -2,10 +2,10 @@
 var tabs             = require("tabs"),
     self             = require("self"),
     timer            = require("timers"),
-    notifications    = require("notifications"),
     toolbarbutton    = require("toolbarbutton"),
     windows          = require("windows").browserWindows,
-    window           = require("window-utils").activeBrowserWindow,
+    windowutils      = require("window-utils"),
+    window           = windowutils.activeBrowserWindow,
     sp               = require("simple-prefs"),
     prefs            = sp.prefs,
     _                = require("l10n").get,
@@ -35,6 +35,7 @@ var config = {
   //Timing
   get period () {return (prefs.period > 10 ? prefs.period : 10)},
   firstTime: 1,
+  desktopNotification: 5,
   //Toolbar
   color: {
     get red () {return prefs.red},
@@ -71,7 +72,7 @@ function open (url, inBackground) {
   for each(var tab in windows.activeWindow.tabs) {
     try {
       var parse1 = url_parse(tab.url),
-          parse2 = url_parse(url);     
+          parse2 = url_parse(url);
       
       if (parse1.base == parse2.base && parse1.label == parse2.label) {
         if (tabs.activeTab == tab) {
@@ -125,7 +126,7 @@ var icon = function (number, code) {
         "<feColorMatrix type='hueRotate' values='" + hueRotate + "'/>" +
         "<feColorMatrix type='saturate' values='" + saturate + "'/>" +
       "</filter>" +
-      "<image x='2' y='3' width='16' height='11' filter='url(#fil)' xlink:href='" + config.image + "'></image>" +
+      "<image x='2' y='2' width='16' height='11' filter='url(#fil)' xlink:href='" + config.image + "'></image>" +
       (number ? 
         "<circle cx='15' cy='11' r='5' fill='" + config.backgroundColor + "'/>" +
         "<text x='15' y='14' font-size='10' text-anchor='middle' font-family='Courier' font-weight='bold' fill='" + config.textColor + "'>" + (number < 10 ? number : "+") + "</text>"
@@ -470,9 +471,9 @@ var checkAllMails = (function () {
       if (r.msgObj) {
         if (typeof(r.msgObj[1]) == "number") {
           var label = r.xml.label;
-          var data = r.msgObj[0] + (label ? "/" + label : "") + " (" + r.msgObj[1] + ")";
-          if (r.alert) text += (text ? " - " : "") + data;
-          tooltiptext += (tooltiptext ? "\n" : "") + data;
+          var msg = r.msgObj[0] + (label ? "/" + label : "") + " (" + r.msgObj[1] + ")";
+          if (r.alert) text += (text ? " - " : "") + msg;
+          tooltiptext += (tooltiptext ? "\n" : "") + msg;
           total += r.msgObj[1];
           unreadObjs.push({link: r.xml.link, account: r.msgObj[0] + (label ? " [" + label + "]" : label)});
         }
@@ -534,26 +535,38 @@ sp.on("reset", function() {
 });
 
 /** Notifier **/
-var notify = (function () {
+var notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob/master/lib/simple-notify.js
   return function (title, text) {
-    notifications.notify({
-      title: title, 
-      text: text,
-      iconURL: icon(null, config.color.red)
-    });
+    try {
+      let alertServ = Cc["@mozilla.org/alerts-service;1"].
+                      getService(Ci.nsIAlertsService);
+      //In linux config.image does not work properly!
+      alertServ.showAlertNotification(data.url("notification.png"), title, text);
+    }
+    catch(e) {
+      let browser = windowutils.activeBrowserWindow.gBrowser,
+          notificationBox = browser.getNotificationBox();
+
+      notification = notificationBox.appendNotification(text, 'jetpack-notification-box',
+          data.url("notification.png"), notificationBox.PRIORITY_INFO_MEDIUM, []
+      );
+      timer.setTimeout(function() {
+          notification.close();
+      }, config.desktopNotification * 1000);
+    }
   }
 })();
 
 /** Player **/
 var play = function () {
-  var sound = Cc["@mozilla.org/sound;1"].createInstance(Ci.nsISound);
+  let sound = Cc["@mozilla.org/sound;1"].createInstance(Ci.nsISound);
   
   sound.playEventSound(OS == "Linux" ? 1 : 0);
 }
 
 /** Prompt **/
 var prompts = (function () {
-  var prompts = Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
+  let prompts = Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
   return function (title, content, items) {
     var selected = {};
     var result = prompts.select(null, title, content, items.length, items, selected);

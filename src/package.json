@@ -2,17 +2,17 @@
   "fullName": "Gmail Notifier (restartless)",
   "name": "gmail-notifier",
   
-  "description": "Multi-account Gmail notifier (without storing passwords locally)", 
+  "description": "Multi-account Gmail notifier (without storing passwords locally)",
 
-  "license": "mozilla public license 1.1", 
+  "license": "mozilla public license 1.1",
 
-  "author": "InBasic", 
-  "contributors": [], 
+  "author": "InBasic",
+  "contributors": [],
   
-  "url": "", 
-  "version": "0.2.1b2", 
-  "lib": "lib", 
-  "main": "main", 
+  "url": "",
+  "version": "0.2.1b2",
+  "lib": "lib",
+  "main": "main",
   
   "preferences": [{
       "name": "period",
