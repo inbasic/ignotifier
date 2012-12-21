@@ -10,7 +10,7 @@
   "contributors": [],
   
   "url": "",
-  "version": "0.2.1b2",
+  "version": "0.2.1",
   "lib": "lib",
   "main": "main",
   
@@ -69,9 +69,7 @@
     "type": "menulist",
     "value": 6,
     "options": [
-      {"value": "0", "label": "Blue"},
       {"value": "1", "label": "Brown"},
-      {"value": "2", "label": "Gray"},
       {"value": "3", "label": "Green"},
       {"value": "4", "label": "Pink"},
       {"value": "5", "label": "Purple"},
@@ -89,8 +87,7 @@
       {"value": "2", "label": "Gray"},
       {"value": "3", "label": "Green"},
       {"value": "4", "label": "Pink"},
-      {"value": "5", "label": "Purple"},
-      {"value": "6", "label": "Red"}
+      {"value": "5", "label": "Purple"}
     ]
   },
   {
@@ -104,8 +101,7 @@
       {"value": "2", "label": "Gray"},
       {"value": "3", "label": "Green"},
       {"value": "4", "label": "Pink"},
-      {"value": "5", "label": "Purple"},
-      {"value": "6", "label": "Red"}
+      {"value": "5", "label": "Purple"}
     ]
   },
   {
