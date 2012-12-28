@@ -10,7 +10,7 @@ var tabs             = require("tabs"),
     prefs            = sp.prefs,
     _                = require("l10n").get,
     data             = self.data,
-    {Cc, Ci, Cu, components}     = require('chrome');
+    {Cc, Ci, Cu}     = require('chrome');
 
 /** Internal configurations **/
 var config = {
@@ -530,15 +530,15 @@ var checkAllMails = (function () {
 /** Prefs **/
 sp.on("reset", function() {
   if (!window.confirm(_("msg7"))) return
-  prefs.backgroundColor            = "#FFB";
-  prefs.textColor                  = "#000";
-  prefs.alphabetic                 = false;
-  prefs.alert                      = true;
-  prefs.notification               = true;
-  prefs.period                     = 15;
-  prefs.feeds                      = config.email.FEEDS;
-  prefs.red                        = 6;
-  prefs.gray                       = 2;
+  prefs.backgroundColor = "#FFB";
+  prefs.textColor       = "#000";
+  prefs.alphabetic      = false;
+  prefs.alert           = true;
+  prefs.notification    = true;
+  prefs.period          = 15;
+  prefs.feeds           = config.email.FEEDS;
+  prefs.red             = 6;
+  prefs.gray            = 2;
 });
 
 /** Notifier **/
