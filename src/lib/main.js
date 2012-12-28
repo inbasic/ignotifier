@@ -10,8 +10,7 @@ var tabs             = require("tabs"),
     prefs            = sp.prefs,
     _                = require("l10n").get,
     data             = self.data,
-    {Cc, Ci, Cu}     = require('chrome'),
-    {XMLHttpRequest} = require("xhr");
+    {Cc, Ci, Cu, components}     = require('chrome');
 
 /** Internal configurations **/
 var config = {
@@ -325,7 +324,10 @@ var server = {
       }
       //Initialazing
       state = true;
-      var req = new XMLHttpRequest();
+
+      var req = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"]
+        .createInstance(Ci.nsIXMLHttpRequest);
+      req.mozBackgroundRequest = true;  //No authentication
       req.open('GET', feed, true);
       req.onreadystatechange = function () {
         if (req.readyState != 4) return;
@@ -424,6 +426,8 @@ var server = {
           return;
         }
       }
+      // https://github.com/inbasic/ignotifier/issues/29
+      req.channel.QueryInterface(Ci.nsIHttpChannelInternal).forceAllowThirdPartyCookie = true;
       req.send(null);
     }
   }
@@ -526,16 +530,15 @@ var checkAllMails = (function () {
 /** Prefs **/
 sp.on("reset", function() {
   if (!window.confirm(_("msg7"))) return
-  prefs.backgroundColor = "#FFB";
-  prefs.textColor       = "#000";
-  prefs.alphabetic      = false;
-  prefs.alert           = true;
-  prefs.notification    = true;
-  prefs.period          = 15;
-  prefs.feeds           = config.email.FEEDS;
-  prefs.red             = 6;
-  prefs.gray            = 2;
-  prefs.blue            = 0;
+  prefs.backgroundColor            = "#FFB";
+  prefs.textColor                  = "#000";
+  prefs.alphabetic                 = false;
+  prefs.alert                      = true;
+  prefs.notification               = true;
+  prefs.period                     = 15;
+  prefs.feeds                      = config.email.FEEDS;
+  prefs.red                        = 6;
+  prefs.gray                       = 2;
 });
 
 /** Notifier **/
