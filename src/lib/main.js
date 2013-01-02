@@ -29,7 +29,8 @@ var config = {
         temp[index] = feed.replace(/^\s\s*/, '').replace(/\s\s*$/, '')
       });
       return temp;
-    }
+    },
+    maxCount: 20
   },
   //Timing
   get period () {return (prefs.period > 10 ? prefs.period : 10)},
@@ -308,7 +309,8 @@ var server = {
    */
   mCheck: function (feed, callback, pointer) {
     var state = false,
-        msgs = [];
+        msgs = [],
+        oldCount = 0; //For more than 20 unreads
     /*
      * forced: is this a forced check?
      * isRecent: did user recently receive a notification?
@@ -339,12 +341,18 @@ var server = {
         var exist = req.status == 200;  //Gmail account is loged-in
         if (exist) {
           count = xml.fullcount;
-          xml.enteries.forEach(function (entry, i) {
-            var id = entry.getElementsByTagName("id")[0].childNodes[0].nodeValue;
-            if (msgs.indexOf(id) == -1) {
-              newUnread = true;
-            }
-          });
+          if (oldCount > config.email.maxCount || count > config.email.maxCount) {
+            newUnread = (count > oldCount)
+          }
+          else {
+            xml.enteries.forEach(function (entry, i) {
+              var id = entry.getElementsByTagName("id")[0].childNodes[0].nodeValue;
+              if (msgs.indexOf(id) == -1) {
+                newUnread = true;
+              }
+            });
+          }
+          oldCount = count;
           msgs = [];
           xml.enteries.forEach(function (entry, i) {
             msgs.push(entry.getElementsByTagName("id")[0].childNodes[0].nodeValue);
