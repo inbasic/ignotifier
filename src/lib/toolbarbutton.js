@@ -61,8 +61,9 @@ exports.ToolbarButton = function ToolbarButton(options) {
       tbb.setAttribute("label", options.label);
       tbb.setAttribute('tooltiptext', options.tooltiptext);
       tbb.addEventListener("command", function(e) {
+        if (e.originalTarget != tbb) return;
         if (options.onCommand)
-          options.onCommand(e); // TODO: provide something?
+          options.onCommand(e, tbb); // TODO: provide something?
 
         if (options.panel) {
           options.panel.show(tbb);
@@ -71,7 +72,17 @@ exports.ToolbarButton = function ToolbarButton(options) {
       if (options.onClick) {
           tbb.addEventListener("click", options.onClick, true); 
       }
-
+      if (options.onContext) {
+        let menupopup = doc.createElementNS(NS_XUL, "menupopup");
+        let menuitem = doc.createElementNS(NS_XUL, "menuitem");
+        tbb.addEventListener("contextmenu", function (e) {
+          e.stopPropagation(); //Prevent Firefox context menu
+          e.preventDefault();
+          options.onContext(e, menupopup, menuitem);
+          menupopup.openPopup(tbb , "after_end", 0, 0, false);
+        }, true);
+        tbb.appendChild(menupopup);
+      }
       // add toolbarbutton to palette
       ($("navigator-toolbox") || $("mail-toolbox")).palette.appendChild(tbb);
 

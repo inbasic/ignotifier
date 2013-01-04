@@ -2,6 +2,7 @@
 var tabs             = require("tabs"),
     self             = require("self"),
     timer            = require("timers"),
+    panel            = require("panel"),
     toolbarbutton    = require("toolbarbutton"),
     windows          = require("windows").browserWindows,
     windowutils      = require("window-utils"),
@@ -54,8 +55,12 @@ var config = {
   defaultTooltip: _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2") + "\n" + _("tooltip3"),
   //Homepage:
   homepage: "http://ignotifier1.notlong.com/",
-  //Debug
-  debug: false
+  //panel
+  panel: {
+    width: 230,
+    each: 20,
+    margin: 13
+  }
 };
 
 /** URL parser **/
@@ -138,6 +143,35 @@ var icon = function (number, code) {
   return "data:image/svg+xml;base64," + window.btoa(svg);
 }
 
+/** Multi email Panel **/
+var contextPanel = panel.Panel({
+  width: config.panel.width,
+  contentURL: data.url("context.html"),
+  contentScriptFile: data.url("context.js")
+});
+contextPanel.port.on("click", function (link) {
+  contextPanel.hide();
+  open(link);
+})
+
+/** onCommand **/
+var onCommand = function (e, tbb, link) {
+  if (!unreadObjs.length) {
+    open(config.email.url);
+  }
+  else if (unreadObjs.length == 1) {
+    open(unreadObjs[0].link);
+  }
+  else if (link) {
+    open(link);
+  }
+  else {
+    contextPanel.height = config.panel.each * unreadObjs.length + config.panel.margin;
+    contextPanel.port.emit('list', unreadObjs);
+    contextPanel.show(tbb);
+  }
+}
+
 /** Initialize **/
 var OS, gButton, unreadObjs = [], loggedins  = [];
 exports.main = function(options, callbacks) {
@@ -156,49 +190,48 @@ exports.main = function(options, callbacks) {
         e.stopPropagation();
         checkAllMails(true);
       }
-      else if (e.button == 2) {
-        e.preventDefault();
-        e.stopPropagation();
+    },
+    onContext: (function () {
+      var installed = false;
+      return function (e, menupopup, _menuitem) {
+        //Install command event listener
+        if (!installed) {
+          menupopup.addEventListener("command", function (e) {
+            var link = e.originalTarget.value;
+            if (link) open(link.replace(/\?.*/ , ""));
+          });
+          installed = true;
+        }
         //In case where user also listening on different labels than inbox, there would be duplicated elements
         var temp = (function (arr) {
-          debug(JSON.stringify(arr));
-          
           arr.forEach(function (item, index) {
             for (var i = index + 1; i < arr.length; i++) {
               if (arr[i] && item.label == arr[i].label) {delete arr[index]}
             }
           });
-          
           return arr.filter(function (item){return item});
         })(loggedins);
-        //Display prompt
-        var items = [];
-        temp.forEach(function (obj) {
-          items.push(obj.label);
-        });      
-        var obj = prompts(_("msg4"), _("msg6"), items);
-        if (obj[0] && obj[1] != -1) {
-          //Always open inbox not labels
-          open(temp[obj[1]].link.replace(/\?.*/ , ""));
+        //remove old items
+        while (menupopup.firstChild) {
+          menupopup.removeChild(menupopup.firstChild)
+        }
+        function addChild (label, value) {
+          var item = _menuitem.cloneNode(true);
+          item.setAttribute("label", label);
+          item.setAttribute("value", value);
+          menupopup.appendChild(item);
+        }
+        if (temp.length) {
+          temp.forEach(function (obj) {
+            addChild(obj.label, obj.link);
+          });
+        }
+        else {
+          addChild(_("context"), "");
         }
       }
-    },
-    onCommand: function (e) {
-      if (!unreadObjs.length) {
-        open(config.email.url);
-      }
-      else if (unreadObjs.length == 1) {
-        open(unreadObjs[0].link);
-      }
-      else {
-        var items = [];
-        unreadObjs.forEach(function (obj){items.push(obj.account)});
-        var rtn = prompts(_("msg4"), _("msg5"), items);
-        if (rtn[0] && rtn[1] != -1) {
-          open(unreadObjs[rtn[1]].link);
-        }
-      }
-    }
+    })(),
+    onCommand: onCommand
   });
   //Timer
   timer.setInterval(function () {
@@ -317,12 +350,8 @@ var server = {
      */
     return function (forced, isRecent) {
       //Check state
-      if (state && !forced) { 
-        debug("[Warning] Gmail notifier listening at " + feed + " is busy right now. Try it later, or try the force option.");
+      if (state && !forced) {
         return;
-      }
-      if (state && forced) {
-        debug("[Warning] Gmail notifier was busy. But this is a forced command.");
       }
       //Initialazing
       state = true;
@@ -360,6 +389,7 @@ var server = {
         }
         else {
           msgs = [];
+          oldCount = 0;
         }
 
         if (!exist && req.responseText && xml.authorized == "Unauthorized") {
@@ -367,7 +397,6 @@ var server = {
         }
         state = false;
         
-        debug("Exist: " + exist + ", Counts: " + count + ", Access: " + normal + ", New: " + newUnread);
         //Gmail logged-in && has count && new count && forced
         if (exist && count && newUnread && forced) {
                                               /* xml, count, showAlert, color, message */
@@ -482,16 +511,29 @@ var checkAllMails = (function () {
       return 0;
     });
     //Execute
+    var singleLink = null;
     results.forEach(function (r, i) {
       //
       if (r.msgObj) {
         if (typeof(r.msgObj[1]) == "number") {
           var label = r.xml.label;
           var msg = r.msgObj[0] + (label ? "/" + label : "") + " (" + r.msgObj[1] + ")";
-          if (r.alert) text += (text ? " - " : "") + msg;
+          if (r.alert) {
+            text += (text ? " - " : "") + msg;
+            if (singleLink === null) {
+              singleLink = r.xml.link;
+            }
+            else {
+              singleLink = "";
+            }
+          }
           tooltiptext += (tooltiptext ? "\n" : "") + msg;
           total += r.msgObj[1];
-          unreadObjs.push({link: r.xml.link, account: r.msgObj[0] + (label ? " [" + label + "]" : label)});
+          unreadObjs.push({
+            link: r.xml.link, 
+            count: r.msgObj[1],
+            account: r.msgObj[0] + (label ? " [" + label + "]" : label)
+            });
         }
         else {
           text += (text ? " - " : "") + r.msgObj[0] + " " + r.msgObj[1];
@@ -504,7 +546,7 @@ var checkAllMails = (function () {
       }
     });
     if (prefs.notification && (isForced || showAlert) && text) {
-      notify(_("gmail"), text);
+      notify(_("gmail"), text, singleLink ? true : false, singleLink);
     }
     
     if (prefs.alert && (showAlert) && text) {
@@ -551,12 +593,17 @@ sp.on("reset", function() {
 
 /** Notifier **/
 var notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob/master/lib/simple-notify.js
-  return function (title, text) {
+  return function (title, text, clickable, link) {
     try {
       let alertServ = Cc["@mozilla.org/alerts-service;1"].
                       getService(Ci.nsIAlertsService);
       //In linux config.image does not work properly!
-      alertServ.showAlertNotification(data.url("notification.png"), title, text);
+      alertServ.showAlertNotification(data.url("notification.png"), title, text, clickable, link, 
+        function (subject, topic, data) {
+          if (topic == "alertclickcallback") {
+            onCommand(null, null, link);
+          }
+        }, "");
     }
     catch(e) {
       let browser = windowutils.activeBrowserWindow.gBrowser,
@@ -575,23 +622,5 @@ var notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob/mas
 /** Player **/
 var play = function () {
   let sound = Cc["@mozilla.org/sound;1"].createInstance(Ci.nsISound);
-  
   sound.playEventSound(OS == "Linux" ? 1 : 0);
-}
-
-/** Prompt **/
-var prompts = (function () {
-  let prompts = Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
-  return function (title, content, items) {
-    var selected = {};
-    var result = prompts.select(null, title, content, items.length, items, selected);
-    return [result, selected.value];
-  }
-})();
-
-/** Debuger **/
-var debug = function (text) {
-  if (config.debug) {
-    console.log(text);
-  }
 }
