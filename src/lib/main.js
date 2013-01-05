@@ -36,7 +36,7 @@ var config = {
   //Timing
   get period () {return (prefs.period > 10 ? prefs.period : 10)},
   firstTime: 1,
-  desktopNotification: 5,
+  desktopNotification: 3,
   //Toolbar
   color: {
     get red () {return prefs.red},
@@ -58,8 +58,8 @@ var config = {
   //panel
   panel: {
     width: 230,
-    each: 20,
-    margin: 13
+    each: 22,
+    margin: 14
   }
 };
 
@@ -151,7 +151,7 @@ var contextPanel = panel.Panel({
 });
 contextPanel.port.on("click", function (link) {
   contextPanel.hide();
-  open(link);
+  if (link) open(link);
 })
 
 /** onCommand **/

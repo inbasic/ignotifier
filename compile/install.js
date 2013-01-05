@@ -20,7 +20,13 @@ program
   .option('-j, --jsconsole', 
     'Show jsConsole in run mode'
   )
+  .option('-i, --ip <ip>', 
+    'Send XPI to this ip instead of localhost',
+    String,
+    "localhost"
+  )
   .parse(process.argv);
+   
 /** Wget **/
 var installer = function (callback) {
   var child;
@@ -30,7 +36,7 @@ var installer = function (callback) {
       if (stdout) {
         cmd = (isWindows ? 'compile\\wget' : 'wget') + 
               ' --post-file=' + /.*/.exec(stdout) + 
-              ' http://localhost:8888/';
+              ' http://' + program.ip + ':8888/';
         console.log(cmd);
         child = exec(cmd, {}, function (error, stdout, stderr) {
           if (stdout)
