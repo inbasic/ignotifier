@@ -13,6 +13,7 @@ function add (label, count, value) {
   a.appendChild(font);
   ul.appendChild(li);
 }
+
 function clear () {
   while (ul.firstChild) {
     ul.removeChild(ul.firstChild);

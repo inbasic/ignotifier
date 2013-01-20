@@ -28,12 +28,33 @@
  * ***** END LICENSE BLOCK ***** */
 
 const NS_XUL = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+const NS_SVG = "http://www.w3.org/2000/svg";
+const NS_XLINK = "http://www.w3.org/1999/xlink";
 
 const {unload} = require("unload+");
 const {listen} = require("listen");
 const winUtils = require("window-utils");
 
 const browserURL = "chrome://browser/content/browser.xul";
+
+const config = {
+  canvas: {
+    width: 20,
+    height: 16
+  },
+  image: {
+    x: 2,
+    y: 3,
+    width: 16,
+    height: 11  
+  },
+  load: {
+    x: 0,
+    y: 0,
+    width: 20,
+    height: 16  
+  }
+}
 
 exports.ToolbarButton = function ToolbarButton(options) {
   var unloaders = [],
@@ -53,13 +74,65 @@ exports.ToolbarButton = function ToolbarButton(options) {
       options.tooltiptext = options.tooltiptext || '';
 
       // create toolbar button
+      let svg = doc.createElementNS(NS_SVG, "svg");
+      svg.setAttributeNS (NS_SVG, "xlink", NS_XLINK)
+      svg.setAttribute("viewBox", 
+        "0 0 " + config.canvas.width + " " + config.canvas.height
+      );
+      svg.setAttribute("width", config.canvas.width);
+      svg.setAttribute("height", config.canvas.height);
+      svg.style.display = "block";
+      
+      let image = doc.createElementNS(NS_SVG, "image");
+      image.setAttribute("x", config.image.x);
+      image.setAttribute("y", config.image.y);
+      image.setAttribute("width", config.image.width);
+      image.setAttribute("height", config.image.height);
+      image.setAttribute("filter", 'url(#ignotifier_filter)');
+      if (options.image) image.setAttributeNS (NS_XLINK, "href", options.image);
+      svg.appendChild(image);
+      
+      let filter = doc.createElementNS(NS_SVG, "filter");
+      filter.setAttribute("id", "ignotifier_filter");
+      let feColorMatrix1 = doc.createElementNS(NS_SVG, "feColorMatrix");
+      feColorMatrix1.setAttribute("type", "hueRotate");
+      feColorMatrix1.setAttribute("values", "0");
+      filter.appendChild(feColorMatrix1);
+      let feColorMatrix2 = doc.createElementNS(NS_SVG, "feColorMatrix");
+      feColorMatrix2.setAttribute("type", "saturate");
+      feColorMatrix2.setAttribute("values", "1");
+      filter.appendChild(feColorMatrix2);
+      svg.appendChild(filter);
+      
+      let circle = doc.createElementNS(NS_SVG, "circle");
+      circle.setAttribute("cx", "15");
+      circle.setAttribute("cy", "11");
+      circle.setAttribute("r", "5");
+      circle.setAttribute("fill", "transparent");
+      svg.appendChild(circle);
+
+      let text = doc.createElementNS(NS_SVG, "text");
+      text.setAttribute("x", "15");
+      text.setAttribute("y", "14");
+      text.setAttribute("font-size", "10");
+      text.setAttribute("text-anchor", "middle");
+      text.setAttribute("font-family", "Courier");
+      text.setAttribute("font-weight", "bold");
+      text.setAttribute("fill", options.textColor);
+      svg.appendChild(text);
+
+      let stack = doc.createElementNS(NS_XUL, "stack");
+      stack.setAttribute("class", "toolbarbutton-icon");
+      stack.appendChild(svg);
+      
       let tbb = doc.createElementNS(NS_XUL, "toolbarbutton");
       tbb.setAttribute("id", options.id);
       tbb.setAttribute("type", "button");
-      if (options.image) tbb.setAttribute("image", options.image);
       tbb.setAttribute("class", "toolbarbutton-1 chromeclass-toolbar-additional");
       tbb.setAttribute("label", options.label);
       tbb.setAttribute('tooltiptext', options.tooltiptext);
+      tbb.appendChild(stack);
+      
       tbb.addEventListener("command", function(e) {
         if (e.originalTarget != tbb) return;
         if (options.onCommand)
@@ -146,9 +219,58 @@ exports.ToolbarButton = function ToolbarButton(options) {
   function setIcon(aOptions) {
     options.image = aOptions.image || aOptions.url;
     getToolbarButtons(function(tbb) {
-      tbb.image = options.image;
+      tbb.childNodes[0].childNodes[0].childNodes[0].setAttributeNS(NS_XLINK, "href", options.image);
     }, options.id);
     return options.image;
+  }
+  function setHueRotate(aOptions) {
+    getToolbarButtons(function(tbb) {
+      tbb.childNodes[0].childNodes[0].childNodes[1].childNodes[0].setAttribute("values", aOptions.value);
+    }, options.id);
+    return aOptions.value;
+  }
+  function setSaturate(aOptions) {
+    getToolbarButtons(function(tbb) {
+      tbb.childNodes[0].childNodes[0].childNodes[1].childNodes[1].setAttribute("values", aOptions.value);
+    }, options.id);
+    return aOptions.value;
+  }
+  function setBadge (aOptions) {
+    getToolbarButtons(function(tbb) {
+      tbb.childNodes[0].childNodes[0].childNodes[2].setAttribute (
+        "fill", 
+        aOptions.value ? options.backgroundColor : "transparent"
+      );
+      tbb.childNodes[0].childNodes[0].childNodes[3].setAttribute (
+        "fill",
+        options.textColor
+      )
+      tbb.childNodes[0].childNodes[0].childNodes[3].textContent  = 
+        aOptions.value ? aOptions.value : "";
+    }, options.id);
+    return aOptions.value;
+  }
+  function setLoadMode (aOptions) {
+    getToolbarButtons(function(tbb) {
+      let image = tbb.childNodes[0].childNodes[0].childNodes[0];
+      image.setAttribute("x", 
+        config[aOptions.value ? "load" : "image"].x
+      );
+      image.setAttribute("y", config[aOptions.value ? "load" : "image"].y);
+      image.setAttribute("width", 
+        config[aOptions.value ? "load" : "image"].width
+      );
+      image.setAttribute("height", 
+        config[aOptions.value ? "load" : "image"].height
+      );
+      image.setAttribute("filter", 
+        aOptions.value ? '' : 'url(#ignotifier_filter)'
+      );
+      image.setAttributeNS (NS_XLINK, "href", 
+        options[aOptions.value ? "loadImage" : "image"]
+      );
+    }, options.id);
+    return aOptions.value;
   }
 
   return {
@@ -203,6 +325,16 @@ exports.ToolbarButton = function ToolbarButton(options) {
     setIcon: setIcon,
     get image() options.image,
     set image(value) setIcon({image: value}),
+    set hueRotate(value) setHueRotate({value: value}),
+    set saturate(value) setSaturate({value: value}),
+    set badge(value) setBadge({value: value}),
+    set textColor(value) {
+      options.textColor = value
+    },
+    set backgroundColor(value) {
+      options.backgroundColor = value
+    },
+    set loadMode(value) setLoadMode({value: value}),
     get tooltiptext() options.tooltiptext,
     set tooltiptext(value) {
       options.tooltiptext = value;

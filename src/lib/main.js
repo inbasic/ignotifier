@@ -128,19 +128,11 @@ var icon = function (number, code) {
       hueRotate = 0;
       saturate = 1;
   }
-  var svg = 
-    "<svg height='16' width='20' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'>" +
-      "<filter id='fil'>" +
-        "<feColorMatrix type='hueRotate' values='" + hueRotate + "'/>" +
-        "<feColorMatrix type='saturate' values='" + saturate + "'/>" +
-      "</filter>" +
-      "<image x='2' y='2' width='16' height='11' filter='url(#fil)' xlink:href='" + config.image + "'></image>" +
-      (number ? 
-        "<circle cx='15' cy='11' r='5' fill='" + config.backgroundColor + "'/>" +
-        "<text x='15' y='14' font-size='10' text-anchor='middle' font-family='Courier' font-weight='bold' fill='" + config.textColor + "'>" + (number < 10 ? number : "+") + "</text>"
-      : "")  +
-    "</svg>";
-  return "data:image/svg+xml;base64," + window.btoa(svg);
+  
+  gButton.loadMode = false;
+  gButton.badge = (number < 10) ? number : "+";
+  gButton.hueRotate = hueRotate;
+  gButton.saturate = saturate;
 }
 
 /** Multi email Panel **/
@@ -166,7 +158,7 @@ var onCommand = function (e, tbb, link) {
     open(link);
   }
   else {
-    contextPanel.height = config.panel.each * unreadObjs.length + config.panel.margin;
+    //contextPanel.height = config.panel.each * unreadObjs.length + config.panel.margin;
     contextPanel.port.emit('list', unreadObjs);
     contextPanel.show(tbb);
   }
@@ -183,7 +175,10 @@ exports.main = function(options, callbacks) {
     id: "igmail-notifier",
     label: _("gmail"),
     tooltiptext: config.defaultTooltip,
-    image: icon(null, config.color.blue),
+    backgroundColor: config.backgroundColor,
+    textColor: config.textColor,
+    loadImage: data.url("load.png"),
+    image: config.image,
     onClick: function (e) { //Linux problem for onClick
       if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
         e.preventDefault();
@@ -233,6 +228,8 @@ exports.main = function(options, callbacks) {
     })(),
     onCommand: onCommand
   });
+  //
+  icon(null, config.color.blue);
   //Timer
   timer.setInterval(function () {
     checkAllMails();
@@ -248,6 +245,14 @@ exports.main = function(options, callbacks) {
   if (options.loadReason == "upgrade" || options.loadReason == "install") {
     welcome();
   }
+  //Prefs
+  sp.on("textColor", function () {
+    gButton.textColor = config.textColor;
+  });
+  sp.on("backgroundColor", function () {
+    gButton.backgroundColor = config.backgroundColor;
+  });
+  
 };
 
 /** Welcome page **/
@@ -562,13 +567,13 @@ var checkAllMails = (function () {
       if (r.color == "gray") isGray = true;
     });
 
-    if (isRed)             gButton.image = icon(total, config.color.red);
-    else if (isGray)       gButton.image = icon(null, config.color.gray);
-    if (!isRed && !isGray) gButton.image = icon(null, config.color.blue);
+    if (isRed)             icon(total, config.color.red);
+    else if (isGray)       icon(null, config.color.gray);
+    if (!isRed && !isGray) icon(null, config.color.blue);
   }
 
   return function (forced) {
-    if (forced) gButton.image = data.url("load.png");
+    if (forced) gButton.loadMode = true;
   
     pushCount = len;
     results = [];
