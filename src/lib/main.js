@@ -268,7 +268,7 @@ var manager = function (once, period, func) {
       timer.clearTimeout(_timer);
       timer.clearInterval(_interval);
       func(forced);
-      _interval = timer.setTimeout(function () {
+      _interval = timer.setInterval(function () {
         func();
       }, period);
     }
