@@ -1,15 +1,16 @@
 /** Require **/
-var tabs             = require("tabs"),
-    self             = require("self"),
-    timer            = require("timers"),
-    panel            = require("panel"),
+var tabs             = require("sdk/tabs"),
+    self             = require("sdk/self"),
+    timer            = require("sdk/timers"),
+    panel            = require("sdk/panel"),
+    pb               = require("sdk/private-browsing"),
+    sp               = require("sdk/simple-prefs"),
+    windows          = require("sdk/windows").browserWindows,
+    _                = require("sdk/l10n").get,
     toolbarbutton    = require("toolbarbutton"),
-    windows          = require("windows").browserWindows,
     windowutils      = require("window-utils"),
     window           = windowutils.activeBrowserWindow,
-    sp               = require("simple-prefs"),
     prefs            = sp.prefs,
-    _                = require("l10n").get,
     data             = self.data,
     {Cc, Ci, Cu}     = require('chrome');
 
@@ -165,7 +166,7 @@ var onCommand = function (e, tbb, link) {
 }
 
 /** Initialize **/
-var OS, gButton, unreadObjs = [], loggedins  = [];
+var OS, tm, gButton, unreadObjs = [], loggedins  = [];
 exports.main = function(options, callbacks) {
   //OS detection, required by sound
   var runtime = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULRuntime);
@@ -183,7 +184,7 @@ exports.main = function(options, callbacks) {
       if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
         e.preventDefault();
         e.stopPropagation();
-        checkAllMails(true);
+        tm.reset(true);
       }
     },
     onContext: (function () {
@@ -231,12 +232,9 @@ exports.main = function(options, callbacks) {
   //
   icon(null, config.color.blue);
   //Timer
-  timer.setInterval(function () {
-    checkAllMails();
-  }, config.period * 1000);
-  timer.setTimeout(function () {
-    checkAllMails();
-  }, config.firstTime * 1000);
+  tm = manager (config.firstTime * 1000, 
+    config.period * 1000, 
+    checkAllMails);
   //Install
   if (options.loadReason == "install") {
     gButton.moveTo(config.move);
@@ -255,6 +253,40 @@ exports.main = function(options, callbacks) {
   
 };
 
+/** Interval manager **/
+var manager = function (once, period, func) {
+  var _interval, _timer;
+
+  _timer = timer.setTimeout(function () {
+    _interval = timer.setInterval(function () {
+      func();
+    }, period);
+    func();
+  }, once);
+  return {
+    reset: function (forced) {
+      timer.clearTimeout(_timer);
+      timer.clearInterval(_interval);
+      func(forced);
+      _interval = timer.setTimeout(function () {
+        func();
+      }, period);
+    }
+  }
+};
+
+/** User's actions **/
+tabs.on('ready', function (tab) {
+  if (/mail\.google\.com/.test(tab.url)) {
+    tm.reset();
+  }
+});
+pb.on("start", function() {
+  tm.reset();
+});
+pb.on("stop", function() {
+  tm.reset();
+});
 /** Welcome page **/
 var welcome = function () {
   timer.setTimeout(function () {
