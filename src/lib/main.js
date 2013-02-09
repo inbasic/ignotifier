@@ -255,22 +255,21 @@ exports.main = function(options, callbacks) {
 
 /** Interval manager **/
 var manager = function (once, period, func) {
-  var _interval, _timer;
-
-  _timer = timer.setTimeout(function () {
-    _interval = timer.setInterval(function () {
-      func();
-    }, period);
-    func();
-  }, once);
+  var _timer, fisrt = true;
+  function run (t1, t2, param) {
+    _timer = timer.setTimeout(function () {
+      func(fisrt ? param : null);
+      fisrt = false;
+      run(t1, t2);
+    }, fisrt ? t1 : t2);
+  }
+  run(once, period);
+  
   return {
     reset: function (forced) {
       timer.clearTimeout(_timer);
-      timer.clearInterval(_interval);
-      func(forced);
-      _interval = timer.setInterval(function () {
-        func();
-      }, period);
+      fisrt = true;
+      run(0, period, forced);
     }
   }
 };
