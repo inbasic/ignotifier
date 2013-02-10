@@ -232,8 +232,7 @@ exports.main = function(options, callbacks) {
   //
   icon(null, config.color.blue);
   //Timer
-  tm = manager (config.firstTime * 1000, 
-    config.period * 1000, 
+  tm = manager (config.firstTime * 1000,
     checkAllMails);
   //Install
   if (options.loadReason == "install") {
@@ -254,22 +253,22 @@ exports.main = function(options, callbacks) {
 };
 
 /** Interval manager **/
-var manager = function (once, period, func) {
+var manager = function (once, func) {
   var _timer, fisrt = true;
-  function run (t1, t2, param) {
+  function run (t1, param) {
     _timer = timer.setTimeout(function () {
       func(fisrt ? param : null);
       fisrt = false;
-      run(t1, t2);
-    }, fisrt ? t1 : t2);
+      run(t1);
+    }, fisrt ? t1 : config.period * 1000);
   }
-  run(once, period);
+  run(once);
   
   return {
     reset: function (forced) {
       timer.clearTimeout(_timer);
       fisrt = true;
-      run(0, period, forced);
+      run(0, forced);
     }
   }
 };

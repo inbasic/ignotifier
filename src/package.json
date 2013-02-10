@@ -17,7 +17,7 @@
   "preferences": [{
       "name": "period",
       "title": "Check for new emails every (seconds):",
-      "description": "Minimum time period is 10 seconds. [Restart required]",
+      "description": "Minimum time period is 10 seconds.",
       "type": "integer",
       "value": 15
   },
