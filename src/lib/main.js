@@ -657,5 +657,22 @@ var notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob/mas
 /** Player **/
 var play = function () {
   let sound = Cc["@mozilla.org/sound;1"].createInstance(Ci.nsISound);
-  sound.playEventSound(OS == "Linux" ? 1 : 0);
+  let ios = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
+  switch (prefs.soundNotification) {
+    case 0:
+      sound.playEventSound(OS == "Linux" ? 1 : 0);
+      break;
+    case 1:
+      sound.play(ios.newURI(data.url("alert.wav"), null, null));
+      break;
+    case 2:
+      try {
+        let file = Cc["@mozilla.org/file/local;1"].createInstance(Ci.nsIFile);
+        file.initWithPath(prefs.sound);
+        sound.play(ios.newFileURI(file));
+      }
+      catch(e) {
+        timer.setTimeout(function (){notify(_("gmail"), _("msg9"));}, 500);
+      }
+  }
 }

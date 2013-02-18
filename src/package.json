@@ -105,6 +105,22 @@
     ]
   },
   {
+    "name": "soundNotification",
+    "title": "Sound notification:",
+    "type": "menulist",
+    "value": 1,
+    "options": [
+      {"value": "0", "label": "Firefox default email alert"},
+      {"value": "1", "label": "Gmail notifier alert"},
+      {"value": "2", "label": "User defined sound (wav)"}
+    ]
+  },
+  {
+    "type": "file",
+    "name": "sound",
+    "title": "User defined notification sound (*.wav):"
+  },
+  {
       "type": "control",
       "label": "Reset",
       "name": "reset",
