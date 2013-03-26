@@ -52,7 +52,7 @@ var config = {
   "nUAAAAASUVORK5CYII=",
   get textColor () {return prefs.textColor || "#000"},
   get backgroundColor () {return prefs.backgroundColor || "#FFB"},
-  move: {toolbarID: "nav-bar", forceMove: false},
+  move: {toolbarID: "nav-bar", insertbefore: "home-button", forceMove: false},
   defaultTooltip: _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2") + "\n" + _("tooltip3"),
   //Homepage:
   homepage: "http://ignotifier1.notlong.com/",
