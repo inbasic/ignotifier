@@ -191,8 +191,6 @@ exports.ToolbarButton = function ToolbarButton(options) {
         }
 
         tb.insertItem(options.id, b4, null, false);
-        tb.setAttribute("currentset", tb.currentSet); 
-        doc.persist(tb.id, "currentset");
       }
 
       var saveTBNodeInfo = function(e) {
@@ -315,8 +313,6 @@ exports.ToolbarButton = function ToolbarButton(options) {
 
         if (tb) {
           tb.insertItem(options.id, b4, null, false);
-          tb.setAttribute("currentset", tb.currentSet); 
-          doc.persist(tb.id, "currentset");
         }
       };
     },
