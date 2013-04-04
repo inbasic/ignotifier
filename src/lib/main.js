@@ -7,8 +7,9 @@ var tabs             = require("sdk/tabs"),
     sp               = require("sdk/simple-prefs"),
     windows          = require("sdk/windows").browserWindows,
     _                = require("sdk/l10n").get,
-    toolbarbutton    = require("toolbarbutton"),
     windowutils      = require("window-utils"),
+    toolbarbutton    = require("./toolbarbutton"),
+    userstyles       = require("./userstyles"),
     window           = windowutils.activeBrowserWindow,
     prefs            = sp.prefs,
     data             = self.data,
@@ -39,23 +40,17 @@ var config = {
   firstTime: 1,
   desktopNotification: 3,
   //Toolbar
-  color: {
-    get red () {return prefs.red},
-    get blue () {return prefs.blue},
-    get gray () {return prefs.gray}
-  },
-  image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAIAAAD5gJpuA" +
-  "AAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwAAADsABataJCQAAABp0RVh0U29mdHdhcmUAUGF" +
-  "pbnQuTkVUIHYzLjUuMTAw9HKhAAAAiUlEQVQoU3WRsRWAIAxE2YpZ2IZp2IBhLNPZ2lnxPAicI" +
-  "JFHgeR/LqA7vNd5xXinZE6UiDmusCg5l33kPDNdwBlnCIbTaJQY0gWcazgTDUBzXuHrrLQt4A7" +
-  "MYSe82JYggieio33js26KbAlKt4L2Vmkdo7QkzLTxss1ZWxpnG/TI+Sb8/Wbuq/AAklNxjGS0d" +
-  "nUAAAAASUVORK5CYII=",
   get textColor () {return prefs.textColor || "#000"},
   get backgroundColor () {return prefs.backgroundColor || "#FFB"},
-  move: {toolbarID: "nav-bar", insertbefore: "home-button", forceMove: false},
-  defaultTooltip: _("gmail") + "\n\n" + _("tooltip1") + "\n" + _("tooltip2") + "\n" + _("tooltip3"),
+  move: {
+    toolbarID: "nav-bar", 
+    insertbefore: "home-button", 
+    forceMove: false
+  },
+  defaultTooltip: _("gmail") + "\n\n" + 
+    _("tooltip1") + "\n" + _("tooltip2") + "\n" + _("tooltip3"),
   //Homepage:
-  homepage: "http://ignotifier1.notlong.com/",
+  homepage: "http://add0n.com/gmail-notifier.html",
   //panel
   panel: {
     width: 230,
@@ -97,43 +92,10 @@ function open (url, inBackground) {
 }
 
 /** icon designer**/
-var icon = function (number, code) {
-  code = code + "";
-  var hueRotate = 0, saturate = 1;
-  switch (code) {
-    case "0": // Blue
-      hueRotate = -140; 
-      saturate = 1
-      break;
-    case "1": // Brown
-      hueRotate = 40;
-      saturate = 1
-      break;  
-    case "2": // Gray
-      hueRotate = 0; 
-      saturate = 0;
-      break;
-    case "3": // Green
-      hueRotate = 130;
-      saturate = 1;
-      break;
-    case "4": // Pink
-      hueRotate = -50;
-      saturate = 1;
-      break;
-    case "5": // Purple
-      hueRotate = -100;
-      saturate = 1;
-      break;
-    case "6": // Red
-      hueRotate = 0;
-      saturate = 1;
-  }
-  
+var icon = function (number, clr) {
   gButton.loadMode = false;
   gButton.badge = (number < 10) ? number : "+";
-  gButton.hueRotate = hueRotate;
-  gButton.saturate = saturate;
+  gButton.color = clr;
 }
 
 /** Multi email Panel **/
@@ -168,6 +130,8 @@ var onCommand = function (e, tbb, link) {
 /** Initialize **/
 var OS, tm, gButton, unreadObjs = [], loggedins  = [];
 exports.main = function(options, callbacks) {
+  //Load style
+  userstyles.load(data.url("overlay.css"));
   //OS detection, required by sound
   var runtime = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULRuntime);
   OS = runtime.OS;
@@ -178,8 +142,6 @@ exports.main = function(options, callbacks) {
     tooltiptext: config.defaultTooltip,
     backgroundColor: config.backgroundColor,
     textColor: config.textColor,
-    loadImage: data.url("load.png"),
-    image: config.image,
     onClick: function (e) { //Linux problem for onClick
       if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
         e.preventDefault();
@@ -230,7 +192,7 @@ exports.main = function(options, callbacks) {
     onCommand: onCommand
   });
   //
-  icon(null, config.color.blue);
+  icon(null, "blue");
   //Timer
   tm = manager (config.firstTime * 1000,
     checkAllMails);
@@ -278,12 +240,6 @@ tabs.on('ready', function (tab) {
   if (/mail\.google\.com/.test(tab.url)) {
     tm.reset();
   }
-});
-pb.on("start", function() {
-  tm.reset();
-});
-pb.on("stop", function() {
-  tm.reset();
 });
 /** Welcome page **/
 var welcome = function () {
@@ -597,9 +553,9 @@ var checkAllMails = (function () {
       if (r.color == "gray") isGray = true;
     });
 
-    if (isRed)             icon(total, config.color.red);
-    else if (isGray)       icon(null, config.color.gray);
-    if (!isRed && !isGray) icon(null, config.color.blue);
+    if (isRed)             icon(total, "red");
+    else if (isGray)       icon(null,  "gray");
+    if (!isRed && !isGray) icon(null,  "blue");
   }
 
   return function (forced) {
@@ -672,7 +628,9 @@ var play = function () {
         sound.play(ios.newFileURI(file));
       }
       catch(e) {
-        timer.setTimeout(function (){notify(_("gmail"), _("msg9"));}, 500);
+        timer.setTimeout(function (){
+          notify(_("gmail"), _("msg9"));
+        }, 500);
       }
   }
 }

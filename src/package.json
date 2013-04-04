@@ -64,47 +64,6 @@
       "value": "#FFB"
   },
   {
-    "name": "red",
-    "title": "Toolbar icon color for 'new emails':",
-    "type": "menulist",
-    "value": 6,
-    "options": [
-      {"value": "1", "label": "Brown"},
-      {"value": "3", "label": "Green"},
-      {"value": "4", "label": "Pink"},
-      {"value": "5", "label": "Purple"},
-      {"value": "6", "label": "Red"}
-    ]
-  },
-  {
-    "name": "gray",
-    "title": "Toolbar icon color for 'no email':",
-    "type": "menulist",
-    "value": 2,
-    "options": [
-      {"value": "0", "label": "Blue"},
-      {"value": "1", "label": "Brown"},
-      {"value": "2", "label": "Gray"},
-      {"value": "3", "label": "Green"},
-      {"value": "4", "label": "Pink"},
-      {"value": "5", "label": "Purple"}
-    ]
-  },
-  {
-    "name": "blue",
-    "title": "Toolbar icon color for 'not logged-in':",
-    "type": "menulist",
-    "value": 0,
-    "options": [
-      {"value": "0", "label": "Blue"},
-      {"value": "1", "label": "Brown"},
-      {"value": "2", "label": "Gray"},
-      {"value": "3", "label": "Green"},
-      {"value": "4", "label": "Pink"},
-      {"value": "5", "label": "Purple"}
-    ]
-  },
-  {
     "name": "soundNotification",
     "title": "Sound notification:",
     "type": "menulist",

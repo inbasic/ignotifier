@@ -1,32 +1,3 @@
-/* ***** BEGIN LICENSE BLOCK *****
- * Version: MIT/X11 License
- * 
- * Copyright (c) 2010 Erik Vold
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- * Contributor(s):
- *   Erik Vold <erikvvold@gmail.com> (Original Author)
- *   Greg Parris <greg.parris@gmail.com>
- *
- * ***** END LICENSE BLOCK ***** */
-
 const NS_XUL = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
 const NS_SVG = "http://www.w3.org/2000/svg";
 const NS_XLINK = "http://www.w3.org/1999/xlink";
@@ -36,25 +7,6 @@ const {listen} = require("listen");
 const winUtils = require("window-utils");
 
 const browserURL = "chrome://browser/content/browser.xul";
-
-const config = {
-  canvas: {
-    width: 20,
-    height: 16
-  },
-  image: {
-    x: 2,
-    y: 3,
-    width: 16,
-    height: 11  
-  },
-  load: {
-    x: 0,
-    y: 0,
-    width: 20,
-    height: 16  
-  }
-}
 
 exports.ToolbarButton = function ToolbarButton(options) {
   var unloaders = [],
@@ -74,36 +26,19 @@ exports.ToolbarButton = function ToolbarButton(options) {
       options.tooltiptext = options.tooltiptext || '';
 
       // create toolbar button
+      let stack = doc.createElementNS(NS_XUL, "stack");
+      stack.setAttribute("class", "toolbarbutton-icon");
+      
+      let box = doc.createElementNS(NS_XUL, "box");
+      let img = doc.createElementNS(NS_XUL, "image");
+      img.setAttribute("class", "ignotifier-image");
+      box.appendChild(img);
+      
       let svg = doc.createElementNS(NS_SVG, "svg");
       svg.setAttributeNS (NS_SVG, "xlink", NS_XLINK)
-      svg.setAttribute("viewBox", 
-        "0 0 " + config.canvas.width + " " + config.canvas.height
-      );
-      svg.setAttribute("width", config.canvas.width);
-      svg.setAttribute("height", config.canvas.height);
-      svg.style.display = "block";
-      
-      let image = doc.createElementNS(NS_SVG, "image");
-      image.setAttribute("x", config.image.x);
-      image.setAttribute("y", config.image.y);
-      image.setAttribute("width", config.image.width);
-      image.setAttribute("height", config.image.height);
-      image.setAttribute("filter", 'url(#ignotifier_filter)');
-      if (options.image) image.setAttributeNS (NS_XLINK, "href", options.image);
-      svg.appendChild(image);
-      
-      let filter = doc.createElementNS(NS_SVG, "filter");
-      filter.setAttribute("id", "ignotifier_filter");
-      let feColorMatrix1 = doc.createElementNS(NS_SVG, "feColorMatrix");
-      feColorMatrix1.setAttribute("type", "hueRotate");
-      feColorMatrix1.setAttribute("values", "0");
-      filter.appendChild(feColorMatrix1);
-      let feColorMatrix2 = doc.createElementNS(NS_SVG, "feColorMatrix");
-      feColorMatrix2.setAttribute("type", "saturate");
-      feColorMatrix2.setAttribute("values", "1");
-      filter.appendChild(feColorMatrix2);
-      svg.appendChild(filter);
-      
+      svg.setAttribute("width", "20");
+      svg.setAttribute("height", "16");
+
       let circle = doc.createElementNS(NS_SVG, "circle");
       circle.setAttribute("cx", "15");
       circle.setAttribute("cy", "11");
@@ -121,8 +56,7 @@ exports.ToolbarButton = function ToolbarButton(options) {
       text.setAttribute("fill", options.textColor);
       svg.appendChild(text);
 
-      let stack = doc.createElementNS(NS_XUL, "stack");
-      stack.setAttribute("class", "toolbarbutton-icon");
+      stack.appendChild(box);
       stack.appendChild(svg);
       
       let tbb = doc.createElementNS(NS_XUL, "toolbarbutton");
@@ -216,59 +150,31 @@ exports.ToolbarButton = function ToolbarButton(options) {
   };
   var tracker = winUtils.WindowTracker(delegate);
 
-  function setIcon(aOptions) {
-    options.image = aOptions.image || aOptions.url;
+  function setColor(aOptions) {
     getToolbarButtons(function(tbb) {
-      tbb.childNodes[0].childNodes[0].childNodes[0].setAttributeNS(NS_XLINK, "href", options.image);
-    }, options.id);
-    return options.image;
-  }
-  function setHueRotate(aOptions) {
-    getToolbarButtons(function(tbb) {
-      tbb.childNodes[0].childNodes[0].childNodes[1].childNodes[0].setAttribute("values", aOptions.value);
-    }, options.id);
-    return aOptions.value;
-  }
-  function setSaturate(aOptions) {
-    getToolbarButtons(function(tbb) {
-      tbb.childNodes[0].childNodes[0].childNodes[1].childNodes[1].setAttribute("values", aOptions.value);
+      tbb.childNodes[0].childNodes[0].childNodes[0].setAttribute("type", aOptions.value);
     }, options.id);
     return aOptions.value;
   }
   function setBadge (aOptions) {
     getToolbarButtons(function(tbb) {
-      tbb.childNodes[0].childNodes[0].childNodes[2].setAttribute (
+      tbb.childNodes[0].childNodes[1].childNodes[0].setAttribute (
         "fill", 
         aOptions.value ? options.backgroundColor : "transparent"
       );
-      tbb.childNodes[0].childNodes[0].childNodes[3].setAttribute (
+      tbb.childNodes[0].childNodes[1].childNodes[1].setAttribute (
         "fill",
         options.textColor
       )
-      tbb.childNodes[0].childNodes[0].childNodes[3].textContent  = 
+      tbb.childNodes[0].childNodes[1].childNodes[1].textContent  = 
         aOptions.value ? aOptions.value : "";
     }, options.id);
     return aOptions.value;
   }
   function setLoadMode (aOptions) {
     getToolbarButtons(function(tbb) {
-      let image = tbb.childNodes[0].childNodes[0].childNodes[0];
-      image.setAttribute("x", 
-        config[aOptions.value ? "load" : "image"].x
-      );
-      image.setAttribute("y", config[aOptions.value ? "load" : "image"].y);
-      image.setAttribute("width", 
-        config[aOptions.value ? "load" : "image"].width
-      );
-      image.setAttribute("height", 
-        config[aOptions.value ? "load" : "image"].height
-      );
-      image.setAttribute("filter", 
-        aOptions.value ? '' : 'url(#ignotifier_filter)'
-      );
-      image.setAttributeNS (NS_XLINK, "href", 
-        options[aOptions.value ? "loadImage" : "image"]
-      );
+      tbb.childNodes[0].childNodes[0].childNodes[0]
+        .setAttribute("class", aOptions.value ? "ignotifier-load" : "ignotifier-image");
     }, options.id);
     return aOptions.value;
   }
@@ -326,11 +232,7 @@ exports.ToolbarButton = function ToolbarButton(options) {
       }, options.id);
       return value;
     },
-    setIcon: setIcon,
-    get image() options.image,
-    set image(value) setIcon({image: value}),
-    set hueRotate(value) setHueRotate({value: value}),
-    set saturate(value) setSaturate({value: value}),
+    set color(value) setColor({value: value}),
     set badge(value) setBadge({value: value}),
     set textColor(value) {
       options.textColor = value

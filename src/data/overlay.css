@@ -1,0 +1,16 @@
+.ignotifier-image,
+.ignotifier-image[type="blue"] {
+  padding-left: 2px;
+  list-style-image: url('toolbar.png');
+  -moz-image-region: rect(0, 48px, 16px, 32px);  
+}
+.ignotifier-image[type="gray"] {
+  -moz-image-region: rect(0, 32px, 16px, 16px);  
+}
+.ignotifier-image[type="red"] {
+  -moz-image-region: rect(0, 16px, 16px, 0);
+}
+
+.ignotifier-load {
+  list-style-image: url('load.png'); 
+}
