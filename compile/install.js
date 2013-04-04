@@ -26,7 +26,7 @@ program
     "localhost"
   )
   .parse(process.argv);
-   
+  
 /** Wget **/
 var installer = function (callback) {
   var child;
@@ -67,8 +67,17 @@ fs.readdir("..", function (err, files) {
     }
   });
   if (!files.length) throw new Error("Addon-sdk not found");
+  var bootstrap = "../" + files[0] + "/app-extension/bootstrap.js";
   var sdk = "../" + files[0] + (isWindows ? "/bin" : "");
-  console.log(clc.green("SDK found: " + files[0]));
+  console.log(clc.green(
+    "SDK varsion: " + files[0] + "\n" + 
+    "bootstrap found at: " + bootstrap
+  ));
+  /** Replace bootstrap.js **/
+  stats = fs.lstatSync('template/');
+  if (stats.isDirectory()) {
+    fs.createReadStream(bootstrap).pipe(fs.createWriteStream('template/bootstrap.js'));
+  }
   /** Execute cfx **/
   var cfx = spawn(isWindows ? 'cmd' : 'bash', [], { cwd: sdk });
   if (!isWindows) cfx.stdin.write("echo Bash\n");

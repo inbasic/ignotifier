@@ -313,6 +313,8 @@ exports.ToolbarButton = function ToolbarButton(options) {
 
         if (tb) {
           tb.insertItem(options.id, b4, null, false);
+          tb.setAttribute("currentset", tb.currentSet); 
+          doc.persist(tb.id, "currentset");
         }
       };
     },
