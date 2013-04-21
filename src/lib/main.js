@@ -11,6 +11,7 @@ var tabs             = require("sdk/tabs"),
     userstyles       = require("./userstyles"),
     window           = windowutils.activeBrowserWindow,
     prefs            = sp.prefs,
+    _prefs           = require("sdk/preferences/service"),
     data             = self.data,
     {Cc, Ci, Cu}     = require('chrome');
 
@@ -41,10 +42,16 @@ var config = {
   //Toolbar
   get textColor () {return prefs.textColor || "#000"},
   get backgroundColor () {return prefs.backgroundColor || "#FFB"},
-  move: {
-    toolbarID: "nav-bar", 
-    insertbefore: "home-button", 
-    forceMove: false
+  toolbar: {
+    id: "igmail-notifier",
+    move: {
+      toolbarID: "nav-bar", 
+      get insertbefore () {
+        var id = _prefs.get(config.prefs + "nextSibling");
+        return id ? id : "home-button"
+      }, 
+      forceMove: false
+    }
   },
   defaultTooltip: _("gmail") + "\n\n" + 
     _("tooltip1") + "\n" + _("tooltip2") + "\n" + _("tooltip3"),
@@ -55,7 +62,9 @@ var config = {
     width: 230,
     each: 22,
     margin: 14
-  }
+  },
+  //Preferences
+  prefs: "extensions.ignotifier."
 };
 
 /** URL parser **/
@@ -120,7 +129,6 @@ var onCommand = function (e, tbb, link) {
     open(link);
   }
   else {
-    //contextPanel.height = config.panel.each * unreadObjs.length + config.panel.margin;
     contextPanel.port.emit('list', unreadObjs);
     contextPanel.show(tbb);
   }
@@ -136,7 +144,7 @@ exports.main = function(options, callbacks) {
   OS = runtime.OS;
   //Gmail button
   gButton = toolbarbutton.ToolbarButton({
-    id: "igmail-notifier",
+    id: config.toolbar.id,
     label: _("gmail"),
     tooltiptext: config.defaultTooltip,
     backgroundColor: config.backgroundColor,
@@ -196,9 +204,7 @@ exports.main = function(options, callbacks) {
   tm = manager (config.firstTime * 1000,
     checkAllMails);
   //Install
-  if (options.loadReason == "install") {
-    gButton.moveTo(config.move);
-  }
+  gButton.moveTo(config.toolbar.move);
   //Welcome page
   if (options.loadReason == "upgrade" || options.loadReason == "install") {
     welcome();
@@ -210,8 +216,15 @@ exports.main = function(options, callbacks) {
   sp.on("backgroundColor", function () {
     gButton.backgroundColor = config.backgroundColor;
   });
-  
 };
+
+/** Store toolbar button position **/
+var activeBrowserWindow = windowutils.activeBrowserWindow;
+activeBrowserWindow.addEventListener("aftercustomization", function () {
+  let button = activeBrowserWindow.document.getElementById(config.toolbar.id);
+  if (!button) return;
+  _prefs.set(config.prefs + "nextSibling", button.nextSibling.id);
+}, false);
 
 /** Interval manager **/
 var manager = function (once, func) {
