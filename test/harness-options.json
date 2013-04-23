@@ -1,0 +1,183 @@
+{
+ "enable_e10s": false, 
+ "is-sdk-bundled": true, 
+ "jetpackID": "jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack", 
+ "loader": "addon-sdk/lib/sdk/loader/cuddlefish.js", 
+ "main": "main", 
+ "mainPath": "gmail-notifier/main", 
+ "manifest": {
+  "gmail-notifier/listen": {
+   "docsSHA256": null, 
+   "jsSHA256": "b43bfe26ae2c7a56ea06ee001e70a835b805cdd8112cec02359f7185e103c065", 
+   "moduleName": "listen", 
+   "packageName": "gmail-notifier", 
+   "requirements": {
+    "unload+": "gmail-notifier/unload+"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "gmail-notifier/main": {
+   "docsSHA256": null, 
+   "jsSHA256": "2bd6396802569d4b4900c44aac54b0d1295081d52929ade62598829fac2703a7", 
+   "moduleName": "main", 
+   "packageName": "gmail-notifier", 
+   "requirements": {
+    "./toolbarbutton": "gmail-notifier/toolbarbutton", 
+    "./userstyles": "gmail-notifier/userstyles", 
+    "chrome": "chrome", 
+    "sdk/l10n": "sdk/l10n", 
+    "sdk/panel": "sdk/panel", 
+    "sdk/self": "sdk/self", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/tabs": "sdk/tabs", 
+    "sdk/timers": "sdk/timers", 
+    "sdk/windows": "sdk/windows", 
+    "window-utils": "sdk/deprecated/window-utils"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "gmail-notifier/toolbarbutton": {
+   "docsSHA256": null, 
+   "jsSHA256": "5e6188015274e8aad11e870101c613442bfe179005c4b0a48e8ff3bbdeda4b51", 
+   "moduleName": "toolbarbutton", 
+   "packageName": "gmail-notifier", 
+   "requirements": {
+    "listen": "gmail-notifier/listen", 
+    "unload+": "gmail-notifier/unload+", 
+    "window-utils": "sdk/deprecated/window-utils"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "gmail-notifier/unload+": {
+   "docsSHA256": null, 
+   "jsSHA256": "2915cde2721e35f00483427618c295945082b149173e38745dd24413d5a9da23", 
+   "moduleName": "unload+", 
+   "packageName": "gmail-notifier", 
+   "requirements": {
+    "unload": "sdk/system/unload"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "gmail-notifier/userstyles": {
+   "docsSHA256": null, 
+   "jsSHA256": "8f57f49d586aeedf6e3a519817b3a8d07af2dc50404c546b334557cc9027ef5b", 
+   "moduleName": "userstyles", 
+   "packageName": "gmail-notifier", 
+   "requirements": {
+    "chrome": "chrome", 
+    "unload": "sdk/system/unload"
+   }, 
+   "sectionName": "lib"
+  }
+ }, 
+ "metadata": {
+  "addon-sdk": {
+   "description": "Add-on development made easy.", 
+   "keywords": [
+    "javascript", 
+    "engine", 
+    "addon", 
+    "extension", 
+    "xulrunner", 
+    "firefox", 
+    "browser"
+   ], 
+   "license": "MPL 2.0", 
+   "name": "addon-sdk"
+  }, 
+  "gmail-notifier": {
+   "author": "InBasic", 
+   "description": "Multi-account Gmail notifier (without storing passwords locally)", 
+   "license": "mozilla public license 1.1", 
+   "main": "main", 
+   "name": "gmail-notifier", 
+   "version": "0.2.6"
+  }
+ }, 
+ "name": "gmail-notifier", 
+ "preferences": [
+  {
+   "description": "Minimum time period is 10 seconds.", 
+   "name": "period", 
+   "title": "Check for new emails every (seconds):", 
+   "type": "integer", 
+   "value": 15
+  }, 
+  {
+   "description": "Separate feeds by \",\" (Comma). [Restart required]", 
+   "name": "feeds", 
+   "title": "Gmail feeds:", 
+   "type": "string", 
+   "value": "https://mail.google.com/mail/u/0/feed/atom, https://mail.google.com/mail/u/1/feed/atom, https://mail.google.com/mail/u/2/feed/atom, https://mail.google.com/mail/u/3/feed/atom"
+  }, 
+  {
+   "description": "", 
+   "name": "notification", 
+   "title": "Display desktop notification for new emails:", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "description": "", 
+   "name": "alert", 
+   "title": "Play alert sound for new emails:", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "description": "The default order type is logged-in order", 
+   "name": "alphabetic", 
+   "title": "Sort account selections alphabetically:", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "description": "", 
+   "name": "textColor", 
+   "title": "Counter notifocation text color:", 
+   "type": "color", 
+   "value": "#000"
+  }, 
+  {
+   "description": "", 
+   "name": "backgroundColor", 
+   "title": "Counter notifocation background color:", 
+   "type": "color", 
+   "value": "#FFB"
+  }, 
+  {
+   "name": "soundNotification", 
+   "options": [
+    {
+     "label": "Firefox default email alert", 
+     "value": "0"
+    }, 
+    {
+     "label": "Gmail notifier alert", 
+     "value": "1"
+    }, 
+    {
+     "label": "User defined sound (wav)", 
+     "value": "2"
+    }
+   ], 
+   "title": "Sound notification:", 
+   "type": "menulist", 
+   "value": 1
+  }, 
+  {
+   "name": "sound", 
+   "title": "User defined notification sound (*.wav):", 
+   "type": "file"
+  }, 
+  {
+   "label": "Reset", 
+   "name": "reset", 
+   "title": "Reset all settings back:", 
+   "type": "control"
+  }
+ ], 
+ "sdkVersion": "1.14", 
+ "staticArgs": {}, 
+ "verbose": false
+}

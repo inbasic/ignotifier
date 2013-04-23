@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<vbox xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <setting data-jetpack-id="jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack" pref="extensions.jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack.period" pref-name="period" title="Check for new emails every (seconds):" type="integer">Minimum time period is 10 seconds.</setting>
+  <setting data-jetpack-id="jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack" pref="extensions.jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack.feeds" pref-name="feeds" title="Gmail feeds:" type="string">Separate feeds by &quot;,&quot; (Comma). [Restart required]</setting>
+  <setting data-jetpack-id="jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack" pref="extensions.jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack.notification" pref-name="notification" title="Display desktop notification for new emails:" type="bool"></setting>
+  <setting data-jetpack-id="jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack" pref="extensions.jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack.alert" pref-name="alert" title="Play alert sound for new emails:" type="bool"></setting>
+  <setting data-jetpack-id="jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack" pref="extensions.jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack.alphabetic" pref-name="alphabetic" title="Sort account selections alphabetically:" type="bool">The default order type is logged-in order</setting>
+  <setting data-jetpack-id="jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack" pref="extensions.jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack.textColor" pref-name="textColor" title="Counter notifocation text color:" type="color"></setting>
+  <setting data-jetpack-id="jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack" pref="extensions.jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack.backgroundColor" pref-name="backgroundColor" title="Counter notifocation background color:" type="color"></setting>
+  <setting data-jetpack-id="jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack" pref="extensions.jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack.soundNotification" pref-name="soundNotification" title="Sound notification:" type="menulist">
+    <menulist>
+      <menupopup>
+        <menuitem label="Firefox default email alert" value="0"/>
+        <menuitem label="Gmail notifier alert" value="1"/>
+        <menuitem label="User defined sound (wav)" value="2"/>
+      </menupopup>
+    </menulist>
+  </setting>
+  <setting data-jetpack-id="jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack" pref="extensions.jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack.sound" pref-name="sound" title="User defined notification sound (*.wav):" type="file"/>
+  <setting data-jetpack-id="jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack" pref="extensions.jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack.reset" pref-name="reset" title="Reset all settings back:" type="control">
+    <button data-jetpack-id="jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack" label="Reset" oncommand="Services.obs.notifyObservers(null, 'jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack-cmdPressed', 'reset');" pref-name="reset"/>
+  </setting>
+</vbox>
