@@ -16,8 +16,12 @@ Folders description:
 ###How to compile ignotifier
 1. Open a new terminal in the root dir (directory contains src, addon-sdk-*, preview, template, and compile folders)
 2. Run ``npm install`` to acquire the necessary nodejs packages
-3. (On Windows) Run ``node compile\install.js`` to run ignotifier in a new Firefox profile. To make xpi run ``node compile\install.js --xpi``. For more options use ``node compile\install.js --help``
-   (On Mac or Linux) Run ``node compile/install.js`` to run ignotifier in a new Firefox profile. To make xpi run ``node compile/install.js --xpi``. For more options use ``node compile/install.js --help``
+3. **On Windows** Run ``node compile\install.js`` to run ignotifier in a new Firefox profile  
+   To make xpi run ``node compile\install.js --xpi``  
+   For more options use ``node compile\install.js --help``  
+   **On Mac or Linux** Run ``node compile/install.js`` to run ignotifier in a new Firefox profile  
+   To make xpi run ``node compile/install.js --xpi``  
+   For more options use ``node compile/install.js --help``
 
 ###How to try precompiled latest version
 1. Select the right branch
