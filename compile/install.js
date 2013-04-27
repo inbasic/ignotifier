@@ -1,4 +1,5 @@
 var fs      = require('fs'), 
+    path    = require('path'),
     program = require('commander'),
     clc     = require('cli-color'),
     spawn   = require('child_process').spawn,
@@ -53,7 +54,7 @@ var installer = function (callback) {
 /** Find SDK **/
 var isWindows = !!process.platform.match(/^win/);
 
-fs.readdir("..", function (err, files) {
+fs.readdir(__dirname + path.sep + "..", function (err, files) {
   if (err) throw new Error(err);
 
   files = files.filter(function (file) {
@@ -67,8 +68,9 @@ fs.readdir("..", function (err, files) {
     }
   });
   if (!files.length) throw new Error("Addon-sdk not found");
-  var bootstrap = "../" + files[0] + "/app-extension/bootstrap.js";
-  var sdk = "../" + files[0] + (isWindows ? "/bin" : "");
+  var curpath = __dirname + path.sep + ".." + path.sep;
+  var bootstrap = curpath + files[0] + "/app-extension/bootstrap.js";
+  var sdk = curpath + files[0] + (isWindows ? "/bin" : "");
   console.log(clc.green(
     "SDK varsion: " + files[0] + "\n" + 
     "bootstrap found at: " + bootstrap
