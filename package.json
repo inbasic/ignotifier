@@ -1,0 +1,10 @@
+{
+  "author": "InBasic <inb.cor@gmail.com>",
+  "name" : "ignotifier",
+  "version" : "0.2.6",
+  "dependencies" :
+    { 
+      "cli-color": "0.2",
+      "commander": "1.1"
+    }
+}
