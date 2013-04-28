@@ -223,14 +223,18 @@ exports.main = function(options, callbacks) {
   if (options.loadReason == "upgrade" || options.loadReason == "install") {
     welcome();
   }
-  //Prefs
-  sp.on("textColor", function () {
-    gButton.textColor = config.textColor;
-  });
-  sp.on("backgroundColor", function () {
-    gButton.backgroundColor = config.backgroundColor;
-  });
 };
+
+//Prefs
+sp.on("textColor", function () {
+  gButton.textColor = config.textColor;
+});
+sp.on("backgroundColor", function () {
+  gButton.backgroundColor = config.backgroundColor;
+});
+sp.on("clrPattern", function () {
+  tm.reset();
+});
 
 /** Store toolbar button position **/
 var activeBrowserWindow = windowutils.activeBrowserWindow;
