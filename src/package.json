@@ -84,6 +84,16 @@
       "label": "Reset",
       "name": "reset",
       "title": "Reset all settings back:"
+  },
+  {
+    "name": "clrPattern",
+    "title": "Toolbar color pattern:",
+    "type": "menulist",
+    "value": 0,
+    "options": [
+      {"value": "0", "label": "No Unread (Gray), Disconnected (Blue)"},
+      {"value": "1", "label": "No unread (Blue), Disconnected (Gray)"}
+    ]
   }],
 
   "id": "jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls" 

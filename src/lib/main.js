@@ -103,7 +103,21 @@ function open (url, inBackground) {
 var icon = function (number, clr) {
   gButton.loadMode = false;
   gButton.badge = (number < 10) ? number : "+";
-  gButton.color = clr;
+  if (prefs.clrPattern == 0) {
+    gButton.color = clr;
+  }
+  else {  //Support for reverse coloring
+    switch (clr) {
+      case "blue":
+        gButton.color = "gray";
+        break;
+      case "gray":
+        gButton.color = "blue";
+        break;
+      default:
+        gButton.color = clr;
+    }
+  }
 }
 
 /** Multi email Panel **/
@@ -583,15 +597,14 @@ var checkAllMails = (function () {
 /** Prefs **/
 sp.on("reset", function() {
   if (!window.confirm(_("msg7"))) return
-  prefs.backgroundColor = "#FFB";
-  prefs.textColor       = "#000";
-  prefs.alphabetic      = false;
-  prefs.alert           = true;
-  prefs.notification    = true;
-  prefs.period          = 15;
-  prefs.feeds           = config.email.FEEDS;
-  prefs.red             = 6;
-  prefs.gray            = 2;
+  prefs.backgroundColor   = "#FFB";
+  prefs.textColor         = "#000";
+  prefs.alphabetic        = false;
+  prefs.alert             = true;
+  prefs.notification      = true;
+  prefs.period            = 15;
+  prefs.feeds             = config.email.FEEDS;
+  prefs.soundNotification = 1;
 });
 
 /** Notifier **/
