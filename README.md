@@ -6,9 +6,10 @@ To compile ignotifier project you need to have these softwares and libraries ava
 * [python](http://www.python.org/getit/)
 * [nodejs](http://nodejs.org/)
 * [Mozilla addon-sdk](https://addons.mozilla.org/en-US/developers/builder)
+
   > By default, the addon-sdk folder is assumed to be one directory above the project. This can be modified using the ``--sdk`` parameter.
 
-Folders description:
+###Folders description
 * compile: nodejs auto-compiler
 * preview: screenshots
 * src: ignotifier source code
