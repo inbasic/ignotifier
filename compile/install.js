@@ -8,23 +8,23 @@ var fs      = require('fs'),
     
 /** Command Line setup **/
 program
-  .version('0.0.1')
+  .version('0.0.3')
   .option('-r, --run', 
     'Run extension in a clean profile ' +
-    '(equivalent to cfx run). No xpi file will be generated in this mode!'
+    '(equivalent to cfx run). No XPI will be generated'
   )
   .option('-w, --wget', 
-    'Run extension in current profile ' +
-    'Wget and Extension auto installer are required.'
+    'Send generated XPI over TCP (Port:8888) to the current profile ' +
+    'A TCP server such as "Extension auto installer" is required.'
   )
   .option('-e, --xpi', 
-    'Create XPI file in cLinux dir'
+    'Create XPI file in /src dir'
   )
   .option('-j, --jsconsole', 
     'Show jsConsole in run mode'
   )
   .option('-i, --ip <ip>', 
-    'Send XPI to this host [localhost]',
+    'Combine this option with --wget to send the generated XPI to a host rather than "localhost"',
     'localhost'
   )
   .option('--sdk <sdk path>', 
@@ -41,9 +41,7 @@ var installer = function (callback) {
   child = exec(cmd, {}, function (error, stdout, stderr) {
       if (stdout) {
         fs.readFile(/.*/.exec(stdout)[0], null, function(err, buffer) {
-
           console.log(clc.green('Connecting to ' + program.ip + '/:8888'));
-
           var client = net.connect({
             host: program.ip, 
             port: 8888
@@ -55,6 +53,7 @@ var installer = function (callback) {
           client.on('data', function(data) {
             console.log(clc.green(data.toString()));
             client.end();
+            setTimeout(function(){process.exit(0);}, 500);
           });
         });
       }
