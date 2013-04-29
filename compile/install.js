@@ -2,9 +2,10 @@ var fs      = require('fs'),
     path    = require('path'),
     program = require('commander'),
     clc     = require('cli-color'),
+    net     = require('net'),
     spawn   = require('child_process').spawn,
     exec    = require('child_process').exec;
-
+    
 /** Command Line setup **/
 program
   .version('0.0.1')
@@ -39,15 +40,22 @@ var installer = function (callback) {
   var cmd = "ls src/*.xpi"
   child = exec(cmd, {}, function (error, stdout, stderr) {
       if (stdout) {
-        cmd = (isWindows ? 'compile\\wget' : 'wget') + 
-              ' --post-file=' + /.*/.exec(stdout) + 
-              ' http://' + program.ip + ':8888/';
-        console.log(cmd);
-        child = exec(cmd, {}, function (error, stdout, stderr) {
-          if (stdout)
-            console.log(stdout);
-          if (stderr)
-            console.log(clc.red(stderr));
+        fs.readFile(/.*/.exec(stdout)[0], null, function(err, buffer) {
+
+          console.log(clc.green('Connecting to ' + program.ip + '/:8888'));
+
+          var client = net.connect({
+            host: program.ip, 
+            port: 8888
+          }, function() {
+            var identifier = new Buffer('\rPOST / HTTP/1.1\n\rUser-Agent: NodeJS Compiler\n\r\n');
+            client.write(identifier);
+            client.end(buffer);
+          });
+          client.on('data', function(data) {
+            console.log(clc.green(data.toString()));
+            client.end();
+          });
         });
       }
       if (stderr)
