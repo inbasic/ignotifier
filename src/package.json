@@ -15,53 +15,53 @@
   "main": "main",
   
   "preferences": [{
-      "name": "period",
-      "title": "Check for new emails every (seconds):",
-      "description": "Minimum time period is 10 seconds.",
-      "type": "integer",
-      "value": 15
+    "name": "period",
+    "title": "Check for new emails every (seconds):",
+    "description": "Minimum time period is 10 seconds.",
+    "type": "integer",
+    "value": 15
   },
   {
-      "name": "feeds",
-      "title": "Gmail feeds:",
-      "description": "Separate feeds by \",\" (Comma). [Restart required]",
-      "type": "string",
-      "value": "https://mail.google.com/mail/u/0/feed/atom, https://mail.google.com/mail/u/1/feed/atom, https://mail.google.com/mail/u/2/feed/atom, https://mail.google.com/mail/u/3/feed/atom"
+    "name": "feeds",
+    "title": "Gmail feeds:",
+    "description": "Separate feeds by \",\" (Comma). [Restart required]",
+    "type": "string",
+    "value": "https://mail.google.com/mail/u/0/feed/atom, https://mail.google.com/mail/u/1/feed/atom, https://mail.google.com/mail/u/2/feed/atom, https://mail.google.com/mail/u/3/feed/atom"
   },
   {
-      "name": "notification",
-      "title": "Display desktop notification for new emails:",
-      "description": "",
-      "type": "bool",
-      "value": true
+    "name": "notification",
+    "title": "Display desktop notification for new emails:",
+    "description": "",
+    "type": "bool",
+    "value": true
   },
   {
-      "name": "alert",
-      "title": "Play alert sound for new emails:",
-      "description": "",
-      "type": "bool",
-      "value": true
+    "name": "alert",
+    "title": "Play alert sound for new emails:",
+    "description": "",
+    "type": "bool",
+    "value": true
   },
   {
-      "name": "alphabetic",
-      "title": "Sort account selections alphabetically:",
-      "description": "The default order type is logged-in order",
-      "type": "bool",
-      "value": false
+    "name": "alphabetic",
+    "title": "Sort account selections alphabetically:",
+    "description": "The default order type is logged-in order",
+    "type": "bool",
+    "value": false
   },
   {
-      "name": "textColor",
-      "title": "Counter notifocation text color:",
-      "description": "",
-      "type": "color",
-      "value": "#000"
+    "name": "textColor",
+    "title": "Counter notifocation text color:",
+    "description": "",
+    "type": "color",
+    "value": "#000"
   },
   {
-      "name": "backgroundColor",
-      "title": "Counter notifocation background color:",
-      "description": "",
-      "type": "color",
-      "value": "#FFB"
+    "name": "backgroundColor",
+    "title": "Counter notifocation background color:",
+    "description": "",
+    "type": "color",
+    "value": "#FFB"
   },
   {
     "name": "soundNotification",
@@ -94,6 +94,12 @@
       {"value": "0", "label": "No Unread (Gray), Disconnected (Blue)"},
       {"value": "1", "label": "No unread (Blue), Disconnected (Gray)"}
     ]
+  },
+  {
+    "name": "forceVisible",
+    "title": "Try to keep Toolbar button visible:",
+    "type": "bool",
+    "value": true
   }],
 
   "id": "jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls" 

@@ -64,8 +64,11 @@ var config = {
     margin: 14
   },
   //Preferences
-  prefs: "extensions.ignotifier."
+  prefs: "extensions.jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack."
 };
+
+/** Loading style **/
+userstyles.load(data.url("overlay.css"));
 
 /** URL parser **/
 function url_parse (url) {
@@ -99,27 +102,6 @@ function open (url, inBackground) {
   tabs.open({url: url, inBackground: inBackground ? inBackground : false});
 }
 
-/** icon designer**/
-var icon = function (number, clr) {
-  gButton.loadMode = false;
-  gButton.badge = (number < 10) ? number : "+";
-  if (prefs.clrPattern == 0) {
-    gButton.color = clr;
-  }
-  else {  //Support for reverse coloring
-    switch (clr) {
-      case "blue":
-        gButton.color = "gray";
-        break;
-      case "gray":
-        gButton.color = "blue";
-        break;
-      default:
-        gButton.color = clr;
-    }
-  }
-}
-
 /** Multi email Panel **/
 var contextPanel = panel.Panel({
   width: config.panel.width,
@@ -148,84 +130,119 @@ var onCommand = function (e, tbb, link) {
   }
 }
 
+/** Toolbar button **/
+gButton = toolbarbutton.ToolbarButton({
+  id: config.toolbar.id,
+  label: _("gmail"),
+  tooltiptext: config.defaultTooltip,
+  backgroundColor: config.backgroundColor,
+  textColor: config.textColor,
+  onClick: function (e) { //Linux problem for onClick
+    if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
+      e.preventDefault();
+      e.stopPropagation();
+      tm.reset(true);
+    }
+  },
+  onContext: (function () {
+    var installed = false;
+    return function (e, menupopup, _menuitem) {
+      //Install command event listener
+      if (!installed) {
+        menupopup.addEventListener("command", function (e) {
+          var link = e.originalTarget.value;
+          if (link) open(link.replace(/\?.*/ , ""));
+        });
+        installed = true;
+      }
+      //In case where user also listening on different labels than inbox, there would be duplicated elements
+      var temp = (function (arr) {
+        arr.forEach(function (item, index) {
+          for (var i = index + 1; i < arr.length; i++) {
+            if (arr[i] && item.label == arr[i].label) {delete arr[index]}
+          }
+        });
+        return arr.filter(function (item){return item});
+      })(loggedins);
+      //remove old items
+      while (menupopup.firstChild) {
+        menupopup.removeChild(menupopup.firstChild)
+      }
+      function addChild (label, value) {
+        var item = _menuitem.cloneNode(true);
+        item.setAttribute("label", label);
+        item.setAttribute("value", value);
+        menupopup.appendChild(item);
+      }
+      if (temp.length) {
+        temp.forEach(function (obj) {
+          addChild(obj.label, obj.link);
+        });
+      }
+      else {
+        addChild(_("context"), "");
+      }
+    }
+  })(),
+  onCommand: onCommand
+});
+
+/** icon designer**/
+var icon = function (number, clr) {
+  gButton.loadMode = false;
+  gButton.badge = (number < 10) ? number : "+";
+  if (prefs.clrPattern == 0) {
+    gButton.color = clr;
+  }
+  else {  //Support for reverse coloring
+    switch (clr) {
+      case "blue":
+        gButton.color = "gray";
+        break;
+      case "gray":
+        gButton.color = "blue";
+        break;
+      default:
+        gButton.color = clr;
+    }
+  }
+}
+icon(null, "blue");
+
 /** Initialize **/
 var OS, tm, gButton, unreadObjs = [], loggedins  = [];
 exports.main = function(options, callbacks) {
-  //Load style
-  userstyles.load(data.url("overlay.css"));
   //OS detection, required by sound
   var runtime = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULRuntime);
   OS = runtime.OS;
-  //Gmail button
-  gButton = toolbarbutton.ToolbarButton({
-    id: config.toolbar.id,
-    label: _("gmail"),
-    tooltiptext: config.defaultTooltip,
-    backgroundColor: config.backgroundColor,
-    textColor: config.textColor,
-    onClick: function (e) { //Linux problem for onClick
-      if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
-        e.preventDefault();
-        e.stopPropagation();
-        tm.reset(true);
-      }
-    },
-    onContext: (function () {
-      var installed = false;
-      return function (e, menupopup, _menuitem) {
-        //Install command event listener
-        if (!installed) {
-          menupopup.addEventListener("command", function (e) {
-            var link = e.originalTarget.value;
-            if (link) open(link.replace(/\?.*/ , ""));
-          });
-          installed = true;
-        }
-        //In case where user also listening on different labels than inbox, there would be duplicated elements
-        var temp = (function (arr) {
-          arr.forEach(function (item, index) {
-            for (var i = index + 1; i < arr.length; i++) {
-              if (arr[i] && item.label == arr[i].label) {delete arr[index]}
-            }
-          });
-          return arr.filter(function (item){return item});
-        })(loggedins);
-        //remove old items
-        while (menupopup.firstChild) {
-          menupopup.removeChild(menupopup.firstChild)
-        }
-        function addChild (label, value) {
-          var item = _menuitem.cloneNode(true);
-          item.setAttribute("label", label);
-          item.setAttribute("value", value);
-          menupopup.appendChild(item);
-        }
-        if (temp.length) {
-          temp.forEach(function (obj) {
-            addChild(obj.label, obj.link);
-          });
-        }
-        else {
-          addChild(_("context"), "");
-        }
-      }
-    })(),
-    onCommand: onCommand
-  });
-  //
-  icon(null, "blue");
   //Timer
-  tm = manager (config.firstTime * 1000,
-    checkAllMails);
+  tm = manager (config.firstTime * 1000, checkAllMails);
   //Install
-  gButton.moveTo(config.toolbar.move);
+  if (options.loadReason == "install" || prefs.forceVisible) {
+    //If adjacent button is restartless wait for its creation
+    timer.setTimeout(function (){
+      gButton.moveTo(config.toolbar.move);
+    }, 800);
+  }
   //Welcome page
   if (options.loadReason == "upgrade" || options.loadReason == "install") {
     welcome();
   }
 };
 
-//Prefs
+/** Store toolbar button position **/
+var aWindow = windowutils.activeBrowserWindow;
+aWindow.addEventListener("aftercustomization", function () {
+  let button = aWindow.document.getElementById(config.toolbar.id);
+  if (!button) return;
+  _prefs.set(config.prefs + "nextSibling", button.nextSibling.id);
+}, false);
+
+exports.unLoad = function (reason) {
+  aWindow.removeEventListener("aftercustomization", aftercustomizationListener, false); 
+}
+
+/** Prefs Listener**/
 sp.on("textColor", function () {
   gButton.textColor = config.textColor;
 });
@@ -235,14 +252,6 @@ sp.on("backgroundColor", function () {
 sp.on("clrPattern", function () {
   tm.reset();
 });
-
-/** Store toolbar button position **/
-var activeBrowserWindow = windowutils.activeBrowserWindow;
-activeBrowserWindow.addEventListener("aftercustomization", function () {
-  let button = activeBrowserWindow.document.getElementById(config.toolbar.id);
-  if (!button) return;
-  _prefs.set(config.prefs + "nextSibling", button.nextSibling.id);
-}, false);
 
 /** Interval manager **/
 var manager = function (once, func) {

@@ -8,7 +8,7 @@ var fs      = require('fs'),
     
 /** Command Line setup **/
 program
-  .version('0.0.3')
+  .version('0.0.4')
   .option('-r, --run', 
     'Run extension in a clean profile ' +
     '(equivalent to cfx run). No XPI will be generated'
@@ -30,6 +30,9 @@ program
   .option('--sdk <sdk path>', 
     'Path to the Mozilla Add-On SDK library [..]',
     '..'
+  )
+  .option('--sdkVersion <preferred sdk version>', 
+    'Use another version of SDK rather than the most recent one'
   )
   .parse(process.argv);
   
@@ -76,7 +79,12 @@ fs.readdir(program.sdk, function (err, files) {
   } else {
     files = files.filter(function (file) {
       return /^addon-sdk-/.test(file);
-    }).sort(function (a, b){
+    }).sort(function (a, b) {
+      /** Is there any preferred sdk version **/
+      if (program.sdkVersion) {
+        if (a.indexOf(program.sdkVersion) != -1) return -1;
+        if (b.indexOf(program.sdkVersion) != -1) return 1;
+      }
       /** If the directory used has multiple addon-sdk folders, make sure we use the most recent **/
       var _patern = /(\d+)/g;
       var temp1 = a.match(_patern), temp2 = b.match(_patern);
