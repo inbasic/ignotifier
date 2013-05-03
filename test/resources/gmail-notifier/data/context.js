@@ -28,5 +28,6 @@ self.port.on("list", function(list) {
 });
 
 ul.addEventListener("click", function (e) {
-  self.port.emit('click', e.originalTarget.value);
+	console.log(e.originalTarget);
+  //self.port.emit('click', e.originalTarget.value);
 })

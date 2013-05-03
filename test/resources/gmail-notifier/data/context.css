@@ -1,0 +1,41 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+body
+{
+	overflow: hidden;
+	overflow-y: auto;
+}
+div#content
+{
+	width: 290px;
+	height: 96%;
+	padding: 5px;
+}
+ul#emails
+{
+	list-style-type: none;
+	margin: auto;
+}
+ul#emails a 
+{
+	padding-left: 5px;
+	display: block;
+	text-decoration: none;
+	padding-top: 1px;
+	padding-bottom: 3px;
+	cursor: pointer;
+	border: solid 1px transparent;
+	font: 14px arial,sans-serif;
+}
+ul#emails a font 
+{
+	color: darkblue
+}
+ul#emails a:hover 
+{
+	background-color: #E2EEFC;
+	border: solid 1px #AECFF7;
+	border-radius: 2px;
+}

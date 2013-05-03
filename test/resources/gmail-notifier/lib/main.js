@@ -62,7 +62,7 @@ var config =
 	homepage: "http://add0n.com/gmail-notifier.html",
 	//panel
 	panel: {
-		width: 230,
+		width: 300,
 		each: 22,
 		margin: 14
 	}
