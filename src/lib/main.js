@@ -59,7 +59,8 @@ var config = {
   homepage: "http://add0n.com/gmail-notifier.html",
   //panel
   panel: {
-    width: 230,
+    width: 260,
+    height: 160,
     each: 22,
     margin: 14
   },
@@ -105,6 +106,11 @@ function open (url, inBackground) {
 /** Multi email Panel **/
 var contextPanel = panel.Panel({
   width: config.panel.width,
+  height: config.panel.height,
+  position: {
+    top: 0,
+    right: 30
+  },
   contentURL: data.url("context.html"),
   contentScriptFile: data.url("context.js")
 });
@@ -126,7 +132,12 @@ var onCommand = function (e, tbb, link) {
   }
   else {
     contextPanel.port.emit('list', unreadObjs);
-    contextPanel.show(tbb);
+    try {
+      contextPanel.show(tbb);
+    }
+    catch (e) {
+      contextPanel.show(null, tbb);
+    }
   }
 }
 
@@ -232,12 +243,12 @@ exports.main = function(options, callbacks) {
 
 /** Store toolbar button position **/
 var aWindow = windowutils.activeBrowserWindow;
-aWindow.addEventListener("aftercustomization", function () {
+var aftercustomizationListener = function () {
   let button = aWindow.document.getElementById(config.toolbar.id);
   if (!button) return;
   _prefs.set(config.prefs + "nextSibling", button.nextSibling.id);
-}, false);
-
+}
+aWindow.addEventListener("aftercustomization", aftercustomizationListener, false);
 exports.onUnload = function (reason) {
   aWindow.removeEventListener("aftercustomization", aftercustomizationListener, false); 
 }
