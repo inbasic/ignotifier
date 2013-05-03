@@ -71,9 +71,13 @@ var isWindows = !!process.platform.match(/^win/);
 fs.readdir(program.sdk, function (err, files) {
   if (err) throw new Error(err);
 
-  var actualAddonPath, sdkVersion;
+
+  var actualAddonPath, sdkVersion, sdkVersionMatched = false;
   /** In case user supplied path pointing to actual SDK directory **/
   if (/addon-sdk/.test(program.sdk) !== false) {
+    if (typeof program.sdkVersion !== "undefined") {
+      console.log(clc.red("--sdk pointed to actual addon directory, ignoring --sdkVersion"));
+    }
     actualAddonPath = program.sdk;
     sdkVersion = actualAddonPath
   } else {
@@ -82,8 +86,14 @@ fs.readdir(program.sdk, function (err, files) {
     }).sort(function (a, b) {
       /** Is there any preferred sdk version **/
       if (program.sdkVersion) {
-        if (a.indexOf(program.sdkVersion) != -1) return -1;
-        if (b.indexOf(program.sdkVersion) != -1) return 1;
+        if (a.indexOf(program.sdkVersion) != -1) {
+          sdkVersionMatched = true;
+          return -1;
+        }
+        if (b.indexOf(program.sdkVersion) != -1) {
+          sdkVersionMatched = true;
+          return 1;
+        }
       }
       /** If the directory used has multiple addon-sdk folders, make sure we use the most recent **/
       var _patern = /(\d+)/g;
@@ -94,6 +104,7 @@ fs.readdir(program.sdk, function (err, files) {
         }
       }
     });
+    if (program.sdkVersion && sdkVersionMatched === false) throw new Error("Unable to find sdk directory for "+program.sdkVersion);
     if (!files.length) throw new Error("Addon-sdk not found");
     actualAddonPath = program.sdk + path.sep + files[0];
     sdkVersion = files[0];
