@@ -238,7 +238,7 @@ aWindow.addEventListener("aftercustomization", function () {
   _prefs.set(config.prefs + "nextSibling", button.nextSibling.id);
 }, false);
 
-exports.unLoad = function (reason) {
+exports.onUnload = function (reason) {
   aWindow.removeEventListener("aftercustomization", aftercustomizationListener, false); 
 }
 

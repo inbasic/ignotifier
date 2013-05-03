@@ -97,7 +97,7 @@
   },
   {
     "name": "forceVisible",
-    "title": "Try to keep Toolbar button visible:",
+    "title": "Always try to keep toolbar button visible:",
     "type": "bool",
     "value": true
   }],
