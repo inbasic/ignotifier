@@ -277,16 +277,16 @@ exports.main = function(options, callbacks)
 /** Interval manager **/
 var manager = function(once, func)
 {
-	var _timer, fisrt = true;
+	var _timer, first = true;
 
 	function run(t1, param)
 	{
 		_timer = timer.setTimeout(function()
 		{
-			func(fisrt ? param : null);
-			fisrt = false;
+			func(first ? param : null);
+			first = false;
 			run(t1);
-		}, fisrt ? t1 : config.period * 1000);
+		}, first ? t1 : config.period * 1000);
 	}
 	run(once);
 
@@ -294,7 +294,7 @@ var manager = function(once, func)
 		reset: function(forced)
 		{
 			timer.clearTimeout(_timer);
-			fisrt = true;
+			first = true;
 			run(0, forced);
 		}
 	}
@@ -497,7 +497,7 @@ var server =
 				}
 				state = false;
 
-				//Gmail logged-in && has count && new count && forced
+				//Gmail logged-in && has count && new count && forced				
 				if (exist && count && newUnread && forced)
 				{ /* xml, count, showAlert, color, message */
 					if (callback) callback.apply(pointer, [xml, count, true, "red", [xml.title, count]])
@@ -649,7 +649,7 @@ var checkAllMails = (function()
 					var msg = r.msgObj[0] + (label ? "/" + label : "") + " (" + r.msgObj[1] + ")";
 					if (r.alert)
 					{
-						text += (text ? " - " : "") + msg;
+						text += (text ? "\n" : "") + msg;
 						if (singleLink === null)
 						{
 							singleLink = r.xml.link;
@@ -670,7 +670,7 @@ var checkAllMails = (function()
 				}
 				else
 				{
-					text += (text ? " - " : "") + r.msgObj[0] + " " + r.msgObj[1];
+					text += (text ? "\n" : "") + r.msgObj[0] + " " + r.msgObj[1];
 				}
 			}
 			showAlert = showAlert || r.alert;
