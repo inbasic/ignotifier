@@ -1,8 +1,16 @@
-var ul = $("#emails");
+window.addEventListener('message', function(event) {
+	initList(event.data);
+}, false);
 
-
-function initSliders()
+function initList(list)
 {
+	var ul = $("#emails");
+	ul.empty();
+
+	list.forEach(function(obj, index) {
+		add(obj.account, obj.count, obj.link, obj.entries, index);
+	});
+	
 	//Select the first
 	$("li:first > span", ul).trigger("click");
 	
@@ -19,9 +27,36 @@ function initSliders()
 	});
 }
 
+function add(account, count, link, entries, index) {
+	var li = '<li><span onclick="showMail(this);">'+account+' (<span id="current_'+index+'">'+Math.min(1,count)+'</span>/<span id="total_'+index+'">'+count+'</span>) <i></i></span>'+
+		'<div id="account_'+index+'" class="email_container">'+
+			'<a href="" class="prev disabled" onclick="return prevMail('+index+');"><i></i></a>'+
+			'<div class="mask">'+
+				'<ul class="email_holder" id="holder_'+ index +'">';
+		entries.forEach(function(e, i){
+			li += '<li>'+
+					'<div class="email_header">'+
+						'<a href="mailto:'+e.author.email+'" title="'+e.author.email+'">'+e.author.name+'</a>'+
+						'<span>'+formatDate(e.issued)+'</span>'+
+					'</div>'+
+					'<div class="email_content">'+
+						'<a href="'+e.link.href+'" onclick="return openTab(this.href, '+index+', '+i+');" title="open this email">'+e.title+'</a>'+
+						'<p>'+e.summary+'</p>'+
+					'</div>'+
+				'</li>';	
+		});
+			li += '</ul>'+
+			'</div>'+
+			'<a href="" class="next'+((!count)? " disabled": "")+'" onclick="return nextMail('+index+');"><i></i></a>'+
+		'</div>'+
+	'</li>';
+	$("#emails").append(li);
+}
+
+
 function showMail(obj)
 {
-	if($(obj).next().css("display") == 'none')
+	if($(obj).next().css("display") == 'none' && parseInt($("[id^=total_]", obj).text())>0)
 	{
 		$(".email_container").slideUp(300);
 		$("li.selected").removeClass("selected");
@@ -34,6 +69,7 @@ function showMail(obj)
 function prevMail(index)
 {
 	var current = parseInt($("#current_"+index).text());
+	var total = parseInt($("#total_"+index).text());
 	
 	if(current > 1)
 	{	
@@ -45,12 +81,12 @@ function prevMail(index)
 	}
 	
 	if(current > 1)
-	{
-		$("#account_"+index+" .next").removeClass("disabled");
 		$("#account_"+index+" .prev").removeClass("disabled");
-	}
 	else
 		$("#account_"+index+" .prev").addClass("disabled");
+		
+	if(current < total)
+		$("#account_"+index+" .next").removeClass("disabled");
 	
 	return false;
 }
@@ -70,14 +106,12 @@ function nextMail(index)
 	}
 	
 	if(current < total)
-	{
-		$("#account_"+index+" .next").removeClass("disabled");
-		$("#account_"+index+" .prev").removeClass("disabled");
-	}
+		$("#account_"+index+" .next").removeClass("disabled");	
 	else
 		$("#account_"+index+" .next").addClass("disabled");
 		
-
+	if(current>1)
+		$("#account_"+index+" .prev").removeClass("disabled");
 	
 	return false;
 }
@@ -105,50 +139,11 @@ function formatDate(str)
 	return output;
 }
 
-function add(account, count, link, xml, index) {
-	var li = '<li><span onclick="showMail(this);">'+account+' (<span id="current_'+index+'">1</span>/<span id="total_'+index+'">'+count+'</span>) <i></i></span>'+
-		'<div id="account_'+index+'" class="email_container">'+
-			'<a href="" class="prev disabled" onclick="return prevMail('+index+');"><i></i></a>'+
-			'<div class="mask">'+
-				'<ul class="email_holder" id="holder_'+ index +'">';
-		xml.find("entry").each(function(i, e){
-			e = $(e);
-			li += '<li>'+
-					'<div class="email_header">'+
-						'<a href="mailto:'+e.find("author email").text()+'" title="'+e.find("author email").text()+'">'+e.find("author name").text()+'</a>'+
-						'<span>'+formatDate(e.find("issued").text())+'</span>'+
-					'</div>'+
-					'<div class="email_content">'+
-						'<a href="'+e.find("link").attr("href")+'" title="open this email">'+e.find("title").text()+'</a>'+
-						'<p>'+e.find("summary").text()+'</p>'+
-					'</div>'+
-				'</li>';	
-		});
-			li += '</ul>'+
-			'</div>'+
-			'<a href="" class="next" onclick="return nextMail('+index+');"><i></i></a>'+
-		'</div>'+
-	'</li>';
-	ul.append(li);
-}
-
-
-self.port.on("list", function(list) {
-	ul.empty();
-	list.forEach(function(obj, index) {
-		
-		obj.xml.enteries.forEach(function(entry, i)
-		{
-			console.log(entry.getElementsByTagName("id")[0].childNodes[0].nodeValue);
-		});
-		
-		add(obj.account, obj.count, obj.link, $(obj.xml), index);
-	});
+function openTab(link, account_id, mail_id)
+{
+	var event = document.createEvent('CustomEvent');
+    event.initCustomEvent("open_mail_link", true, true, {link:link, account_id: account_id, mail_id: mail_id});
+    document.documentElement.dispatchEvent(event);
 	
-	//initSliders();
-});
-
-ul.addEventListener("click", function(e) {
-	console.log($("ul").toString());
-	//self.port.emit('click', e.originalTarget.value);
-})
+	return false;
+}

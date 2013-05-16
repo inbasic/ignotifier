@@ -81,8 +81,49 @@ function url_parse(url)
 	}
 }
 
-/** Open new Tab or reuse old tabs to open the url **/
+/** convert xml to json **/
+function xml2json(node) {
 
+	var	data = {};
+
+	// append a value
+	function Add(name, value) {
+		if (data[name]) {
+			if (data[name].constructor != Array) {
+				data[name] = [data[name]];
+			}
+			data[name][data[name].length] = value;
+		}
+		else {
+			data[name] = value;
+		}
+	};
+	
+	// element attributes
+	var c, cn;
+	for (c = 0; cn = node.attributes[c]; c++) {
+		Add(cn.name, cn.value);
+	}
+	
+	// child elements
+	for (c = 0; cn = node.childNodes[c]; c++) {
+		if (cn.nodeType == 1) {
+			if (cn.childNodes.length == 1 && cn.firstChild.nodeType == 3) {
+				// text value
+				Add(cn.nodeName, cn.firstChild.nodeValue);
+			}
+			else {
+				// sub-object
+				Add(cn.nodeName, xml2json(cn));
+			}
+		}
+	}
+
+	return data;
+
+}
+
+/** Open new Tab or reuse old tabs to open the url **/
 function open(url, inBackground)
 {
 	for each(var tab in windows.activeWindow.tabs)
@@ -92,7 +133,7 @@ function open(url, inBackground)
 			var parse1 = url_parse(tab.url),
 				parse2 = url_parse(url);
 
-			if (parse1.base == parse2.base && parse1.label == parse2.label)
+			if (parse1.base == parse2.base)
 			{
 				if (tabs.activeTab == tab)
 				{
@@ -102,6 +143,8 @@ function open(url, inBackground)
 				{
 					tab.activate();
 				}
+				//change the url of the current tab
+				tab.url = url;
 				return;
 			}
 		}
@@ -114,6 +157,26 @@ function open(url, inBackground)
 		url: url,
 		inBackground: inBackground ? inBackground : false
 	});
+}
+
+function decreaseNumOfMails(account_id, mail_id)
+{
+	
+	unreadObjs[account_id].entries.splice(mail_id,1);
+	unreadObjs[account_id].count--;
+	
+	var total = 0;
+	unreadObjs.forEach(function(e, i){
+		total += e.count;	
+	});
+	
+	if(total>0)
+		icon(total, "red");
+	else
+		icon(total, "gray");
+	
+	
+	
 }
 
 /** icon designer**/
@@ -129,13 +192,20 @@ var contextPanel = panel.Panel(
 {
 	width: config.panel.width,
 	contentURL: data.url("context.html"),
-	contentScriptFile: [data.url("jquery-2.0.0.min.js"), data.url("context.js")]
+	contentScriptFile: data.url("context_trigger.js")
 });
-contextPanel.port.on("click", function(link)
+contextPanel.port.on("open_mail", function(data)
 {
 	contextPanel.hide();
-	if (link) open(link);
-})
+	
+	if (data.link)
+	{
+		open(data.link);
+		
+		//decrease the number of mails
+		decreaseNumOfMails(data.account_id, data.mail_id);
+	}
+});
 
 /** onCommand **/
 var onCommand = function(e, tbb, link)
@@ -301,13 +371,15 @@ var manager = function(once, func)
 };
 
 /** User's actions **/
-tabs.on('ready', function(tab)
+/*tabs.on('ready', function(tab)
 {
 	if (/mail\.google\.com/.test(tab.url))
 	{
 		tm.reset();
 	}
-}); /** Welcome page **/
+});*/ 
+
+/** Welcome page **/
 var welcome = function()
 {
 	timer.setTimeout(function()
@@ -418,9 +490,21 @@ var server =
 				{
 				}
 				return temp;
-			}, get enteries()
+			}, get entries()
 			{
-				return Array.prototype.slice.call(xml.getElementsByTagName("entry"))
+				var temp = Array.prototype.slice.call(xml.getElementsByTagName("entry"));
+				var ret = new Array();
+								
+				try
+				{
+					temp.forEach(function(node, i){
+						ret.push(xml2json(node));	
+					});
+				}
+				catch (e)
+				{
+				}												
+				return ret;
 			}
 		}
 	},
@@ -454,7 +538,7 @@ var server =
 			req.onreadystatechange = function()
 			{
 				if (req.readyState != 4) return;
-				var xml = new server.parse(req, feed);
+				var response = new server.parse(req, feed);
 
 				var count = 0;
 				var normal = false; //not logged-in but normal response from gmail
@@ -462,16 +546,16 @@ var server =
 				var exist = req.status == 200; //Gmail account is loged-in
 				if (exist)
 				{
-					count = xml.fullcount;
+					count = response.fullcount;
 					if (oldCount > config.email.maxCount || count > config.email.maxCount)
 					{
 						newUnread = (count > oldCount)
 					}
 					else
 					{
-						xml.enteries.forEach(function(entry, i)
+						response.entries.forEach(function(entry, i)
 						{
-							var id = entry.getElementsByTagName("id")[0].childNodes[0].nodeValue;
+							var id = entry.id;
 							if (msgs.indexOf(id) == -1)
 							{
 								newUnread = true;
@@ -480,9 +564,9 @@ var server =
 					}
 					oldCount = count;
 					msgs = [];
-					xml.enteries.forEach(function(entry, i)
+					response.entries.forEach(function(entry, i)
 					{
-						msgs.push(entry.getElementsByTagName("id")[0].childNodes[0].nodeValue);
+						msgs.push(entry.id);
 					});
 				}
 				else
@@ -491,7 +575,7 @@ var server =
 					oldCount = 0;
 				}
 
-				if (!exist && req.responseText && xml.authorized == "Unauthorized")
+				if (!exist && req.responseText && response.authorized == "Unauthorized")
 				{
 					normal = true;
 				}
@@ -500,49 +584,49 @@ var server =
 				//Gmail logged-in && has count && new count && forced				
 				if (exist && count && newUnread && forced)
 				{ /* xml, count, showAlert, color, message */
-					if (callback) callback.apply(pointer, [xml, count, true, "red", [xml.title, count]])
+					if (callback) callback.apply(pointer, [response, count, true, "red", [response.title, count]])
 					return;
 				}
 				//Gmail logged-in && has count && new count && no force
 				if (exist && count && newUnread && !forced)
 				{
-					if (callback) callback.apply(pointer, [xml, count, true, "red", [xml.title, count]])
+					if (callback) callback.apply(pointer, [response, count, true, "red", [response.title, count]])
 					return;
 				}
 				//Gmail logged-in && has count && old count && forced
 				if (exist && count && !newUnread && forced)
 				{
-					if (callback) callback.apply(pointer, [xml, count, true, "red", [xml.title, count]])
+					if (callback) callback.apply(pointer, [response, count, true, "red", [response.title, count]])
 					return;
 				}
 				//Gmail logged-in && has count && old count && no forces
 				if (exist && count && !newUnread && !forced)
 				{
-					if (callback) callback.apply(pointer, [xml, count, false, "red", [xml.title, count]])
+					if (callback) callback.apply(pointer, [response, count, false, "red", [response.title, count]])
 					return;
 				}
 				//Gmail logged-in && has no-count && new count && forced
 				if (exist && !count && newUnread && forced)
 				{
-					if (callback) callback.apply(pointer, [xml, 0, false, "gray"])
+					if (callback) callback.apply(pointer, [response, 0, false, "gray"])
 					return;
 				}
 				//Gmail logged-in && has no-count && new count && no force
 				if (exist && !count && !newUnread && !forced)
 				{
-					if (callback) callback.apply(pointer, [xml, 0, false, "gray"])
+					if (callback) callback.apply(pointer, [response, 0, false, "gray"])
 					return;
 				}
 				//Gmail logged-in && has no-count && old count && forced
 				if (exist && !count && !newUnread && forced)
 				{
-					if (callback) callback.apply(pointer, [xml, 0, false, "gray"])
+					if (callback) callback.apply(pointer, [response, 0, false, "gray"])
 					return;
 				}
 				//Gmail logged-in && has no-count && old count && no forced
 				if (exist && !count && !newUnread && !forced)
 				{
-					if (callback) callback.apply(pointer, [xml, 0, false, "gray"])
+					if (callback) callback.apply(pointer, [response, 0, false, "gray"])
 					return;
 				}
 				//Gmail not logged-in && no error && forced
@@ -550,27 +634,27 @@ var server =
 				{
 					if (!isRecent) open(config.email.url);
 
-					if (callback) callback.apply(pointer, [xml, null, false, "unknown",
+					if (callback) callback.apply(pointer, [response, null, false, "unknown",
 						            isRecent ? null : ["", _("msg1")]]);
 					return;
 				}
 				//Gmail not logged-in && no error && no force
 				if (!exist && normal && !forced)
 				{
-					if (callback) callback.apply(pointer, [xml, null, false, "unknown"])
+					if (callback) callback.apply(pointer, [response, null, false, "unknown"])
 					return;
 				}
 				//Gmail not logged-in && error && forced
 				if (!exist && !normal && forced)
 				{
-					if (callback) callback.apply(pointer, [xml, null, false, "unknown",
+					if (callback) callback.apply(pointer, [response, null, false, "unknown",
 						          isRecent ? null : [_("error") + ": ", _("msg2")]]);
 					return;
 				}
 				//Gmail not logged-in && error && no force
 				if (!exist && !normal && !forced)
 				{
-					if (callback) callback.apply(pointer, [xml, null, false, "unknown"])
+					if (callback) callback.apply(pointer, [response, null, false, "unknown"])
 					return;
 				}
 			}
@@ -592,11 +676,11 @@ var checkAllMails = (function()
 		gClients[index] = new server.mCheck(feed, step1);
 	});
 
-	function step1(xml, count, alert, color, msgObj)
+	function step1(response, count, alert, color, msgObj)
 	{
 		results.push(
 		{
-			xml: xml,
+			response: response,
 			count: count,
 			alert: alert,
 			color: color,
@@ -623,13 +707,13 @@ var checkAllMails = (function()
 			var var1, var2;
 			if (prefs.alphabetic)
 			{
-				var1 = a.xml.title;
-				var2 = b.xml.title;
+				var1 = a.response.title;
+				var2 = b.response.title;
 			}
 			else
 			{
-				var1 = a.xml.link;
-				var2 = b.xml.link;
+				var1 = a.response.link;
+				var2 = b.response.link;
 			}
 
 			if (var1 > var2) return 1;
@@ -645,14 +729,14 @@ var checkAllMails = (function()
 			{
 				if (typeof(r.msgObj[1]) == "number")
 				{
-					var label = r.xml.label;
+					var label = r.response.label;
 					var msg = r.msgObj[0] + (label ? "/" + label : "") + " (" + r.msgObj[1] + ")";
 					if (r.alert)
 					{
 						text += (text ? "\n" : "") + msg;
 						if (singleLink === null)
 						{
-							singleLink = r.xml.link;
+							singleLink = r.response.link;
 						}
 						else
 						{
@@ -663,10 +747,10 @@ var checkAllMails = (function()
 					total += r.msgObj[1];
 					unreadObjs.push(
 					{
-						link: r.xml.link,
+						link: r.response.link,
 						count: r.msgObj[1],
 						account: r.msgObj[0],
-						xml: r.xml
+						entries: r.response.entries
 					});
 				}
 				else
@@ -680,8 +764,8 @@ var checkAllMails = (function()
 			{
 				loggedins.push(
 				{
-					label: r.xml.title,
-					link: r.xml.link
+					label: r.response.title,
+					link: r.response.link
 				});
 			}
 		});
