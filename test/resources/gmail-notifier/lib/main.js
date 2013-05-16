@@ -62,7 +62,7 @@ var config =
 	homepage: "http://add0n.com/gmail-notifier.html",
 	//panel
 	panel: {
-		width: 300,
+		width: 400,
 		each: 22,
 		margin: 14
 	}
@@ -129,7 +129,7 @@ var contextPanel = panel.Panel(
 {
 	width: config.panel.width,
 	contentURL: data.url("context.html"),
-	contentScriptFile: data.url("context.js")
+	contentScriptFile: [data.url("jquery-2.0.0.min.js"), data.url("context.js")]
 });
 contextPanel.port.on("click", function(link)
 {
@@ -665,7 +665,8 @@ var checkAllMails = (function()
 					{
 						link: r.xml.link,
 						count: r.msgObj[1],
-						account: r.msgObj[0] + (label ? " [" + label + "]" : label)
+						account: r.msgObj[0],
+						xml: r.xml
 					});
 				}
 				else
@@ -684,6 +685,7 @@ var checkAllMails = (function()
 				});
 			}
 		});
+		
 		if (prefs.notification && (isForced || showAlert) && text)
 		{
 			notify(_("gmail"), text, singleLink ? true : false, singleLink);

@@ -6,19 +6,23 @@ body
 {
 	overflow: hidden;
 	overflow-y: auto;
+	font: 14px arial,sans-serif;
 }
 div#content
 {
-	width: 290px;
-	height: 96%;
 	padding: 5px;
 }
+ul {list-style-type: none;}
 ul#emails
 {
-	list-style-type: none;
 	margin: auto;
 }
-ul#emails a 
+ul#emails > li
+{
+	position: relative;
+	margin-bottom: 3px;
+}
+ul#emails > li > span
 {
 	padding-left: 5px;
 	display: block;
@@ -28,14 +32,173 @@ ul#emails a
 	cursor: pointer;
 	border: solid 1px transparent;
 	font: 14px arial,sans-serif;
+	color: #000;
+	position: relative;
 }
-ul#emails a font 
-{
-	color: darkblue
-}
-ul#emails a:hover 
+
+ul#emails > li > span:hover, ul#emails > li.selected > span
 {
 	background-color: #E2EEFC;
 	border: solid 1px #AECFF7;
 	border-radius: 2px;
+}
+
+ul#emails > li > span > i
+{
+	content: ' ';	
+	width: 0;
+	height: 0;
+	right: 8px;
+	top: 8px;
+	position: absolute;
+	border: 4px solid transparent;
+	border-top-color: #6a6a6a;
+}
+
+ul#emails > li.selected > span > i
+{
+	border-bottom-color: #6a6a6a;
+	border-top: none;
+}
+
+ul#emails > li a.prev, ul#emails > li a.next
+{
+	width: 12px;
+	height: 73px;
+	margin-top: -24px;
+	position: absolute;
+	top: 50%;
+}
+ul#emails > li a.prev:hover, ul#emails > li a.next:hover
+{
+	background-color: #E2EEFC;
+	border: solid 1px #AECFF7;
+	border-radius: 2px;
+}
+
+ul#emails > li a.prev.disabled:hover, ul#emails > li a.next.disabled:hover
+{
+	background: none;
+	border: none;
+	cursor: default;
+}
+ul#emails > li a.prev.disabled i
+{
+	border-right-color: #cbcbcb;
+}
+ul#emails > li a.next.disabled i
+{
+	border-left-color: #cbcbcb;
+}
+ul#emails > li a.prev
+{
+	left: 0;
+}
+ul#emails > li a.next
+{
+	right: 0;
+}
+ul#emails > li a.prev i, ul#emails > li a.next i
+{
+	content: ' ';	
+	width: 0;
+	height: 0;
+	top: 50%;
+	margin-top: -7px;
+	position: absolute;
+	border: 7px solid transparent;
+}
+ul#emails > li a.prev i
+{
+	left: -5px;
+	border-right-color: #6a6a6a;
+}
+ul#emails > li a.next i
+{
+	right: -5px;
+	border-left-color: #6a6a6a;
+}
+
+div.mask
+{
+	height: 92px;
+	width: 360px;
+	overflow: hidden;
+	margin: 5px 15px 10px;
+}
+ul.email_holder
+{
+	position:relative;
+	top:0px;
+	left:0px;
+}
+
+ul#emails li:last-child ul.email_holder
+{
+	margin-bottom: 0;
+}
+ul.email_holder a
+{
+	color: #386293;
+	text-decoration: none;
+}
+
+ul.email_holder a:hover
+{
+	color: #234267;
+}
+
+ul.email_holder li
+{
+	border: 1px solid #cecece;
+	border-radius: 2px;
+	background-color: #f4f4f4;
+	height: 90px;
+	width: 358px;
+	overflow: hidden;
+	float:left;
+	position:relative;
+	top:0px;
+	left:0px;
+}
+
+ul.email_holder li .email_header
+{
+	 background: linear-gradient(#f4f4f4, #dfdfdf);
+	 height: 25px;
+	 line-height: 25px;
+	 padding: 0 5px;
+	 box-shadow: 0px 2px 2px -1px rgba(0,0,0,0.2);
+	 border-bottom: 1px solid #FFF;
+}
+
+ul.email_holder li .email_header span
+{
+	float: right;
+	font-size: 11px;
+	color: #777777;
+}
+ul.email_holder li .email_content
+{
+	padding: 5px;
+}
+ul.email_holder li .email_content a
+{
+	margin-bottom: 5px;
+	display: block;
+	font-weight: bold;
+	height: 16px;
+	overflow: hidden;
+}
+ul.email_holder li .email_content p
+{
+	font-size: 14px;
+	padding-left: 5px;
+	overflow: hidden;
+	height: 32px;
+}
+
+.email_container
+{
+	display: none;
 }
