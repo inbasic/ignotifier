@@ -39,7 +39,7 @@ function add(account, count, link, entries, index) {
 						'<a href="mailto:'+e.author.email+'" title="'+e.author.email+'">'+e.author.name+'</a>'+
 						'<span>'+formatDate(e.issued)+'</span>'+
 					'</div>'+
-					'<div class="email_content">'+
+					'<div class="email_content" dir="auto">'+
 						'<a href="'+e.link.href+'" onclick="return openTab(this.href, '+index+', '+i+');" title="open this email">'+e.title+'</a>'+
 						'<p>'+e.summary+'</p>'+
 					'</div>'+

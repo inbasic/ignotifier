@@ -62,7 +62,7 @@ var config =
 	homepage: "http://add0n.com/gmail-notifier.html",
 	//panel
 	panel: {
-		width: 400,
+		width: 410,
 		each: 22,
 		margin: 14
 	}
@@ -213,10 +213,6 @@ var onCommand = function(e, tbb, link)
 	if (!unreadObjs.length)
 	{
 		open(config.email.url);
-	}
-	else if (unreadObjs.length == 1)
-	{
-		open(unreadObjs[0].link);
 	}
 	else if (link)
 	{
