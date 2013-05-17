@@ -7,51 +7,68 @@ window.addEventListener('message', function(event) {
 	initList(event.data);
 }, false);
 
+
 function initList(list)
 {	
 	ul = document.getElementById("emails");
 	data = [];
+	var mails_exist = false;
 	
 	clear();
 
 	list.forEach(function(obj, index) {
 		data[index] = { current: Math.min(1,obj.entries.length), total: obj.entries.length}; 
 		
+		if(mails_exist || obj.entries.length>0)
+			mails_exist = true;
+
 		add(obj.account, obj.link, obj.entries, index);
 	});
 	
-	
-	//reset all to up
-	document.getElementsByClassName("email_container").forEach(function(el, i){
-		slideUp(el);	
-	});
-	//Select the first
-	ul.firstChild.firstChild.onclick();
-	
-	
-	var holders = document.getElementsByClassName("email_holder");
-	var nexts = document.getElementsByClassName("next");
-	var width = holders[0].firstChild.offsetWidth;
-	
-	//calculate the width of each mail previewer
-	holders.forEach(function(holder, i){
-		holder.style.width = width * data[i].total;
-		
-		data[i].width = width;
-		
-		if(data[i].total == 1)
-		{
-			nexts[i].classList.add("disabled");
-		}
-		
-		//align rtl emails
-		holder.children.forEach(function(li, j){
-			var dir = window.getComputedStyle(li.getElementsByClassName("email_content")[0], null).direction;
-
-			if(dir == "rtl")
-				li.classList.add(dir);
+	if(mails_exist)
+	{
+		//reset all to up
+		document.getElementsByClassName("email_container").forEach(function(el, i){
+			slideUp(el);	
 		});
-	});	
+		
+		//Select the first that exists
+		var found = false;
+		ul.children.forEach(function(e, i){
+			if(data[i].total && !found)
+			{
+				e.firstChild.onclick();
+				found = true;
+			}
+			else if(data[i].total == 0)
+				e.firstChild.onclick = function(){};
+		});
+		
+		
+		var holders = document.getElementsByClassName("email_holder");
+		var nexts = document.getElementsByClassName("next");
+		var width = holders[0].offsetWidth;
+
+		//calculate the width of each mail previewer
+		holders.forEach(function(holder, i){
+			holder.style.width = width * data[i].total;
+			
+			data[i].width = width;
+			
+			if(data[i].total <= 1)
+			{
+				nexts[i].classList.add("disabled");
+			}
+			
+			//align rtl emails
+			holder.children.forEach(function(li, j){
+				var dir = window.getComputedStyle(li.getElementsByClassName("email_content")[0], null).direction;
+	
+				if(dir == "rtl")
+					li.classList.add(dir);
+			});
+		});	
+	}
 }
 
 function add(account, link, entries, index) {
