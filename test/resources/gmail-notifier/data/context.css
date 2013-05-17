@@ -172,6 +172,14 @@ ul.email_holder li .email_header
 	 border-bottom: 1px solid #FFF;
 	 text-shadow: 1px 1px 0 #FFF;
 }
+ul.email_holder li.rtl
+{
+	direction: rtl;
+}
+ul.email_holder li.rtl .email_header
+{
+	text-align: right;
+}
 
 ul.email_holder li .email_header span
 {
@@ -179,6 +187,12 @@ ul.email_holder li .email_header span
 	font-size: 11px;
 	color: #777777;
 }
+
+ul.email_holder li.rtl .email_header span
+{
+	float: left;
+}
+
 ul.email_holder li .email_content
 {
 	padding: 5px;

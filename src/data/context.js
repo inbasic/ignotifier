@@ -25,6 +25,14 @@ function initList(list)
 			$(e).parent(".mask").next().addClass("disabled");
 		}
 	});
+	
+	//align rtl emails
+	$(".email_holder li").each(function(i, li){
+		var dir = window.getComputedStyle($(".email_content", li).get(0), null).direction;
+
+		if(dir == "rtl")
+			$(li).addClass(dir);
+	});
 }
 
 function add(account, count, link, entries, index) {
