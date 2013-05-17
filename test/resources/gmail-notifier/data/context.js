@@ -1,42 +1,61 @@
+var ul, data;
+
+HTMLCollection.prototype.forEach = Array.prototype.forEach
+
+
 window.addEventListener('message', function(event) {
 	initList(event.data);
 }, false);
 
 function initList(list)
-{
-	var ul = $("#emails");
-	ul.empty();
+{	
+	ul = document.getElementById("emails");
+	data = [];
+	
+	clear();
 
 	list.forEach(function(obj, index) {
-		add(obj.account, obj.count, obj.link, obj.entries, index);
+		data[index] = { current: Math.min(1,obj.entries.length), total: obj.entries.length}; 
+		
+		add(obj.account, obj.link, obj.entries, index);
 	});
 	
+	
+	//reset all to up
+	document.getElementsByClassName("email_container").forEach(function(el, i){
+		slideUp(el);	
+	});
 	//Select the first
-	$("li:first > span", ul).trigger("click");
+	ul.firstChild.firstChild.onclick();
+	
+	
+	var holders = document.getElementsByClassName("email_holder");
+	var nexts = document.getElementsByClassName("next");
+	var width = holders[0].firstChild.offsetWidth;
 	
 	//calculate the width of each mail previewer
-	$("ul.email_holder").each(function(i, e){
-		var num_of_mails = $(e).children().length;
-		var width = $("li:first",e).width()+2;				
-		$(e).css("width", (width*num_of_mails)+"px");
+	holders.forEach(function(holder, i){
+		holder.style.width = width * data[i].total;
 		
-		if(num_of_mails == 1)
+		data[i].width = width;
+		
+		if(data[i].total == 1)
 		{
-			$(e).parent(".mask").next().addClass("disabled");
+			nexts[i].classList.add("disabled");
 		}
-	});
-	
-	//align rtl emails
-	$(".email_holder li").each(function(i, li){
-		var dir = window.getComputedStyle($(".email_content", li).get(0), null).direction;
+		
+		//align rtl emails
+		holder.children.forEach(function(li, j){
+			var dir = window.getComputedStyle(li.getElementsByClassName("email_content")[0], null).direction;
 
-		if(dir == "rtl")
-			$(li).addClass(dir);
-	});
+			if(dir == "rtl")
+				li.classList.add(dir);
+		});
+	});	
 }
 
-function add(account, count, link, entries, index) {
-	var li = '<li><span onclick="showMail(this);">'+account+' (<span id="current_'+index+'">'+Math.min(1,count)+'</span>/<span id="total_'+index+'">'+count+'</span>) <i></i></span>'+
+function add(account, link, entries, index) {
+	var li = '<li><span onclick="showMail(this);">'+account+' (<span id="current_'+index+'">'+data[index].current+'</span>/<span id="total_'+index+'">'+data[index].total+'</span>) <i></i></span>'+
 		'<div id="account_'+index+'" class="email_container">'+
 			'<a href="" class="prev disabled" onclick="return prevMail('+index+');"><i></i></a>'+
 			'<div class="mask">'+
@@ -55,72 +74,80 @@ function add(account, count, link, entries, index) {
 		});
 			li += '</ul>'+
 			'</div>'+
-			'<a href="" class="next'+((!count)? " disabled": "")+'" onclick="return nextMail('+index+');"><i></i></a>'+
+			'<a href="" class="next'+((!data[index].total)? " disabled": "")+'" onclick="return nextMail('+index+');"><i></i></a>'+
 		'</div>'+
 	'</li>';
-	$("#emails").append(li);
+	
+	ul.innerHTML = ul.innerHTML + li;
 }
-
 
 function showMail(obj)
 {
-	if($(obj).next().css("display") == 'none' && parseInt($("[id^=total_]", obj).text())>0)
+	if (!obj.nextSibling.classList.contains("slideDown"))
 	{
-		$(".email_container").slideUp(300);
-		$("li.selected").removeClass("selected");
+		document.getElementsByClassName("slideDown").forEach(function(el, i){
+			slideUp(el);	
+		});
 		
-		$(obj).next().slideDown(300);
-		$(obj).parent("li").addClass("selected");
+		ul.children.forEach(function(li, i){
+			li.classList.remove("selected");	
+		});
+
+		slideDown(obj.nextSibling);
+				
+		obj.parentNode.classList.add("selected");
 	}
 }
 
 function prevMail(index)
 {
-	var current = parseInt($("#current_"+index).text());
-	var total = parseInt($("#total_"+index).text());
-	
-	if(current > 1)
-	{	
-		var width = $("#holder_"+index+" li:first").width()+2;
+	var current = data[index].current;
+	var total = data[index].total;
+	var width = data[index].width;
+
+	if (current > 1)
+	{
+		document.getElementById("holder_" + index).style.left = '-' + width * (current - 2) + 'px';
+
+		document.getElementById("current_" + index).innerHTML = --current;
 		
-		$("#holder_"+index).animate({'left':'-'+width*(current-2)+'px'},300);
-		
-		$("#current_"+index).text(--current);
+		data[index].current = current;
 	}
-	
-	if(current > 1)
-		$("#account_"+index+" .prev").removeClass("disabled");
+
+	if (current > 1)
+		document.getElementById("account_0").getElementsByClassName("prev")[0].classList.remove("disabled");
 	else
-		$("#account_"+index+" .prev").addClass("disabled");
-		
-	if(current < total)
-		$("#account_"+index+" .next").removeClass("disabled");
+		document.getElementById("account_0").getElementsByClassName("prev")[0].classList.add("disabled");
+
+	if (current < total)
+		document.getElementById("account_0").getElementsByClassName("next")[0].classList.remove("disabled");
 	
+
 	return false;
 }
 
 function nextMail(index)
 {
-	var current = parseInt($("#current_"+index).text());
-	var total = parseInt($("#total_"+index).text());
-	
-	if(current < total)
-	{			
-		var width = $("#holder_"+index+" li:first").width()+2;
+	var current = data[index].current;
+	var total = data[index].total;
+	var width = data[index].width;
+
+	if (current < total)
+	{
+		document.getElementById("holder_" + index).style.left = '-' + width * current + 'px';
+		document.getElementById("current_" + index).innerHTML = ++current;
 		
-		$("#holder_"+index).animate({'left':'-'+width*current+'px'},300);
-		
-		$("#current_"+index).text(++current);
+		data[index].current = current;
 	}
-	
-	if(current < total)
-		$("#account_"+index+" .next").removeClass("disabled");	
+
+	if (current < total) 
+		document.getElementById("account_0").getElementsByClassName("next")[0].classList.remove("disabled");
 	else
-		$("#account_"+index+" .next").addClass("disabled");
-		
-	if(current>1)
-		$("#account_"+index+" .prev").removeClass("disabled");
-	
+		document.getElementById("account_0").getElementsByClassName("next")[0].classList.add("disabled");
+
+	if (current > 1) 
+		document.getElementById("account_0").getElementsByClassName("prev")[0].classList.remove("disabled");
+
 	return false;
 }
 
@@ -154,4 +181,24 @@ function openTab(link, account_id, mail_id)
     document.documentElement.dispatchEvent(event);
 	
 	return false;
+}
+
+function clear()
+{
+	while (ul.firstChild)
+	{
+		ul.removeChild(ul.firstChild);
+	}
+}
+
+function slideDown(obj)
+{
+	obj.classList.remove("slideUp");
+	obj.classList.add("slideDown");
+}
+
+function slideUp(obj)
+{
+	obj.classList.remove("slideDown");
+	obj.classList.add("slideUp");
 }

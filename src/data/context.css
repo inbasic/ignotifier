@@ -61,6 +61,7 @@ ul#emails > li.selected > span > i
 	border-top: none;
 }
 
+
 ul#emails > li a.prev, ul#emails > li a.next
 {
 	width: 12px;
@@ -75,13 +76,18 @@ ul#emails > li a.prev:hover, ul#emails > li a.next:hover
 	border: solid 1px #AECFF7;
 	border-radius: 2px;
 }
-
 ul#emails > li a.prev.disabled:hover, ul#emails > li a.next.disabled:hover
 {
 	background: none;
 	border: none;
 	cursor: default;
 }
+
+ul#emails > li div.slideUp a.prev, ul#emails > li div.slideUp a.next
+{
+	display: none;
+}
+
 ul#emails > li a.prev.disabled i
 {
 	border-right-color: #cbcbcb;
@@ -131,6 +137,7 @@ ul.email_holder
 	position:relative;
 	top:0px;
 	left:0px;
+	transition: left 0.4s ease-out;
 }
 
 ul#emails li:last-child ul.email_holder
@@ -152,7 +159,7 @@ ul.email_holder li
 {
 	border: 1px solid #cecece;
 	border-radius: 2px;
-	background-color: #f4f4f4;
+	background-color: #F9F9F9;
 	height: 90px;
 	width: 358px;
 	overflow: hidden;
@@ -213,7 +220,23 @@ ul.email_holder li .email_content p
 	height: 32px;
 }
 
-.email_container
-{
-	display: none;
+.slideUp {
+    overflow: hidden;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    -moz-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -moz-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+.slideDown {
+    -moz-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    -moz-transition-timing-function: ease-in;
+    transition-timing-function: ease-in;
+    max-height: 1000px;
+    overflow: hidden;
 }
