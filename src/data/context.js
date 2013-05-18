@@ -19,19 +19,15 @@ function initList(list)
 	list.forEach(function(obj, index) {
 		data[index] = { current: Math.min(1,obj.entries.length), total: obj.entries.length}; 
 		
-		if(mails_exist || obj.entries.length>0)
+		if(!mails_exist && obj.entries.length>0)
 			mails_exist = true;
 
 		add(obj.account, obj.link, obj.entries, index);
 	});
 	
+	
 	if(mails_exist)
-	{
-		//reset all to up
-		document.getElementsByClassName("email_container").forEach(function(el, i){
-			slideUp(el);	
-		});
-		
+	{		
 		//Select the first that exists
 		var found = false;
 		ul.children.forEach(function(e, i){
@@ -72,19 +68,19 @@ function initList(list)
 }
 
 function add(account, link, entries, index) {
-	var li = '<li><span onclick="showMail(this);">'+account+' (<span id="current_'+index+'">'+data[index].current+'</span>/<span id="total_'+index+'">'+data[index].total+'</span>) <i></i></span>'+
-		'<div id="account_'+index+'" class="email_container">'+
+	var li = '<li><span onclick="'+((data[index].total)? 'showMail(this, '+index+');' : 'openTab(\''+link+'\');' )+'">'+account+' (<span id="current_'+index+'">'+data[index].current+'</span>/<span id="total_'+index+'">'+data[index].total+'</span>) <i></i></span>'+
+		'<div id="account_'+index+'" class="email_container slideUp">'+
 			'<a href="" class="prev disabled" onclick="return prevMail('+index+');"><i></i></a>'+
 			'<div class="mask">'+
 				'<ul class="email_holder" id="holder_'+ index +'">';
 		entries.forEach(function(e, i){
 			li += '<li>'+
 					'<div class="email_header">'+
-						'<a href="mailto:'+e.author.email+'" title="'+e.author.email+'">'+e.author.name+'</a>'+
+						'<a href="mailto:'+e.author.email+'" onclick="return openTab(this.href);" title="'+e.author.email+'">'+e.author.name+'</a>'+
 						'<span>'+formatDate(e.issued)+'</span>'+
 					'</div>'+
 					'<div class="email_content" dir="auto">'+
-						'<a href="'+e.link.href+'" onclick="return openTab(this.href, '+index+', '+i+');" title="open this email">'+e.title+'</a>'+
+						'<a href="'+e.link.href+'" onclick="decreasMails('+index+', '+i+');return openTab(this.href);" title="open this email">'+e.title+'</a>'+
 						'<p>'+e.summary+'</p>'+
 					'</div>'+
 				'</li>';	
@@ -98,9 +94,9 @@ function add(account, link, entries, index) {
 	ul.innerHTML = ul.innerHTML + li;
 }
 
-function showMail(obj)
+function showMail(obj, index)
 {
-	if (!obj.nextSibling.classList.contains("slideDown"))
+	if (!obj.nextSibling.classList.contains("slideDown") && data[index].total)
 	{
 		document.getElementsByClassName("slideDown").forEach(function(el, i){
 			slideUp(el);	
@@ -191,13 +187,20 @@ function formatDate(str)
 	return output;
 }
 
-function openTab(link, account_id, mail_id)
+function openTab(link)
 {
 	var event = document.createEvent('CustomEvent');
-    event.initCustomEvent("open_mail_link", true, true, {link:link, account_id: account_id, mail_id: mail_id});
+    event.initCustomEvent("open_mail_link", true, true, {link:link});
     document.documentElement.dispatchEvent(event);
 	
 	return false;
+}
+
+function decreasMails(account_id, mail_id)
+{
+	var event = document.createEvent('CustomEvent');
+    event.initCustomEvent("decrease_mails_data", true, true, {account_id: account_id, mail_id: mail_id});
+    document.documentElement.dispatchEvent(event);
 }
 
 function clear()

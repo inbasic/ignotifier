@@ -70,8 +70,8 @@ var config =
     homepage: "http://add0n.com/gmail-notifier.html",
     //panel
     panel: {
-        width: 260,
-        height: 160,
+        width: 410,
+        height: 250,
         each: 22,
         margin: 14
     },
@@ -200,12 +200,10 @@ function decreaseNumOfMails(account_id, mail_id)
         total += e.count;
     });
 
-    if (total > 0) icon(total, "red");
+    if(total > 0)
+		icon(total, "red");
     else
-    icon(total, "gray");
-
-
-
+    	icon(total, "blue");
 }
 
 /** icon designer**/
@@ -235,11 +233,14 @@ contextPanel.port.on("open_mail", function(data)
     if (data.link)
     {
         open(data.link);
-
-        //decrease the number of mails
-        decreaseNumOfMails(data.account_id, data.mail_id);
     }
 });
+contextPanel.port.on("decrease_mails", function(data)
+{
+    //decrease the number of mails
+    decreaseNumOfMails(data.account_id, data.mail_id);
+});
+
 
 /** onCommand **/
 var onCommand = function(e, tbb, link)
