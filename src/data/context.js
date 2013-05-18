@@ -3,9 +3,9 @@ var ul, data;
 HTMLCollection.prototype.forEach = Array.prototype.forEach
 
 
-window.addEventListener('message', function(event) {
-	initList(event.data);
-}, false);
+addon.port.on("list", function (arg) {
+	initList(arg);
+});
 
 
 function initList(list)
@@ -189,18 +189,14 @@ function formatDate(str)
 
 function openTab(link)
 {
-	var event = document.createEvent('CustomEvent');
-    event.initCustomEvent("open_mail_link", true, true, {link:link});
-    document.documentElement.dispatchEvent(event);
+	addon.port.emit("open_mail", link);
 	
 	return false;
 }
 
 function decreasMails(account_id, mail_id)
 {
-	var event = document.createEvent('CustomEvent');
-    event.initCustomEvent("decrease_mails_data", true, true, {account_id: account_id, mail_id: mail_id});
-    document.documentElement.dispatchEvent(event);
+    addon.port.emit("decrease_mails", {account_id: account_id, mail_id: mail_id});
 }
 
 function clear()

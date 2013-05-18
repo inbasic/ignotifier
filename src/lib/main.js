@@ -23,7 +23,10 @@ var config =
     //Gmail
     email: {
         url: "https://mail.google.com/mail/u/0",
-        FEEDS: "https://mail.google.com/mail/u/0/feed/atom," + "https://mail.google.com/mail/u/1/feed/atom," + "https://mail.google.com/mail/u/2/feed/atom," + "https://mail.google.com/mail/u/3/feed/atom",
+        FEEDS: "https://mail.google.com/mail/u/0/feed/atom," + 
+		"https://mail.google.com/mail/u/1/feed/atom," + 
+		"https://mail.google.com/mail/u/2/feed/atom," + 
+		"https://mail.google.com/mail/u/3/feed/atom",
         get feeds()
         {
             //server implementation only supports atom feeds
@@ -223,16 +226,15 @@ var contextPanel = panel.Panel(
         top: 0,
         right: 30
     },
-    contentURL: data.url("context.html"),
-    contentScriptFile: data.url("context_trigger.js")
+    contentURL: data.url("context.html")
 });
-contextPanel.port.on("open_mail", function(data)
+contextPanel.port.on("open_mail", function(link)
 {
     contextPanel.hide();
 
-    if (data.link)
+    if (link)
     {
-        open(data.link);
+        open(link);
     }
 });
 contextPanel.port.on("decrease_mails", function(data)
