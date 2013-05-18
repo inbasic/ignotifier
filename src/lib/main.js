@@ -353,26 +353,9 @@ var icon = function(number, clr)
 {
     gButton.loadMode = false;
     gButton.badge = (number < 10) ? number : "+";
-    if (prefs.clrPattern == 0)
-    {
-        gButton.color = clr;
-    }
-    else
-    { //Support for reverse coloring
-        switch (clr)
-        {
-        case "blue":
-            gButton.color = "gray";
-            break;
-        case "gray":
-            gButton.color = "blue";
-            break;
-        default:
-            gButton.color = clr;
-        }
-    }
+    gButton.color = clr;
 }
-icon(null, "blue");
+icon(null, "gray");
 
 /** Initialize **/
 var OS, tm, gButton, unreadObjs = [],
@@ -692,25 +675,25 @@ var server =
 				//Gmail logged-in && has no-count && new count && forced
 				if (exist && !count && newUnread && forced)
 				{
-					if (callback) callback.apply(pointer, [response, 0, false, "gray"])
+					if (callback) callback.apply(pointer, [response, 0, false, "blue"])
 					return;
 				}
 				//Gmail logged-in && has no-count && new count && no force
 				if (exist && !count && !newUnread && !forced)
 				{
-					if (callback) callback.apply(pointer, [response, 0, false, "gray"])
+					if (callback) callback.apply(pointer, [response, 0, false, "blue"])
 					return;
 				}
 				//Gmail logged-in && has no-count && old count && forced
 				if (exist && !count && !newUnread && forced)
 				{
-					if (callback) callback.apply(pointer, [response, 0, false, "gray"])
+					if (callback) callback.apply(pointer, [response, 0, false, "blue"])
 					return;
 				}
 				//Gmail logged-in && has no-count && old count && no forced
 				if (exist && !count && !newUnread && !forced)
 				{
-					if (callback) callback.apply(pointer, [response, 0, false, "gray"])
+					if (callback) callback.apply(pointer, [response, 0, false, "blue"])
 					return;
 				}
 				//Gmail not logged-in && no error && forced
@@ -867,16 +850,16 @@ var checkAllMails = (function()
         gButton.tooltiptext = tooltiptext ? tooltiptext : config.defaultTooltip;
         //Icon
         var isRed = false,
-            isGray = false;
+            isBlue = false;
         results.forEach(function(r, i)
         {
             if (r.color == "red") isRed = true;
-            if (r.color == "gray") isGray = true;
+            if (r.color == "blue") isBlue = true;
         });
 
         if (isRed) icon(total, "red");
-        else if (isGray) icon(null, "gray");
-        if (!isRed && !isGray) icon(null, "blue");
+        else if (isBlue) icon(null, "blue");
+        if (!isRed && !isBlue) icon(null, "gray");
     }
 
     return function(forced)
