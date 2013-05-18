@@ -209,13 +209,6 @@ function decreaseNumOfMails(account_id, mail_id)
     	icon(total, "blue");
 }
 
-/** icon designer**/
-var icon = function(number, clr)
-{
-    gButton.loadMode = false;
-    gButton.badge = (number < 10) ? number : "+";
-    gButton.color = clr;
-}
 
 /** Multi email Panel **/
 var contextPanel = panel.Panel(
@@ -355,6 +348,7 @@ var icon = function(number, clr)
     gButton.badge = (number < 10) ? number : "+";
     gButton.color = clr;
 }
+
 icon(null, "gray");
 
 /** Initialize **/
