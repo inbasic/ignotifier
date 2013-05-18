@@ -80,8 +80,8 @@ function add(account, link, entries, index) {
 						'<span>'+formatDate(e.issued)+'</span>'+
 					'</div>'+
 					'<div class="email_content" dir="auto">'+
-						'<a href="'+e.link.href+'" onclick="decreasMails('+index+', '+i+');return openTab(this.href);" title="open this email">'+e.title+'</a>'+
-						'<p>'+e.summary+'</p>'+
+						'<a href="'+e.link.href+'" onclick="return openTab(this.href);">'+((typeof e.title == "string")? e.title: "(no subject)")+'</a>'+
+						'<p>'+((typeof e.summary == "string")? e.summary: "(no body)")+'</p>'+
 					'</div>'+
 				'</li>';	
 		});
