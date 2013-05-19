@@ -1,42 +1,32 @@
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
-    <style type="text/css" media="all">
-      * {
-        margin: 0;
-        padding: 0;
-      }
-      ul {
-        list-style-type: none;
-        width: 220px;
-        margin: auto;
-        padding-top: 5px;
-        padding-left: 2px;
-      }
-      ul a {
-        padding-left: 5px;
-        display: block;
-        text-decoration: none;
-        padding-top: 1px;
-        padding-bottom: 3px;
-        cursor: pointer;
-        border: solid 1px transparent;
-        font: 14px arial,sans-serif;
-      }
-      ul a font {
-        color: darkblue
-      }
-      ul a:hover {
-        background-color: #E2EEFC;
-        border: solid 1px #AECFF7;
-        border-radius: 2px;
-      }
-    
-    </style>
+    <link rel="stylesheet" type="text/css" href="context.css">
   </head>
-   
-  <body>
-    <ul id="emails">
-    </ul>
-  </body>
+<body>
+<div class="body">
+  <div class="toolbar top">
+    <span class="stat" id=":d0"><b>2</b> of <b>7</b></span>
+    <span class="toolbarbutton previous"><img/></span>
+    <span class="toolbarbutton next"><img/></span>
+    <div class="users">
+      <span>test@gmail.com</span>
+      <img src="arrow.png" class="arrow">
+    </div>
+  </div>
+  <div class="email">
+    <span class="title">Title</span>
+    <span class="content">body text, body text, body text, body text</span>
+  </div>
+  <div class="toolbar bottom" align="center">
+    <span class="toolbarbutton archive"><img/></span>
+    <span class="toolbarbutton trash"><img/></span>
+    <span class="toolbarbutton spam"><img/></span>
+    <span class="toolbarbutton refresh"><img/></span>
+    <span class="toolbarbutton read">Mark as read</span>
+  </div>
+</div>
+
+</body>
 </html>

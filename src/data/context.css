@@ -1,0 +1,103 @@
+body {
+  margin: 0;
+  font-family: arial,sans-serif;
+  font-size: 12px;
+}
+.body {
+  width: 400px;
+  height: 200px;
+  border: solid 1px #DCDCDC;
+}
+.toolbar {
+  display: block;
+  background-color: #F5F5F5;
+  line-height: 36px;
+  border-style:solid;
+  border-color: #DCDCDC;
+}
+.toolbar.top {
+  border-width: 0 0 1px 0;
+}
+.toolbar.bottom {
+  border-width: 1px 0 0 0;
+}
+.toolbarbutton {
+  display: inline-block;
+  height: 23px;
+  line-height: 23px;
+  vertical-align: middle;
+  border: 1px solid #DCDCDC;
+  background-color: white;
+  background-image: -moz-linear-gradient(center top , rgba(255, 255, 255, 0.85), rgba(247, 247, 247, 0.85));
+}
+.toolbarbutton img {
+  display: block;
+  width: 21px;
+  height: 21px;
+  margin-left: auto;
+  margin-right: auto;
+  background-image: url("buttons.png");
+}
+.toolbarbutton.previous,
+.toolbarbutton.next {
+  width: 30px;
+  margin-right: -5px;
+}
+.toolbarbutton.archive,
+.toolbarbutton.trash,
+.toolbarbutton.spam,
+.toolbarbutton.refresh {
+  width: 50px;
+}
+.toolbarbutton.read {
+  width: 96px;
+  color: #444444;
+  font-weight: bold;
+}
+.toolbarbutton.previous img {
+  background-position: 0 -21px;
+}
+.toolbarbutton.next img {
+  background-position: 0 -42px;
+}
+.toolbarbutton.archive img {
+  background-position: 0 0;
+}
+.toolbarbutton.trash img {
+  background-position: 0 -84px;
+}
+.toolbarbutton.refresh img {
+  background-position: 0 -63px;
+}
+.toolbarbutton.spam img {
+  background-position: 0 -105px;
+}
+.stat {
+  margin: -5px 8px;
+}
+.users {
+  display: inline-block;
+  margin-left: 10px;
+  padding-left: 10px;
+  border-style:solid;
+  border-width: 0 0 0 1px;
+  border-color: #DCDCDC;
+}
+.email {
+  height: 117px;
+}
+.title {
+  display: block;
+  font-size: 160%;
+  margin: 8px 0px 4px;
+  padding: 0 0 0 8px;
+}
+.content {
+  display: block;
+  font-size: 110%;
+  padding: 0 0 0 9px;
+}
+.arrow {
+  margin-left: 2px;
+  vertical-align: middle;
+}
