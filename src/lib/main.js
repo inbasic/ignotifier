@@ -123,14 +123,14 @@ contextPanel.port.on("click", function (link) {
 var onCommand = function (e, tbb, link) {
 
 
-
+    //For test purposes
     try {
       contextPanel.show(tbb);
     }
     catch (e) {
       contextPanel.show(null, tbb);
     }
-    contextPanel.port.emit('list', unreadObjs);
+    contextPanel.port.emit('command', unreadObjs);
 
 
 
@@ -139,7 +139,7 @@ var onCommand = function (e, tbb, link) {
 
 
 
-  if (!unreadObjs.length) {
+/*   if (!unreadObjs.length) {
     open(config.email.url);
   }
   else if (unreadObjs.length == 1) {
@@ -156,7 +156,7 @@ var onCommand = function (e, tbb, link) {
     catch (e) {
       contextPanel.show(null, tbb);
     }
-  }
+  } */
 }
 
 /** Toolbar button **/
