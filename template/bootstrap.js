@@ -235,7 +235,6 @@ function startup(data, reasonCode) {
           stopOnError: options.stopOnError,
           verbose: options.verbose,
           parseable: options.parseable,
-          checkMemory: options.check_memory,
         }
       }
     });
@@ -249,8 +248,7 @@ function startup(data, reasonCode) {
       prefsURI: rootURI + 'defaults/preferences/prefs.js'
     });
   } catch (error) {
-    dump('Bootstrap error: ' +
-         (error.message ? error.message : String(error)) + '\n' +
+    dump('Bootstrap error: ' + error.message + '\n' +
          (error.stack || error.fileName + ': ' + error.lineNumber) + '\n');
     throw error;
   }

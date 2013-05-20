@@ -2,12 +2,13 @@ body {
   margin: 0;
   font-family: arial,sans-serif;
   font-size: 12px;
+  overflow: hidden;
+  background-color: white;
 }
 .body {
   position: relative;
   width: 400px;
   height: 240px;
-  border: solid 1px #DCDCDC;
 }
 .action {
   opacity: 0.6;

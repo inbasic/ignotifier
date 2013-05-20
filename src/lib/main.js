@@ -59,8 +59,8 @@ var config = {
   homepage: "http://add0n.com/gmail-notifier.html",
   //panel
   panel: {
-    width: 260,
-    height: 160,
+    width: 400,
+    height: 240,
     each: 22,
     margin: 14
   },
@@ -121,6 +121,24 @@ contextPanel.port.on("click", function (link) {
 
 /** onCommand **/
 var onCommand = function (e, tbb, link) {
+
+
+
+    try {
+      contextPanel.show(tbb);
+    }
+    catch (e) {
+      contextPanel.show(null, tbb);
+    }
+    contextPanel.port.emit('list', unreadObjs);
+
+
+
+
+
+
+
+
   if (!unreadObjs.length) {
     open(config.email.url);
   }
@@ -371,8 +389,44 @@ var server = {
         } catch(e){}
         return temp;
       },
-      get enteries () {
-        return Array.prototype.slice.call( xml.getElementsByTagName("entry") ) 
+      get entries () {
+        var tmp = Array.prototype.slice.call( xml.getElementsByTagName("entry") );
+        function toObj (entry) {
+          return {
+            get title () {
+              return entry.getElementsByTagName("title")[0].textContent;
+            },
+            get summary () {
+              return entry.getElementsByTagName("summary")[0].textContent;
+            },
+            get modified () {
+              return entry.getElementsByTagName("modified")[0].textContent;
+            },
+            get issued () {
+              return entry.getElementsByTagName("issued")[0].textContent;
+            },
+            get author_name () {
+              return entry.getElementsByTagName("author")[0]
+                .getElementsByTagName("name")[0].textContent;
+            },
+            get author_email () {
+              return entry.getElementsByTagName("author")[0]
+                .getElementsByTagName("email")[0].textContent;
+            },
+            get id () {
+              return entry.getElementsByTagName("id")[0].textContent;
+            },
+            get link () {
+              return entry.getElementsByTagName("link")[0].getAttribute("href")
+            }
+          }
+        }
+        var rtn = [];
+        tmp.forEach(function (entry) {
+          rtn.push(new toObj(entry));
+        });
+        
+        return rtn;
       }
     }
   },
@@ -415,17 +469,16 @@ var server = {
             newUnread = (count > oldCount)
           }
           else {
-            xml.enteries.forEach(function (entry, i) {
-              var id = entry.getElementsByTagName("id")[0].childNodes[0].nodeValue;
-              if (msgs.indexOf(id) == -1) {
+            xml.entries.forEach(function (entry, i) {
+              if (msgs.indexOf(entry.id) == -1) {
                 newUnread = true;
               }
             });
           }
           oldCount = count;
           msgs = [];
-          xml.enteries.forEach(function (entry, i) {
-            msgs.push(entry.getElementsByTagName("id")[0].childNodes[0].nodeValue);
+          xml.entries.forEach(function (entry, i) {
+            msgs.push(entry.id);
           });
         }
         else {
@@ -573,7 +626,8 @@ var checkAllMails = (function () {
           unreadObjs.push({
             link: r.xml.link, 
             count: r.msgObj[1],
-            account: r.msgObj[0] + (label ? " [" + label + "]" : label)
+            account: r.msgObj[0] + (label ? " [" + label + "]" : label),
+            entries: r.xml.entries
             });
         }
         else {
