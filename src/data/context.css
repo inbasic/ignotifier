@@ -4,38 +4,45 @@ body {
   font-size: 12px;
 }
 .body {
+  position: relative;
   width: 400px;
-  height: 200px;
+  height: 240px;
   border: solid 1px #DCDCDC;
 }
+.action {
+  opacity: 0.6;
+  cursor: pointer;
+}
+.action:hover {
+  opacity: 1;
+}
 .toolbar {
-  display: block;
   background-color: #F5F5F5;
   line-height: 36px;
-  border-style:solid;
-  border-color: #DCDCDC;
-}
-.toolbar.top {
-  border-width: 0 0 1px 0;
+  border:solid 1px #DCDCDC;
+  margin: -1px;
 }
 .toolbar.bottom {
-  border-width: 1px 0 0 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%
 }
 .toolbarbutton {
   display: inline-block;
-  height: 23px;
-  line-height: 23px;
-  vertical-align: middle;
+  text-align:center;
+  height: 24px;
+  line-height: 24px;
   border: 1px solid #DCDCDC;
   background-color: white;
   background-image: -moz-linear-gradient(center top , rgba(255, 255, 255, 0.85), rgba(247, 247, 247, 0.85));
+
+  vertical-align: middle;
+  margin-top: -3px;
 }
 .toolbarbutton img {
-  display: block;
+  display: inline-block;
   width: 21px;
   height: 21px;
-  margin-left: auto;
-  margin-right: auto;
   background-image: url("buttons.png");
 }
 .toolbarbutton.previous,
@@ -73,31 +80,47 @@ body {
   background-position: 0 -105px;
 }
 .stat {
-  margin: -5px 8px;
+  margin: 0 8px;
 }
 .users {
-  display: inline-block;
-  margin-left: 10px;
-  padding-left: 10px;
+  float: left;
+  width: 270px;
+  margin: -1px;
   border-style:solid;
-  border-width: 0 0 0 1px;
+  border-width: 1px;
   border-color: #DCDCDC;
-}
-.email {
-  height: 117px;
+  padding-left: 10px;
 }
 .title {
   display: block;
+  padding-left: 8px;
   font-size: 160%;
   margin: 8px 0px 4px;
-  padding: 0 0 0 8px;
+}
+.identity {
+  display: block;
+  padding-left: 8px;
+}
+.name {
+  font-weight: bold;
+}
+.email {
+  color: #555555;
 }
 .content {
   display: block;
+  padding-left: 8px;
   font-size: 110%;
-  padding: 0 0 0 9px;
+}
+.date {
+  float: right;
+  margin-right: 5px;
 }
 .arrow {
   margin-left: 2px;
   vertical-align: middle;
+}
+hr {
+  margin-bottom: -2px;
+  border-color: #DCDCDC;
 }
