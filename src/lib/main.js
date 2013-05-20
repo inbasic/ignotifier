@@ -117,7 +117,12 @@ var contextPanel = panel.Panel({
 contextPanel.port.on("click", function (link) {
   contextPanel.hide();
   if (link) open(link);
-})
+});
+contextPanel.port.on("action", function (link, cmd) {
+  action(link, cmd, function (bol, err) {
+    console.error("Action: " + bol + " " + err);
+  });
+});
 
 /** onCommand **/
 var onCommand = function (e, tbb, link) {
@@ -684,6 +689,77 @@ sp.on("reset", function() {
   prefs.feeds             = config.email.FEEDS;
   prefs.soundNotification = 1;
 });
+
+/**
+ * Send archive, mark as read, mark as unread, and trash commands to Gmail server
+ * @param {String} link, xml.link address
+ * @param {String} cmd, rd, ur, rc_, tr
+ * @param {Function} callback, callback function. True for successful action
+ * @return {Object} pointer, callback apply object.
+ */
+var action = (function () {
+  function getAt (url, callback, pointer) {
+    var req = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"]
+      .createInstance(Ci.nsIXMLHttpRequest);
+    req.mozBackgroundRequest = true;  //No authentication
+    req.open('GET', url + "h/" + Math.ceil(1000000 * Math.random()), true);
+    req.onreadystatechange = function (aEvt) {
+      if (req.readyState == 4) {
+        if(req.status == 200) {
+          var tmp = /at\=([^\"\&]*)/.exec(req.responseText);
+          if (callback) callback.apply(pointer, [tmp.length > 1 ? tmp[1] : null]);
+        }
+        else {
+          if (callback) callback.apply(pointer, [null]);
+        }
+      }
+    };
+    req.channel.QueryInterface(Ci.nsIHttpChannelInternal)
+      .forceAllowThirdPartyCookie = true;
+    req.send(null);
+  }
+  function sendCmd (url, at, thread, cmd, callback, pointer) {
+    var req = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"]
+      .createInstance(Ci.nsIXMLHttpRequest);
+    req.mozBackgroundRequest = true;  //No authentication
+    req.open('POST', url + "?at=" + at + "&act=" + cmd + "&t=" + thread, true);
+    req.onreadystatechange = function (aEvt) {
+      if (req.readyState == 4) {
+        if(req.status == 200) {
+          if (callback) callback.apply(pointer, [true]);
+        }
+        else {
+          if (callback) callback.apply(pointer, [false]);
+        }
+      }
+    };
+    req.channel.QueryInterface(Ci.nsIHttpChannelInternal)
+      .forceAllowThirdPartyCookie = true;
+    req.send(null);
+  }
+  
+  return function (link, cmd, callback, pointer) {
+    link = link.replace("http://", "https://");
+    var url = /[^\?]*/.exec(link)[0] + "/";
+    
+    getAt(url, function (at) {
+      if (at) {
+        var thread = /message\_id\=([^\&]*)/.exec(link);
+        if (thread.length > 1) {
+          sendCmd(url, at, thread[1], cmd, function () {
+            if (callback) callback.apply(pointer, [true]);
+          });
+        }
+        else {
+          if (callback) callback.apply(pointer, [false, "Error at resolving thread"]);
+        }
+      }
+      else {
+        if (callback) callback.apply(pointer, [false, "Error at fetching 'at'"]); 
+      }
+    });
+  }
+})();
 
 /** Notifier **/
 var notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob/master/lib/simple-notify.js
