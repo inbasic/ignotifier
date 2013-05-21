@@ -59,13 +59,17 @@ var config = {
   homepage: "http://add0n.com/gmail-notifier.html",
   //panel
   panel: {
-    width: 230,
+    width: 400,
+    height: 208,
     each: 22,
     margin: 14
   },
   //Preferences
-  prefs: "extensions.ignotifier."
+  prefs: "extensions.jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack."
 };
+
+/** Loading style **/
+userstyles.load(data.url("overlay.css"));
 
 /** URL parser **/
 function url_parse (url) {
@@ -85,13 +89,15 @@ function open (url, inBackground) {
       var parse1 = url_parse(tab.url),
           parse2 = url_parse(url);
       
-      if (parse1.base == parse2.base && parse1.label == parse2.label) {
+      if (parse1.base == parse2.base) {
         if (tabs.activeTab == tab) {
           notify(_("gmail"), _("msg8"));
         }
         else {
           tab.activate();
         }
+        //change the url of the current tab
+        tab.url = url;
         return;
       }
     }catch(e) {}
@@ -99,27 +105,62 @@ function open (url, inBackground) {
   tabs.open({url: url, inBackground: inBackground ? inBackground : false});
 }
 
-/** icon designer**/
-var icon = function (number, clr) {
-  gButton.loadMode = false;
-  gButton.badge = (number < 10) ? number : "+";
-  gButton.color = clr;
-}
-
 /** Multi email Panel **/
 var contextPanel = panel.Panel({
   width: config.panel.width,
-  contentURL: data.url("context.html"),
-  contentScriptFile: data.url("context.js")
+  height: config.panel.height,
+  position: {
+    top: 0,
+    right: 30
+  },
+  contentURL: data.url("context.html")
 });
 contextPanel.port.on("click", function (link) {
   contextPanel.hide();
   if (link) open(link);
-})
+});
+contextPanel.port.on("action", function (link, cmd) {
+  action(link, cmd, function (bol, err) {
+    console.error("Action: " + bol + " " + err);
+  });
+});
+contextPanel.port.on("decrease_mails", function (account_id, mail_id) {
+    //decrease the number of mails
+    unreadObjs[account_id].entries.splice(mail_id, 1);
+    unreadObjs[account_id].count--;
+
+    var total = 0;
+    unreadObjs.forEach(function (e, i) {
+        total += e.count;
+    });
+
+    if (total > 0)
+        icon(total, "red");
+    else
+        icon(total, "gray");
+});
 
 /** onCommand **/
 var onCommand = function (e, tbb, link) {
-  if (!unreadObjs.length) {
+
+
+    //For test purposes
+    try {
+      contextPanel.show(tbb);
+    }
+    catch (e) {
+      contextPanel.show(null, tbb);
+    }
+    contextPanel.port.emit('command', unreadObjs);
+
+
+
+
+
+
+
+
+/*   if (!unreadObjs.length) {
     open(config.email.url);
   }
   else if (unreadObjs.length == 1) {
@@ -130,101 +171,137 @@ var onCommand = function (e, tbb, link) {
   }
   else {
     contextPanel.port.emit('list', unreadObjs);
-    contextPanel.show(tbb);
+    try {
+      contextPanel.show(tbb);
+    }
+    catch (e) {
+      contextPanel.show(null, tbb);
+    }
+  } */
+}
+
+/** Toolbar button **/
+gButton = toolbarbutton.ToolbarButton({
+  id: config.toolbar.id,
+  label: _("gmail"),
+  tooltiptext: config.defaultTooltip,
+  backgroundColor: config.backgroundColor,
+  textColor: config.textColor,
+  onClick: function (e) { //Linux problem for onClick
+    if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
+      e.preventDefault();
+      e.stopPropagation();
+      tm.reset(true);
+    }
+  },
+  onContext: (function () {
+    var installed = false;
+    return function (e, menupopup, _menuitem) {
+      //Install command event listener
+      if (!installed) {
+        menupopup.addEventListener("command", function (e) {
+          var link = e.originalTarget.value;
+          if (link) open(link.replace(/\?.*/ , ""));
+        });
+        installed = true;
+      }
+      //In case where user also listening on different labels than inbox, there would be duplicated elements
+      var temp = (function (arr) {
+        arr.forEach(function (item, index) {
+          for (var i = index + 1; i < arr.length; i++) {
+            if (arr[i] && item.label == arr[i].label) {delete arr[index]}
+          }
+        });
+        return arr.filter(function (item){return item});
+      })(loggedins);
+      //remove old items
+      while (menupopup.firstChild) {
+        menupopup.removeChild(menupopup.firstChild)
+      }
+      function addChild (label, value) {
+        var item = _menuitem.cloneNode(true);
+        item.setAttribute("label", label);
+        item.setAttribute("value", value);
+        menupopup.appendChild(item);
+      }
+      if (temp.length) {
+        temp.forEach(function (obj) {
+          addChild(obj.label, obj.link);
+        });
+      }
+      else {
+        addChild(_("context"), "");
+      }
+    }
+  })(),
+  onCommand: onCommand
+});
+
+/** icon designer**/
+var icon = function (number, clr) {
+  gButton.loadMode = false;
+  gButton.badge = (number < 10) ? number : "+";
+  if (prefs.clrPattern == 0) {
+    gButton.color = clr;
+  }
+  else {  //Support for reverse coloring
+    switch (clr) {
+      case "blue":
+        gButton.color = "gray";
+        break;
+      case "gray":
+        gButton.color = "blue";
+        break;
+      default:
+        gButton.color = clr;
+    }
   }
 }
+icon(null, "blue");
 
 /** Initialize **/
 var OS, tm, gButton, unreadObjs = [], loggedins  = [];
 exports.main = function(options, callbacks) {
-  //Load style
-  userstyles.load(data.url("overlay.css"));
   //OS detection, required by sound
   var runtime = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULRuntime);
   OS = runtime.OS;
-  //Gmail button
-  gButton = toolbarbutton.ToolbarButton({
-    id: config.toolbar.id,
-    label: _("gmail"),
-    tooltiptext: config.defaultTooltip,
-    backgroundColor: config.backgroundColor,
-    textColor: config.textColor,
-    onClick: function (e) { //Linux problem for onClick
-      if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
-        e.preventDefault();
-        e.stopPropagation();
-        tm.reset(true);
-      }
-    },
-    onContext: (function () {
-      var installed = false;
-      return function (e, menupopup, _menuitem) {
-        //Install command event listener
-        if (!installed) {
-          menupopup.addEventListener("command", function (e) {
-            var link = e.originalTarget.value;
-            if (link) open(link.replace(/\?.*/ , ""));
-          });
-          installed = true;
-        }
-        //In case where user also listening on different labels than inbox, there would be duplicated elements
-        var temp = (function (arr) {
-          arr.forEach(function (item, index) {
-            for (var i = index + 1; i < arr.length; i++) {
-              if (arr[i] && item.label == arr[i].label) {delete arr[index]}
-            }
-          });
-          return arr.filter(function (item){return item});
-        })(loggedins);
-        //remove old items
-        while (menupopup.firstChild) {
-          menupopup.removeChild(menupopup.firstChild)
-        }
-        function addChild (label, value) {
-          var item = _menuitem.cloneNode(true);
-          item.setAttribute("label", label);
-          item.setAttribute("value", value);
-          menupopup.appendChild(item);
-        }
-        if (temp.length) {
-          temp.forEach(function (obj) {
-            addChild(obj.label, obj.link);
-          });
-        }
-        else {
-          addChild(_("context"), "");
-        }
-      }
-    })(),
-    onCommand: onCommand
-  });
-  //
-  icon(null, "blue");
   //Timer
-  tm = manager (config.firstTime * 1000,
-    checkAllMails);
+  tm = manager (config.firstTime * 1000, checkAllMails);
   //Install
-  gButton.moveTo(config.toolbar.move);
+  if (options.loadReason == "install" || prefs.forceVisible) {
+    //If adjacent button is restartless wait for its creation
+    timer.setTimeout(function (){
+      gButton.moveTo(config.toolbar.move);
+    }, 800);
+  }
   //Welcome page
   if (options.loadReason == "upgrade" || options.loadReason == "install") {
     welcome();
   }
-  //Prefs
-  sp.on("textColor", function () {
-    gButton.textColor = config.textColor;
-  });
-  sp.on("backgroundColor", function () {
-    gButton.backgroundColor = config.backgroundColor;
-  });
 };
 
 /** Store toolbar button position **/
-var activeBrowserWindow = windowutils.activeBrowserWindow;
-activeBrowserWindow.addEventListener("aftercustomization", function () {
-  let button = activeBrowserWindow.document.getElementById(config.toolbar.id);
+var aWindow = windowutils.activeBrowserWindow;
+var aftercustomizationListener = function () {
+  let button = aWindow.document.getElementById(config.toolbar.id);
   if (!button) return;
   _prefs.set(config.prefs + "nextSibling", button.nextSibling.id);
-}, false);
+}
+aWindow.addEventListener("aftercustomization", aftercustomizationListener, false);
+exports.onUnload = function (reason) {
+  aWindow.removeEventListener("aftercustomization", aftercustomizationListener, false); 
+}
+
+/** Prefs Listener**/
+sp.on("textColor", function () {
+  gButton.textColor = config.textColor;
+});
+sp.on("backgroundColor", function () {
+  gButton.backgroundColor = config.backgroundColor;
+});
+sp.on("clrPattern", function () {
+  tm.reset();
+});
 
 /** Interval manager **/
 var manager = function (once, func) {
@@ -333,8 +410,44 @@ var server = {
         } catch(e){}
         return temp;
       },
-      get enteries () {
-        return Array.prototype.slice.call( xml.getElementsByTagName("entry") ) 
+      get entries () {
+        var tmp = Array.prototype.slice.call( xml.getElementsByTagName("entry") );
+        function toObj (entry) {
+          return {
+            get title () {
+              return entry.getElementsByTagName("title")[0].textContent;
+            },
+            get summary () {
+              return entry.getElementsByTagName("summary")[0].textContent;
+            },
+            get modified () {
+              return entry.getElementsByTagName("modified")[0].textContent;
+            },
+            get issued () {
+              return entry.getElementsByTagName("issued")[0].textContent;
+            },
+            get author_name () {
+              return entry.getElementsByTagName("author")[0]
+                .getElementsByTagName("name")[0].textContent;
+            },
+            get author_email () {
+              return entry.getElementsByTagName("author")[0]
+                .getElementsByTagName("email")[0].textContent;
+            },
+            get id () {
+              return entry.getElementsByTagName("id")[0].textContent;
+            },
+            get link () {
+              return entry.getElementsByTagName("link")[0].getAttribute("href")
+            }
+          }
+        }
+        var rtn = [];
+        tmp.forEach(function (entry) {
+          rtn.push(new toObj(entry));
+        });
+        
+        return rtn;
       }
     }
   },
@@ -377,17 +490,16 @@ var server = {
             newUnread = (count > oldCount)
           }
           else {
-            xml.enteries.forEach(function (entry, i) {
-              var id = entry.getElementsByTagName("id")[0].childNodes[0].nodeValue;
-              if (msgs.indexOf(id) == -1) {
+            xml.entries.forEach(function (entry, i) {
+              if (msgs.indexOf(entry.id) == -1) {
                 newUnread = true;
               }
             });
           }
           oldCount = count;
           msgs = [];
-          xml.enteries.forEach(function (entry, i) {
-            msgs.push(entry.getElementsByTagName("id")[0].childNodes[0].nodeValue);
+          xml.entries.forEach(function (entry, i) {
+            msgs.push(entry.id);
           });
         }
         else {
@@ -535,7 +647,8 @@ var checkAllMails = (function () {
           unreadObjs.push({
             link: r.xml.link, 
             count: r.msgObj[1],
-            account: r.msgObj[0] + (label ? " [" + label + "]" : label)
+            account: r.msgObj[0] + (label ? " [" + label + "]" : label),
+            entries: r.xml.entries
             });
         }
         else {
@@ -583,16 +696,86 @@ var checkAllMails = (function () {
 /** Prefs **/
 sp.on("reset", function() {
   if (!window.confirm(_("msg7"))) return
-  prefs.backgroundColor = "#FFB";
-  prefs.textColor       = "#000";
-  prefs.alphabetic      = false;
-  prefs.alert           = true;
-  prefs.notification    = true;
-  prefs.period          = 15;
-  prefs.feeds           = config.email.FEEDS;
-  prefs.red             = 6;
-  prefs.gray            = 2;
+  prefs.backgroundColor   = "#FFB";
+  prefs.textColor         = "#000";
+  prefs.alphabetic        = false;
+  prefs.alert             = true;
+  prefs.notification      = true;
+  prefs.period            = 15;
+  prefs.feeds             = config.email.FEEDS;
+  prefs.soundNotification = 1;
 });
+
+/**
+ * Send archive, mark as read, mark as unread, and trash commands to Gmail server
+ * @param {String} link, xml.link address
+ * @param {String} cmd, rd, ur, rc_, tr
+ * @param {Function} callback, callback function. True for successful action
+ * @return {Object} pointer, callback apply object.
+ */
+var action = (function () {
+  function getAt (url, callback, pointer) {
+    var req = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"]
+      .createInstance(Ci.nsIXMLHttpRequest);
+    req.mozBackgroundRequest = true;  //No authentication
+    req.open('GET', url + "h/" + Math.ceil(1000000 * Math.random()), true);
+    req.onreadystatechange = function (aEvt) {
+      if (req.readyState == 4) {
+        if(req.status == 200) {
+          var tmp = /at\=([^\"\&]*)/.exec(req.responseText);
+          if (callback) callback.apply(pointer, [tmp.length > 1 ? tmp[1] : null]);
+        }
+        else {
+          if (callback) callback.apply(pointer, [null]);
+        }
+      }
+    };
+    req.channel.QueryInterface(Ci.nsIHttpChannelInternal)
+      .forceAllowThirdPartyCookie = true;
+    req.send(null);
+  }
+  function sendCmd (url, at, thread, cmd, callback, pointer) {
+    var req = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"]
+      .createInstance(Ci.nsIXMLHttpRequest);
+    req.mozBackgroundRequest = true;  //No authentication
+    req.open('POST', url + "?at=" + at + "&act=" + cmd + "&t=" + thread, true);
+    req.onreadystatechange = function (aEvt) {
+      if (req.readyState == 4) {
+        if(req.status == 200) {
+          if (callback) callback.apply(pointer, [true]);
+        }
+        else {
+          if (callback) callback.apply(pointer, [false]);
+        }
+      }
+    };
+    req.channel.QueryInterface(Ci.nsIHttpChannelInternal)
+      .forceAllowThirdPartyCookie = true;
+    req.send(null);
+  }
+  
+  return function (link, cmd, callback, pointer) {
+    link = link.replace("http://", "https://");
+    var url = /[^\?]*/.exec(link)[0] + "/";
+    
+    getAt(url, function (at) {
+      if (at) {
+        var thread = /message\_id\=([^\&]*)/.exec(link);
+        if (thread.length > 1) {
+          sendCmd(url, at, thread[1], cmd, function () {
+            if (callback) callback.apply(pointer, [true]);
+          });
+        }
+        else {
+          if (callback) callback.apply(pointer, [false, "Error at resolving thread"]);
+        }
+      }
+      else {
+        if (callback) callback.apply(pointer, [false, "Error at fetching 'at'"]); 
+      }
+    });
+  }
+})();
 
 /** Notifier **/
 var notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob/master/lib/simple-notify.js
