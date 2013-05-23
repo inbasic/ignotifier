@@ -5,32 +5,49 @@
     <link rel="stylesheet" type="text/css" href="context.css">
   </head>
 <body>
+<script>
+var tools = {
+  open: function (e) {
+    e.preventDefault();
+    var event = document.createEvent('CustomEvent');
+    event.initCustomEvent("ignotifier-open", true, true, {link: e.originalTarget.href});
+    document.documentElement.dispatchEvent(event);
+  }
+}
+</script>
 <div class="body">
   <div class="toolbar">
-    <div class="action users">
-      <span>test@gmail.com</span>
-      <img src="arrow.png" class="arrow">
+    <div id="account-selector" class="action users">
+      <span></span>
+      <img src="arrow.png">
     </div>
-    <span class="stat"><b>2</b> of <b>7</b></span>
-    <span class="action toolbarbutton previous"><img/></span>
-    <span class="action toolbarbutton next"><img/></span>
+    <ol id="accounts" class="list"></ol>
+    <div align="right" style="margin-right: 15px;">
+      <span id="stat" class="stat"><b></b> of <b></b></span>
+      <span id="previous" class="action toolbarbutton previous"><img/></span>
+      <span id="next" class="action toolbarbutton next"><img/></span>
+    </div>
   </div>
   <div>
-    <span class="title">Title</span>
+    <span class="title" onclick="tools.open(event);">
+      <a id="title"></a>
+    </span>
     <hr width="99%" size="1">
     <p class="identity">
-      <span class="name">Name</span>
-      <span class="email"> &lt;email@address&gt;</span>
-      <span class="date">May 18 (2 days ago)</span>
+      <span class="name" onclick="tools.open(event);">
+        <a id="name"></a>
+      </span>
+      <span id="email" class="email"></span>
+      <span id="date" class="date"></span>
     </p>
-    <span class="content">body text, body text, body text, body text</span>
+    <span id="content" class="content"></span>
   </div>
   <div class="toolbar bottom" align="center">
-    <span class="action toolbarbutton archive"><img/></span>
-    <span class="action toolbarbutton trash"><img/></span>
-    <span class="action toolbarbutton spam"><img/></span>
-    <span class="action toolbarbutton refresh"><img/></span>
-    <span class="action toolbarbutton read">Mark as read</span>
+    <span id="archive" class="action toolbarbutton archive"><img/></span>
+    <span id="trash" class="action toolbarbutton trash"><img/></span>
+    <span id="spam" class="action toolbarbutton spam"><img/></span>
+    <span id="refresh" class="action toolbarbutton refresh"><img/></span>
+    <span id="read" class="action toolbarbutton read">Mark as read</span>
   </div>
 </div>
 

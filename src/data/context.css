@@ -1,20 +1,32 @@
 body {
   margin: 0;
   font-family: arial,sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   overflow: hidden;
   background-color: white;
 }
+a {
+  text-decoration: none;
+}
+a:active,
+a:focus {
+  outline: none;
+}
+hr {
+  margin-bottom: -2px;
+  border-color: #DCDCDC;
+}
 .body {
   position: relative;
-  width: 400px;
-  height: 240px;
+  width: 420px;
+  height: 200px;
 }
 .action {
   opacity: 0.6;
   cursor: pointer;
 }
-.action:hover {
+.action:hover:not([disabled]),
+.action:hover[disabled=false] {
   opacity: 1;
 }
 .toolbar {
@@ -36,7 +48,7 @@ body {
   border: 1px solid #DCDCDC;
   background-color: white;
   background-image: -moz-linear-gradient(center top , rgba(255, 255, 255, 0.85), rgba(247, 247, 247, 0.85));
-
+  font-size: 11px;
   vertical-align: middle;
   margin-top: -3px;
 }
@@ -45,6 +57,13 @@ body {
   width: 21px;
   height: 21px;
   background-image: url("buttons.png");
+}
+.toolbarbutton[wait] img {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  background-position: 0 0 !important;
+  background: url("wait.gif") no-repeat center center;
 }
 .toolbarbutton.previous,
 .toolbarbutton.next {
@@ -85,18 +104,30 @@ body {
 }
 .users {
   float: left;
-  width: 270px;
+  width: 240px;
   margin: -1px;
-  border-style:solid;
-  border-width: 1px;
-  border-color: #DCDCDC;
-  padding-left: 10px;
+  border: solid 1px #DCDCDC;
+  padding-left: 20px;
+  background: url('list.png') no-repeat left center;
+}
+.users img {
+  margin-left: -2px;
+  vertical-align: middle;
 }
 .title {
   display: block;
   padding-left: 8px;
-  font-size: 160%;
+  font-size: 140%;
   margin: 8px 0px 4px;
+  width: 400px;
+  height: 24px;
+  line-height: 24px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.title a {
+  color: black;
 }
 .identity {
   display: block;
@@ -105,23 +136,43 @@ body {
 .name {
   font-weight: bold;
 }
+.name a {
+  color: #1155CC;
+}
 .email {
   color: #555555;
 }
 .content {
   display: block;
   padding-left: 8px;
-  font-size: 110%;
 }
 .date {
   float: right;
   margin-right: 5px;
 }
-.arrow {
-  margin-left: 2px;
-  vertical-align: middle;
+.list {
+  display: none;
+  list-style-position: inside;
+  border:solid 1px #DCDCDC;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  left: 5px;
+  top: 30px;
+  cursor: pointer;
+  background-color: white;
 }
-hr {
-  margin-bottom: -2px;
-  border-color: #DCDCDC;
+.list li {
+  display: block;
+  width: 200px;
+  height: 24px;
+  line-height: 24px;
+  padding-left: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.list li:hover  {
+  background-color: #F1F1F1;
 }

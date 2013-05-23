@@ -59,8 +59,8 @@ var config = {
   homepage: "http://add0n.com/gmail-notifier.html",
   //panel
   panel: {
-    width: 400,
-    height: 240,
+    width: 420,
+    height: 200,
     each: 22,
     margin: 14
   },
@@ -74,11 +74,12 @@ userstyles.load(data.url("overlay.css"));
 /** URL parser **/
 function url_parse (url) {
   var temp = /^(http.*):\/\/w{0,3}\.*([^\#\?]*)[^\#]*#*([^\/]*)/.exec(url.replace("gmail", "mail.google"));
-
+  var temp2 = /message_id\=([^&]*)/.exec(url);
   return {
-    protocol: temp[1] ? temp[1] : "https",
-    base: temp[2] ? temp[2].replace(/\/$/, '') : config.email.url,
-    label: temp[3] ? temp[3] : "inbox"
+    protocol: temp && temp[1] ? temp[1] : "https",
+    base: temp && temp[2] ? temp[2].replace(/\/$/, '') : config.email.url,
+    label: temp && temp[3] ? temp[3] : "inbox",
+    id: temp2 && temp2[1] ? temp2[1] : ""
   }
 }
 
@@ -88,17 +89,23 @@ function open (url, inBackground) {
     try {
       var parse1 = url_parse(tab.url),
           parse2 = url_parse(url);
-      
-      if (parse1.base == parse2.base && parse1.label == parse2.label) {
-        if (tabs.activeTab == tab) {
+
+      var equal = (tab.url == url || tab.url.indexOf(parse2.id) != -1);
+      if (parse1.base == parse2.base) {
+        if (tabs.activeTab == tab &&  equal) {
           notify(_("gmail"), _("msg8"));
         }
         else {
           tab.activate();
+          if (!equal) {
+            tab.url = url;
+          }
         }
         return;
       }
-    }catch(e) {}
+    } catch(e) {
+      console.error(e);
+    }
   }
   tabs.open({url: url, inBackground: inBackground ? inBackground : false});
 }
@@ -114,20 +121,49 @@ var contextPanel = panel.Panel({
   contentURL: data.url("context.html"),
   contentScriptFile: data.url("context.js")
 });
-contextPanel.port.on("click", function (link) {
+contextPanel.port.on("open", function (link) {
   contextPanel.hide();
   if (link) open(link);
 });
 contextPanel.port.on("action", function (link, cmd) {
   action(link, cmd, function (bol, err) {
-    console.error("Action: " + bol + " " + err);
+    contextPanel.port.emit("action-response", cmd);
+    tm.reset();
+    if (!bol) {
+      notify(_("gmail"), err);
+    }
   });
+});
+contextPanel.port.on("decrease_mails", function (iIndex, jIndex) {
+  //decrease the number of mails
+  unreadObjs[iIndex].entries.splice(jIndex, 1);
+  unreadObjs[iIndex].count -= 1;
+
+  var total = 0;
+  unreadObjs.forEach(function (e, i) {
+    total += e.count;
+  });
+
+  if (total > 0) {
+    icon(total, "red");
+  }
+  else {
+    icon(total, "gray");
+  }
+});
+contextPanel.port.on("update", function () {
+  tm.reset(true);
 });
 
 /** onCommand **/
 var onCommand = function (e, tbb, link) {
-
-
+  if (!unreadObjs.length) {
+    open(config.email.url);
+  }
+  else if (unreadObjs.length == 1 && prefs.oldFashion == "1") {
+    open(unreadObjs[0].link);
+  }
+  else {
     //For test purposes
     try {
       contextPanel.show(tbb);
@@ -136,32 +172,7 @@ var onCommand = function (e, tbb, link) {
       contextPanel.show(null, tbb);
     }
     contextPanel.port.emit('command', unreadObjs);
-
-
-
-
-
-
-
-
-/*   if (!unreadObjs.length) {
-    open(config.email.url);
   }
-  else if (unreadObjs.length == 1) {
-    open(unreadObjs[0].link);
-  }
-  else if (link) {
-    open(link);
-  }
-  else {
-    contextPanel.port.emit('list', unreadObjs);
-    try {
-      contextPanel.show(tbb);
-    }
-    catch (e) {
-      contextPanel.show(null, tbb);
-    }
-  } */
 }
 
 /** Toolbar button **/
@@ -665,6 +676,15 @@ var checkAllMails = (function () {
     if (isRed)             icon(total, "red");
     else if (isGray)       icon(null,  "gray");
     if (!isRed && !isGray) icon(null,  "blue");
+    //Update panel if it is open
+    if (contextPanel.isShowing) {
+      if (unreadObjs.length) {
+        contextPanel.port.emit('command', unreadObjs);
+      }
+      else {
+        contextPanel.hide();
+      }
+    }
   }
 
   return function (forced) {
@@ -673,7 +693,9 @@ var checkAllMails = (function () {
     pushCount = len;
     results = [];
     isForced = forced;
-    gClients.forEach(function(gClient, index){gClient(forced, index ? true : false)});
+    gClients.forEach(function(gClient, index){
+      gClient(forced, index ? true : false)
+    });
   }
 })();
 
@@ -693,7 +715,7 @@ sp.on("reset", function() {
 /**
  * Send archive, mark as read, mark as unread, and trash commands to Gmail server
  * @param {String} link, xml.link address
- * @param {String} cmd, rd, ur, rc_, tr
+ * @param {String} cmd: rd, ur, rc_%5Ei, tr, sp
  * @param {Function} callback, callback function. True for successful action
  * @return {Object} pointer, callback apply object.
  */

@@ -96,6 +96,16 @@
     ]
   },
   {
+    "name": "oldFashion",
+    "title": "Toolbar button behaviour:",
+    "type": "menulist",
+    "value": 0,
+    "options": [
+      {"value": "0", "label": "Always open email preview panel"},
+      {"value": "1", "label": "Open Gmail account if only one account is logged-in"}
+    ]
+  },
+  {
     "name": "forceVisible",
     "title": "Always try to keep toolbar button visible:",
     "type": "bool",
