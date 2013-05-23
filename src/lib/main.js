@@ -710,6 +710,9 @@ sp.on("reset", function() {
   prefs.period            = 15;
   prefs.feeds             = config.email.FEEDS;
   prefs.soundNotification = 1;
+  prefs.clrPattern        = 0;
+  prefs.oldFashion        = 0;
+  prefs.forceVisible      = true;
 });
 
 /**

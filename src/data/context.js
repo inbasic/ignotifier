@@ -204,7 +204,7 @@ var update = (function () {
       var email = entry.author_email;
       if (email.length > 18) {
         var tmp = email.split("@");
-        email = tmp[0].substr(0, 15) + "..." + tmp[1];
+        email = tmp[0].substr(0, 15) + "...@" + tmp[1];
       }
       body.email = "<" + email + ">";
       body.date = prettyDate(entry.modified);
@@ -338,43 +338,29 @@ self.port.on("action-response", function (cmd) {
 
 
 /** misc **/
-function prettyDate(date_str) {
-  var time_formats = [
-    [60, 'just now', 1], // 60
-    [120, '1 minute ago', '1 minute from now'], // 60*2
-    [3600, 'minutes', 60], // 60*60, 60
-    [7200, '1 hour ago', '1 hour from now'], // 60*60*2
-    [86400, 'hours', 3600], // 60*60*24, 60*60
-    [172800, 'yesterday', 'tomorrow'], // 60*60*24*2
-    [604800, 'days', 86400], // 60*60*24*7, 60*60*24
-    [1209600, 'last week', 'next week'], // 60*60*24*7*4*2
-    [2419200, 'weeks', 604800], // 60*60*24*7*4, 60*60*24*7
-    [4838400, 'last month', 'next month'], // 60*60*24*7*4*2
-    [29030400, 'months', 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
-    [58060800, 'last year', 'next year'], // 60*60*24*7*4*12*2
-    [2903040000, 'years', 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
-    [5806080000, 'last century', 'next century'], // 60*60*24*7*4*12*100*2
-    [58060800000, 'centuries', 2903040000] // 60*60*24*7*4*12*100*20, 60*60*24*7*4*12*100
-  ];
-  var time = ('' + date_str).replace(/-/g,"/").replace(/[TZ]/g," ").replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-  if(time.substr(time.length-4,1)==".") time =time.substr(0,time.length-4);
-  var seconds = (new Date - new Date(time)) / 1000;
-  var token = 'ago', list_choice = 1;
-  if (seconds < 0) {
-    seconds = Math.abs(seconds);
-    token = 'from now';
-    list_choice = 2;
-  }
-  var i = 0, format;
-  while (format = time_formats[i++]) 
-    if (seconds < format[0]) {
-      if (typeof format[2] == 'string')
-        return format[list_choice];
-      else
-        return Math.floor(seconds / format[2]) + ' ' + format[1] + ' ' + token;
-    }
-  return time;
-};
+/*
+ * JavaScript Pretty Date
+ * Copyright (c) 2011 John Resig (ejohn.org)
+ * Licensed under the MIT and GPL licenses.
+ */
+function prettyDate(time){
+  var date = new Date((time || "")),
+    diff = (((new Date()).getTime() - date.getTime()) / 1000),
+    day_diff = Math.floor(diff / 86400);
+      
+  if ( isNaN(day_diff) || day_diff < 0 || day_diff >= 31 )
+    return;
+      
+  return day_diff == 0 && (
+      diff < 60 && "just now" ||
+      diff < 120 && "1 minute ago" ||
+      diff < 3600 && Math.floor( diff / 60 ) + " minutes ago" ||
+      diff < 7200 && "1 hour ago" ||
+      diff < 86400 && Math.floor( diff / 3600 ) + " hours ago") ||
+    day_diff == 1 && "Yesterday" ||
+    day_diff < 7 && day_diff + " days ago" ||
+    day_diff < 31 && Math.ceil( day_diff / 7 ) + " weeks ago";
+}
 function checkRTL(elem, str) {           
   var ltrChars        = 'A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02B8\u0300-\u0590\u0800-\u1FFF'+'\u2C00-\uFB1C\uFDFE-\uFE6F\uFEFD-\uFFFF',
       rtlChars        = '\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC',

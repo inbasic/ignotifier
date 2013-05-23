@@ -131,9 +131,6 @@ hr {
   text-overflow: ellipsis;
 }
 .title a {
-  color: red;
-}
-.title a {
   color: black;
 }
 .identity {

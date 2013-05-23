@@ -80,12 +80,6 @@
     "title": "User defined notification sound (*.wav):"
   },
   {
-      "type": "control",
-      "label": "Reset",
-      "name": "reset",
-      "title": "Reset all settings back:"
-  },
-  {
     "name": "clrPattern",
     "title": "Toolbar color pattern:",
     "type": "menulist",
@@ -110,6 +104,12 @@
     "title": "Always try to keep toolbar button visible:",
     "type": "bool",
     "value": true
+  },
+  {
+      "type": "control",
+      "label": "Reset",
+      "name": "reset",
+      "title": "Reset all settings back:"
   }],
 
   "id": "jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls" 
