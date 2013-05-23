@@ -109,6 +109,10 @@ hr {
   border: solid 1px #DCDCDC;
   padding-left: 20px;
   background: url('list.png') no-repeat left center;
+  
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .users img {
   margin-left: -2px;
@@ -125,6 +129,9 @@ hr {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+.title a {
+  color: red;
 }
 .title a {
   color: black;
@@ -144,7 +151,7 @@ hr {
 }
 .content {
   display: block;
-  padding-left: 8px;
+  padding: 0 8px;
 }
 .date {
   float: right;

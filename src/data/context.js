@@ -1,4 +1,4 @@
-var $ = (function () {
+﻿var $ = (function () {
   var cache = [];
   return function (id) {
     if (cache[id]) {
@@ -197,6 +197,7 @@ var update = (function () {
     function updateBody (entry, index) {
       stat.current = index + 1;
       body.title = entry.title;
+      checkRTL($("title").parentNode, entry.title);
       body.titleLink = entry.link;
       body.name = entry.author_name;
       body.nameLink = /[^\?]*/.exec(entry.link)[0] + "?view=cm&fs=1&tf=1&to=" + entry.author_email;
@@ -208,6 +209,7 @@ var update = (function () {
       body.email = "<" + email + ">";
       body.date = prettyDate(entry.modified);
       body.content = entry.summary + "...";
+      checkRTL($("content"), entry.summary);
       _tag[selectedAccount] = entry.id;
     }
     var doBody = !_tag[selectedAccount] || doAccountSelector || doNext || doPrevious;
@@ -372,6 +374,18 @@ function prettyDate(date_str) {
         return Math.floor(seconds / format[2]) + ' ' + format[1] + ' ' + token;
     }
   return time;
+};
+function checkRTL(elem, str) {           
+  var ltrChars        = 'A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02B8\u0300-\u0590\u0800-\u1FFF'+'\u2C00-\uFB1C\uFDFE-\uFE6F\uFEFD-\uFFFF',
+      rtlChars        = '\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC',
+      rtlDirCheck     = new RegExp('^[^'+ltrChars+']*['+rtlChars+']');
+
+  if (rtlDirCheck.test(str)) {
+    elem.setAttribute("dir", "rtl");
+  }
+  else {
+    elem.removeAttribute("dir");
+  }
 };
 document.defaultView.addEventListener('ignotifier-open', function(e) {
   self.port.emit("open", e.detail.link);
