@@ -1,6 +1,6 @@
-﻿var $ = (function () {
+﻿var $ = (function() {
   var cache = [];
-  return function (id) {
+  return function(id) {
     if (cache[id]) {
       return cache[id];
     }
@@ -8,32 +8,31 @@
     return cache[id];
   }
 })();
-var html = (function () {
+var html = (function() {
   var li = document.createElement("li");
-  function addContent (elem, txt) {
+
+  function addContent(elem, txt) {
     if (txt) {
       elem.textContent = txt;
     }
     return elem;
   }
-  
-  return function (tag, txt) {
+  return function(tag, txt) {
     var tmp;
     switch (tag) {
-      case "li":
-        tmp = li.cloneNode(false);
-        break;
-      default:
-        tmp = document.createElement(tag);
+    case "li":
+      tmp = li.cloneNode(false);
+      break;
+    default:
+      tmp = document.createElement(tag);
     }
     return addContent(tmp, txt);
   }
 })();
-
 var unreadObjs;
-var selectedAccount, doNext = false, doPrevious = false;
-
-self.port.on("command", function (uo) {
+var selectedAccount, doNext = false,
+    doPrevious = false;
+self.port.on("command", function(uo) {
   //Close account selection menu if it is open
   $("accounts").style.display = "none";
   //Update
@@ -41,7 +40,7 @@ self.port.on("command", function (uo) {
   //Is previouly selected account still available?
   if (selectedAccount) {
     var isAvailable = false;
-    unreadObjs.forEach(function (obj) {
+    unreadObjs.forEach(function(obj) {
       if (obj.account == selectedAccount) {
         isAvailable = true;
       }
@@ -51,132 +50,121 @@ self.port.on("command", function (uo) {
     }
   }
   update();
-});
-
-/** objects **/
-var accountSelector = (function () {
-  var tmp = $("account-selector").getElementsByTagName("span")[0];
+}); /** objects **/
+var accountSelector = (function() {
+  var tmp = $("account_selector").getElementsByTagName("span")[0];
   return {
-    get text () {
+    get text() {
       return tmp.textContent;
-    },
-    set text(val) {
+    }, set text(val) {
       tmp.textContent = val;
     }
   }
 })();
-var stat = (function () {
+var stat = (function() {
   var list = $("stat").getElementsByTagName("b");
   return {
-    get current () {
+    get current() {
       return list[0].textContent;
-    },
-    set current (val) {
+    }, set current(val) {
       list[0].textContent = val;
-    },
-    get total () {
+    }, get total() {
       return list[1].textContent;
-    },
-    set total (val) {
+    }, set total(val) {
       list[1].textContent = val;
     }
   }
 })();
-var body = (function () {
-  var content = $("content"), 
-    date = $("date"), 
-    email = $("email"),
-    name = $("name"), 
-    title = $("title");
-  
+var body = (function() {
+  var content = $("email_body"),
+      date = $("date"),
+      email = $("email"),
+      name = $("name"),
+      title = $("title");
   return {
-    get content () {
+    get content() {
       return content.textContent
-    },
-    set content (val) {
+    }, set content(val) {
       content.textContent = val;
-    },
-    get date () {
+    }, get date() {
       return date.textContent
-    },
-    set date (val) {
+    }, set date(val) {
       date.textContent = val;
-    },
-    get email () {
+    }, get email() {
       return email.textContent
-    },
-    set email (val) {
+    }, set email(val) {
       email.textContent = val;
-    },
-    get name () {
+    }, get name() {
       return name.textContent
-    },
-    set name (val) {
+    }, set name(val) {
       name.textContent = val;
-    },
-    set nameLink (val) {
+    }, set nameLink(val) {
       name.setAttribute("href", val)
-    },
-    get title () {
+    }, get title() {
       return title.textContent
-    },
-    set title (val) {
+    }, set title(val) {
       title.textContent = val;
-    },
-    set titleLink (val) {
+    }, set titleLink(val) {
       title.setAttribute("href", val)
     }
   }
-})();
-
-/** Listeners **/
-var Listen = function (id, on, callback, pointer) {
+})(); /** Listeners **/
+var Listen = function(id, on, callback, pointer) {
   var elem = $(id);
-  elem.addEventListener(on, function (e) {
+  elem.addEventListener(on, function(e) {
     if (elem.getAttribute("disabled") == "true") {
       return;
     }
     if (callback) callback.apply(pointer, [e]);
   }, false);
 }
-new Listen("account-selector", "click", function (e) {
+new Listen("account_selector", "click", function(e) {
   // Clear old list
   while ($("accounts").firstChild) {
     $("accounts").removeChild($("accounts").firstChild);
   }
   // Add new items
-  unreadObjs.forEach(function (obj) {
+  unreadObjs.forEach(function(obj) {
     var li = html("li", obj.account);
+    if (selectedAccount && obj.account == selectedAccount) li.classList.add("selected");
     $("accounts").appendChild(li);
   });
+  e.stopPropagation();
   // Show menu
   $("accounts").style.display = "block";
   e.stopPropagation();
-  function tmp (e) {
+
+  function tmp(e) {
     $("accounts").style.display = "none";
     window.removeEventListener("click", tmp);
   }
   window.addEventListener("click", tmp, false);
 });
-new Listen("accounts", "click", function (e) {
+new Listen("accounts", "click", function(e) {
   selectedAccount = e.originalTarget.textContent;
+  //unselect the selected
+  var li = $("accounts").firstChild;
+  while (li) {
+    li.classList.remove("selected");
+    li = li.nextElementSibling;
+  }
+  e.originalTarget.classList.add("selected");
   update();
 });
-new Listen("next", "click", function (e) {
+new Listen("next", "click", function(e) {
   doNext = true;
   update();
 });
-new Listen("previous", "click", function (e) {
+new Listen("previous", "click", function(e) {
   doPrevious = true;
   update();
-});
-/** **/
+}); /** **/
 var iIndex, jIndex;
-var update = (function () {
+var update = (function() {
   var _selectedAccount, _tag = [];
-  return function () {
+  return function() {
     // Is update required?
-    for (var i = unreadObjs.length - 1; i >= 0 ; i -= 1) {
+    for (var i = unreadObjs.length - 1; i >= 0; i -= 1) {
       iIndex = i;
       var obj = unreadObjs[i];
       if (obj.account == selectedAccount && obj.count) {
@@ -194,10 +182,10 @@ var update = (function () {
       accountSelector.text = selectedAccount;
     }
     // Update email's body
-    function updateBody (entry, index) {
+
+    function updateBody(entry, index) {
       stat.current = index + 1;
       body.title = entry.title;
-      checkRTL($("title").parentNode, entry.title);
       body.titleLink = entry.link;
       body.name = entry.author_name;
       body.nameLink = /[^\?]*/.exec(entry.link)[0] + "?view=cm&fs=1&tf=1&to=" + entry.author_email;
@@ -209,14 +197,18 @@ var update = (function () {
       body.email = "<" + email + ">";
       body.date = prettyDate(entry.modified);
       body.content = entry.summary + "...";
-      checkRTL($("content"), entry.summary);
       _tag[selectedAccount] = entry.id;
+      //Support for the RTL
+      var dir = window.getComputedStyle($("email_title"), null).direction;
+      if (dir == "rtl") $("content").classList.add("rtl");
+      else
+      $("content").classList.remove("rtl");
     }
     var doBody = !_tag[selectedAccount] || doAccountSelector || doNext || doPrevious;
     // Make sure selected item is still avaialable
     if (!doBody) {
       var isAvailable = false;
-      obj.entries.forEach(function (entry) {
+      obj.entries.forEach(function(entry) {
         if (entry.id == _tag[selectedAccount]) {
           isAvailable = true;
         }
@@ -225,8 +217,7 @@ var update = (function () {
         doBody = true;
         if (jIndex) {
           _tag[selectedAccount] = obj.entries[jIndex - 1].id;
-        }
-        else {
+        } else {
           _tag[selectedAccount] = null;
         }
       }
@@ -242,13 +233,11 @@ var update = (function () {
             doNext = false;
             jIndex = j + 1;
             updateBody(obj.entries[jIndex], jIndex);
-          }
-          else if (doPrevious) {
+          } else if (doPrevious) {
             doPrevious = false;
             jIndex = j - 1;
             updateBody(obj.entries[jIndex], jIndex);
-          }
-          else {
+          } else {
             jIndex = j;
             updateBody(entry, jIndex);
           }
@@ -257,7 +246,8 @@ var update = (function () {
       }
     }
     // Update toolbar buttons
-    var pr = false, nt = false;
+    var pr = false,
+        nt = false;
     if (jIndex == 0) {
       pr = true;
     }
@@ -270,109 +260,82 @@ var update = (function () {
     }
     if (pr) {
       $("previous").setAttribute("disabled", true);
-    }
-    else {
+    } else {
       $("previous").removeAttribute("disabled");
     }
     if (nt) {
       $("next").setAttribute("disabled", true);
-    }
-    else {
+    } else {
       $("next").removeAttribute("disabled");
     }
     // Update stat
     stat.total = obj.count;
   }
 })();
-new Listen("archive", "click", function (e) {
+new Listen("archive", "click", function(e) {
   $("archive").setAttribute("wait", true);
   $("archive").setAttribute("disabled", true);
   var link = unreadObjs[iIndex].entries[jIndex].link;
   self.port.emit("action", link, "rc_%5Ei");
 });
-new Listen("trash", "click", function (e) {
+new Listen("trash", "click", function(e) {
   $("trash").setAttribute("wait", true);
   $("trash").setAttribute("disabled", true);
   var link = unreadObjs[iIndex].entries[jIndex].link;
   self.port.emit("action", link, "tr");
 });
-new Listen("spam", "click", function (e) {
+new Listen("spam", "click", function(e) {
   $("spam").setAttribute("wait", true);
   $("spam").setAttribute("disabled", true);
   var link = unreadObjs[iIndex].entries[jIndex].link;
   self.port.emit("action", link, "sp");
 });
-new Listen("read", "click", function (e) {
+new Listen("read", "click", function(e) {
   $("read").textContent = "Wait...";
   var link = unreadObjs[iIndex].entries[jIndex].link;
   self.port.emit("action", link, "rd");
 });
-new Listen("refresh", "click", function (e) {
+new Listen("refresh", "click", function(e) {
   self.port.emit("update");
 });
-self.port.on("action-response", function (cmd) {
+self.port.on("action-response", function(cmd) {
   if (cmd == "rd") {
     $("read").textContent = "Mark as read";
-  }
-  else {
-  var obj;
+  } else {
+    var obj;
     switch (cmd) {
-      case "rd":
-        obj = $("read");
-        break;
-      case "tr":
-        obj = $("trash");
-        break;
-      case "rc_%5Ei":
-        obj = $("archive");
-        break;
-      case "sp":
-        obj = $("spam");
-        break;
+    case "rd":
+      obj = $("read");
+      break;
+    case "tr":
+      obj = $("trash");
+      break;
+    case "rc_%5Ei":
+      obj = $("archive");
+      break;
+    case "sp":
+      obj = $("spam");
+      break;
     }
     obj.removeAttribute("wait");
     obj.removeAttribute("disabled");
   }
   self.port.emit("decrease_mails", iIndex, jIndex);
-});
-
-
-/** misc **/
+}); /** misc **/
 /*
- * JavaScript Pretty Date
- * Copyright (c) 2011 John Resig (ejohn.org)
- * Licensed under the MIT and GPL licenses.
- */
-function prettyDate(time){
-  var date = new Date((time || "")),
-    diff = (((new Date()).getTime() - date.getTime()) / 1000),
-    day_diff = Math.floor(diff / 86400);
-      
-  if ( isNaN(day_diff) || day_diff < 0 || day_diff >= 31 )
-    return;
-      
-  return day_diff == 0 && (
-      diff < 60 && "just now" ||
-      diff < 120 && "1 minute ago" ||
-      diff < 3600 && Math.floor( diff / 60 ) + " minutes ago" ||
-      diff < 7200 && "1 hour ago" ||
-      diff < 86400 && Math.floor( diff / 3600 ) + " hours ago") ||
-    day_diff == 1 && "Yesterday" ||
-    day_diff < 7 && day_diff + " days ago" ||
-    day_diff < 31 && Math.ceil( day_diff / 7 ) + " weeks ago";
-}
-function checkRTL(elem, str) {           
-  var ltrChars        = 'A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02B8\u0300-\u0590\u0800-\u1FFF'+'\u2C00-\uFB1C\uFDFE-\uFE6F\uFEFD-\uFFFF',
-      rtlChars        = '\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC',
-      rtlDirCheck     = new RegExp('^[^'+ltrChars+']*['+rtlChars+']');
+* JavaScript Pretty Date
+* Copyright (c) 2011 John Resig (ejohn.org)
+* Licensed under the MIT and GPL licenses.
+*/
 
-  if (rtlDirCheck.test(str)) {
-    elem.setAttribute("dir", "rtl");
-  }
-  else {
-    elem.removeAttribute("dir");
-  }
-};
+function prettyDate(time) {
+  var date = new Date((time || "")),
+      diff = (((new Date()).getTime() - date.getTime()) / 1000),
+      day_diff = Math.floor(diff / 86400);
+  if (isNaN(day_diff) || day_diff < 0 || day_diff >= 31) return;
+  return day_diff == 0 && (
+  diff < 60 && "just now" || diff < 120 && "1 minute ago" || diff < 3600 && Math.floor(diff / 60) + " minutes ago" || diff < 7200 && "1 hour ago" || diff < 86400 && Math.floor(diff / 3600) + " hours ago") || day_diff == 1 && "Yesterday" || day_diff < 7 && day_diff + " days ago" || day_diff < 31 && Math.ceil(day_diff / 7) + " weeks ago";
+}
 document.defaultView.addEventListener('ignotifier-open', function(e) {
   self.port.emit("open", e.detail.link);
 });
