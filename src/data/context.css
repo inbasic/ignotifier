@@ -28,6 +28,7 @@ ul
 	padding: 3px;
 	border-radius: 2px;
 	background-color: #fff;
+	width: 420px;
 }
 #preview
 {
@@ -61,7 +62,7 @@ ul
 	border-left: 1px solid #DCDCDC;
 }
 
-#header #nav #nav_text
+#header #nav #stat
 {
 	margin-right: 8px;
 }
@@ -74,6 +75,7 @@ ul
 	padding: 0 8px 0 28px;
 	background: url(icons.png) -1px 2px no-repeat;
 	height: 25px;
+	outline: none;
 }
 
 #header #account_selector:hover
@@ -81,16 +83,10 @@ ul
 	opacity: 0.9;
 }
 
-#header #account_selector:focus + #accounts, #header #accounts:hover
+#header #account_selector span
 {
-	max-height: 500px;
-	min-height: 34px;
-	overflow: hidden;
-	border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 2px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: max-height 0.3s ease-in;
-    z-index: 100;
+	background: url(icons.png) 100% -24px no-repeat;
+	padding: 0 30px 0 5px;
 }
 
 #header #accounts
@@ -99,36 +95,38 @@ ul
     font-size: 13px;
     margin: 0;
     min-width: 200px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 100;
     position: absolute;
     top: 30px;
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 0s ease-in;
+    display: none;
 }
 
-#header #accounts li a
+#header #accounts li
 {
 	padding: 4px 8px 4px 25px;
 	display: block;
 	border-bottom: 1px solid #F5F5F5;
 	cursor: pointer;
 }
-#header #accounts li:last-child a
+#header #accounts li:last-child
 {
 	border-bottom: none;
 }
 
-#header #accounts li a:hover
+#header #accounts li:hover
 {
 	background-color: #F5F5F5;
 }
 
-#header #accounts li.selected a
+#header #accounts li.selected
 {
 	background: url(icons.png) 2px -172px no-repeat #F5F5F5;
 } 
 
-#content_mask
+#content
 {
 	background-color: #FFF;
 	border-top: 1px solid #DCDCDC;
@@ -137,76 +135,61 @@ ul
 	box-sizing: border-box;
 	overflow: hidden;
 	height: 134px;
-	width: 392px;
-}
-.content
-{
-	height: 100%;
 	color: #222222;
 	font-size: 90%;
 	position: relative;
-    top: 0px;
-    left: 0px;
-	transition: left 0.4s ease-out;
-}
-.content li
-{
 	padding: 8px;
-	width: 392px;
-	height: 100%;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	float: left;
-    position: relative;
-    top: 0px;
-    left: 0px;
-    transition: all 0.3s ease-out;
 }
-.content li.remove
-{
-	top: 150px;
-	width: 0;
-	height: 0;
-	left: 80px;
-}
-.content a
+
+#content a
 {
 	color: #1155CC;
 	text-decoration: none;
 }
-.content a:hover
-{
-	text-decoration: underline;
-}
 
-.content li h1
+#content #email_title
 {
 	font-weight: normal;
-	font-size: 135%;
-	padding-bottom: 4px;
+	font-size: 140%;
 	border-bottom: 1px solid #DCDCDC;
 	margin-bottom: 4px;
-	
+	display: block;
 }
 
-.content li .sender
+#content a#title
+{
+	color: #222222;
+	display: inline-block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	max-width: 402px;
+}
+
+#content #name
+{
+	font-weight: bold;
+}
+
+#content .sender
 {
 	float: left;
 }
 
-.content li .date
+#content #date
 {
 	float: right;
 	font-size: 85%;
 }
 
-.content li p
+#content p
 {
 	float: none;
 	clear: both;
 	padding: 8px 4px 0 4px;
-	max-height: 67px;
+	height: 67px;
 	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .btn
@@ -230,6 +213,7 @@ ul
 	border-radius: 2px;
 	white-space: nowrap;
 }
+
 
 .btn.prev, .btn.next
 {
@@ -267,14 +251,14 @@ ul
 	opacity: 0.9;
 }
 
-.btn.disabled, .btn.disabled:hover
+.btn[disabled], .btn[disabled]:hover
 {
 	border: 1px solid rgba(0, 0, 0, 0.1);
 	cursor: default;
 	z-index:1;
 }
 
-.btn.disabled i, .btn.disabled:hover i
+.btn[disabled] i, .btn[disabled]:hover i
 {
 	opacity: 0.333;
 }
@@ -289,15 +273,22 @@ ul
 	height: 20px;
 	margin-top: 2px;
 }
-.btn.open i
+
+.btn[wait] i
+{
+	background-position: 0 0 !important;
+	background: url("wait.gif") no-repeat center center;
+}
+
+.btn.down i
 {
 	background-position: -1px -24px;
 }
-.btn.delete i
+.btn.trash i
 {
 	background-position: -1px -46px;
 }
-.btn.reload i
+.btn.refresh i
 {
 	background-position: -1px -68px;
 }
@@ -319,21 +310,21 @@ ul
 }
 
 /* rtl support */
-li.rtl .sender
+#content.rtl .sender
 {
 	float: right;
 }
-li.rtl .sender a
+#content.rtl .sender a
 {
 	float: right;
 	margin-left: 5px;
 }
-li.rtl .sender span
+#content.rtl .sender span
 {
 	direction: ltr;
 }
 
-li.rtl .date
+#content.rtl #date
 {
 	float: left;
 	direction: ltr;

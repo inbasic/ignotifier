@@ -2,8 +2,19 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <link rel="stylesheet" href="context.css" />        
-        <script type="text/javascript" src="context.js"></script>
+        <link rel="stylesheet" href="test.css" />        
+        <script>
+			var tools = {
+				open: function (e) {
+					e.preventDefault();
+					var event = document.createEvent('CustomEvent');
+					event.initCustomEvent("ignotifier-open", true, true, {
+						link: e.originalTarget.href
+					});
+					document.documentElement.dispatchEvent(event);
+				}
+			}
+		</script>
     </head>
 
     <body>
@@ -11,27 +22,27 @@
 			<div id="preview">
 				<div id="header">
 					<div id="nav">
-						<a class="btn next disabled" onclick="showNext();"><i></i></a>
-						<a class="btn prev disabled" onclick="showPrev();"><i></i></a>
-						<span id="nav_text"></span> 
+						<a class="btn next" id="next"><i></i></a>
+						<a class="btn prev" id="previous"><i></i></a>
+						<span id="stat"><b></b> of <b></b></span> 
 					</div>
-					<div id="account_selector" tabindex="1"></div>
-					<ul id="accounts">
-					</ul>
+					<div id="account_selector"><span>catzil@gmail.com</span> <i></i></div>
+					<ol id="accounts"></ol>
 				</div>
-				<div id="content_mask">
-					
+				<div id="content">
+					<div id="email_title" dir="auto"><a id="title" onclick="tools.open(event);"></a></div>
+					<div class="sender"><a href="" id="name" onclick="tools.open(event);"></a> <span id="email"></span></div>
+					<div id="date"></div>
+					<p id="email_body" dir="auto"></p>
 				</div>
 				<div id="toolbar">
-					<a class="btn reload"><i></i></a>
-					<a class="btn delete" onclick="action('tr'); deleteCurrent();"><i></i></a>
-					<a class="btn spam"><i></i></a>
-					<a class="btn archive" onclick="action('rc_');"><i></i></a>
-					<a class="btn open" onclick="decMails();openTab();"><i></i></a>
-					<a class="btn" onclick="decMails();action('rd');">Mark as read</a>
+					<a class="btn archive" id="archive"><i></i></a>
+					<a class="btn trash" id="trash"><i></i></a>
+					<a class="btn spam" id="spam"><i></i></a>
+					<a class="btn refresh" id="refresh"><i></i></a>
+					<a class="btn" id="read">Mark as read</a>
 				</div>
 			</div>
 		</div>
     </body>
 </html>
-
