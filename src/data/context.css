@@ -326,9 +326,3 @@ ul
 {
   background-position: -1px -156px;
 }
-
-/* rtl support */
-#content.rtl
-{
-  direction: rtl;
-}

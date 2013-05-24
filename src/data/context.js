@@ -212,13 +212,6 @@ var update = (function() {
       body.date = prettyDate(entry.modified);
       body.content = entry.summary + " ...";
       _tag[selectedAccount] = entry.id;
-      //Support for the RTL
-      if (checkRTL(entry.summary)) {
-        $("content").classList.add("rtl");
-      }
-      else {
-        $("content").classList.remove("rtl");
-      }
     }
     var doBody = !_tag[selectedAccount] || doAccountSelector || doNext || doPrevious;
     // Make sure selected item is still avaialable
@@ -368,11 +361,3 @@ function prettyDate(time) {
 document.defaultView.addEventListener('ignotifier-open', function(e) {
   self.port.emit("open", e.detail.link);
 });
-// Detect Arabic language
-function checkRTL(str) {
-  var ltrChars        = 'A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02B8\u0300-\u0590\u0800-\u1FFF'+'\u2C00-\uFB1C\uFDFE-\uFE6F\uFEFD-\uFFFF',
-      rtlChars        = '\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC',
-      rtlDirCheck     = new RegExp('^[^'+ltrChars+']*['+rtlChars+']');
-      
-  return rtlDirCheck.test(str);
-}; 
