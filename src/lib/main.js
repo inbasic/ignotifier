@@ -90,9 +90,10 @@ function open (url, inBackground) {
       var parse1 = url_parse(tab.url),
           parse2 = url_parse(url);
 
-      var equal = (tab.url == url || tab.url.indexOf(parse2.id) != -1);
-      if (parse1.base == parse2.base) {
-        if (tabs.activeTab == tab &&  equal) {
+      var equal = (tab.url == url || (parse2.id && tab.url.indexOf(parse2.id) != -1));
+      // To send new email on the same base, do not use the old tab
+      if (parse1.base == parse2.base && !/to\=/.test(url)) {
+        if (tabs.activeTab == tab && equal) {
           notify(_("gmail"), _("msg8"));
         }
         else {

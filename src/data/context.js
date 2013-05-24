@@ -208,14 +208,9 @@ var update = (function() {
       body.titleLink = entry.link;
       body.name = entry.author_name;
       body.nameLink = /[^\?]*/.exec(entry.link)[0] + "?view=cm&fs=1&tf=1&to=" + entry.author_email;
-      var email = entry.author_email;
-      if (email.length > 18) {
-        var tmp = email.split("@");
-        email = tmp[0].substr(0, 15) + "...@" + tmp[1];
-      }
-      body.email = "<" + email + ">";
+      body.email = "<" + entry.author_email + ">";
       body.date = prettyDate(entry.modified);
-      body.content = entry.summary + "...";
+      body.content = entry.summary + " ...";
       _tag[selectedAccount] = entry.id;
       //Support for the RTL
       if (checkRTL(entry.summary)) {
