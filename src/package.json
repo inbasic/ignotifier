@@ -10,7 +10,7 @@
   "contributors": ["CaTz"],
   
   "url": "",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "lib": "lib",
   "main": "main",
   
@@ -106,10 +106,10 @@
     "value": true
   },
   {
-      "type": "control",
-      "label": "Reset",
-      "name": "reset",
-      "title": "Reset all settings back:"
+    "type": "control",
+    "label": "Reset",
+    "name": "reset",
+    "title": "Reset all settings back:"
   }],
 
   "id": "jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls" 
