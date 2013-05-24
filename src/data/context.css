@@ -1,182 +1,332 @@
-body {
-  margin: 0;
-  font-family: arial,sans-serif;
-  font-size: 13px;
-  overflow: hidden;
-  background-color: white;
+*
+{
+    margin: 0;
+    padding: 0;
 }
-a {
-  text-decoration: none;
+
+body
+{
+    overflow: hidden;
+    font: 14px arial,sans-serif;
 }
-a:active,
-a:focus {
-  outline: none;
+
+a, a:hover, a:active, a:focus
+{
+    outline: 0;
+    text-decoration: none;
+    color: #191919;
 }
-hr {
-  margin-bottom: -2px;
-  border-color: #DCDCDC;
+
+ul
+{
+	list-style: none;
 }
-.body {
-  position: relative;
-  width: 420px;
-  height: 200px;
+
+#body
+{
+	padding: 3px;
+	border-radius: 2px;
+	background-color: #fff;
+    height: 210px;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
-.action {
-  opacity: 0.6;
-  cursor: pointer;
+#preview
+{
+	height: 202px;
+	border: 1px solid #DCDCDC;
+	border-radius: 2px;
+	background-color: #F5F5F5;
+	position: relative;
 }
-.action:hover:not([disabled]),
-.action:hover[disabled=false] {
-  opacity: 1;
+
+#header, #toolbar
+{
+	height: 32px;
+	line-height: 25px;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 4px 8px;
+	-moz-user-select: none;
 }
-.toolbar {
-  background-color: #F5F5F5;
-  line-height: 36px;
-  border:solid 1px #DCDCDC;
-  margin: -1px;
+
+#toolbar
+{
+	text-align: center;
+	padding-top: 5px;
 }
-.toolbar.bottom {
-  position: absolute;
-  bottom: 0;
-  width: 100%
+
+#header #nav
+{
+	float: right;
+	padding-left: 20px;
+	border-left: 1px solid #DCDCDC;
 }
-.toolbarbutton {
-  display: inline-block;
-  text-align:center;
-  height: 24px;
-  line-height: 24px;
-  border: 1px solid #DCDCDC;
-  background-color: white;
-  background-image: -moz-linear-gradient(center top , rgba(255, 255, 255, 0.85), rgba(247, 247, 247, 0.85));
-  font-size: 11px;
-  vertical-align: middle;
-  margin-top: -3px;
+
+#header #nav #stat
+{
+	margin-right: 8px;
 }
-.toolbarbutton img {
-  display: inline-block;
-  width: 21px;
-  height: 21px;
-  background-image: url("buttons.png");
+
+#header #account_selector
+{
+	opacity: 0.55;
+	cursor: pointer;
+	float: left;
+	padding: 0 8px 0 28px;
+	background: url(icons.png) -1px 2px no-repeat;
+	height: 25px;
+	outline: none;
 }
-.toolbarbutton[wait] img {
-  width: 16px;
-  height: 16px;
-  vertical-align: middle;
-  background-position: 0 0 !important;
-  background: url("wait.gif") no-repeat center center;
+
+#header #account_selector:hover
+{
+	opacity: 0.9;
 }
-.toolbarbutton.previous,
-.toolbarbutton.next {
-  width: 30px;
-  margin-right: -5px;
+
+#header #account_selector span
+{
+	background: url(icons.png) 100% -24px no-repeat;
+	padding: 0 30px 0 5px;
 }
-.toolbarbutton.archive,
-.toolbarbutton.trash,
-.toolbarbutton.spam,
-.toolbarbutton.refresh {
-  width: 50px;
+
+#header #accounts
+{
+	background: none repeat scroll 0 0 #FFFFFF;
+    font-size: 13px;
+    margin: 0;
+    min-width: 200px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    position: absolute;
+    top: 30px;
+    display: none;
 }
-.toolbarbutton.read {
-  width: 96px;
-  color: #444444;
-  font-weight: bold;
+
+#header #accounts li
+{
+	padding: 4px 8px 4px 25px;
+	display: block;
+	border-bottom: 1px solid #F5F5F5;
+	cursor: pointer;
 }
-.toolbarbutton.previous img {
-  background-position: 0 -21px;
+#header #accounts li:last-child
+{
+	border-bottom: none;
 }
-.toolbarbutton.next img {
-  background-position: 0 -42px;
+
+#header #accounts li:hover
+{
+	background-color: #F5F5F5;
 }
-.toolbarbutton.archive img {
-  background-position: 0 0;
+
+#header #accounts li.selected
+{
+	background: url(icons.png) 2px -172px no-repeat #F5F5F5;
+} 
+
+#content
+{
+	background-color: #FFF;
+	border-top: 1px solid #DCDCDC;
+	border-bottom: 1px solid #DCDCDC;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	overflow: hidden;
+	height: 136px;
+	color: #222222;
+	font-size: 90%;
+	position: relative;
+	padding: 8px;
 }
-.toolbarbutton.trash img {
-  background-position: 0 -84px;
+
+#content a
+{
+	color: #1155CC;
+	text-decoration: none;
 }
-.toolbarbutton.refresh img {
-  background-position: 0 -63px;
+
+#content #email_title
+{
+	font-weight: normal;
+	font-size: 140%;
+	border-bottom: 1px solid #DCDCDC;
+	margin-bottom: 4px;
+	display: block;
 }
-.toolbarbutton.spam img {
-  background-position: 0 -105px;
+
+#content a#title
+{
+	color: #222222;
+	display: inline-block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	max-width: 402px;
 }
-.stat {
-  margin: 0 8px;
+
+#content #name
+{
+	font-weight: bold;
 }
-.users {
-  float: left;
-  width: 240px;
-  margin: -1px;
-  border: solid 1px #DCDCDC;
-  padding-left: 20px;
-  background: url('list.png') no-repeat left center;
-  
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+
+#content .sender
+{
+	float: left;
 }
-.users img {
-  margin-left: -2px;
-  vertical-align: middle;
+
+#content #date
+{
+	float: right;
+	font-size: 85%;
 }
-.title {
-  display: block;
-  padding-left: 8px;
-  font-size: 140%;
-  margin: 8px 0px 4px;
-  width: 400px;
-  height: 24px;
-  line-height: 24px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+
+#content p
+{
+	float: none;
+	clear: both;
+	padding: 8px 4px 0 4px;
+	height: 67px;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
-.title a {
-  color: black;
+
+.btn
+{
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	color: #727272;
+	background-color: #FFF;
+	background-image: -moz-linear-gradient(center top , rgba(255, 255, 255, 0.85), rgba(247, 247, 247, 0.85));
+	height: 24px;
+	line-height: 22px;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 12px;
+	vertical-align: top;
+	min-width: 50px;
+	padding: 0 8px;
+	text-align: center;
+	display: inline-block;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	border-radius: 2px;
+	white-space: nowrap;
 }
-.identity {
-  display: block;
-  padding-left: 8px;
+
+
+.btn.prev, .btn.next
+{
+	min-width: inherit;
+	padding: 0 3px;
+	float: right;
+	z-index: 1;
+	position: relative;
 }
-.name {
-  font-weight: bold;
+.btn.prev
+{
+	border-radius: 2px 0 0 2px;
+	margin-right: -1px;
 }
-.name a {
-  color: #1155CC;
+.btn.next
+{
+	border-radius: 0 2px 2px 0;
 }
-.email {
-  color: #555555;
+.btn.next:hover
+{
+	z-index:2;
 }
-.content {
-  display: block;
-  padding: 0 8px;
+.btn:active
+{
+	border: 1px solid #4D90FE;
 }
-.date {
-  float: right;
-  margin-right: 5px;
+.btn:hover
+{
+	color: #191919;
+	border-color: #c6c6c6;
+	background-image: -moz-linear-gradient(center top , rgba(255, 255, 255, 0.9), rgba(247, 247, 247, 0.9));
 }
-.list {
-  display: none;
-  list-style-position: inside;
-  border:solid 1px #DCDCDC;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  position: absolute;
-  left: 5px;
-  top: 30px;
-  cursor: pointer;
-  background-color: white;
+.btn:hover i
+{
+	opacity: 0.9;
 }
-.list li {
-  display: block;
-  width: 200px;
-  height: 24px;
-  line-height: 24px;
-  padding-left: 10px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+
+.btn[disabled], .btn[disabled]:hover
+{
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	cursor: default;
+	z-index:1;
 }
-.list li:hover  {
-  background-color: #F1F1F1;
+
+.btn[disabled] i, .btn[disabled]:hover i
+{
+	opacity: 0.333;
+}
+
+
+.btn i
+{
+	background: url(icons.png) 0 0 no-repeat;
+	display: inline-block;
+	opacity: 0.55;
+	width: 20px;
+	height: 20px;
+	margin-top: 2px;
+}
+
+.btn[wait] i
+{
+	background-position: 0 0 !important;
+	background: url("wait.gif") no-repeat center center;
+}
+
+.btn.down i
+{
+	background-position: -1px -24px;
+}
+.btn.trash i
+{
+	background-position: -1px -46px;
+}
+.btn.refresh i
+{
+	background-position: -1px -68px;
+}
+.btn.spam i
+{
+	background-position: -1px -90px;
+}
+.btn.archive i
+{
+	background-position: -1px -112px;
+}
+.btn.prev i
+{
+	background-position: -1px -134px;
+}
+.btn.next i
+{
+	background-position: -1px -156px;
+}
+
+/* rtl support */
+#content.rtl .sender
+{
+	float: right;
+}
+#content.rtl .sender a
+{
+	float: right;
+	margin-left: 5px;
+}
+#content.rtl .sender span
+{
+	direction: ltr;
+}
+
+#content.rtl #date
+{
+	float: left;
+	direction: ltr;
 }

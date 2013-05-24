@@ -1,55 +1,48 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="context.css">
-  </head>
-<body>
-<script>
-var tools = {
-  open: function (e) {
-    e.preventDefault();
-    var event = document.createEvent('CustomEvent');
-    event.initCustomEvent("ignotifier-open", true, true, {link: e.originalTarget.href});
-    document.documentElement.dispatchEvent(event);
-  }
-}
-</script>
-<div class="body">
-  <div class="toolbar">
-    <div id="account-selector" class="action users">
-      <span></span>
-      <img src="arrow.png">
-    </div>
-    <ol id="accounts" class="list"></ol>
-    <div align="right" style="margin-right: 15px;">
-      <span id="stat" class="stat"><b></b> of <b></b></span>
-      <span id="previous" class="action toolbarbutton previous"><img/></span>
-      <span id="next" class="action toolbarbutton next"><img/></span>
-    </div>
-  </div>
-  <div>
-    <span class="title" onclick="tools.open(event);">
-      <a id="title"></a>
-    </span>
-    <hr width="99%" size="1">
-    <p class="identity">
-      <span class="name" onclick="tools.open(event);">
-        <a id="name"></a>
-      </span>
-      <span id="email" class="email"></span>
-      <span id="date" class="date"></span>
-    </p>
-    <span id="content" class="content"></span>
-  </div>
-  <div class="toolbar bottom" align="center">
-    <span id="archive" class="action toolbarbutton archive"><img/></span>
-    <span id="trash" class="action toolbarbutton trash"><img/></span>
-    <span id="spam" class="action toolbarbutton spam"><img/></span>
-    <span id="refresh" class="action toolbarbutton refresh"><img/></span>
-    <span id="read" class="action toolbarbutton read">Mark as read</span>
-  </div>
-</div>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="context.css" />        
+        <script>
+			var tools = {
+				open: function (e) {
+					e.preventDefault();
+					var event = document.createEvent('CustomEvent');
+					event.initCustomEvent("ignotifier-open", true, true, {
+						link: e.originalTarget.href
+					});
+					document.documentElement.dispatchEvent(event);
+				}
+			}
+		</script>
+    </head>
 
-</body>
+    <body>
+		<div id="body">
+			<div id="preview">
+				<div id="header">
+					<div id="nav">
+						<a class="btn next" id="next"><i></i></a>
+						<a class="btn prev" id="previous"><i></i></a>
+						<span id="stat"><b></b> of <b></b></span> 
+					</div>
+					<div id="account_selector"><span></span> <i></i></div>
+					<ol id="accounts"></ol>
+				</div>
+				<div id="content">
+					<div id="email_title" dir="auto"><a id="title" onclick="tools.open(event);"></a></div>
+					<div class="sender"><a href="" id="name" onclick="tools.open(event);"></a> <span id="email"></span></div>
+					<div id="date"></div>
+					<p id="email_body" dir="auto"></p>
+				</div>
+				<div id="toolbar">
+					<a class="btn archive" id="archive"><i></i></a>
+					<a class="btn trash" id="trash"><i></i></a>
+					<a class="btn spam" id="spam"><i></i></a>
+					<a class="btn refresh" id="refresh"><i></i></a>
+					<a class="btn" id="read">Mark as read</a>
+				</div>
+			</div>
+		</div>
+    </body>
 </html>
