@@ -9,6 +9,7 @@
   }
 })();
 var html = (function() {
+  // List of all used elements
   var li = document.createElement("li");
 
   function addContent(elem, txt) {
@@ -50,13 +51,15 @@ self.port.on("command", function(uo) {
     }
   }
   update();
-}); /** objects **/
+});
+/** objects **/
 var accountSelector = (function() {
   var tmp = $("account_selector").getElementsByTagName("span")[0];
   return {
     get text() {
       return tmp.textContent;
-    }, set text(val) {
+    },
+    set text(val) {
       tmp.textContent = val;
     }
   }
@@ -66,11 +69,14 @@ var stat = (function() {
   return {
     get current() {
       return list[0].textContent;
-    }, set current(val) {
+    }, 
+    set current(val) {
       list[0].textContent = val;
-    }, get total() {
+    },
+    get total() {
       return list[1].textContent;
-    }, set total(val) {
+    },
+    set total(val) {
       list[1].textContent = val;
     }
   }
@@ -84,31 +90,42 @@ var body = (function() {
   return {
     get content() {
       return content.textContent
-    }, set content(val) {
+    },
+    set content(val) {
       content.textContent = val;
-    }, get date() {
+    },
+    get date() {
       return date.textContent
-    }, set date(val) {
+    },
+    set date(val) {
       date.textContent = val;
-    }, get email() {
+    },
+    get email() {
       return email.textContent
-    }, set email(val) {
+    },
+    set email(val) {
       email.textContent = val;
-    }, get name() {
+    },
+    get name() {
       return name.textContent
-    }, set name(val) {
+    },
+    set name(val) {
       name.textContent = val;
-    }, set nameLink(val) {
+    },
+    set nameLink(val) {
       name.setAttribute("href", val)
     }, get title() {
       return title.textContent
-    }, set title(val) {
+    },
+    set title(val) {
       title.textContent = val;
-    }, set titleLink(val) {
+    },
+    set titleLink(val) {
       title.setAttribute("href", val)
     }
   }
-})(); /** Listeners **/
+})();
+/** Listeners **/
 var Listen = function(id, on, callback, pointer) {
   var elem = $(id);
   elem.addEventListener(on, function(e) {
@@ -126,7 +143,9 @@ new Listen("account_selector", "click", function(e) {
   // Add new items
   unreadObjs.forEach(function(obj) {
     var li = html("li", obj.account);
-    if (selectedAccount && obj.account == selectedAccount) li.classList.add("selected");
+    if (selectedAccount && obj.account == selectedAccount) {
+      li.classList.add("selected");
+    }
     $("accounts").appendChild(li);
   });
   e.stopPropagation();
@@ -158,7 +177,8 @@ new Listen("next", "click", function(e) {
 new Listen("previous", "click", function(e) {
   doPrevious = true;
   update();
-}); /** **/
+});
+/** Update UI if necessary **/
 var iIndex, jIndex;
 var update = (function() {
   var _selectedAccount, _tag = [];
@@ -182,7 +202,6 @@ var update = (function() {
       accountSelector.text = selectedAccount;
     }
     // Update email's body
-
     function updateBody(entry, index) {
       stat.current = index + 1;
       body.title = entry.title;
@@ -199,10 +218,12 @@ var update = (function() {
       body.content = entry.summary + "...";
       _tag[selectedAccount] = entry.id;
       //Support for the RTL
-      var dir = window.getComputedStyle($("email_title"), null).direction;
-      if (dir == "rtl") $("content").classList.add("rtl");
-      else
-      $("content").classList.remove("rtl");
+      if (checkRTL(entry.summary)) {
+        $("content").classList.add("rtl");
+      }
+      else {
+        $("content").classList.remove("rtl");
+      }
     }
     var doBody = !_tag[selectedAccount] || doAccountSelector || doNext || doPrevious;
     // Make sure selected item is still avaialable
@@ -215,7 +236,7 @@ var update = (function() {
       });
       if (!isAvailable) {
         doBody = true;
-        if (jIndex) {
+        if (jIndex && obj.entries[jIndex - 1]) {
           _tag[selectedAccount] = obj.entries[jIndex - 1].id;
         } else {
           _tag[selectedAccount] = null;
@@ -233,11 +254,13 @@ var update = (function() {
             doNext = false;
             jIndex = j + 1;
             updateBody(obj.entries[jIndex], jIndex);
-          } else if (doPrevious) {
+          }
+          else if (doPrevious) {
             doPrevious = false;
             jIndex = j - 1;
             updateBody(obj.entries[jIndex], jIndex);
-          } else {
+          }
+          else {
             jIndex = j;
             updateBody(entry, jIndex);
           }
@@ -260,12 +283,14 @@ var update = (function() {
     }
     if (pr) {
       $("previous").setAttribute("disabled", true);
-    } else {
+    }
+    else {
       $("previous").removeAttribute("disabled");
     }
     if (nt) {
       $("next").setAttribute("disabled", true);
-    } else {
+    }
+    else {
       $("next").removeAttribute("disabled");
     }
     // Update stat
@@ -292,6 +317,7 @@ new Listen("spam", "click", function(e) {
 });
 new Listen("read", "click", function(e) {
   $("read").textContent = "Wait...";
+  $("read").setAttribute("disabled", true);
   var link = unreadObjs[iIndex].entries[jIndex].link;
   self.port.emit("action", link, "rd");
 });
@@ -301,7 +327,9 @@ new Listen("refresh", "click", function(e) {
 self.port.on("action-response", function(cmd) {
   if (cmd == "rd") {
     $("read").textContent = "Mark as read";
-  } else {
+    $("read").removeAttribute("disabled");
+  }
+  else {
     var obj;
     switch (cmd) {
     case "rd":
@@ -321,21 +349,35 @@ self.port.on("action-response", function(cmd) {
     obj.removeAttribute("disabled");
   }
   self.port.emit("decrease_mails", iIndex, jIndex);
-}); /** misc **/
-/*
-* JavaScript Pretty Date
-* Copyright (c) 2011 John Resig (ejohn.org)
-* Licensed under the MIT and GPL licenses.
-*/
-
+});
+/** misc functions **/
+// JavaScript Pretty Date by John Resig (ejohn.org)
 function prettyDate(time) {
   var date = new Date((time || "")),
       diff = (((new Date()).getTime() - date.getTime()) / 1000),
       day_diff = Math.floor(diff / 86400);
-  if (isNaN(day_diff) || day_diff < 0 || day_diff >= 31) return;
+  if (isNaN(day_diff) || day_diff < 0) {
+    return "...";
+  }
   return day_diff == 0 && (
-  diff < 60 && "just now" || diff < 120 && "1 minute ago" || diff < 3600 && Math.floor(diff / 60) + " minutes ago" || diff < 7200 && "1 hour ago" || diff < 86400 && Math.floor(diff / 3600) + " hours ago") || day_diff == 1 && "Yesterday" || day_diff < 7 && day_diff + " days ago" || day_diff < 31 && Math.ceil(day_diff / 7) + " weeks ago";
+    diff < 60 && "just now" || 
+    diff < 120 && "1 minute ago" || 
+    diff < 3600 && Math.floor(diff / 60) + " minutes ago" || 
+    diff < 7200 && "1 hour ago" || 
+    diff < 86400 && Math.floor(diff / 3600) + " hours ago") || 
+    day_diff == 1 && "Yesterday" || 
+    day_diff < 7 && day_diff + " days ago" || 
+    day_diff && Math.ceil(day_diff / 7) + " weeks ago";
 }
+// Link opener for html
 document.defaultView.addEventListener('ignotifier-open', function(e) {
   self.port.emit("open", e.detail.link);
 });
+// Detect Arabic language
+function checkRTL(str) {
+  var ltrChars        = 'A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02B8\u0300-\u0590\u0800-\u1FFF'+'\u2C00-\uFB1C\uFDFE-\uFE6F\uFEFD-\uFFFF',
+      rtlChars        = '\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC',
+      rtlDirCheck     = new RegExp('^[^'+ltrChars+']*['+rtlChars+']');
+      
+  return rtlDirCheck.test(str);
+}; 

@@ -4,45 +4,48 @@
         <meta charset="utf-8" />
         <link rel="stylesheet" href="context.css" />        
         <script>
-			var tools = {
-				open: function (e) {
-					e.preventDefault();
-					var event = document.createEvent('CustomEvent');
-					event.initCustomEvent("ignotifier-open", true, true, {
-						link: e.originalTarget.href
-					});
-					document.documentElement.dispatchEvent(event);
-				}
-			}
-		</script>
+      var tools = {
+        open: function (e) {
+          e.preventDefault();
+          var event = document.createEvent('CustomEvent');
+          event.initCustomEvent("ignotifier-open", true, true, {
+            link: e.originalTarget.href
+          });
+          document.documentElement.dispatchEvent(event);
+        }
+      }
+    </script>
     </head>
 
     <body>
-		<div id="body">
-			<div id="preview">
-				<div id="header">
-					<div id="nav">
-						<a class="btn next" id="next"><i></i></a>
-						<a class="btn prev" id="previous"><i></i></a>
-						<span id="stat"><b></b> of <b></b></span> 
-					</div>
-					<div id="account_selector"><span></span> <i></i></div>
-					<ol id="accounts"></ol>
-				</div>
-				<div id="content">
-					<div id="email_title" dir="auto"><a id="title" onclick="tools.open(event);"></a></div>
-					<div class="sender"><a href="" id="name" onclick="tools.open(event);"></a> <span id="email"></span></div>
-					<div id="date"></div>
-					<p id="email_body" dir="auto"></p>
-				</div>
-				<div id="toolbar">
-					<a class="btn archive" id="archive"><i></i></a>
-					<a class="btn trash" id="trash"><i></i></a>
-					<a class="btn spam" id="spam"><i></i></a>
-					<a class="btn refresh" id="refresh"><i></i></a>
-					<a class="btn" id="read">Mark as read</a>
-				</div>
-			</div>
-		</div>
+    <div id="body">
+      <div id="preview">
+        <div id="header">
+          <div id="nav">
+            <a class="btn next" id="next"><i></i></a>
+            <a class="btn prev" id="previous"><i></i></a>
+            <span id="stat"><b></b> of <b></b></span> 
+          </div>
+          <div id="account_selector"><span></span> <i></i></div>
+          <ol id="accounts"></ol>
+        </div>
+        <div id="content">
+          <div id="email_title" dir="auto"><a id="title" onclick="tools.open(event);"></a></div>
+          <div class="sender" dir="ltr">
+            <a href="" id="name" onclick="tools.open(event);"></a>
+            <span id="email"></span>
+          </div>
+          <div id="date"></div>
+          <p id="email_body" dir="auto"></p>
+        </div>
+        <div id="toolbar">
+          <a class="btn archive" id="archive"><i></i></a>
+          <a class="btn trash" id="trash"><i></i></a>
+          <a class="btn spam" id="spam"><i></i></a>
+          <a class="btn refresh" id="refresh"><i></i></a>
+          <a class="btn read" id="read">Mark as read</a>
+        </div>
+      </div>
+    </div>
     </body>
 </html>

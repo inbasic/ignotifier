@@ -693,7 +693,7 @@ var checkAllMails = (function () {
     pushCount = len;
     results = [];
     isForced = forced;
-    gClients.forEach(function(gClient, index){
+    gClients.forEach(function(gClient, index) {
       gClient(forced, index ? true : false)
     });
   }
@@ -710,6 +710,9 @@ sp.on("reset", function() {
   prefs.period            = 15;
   prefs.feeds             = config.email.FEEDS;
   prefs.soundNotification = 1;
+  prefs.clrPattern        = 0;
+  prefs.oldFashion        = 0;
+  prefs.forceVisible      = true; 
 });
 
 /**
