@@ -85,27 +85,28 @@ function url_parse (url) {
 
 /** Open new Tab or reuse old tabs to open the url **/
 function open (url, inBackground) {
+  var parse2 = url_parse(url);
   for each(var tab in windows.activeWindow.tabs) {
-    try {
-      var parse1 = url_parse(tab.url),
-          parse2 = url_parse(url);
-
-      var equal = (tab.url == url || (parse2.id && tab.url.indexOf(parse2.id) != -1));
-      // To send new email on the same base, do not use the old tab
-      if (parse1.base == parse2.base && !/to\=/.test(url)) {
-        if (tabs.activeTab == tab && equal) {
-          notify(_("gmail"), _("msg8"));
-        }
-        else {
-          tab.activate();
-          if (!equal) {
-            tab.url = url;
-          }
-        }
-        return;
+    if (tab.url == url) {
+      notify(_("gmail"), _("msg8"));
+      return;
+    }
+    var parse1 = url_parse(tab.url);
+    if (parse1.base == parse2.base && !/to\=/.test(url)) {
+      var reload = parse2.id && tab.url.indexOf(parse2.id) == -1;
+      if (tab == tabs.activeTab && !reload) {
+        notify(_("gmail"), _("msg8"));
       }
-    } catch(e) {
-      console.error(e);
+      else if (tab == tabs.activeTab && reload){
+        tab.url = url;
+      }
+      if (tab != tabs.activeTab) {
+        tab.activate();
+        if (reload) {
+          tab.url = url;
+        }
+      }
+      return;
     }
   }
   tabs.open({url: url, inBackground: inBackground ? inBackground : false});
