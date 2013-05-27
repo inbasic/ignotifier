@@ -7,10 +7,10 @@
   "license": "mozilla public license 1.1",
 
   "author": "InBasic",
-  "contributors": ["CaTz"],
+  "contributors": ["CaTz", "ecaron"],
   
   "url": "",
-  "version": "0.2.7",
+  "version": "0.3.0",
   "lib": "lib",
   "main": "main",
   

@@ -235,13 +235,14 @@ var update = (function() {
       if (!_tag[selectedAccount]) {
         _tag[selectedAccount] = obj.entries[0].id;
       }
+      var detected = false;
       for (var j = obj.entries.length - 1; j >= 0; j -= 1) {
         var entry = obj.entries[j];
         if (entry.id == _tag[selectedAccount]) {
+          detected = true;
           if (doNext) {
             doNext = false;
             jIndex = j + 1;
-            updateBody(obj.entries[jIndex], jIndex);
           }
           else if (doPrevious) {
             doPrevious = false;
@@ -250,10 +251,15 @@ var update = (function() {
           }
           else {
             jIndex = j;
-            updateBody(entry, jIndex);
           }
+          updateBody(obj.entries[jIndex], jIndex);
           break;
         }
+      }
+      // In case, email thread is not detected, switch to the first email
+      if (!detected) {
+        jIndex = 0;
+        updateBody(obj.entries[jIndex], jIndex);
       }
     }
     // Update toolbar buttons
