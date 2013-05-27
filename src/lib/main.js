@@ -97,7 +97,7 @@ function open (url, inBackground) {
       if (tab == tabs.activeTab && !reload) {
         notify(_("gmail"), _("msg8"));
       }
-      else if (tab == tabs.activeTab && reload){
+      else if (tab == tabs.activeTab && reload) {
         tab.url = url;
       }
       if (tab != tabs.activeTab) {
@@ -351,15 +351,12 @@ var server = {
     return {
       get fullcount () {
         var temp = 0;
+        var tags = xml.getElementsByTagName("fullcount");
+        var entries = xml.getElementsByTagName("entry");
         try {
-          var tags = xml.getElementsByTagName("fullcount");
-          if (tags.length) {
-            temp = parseInt(tags[0].childNodes[0].nodeValue);
-          }
-          else { //atom does not provide fullcount attribute
-            temp = xml.getElementsByTagName("entry").length;
-          }
-        } catch(e){}
+          var temp = (tags && tags.length) ? parseInt(tags[0].textContent) : 0;
+          temp = Math.max(temp, (entries && entries.length) ? entries.length : 0);
+        } catch(e) {}
         return temp;
       },
       get title () {
