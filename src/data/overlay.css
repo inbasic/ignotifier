@@ -1,6 +1,8 @@
 .ignotifier-image,
 .ignotifier-image[type="blue"] {
   padding-left: 2px;
+  
+  list-style-image: url('load.png'); 
   list-style-image: url('toolbar.png');
   -moz-image-region: rect(0, 48px, 16px, 32px);  
 }
