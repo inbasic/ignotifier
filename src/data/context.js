@@ -215,19 +215,24 @@ var update = (function() {
       _tag[selectedAccount] = entry.id;
     }
     var doBody = !_tag[selectedAccount] || doAccountSelector || doNext || doPrevious;
-    // Make sure selected item is still avaialable
+    // Make sure selected item is still available
     if (!doBody) {
       var isAvailable = false;
-      obj.entries.forEach(function(entry) {
+      obj.entries.forEach(function(entry, index) {
         if (entry.id == _tag[selectedAccount]) {
           isAvailable = true;
+          // Maybe tag is available but its index is wrong due to recent new email
+          if (index != parseInt(stat.current) - 1) {
+            doBody = true;
+          }
         }
       });
       if (!isAvailable) {
         doBody = true;
         if (jIndex && obj.entries[jIndex - 1]) {
           _tag[selectedAccount] = obj.entries[jIndex - 1].id;
-        } else {
+        } 
+        else {
           _tag[selectedAccount] = null;
         }
       }
@@ -242,8 +247,8 @@ var update = (function() {
         if (entry.id == _tag[selectedAccount]) {
           detected = true;
           if (doNext) {
-            doNext = false;
             jIndex = j + 1;
+            doNext = false;
           }
           else if (doPrevious) {
             doPrevious = false;
