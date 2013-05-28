@@ -30,6 +30,7 @@ var html = (function() {
     return addContent(tmp, txt);
   }
 })();
+
 var unreadObjs;
 var selectedAccount, doNext = false,
     doPrevious = false;
@@ -115,10 +116,10 @@ var body = (function() {
     set nameLink(val) {
       name.setAttribute("href", val)
     }, get title() {
-      return title.textContent
+      return title.textContent;
     },
     set title(val) {
-      title.textContent = val;
+      title.textContent = val  || "(no subject)";
     },
     set titleLink(val) {
       title.setAttribute("href", val)
