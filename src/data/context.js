@@ -221,8 +221,10 @@ var update = (function() {
       obj.entries.forEach(function(entry, index) {
         if (entry.id == _tag[selectedAccount]) {
           isAvailable = true;
-          // Maybe tag is available but its index is wrong due to recent new email
+          // Tag is available but its index is wrong due to recent update,
+          // So switch to the first index (newest one)
           if (index != parseInt(stat.current) - 1) {
+            _tag[selectedAccount] = null;
             doBody = true;
           }
         }
