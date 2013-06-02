@@ -74,12 +74,12 @@ userstyles.load(data.url("overlay.css"));
 /** URL parser **/
 function url_parse (url) {
   var temp = /^(http.*):\/\/w{0,3}\.*([^\#\?]*)[^\#]*#*([^\/]*)/.exec(url.replace("gmail", "mail.google"));
-  var temp2 = /message_id\=([^&]*)/.exec(url);
+  var temp2 =  /message_id\=([^&]*)|\#[^\/]*\/([^&]*)/.exec(url);
   return {
     protocol: temp && temp[1] ? temp[1] : "https",
     base: temp && temp[2] ? temp[2].replace(/\/$/, '') : config.email.url,
     label: temp && temp[3] ? temp[3] : "inbox",
-    id: temp2 && temp2[1] ? temp2[1] : ""
+    id: temp2 && (temp2[1] || temp2[2]) ? temp2[1] || temp2[2] : ""
   }
 }
 

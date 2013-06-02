@@ -204,11 +204,14 @@ var update = (function() {
     }
     // Update email's body
     function updateBody(entry, index) {
+      var base = /[^\?]*/.exec(entry.link)[0];
+      var id = /message_id\=([^\&]*)/.exec(entry.link);
+      
       stat.current = index + 1;
       body.title = entry.title;
-      body.titleLink = entry.link;
+      body.titleLink = (id.length == 2 && id[1]) ? base + "/?shva=1#inbox/" + id[1] : entry.link;
       body.name = entry.author_name;
-      body.nameLink = /[^\?]*/.exec(entry.link)[0] + "?view=cm&fs=1&tf=1&to=" + entry.author_email;
+      body.nameLink = base + "?view=cm&fs=1&tf=1&to=" + entry.author_email;
       body.email = "<" + entry.author_email + ">";
       body.date = prettyDate(entry.modified);
       body.content = entry.summary + " ...";
