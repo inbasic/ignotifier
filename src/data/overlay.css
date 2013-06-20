@@ -1,18 +1,26 @@
 .ignotifier-image,
 .ignotifier-image[type="blue"] {
-  padding-left: 2px;
-  
-  list-style-image: url('load.png'); 
-  list-style-image: url('toolbar.png');
-  -moz-image-region: rect(0, 48px, 16px, 32px);  
+  list-style-image: url('toolbar-new.png');
+  -moz-image-region: rect(0, 57px, 16px, 38px);  
 }
 .ignotifier-image[type="gray"] {
-  -moz-image-region: rect(0, 32px, 16px, 16px);  
+  -moz-image-region: rect(0, 38px, 16px, 19px);  
 }
 .ignotifier-image[type="red"] {
-  -moz-image-region: rect(0, 16px, 16px, 0);
+  -moz-image-region: rect(0, 19px, 16px, 0);
 }
-
-.ignotifier-load {
-  list-style-image: url('load.png'); 
+.ignotifier-image[type="new"] {
+  -moz-image-region: rect(0, 76px, 16px, 57px);
+}
+.ignotifier-image[type="load0"] {
+  -moz-image-region: rect(0, 95px, 16px, 76px);
+}
+.ignotifier-image[type="load1"] {
+  -moz-image-region: rect(0, 114px, 16px, 95px);
+}
+.ignotifier-image[type="load2"] {
+  -moz-image-region: rect(0, 133px, 16px, 114px);
+}
+.ignotifier-image[type="load3"] {
+  -moz-image-region: rect(0, 152px, 16px, 133px);
 }

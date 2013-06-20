@@ -235,25 +235,60 @@ gButton = toolbarbutton.ToolbarButton({
 });
 
 /** icon designer**/
-var icon = function (number, clr) {
-  gButton.loadMode = false;
-  gButton.badge = (number < 10) ? number : "+";
-  if (prefs.clrPattern == 0) {
-    gButton.color = clr;
+var icon = (function () {
+  var i = 0, t = [];
+  
+  function clearTimeout () {
+    t.forEach(function (_t) {
+      timer.clearTimeout(t);
+      t.splice(t.indexOf(t), 1);
+    });
   }
-  else {  //Support for reverse coloring
-    switch (clr) {
-      case "blue":
-        gButton.color = "gray";
-        break;
-      case "gray":
-        gButton.color = "blue";
-        break;
-      default:
-        gButton.color = clr;
+  
+  return function (number, clr) {
+    // Big count number?
+    gButton.badge = (number < 10) ? number : "+";
+    // Change color pattern?
+    if (prefs.clrPattern == 1) {
+      switch (clr) {
+        case "blue":
+          clr = "gray";
+          break;
+        case "gray":
+          clr = "blue";
+          break;
+      }
+    }
+    
+    if (clr == "load") {
+      clearTimeout();
+      t.push(timer.setTimeout(function () {
+        gButton.type = "load" + i;
+        i += 1;
+        i = i % 4;
+        icon(number, "load");
+      }, 200));
+    }
+    else if (clr == "new") {
+      clearTimeout();
+      t.push(timer.setTimeout(function () {
+        gButton.type = i % 2 ? "red" : "new"
+        if (i < 7) {
+          i += 1;
+          icon(number, "new");
+        }
+        else {
+          i = 0;
+        }
+      }, 300));
+    }
+    else {
+      i = 0;
+      clearTimeout();
+      gButton.type = clr;
     }
   }
-}
+})();
 icon(null, "blue");
 
 /** Initialize **/
@@ -672,7 +707,9 @@ var checkAllMails = (function () {
       if (r.color == "gray") isGray = true;
     });
 
-    if (isRed)             icon(total, "red");
+    if (isRed) {
+      icon(total, (isForced || showAlert) ? "new" : "red");
+    }
     else if (isGray)       icon(null,  "gray");
     if (!isRed && !isGray) icon(null,  "blue");
     //Update panel if it is open
@@ -687,7 +724,7 @@ var checkAllMails = (function () {
   }
 
   return function (forced) {
-    if (forced) gButton.loadMode = true;
+    if (forced) icon(null, "load");
   
     pushCount = len;
     results = [];

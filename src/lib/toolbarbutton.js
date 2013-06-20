@@ -36,18 +36,18 @@ exports.ToolbarButton = function ToolbarButton(options) {
       
       let svg = doc.createElementNS(NS_SVG, "svg");
       svg.setAttributeNS (NS_SVG, "xlink", NS_XLINK)
-      svg.setAttribute("width", "20");
+      svg.setAttribute("width", "19");
       svg.setAttribute("height", "16");
 
       let circle = doc.createElementNS(NS_SVG, "circle");
-      circle.setAttribute("cx", "15");
+      circle.setAttribute("cx", "14");
       circle.setAttribute("cy", "11");
       circle.setAttribute("r", "5");
       circle.setAttribute("fill", "transparent");
       svg.appendChild(circle);
 
       let text = doc.createElementNS(NS_SVG, "text");
-      text.setAttribute("x", "15");
+      text.setAttribute("x", "14");
       text.setAttribute("y", "14");
       text.setAttribute("font-size", "10");
       text.setAttribute("text-anchor", "middle");
@@ -150,7 +150,7 @@ exports.ToolbarButton = function ToolbarButton(options) {
   };
   var tracker = winUtils.WindowTracker(delegate);
 
-  function setColor(aOptions) {
+  function setType(aOptions) {
     getToolbarButtons(function(tbb) {
       tbb.childNodes[0].childNodes[0].childNodes[0].setAttribute("type", aOptions.value);
     }, options.id);
@@ -168,13 +168,6 @@ exports.ToolbarButton = function ToolbarButton(options) {
       )
       tbb.childNodes[0].childNodes[1].childNodes[1].textContent  = 
         aOptions.value ? aOptions.value : "";
-    }, options.id);
-    return aOptions.value;
-  }
-  function setLoadMode (aOptions) {
-    getToolbarButtons(function(tbb) {
-      tbb.childNodes[0].childNodes[0].childNodes[0]
-        .setAttribute("class", aOptions.value ? "ignotifier-load" : "ignotifier-image");
     }, options.id);
     return aOptions.value;
   }
@@ -232,7 +225,7 @@ exports.ToolbarButton = function ToolbarButton(options) {
       }, options.id);
       return value;
     },
-    set color(value) setColor({value: value}),
+    set type(value) setType({value: value}),
     set badge(value) setBadge({value: value}),
     set textColor(value) {
       options.textColor = value
@@ -240,7 +233,6 @@ exports.ToolbarButton = function ToolbarButton(options) {
     set backgroundColor(value) {
       options.backgroundColor = value
     },
-    set loadMode(value) setLoadMode({value: value}),
     get tooltiptext() options.tooltiptext,
     set tooltiptext(value) {
       options.tooltiptext = value;
