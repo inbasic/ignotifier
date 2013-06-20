@@ -38,7 +38,7 @@ var config = {
   //Timing
   get period () {return (prefs.period > 10 ? prefs.period : 10)},
   firstTime: 1,
-  desktopNotification: 3,
+  get desktopNotification () {return prefs.notificationTime > 10 ? prefs.notificationTime : 3},
   //Toolbar
   get textColor () {return prefs.textColor || "#000"},
   get backgroundColor () {return prefs.backgroundColor || "#FFB"},
@@ -852,25 +852,17 @@ var notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob/mas
 
 /** Player **/
 var play = function () {
-  let sound = Cc["@mozilla.org/sound;1"].createInstance(Ci.nsISound);
-  let ios = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
-  switch (prefs.soundNotification) {
-    case 0:
-      sound.playEventSound(OS == "Linux" ? 1 : 0);
-      break;
-    case 1:
-      sound.play(ios.newURI(data.url("alert.wav"), null, null));
-      break;
-    case 2:
-      try {
-        let file = Cc["@mozilla.org/file/local;1"].createInstance(Ci.nsIFile);
-        file.initWithPath(prefs.sound);
-        sound.play(ios.newFileURI(file));
-      }
-      catch(e) {
-        timer.setTimeout(function (){
-          notify(_("gmail"), _("msg9"));
-        }, 500);
-      }
+  var path = "alert.wav";
+  
+  if (prefs.soundNotification == 2 && prefs.sound) {
+    let file = Cc["@mozilla.org/file/local;1"].createInstance(Ci.nsIFile);
+    file.initWithPath(prefs.sound);
+    let ios = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
+    path = ios.newFileURI(file).spec;
   }
+
+  require("page-worker").Page({
+    contentScript: "var audio = new Audio('" + path + "'); audio.play();",
+    contentURL: data.url("sound.html")
+  });
 }

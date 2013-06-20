@@ -17,7 +17,7 @@
   "preferences": [{
     "name": "period",
     "title": "Check for new emails every (seconds):",
-    "description": "Minimum time period is 10 seconds.",
+    "description": "Minimum period is 10 seconds.",
     "type": "integer",
     "value": 15
   },
@@ -34,6 +34,13 @@
     "description": "",
     "type": "bool",
     "value": true
+  },
+  {
+    "name": "notificationTime",
+    "title": "Show desktop notification for (seconds):",
+    "description": "This option may not work based on your OS.",
+    "type": "integer",
+    "value": 3
   },
   {
     "name": "alert",
@@ -69,15 +76,14 @@
     "type": "menulist",
     "value": 1,
     "options": [
-      {"value": "0", "label": "Firefox default email alert"},
       {"value": "1", "label": "Gmail notifier alert"},
-      {"value": "2", "label": "User defined sound (wav)"}
+      {"value": "2", "label": "User defined sound (*.WAV or *.OGG)"}
     ]
   },
   {
     "type": "file",
     "name": "sound",
-    "title": "User defined notification sound (*.wav):"
+    "title": "User defined notification sound (*.WAV or *.OGG):"
   },
   {
     "name": "clrPattern",
