@@ -59,16 +59,20 @@ exports.ToolbarButton = function ToolbarButton(options) {
       stack.appendChild(box);
       stack.appendChild(svg);
       
-      let tbb = doc.createElementNS(NS_XUL, "toolbarbutton");
+      let tbb = doc.createElementNS(NS_XUL, "toolbaritem");
       tbb.setAttribute("id", options.id);
-      tbb.setAttribute("type", "button");
+     
+      tbb.setAttribute("pack", "center");
+      tbb.setAttribute("align", "center");
+      tbb.setAttribute("removable", "true");
       tbb.setAttribute("class", "toolbarbutton-1 chromeclass-toolbar-additional");
       tbb.setAttribute("label", options.label);
       tbb.setAttribute('tooltiptext', options.tooltiptext);
       tbb.appendChild(stack);
       
-      tbb.addEventListener("command", function(e) {
-        if (e.originalTarget != tbb) return;
+      tbb.addEventListener("click", function(e) {
+        if (e.button != 0 || e.ctrlKey) return;
+
         if (options.onCommand)
           options.onCommand(e, tbb); // TODO: provide something?
 
