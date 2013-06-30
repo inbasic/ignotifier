@@ -72,6 +72,7 @@ exports.ToolbarButton = function ToolbarButton(options) {
       
       tbb.addEventListener("click", function(e) {
         if (e.button != 0 || e.ctrlKey) return;
+        if (e.originalTarget.localName == "menu" || e.originalTarget.localName == "menuitem") return;
 
         if (options.onCommand)
           options.onCommand(e, tbb); // TODO: provide something?
