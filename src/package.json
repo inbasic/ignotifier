@@ -57,20 +57,6 @@
     "value": false
   },
   {
-    "name": "textColor",
-    "title": "Counter notifocation text color:",
-    "description": "",
-    "type": "color",
-    "value": "#000"
-  },
-  {
-    "name": "backgroundColor",
-    "title": "Counter notifocation background color:",
-    "description": "",
-    "type": "color",
-    "value": "#FFB"
-  },
-  {
     "name": "soundNotification",
     "title": "Sound notification:",
     "type": "menulist",

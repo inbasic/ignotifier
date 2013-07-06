@@ -40,8 +40,6 @@ var config = {
   firstTime: 1,
   get desktopNotification () {return prefs.notificationTime > 10 ? prefs.notificationTime : 3},
   //Toolbar
-  get textColor () {return prefs.textColor || "#000"},
-  get backgroundColor () {return prefs.backgroundColor || "#FFB"},
   toolbar: {
     id: "igmail-notifier",
     move: {
@@ -182,8 +180,6 @@ gButton = toolbarbutton.ToolbarButton({
   id: config.toolbar.id,
   label: _("gmail"),
   tooltiptext: config.defaultTooltip,
-  backgroundColor: config.backgroundColor,
-  textColor: config.textColor,
   onClick: function (e) { //Linux problem for onClick
     if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
       e.preventDefault();
@@ -247,7 +243,7 @@ var icon = (function () {
   
   return function (number, clr) {
     // Big count number?
-    gButton.badge = (number < 10) ? number : "+";
+    gButton.badge = number;
     // Change color pattern?
     if (prefs.clrPattern == 1) {
       switch (clr) {
@@ -325,12 +321,6 @@ exports.onUnload = function (reason) {
 }
 
 /** Prefs Listener**/
-sp.on("textColor", function () {
-  gButton.textColor = config.textColor;
-});
-sp.on("backgroundColor", function () {
-  gButton.backgroundColor = config.backgroundColor;
-});
 sp.on("clrPattern", function () {
   tm.reset();
 });
@@ -738,8 +728,6 @@ var checkAllMails = (function () {
 /** Prefs **/
 sp.on("reset", function() {
   if (!window.confirm(_("msg7"))) return
-  prefs.backgroundColor   = "#FFB";
-  prefs.textColor         = "#000";
   prefs.alphabetic        = false;
   prefs.alert             = true;
   prefs.notification      = true;

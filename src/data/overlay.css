@@ -1,26 +1,40 @@
-.ignotifier-image,
-.ignotifier-image[type="blue"] {
-  list-style-image: url('toolbar-new.png');
+#igmail-notifier,
+#igmail-notifier[type="blue"] {
+  list-style-image: url('toolbar-new.png') !important;
   -moz-image-region: rect(0, 57px, 16px, 38px);  
 }
-.ignotifier-image[type="gray"] {
+#igmail-notifier[type="gray"] {
   -moz-image-region: rect(0, 38px, 16px, 19px);  
 }
-.ignotifier-image[type="red"] {
+#igmail-notifier[type="red"] {
   -moz-image-region: rect(0, 19px, 16px, 0);
 }
-.ignotifier-image[type="new"] {
+#igmail-notifier[type="new"] {
   -moz-image-region: rect(0, 76px, 16px, 57px);
 }
-.ignotifier-image[type="load0"] {
+#igmail-notifier[type="load0"] {
   -moz-image-region: rect(0, 95px, 16px, 76px);
 }
-.ignotifier-image[type="load1"] {
+#igmail-notifier[type="load1"] {
   -moz-image-region: rect(0, 114px, 16px, 95px);
 }
-.ignotifier-image[type="load2"] {
+#igmail-notifier[type="load2"] {
   -moz-image-region: rect(0, 133px, 16px, 114px);
 }
-.ignotifier-image[type="load3"] {
+#igmail-notifier[type="load3"] {
   -moz-image-region: rect(0, 152px, 16px, 133px);
+}
+
+#igmail-notifier:after  {
+  display: inline-block;
+  font-family: Arial;
+  font-weight: 800;
+  font-size: 10px;
+  content: attr(value);
+  background: rgba(255,106,0,.6);
+  color: white;
+  margin-left: -9px;
+  margin-top: 8px;
+  padding: 0 2px;
+  border-radius: 5px;
 }

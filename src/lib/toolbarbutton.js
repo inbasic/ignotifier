@@ -19,59 +19,18 @@ exports.ToolbarButton = function ToolbarButton(options) {
     onTrack: function (window) {
       if ("chrome://browser/content/browser.xul" != window.location || destroyed)
         return;
-
       let doc = window.document;
       let $ = function(id) doc.getElementById(id);
-
       options.tooltiptext = options.tooltiptext || '';
-
       // create toolbar button
-      let stack = doc.createElementNS(NS_XUL, "stack");
-      stack.setAttribute("class", "toolbarbutton-icon");
-      
-      let box = doc.createElementNS(NS_XUL, "box");
-      let img = doc.createElementNS(NS_XUL, "image");
-      img.setAttribute("class", "ignotifier-image");
-      box.appendChild(img);
-      
-      let svg = doc.createElementNS(NS_SVG, "svg");
-      svg.setAttributeNS (NS_SVG, "xlink", NS_XLINK)
-      svg.setAttribute("width", "19");
-      svg.setAttribute("height", "16");
-
-      let circle = doc.createElementNS(NS_SVG, "circle");
-      circle.setAttribute("cx", "14");
-      circle.setAttribute("cy", "11");
-      circle.setAttribute("r", "5");
-      circle.setAttribute("fill", "transparent");
-      svg.appendChild(circle);
-
-      let text = doc.createElementNS(NS_SVG, "text");
-      text.setAttribute("x", "14");
-      text.setAttribute("y", "14");
-      text.setAttribute("font-size", "10");
-      text.setAttribute("text-anchor", "middle");
-      text.setAttribute("font-family", "Courier");
-      text.setAttribute("font-weight", "bold");
-      text.setAttribute("fill", options.textColor);
-      svg.appendChild(text);
-
-      stack.appendChild(box);
-      stack.appendChild(svg);
-      
-      let tbb = doc.createElementNS(NS_XUL, "toolbaritem");
+      let tbb = doc.createElementNS(NS_XUL, "toolbarbutton");
       tbb.setAttribute("id", options.id);
-     
-      tbb.setAttribute("pack", "center");
-      tbb.setAttribute("align", "center");
-      tbb.setAttribute("removable", "true");
+      tbb.setAttribute("value", "");
       tbb.setAttribute("class", "toolbarbutton-1 chromeclass-toolbar-additional");
       tbb.setAttribute("label", options.label);
       tbb.setAttribute('tooltiptext', options.tooltiptext);
-      tbb.appendChild(stack);
-      
-      tbb.addEventListener("click", function(e) {
-        if (e.button != 0 || e.ctrlKey) return;
+      tbb.addEventListener("command", function(e) {
+        if (e.ctrlKey) return;
         if (e.originalTarget.localName == "menu" || e.originalTarget.localName == "menuitem") return;
 
         if (options.onCommand)
@@ -157,22 +116,13 @@ exports.ToolbarButton = function ToolbarButton(options) {
 
   function setType(aOptions) {
     getToolbarButtons(function(tbb) {
-      tbb.childNodes[0].childNodes[0].childNodes[0].setAttribute("type", aOptions.value);
+      tbb.setAttribute("type", aOptions.value);
     }, options.id);
     return aOptions.value;
   }
   function setBadge (aOptions) {
     getToolbarButtons(function(tbb) {
-      tbb.childNodes[0].childNodes[1].childNodes[0].setAttribute (
-        "fill", 
-        aOptions.value ? options.backgroundColor : "transparent"
-      );
-      tbb.childNodes[0].childNodes[1].childNodes[1].setAttribute (
-        "fill",
-        options.textColor
-      )
-      tbb.childNodes[0].childNodes[1].childNodes[1].textContent  = 
-        aOptions.value ? aOptions.value : "";
+      tbb.setAttribute("value", aOptions.value ? aOptions.value : "");
     }, options.id);
     return aOptions.value;
   }
@@ -232,12 +182,6 @@ exports.ToolbarButton = function ToolbarButton(options) {
     },
     set type(value) setType({value: value}),
     set badge(value) setBadge({value: value}),
-    set textColor(value) {
-      options.textColor = value
-    },
-    set backgroundColor(value) {
-      options.backgroundColor = value
-    },
     get tooltiptext() options.tooltiptext,
     set tooltiptext(value) {
       options.tooltiptext = value;
