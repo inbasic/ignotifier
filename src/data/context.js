@@ -329,6 +329,9 @@ new Listen("read", "click", function(e) {
 new Listen("refresh", "click", function(e) {
   self.port.emit("update");
 });
+new Listen("inbox", "click", function(e) {
+  self.port.emit("open", unreadObjs[iIndex].link); 
+});
 self.port.on("action-response", function(cmd) {
   if (cmd == "rd") {
     $("read").textContent = "Mark as read";
