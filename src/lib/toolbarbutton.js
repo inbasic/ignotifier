@@ -5,7 +5,6 @@ const NS_XLINK = "http://www.w3.org/1999/xlink";
 const {unload} = require("unload+");
 const {listen} = require("listen");
 const winUtils = require("window-utils");
-
 const browserURL = "chrome://browser/content/browser.xul";
 
 exports.ToolbarButton = function ToolbarButton(options) {
@@ -34,7 +33,7 @@ exports.ToolbarButton = function ToolbarButton(options) {
         if (e.originalTarget.localName == "menu" || e.originalTarget.localName == "menuitem") return;
 
         if (options.onCommand)
-          options.onCommand(e, tbb); // TODO: provide something?
+          options.onCommand(e);
 
         if (options.panel) {
           options.panel.show(tbb);
@@ -189,6 +188,9 @@ exports.ToolbarButton = function ToolbarButton(options) {
         tbb.setAttribute('tooltiptext', value);
       }, options.id);
     },
+    get object () {
+      return winUtils.activeBrowserWindow.document.getElementById(options.id);
+    }
   };
 };
 

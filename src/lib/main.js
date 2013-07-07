@@ -156,7 +156,7 @@ contextPanel.port.on("update", function () {
 });
 
 /** onCommand **/
-var onCommand = function (e, tbb, link) {
+var onCommand = function (e) {
   if (!unreadObjs.length) {
     open(config.email.url);
   }
@@ -166,10 +166,10 @@ var onCommand = function (e, tbb, link) {
   else {
     //For test purposes
     try {
-      contextPanel.show(tbb);
+      contextPanel.show(gButton.object);
     }
     catch (e) {
-      contextPanel.show(null, tbb);
+      contextPanel.show(null, gButton.object);
     }
     contextPanel.port.emit('command', unreadObjs);
   }
@@ -645,7 +645,6 @@ var checkAllMails = (function () {
       return 0;
     });
     //Execute
-    var singleLink = null;
     results.forEach(function (r, i) {
       //
       if (r.msgObj) {
@@ -654,12 +653,6 @@ var checkAllMails = (function () {
           var msg = r.msgObj[0] + (label ? "/" + label : "") + " (" + r.msgObj[1] + ")";
           if (r.alert) {
             text += (text ? " - " : "") + msg;
-            if (singleLink === null) {
-              singleLink = r.xml.link;
-            }
-            else {
-              singleLink = "";
-            }
           }
           tooltiptext += (tooltiptext ? "\n" : "") + msg;
           total += r.msgObj[1];
@@ -681,7 +674,7 @@ var checkAllMails = (function () {
       }
     });
     if (prefs.notification && (isForced || showAlert) && text) {
-      notify(_("gmail"), text, singleLink ? true : false, singleLink);
+      notify(_("gmail"), text, true);
     }
     
     if (prefs.alert && (showAlert) && text) {
@@ -820,7 +813,10 @@ var notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob/mas
       alertServ.showAlertNotification(data.url("notification.png"), title, text, clickable, link, 
         function (subject, topic, data) {
           if (topic == "alertclickcallback") {
-            onCommand(null, null, link);
+            console.error("lll");
+            timer.setTimeout(function () {
+              onCommand();
+            }, 100);
           }
         }, "");
     }
