@@ -1,3 +1,5 @@
-#navigator-toolbox[iconsize="large"] #igmail-notifier:after {
-  margin: 8px 0 0 -1px;
+#navigator-toolbox[iconsize="large"] #igmail-notifier:after,
+#igmail-notifier:after {
+  font-size: 9px;
+  margin: 8px 0 0 -5px;
 }

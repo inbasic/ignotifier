@@ -26,17 +26,22 @@
 }
 
 #igmail-notifier:after {
-  display: inline-block;
-  font-family: Arial;
+  position: relative;
+  z-index: 9;
+  display: block;
+  font-family: arial;
   font-size: 10px;
   font-weight: 600;
   content: attr(value);
-  background: rgba(255,106,0,.5);
+  background-color: #7F3300;
   color: white;
-  margin: 8px 0 0 -1px;
+  margin: 8px 0 0 -6px;
   padding: 0 2px;
-  border-radius: 5px;
+  border-radius: 6px;
+}
+#igmail-notifier[value=""]:after {
+  background-color: transparent;
 }
 #navigator-toolbox[iconsize="large"] #igmail-notifier:after {
-  margin: 8px 0 0 -9px;
+  margin: 8px 0 0 -15px;
 }
