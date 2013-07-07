@@ -66,8 +66,22 @@ var config = {
   prefs: "extensions.jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack."
 };
 
+var tm, gButton, unreadObjs = [], loggedins  = [];
+
 /** Loading style **/
-userstyles.load(data.url("overlay.css"));
+(function () {
+  userstyles.load(data.url("overlay.css"));
+  var runtime = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULRuntime);
+  if (runtime.OS == "Linux") {
+    userstyles.load(data.url("overlay-linux.css"));
+  }
+  if (runtime.OS == "Linux") {
+    userstyles.load(data.url("overlay-linux.css"));
+  }
+  if (runtime.OS == "Darwin") {
+    userstyles.load(data.url("overlay-darwin.css"));
+  }
+})();
 
 /** URL parser **/
 function url_parse (url) {
@@ -288,11 +302,7 @@ var icon = (function () {
 icon(null, "blue");
 
 /** Initialize **/
-var OS, tm, gButton, unreadObjs = [], loggedins  = [];
 exports.main = function(options, callbacks) {
-  //OS detection, required by sound
-  var runtime = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULRuntime);
-  OS = runtime.OS;
   //Timer
   tm = manager (config.firstTime * 1000, checkAllMails);
   //Install
@@ -813,7 +823,6 @@ var notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob/mas
       alertServ.showAlertNotification(data.url("notification.png"), title, text, clickable, link, 
         function (subject, topic, data) {
           if (topic == "alertclickcallback") {
-            console.error("lll");
             timer.setTimeout(function () {
               onCommand();
             }, 100);

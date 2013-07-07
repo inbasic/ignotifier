@@ -25,6 +25,7 @@ exports.ToolbarButton = function ToolbarButton(options) {
       let tbb = doc.createElementNS(NS_XUL, "toolbarbutton");
       tbb.setAttribute("id", options.id);
       tbb.setAttribute("value", "");
+      tbb.setAttribute("orient", "horizontal");
       tbb.setAttribute("class", "toolbarbutton-1 chromeclass-toolbar-additional");
       tbb.setAttribute("label", options.label);
       tbb.setAttribute('tooltiptext', options.tooltiptext);
