@@ -383,6 +383,14 @@ var server = {
         .createInstance(Ci.nsIDOMParser);
       xml = parser.parseFromString(req.responseText, "text/xml");
     }
+    //Sometimes id is wrong in the feed structure!
+    function fixID (link) {
+      var id = /u\/\d/.exec(feed);  
+      if (id.length) {
+        return link.replace(/u\/\d/, id[0]);
+      };
+      return link;
+    }
     return {
       get fullcount () {
         var temp = 0;
@@ -420,12 +428,9 @@ var server = {
             label;
         try {
           //Inbox href
-          label = this.label;
-          var id = /u\/\d/.exec(feed);  //Sometimes id is wrong in the feed structure!
           temp = xml.getElementsByTagName("link")[0].getAttribute("href");
-          if (id.length) {
-            temp = temp.replace(/u\/\d/, id[0]);
-          };
+          temp = fixID (temp);
+          label = this.label;
           if (label) {
             temp += "/?shva=1#label/" + label;
           }
@@ -467,7 +472,9 @@ var server = {
               return entry.getElementsByTagName("id")[0].textContent;
             },
             get link () {
-              return entry.getElementsByTagName("link")[0].getAttribute("href")
+              var temp = entry.getElementsByTagName("link")[0].getAttribute("href");
+              temp = fixID (temp);
+              return temp;
             }
           }
         }
