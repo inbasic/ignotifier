@@ -10,7 +10,7 @@
   "contributors": ["CaTz", "ecaron"],
   
   "url": "",
-  "version": "0.3.3b1",
+  "version": "0.3.3b2",
   "lib": "lib",
   "main": "main",
   
@@ -20,6 +20,20 @@
     "description": "Minimum period is 10 seconds.",
     "type": "integer",
     "value": 15
+  },
+  {
+    "name": "resetPeriod",
+    "title": "Remind for all unread emails every (minutes):",
+    "description": "Set the value to zero for no periodic reminders. Minimum period is 5 minutes. [Important note] Non-zero value fires both desktop notification and alert sound eternally if you have unread email(s) exactly similar to new email arrival.",
+    "type": "integer",
+    "value": 0
+  },
+  {
+    "name": "initialPeriod",
+    "title": "Do not check for new emails on Firefox startup for (seconds):",
+    "description": "Minimum period is 1 seconds.",
+    "type": "integer",
+    "value": 1
   },
   {
     "name": "feeds",

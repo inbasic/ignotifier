@@ -36,9 +36,10 @@ var config = {
     maxCount: 20
   },
   //Timing
-  get period () {return (prefs.period > 10 ? prefs.period : 10)},
-  firstTime: 1,
-  get desktopNotification () {return prefs.notificationTime > 10 ? prefs.notificationTime : 3},
+  get period () {return (prefs.period > 10 ? prefs.period : 10) * 1000},
+  get resetPeriod () {return (prefs.resetPeriod > 5 ? prefs.resetPeriod : 5) * 1000 * 60},
+  get firstTime () {return (prefs.initialPeriod > 1 ? prefs.initialPeriod : 1) * 1000},
+  get desktopNotification () {return (prefs.notificationTime > 3 ? prefs.notificationTime : 3) * 1000},
   //Toolbar
   toolbar: {
     id: "igmail-notifier",
@@ -66,7 +67,7 @@ var config = {
   prefs: "extensions.jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack."
 };
 
-var tm, gButton, unreadObjs = [], loggedins  = [];
+var tm, resetTm, gButton, unreadObjs = [], loggedins  = [];
 
 /** Loading style **/
 (function () {
@@ -303,8 +304,11 @@ icon(null, "blue");
 
 /** Initialize **/
 exports.main = function(options, callbacks) {
-  //Timer
-  tm = manager (config.firstTime * 1000, checkAllMails);
+  //Timers
+  tm = new manager ("firstTime", "period", checkAllMails);
+  if (config.resetPeriod) {
+    resetTm = new manager ("resetPeriod", "resetPeriod", reset);
+  }
   //Install
   if (options.loadReason == "install" || prefs.forceVisible) {
     //If adjacent button is restartless wait for its creation
@@ -334,27 +338,55 @@ exports.onUnload = function (reason) {
 sp.on("clrPattern", function () {
   tm.reset();
 });
+sp.on("resetPeriod", (function () {
+  var _timer;
+  return function () {
+    if (_timer) timer.clearTimeout(_timer);
+    _timer = timer.setTimeout(function () {
+      if (config.resetPeriod) {
+        if (resetTm) {
+          resetTm.reset();
+        }
+        else {
+          resetTm = new manager ("resetPeriod", "resetPeriod", reset);
+        }
+      }
+      else {
+        resetTm.stop();
+      }
+    }, 10000);  // No notification during the setting change
+  }
+})());
 
 /** Interval manager **/
-var manager = function (once, func) {
-  var _timer, fisrt = true;
-  function run (t1, param) {
+var manager = function (once, period, func) {
+  var _timer, first = true;
+  function run (once, period, param) {
     _timer = timer.setTimeout(function () {
-      func(fisrt ? param : null);
-      fisrt = false;
-      run(t1);
-    }, fisrt ? t1 : config.period * 1000);
+      func(first ? param : null);
+      first = false;
+      run(once, period);
+    }, first ? config[once] : config[period]);
   }
-  run(once);
+  run(once, period);
   
   return {
     reset: function (forced) {
       timer.clearTimeout(_timer);
-      fisrt = true;
-      run(0, forced);
+      first = true;
+      run(0, period, forced);
+    },
+    stop: function () {
+      timer.clearTimeout(_timer);
+      first = true;
     }
   }
 };
+
+/** Reset timer to remind user for unread emails **/
+var reset = function () {
+  tm.reset(true);
+}
 
 /** User's actions **/
 tabs.on('ready', function (tab) {
@@ -742,8 +774,10 @@ sp.on("reset", function() {
   prefs.alert             = true;
   prefs.notification      = true;
   prefs.period            = 15;
-  prefs.feeds             = config.email.FEEDS;
   prefs.soundNotification = 1;
+  prefs.resetPeriod       = 0;
+  prefs.initialPeriod     = 1;
+  prefs.feeds             = config.email.FEEDS;
   prefs.clrPattern        = 0;
   prefs.oldFashion        = 0;
   prefs.forceVisible      = true; 
@@ -845,7 +879,7 @@ var notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob/mas
       );
       timer.setTimeout(function() {
           notification.close();
-      }, config.desktopNotification * 1000);
+      }, config.desktopNotification);
     }
   }
 })();
@@ -857,8 +891,10 @@ var play = function () {
   if (prefs.soundNotification == 2 && prefs.sound) {
     let file = Cc["@mozilla.org/file/local;1"].createInstance(Ci.nsIFile);
     file.initWithPath(prefs.sound);
-    let ios = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
-    path = ios.newFileURI(file).spec;
+    if (file.exists()) {
+      let ios = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
+      path = ios.newFileURI(file).spec;
+    }
   }
 
   require("page-worker").Page({
