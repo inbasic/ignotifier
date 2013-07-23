@@ -37,7 +37,12 @@ var config = {
   },
   //Timing
   get period () {return (prefs.period > 10 ? prefs.period : 10) * 1000},
-  get resetPeriod () {return (prefs.resetPeriod > 5 ? prefs.resetPeriod : 5) * 1000 * 60},
+  get resetPeriod () {
+    if (!prefs.resetPeriod) {
+      return 0; 
+    }
+    return (prefs.resetPeriod > 5 ? prefs.resetPeriod : 5) * 1000 * 60
+  },
   get firstTime () {return (prefs.initialPeriod > 1 ? prefs.initialPeriod : 1) * 1000},
   get desktopNotification () {return (prefs.notificationTime > 3 ? prefs.notificationTime : 3) * 1000},
   //Toolbar
@@ -351,7 +356,7 @@ sp.on("resetPeriod", (function () {
           resetTm = new manager ("resetPeriod", "resetPeriod", reset);
         }
       }
-      else {
+      else if (resetTm) {
         resetTm.stop();
       }
     }, 10000);  // No notification during the setting change
@@ -378,7 +383,6 @@ var manager = function (once, period, func) {
     },
     stop: function () {
       timer.clearTimeout(_timer);
-      first = true;
     }
   }
 };
