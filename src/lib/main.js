@@ -81,9 +81,6 @@ var tm, resetTm, gButton, unreadObjs = [], loggedins  = [];
   if (runtime.OS == "Linux") {
     userstyles.load(data.url("overlay-linux.css"));
   }
-  if (runtime.OS == "Linux") {
-    userstyles.load(data.url("overlay-linux.css"));
-  }
   if (runtime.OS == "Darwin") {
     userstyles.load(data.url("overlay-darwin.css"));
   }
