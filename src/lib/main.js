@@ -866,6 +866,8 @@ var notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob/mas
         function (subject, topic, data) {
           if (topic == "alertclickcallback") {
             timer.setTimeout(function () {
+              // If main window is not focused, restore it first!
+              windowutils.activeBrowserWindow.focus();
               onCommand();
             }, 100);
           }
