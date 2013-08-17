@@ -319,8 +319,11 @@ exports.main = function(options, callbacks) {
     }, 800);
   }
   //Welcome page
-  if (options.loadReason == "upgrade" || options.loadReason == "install") {
+  if (options.startup) {
     welcome();
+  }
+  if (options.loadReason == "upgrade" || options.loadReason == "install") {
+    _prefs.set("newVersion", true);
   }
 };
 
@@ -397,9 +400,11 @@ tabs.on('ready', function (tab) {
 });
 /** Welcome page **/
 var welcome = function () {
+  if (!_prefs.get("newVersion")) return;
   timer.setTimeout(function () {
     open(config.homepage);
   }, 3000);
+  _prefs.set("newVersion", false);
 }
 
 /** Server **/
