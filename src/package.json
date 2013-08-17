@@ -10,7 +10,7 @@
   "contributors": ["CaTz", "ecaron"],
   
   "url": "",
-  "version": "0.3.3b3",
+  "version": "0.3.3b4",
   "lib": "lib",
   "main": "main",
   
@@ -108,6 +108,12 @@
   {
     "name": "forceVisible",
     "title": "Always try to keep toolbar button visible:",
+    "type": "bool",
+    "value": true
+  },
+  {
+    "name": "welcome",
+    "title": "Show welcome page on upgrade:",
     "type": "bool",
     "value": true
   },

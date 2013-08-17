@@ -319,7 +319,7 @@ exports.main = function(options, callbacks) {
     }, 800);
   }
   //Welcome page
-  if (options.startup) {
+  if (options.loadReason == "startup") {
     welcome();
   }
   if (options.loadReason == "upgrade" || options.loadReason == "install") {
@@ -401,9 +401,11 @@ tabs.on('ready', function (tab) {
 /** Welcome page **/
 var welcome = function () {
   if (!_prefs.get("newVersion")) return;
-  timer.setTimeout(function () {
-    open(config.homepage);
-  }, 3000);
+  if (prefs.welcome) {
+    timer.setTimeout(function () {
+      open(config.homepage);
+    }, 3000);
+  }
   _prefs.set("newVersion", false);
 }
 
@@ -787,6 +789,7 @@ sp.on("reset", function() {
   prefs.clrPattern        = 0;
   prefs.oldFashion        = 0;
   prefs.forceVisible      = true; 
+  prefs.welcome           = true; 
 });
 
 /**
