@@ -50,6 +50,7 @@ ul
   -moz-box-sizing: border-box;
   padding: 4px 8px;
   -moz-user-select: none;
+  overflow: hidden;
 }
 
 #toolbar
@@ -63,6 +64,7 @@ ul
   float: right;
   padding-left: 20px;
   border-left: 1px solid #DCDCDC;
+  height: 25px;
 }
 
 #header #nav #stat
