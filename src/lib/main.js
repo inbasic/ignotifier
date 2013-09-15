@@ -319,11 +319,11 @@ exports.main = function(options, callbacks) {
     }, 800);
   }
   //Welcome page
-  if (options.loadReason == "startup") {
-    welcome();
-  }
   if (options.loadReason == "upgrade" || options.loadReason == "install") {
     _prefs.set("newVersion", true);
+  }
+  if (options.loadReason == "startup" || options.loadReason == "install") {
+    welcome();
   }
 };
 
