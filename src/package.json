@@ -31,7 +31,7 @@
   {
     "name": "initialPeriod",
     "title": "Do not check for new emails on Firefox startup for (seconds):",
-    "description": "Minimum period is 1 seconds.",
+    "description": "Set the value to zero for no email check until the first manual refresh (middle-click on the toolbar button)",
     "type": "integer",
     "value": 1
   },

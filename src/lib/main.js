@@ -43,7 +43,7 @@ var config = {
     }
     return (prefs.resetPeriod > 5 ? prefs.resetPeriod : 5) * 1000 * 60
   },
-  get firstTime () {return (prefs.initialPeriod > 1 ? prefs.initialPeriod : 1) * 1000},
+  get firstTime () {return prefs.initialPeriod * 1000},
   get desktopNotification () {return (prefs.notificationTime > 3 ? prefs.notificationTime : 3) * 1000},
   //Toolbar
   toolbar: {
@@ -191,19 +191,21 @@ var onCommand = function (e) {
     contextPanel.port.emit('command', unreadObjs);
   }
 }
+var onClick = function (e) { //Linux problem for onClick
+  if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!tm) tm = new manager ("firstTime", "period", checkAllMails);
+    tm.reset(true);
+  }
+}
 
 /** Toolbar button **/
 gButton = toolbarbutton.ToolbarButton({
   id: config.toolbar.id,
   label: _("gmail"),
   tooltiptext: config.defaultTooltip,
-  onClick: function (e) { //Linux problem for onClick
-    if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
-      e.preventDefault();
-      e.stopPropagation();
-      tm.reset(true);
-    }
-  },
+  onClick: onClick,
   onContext: (function () {
     var installed = false;
     return function (e, menupopup, _menuitem, _menuseparator) {
@@ -246,7 +248,8 @@ gButton = toolbarbutton.ToolbarButton({
       //Permanent List
       menupopup.appendChild(_menuseparator.cloneNode(false));
       addChild(_("label1"), "").addEventListener("command", function (e) {
-        tm.reset(true);
+        e.button = 1;
+        onClick(e);
       });
       addChild(_("label2"), "").addEventListener("command", function (e) {
         windowutils.activeBrowserWindow.BrowserOpenAddonsMgr(
@@ -318,7 +321,9 @@ icon(null, "blue");
 /** Initialize **/
 exports.main = function(options, callbacks) {
   //Timers
-  tm = new manager ("firstTime", "period", checkAllMails);
+  if (config.firstTime) {
+    tm = new manager ("firstTime", "period", checkAllMails);
+  }
   if (config.resetPeriod) {
     resetTm = new manager ("resetPeriod", "resetPeriod", reset);
   }
