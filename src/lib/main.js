@@ -206,7 +206,7 @@ gButton = toolbarbutton.ToolbarButton({
   },
   onContext: (function () {
     var installed = false;
-    return function (e, menupopup, _menuitem) {
+    return function (e, menupopup, _menuitem, _menuseparator) {
       //Install command event listener
       if (!installed) {
         menupopup.addEventListener("command", function (e) {
@@ -226,13 +226,14 @@ gButton = toolbarbutton.ToolbarButton({
       })(loggedins);
       //remove old items
       while (menupopup.firstChild) {
-        menupopup.removeChild(menupopup.firstChild)
+        menupopup.removeChild(menupopup.firstChild);
       }
       function addChild (label, value) {
         var item = _menuitem.cloneNode(true);
         item.setAttribute("label", label);
         item.setAttribute("value", value);
         menupopup.appendChild(item);
+        return item;
       }
       if (temp.length) {
         temp.forEach(function (obj) {
@@ -242,6 +243,16 @@ gButton = toolbarbutton.ToolbarButton({
       else {
         addChild(_("context"), "");
       }
+      //Permanent List
+      menupopup.appendChild(_menuseparator.cloneNode(false));
+      addChild(_("label1"), "").addEventListener("command", function (e) {
+        tm.reset(true);
+      });
+      addChild(_("label2"), "").addEventListener("command", function (e) {
+        windowutils.activeBrowserWindow.BrowserOpenAddonsMgr(
+          "addons://detail/" + encodeURIComponent("jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack")
+        );
+      });
     }
   })(),
   onCommand: onCommand

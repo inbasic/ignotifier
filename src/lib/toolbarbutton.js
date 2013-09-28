@@ -46,10 +46,11 @@ exports.ToolbarButton = function ToolbarButton(options) {
       if (options.onContext) {
         let menupopup = doc.createElementNS(NS_XUL, "menupopup");
         let menuitem = doc.createElementNS(NS_XUL, "menuitem");
+        let menuseparator = doc.createElementNS(NS_XUL, "menuseparator");
         tbb.addEventListener("contextmenu", function (e) {
           e.stopPropagation(); //Prevent Firefox context menu
           e.preventDefault();
-          options.onContext(e, menupopup, menuitem);
+          options.onContext(e, menupopup, menuitem, menuseparator);
           menupopup.openPopup(tbb , "after_end", 0, 0, false);
         }, true);
         tbb.appendChild(menupopup);
