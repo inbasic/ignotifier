@@ -11,7 +11,6 @@ var tabs             = require("sdk/tabs"),
     userstyles       = require("./userstyles"),
     window           = windowutils.activeBrowserWindow,
     prefs            = sp.prefs,
-    _prefs           = require("sdk/preferences/service"),
     data             = self.data,
     {Cc, Ci, Cu}     = require('chrome');
 
@@ -51,7 +50,7 @@ var config = {
     move: {
       toolbarID: "nav-bar", 
       get insertbefore () {
-        var id = _prefs.get(config.prefs + "nextSibling");
+        var id = prefs.nextSibling;
         return id ? id : "home-button"
       }, 
       forceMove: false
@@ -61,6 +60,7 @@ var config = {
     _("tooltip1") + "\n" + _("tooltip2") + "\n" + _("tooltip3"),
   //Homepage:
   homepage: "http://add0n.com/gmail-notifier.html",
+  update: "http://add0n.com/gmail-notifier-updated.html",
   //panel
   panel: {
     width: 430,
@@ -336,7 +336,7 @@ exports.main = function(options, callbacks) {
   }
   //Welcome page
   if (options.loadReason == "upgrade" || options.loadReason == "install") {
-    _prefs.set("newVersion", true);
+    prefs.newVersion = options.loadReason;
   }
   if (options.loadReason == "startup" || options.loadReason == "install") {
     welcome();
@@ -348,7 +348,7 @@ var aWindow = windowutils.activeBrowserWindow;
 var aftercustomizationListener = function () {
   let button = aWindow.document.getElementById(config.toolbar.id);
   if (!button) return;
-  _prefs.set(config.prefs + "nextSibling", button.nextSibling.id);
+  prefs.nextSibling = button.nextSibling.id;
 }
 aWindow.addEventListener("aftercustomization", aftercustomizationListener, false);
 exports.onUnload = function (reason) {
@@ -416,13 +416,18 @@ tabs.on('ready', function (tab) {
 });
 /** Welcome page **/
 var welcome = function () {
-  if (!_prefs.get("newVersion")) return;
+  if (!prefs.newVersion) return;
   if (prefs.welcome) {
     timer.setTimeout(function () {
-      open(config.homepage);
+      if (prefs.newVersion == "install") {
+        open(config.homepage);
+      }
+      else {
+        open(config.update + "?v=" + self.version);
+      }
     }, 3000);
   }
-  _prefs.set("newVersion", false);
+  prefs.newVersion = "";
 }
 
 /** Server **/
