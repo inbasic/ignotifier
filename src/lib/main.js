@@ -103,14 +103,14 @@ function open (url, inBackground) {
   var parse2 = url_parse(url);
   for each(var tab in windows.activeWindow.tabs) {
     if (tab.url == url) {
-      notify(_("gmail"), _("msg8"));
+      if (!prefs.onGmailNotification) notify(_("gmail"), _("msg8"));
       return;
     }
     var parse1 = url_parse(tab.url);
     if (parse1.base == parse2.base && !/to\=/.test(url)) {
       var reload = parse2.id && tab.url.indexOf(parse2.id) == -1;
       if (tab == tabs.activeTab && !reload) {
-        notify(_("gmail"), _("msg8"));
+        if (!prefs.onGmailNotification) notify(_("gmail"), _("msg8"));
       }
       else if (tab == tabs.activeTab && reload) {
         tab.url = url;
@@ -191,21 +191,25 @@ var onCommand = function (e) {
     contextPanel.port.emit('command', unreadObjs);
   }
 }
-var onClick = function (e) { //Linux problem for onClick
-  if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!tm) tm = new manager ("firstTime", "period", checkAllMails);
-    tm.reset(true);
-  }
-}
 
 /** Toolbar button **/
 gButton = toolbarbutton.ToolbarButton({
   id: config.toolbar.id,
   label: _("gmail"),
   tooltiptext: config.defaultTooltip,
-  onClick: onClick,
+  onClick: function (e) { //Linux problem for onClick
+    if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (prefs.middleClick == 1) {
+        open(config.email.url);
+      }
+      else {
+        if (!tm) tm = new manager ("firstTime", "period", checkAllMails);
+        tm.reset(true);
+      }
+    }
+  },
   onContext: (function () {
     var installed = false;
     return function (e, menupopup, _menuitem, _menuseparator) {
@@ -248,8 +252,8 @@ gButton = toolbarbutton.ToolbarButton({
       //Permanent List
       menupopup.appendChild(_menuseparator.cloneNode(false));
       addChild(_("label1"), "").addEventListener("command", function (e) {
-        e.button = 1;
-        onClick(e);
+        if (!tm) tm = new manager ("firstTime", "period", checkAllMails);
+        tm.reset(true);
       });
       addChild(_("label2"), "").addEventListener("command", function (e) {
         windowutils.activeBrowserWindow.BrowserOpenAddonsMgr(
@@ -799,18 +803,20 @@ var checkAllMails = (function () {
 /** Prefs **/
 sp.on("reset", function() {
   if (!window.confirm(_("msg7"))) return
-  prefs.alphabetic        = false;
-  prefs.alert             = true;
-  prefs.notification      = true;
-  prefs.period            = 15;
-  prefs.soundNotification = 1;
-  prefs.resetPeriod       = 0;
-  prefs.initialPeriod     = 1;
-  prefs.feeds             = config.email.FEEDS;
-  prefs.clrPattern        = 0;
-  prefs.oldFashion        = 0;
-  prefs.forceVisible      = true; 
-  prefs.welcome           = true; 
+  prefs.alphabetic          = false;
+  prefs.alert               = true;
+  prefs.notification        = true;
+  prefs.period              = 15;
+  prefs.soundNotification   = 1;
+  prefs.resetPeriod         = 0;
+  prefs.initialPeriod       = 1;
+  prefs.feeds               = config.email.FEEDS;
+  prefs.clrPattern          = 0;
+  prefs.oldFashion          = 0;
+  prefs.forceVisible        = true; 
+  prefs.middleClick         = 1;
+  prefs.onGmailNotification = false;
+  prefs.welcome             = true; 
 });
 
 /**

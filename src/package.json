@@ -112,6 +112,22 @@
     "value": true
   },
   {
+    "name": "middleClick",
+    "title": "Customize middle-click on toolbar button:",
+    "type": "menulist",
+    "value": 0,
+    "options": [
+      {"value": "0", "label": "Refresh all accounts"},
+      {"value": "1", "label": "Open primary Gmail account"}
+    ]
+  },
+  {
+    "name": "onGmailNotification",
+    "title": "Do not open desktop notification to warn about Gmail website is already open",
+    "type": "bool",
+    "value": false
+  },
+  {
     "name": "welcome",
     "title": "Show welcome page on upgrade:",
     "type": "bool",
