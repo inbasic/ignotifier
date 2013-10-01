@@ -83,7 +83,8 @@
   {
     "type": "file",
     "name": "sound",
-    "title": "User defined notification sound (*.WAV or *.OGG):"
+    "title": "User defined notification sound (*.WAV or *.OGG):",
+    "description": "If Firefox is not playing the notification sound, try to convert it into a plain WAV format using an online conversion tool."
   },
   {
     "name": "clrPattern",
