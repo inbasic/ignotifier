@@ -101,27 +101,29 @@ function url_parse (url) {
 /** Open new Tab or reuse old tabs to open the url **/
 function open (url, inBackground) {
   var parse2 = url_parse(url);
-  for each(var tab in windows.activeWindow.tabs) {
-    if (tab.url == url) {
-      if (!prefs.onGmailNotification) notify(_("gmail"), _("msg8"));
-      return;
-    }
-    var parse1 = url_parse(tab.url);
-    if (parse1.base == parse2.base && !/to\=/.test(url)) {
-      var reload = parse2.id && tab.url.indexOf(parse2.id) == -1;
-      if (tab == tabs.activeTab && !reload) {
+  if (windows.activeWindow) {
+    for each(var tab in windows.activeWindow.tabs) {
+      if (tab.url == url) {
         if (!prefs.onGmailNotification) notify(_("gmail"), _("msg8"));
+        return;
       }
-      else if (tab == tabs.activeTab && reload) {
-        tab.url = url;
-      }
-      if (tab != tabs.activeTab) {
-        tab.activate();
-        if (reload) {
+      var parse1 = url_parse(tab.url);
+      if (parse1.base == parse2.base && !/to\=/.test(url)) {
+        var reload = parse2.id && tab.url.indexOf(parse2.id) == -1;
+        if (tab == tabs.activeTab && !reload) {
+          if (!prefs.onGmailNotification) notify(_("gmail"), _("msg8"));
+        }
+        else if (tab == tabs.activeTab && reload) {
           tab.url = url;
         }
+        if (tab != tabs.activeTab) {
+          tab.activate();
+          if (reload) {
+            tab.url = url;
+          }
+        }
+        return;
       }
-      return;
     }
   }
   tabs.open({url: url, inBackground: inBackground ? inBackground : false});
