@@ -27,7 +27,6 @@
 
 #igmail-notifier:after {
   position: relative;
-  z-index: 9;
   display: block;
   font-family: arial;
   font-size: 9px;
@@ -35,14 +34,43 @@
   content: attr(value);
   background-color: #3366CC;
   color: white;
-  margin: 6px 0 0 -6px;
-  padding: 0 2px;
-  border-radius: 6px;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 2px;
 }
-#igmail-notifier[value=""]:after {
-  background-color: transparent;
+/* Windows Small Icon */
+#igmail-notifier[length="1"]:after {
+  border-radius: 4px;
+  width: 9px;
+  margin: 6px -1px 0 -8px;
 }
-#navigator-toolbox[iconsize="large"] #igmail-notifier:after {
-  font-size: 10px;
-  margin: 8px 0 0 -15px;
+#igmail-notifier[length="2"]:after {
+  margin: 6px 0 0 -14px;
+  width: 14px;
+}
+#igmail-notifier[length="3"]:after {
+  margin: 6px -1px 0 -18px;
+  width: 19px;
+}
+#igmail-notifier[length="4"]:after {
+  margin: 6px -2px 0 -20px;
+  width: 22px;
+}
+/* Windows Large Icon */
+#navigator-toolbox[iconsize="large"] #igmail-notifier[length="1"]:after {
+  border-radius: 4px;
+  margin: 6px 5px 0 -14px;
+  width: 9px;
+}
+#navigator-toolbox[iconsize="large"] #igmail-notifier[length="2"]:after {
+  margin: 6px 3px 0 -17px;
+  width: 14px;
+}
+#navigator-toolbox[iconsize="large"] #igmail-notifier[length="3"]:after {
+  margin: 6px 3px 0 -22px;
+  width: 19px;
+}
+#navigator-toolbox[iconsize="large"] #igmail-notifier[length="4"]:after{
+  margin: 6px 2px 0 -24px;
+  width: 22px;
 }

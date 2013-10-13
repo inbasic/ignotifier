@@ -123,7 +123,11 @@ exports.ToolbarButton = function ToolbarButton(options) {
   }
   function setBadge (aOptions) {
     getToolbarButtons(function(tbb) {
+      if ((aOptions.value + "").length > 4) {
+        aOptions.value = "9999"
+      }
       tbb.setAttribute("value", aOptions.value ? aOptions.value : "");
+      tbb.setAttribute("length", aOptions.value ? (aOptions.value + "").length : 0);
     }, options.id);
     return aOptions.value;
   }

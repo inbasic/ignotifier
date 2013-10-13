@@ -1,7 +1,28 @@
 #navigator-toolbox[iconsize="large"] #igmail-notifier:after,
 #igmail-notifier:after {
   font-family: sans-serif;
-  font-size: 9px;
-  padding: 2px 2px 0 2px;
-  margin: 6px 0 0 -7px;
+  height: 10px;
+  line-height: 12px;
+}
+
+#igmail-notifier[length="1"]:after,
+#navigator-toolbox[iconsize="large"] #igmail-notifier[length="1"]:after {
+  border-radius: 4px;
+  width: 9px;
+  margin: 6px 0 0 -9px;
+}
+#igmail-notifier[length="2"]:after,
+#navigator-toolbox[iconsize="large"] #igmail-notifier[length="2"]:after {
+  margin: 6px 0 0 -14px;
+  width: 14px;
+}
+#igmail-notifier[length="3"]:after,
+#navigator-toolbox[iconsize="large"] #igmail-notifier[length="3"]:after {
+  margin: 6px 0 0 -20px;
+  width: 19px;
+}
+#igmail-notifier[length="4"]:after,
+#navigator-toolbox[iconsize="large"] #igmail-notifier[length="4"]:after{
+  margin: 6px 0 0 -22px;
+  width: 22px;
 }
