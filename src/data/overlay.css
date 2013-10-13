@@ -30,12 +30,12 @@
   z-index: 9;
   display: block;
   font-family: arial;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 600;
   content: attr(value);
   background-color: #3366CC;
   color: white;
-  margin: 8px 0 0 -6px;
+  margin: 6px 0 0 -6px;
   padding: 0 2px;
   border-radius: 6px;
 }
@@ -43,5 +43,6 @@
   background-color: transparent;
 }
 #navigator-toolbox[iconsize="large"] #igmail-notifier:after {
+  font-size: 10px;
   margin: 8px 0 0 -15px;
 }
