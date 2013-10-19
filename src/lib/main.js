@@ -431,9 +431,12 @@ var welcome = function () {
       else {
         open(config.update + "?v=" + self.version);
       }
+      prefs.newVersion = "";
     }, 3000);
   }
-  prefs.newVersion = "";
+  else {
+    prefs.newVersion = "";
+  }
 }
 
 /** Server **/
