@@ -425,12 +425,7 @@ var welcome = function () {
   if (!prefs.newVersion) return;
   if (prefs.welcome) {
     timer.setTimeout(function () {
-      if (prefs.newVersion == "install") {
-        open(config.homepage);
-      }
-      else {
-        open(config.update + "?v=" + self.version);
-      }
+      open((prefs.newVersion == "install" ? config.homepage : config.update) + "?v=" + self.version);
       prefs.newVersion = "";
     }, 3000);
   }
