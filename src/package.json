@@ -10,7 +10,7 @@
   "contributors": ["CaTz", "ecaron"],
   
   "url": "",
-  "version": "0.3.5",
+  "version": "0.3.6b2",
   "lib": "lib",
   "main": "main",
   
@@ -55,6 +55,12 @@
     "description": "This option may not work based on your OS.",
     "type": "integer",
     "value": 3
+  },
+  {
+    "name": "showDetails",
+    "title": "Display author, title and summary of new emails in the desktop notification:",
+    "type": "bool",
+    "value": true
   },
   {
     "name": "alert",
@@ -124,7 +130,7 @@
   },
   {
     "name": "onGmailNotification",
-    "title": "Do not open desktop notification to warn about Gmail website is already open",
+    "title": "Do not show desktop notification to warn that Gmail website is already open:",
     "type": "bool",
     "value": false
   },

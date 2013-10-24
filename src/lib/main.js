@@ -583,7 +583,7 @@ var server = {
         
         var count = 0;
         var normal = false; //not logged-in but normal response from gmail
-        var newUnread = false;
+        var newUnread = false, newText;
         var exist = req.status == 200;  //Gmail account is loged-in
         if (exist) {
           count = xml.fullcount;
@@ -594,6 +594,7 @@ var server = {
             xml.entries.forEach(function (entry, i) {
               if (msgs.indexOf(entry.id) == -1) {
                 newUnread = true;
+                newText = _("msg10") + " " + entry.author_name + "\n" + _("msg11") + " " + entry.title + "\n" + _("msg12") + " " + entry.summary;
               }
             });
           }
@@ -616,12 +617,12 @@ var server = {
         //Gmail logged-in && has count && new count && forced
         if (exist && count && newUnread && forced) {
                                               /* xml, count, showAlert, color, message */
-          if (callback) callback.apply(pointer, [xml, count, true, "red", [xml.title, count]])
+          if (callback) callback.apply(pointer, [xml, count, true, "red", [xml.title, count, newText]])
           return;
         }
         //Gmail logged-in && has count && new count && no force
         if (exist && count && newUnread && !forced) {
-          if (callback) callback.apply(pointer, [xml, count, true, "red", [xml.title, count]])
+          if (callback) callback.apply(pointer, [xml, count, true, "red", [xml.title, count, newText]])
           return;
         }
         //Gmail logged-in && has count && old count && forced
@@ -732,7 +733,10 @@ var checkAllMails = (function () {
       if (r.msgObj) {
         if (typeof(r.msgObj[1]) == "number") {
           var label = r.xml.label;
-          var msg = r.msgObj[0] + (label ? "/" + label : "") + " (" + r.msgObj[1] + ")";
+          var msg = 
+            r.msgObj[0] + (label ? "/" + label : "") + 
+            " (" + r.msgObj[1] + ")" +
+            (r.msgObj[2] && prefs.showDetails ? "\n" + r.msgObj[2] : "");
           if (r.alert) {
             text += (text ? " - " : "") + msg;
           }
@@ -816,6 +820,7 @@ sp.on("reset", function() {
   prefs.forceVisible        = true; 
   prefs.middleClick         = 1;
   prefs.onGmailNotification = false;
+  prefs.showDetails         = true;
   prefs.welcome             = true; 
 });
 
