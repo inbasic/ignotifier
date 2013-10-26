@@ -102,7 +102,7 @@ function url_parse (url) {
 function open (url, inBackground) {
   var parse2 = url_parse(url);
   if (windows.activeWindow) {
-    for each(var tab in windows.activeWindow.tabs) {
+    for each(var tab in (prefs.searchMode ? windows.activeWindow.tabs : tabs)) {
       if (tab.url == url) {
         if (!prefs.onGmailNotification) notify(_("gmail"), _("msg8"));
         return;
@@ -118,6 +118,7 @@ function open (url, inBackground) {
         }
         if (tab != tabs.activeTab) {
           tab.activate();
+          tab.window.activate();  // Focus not active window
           if (reload) {
             tab.url = url;
           }
@@ -821,7 +822,8 @@ sp.on("reset", function() {
   prefs.middleClick         = 1;
   prefs.onGmailNotification = false;
   prefs.showDetails         = true;
-  prefs.welcome             = true; 
+  prefs.welcome             = true;
+  prefs.searchMode          = true;
 });
 
 /**

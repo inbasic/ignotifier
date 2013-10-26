@@ -10,7 +10,7 @@
   "contributors": ["CaTz", "ecaron"],
   
   "url": "",
-  "version": "0.3.6b2",
+  "version": "0.3.6b3",
   "lib": "lib",
   "main": "main",
   
@@ -101,6 +101,13 @@
       {"value": "0", "label": "No Unread (Gray), Disconnected (Blue)"},
       {"value": "1", "label": "No unread (Blue), Disconnected (Gray)"}
     ]
+  },
+  {
+    "name": "searchMode",
+    "title": "Search for open Gmail account only on the active window:",
+    "description": "Do not search other browser windows for open Gmail accounts. If Gmail is not open in the active window, open a new tab.",
+    "type": "bool",
+    "value": true
   },
   {
     "name": "oldFashion",
