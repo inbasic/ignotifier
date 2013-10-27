@@ -127,7 +127,11 @@ function open (url, inBackground) {
       }
     }
   }
-  tabs.open({url: url, inBackground: inBackground ? inBackground : false});
+  var gBrowser = windowutils.activeBrowserWindow.gBrowser;
+  var t = gBrowser.addTab(url, {relatedToCurrent: prefs.relatedToCurrent});
+  if (!inBackground) {
+    gBrowser.selectedTab = t;
+  }
 }
 
 /** Multi email Panel **/
@@ -824,6 +828,7 @@ sp.on("reset", function() {
   prefs.showDetails         = true;
   prefs.welcome             = true;
   prefs.searchMode          = true;
+  prefs.relatedToCurrent    = true;
 });
 
 /**

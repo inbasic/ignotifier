@@ -10,7 +10,7 @@
   "contributors": ["CaTz", "ecaron"],
   
   "url": "",
-  "version": "0.3.6b3",
+  "version": "0.3.6b4",
   "lib": "lib",
   "main": "main",
   
@@ -106,6 +106,12 @@
     "name": "searchMode",
     "title": "Search for open Gmail account only on the active window:",
     "description": "Do not search other browser windows for open Gmail accounts. If Gmail is not open in the active window, open a new tab.",
+    "type": "bool",
+    "value": true
+  },
+  {
+    "name": "relatedToCurrent",
+    "title": "Open new Gmail account next to the active tab:",
     "type": "bool",
     "value": true
   },
