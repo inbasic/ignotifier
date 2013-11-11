@@ -78,5 +78,5 @@
 /* Notification */
 #alertTitleLabel[value="Gmail notifier"] + #alertTextLabel {
   text-decoration: none !important;
-  color: InfoText !important;
+  color: MenuText !important;
 }
