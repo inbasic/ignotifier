@@ -599,7 +599,7 @@ var server = {
             xml.entries.forEach(function (entry, i) {
               if (msgs.indexOf(entry.id) == -1) {
                 newUnread = true;
-                newText = _("msg10") + " " + entry.author_name + "\n" + _("msg11") + " " + entry.title + "\n" + _("msg12") + " " + entry.summary;
+                newText = _("msg10") + " " + entry.author_name + "\n" + _("msg11") + " " + entry.title + "\n"; // + _("msg12") + " " + entry.summary;
               }
             });
           }

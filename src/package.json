@@ -10,7 +10,7 @@
   "contributors": ["CaTz", "ecaron"],
   
   "url": "",
-  "version": "0.3.6b4",
+  "version": "0.3.5",
   "lib": "lib",
   "main": "main",
   
@@ -113,7 +113,7 @@
     "name": "relatedToCurrent",
     "title": "Open new Gmail account next to the active tab:",
     "type": "bool",
-    "value": true
+    "value": false
   },
   {
     "name": "oldFashion",
