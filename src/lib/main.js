@@ -61,13 +61,6 @@ var config = {
   //Homepage:
   homepage: "http://add0n.com/gmail-notifier.html",
   update: "http://add0n.com/gmail-notifier-updated.html",
-  //panel
-  panel: {
-    width: 430,
-    height: 210,
-    each: 22,
-    margin: 14
-  },
   //Preferences
   prefs: "extensions.jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack."
 };
@@ -85,6 +78,22 @@ var tm, resetTm, gButton, unreadObjs = [], loggedins  = [];
     userstyles.load(data.url("overlay-darwin.css"));
   }
 })();
+
+/** curl **/
+function curl (url, callback, pointer) {
+  var req = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"]
+    .createInstance(Ci.nsIXMLHttpRequest);
+  req.mozBackgroundRequest = true;  //No authentication
+  req.open('GET', url, true);
+  req.onreadystatechange = function () {
+    if (req.readyState == 4) {
+      if (callback) callback.apply(pointer, [req]);
+    }
+  };
+  req.channel.QueryInterface(Ci.nsIHttpChannelInternal)
+    .forceAllowThirdPartyCookie = true;
+  req.send(null);
+}
 
 /** URL parser **/
 function url_parse (url) {
@@ -136,14 +145,12 @@ function open (url, inBackground) {
 
 /** Multi email Panel **/
 var contextPanel = panel.Panel({
-  width: config.panel.width,
-  height: config.panel.height,
-  position: {
-    top: 0,
-    right: 30
-  },
   contentURL: data.url("context.html"),
   contentScriptFile: data.url("context.js")
+});
+contextPanel.port.on("resize", function({width, height, mode}) {
+  contextPanel.resize(width, height);
+  prefs.size = mode;
 });
 contextPanel.port.on("open", function (link) {
   contextPanel.hide();
@@ -156,6 +163,11 @@ contextPanel.port.on("action", function (link, cmd) {
     if (!bol) {
       notify(_("gmail"), err);
     }
+  });
+});
+contextPanel.port.on("body", function (link) {
+  getBody(link, function (content) {
+    contextPanel.port.emit("body-response", link, content);
   });
 });
 contextPanel.port.on("decrease_mails", function (iIndex, jIndex) {
@@ -188,7 +200,7 @@ var onCommand = function (e) {
     open(unreadObjs[0].link);
   }
   else {
-    //For test purposes
+    contextPanel.port.emit("resize", prefs.size);
     try {
       contextPanel.show(gButton.object);
     }
@@ -577,13 +589,8 @@ var server = {
       }
       //Initialazing
       state = true;
-
-      var req = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"]
-        .createInstance(Ci.nsIXMLHttpRequest);
-      req.mozBackgroundRequest = true;  //No authentication
-      req.open('GET', feed, true);
-      req.onreadystatechange = function () {
-        if (req.readyState != 4) return;
+      new curl(feed, function (req) {
+        if (!req) return;
         var xml = new server.parse(req, feed);
         
         var count = 0;
@@ -684,10 +691,7 @@ var server = {
           if (callback) callback.apply(pointer, [xml, null, false, "unknown"])
           return;
         }
-      }
-      // https://github.com/inbasic/ignotifier/issues/29
-      req.channel.QueryInterface(Ci.nsIHttpChannelInternal).forceAllowThirdPartyCookie = true;
-      req.send(null);
+      });
     }
   }
 }
@@ -840,43 +844,27 @@ sp.on("reset", function() {
  */
 var action = (function () {
   function getAt (url, callback, pointer) {
-    var req = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"]
-      .createInstance(Ci.nsIXMLHttpRequest);
-    req.mozBackgroundRequest = true;  //No authentication
-    req.open('GET', url + "h/" + Math.ceil(1000000 * Math.random()), true);
-    req.onreadystatechange = function (aEvt) {
-      if (req.readyState == 4) {
-        if(req.status == 200) {
-          var tmp = /at\=([^\"\&]*)/.exec(req.responseText);
-          if (callback) callback.apply(pointer, [tmp.length > 1 ? tmp[1] : null]);
-        }
-        else {
-          if (callback) callback.apply(pointer, [null]);
-        }
+    new curl(url + "h/" + Math.ceil(1000000 * Math.random()), function (req) {
+      if (!req) return;
+      if(req.status == 200) {
+        var tmp = /at\=([^\"\&]*)/.exec(req.responseText);
+        if (callback) callback.apply(pointer, [tmp.length > 1 ? tmp[1] : null]);
       }
-    };
-    req.channel.QueryInterface(Ci.nsIHttpChannelInternal)
-      .forceAllowThirdPartyCookie = true;
-    req.send(null);
+      else {
+        if (callback) callback.apply(pointer, [null]);
+      }
+    });
   }
   function sendCmd (url, at, thread, cmd, callback, pointer) {
-    var req = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"]
-      .createInstance(Ci.nsIXMLHttpRequest);
-    req.mozBackgroundRequest = true;  //No authentication
-    req.open('POST', url + "?at=" + at + "&act=" + cmd + "&t=" + thread, true);
-    req.onreadystatechange = function (aEvt) {
-      if (req.readyState == 4) {
-        if(req.status == 200) {
-          if (callback) callback.apply(pointer, [true]);
-        }
-        else {
-          if (callback) callback.apply(pointer, [false]);
-        }
+    new curl(url + "?at=" + at + "&act=" + cmd + "&t=" + thread, function (req){
+      if (!req) return;
+      if(req.status == 200) {
+        if (callback) callback.apply(pointer, [true]);
       }
-    };
-    req.channel.QueryInterface(Ci.nsIHttpChannelInternal)
-      .forceAllowThirdPartyCookie = true;
-    req.send(null);
+      else {
+        if (callback) callback.apply(pointer, [false]);
+      }
+    });
   }
   
   return function (link, cmd, callback, pointer) {
@@ -899,6 +887,42 @@ var action = (function () {
         if (callback) callback.apply(pointer, [false, "Error at fetching 'at'"]); 
       }
     });
+  }
+})();
+
+/** Get mail body **/
+var getBody = (function () {
+  function getIK (url, callback, pointer) {
+    new curl(url, function (req) {
+      var tmp = /var GLOBALS\=\[(?:([^\,]*)\,){10}/.exec(req.responseText || "");
+      if (callback) {
+        callback.apply(pointer, [tmp && tmp.length > 1 ? tmp[1].replace(/[\"\']/g, "") : null]);
+      }
+    });
+  }
+  
+  return function (link, callback, pointer) {
+    link = link.replace("http://", "https://");
+    var url = /[^\?]*/.exec(link)[0] + "/";
+    var thread = /message\_id\=([^\&]*)/.exec(link);
+    if (thread.length > 1) {
+      getIK(url, function (ik) {
+        if (!ik) {
+          if (callback) callback.apply(pointer, ["Error at resolving user's static ID"]);
+          return;
+        }
+        new curl(url + "?ui=2&ik=" + ik + "&view=domraw&th=" + thread[1], function (req) {
+          var tmp = req.responseText.replace(/^\s\s*/, '').replace(/\s\s*$/, '').split('\n');
+          tmp.splice(0,5);
+          if (callback) callback.apply(pointer, [
+            tmp.join('\n').replace(/^\s\s*/, '').replace(/\s\s*$/, '')
+          ]);
+        });
+      });
+    }
+    else {
+      if (callback) callback.apply(pointer, ["Error at resolving thread"]);
+    }
   }
 })();
 

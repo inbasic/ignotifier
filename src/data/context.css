@@ -1,13 +1,15 @@
-*
+html,body
 {
-  margin: 0;
-  padding: 0;
+  margin:0; 
+  padding:0; 
+  height:100%;
 }
-
 body
 {
   overflow: hidden;
   font: 14px arial,sans-serif;
+  background-color: #fff;
+  padding: 3px;
 }
 
 a,
@@ -25,17 +27,9 @@ ul
   list-style: none;
 }
 
-#body
-{
-  padding: 3px;
-  border-radius: 2px;
-  background-color: #fff;
-  height: 210px;
-  -moz-box-sizing: border-box;
-}
 #preview
 {
-  height: 202px;
+  -moz-box-flex: 1.0;
   border: 1px solid #DCDCDC;
   border-radius: 2px;
   background-color: #F5F5F5;
@@ -45,8 +39,8 @@ ul
 #header,
 #toolbar
 {
-  height: 32px;
-  line-height: 25px;
+  height: 33px;
+  line-height: 24px;
   -moz-box-sizing: border-box;
   padding: 4px 8px;
   -moz-user-select: none;
@@ -77,7 +71,7 @@ ul
   cursor: pointer;
   float: left;
   padding: 0 8px 0 18px;
-  background: url(icons2.png) -1px 2px no-repeat;
+  background: url(icons3.png) -1px 2px no-repeat;
   height: 25px;
   outline: none;
 }
@@ -89,7 +83,7 @@ ul
 
 #header #account_selector span
 {
-  background: url(icons2.png) 100% -19px no-repeat;
+  background: url(icons3.png) 100% -19px no-repeat;
   padding: 0 20px 0 5px;
   overflow: hidden;
   display: block;
@@ -111,11 +105,14 @@ ul
   position: absolute;
   top: 30px;
   display: none;
+  margin: 0;
+  padding: 0;
+  -moz-user-select: none;
 }
 
 #header #accounts li
 {
-  padding: 4px 8px 4px 25px;
+  padding: 4px 8px 4px 35px;
   display: block;
   border-bottom: 1px solid #F5F5F5;
   cursor: pointer;
@@ -132,7 +129,7 @@ ul
 
 #header #accounts li.selected
 {
-  background: url(icons2.png) 2px -196px no-repeat;
+  background: url(icons3.png) 10px -197px no-repeat;
 } 
 
 #content
@@ -142,10 +139,12 @@ ul
   border-bottom: 1px solid #DCDCDC;
   -moz-box-sizing: border-box;
   overflow: hidden;
-  height: 136px;
   color: #222222;
   position: relative;
-  padding: 8px;
+  padding: 8px 8px 0 8px;
+}
+#content[type="expanded"][mode="loading"] {
+  background: #fff url('fetch.png') no-repeat center center;
 }
 
 #content a
@@ -169,8 +168,8 @@ ul
   display: inline-block;
   overflow: hidden;
   white-space: nowrap;
+  width: 100%;
   text-overflow: ellipsis;
-  max-width: 402px;
   padding-right: 2px;
   height: 24px;
 }
@@ -202,11 +201,11 @@ ul
   float: none;
   clear: both;
   padding: 8px 4px 0 4px;
-  height: 67px;
+  height: 30px;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: pre;
 }
-
 .btn
 {
   border: 1px solid rgba(0, 0, 0, 0.15);
@@ -226,6 +225,7 @@ ul
   -moz-box-sizing: border-box;
   border-radius: 2px;
   white-space: nowrap;
+  -moz-user-select: none;
 }
 .btn.read {
   width: 100px;
@@ -285,7 +285,7 @@ ul
 }
 .btn i
 {
-  background: url(icons2.png) 0 0 no-repeat;
+  background: url(icons3.png) 0 0 no-repeat;
   display: inline-block;
   opacity: 0.55;
   width: 20px;
@@ -330,6 +330,18 @@ ul
 .btn.inbox i
 {
   background-position: -1px -178px;
+}
+.btn.expand {
+  height: 12px;
+  line-height: 8px;
+}
+.btn.expand i
+{
+  height: 6px;
+  background-position: -1px -229px;
+}
+#content[type="expanded"] .btn.expand i {
+  -moz-transform: scaleY(-1);
 }
 
 /** Tooltip **/

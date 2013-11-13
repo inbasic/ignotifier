@@ -31,12 +31,10 @@ var html = (function() {
   }
 })();
 
-var unreadObjs;
+var unreadObjs, contentCache = [];
 var selectedAccount, doNext = false,
     doPrevious = false;
 self.port.on("command", function(uo) {
-  //Close account selection menu if it is open
-  $("accounts").style.display = "none";
   //Update
   unreadObjs = uo;
   //Is previouly selected account still available?
@@ -214,7 +212,7 @@ var update = (function() {
       body.nameLink = base + "?view=cm&fs=1&tf=1&to=" + entry.author_email;
       body.email = "<" + entry.author_email + ">";
       body.date = prettyDate(entry.modified);
-      body.content = entry.summary + " ...";
+      updateContent ();
       _tag[selectedAccount] = entry.id;
     }
     var doBody = !_tag[selectedAccount] || doAccountSelector || doNext || doPrevious;
@@ -331,7 +329,7 @@ new Listen("read", "click", function(e) {
   self.port.emit("action", link, "rd");
 });
 new Listen("refresh", "click", function(e) {
-  self.port.emit("update");
+  self.port.emit("update");  
 });
 new Listen("inbox", "click", function(e) {
   self.port.emit("open", unreadObjs[iIndex].link); 
@@ -362,6 +360,42 @@ self.port.on("action-response", function(cmd) {
   }
   self.port.emit("decrease_mails", iIndex, jIndex);
 });
+new Listen("expand", "click", function () {
+  var type = $("content").getAttribute("type");
+  resize(type ? 0 : 1);
+});
+function updateContent () {
+  function doSummary () {
+    var summary = unreadObjs[iIndex].entries[jIndex].summary;
+    $("email_body").textContent = summary + " ...";
+  }
+
+  var type = $("content").getAttribute("type");
+  if (type) {
+    if (typeof iIndex === 'undefined' || typeof jIndex === 'undefined') return;
+    var link = unreadObjs[iIndex].entries[jIndex].link;
+    var content = contentCache[link];
+    if (content) {
+      $("content").removeAttribute("mode");
+      $("email_body").textContent = content;
+    }
+    else {
+      doSummary ();
+      $("content").setAttribute("mode", "loading");
+      self.port.emit("body", link);
+    }
+  }
+  else {
+    doSummary ()
+  }
+
+}
+self.port.on("body-response", function(link, content) {
+  if (link == unreadObjs[iIndex].entries[jIndex].link) {
+    contentCache[link] = content;
+    updateContent ();
+  }
+});
 /** misc functions **/
 // JavaScript Pretty Date by John Resig (ejohn.org)
 function prettyDate(time) {
@@ -385,4 +419,30 @@ function prettyDate(time) {
 // Link opener for html
 document.defaultView.addEventListener('ignotifier-open', function(e) {
   self.port.emit("open", e.detail.link);
+});
+
+// Resize
+function resize(mode) {
+  mode = parseInt(mode);
+  width = mode ? 530 : 430;
+  height = mode ? 500 : 209;
+  document.body.clientWidth = width + "px";
+  $("email_body").style.height = (height - 180) + "px";
+  self.port.emit('resize', {
+    width: width,
+    height: height,
+    mode: mode
+  });
+  if (mode) {
+    $("content").setAttribute("type", "expanded");
+  }
+  else {
+    $("content").removeAttribute("type");
+  }
+  updateContent();
+  //Close account selection menu if it is open
+  $("accounts").style.display = "none";
+}
+self.port.on("resize", function (mode) {
+  resize(mode);
 });

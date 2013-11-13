@@ -10,7 +10,7 @@
   "contributors": ["CaTz", "ecaron"],
   
   "url": "",
-  "version": "0.3.6b1",
+  "version": "0.3.6b2",
   "lib": "lib",
   "main": "main",
   
@@ -123,6 +123,16 @@
     "options": [
       {"value": "0", "label": "Always open email preview panel"},
       {"value": "1", "label": "Open Gmail account if only one account is logged-in"}
+    ]
+  },
+  {
+    "name": "size",
+    "title": "Toolbar panel mode:",
+    "type": "menulist",
+    "value": 0,
+    "options": [
+      {"value": "0", "label": "Show summary only"},
+      {"value": "1", "label": "Show full content (beta)"}
     ]
   },
   {
