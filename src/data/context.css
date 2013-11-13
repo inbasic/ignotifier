@@ -29,7 +29,6 @@ ul
 
 #preview
 {
-  -moz-box-flex: 1.0;
   border: 1px solid #DCDCDC;
   border-radius: 2px;
   background-color: #F5F5F5;
@@ -204,7 +203,7 @@ ul
   height: 30px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: pre;
+  white-space: pre-wrap;
 }
 .btn
 {

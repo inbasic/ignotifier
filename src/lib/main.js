@@ -747,7 +747,7 @@ var checkAllMails = (function () {
             " (" + r.msgObj[1] + ")" +
             (r.msgObj[2] && prefs.showDetails ? "\n" + r.msgObj[2] : "");
           if (r.alert) {
-            text += (text ? " - " : "") + msg;
+            text += (text ? " \n " : "") + msg;
           }
           tooltiptext += (tooltiptext ? "\n" : "") + msg;
           total += r.msgObj[1];
