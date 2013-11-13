@@ -386,7 +386,7 @@ function updateContent () {
     }
   }
   else {
-    doSummary ()
+    doSummary();
   }
 
 }
@@ -435,9 +435,11 @@ function resize(mode) {
   });
   if (mode) {
     $("content").setAttribute("type", "expanded");
+    $("header").setAttribute("type", "expanded");
   }
   else {
     $("content").removeAttribute("type");
+    $("header").removeAttribute("type");
   }
   updateContent();
   //Close account selection menu if it is open

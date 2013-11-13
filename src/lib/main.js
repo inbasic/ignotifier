@@ -915,7 +915,9 @@ var getBody = (function () {
           var tmp = req.responseText.replace(/^\s\s*/, '').replace(/\s\s*$/, '').split('\n');
           tmp.splice(0,5);
           if (callback) callback.apply(pointer, [
-            tmp.join('\n').replace(/^\s\s*/, '').replace(/\s\s*$/, '')
+            tmp.join('\n')
+               .replace(/<\/?[^>]+(>|$)/g, "")
+               .replace(/^\s\s*/, '').replace(/\s\s*$/, '')
           ]);
         });
       });

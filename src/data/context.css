@@ -90,6 +90,9 @@ ul
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+#header[type="expanded"] #account_selector span  {
+  max-width: 300px;
+}
 
 #header #accounts
 {
@@ -204,6 +207,7 @@ ul
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: pre-wrap;
+  word-break: break-all;
 }
 #content[type="expanded"] p {
   overflow: auto;
