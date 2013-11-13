@@ -827,12 +827,13 @@ sp.on("reset", function() {
   prefs.clrPattern          = 0;
   prefs.oldFashion          = 0;
   prefs.forceVisible        = true; 
-  prefs.middleClick         = 1;
+  prefs.middleClick         = 0;
   prefs.onGmailNotification = false;
   prefs.showDetails         = true;
   prefs.welcome             = true;
   prefs.searchMode          = true;
   prefs.relatedToCurrent    = true;
+  prefs.size                = 0;
 });
 
 /**

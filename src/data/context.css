@@ -190,6 +190,9 @@ ul
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+#content[type="expanded"] .sender {
+  max-width: 420px;
+}
 
 #content #date
 {
@@ -204,13 +207,10 @@ ul
   clear: both;
   padding: 8px 4px 0 4px;
   height: 30px;
-  overflow: hidden;
+  overflow: auto;
   text-overflow: ellipsis;
   white-space: pre-wrap;
   word-break: break-all;
-}
-#content[type="expanded"] p {
-  overflow: auto;
 }
 .btn
 {
