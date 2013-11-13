@@ -142,7 +142,7 @@ ul
   position: relative;
   padding: 8px 8px 0 8px;
 }
-#content[type="expanded"][mode="loading"] {
+#content[mode="loading"] {
   background: #fff url('fetch.png') no-repeat center center;
 }
 
@@ -204,6 +204,9 @@ ul
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: pre-wrap;
+}
+#content[type="expanded"] p {
+  overflow: auto;
 }
 .btn
 {
