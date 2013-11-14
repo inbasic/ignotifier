@@ -7,7 +7,7 @@ html,body
 body
 {
   overflow: hidden;
-  font: 14px arial,sans-serif;
+  font: 12.8px arial,sans-serif;
   background-color: #fff;
   padding: 3px;
 }
@@ -194,10 +194,12 @@ ul
   max-width: 420px;
 }
 
+#email {
+ color: #727272;
+}
 #content #date
 {
   float: right;
-  font-size: 85%;
   line-height: 24px;
 }
 
@@ -339,7 +341,7 @@ ul
 }
 .btn.expand {
   height: 12px;
-  line-height: 8px;
+  line-height: 6px;
 }
 .btn.expand i
 {

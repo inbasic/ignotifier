@@ -425,9 +425,9 @@ document.defaultView.addEventListener('ignotifier-open', function(e) {
 function resize(mode) {
   mode = parseInt(mode);
   width = mode ? 530 : 430;
-  height = mode ? 500 : 212;
+  height = mode ? 500 : 210;
   document.body.clientWidth = width + "px";
-  $("email_body").style.height = (height - 180) + "px";
+  $("email_body").style.height = (height - 178) + "px";
   self.port.emit('resize', {
     width: width,
     height: height,
