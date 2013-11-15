@@ -4,7 +4,7 @@ const NS_XLINK = "http://www.w3.org/1999/xlink";
 
 const {unload} = require("unload+");
 const {listen} = require("listen");
-const winUtils = require("window-utils");
+const winUtils = require("sdk/deprecated/window-utils");
 const browserURL = "chrome://browser/content/browser.xul";
 
 exports.ToolbarButton = function ToolbarButton(options) {

@@ -4,7 +4,7 @@
 "use strict";
 
 const { Cc, Ci } = require("chrome");
-const unload = require("unload").when;
+const unload = require("sdk/system/unload").when;
 
 const sss = Cc["@mozilla.org/content/style-sheet-service;1"]
     .getService(Ci.nsIStyleSheetService);

@@ -4,16 +4,22 @@ var tabs             = require("sdk/tabs"),
     timer            = require("sdk/timers"),
     panel            = require("sdk/panel"),
     sp               = require("sdk/simple-prefs"),
-    windows          = require("sdk/windows").browserWindows,
+    pageWorker       = require("sdk/page-worker"),
     _                = require("sdk/l10n").get,
-    windowutils      = require("window-utils"),
     toolbarbutton    = require("./toolbarbutton"),
     userstyles       = require("./userstyles"),
-    window           = windowutils.activeBrowserWindow,
     prefs            = sp.prefs,
     data             = self.data,
-    {Cc, Ci, Cu}     = require('chrome');
-
+    {Cc, Ci, Cu}     = require('chrome'),
+    windows          = {
+      get active () { // Chrome window
+        return require('sdk/window/utils').getMostRecentBrowserWindow()
+      },
+      get activeWindow () { // SDK window
+        return require("sdk/windows").browserWindows.activeWindow
+      }
+    };
+    
 /** Internal configurations **/
 var config = {
   //Gmail
@@ -110,7 +116,7 @@ function url_parse (url) {
 /** Open new Tab or reuse old tabs to open the url **/
 function open (url, inBackground) {
   var parse2 = url_parse(url);
-  if (windows.activeWindow) {
+  if (windows.active) {
     for each(var tab in (prefs.searchMode ? windows.activeWindow.tabs : tabs)) {
       if (tab.url == url) {
         if (!prefs.onGmailNotification) notify(_("gmail"), _("msg8"));
@@ -136,7 +142,7 @@ function open (url, inBackground) {
       }
     }
   }
-  var gBrowser = windowutils.activeBrowserWindow.gBrowser;
+  var gBrowser = windows.active.gBrowser;
   var t = gBrowser.addTab(url, {relatedToCurrent: prefs.relatedToCurrent});
   if (!inBackground) {
     gBrowser.selectedTab = t;
@@ -275,7 +281,7 @@ gButton = toolbarbutton.ToolbarButton({
         tm.reset(true);
       });
       addChild(_("label2"), "").addEventListener("command", function (e) {
-        windowutils.activeBrowserWindow.BrowserOpenAddonsMgr(
+        windows.active.BrowserOpenAddonsMgr(
           "addons://detail/" + encodeURIComponent("jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack")
         );
       });
@@ -367,7 +373,7 @@ exports.main = function(options, callbacks) {
 };
 
 /** Store toolbar button position **/
-var aWindow = windowutils.activeBrowserWindow;
+var aWindow = windows.active;
 var aftercustomizationListener = function () {
   let button = aWindow.document.getElementById(config.toolbar.id);
   if (!button) return;
@@ -815,7 +821,7 @@ var checkAllMails = (function () {
 
 /** Prefs **/
 sp.on("reset", function() {
-  if (!window.confirm(_("msg7"))) return
+  if (!windows.active.confirm(_("msg7"))) return
   prefs.alphabetic          = false;
   prefs.alert               = true;
   prefs.notification        = true;
@@ -941,14 +947,14 @@ var notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob/mas
           if (topic == "alertclickcallback") {
             timer.setTimeout(function () {
               // If main window is not focused, restore it first!
-              windowutils.activeBrowserWindow.focus();
+              windows.active.focus();
               onCommand();
             }, 100);
           }
         }, "");
     }
     catch(e) {
-      let browser = windowutils.activeBrowserWindow.gBrowser,
+      let browser = window.active.gBrowser,
           notificationBox = browser.getNotificationBox();
 
       notification = notificationBox.appendNotification(text, 'jetpack-notification-box',
@@ -974,7 +980,7 @@ var play = function () {
     }
   }
 
-  require("page-worker").Page({
+  pageWorker.Page({
     contentScript: "var audio = new Audio('" + path + "'); audio.play();",
     contentURL: data.url("sound.html")
   });
