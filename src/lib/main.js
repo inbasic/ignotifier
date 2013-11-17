@@ -923,8 +923,11 @@ var getBody = (function () {
           tmp.splice(0,5);
           if (callback) callback.apply(pointer, [
             tmp.join('\n')
+               .replace(/<style[^\>]*\>[^\<]*\<\/style\>/gm, "")  //Removing style blocks
+               .replace(/<script[^\>]*\>[^\<]*\<\/style\>/gm, "")  //Removing script blocks
                .replace(/<\/?[^>]+(>|$)/g, "")
                .replace(/^\s\s*/, '').replace(/\s\s*$/, '')
+               .replace(/\n\s{2,}\n/g, '\n\n')  //replace multi line breaks with single
           ]);
         });
       });
