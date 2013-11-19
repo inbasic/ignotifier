@@ -8,6 +8,7 @@ var tabs             = require("sdk/tabs"),
     _                = require("sdk/l10n").get,
     toolbarbutton    = require("./toolbarbutton"),
     userstyles       = require("./userstyles"),
+    plainText        = require('./plain-text'),
     prefs            = sp.prefs,
     data             = self.data,
     {Cc, Ci, Cu}     = require('chrome'),
@@ -918,16 +919,20 @@ var getBody = (function () {
           if (callback) callback.apply(pointer, ["Error at resolving user's static ID"]);
           return;
         }
-        new curl(url + "?ui=2&ik=" + ik + "&view=domraw&th=" + thread[1], function (req) {
-          var tmp = req.responseText.replace(/^\s\s*/, '').replace(/\s\s*$/, '').split('\n');
-          tmp.splice(0,5);
+        new curl(url + "?ui=2&ik=" + ik + "&view=pt&search=all&th=" + thread[1], function (req) {
+          var parser = Cc["@mozilla.org/xmlextras/domparser;1"]
+            .createInstance(Ci.nsIDOMParser);
+          var html = parser.parseFromString(req.responseText, "text/html");
+          var tables = html.documentElement.getElementsByTagName("table");
+          var body = "Error reading email's body";
+          try {
+            body = tables[3].children[0].children[0];
+            body = plainText.getPlainText(body);
+          } catch (e) {}
           if (callback) callback.apply(pointer, [
-            tmp.join('\n')
-               .replace(/<style[^\>]*\>[^\<]*\<\/style\>/gm, "")  //Removing style blocks
-               .replace(/<script[^\>]*\>[^\<]*\<\/style\>/gm, "")  //Removing script blocks
-               .replace(/<\/?[^>]+(>|$)/g, "")
-               .replace(/^\s\s*/, '').replace(/\s\s*$/, '')
-               .replace(/\n\s{2,}\n/g, '\n\n')  //replace multi line breaks with single
+            body
+              .replace(/^\s\s*/, '').replace(/\s\s*$/, '')
+              .replace(/\n\s{2,}\n/g, '\n\n') //replace multi line breaks with single
           ]);
         });
       });
