@@ -121,5 +121,7 @@ exports.getPlainText = function(node){
   var t = "";
   removeWhiteSpace(node);
   // Make the call!
-  return normalize(recurse(node));
+  return normalize(recurse(node))
+    .replace(/^\s\s*/, '').replace(/\s\s*$/, '')
+    .replace(/\n\s{2,}\n/g, '\n\n');
 }

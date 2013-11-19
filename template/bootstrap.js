@@ -1,3 +1,4 @@
+/* vim:set ts=2 sw=2 sts=2 expandtab */
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -219,6 +220,8 @@ function startup(data, reasonCode) {
       // options used by system module.
       // File to write 'OK' or 'FAIL' (exit code emulation).
       resultFile: options.resultFile,
+      // File to write stdout.
+      logFile: options.logFile,
       // Arguments passed as --static-args
       staticArgs: options.staticArgs,
 
@@ -232,7 +235,6 @@ function startup(data, reasonCode) {
           stopOnError: options.stopOnError,
           verbose: options.verbose,
           parseable: options.parseable,
-          checkMemory: options.check_memory,
         }
       }
     });
@@ -246,8 +248,7 @@ function startup(data, reasonCode) {
       prefsURI: rootURI + 'defaults/preferences/prefs.js'
     });
   } catch (error) {
-    dump('Bootstrap error: ' +
-         (error.message ? error.message : String(error)) + '\n' +
+    dump('Bootstrap error: ' + error.message + '\n' +
          (error.stack || error.fileName + ': ' + error.lineNumber) + '\n');
     throw error;
   }

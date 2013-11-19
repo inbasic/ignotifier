@@ -923,17 +923,13 @@ var getBody = (function () {
           var parser = Cc["@mozilla.org/xmlextras/domparser;1"]
             .createInstance(Ci.nsIDOMParser);
           var html = parser.parseFromString(req.responseText, "text/html");
-          var tables = html.documentElement.getElementsByTagName("table");
+          var message = html.documentElement.getElementsByClassName("message");
+          console.error(message);
           var body = "Error reading email's body";
           try {
-            body = tables[3].children[0].children[0];
-            body = plainText.getPlainText(body);
+            body = plainText.getPlainText(message[message.length - 1].children[0].children[2]);
           } catch (e) {}
-          if (callback) callback.apply(pointer, [
-            body
-              .replace(/^\s\s*/, '').replace(/\s\s*$/, '')
-              .replace(/\n\s{2,}\n/g, '\n\n') //replace multi line breaks with single
-          ]);
+          if (callback) callback.apply(pointer, [body]);
         });
       });
     }
