@@ -21,9 +21,6 @@
 var windows = {
   get active () { // Chrome window
     return require('sdk/window/utils').getMostRecentBrowserWindow()
-  },
-  get activeWindow () { // SDK window
-    return require("sdk/windows").browserWindows.activeWindow
   }
 };
 
@@ -43,7 +40,8 @@ exports.getPlainText = function(node){
         .replace(/\n+$/, "")
         .replace(/^\n+/, "")
         .replace(/\nNEWLINE\n/g, "\n\n")
-        .replace(/NEWLINE\n/g, "\n\n"); // IE
+        .replace(/NEWLINE\n/g, "\n\n")
+        .replace(/NEWLINE/g, "\n");
   }
   var removeWhiteSpace = function(node){
     // getting rid of empty text nodes

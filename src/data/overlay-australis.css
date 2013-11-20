@@ -1,0 +1,16 @@
+#igmail-notifier[length="1"]:after {
+  margin: 6px 5px 0 -15px;
+  width: 10px;
+}
+#igmail-notifier[length="2"]:after {
+  margin: 6px 3px 0 -19px;
+  width: 16px;
+}
+#igmail-notifier[length="3"]:after {
+  margin: 6px 3px 0 -25px;
+  width: 22px;
+}
+#igmail-notifier[length="4"]:after{
+  margin: 6px 3px 0 -31px;
+  width: 28px;
+}

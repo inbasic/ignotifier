@@ -1,18 +1,18 @@
 /** Require **/
-var tabs             = require("sdk/tabs"),
-    self             = require("sdk/self"),
-    timer            = require("sdk/timers"),
-    panel            = require("sdk/panel"),
-    sp               = require("sdk/simple-prefs"),
-    pageWorker       = require("sdk/page-worker"),
-    _                = require("sdk/l10n").get,
-    toolbarbutton    = require("./toolbarbutton"),
-    userstyles       = require("./userstyles"),
-    plainText        = require('./plain-text'),
-    prefs            = sp.prefs,
-    data             = self.data,
-    {Cc, Ci, Cu}     = require('chrome'),
-    windows          = {
+var tabs          = require("sdk/tabs"),
+    self          = require("sdk/self"),
+    timer         = require("sdk/timers"),
+    panel         = require("sdk/panel"),
+    sp            = require("sdk/simple-prefs"),
+    pageWorker    = require("sdk/page-worker"),
+    _             = require("sdk/l10n").get,
+    toolbarbutton = require("./toolbarbutton"),
+    userstyles    = require("./userstyles"),
+    plainText     = require('./plain-text'),
+    prefs         = sp.prefs,
+    data          = self.data,
+    {Cc, Ci, Cu}  = require('chrome'),
+    windows       = {
       get active () { // Chrome window
         return require('sdk/window/utils').getMostRecentBrowserWindow()
       },
@@ -67,9 +67,7 @@ var config = {
     _("tooltip1") + "\n" + _("tooltip2") + "\n" + _("tooltip3"),
   //Homepage:
   homepage: "http://add0n.com/gmail-notifier.html",
-  update: "http://add0n.com/gmail-notifier-updated.html",
-  //Preferences
-  prefs: "extensions.jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack."
+  update: "http://add0n.com/gmail-notifier-updated.html"
 };
 
 var tm, resetTm, gButton, unreadObjs = [], loggedins  = [];
@@ -78,10 +76,13 @@ var tm, resetTm, gButton, unreadObjs = [], loggedins  = [];
 (function () {
   userstyles.load(data.url("overlay.css"));
   var runtime = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULRuntime);
-  if (runtime.OS == "Linux") {
+  if ("gCustomizeMode" in windows.active && runtime.OS == "WINNT") { //Australis
+    userstyles.load(data.url("overlay-australis.css"));
+  }
+  else if (runtime.OS == "Linux") {
     userstyles.load(data.url("overlay-linux.css"));
   }
-  if (runtime.OS == "Darwin") {
+  else if (runtime.OS == "Darwin") {
     userstyles.load(data.url("overlay-darwin.css"));
   }
 })();
@@ -924,7 +925,6 @@ var getBody = (function () {
             .createInstance(Ci.nsIDOMParser);
           var html = parser.parseFromString(req.responseText, "text/html");
           var message = html.documentElement.getElementsByClassName("message");
-          console.error(message);
           var body = "Error reading email's body";
           try {
             body = plainText.getPlainText(message[message.length - 1].children[0].children[2]);
