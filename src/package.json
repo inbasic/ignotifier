@@ -10,7 +10,7 @@
   "contributors": ["CaTz", "ecaron"],
   
   "url": "",
-  "version": "0.3.6",
+  "version": "0.3.7b1",
   "lib": "lib",
   "main": "main",
   
@@ -128,13 +128,19 @@
   {
     "name": "size",
     "title": "Toolbar panel mode:",
-    "description": "Show full content mode is still experimental feature.",
+    "description": "Show full-content mode is still experimental feature.",
     "type": "menulist",
     "value": 0,
     "options": [
       {"value": "0", "label": "Show summary only"},
       {"value": "1", "label": "Show full content"}
     ]
+  },
+  {
+    "name": "showLinks",
+    "title": "Display links url in full-content mode:",
+    "type": "bool",
+    "value": false
   },
   {
     "name": "forceVisible",

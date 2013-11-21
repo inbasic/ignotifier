@@ -842,6 +842,7 @@ sp.on("reset", function() {
   prefs.searchMode          = true;
   prefs.relatedToCurrent    = true;
   prefs.size                = 0;
+  prefs.showLinks           = false;
 });
 
 /**
