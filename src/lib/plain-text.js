@@ -73,7 +73,7 @@ exports.getPlainText = function(node){
     if(blockTypeNodes.indexOf(s) > -1) return true;
     return false;
   }
-  var recurse = function(n, link){
+  var recurse = function(n){
     if(/pre/.test(sty(n, "whiteSpace"))) {
       t += n.innerHTML
         .replace(/\t/g, " ")
@@ -86,9 +86,12 @@ exports.getPlainText = function(node){
     t += gap;
     for (var i=0; i<n.childNodes.length;i++) {
       var c = n.childNodes[i];
-      if(c.nodeType == 3) t += c.nodeValue + (prefs.showLinks && link ? " (" + link + ") " : "");
-      if(c.childNodes.length) {
-        recurse(c, (c.localName == "a" && c.href) ? c.href : null);
+      if(c.nodeType == 3) t += c.nodeValue;
+      if (c.localName == "a" && c.href && prefs.showLinks) {
+        t += c.textContent + (c.textContent && c.textContent != c.href ? " (" + c.href + ") " : "");
+      }
+      else if(c.childNodes.length) {
+        recurse(c);
       }
     }
     t += gap;
