@@ -10,7 +10,7 @@
   "contributors": ["CaTz", "ecaron"],
   
   "url": "",
-  "version": "0.3.7b1",
+  "version": "0.3.7b2",
   "lib": "lib",
   "main": "main",
   
@@ -116,6 +116,12 @@
     "value": false
   },
   {
+    "name": "currentTab",
+    "title": "Open Gmail account in the active tab:",
+    "type": "bool",
+    "value": false
+  },
+  {
     "name": "oldFashion",
     "title": "Toolbar button behaviour:",
     "type": "menulist",
@@ -128,7 +134,7 @@
   {
     "name": "size",
     "title": "Toolbar panel mode:",
-    "description": "Show full-content mode is still experimental feature.",
+    "description": "Full-content view mode is still experimental feature.",
     "type": "menulist",
     "value": 0,
     "options": [
@@ -138,7 +144,7 @@
   },
   {
     "name": "showLinks",
-    "title": "Display links url in full-content mode:",
+    "title": "Display links url in full-content view mode:",
     "type": "bool",
     "value": false
   },

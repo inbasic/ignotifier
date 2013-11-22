@@ -144,10 +144,15 @@ function open (url, inBackground) {
       }
     }
   }
-  var gBrowser = windows.active.gBrowser;
-  var t = gBrowser.addTab(url, {relatedToCurrent: prefs.relatedToCurrent});
-  if (!inBackground) {
-    gBrowser.selectedTab = t;
+  if (prefs.currentTab) {
+    tabs.activeTab.url = url;
+  }
+  else {
+    var gBrowser = windows.active.gBrowser;
+    var t = gBrowser.addTab(url, {relatedToCurrent: prefs.relatedToCurrent});
+    if (!inBackground) {
+      gBrowser.selectedTab = t;
+    }
   }
 }
 
@@ -843,6 +848,7 @@ sp.on("reset", function() {
   prefs.relatedToCurrent    = true;
   prefs.size                = 0;
   prefs.showLinks           = false;
+  prefs.currentTab          = false;
 });
 
 /**
@@ -918,7 +924,7 @@ var getBody = (function () {
     if (thread.length > 1) {
       getIK(url, function (ik) {
         if (!ik) {
-          if (callback) callback.apply(pointer, ["Error at resolving user's static ID"]);
+          if (callback) callback.apply(pointer, ["Error at resolving user's static ID. Please switch back to summary mode."]);
           return;
         }
         new curl(url + "?ui=2&ik=" + ik + "&view=pt&search=all&th=" + thread[1], function (req) {
@@ -926,7 +932,7 @@ var getBody = (function () {
             .createInstance(Ci.nsIDOMParser);
           var html = parser.parseFromString(req.responseText, "text/html");
           var message = html.documentElement.getElementsByClassName("message");
-          var body = "Error reading email's body";
+          var body = "Error reading email's body. Please switch back to summary mode.";
           try {
             body = plainText.getPlainText(message[message.length - 1].children[0].children[2]);
           } catch (e) {}
@@ -935,7 +941,7 @@ var getBody = (function () {
       });
     }
     else {
-      if (callback) callback.apply(pointer, ["Error at resolving thread"]);
+      if (callback) callback.apply(pointer, ["Error at resolving thread. Please switch back to summary mode."]);
     }
   }
 })();
