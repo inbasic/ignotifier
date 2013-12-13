@@ -74,3 +74,14 @@
   margin: 6px 3px 0 -31px;
   width: 28px;
 }
+
+/* Notification */
+#alertTitleLabel[value="Gmail notifier"] + #alertTextLabel {
+  text-decoration: none !important;
+}
+@media (-moz-windows-default-theme: 1) {
+  #alertTitleLabel[value="Gmail notifier"] + #alertTextLabel {
+    color: InfoText !important;
+  }
+}
+

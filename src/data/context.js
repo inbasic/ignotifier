@@ -392,7 +392,9 @@ function updateContent () {
 }
 self.port.on("body-response", function(link, content) {
   if (link == unreadObjs[iIndex].entries[jIndex].link) {
-    contentCache[link] = content;
+    // For chat conversations, there is no full content mode
+    contentCache[link] = 
+      content === "..." ?  unreadObjs[iIndex].entries[jIndex].summary + " ..." : content;
     updateContent ();
   }
 });

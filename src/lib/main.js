@@ -932,7 +932,7 @@ var getBody = (function () {
             .createInstance(Ci.nsIDOMParser);
           var html = parser.parseFromString(req.responseText, "text/html");
           var message = html.documentElement.getElementsByClassName("message");
-          var body = "Error reading email's body. Please switch back to summary mode.";
+          var body = "...";
           try {
             body = plainText.getPlainText(message[message.length - 1].children[0].children[2]);
           } catch (e) {}
