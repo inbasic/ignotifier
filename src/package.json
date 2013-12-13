@@ -171,6 +171,12 @@
     "value": false
   },
   {
+    "name": "doReadOnArchive",
+    "title": "Mark message as read when archiving it:",
+    "type": "bool",
+    "value": true
+  },
+  {
     "name": "welcome",
     "title": "Show welcome page on upgrade:",
     "type": "bool",

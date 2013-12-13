@@ -849,6 +849,7 @@ sp.on("reset", function() {
   prefs.size                = 0;
   prefs.showLinks           = false;
   prefs.currentTab          = false;
+  prefs.doReadOnArchive     = true;
 });
 
 /**
@@ -872,7 +873,11 @@ var action = (function () {
     });
   }
   function sendCmd (url, at, thread, cmd, callback, pointer) {
-    new curl(url + "?at=" + at + "&act=" + cmd + "&t=" + thread, function (req){
+    if (cmd == "rc_%5Ei" && prefs.doReadOnArchive) {
+      sendCmd(url, at, thread, "rd");
+    }
+    var u = url + "?at=" + at + "&t=" + thread + "&act=" + cmd;
+    new curl(u, function (req) {
       if (!req) return;
       if(req.status == 200) {
         if (callback) callback.apply(pointer, [true]);
