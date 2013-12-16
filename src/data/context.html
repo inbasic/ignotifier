@@ -4,17 +4,18 @@
         <meta charset="utf-8" />
         <link rel="stylesheet" href="context.css" />        
         <script>
-      var tools = {
-        open: function (e) {
-          e.preventDefault();
-          var event = document.createEvent('CustomEvent');
-          event.initCustomEvent("ignotifier-open", true, true, {
-            link: e.originalTarget.href
+          window.addEventListener("click", function (e) {
+            var url = e.originalTarget.href;
+            if (url) {
+              e.preventDefault();
+              var event = document.createEvent('CustomEvent');
+              event.initCustomEvent("ignotifier-open", true, true, {
+                link: url
+              });
+              document.documentElement.dispatchEvent(event);
+            }
           });
-          document.documentElement.dispatchEvent(event);
-        }
-      }
-    </script>
+        </script>
     </head>
 
     <body>
@@ -30,10 +31,10 @@
         </div>
         <div id="content">
           <div id="email_title" dir="auto">
-            <a id="title" onclick="tools.open(event);"></a>
+            <a id="title"></a>
           </div>
           <div class="sender" dir="ltr">
-            <a href="" id="name" onclick="tools.open(event);"></a>
+            <a href="" id="name"></a>
             <span id="email"></span>
           </div>
           <div id="date"></div>

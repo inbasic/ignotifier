@@ -86,9 +86,11 @@ exports.getPlainText = function(node){
     t += gap;
     for (var i=0; i<n.childNodes.length;i++) {
       var c = n.childNodes[i];
-      if(c.nodeType == 3) t += c.nodeValue;
-      if (c.localName == "a" && c.href && prefs.showLinks) {
-        t += c.textContent + (c.textContent && c.textContent != c.href ? " (" + c.href + ") " : "");
+      if (c.localName == "a" && c.href && c.textContent) {
+        t += "<a href='" + c.href + "'>" + c.textContent + "</a>";
+      }
+      else if (c.nodeType == 3) {
+        t += c.nodeValue;
       }
       else if(c.childNodes.length) {
         recurse(c);

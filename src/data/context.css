@@ -214,6 +214,9 @@ ul
   white-space: pre-wrap;
   word-break: break-all;
 }
+#content p a {
+  color: #1155CC;
+}
 .btn
 {
   border: 1px solid rgba(0, 0, 0, 0.15);

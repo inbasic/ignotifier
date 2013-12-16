@@ -377,7 +377,8 @@ function updateContent () {
     var content = contentCache[link];
     if (content) {
       $("content").removeAttribute("mode");
-      $("email_body").textContent = content;
+      //content is a safe HTML parsed from a text-only content (palin-text.js) + links
+      $("email_body").innerHTML = content;
     }
     else {
       doSummary ();
