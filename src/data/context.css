@@ -70,7 +70,7 @@ ul
   cursor: pointer;
   float: left;
   padding: 0 8px 0 18px;
-  background: url(icons3.png) -1px 2px no-repeat;
+  background: url(icons4.png) -1px 2px no-repeat;
   height: 25px;
   outline: none;
 }
@@ -82,7 +82,7 @@ ul
 
 #header #account_selector span
 {
-  background: url(icons3.png) 100% -19px no-repeat;
+  background: url(icons4.png) 100% -19px no-repeat;
   padding: 0 20px 0 5px;
   overflow: hidden;
   display: block;
@@ -131,7 +131,7 @@ ul
 
 #header #accounts li.selected
 {
-  background: url(icons3.png) 10px -197px no-repeat;
+  background: url(icons4.png) 10px -197px no-repeat;
 } 
 
 #content
@@ -296,7 +296,7 @@ ul
 }
 .btn i
 {
-  background: url(icons3.png) 0 0 no-repeat;
+  background: url(icons4.png) 0 0 no-repeat;
   display: inline-block;
   opacity: 0.55;
   width: 20px;
