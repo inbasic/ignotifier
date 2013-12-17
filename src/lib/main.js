@@ -881,11 +881,12 @@ var action = (function () {
       }
     });
   }
-  function sendCmd (url, at, thread, cmd, callback, pointer) {
+  function sendCmd (url, at, threads, cmd, callback, pointer) {
     if (cmd == "rc_%5Ei" && prefs.doReadOnArchive) {
-      sendCmd(url, at, thread, "rd");
+      sendCmd(url, at, threads, "rd");
     }
-    var u = url + "?at=" + at + "&t=" + thread + "&act=" + cmd;
+    var u = url + "?at=" + at + "&act=" + cmd.replace("rd-all", "rd");
+    u += "&t=" + threads.join("&t=");
     new curl(u, function (req) {
       if (!req) return;
       if(req.status == 200) {
@@ -897,15 +898,24 @@ var action = (function () {
     });
   }
   
-  return function (link, cmd, callback, pointer) {
-    link = link.replace("http://", "https://");
-    var url = /[^\?]*/.exec(link)[0] + "/";
+  return function (links, cmd, callback, pointer) {
+    if (typeof(links) == "string") {
+      links = [links];
+    }
+
+    var url = /[^\?]*/.exec(links[0].replace("http://", "https://"))[0] + "/";
     
     getAt(url, function (at) {
       if (at) {
-        var thread = /message\_id\=([^\&]*)/.exec(link);
-        if (thread.length > 1) {
-          sendCmd(url, at, thread[1], cmd, function () {
+        var threads = [];
+        links.forEach(function (link) {
+          var thread = /message\_id\=([^\&]*)/.exec(link);
+          if (thread && thread.length) {
+            threads.push(thread[1]);
+          }
+        });
+        if (threads.length) {
+          sendCmd(url, at, threads, cmd, function () {
             if (callback) callback.apply(pointer, [true]);
           });
         }

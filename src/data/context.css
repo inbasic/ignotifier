@@ -342,6 +342,13 @@ ul
 {
   background-position: -1px -178px;
 }
+#toolbar:not([type="expanded"]) .btn.read-all {
+  display: none;
+}
+.btn.read-all i
+{
+  background-position: -1px -242px;
+}
 .btn.expand {
   height: 12px;
   line-height: 6px;
@@ -384,6 +391,9 @@ ul
 }
 .tooltip.inbox:hover:after {
   left: -40%;
+}
+.tooltip.read-all:hover:after {
+  left: -60%;
 }
 .tooltip:hover:before {
   -moz-border-bottom-colors: none;

@@ -334,6 +334,15 @@ new Listen("refresh", "click", function(e) {
 new Listen("inbox", "click", function(e) {
   self.port.emit("open", unreadObjs[iIndex].link); 
 });
+new Listen("read-all", "click", function(e) {
+  $("read-all").setAttribute("wait", true);
+  $("read-all").setAttribute("disabled", true);
+  var links = [];
+  unreadObjs[iIndex].entries.forEach(function (entry) {
+    links.push(entry.link);
+  });
+  self.port.emit("action", links, "rd-all");
+});
 self.port.on("action-response", function(cmd) {
   if (cmd == "rd") {
     $("read").textContent = "Mark as read";
@@ -344,6 +353,9 @@ self.port.on("action-response", function(cmd) {
     switch (cmd) {
     case "rd":
       obj = $("read");
+      break;
+    case "rd-all":
+      obj = $("read-all");
       break;
     case "tr":
       obj = $("trash");
@@ -437,12 +449,14 @@ function resize(mode) {
     mode: mode
   });
   if (mode) {
-    $("content").setAttribute("type", "expanded");
     $("header").setAttribute("type", "expanded");
+    $("content").setAttribute("type", "expanded");
+    $("toolbar").setAttribute("type", "expanded");
   }
   else {
-    $("content").removeAttribute("type");
     $("header").removeAttribute("type");
+    $("content").removeAttribute("type");
+    $("toolbar").removeAttribute("type");
   }
   updateContent();
   //Close account selection menu if it is open
