@@ -143,12 +143,6 @@
     ]
   },
   {
-    "name": "showLinks",
-    "title": "Display links url in full-content view mode:",
-    "type": "bool",
-    "value": false
-  },
-  {
     "name": "forceVisible",
     "title": "Always try to keep toolbar button visible:",
     "type": "bool",

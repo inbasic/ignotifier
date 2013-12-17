@@ -199,6 +199,16 @@ contextPanel.port.on("decrease_mails", function (iIndex, jIndex) {
   else {
     icon(total, "gray");
   }
+  /*
+  //Refresh Gmail tab
+  for each(var tab in tabs) {
+    if (tab.url.indexOf(unreadObjs[iIndex].link.replace("http", "").replace("https", ""))) {
+      tab.attach({
+        contentScript: 'var evt = document.createEvent("KeyboardEvent");evt.initKeyEvent("keypress",true,true,null,0,0,0,0,0,117);document.dispatchEvent(evt);'
+      });
+    }
+  }
+  */
 });
 contextPanel.port.on("update", function () {
   tm.reset(true);
@@ -847,7 +857,6 @@ sp.on("reset", function() {
   prefs.searchMode          = true;
   prefs.relatedToCurrent    = true;
   prefs.size                = 0;
-  prefs.showLinks           = false;
   prefs.currentTab          = false;
   prefs.doReadOnArchive     = true;
 });
