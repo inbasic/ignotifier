@@ -66,8 +66,7 @@ var config = {
   defaultTooltip: _("gmail") + "\n\n" + 
     _("tooltip1") + "\n" + _("tooltip2") + "\n" + _("tooltip3"),
   //Homepage:
-  homepage: "http://add0n.com/gmail-notifier.html",
-  update: "http://add0n.com/gmail-notifier-updated.html"
+  homepage: "http://add0n.com/gmail-notifier.html"
 };
 
 var tm, resetTm, gButton, unreadObjs = [], loggedins  = [];
@@ -465,7 +464,7 @@ var welcome = function () {
   if (!prefs.newVersion) return;
   if (prefs.welcome) {
     timer.setTimeout(function () {
-      open((prefs.newVersion == "install" ? config.homepage : config.update) + "?v=" + self.version);
+      open(config.homepage + "?v=" + self.version + "&type=" + prefs.newVersion);
       prefs.newVersion = "";
     }, 3000);
   }
