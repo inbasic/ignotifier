@@ -10,7 +10,8 @@
               e.preventDefault();
               var event = document.createEvent('CustomEvent');
               event.initCustomEvent("ignotifier-open", true, true, {
-                link: url
+                link: url,
+                button: e.button
               });
               document.documentElement.dispatchEvent(event);
             }
