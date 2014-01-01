@@ -93,6 +93,13 @@
     "description": "If Firefox is not playing the notification sound, try to convert it into a plain WAV format using an online conversion tool."
   },
   {
+    "name": "soundVolume",
+    "title": "Specifies the sound volume for the notification:",
+    "description": "Volume is a number between 0 to 100 where 100 is the highest volume (default)",
+    "type": "integer",
+    "value": 100
+  },
+  {
     "name": "clrPattern",
     "title": "Toolbar color pattern:",
     "type": "menulist",

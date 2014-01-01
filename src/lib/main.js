@@ -51,6 +51,8 @@ var config = {
   },
   get firstTime () {return prefs.initialPeriod * 1000},
   get desktopNotification () {return (prefs.notificationTime > 3 ? prefs.notificationTime : 3) * 1000},
+  //Sound
+  get soundVolume () {return (prefs.soundVolume < 100 ? prefs.soundVolume : 100) / 100},
   //Toolbar
   toolbar: {
     id: "igmail-notifier",
@@ -866,6 +868,7 @@ sp.on("reset", function() {
   prefs.size                = 0;
   prefs.currentTab          = false;
   prefs.doReadOnArchive     = true;
+  prefs.soundVolume         = 100;
 });
 
 /**
@@ -1023,7 +1026,7 @@ var play = function () {
   }
 
   pageWorker.Page({
-    contentScript: "var audio = new Audio('" + path + "'); audio.play();",
+    contentScript: "var audio = new Audio('" + path + "'); audio.volume = " + config.soundVolume + "; audio.play();",
     contentURL: data.url("sound.html")
   });
 }
