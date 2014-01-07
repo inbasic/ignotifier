@@ -542,13 +542,14 @@ var server = {
             label;
         try {
           //Inbox href
-          temp = xml.getElementsByTagName("link")[0].getAttribute("href");
+          temp = xml.getElementsByTagName("link")[0].getAttribute("href").replace("http://", "https://");
           temp = fixID (temp);
           label = this.label;
           if (label) {
             temp += "/?shva=1#label/" + label;
           }
         } catch(e) {}
+
         return temp;
       },
       get authorized () {
@@ -586,7 +587,7 @@ var server = {
               return entry.getElementsByTagName("id")[0].textContent;
             },
             get link () {
-              var temp = entry.getElementsByTagName("link")[0].getAttribute("href");
+              var temp = entry.getElementsByTagName("link")[0].getAttribute("href").replace("http://", "https://");
               temp = fixID (temp);
               return temp;
             }
@@ -868,7 +869,7 @@ sp.on("reset", function() {
   prefs.size                = 0;
   prefs.currentTab          = false;
   prefs.doReadOnArchive     = true;
-  prefs.soundVolume         = 100;
+  prefs.soundVolume         = 80;
 });
 
 /**
@@ -879,18 +880,35 @@ sp.on("reset", function() {
  * @return {Object} pointer, callback apply object.
  */
 var action = (function () {
-  function getAt (url, callback, pointer) {
+  function getAt_2 (url, callback, pointer) {
     new curl(url + "h/" + Math.ceil(1000000 * Math.random()), function (req) {
       if (!req) return;
       if(req.status == 200) {
         var tmp = /at\=([^\"\&]*)/.exec(req.responseText);
-        if (callback) callback.apply(pointer, [tmp.length > 1 ? tmp[1] : null]);
+        if (callback) callback.apply(pointer, [tmp && tmp.length > 1 ? tmp[1] : null]);
       }
       else {
         if (callback) callback.apply(pointer, [null]);
       }
     });
   }
+  function getAt (url, callback, pointer) {
+    new curl(url, function (req) {
+      if(req.status == 200) {
+        var tmp = /GM_ACTION_TOKEN\=\"([^\"]*)\"/.exec(req.responseText);
+        if (tmp && tmp.length) {
+          if (callback) callback.call(pointer, tmp[1]);
+        }
+        else {
+          getAt_2(url, callback, pointer);
+        }
+      }
+      else {
+        if (callback) callback.apply(pointer, [null]);
+      }
+    });
+  }
+  
   function sendCmd (url, at, threads, cmd, callback, pointer) {
     if (cmd == "rc_%5Ei" && prefs.doReadOnArchive) {
       sendCmd(url, at, threads, "rd");
@@ -913,8 +931,7 @@ var action = (function () {
       links = [links];
     }
 
-    var url = /[^\?]*/.exec(links[0].replace("http://", "https://"))[0] + "/";
-    
+    var url = /[^\?]*/.exec(links[0])[0] + "/";
     getAt(url, function (at) {
       if (at) {
         var threads = [];
