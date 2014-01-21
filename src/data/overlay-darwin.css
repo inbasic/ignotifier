@@ -37,7 +37,7 @@
     -moz-image-region: rect(0, 96px, 32px, 64px);  
   }
   #igmail-notifier[type="gray"] {
-    -moz-image-region: rect(0, 64px, 32px, 32px);  
+    -moz-image-region: rect(0, 64px, 32px, 32px);
   }
   #igmail-notifier[type="red"] {
     -moz-image-region: rect(0, 32px, 32px, 0);
@@ -55,7 +55,7 @@
     -moz-image-region: rect(0, 224px, 32px, 192px);
   }
   #igmail-notifier[type="load3"] {
-    -moz-image-region: rect(0, 256px, 32px, 2242px);
+    -moz-image-region: rect(0, 256px, 32px, 224px);
   }
   #igmail-notifier image {
     width: 16px;
