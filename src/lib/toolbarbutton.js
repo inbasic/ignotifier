@@ -91,6 +91,9 @@ exports.ToolbarButton = function ToolbarButton(options) {
 
         tb.insertItem(options.id, b4, null, false);
       }
+      
+      if (setBadge.value) setBadge ({value: setBadge.value});
+      if (setType.value) setType({value: setType.value});
 
       var saveTBNodeInfo = function(e) {
         toolbarID = tbb.parentNode.getAttribute("id") || "";
@@ -116,12 +119,16 @@ exports.ToolbarButton = function ToolbarButton(options) {
   var tracker = winUtils.WindowTracker(delegate);
 
   function setType(aOptions) {
+    setType.value = aOptions.value;
+  
     getToolbarButtons(function(tbb) {
       tbb.setAttribute("type", aOptions.value);
     }, options.id);
     return aOptions.value;
   }
   function setBadge (aOptions) {
+    setBadge.value = aOptions.value;
+  
     getToolbarButtons(function(tbb) {
       if ((aOptions.value + "").length > 4) {
         aOptions.value = "9999"
