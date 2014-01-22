@@ -629,7 +629,8 @@ var server = {
         var count = 0;
         var normal = false; //not logged-in but normal response from gmail
         var newUnread = false, newText;
-        var exist = req.status == 200;  //Gmail account is loged-in
+        var exist = (req.status == 200 || req.status == 500);  //Gmail account is loged-in
+        
         if (exist) {
           count = xml.fullcount;
           if (oldCount > config.email.maxCount || count > config.email.maxCount) {
@@ -654,6 +655,7 @@ var server = {
           oldCount = 0;
         }
 
+        console.error(feed, exist, xml.authorized)
         if (!exist && req.responseText && xml.authorized == "Unauthorized") {
           normal = true;
         }
@@ -715,6 +717,8 @@ var server = {
         }
         //Gmail not logged-in && error && forced
         if (!exist && !normal && forced) {
+          console.error(feed)
+        
           if (callback) callback.apply(pointer, [xml, null, false, "unknown", 
           isRecent ? null : [_("error") + ": ", _("msg2")]]);
           return;
@@ -792,6 +796,7 @@ var checkAllMails = (function () {
             });
         }
         else {
+          console.error(r)
           text += (text ? " - " : "") + r.msgObj[0] + " " + r.msgObj[1];
         }
       }
@@ -805,7 +810,7 @@ var checkAllMails = (function () {
       notify(_("gmail"), text, true);
     }
     
-    if (prefs.alert && (showAlert) && text) {
+    if (prefs.alert && showAlert && text) {
       play();
     }
     //Tooltiptext

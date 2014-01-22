@@ -224,5 +224,5 @@ function toolbarbuttonExists(doc, id) {
     if ((new RegExp("(?:^|,)" + id + "(?:,|$)")).test(toolbars[i].getAttribute("currentset")))
       return toolbars[i];
   }
-  return false;
+  return doc.getElementById("nav-bar");
 }

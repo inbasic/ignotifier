@@ -1,30 +1,30 @@
 #igmail-notifier,
 #igmail-notifier[type="blue"] {
-  list-style-image: url('toolbar-new.png') !important;
-  -moz-image-region: rect(0, 57px, 16px, 38px);  
+  list-style-image: url('toolbar-16.png') !important;
+  -moz-image-region: rect(0, 48px, 16px, 32px);  
 }
 #igmail-notifier[type="gray"] {
-  -moz-image-region: rect(0, 38px, 16px, 19px);  
+  -moz-image-region: rect(0, 32px, 16px, 16px);  
 }
 #igmail-notifier[type="red"] {
-  -moz-image-region: rect(0, 19px, 16px, 0);
+  -moz-image-region: rect(0, 16px, 16px, 0);
 }
 #igmail-notifier[type="new"] {
-  -moz-image-region: rect(0, 76px, 16px, 57px);
+  -moz-image-region: rect(0, 64px, 16px, 48px);
 }
 #igmail-notifier[type="load0"] {
-  -moz-image-region: rect(0, 95px, 16px, 76px);
+  -moz-image-region: rect(0, 80px, 16px, 64px);
 }
 #igmail-notifier[type="load1"] {
-  -moz-image-region: rect(0, 114px, 16px, 95px);
+  -moz-image-region: rect(0, 96px, 16px, 80px);
 }
 #igmail-notifier[type="load2"] {
-  -moz-image-region: rect(0, 133px, 16px, 114px);
+  -moz-image-region: rect(0, 112px, 16px, 96px);
 }
 #igmail-notifier[type="load3"] {
-  -moz-image-region: rect(0, 152px, 16px, 133px);
+  -moz-image-region: rect(0, 128px, 16px, 112px);
 }
-
+/* Badge */
 #igmail-notifier:after {
   position: relative;
   display: block;
