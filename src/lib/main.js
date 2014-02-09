@@ -640,7 +640,11 @@ var server = {
             xml.entries.forEach(function (entry, i) {
               if (msgs.indexOf(entry.id) == -1) {
                 newUnread = true;
-                newText = _("msg10") + " " + entry.author_name + "\n" + _("msg11") + " " + entry.title + "\n"; // + _("msg12") + " " + entry.summary;
+                newText = 
+                  _("msg10") + " " + entry.author_name + 
+                  (prefs.notificationDetails == "1" || prefs.notificationDetails == "2" ? "\n"  +_("msg11") + " " + entry.title : "") + 
+                  (prefs.notificationDetails == "2" ? "\n" + _("msg12") + " " + entry.summary : "");
+                console.error(prefs.notificationDetails);
               }
             });
           }
@@ -654,8 +658,6 @@ var server = {
           msgs = [];
           oldCount = 0;
         }
-
-        console.error(feed, exist, xml.authorized)
         if (!exist && req.responseText && xml.authorized == "Unauthorized") {
           normal = true;
         }
@@ -782,7 +784,7 @@ var checkAllMails = (function () {
           var msg = 
             r.msgObj[0] + (label ? "/" + label : "") + 
             " (" + r.msgObj[1] + ")" +
-            (r.msgObj[2] && prefs.showDetails ? "\n" + r.msgObj[2] : "");
+            (r.msgObj[2] ? "\n" + r.msgObj[2] : "");
           if (r.alert) {
             text += (text ? " \n " : "") + msg;
           }
@@ -796,7 +798,6 @@ var checkAllMails = (function () {
             });
         }
         else {
-          console.error(r)
           text += (text ? " - " : "") + r.msgObj[0] + " " + r.msgObj[1];
         }
       }
@@ -867,7 +868,7 @@ sp.on("reset", function() {
   prefs.forceVisible        = true; 
   prefs.middleClick         = 0;
   prefs.onGmailNotification = false;
-  prefs.showDetails         = true;
+  prefs.notificationDetails = 1;
   prefs.welcome             = true;
   prefs.searchMode          = true;
   prefs.relatedToCurrent    = true;

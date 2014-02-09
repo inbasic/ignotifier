@@ -57,10 +57,15 @@
     "value": 3
   },
   {
-    "name": "showDetails",
-    "title": "Display author, title and summary of new emails in the desktop notification:",
-    "type": "bool",
-    "value": true
+    "name": "notificationDetails",
+    "title": "Desktop notification type:",
+    "type": "menulist",
+    "value": 1,
+    "options": [
+      {"value": "0", "label": "Author and email count"},
+      {"value": "1", "label": "Author, title and email count"},
+      {"value": "2", "label": "Author, title, summary and email count"}
+    ]
   },
   {
     "name": "alert",
