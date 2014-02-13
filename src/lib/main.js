@@ -12,6 +12,7 @@ var tabs          = require("sdk/tabs"),
     prefs         = sp.prefs,
     data          = self.data,
     {Cc, Ci, Cu}  = require('chrome'),
+    os            = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULRuntime).OS,
     windows       = {
       get active () { // Chrome window
         return require('sdk/window/utils').getMostRecentBrowserWindow()
@@ -19,8 +20,14 @@ var tabs          = require("sdk/tabs"),
       get activeWindow () { // SDK window
         return require("sdk/windows").browserWindows.activeWindow
       }
-    };
-    
+    },
+    tray          = (function () {
+      if (os == "WINNT") {
+        return require('./tray/winnt/tray');
+      }
+      return null;
+    })();
+
 /** Internal configurations **/
 var config = {
   //Gmail
@@ -76,14 +83,13 @@ var tm, resetTm, gButton, unreadObjs = [], loggedins  = [];
 /** Loading style **/
 (function () {
   userstyles.load(data.url("overlay.css"));
-  var runtime = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULRuntime);
-  if ("gCustomizeMode" in windows.active && runtime.OS == "WINNT") { //Australis
+  if ("gCustomizeMode" in windows.active && os == "WINNT") { //Australis
     userstyles.load(data.url("overlay-australis.css"));
   }
-  else if (runtime.OS == "Linux") {
+  else if (os == "Linux") {
     userstyles.load(data.url("overlay-linux.css"));
   }
-  else if (runtime.OS == "Darwin") {
+  else if (os == "Darwin") {
     userstyles.load(data.url("overlay-darwin.css"));
   }
 })();
@@ -407,7 +413,8 @@ var aftercustomizationListener = function () {
 }
 aWindow.addEventListener("aftercustomization", aftercustomizationListener, false);
 exports.onUnload = function (reason) {
-  aWindow.removeEventListener("aftercustomization", aftercustomizationListener, false); 
+  aWindow.removeEventListener("aftercustomization", aftercustomizationListener, false);
+  if (tray) tray.remove();
 }
 
 /** Prefs Listener**/
@@ -644,7 +651,6 @@ var server = {
                   _("msg10") + " " + entry.author_name + 
                   (prefs.notificationDetails == "1" || prefs.notificationDetails == "2" ? "\n"  +_("msg11") + " " + entry.title : "") + 
                   (prefs.notificationDetails == "2" ? "\n" + _("msg12") + " " + entry.summary : "");
-                console.error(prefs.notificationDetails);
               }
             });
           }
@@ -1009,7 +1015,6 @@ var notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob/mas
     try {
       let alertServ = Cc["@mozilla.org/alerts-service;1"].
                       getService(Ci.nsIAlertsService);
-      //In linux config.image does not work properly!
       alertServ.showAlertNotification(data.url("notification.png"), title, text, clickable, link, 
         function (subject, topic, data) {
           if (topic == "alertclickcallback") {
