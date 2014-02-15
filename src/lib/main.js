@@ -46,7 +46,8 @@ var config = {
       });
       return temp;
     },
-    maxCount: 20
+    maxCount: 20,
+    maxReport: 1 //Maximum number of simultaneous reports from a single account
   },
   //Timing
   get period () {return (prefs.period > 10 ? prefs.period : 10) * 1000},
@@ -78,7 +79,11 @@ var config = {
   homepage: "http://add0n.com/gmail-notifier.html"
 };
 
-var tm, resetTm, gButton, unreadObjs = [], loggedins  = [];
+/** libraries **/
+Cu.import("resource://gre/modules/Promise.jsm");
+
+/** Global variables */
+var tm, resetTm, gButton, unreadObjs = [], emailsCache = [], server = new Server();
 
 /** Loading style **/
 (function () {
@@ -108,6 +113,23 @@ function curl (url, callback, pointer) {
   req.channel.QueryInterface(Ci.nsIHttpChannelInternal)
     .forceAllowThirdPartyCookie = true;
   req.send(null);
+}
+function wget (url, timeout) {
+  var d = new Promise.defer();
+  var req = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"]
+    .createInstance(Ci.nsIXMLHttpRequest);
+  req.mozBackgroundRequest = true;  //No authentication
+  req.timeout = timeout;
+  req.open('GET', url, true);
+  req.onreadystatechange = function () {
+    if (req.readyState == 4) {
+      d.resolve(req);
+    }
+  };
+  req.channel.QueryInterface(Ci.nsIHttpChannelInternal)
+    .forceAllowThirdPartyCookie = true;
+  req.send(null);
+  return d.promise;
 }
 
 /** URL parser **/
@@ -262,7 +284,7 @@ gButton = toolbarbutton.ToolbarButton({
         open(config.email.url);
       }
       else {
-        if (!tm) tm = new manager ("firstTime", "period", checkAllMails);
+        if (!tm) tm = new manager ("firstTime", "period", server);
         tm.reset(true);
       }
     }
@@ -278,19 +300,19 @@ gButton = toolbarbutton.ToolbarButton({
         });
         installed = true;
       }
-      //In case where user also listening on different labels than inbox, there would be duplicated elements
-      var temp = (function (arr) {
-        arr.forEach(function (item, index) {
-          for (var i = index + 1; i < arr.length; i++) {
-            if (arr[i] && item.label == arr[i].label) {delete arr[index]}
-          }
-        });
-        return arr.filter(function (item){return item});
-      })(loggedins);
       //remove old items
       while (menupopup.firstChild) {
         menupopup.removeChild(menupopup.firstChild);
       }
+      var tmp = (function () {  //[title, link] (no duplicated account)
+        var t1 = emailsCache.map(o => [o.xml.title, o.xml.link]);
+        var t2 = [];
+        return t1.filter(function (o) {
+          if (t2.indexOf(o[0]) !== -1) return false;
+          t2.push(o[0]);
+          return true;
+        })
+      })();
       function addChild (label, value) {
         var item = _menuitem.cloneNode(true);
         item.setAttribute("label", label);
@@ -298,9 +320,9 @@ gButton = toolbarbutton.ToolbarButton({
         menupopup.appendChild(item);
         return item;
       }
-      if (temp.length) {
-        temp.forEach(function (obj) {
-          addChild(obj.label, obj.link);
+      if (tmp.length) {
+        tmp.forEach(function (obj) {
+          addChild(obj[0], obj[1]);
         });
       }
       else {
@@ -309,7 +331,7 @@ gButton = toolbarbutton.ToolbarButton({
       //Permanent List
       menupopup.appendChild(_menuseparator.cloneNode(false));
       addChild(_("label1"), "").addEventListener("command", function (e) {
-        if (!tm) tm = new manager ("firstTime", "period", checkAllMails);
+        if (!tm) tm = new manager ("firstTime", "period", server);
         tm.reset(true);
       });
       addChild(_("label2"), "").addEventListener("command", function (e) {
@@ -383,7 +405,7 @@ icon(null, "blue");
 exports.main = function(options, callbacks) {
   //Timers
   if (config.firstTime) {
-    tm = new manager ("firstTime", "period", checkAllMails);
+    tm = new manager ("firstTime", "period", server);
   }
   if (config.resetPeriod) {
     resetTm = new manager ("resetPeriod", "resetPeriod", reset);
@@ -490,9 +512,8 @@ var welcome = function () {
   }
 }
 
-/** Server **/
-var server = {
-  parse: function (req, feed) {
+function Server () {
+  function Parse(req, feed) {
     var xml;
     if (req.responseXML) {
       xml = req.responseXML;
@@ -608,255 +629,163 @@ var server = {
         return rtn;
       }
     }
-  },
-  /* check gmail
-   * feed: feed url
-   * callback: callback function [xml, count, color, [title, text]]
-   * pointer: callback this pointer
-   */
-  mCheck: function (feed, callback, pointer) {
-    var state = false,
-        msgs = [],
-        oldCount = 0; //For more than 20 unreads
-    /*
-     * forced: is this a forced check?
-     * isRecent: did user recently receive a notification?
-     */
-    return function (forced, isRecent) {
-      //Check state
-      if (state && !forced) {
-        return;
-      }
-      //Initialazing
-      state = true;
-      new curl(feed, function (req) {
-        if (!req) return;
-        var xml = new server.parse(req, feed);
-        
-        var count = 0;
-        var normal = false; //not logged-in but normal response from gmail
-        var newUnread = false, newText;
-        var exist = (req.status == 200 || req.status == 500);  //Gmail account is loged-in
-        
-        if (exist) {
-          count = xml.fullcount;
-          if (oldCount > config.email.maxCount || count > config.email.maxCount) {
-            newUnread = (count > oldCount)
-          }
-          else {
-            xml.entries.forEach(function (entry, i) {
-              if (msgs.indexOf(entry.id) == -1) {
-                newUnread = true;
-                newText = 
-                  _("msg10") + " " + entry.author_name + 
-                  (prefs.notificationDetails == "1" || prefs.notificationDetails == "2" ? "\n"  +_("msg11") + " " + entry.title : "") + 
-                  (prefs.notificationDetails == "2" ? "\n" + _("msg12") + " " + entry.summary : "");
-              }
+  }
+
+  function Email (feed, timeout) {
+    var ids = [];
+    
+    return function () {
+      var d = new Promise.defer();
+      new wget(feed, timeout).then(
+        function (req) {
+          if (req.status != 200) {
+            ids = [];
+            return d.resolve({
+              network: req.status !== 0,
+              notAuthorized: req.status === 401,
+              xml: null,
+              newIDs: []
             });
           }
-          oldCount = count;
-          msgs = [];
-          xml.entries.forEach(function (entry, i) {
-            msgs.push(entry.id);
+          var xml = new Parse(req, feed);
+          //Cleaning old entries
+          var cIDs = xml.entries.map(e => e.id);
+          //Finding new ids
+          var newIDs = cIDs.filter(id => ids.indexOf(id) === -1);
+          ids = cIDs;
+          
+          d.resolve({
+            network: true,
+            notAuthorized: false,
+            xml: xml,
+            newIDs: newIDs
           });
         }
+      );
+      return d.promise;
+    }
+  }
+  var emails = config.email.feeds.map((feed) => new Email(feed, 5000));
+  return (function () {
+    var color = "blue", count = -1;
+    return function (forced) {
+      if (forced) {
+        icon(null, "load"); 
+        color = "load";
+      }
+      Promise.all(emails.map(e => e())).then(function (objs) {
+        console.error(objs);
+        var isAuthorized = objs.reduce((p, c) => p || (!c.notAuthorized && c.network), false);
+        var anyNewEmails = objs.reduce((p, c) => p || (c.newIDs.length !== 0), false);
+        if (!isAuthorized) {
+          if (color !== "blue") {
+            icon(null,  "blue");
+            color = "blue";
+            count = -1;
+          }
+          if (forced) {
+            open(config.email.url);
+            notify(_("gmail"), _("msg1"), false);
+          }
+          tray.remove();
+          gButton.tooltiptext = config.defaultTooltip;
+console.error("exit 4");
+          return;
+        }
+        //Removing not logged-in accounts
+        objs = objs.filter(o => o.network && !o.notAuthorized);
+        //Sorting accounts
+        objs.sort(function(a,b) {
+          var var1 = prefs.alphabetic ? a.xml.title : a.xml.link,
+              var2 = prefs.alphabetic ? b.xml.title : b.xml.link;
+          if (var1 > var2) return 1;
+          if (var1 < var2) return -1;
+          return 0;
+        });
+        // New total count number
+        var newCount = objs.reduce((p,c) => p + c.xml.fullcount, 0);
+        // 
+        if (!anyNewEmails && !forced && count === newCount) {
+console.error("exit 0");
+          return; //Everything is clear
+        }
+        count = newCount;
+        //
+        emailsCache = objs;
+        unreadObjs = objs.filter(o => o.xml.fullcount).map(function (o) { /** Remove this object **/
+          return {
+            link: o.xml.link, 
+            count: o.xml.fullcount,
+            account: o.xml.title + (o.xml.label ? " [" + o.xml.label + "]" : ""),
+            entries: o.xml.entries
+          }
+        })
+        // Preparing the report
+        var tmp = [];
+        objs.forEach (function (o) {
+          o.xml.entries
+            .filter(e => anyNewEmails ? o.newIDs.indexOf(e.id) !== -1 : o.xml.fullcount !== 0)
+            .splice(0, config.email.maxReport).forEach(function (e) {
+            tmp.push(e);
+          });
+        });          
+        var report = tmp.map(e => prefs.notificationFormat
+          .replace("[author_name]", e.author_name)
+          .replace("[author_email]", "<" + e.author_email + ">")
+          .replace("[summary]", e.summary)
+          .replace("[title]", e.title)
+          .replace(/\[break\]/g, "\n")).join("\n\n");
+        // Preparing the tooltip
+        var tooltip = 
+          _("gmail") + "\n\n" + 
+          objs.reduce((p,c) => 
+            p += c.xml.title + 
+            (c.xml.label ? " [" + c.xml.label + "]" : "") +
+            " (" + c.xml.fullcount + ")" + "\n", ""
+          );
+        if (!forced && !anyNewEmails) {
+          if (newCount) {
+            icon(newCount,  "red"); color = "red";
+            if (prefs.tray) tray.set(newCount, tooltip);
+            gButton.tooltiptext = tooltip;
+          }
+          else {
+            icon(null,  "gray"); color = "gray";
+            tray.remove();
+            gButton.tooltiptext = tooltip;
+          }
+console.error("exit 1");
+        }
+        else if (forced && !anyNewEmails) {
+          icon(null,  "gray"); color = "gray";
+          tray.remove();
+          gButton.tooltiptext = tooltip;
+console.error("exit 3");
+        }
         else {
-          msgs = [];
-          oldCount = 0;
-        }
-        if (!exist && req.responseText && xml.authorized == "Unauthorized") {
-          normal = true;
-        }
-        state = false;
-        
-        //Gmail logged-in && has count && new count && forced
-        if (exist && count && newUnread && forced) {
-                                              /* xml, count, showAlert, color, message */
-          if (callback) callback.apply(pointer, [xml, count, true, "red", [xml.title, count, newText]])
-          return;
-        }
-        //Gmail logged-in && has count && new count && no force
-        if (exist && count && newUnread && !forced) {
-          if (callback) callback.apply(pointer, [xml, count, true, "red", [xml.title, count, newText]])
-          return;
-        }
-        //Gmail logged-in && has count && old count && forced
-        if (exist && count && !newUnread && forced) {
-          if (callback) callback.apply(pointer, [xml, count, true, "red", [xml.title, count]])
-          return;
-        }
-        //Gmail logged-in && has count && old count && no forces
-        if (exist && count && !newUnread && !forced) {
-          if (callback) callback.apply(pointer, [xml, count, false, "red", [xml.title, count]])
-          return;
-        }
-        //Gmail logged-in && has no-count && new count && forced
-        if (exist && !count && newUnread && forced) {
-          if (callback) callback.apply(pointer, [xml, 0, false, "gray"])
-          return;
-        }
-        //Gmail logged-in && has no-count && new count && no force
-        if (exist && !count && !newUnread && !forced) {
-          if (callback) callback.apply(pointer, [xml, 0, false, "gray"])
-          return;
-        }
-        //Gmail logged-in && has no-count && old count && forced
-        if (exist && !count && !newUnread && forced) {
-          if (callback) callback.apply(pointer, [xml, 0, false, "gray"])
-          return;
-        }
-        //Gmail logged-in && has no-count && old count && no forced
-        if (exist && !count && !newUnread && !forced) {
-          if (callback) callback.apply(pointer, [xml, 0, false, "gray"])
-          return;
-        }
-        //Gmail not logged-in && no error && forced
-        if (!exist && normal && forced) {
-          if (!isRecent) open(config.email.url);
+          icon(newCount, "new"); color = "new";
+          if (prefs.notification) {
+            notify(_("gmail"), report, true);
+          }
+          if (prefs.tray) tray.set(newCount, tooltip);
+          if (prefs.alert) play();
+          gButton.tooltiptext = tooltip;
           
-          if (callback) callback.apply(pointer, [xml, null, false, "unknown", 
-            isRecent ? null : ["", _("msg1")]]);
-          return;
+console.error("exit 2");
         }
-        //Gmail not logged-in && no error && no force
-        if (!exist && normal && !forced) {
-          if (callback) callback.apply(pointer, [xml, null, false, "unknown"])
-          return;
-        }
-        //Gmail not logged-in && error && forced
-        if (!exist && !normal && forced) {
-          console.error(feed)
-        
-          if (callback) callback.apply(pointer, [xml, null, false, "unknown", 
-          isRecent ? null : [_("error") + ": ", _("msg2")]]);
-          return;
-        }
-        //Gmail not logged-in && error && no force
-        if (!exist && !normal && !forced) {
-          if (callback) callback.apply(pointer, [xml, null, false, "unknown"])
-          return;
+        //Updating the toolbar panel if exists
+        if (contextPanel.isShowing) {
+          if (unreadObjs.length) {
+            contextPanel.port.emit('command', unreadObjs);
+          }
+          else {
+            contextPanel.hide();
+          }
         }
       });
     }
-  }
+  })()
 }
-
-/** checkAllMails **/
-var checkAllMails = (function () {
-  var len = config.email.feeds.length,
-      pushCount,
-      isForced,
-      results = [],
-      gClients = [];
-  config.email.feeds.forEach(function (feed, index) {
-    gClients[index] = new server.mCheck(feed, step1);
-  });
-  
-  function step1(xml, count, alert, color, msgObj) {
-    results.push({xml: xml, count: count, alert: alert, color: color, msgObj: msgObj});
-    
-    pushCount -= 1;
-    if (!pushCount) step2();
-  }
-  function step2 () {
-    //clear old feeds
-    unreadObjs = [];
-    loggedins  = [];
-    //Notifications
-    var text = "", tooltiptext = "", total = 0;
-    var showAlert = false;
-    //Sort accounts
-    results.sort(function(a,b) {
-      var var1, var2;
-      if (prefs.alphabetic) {
-        var1 = a.xml.title;
-        var2 = b.xml.title;
-      }
-      else {
-        var1 = a.xml.link;
-        var2 = b.xml.link;
-      }
-      
-      if (var1 > var2) return 1;
-      if (var1 < var2) return -1;
-      return 0;
-    });
-    //Execute
-    results.forEach(function (r, i) {
-      //
-      if (r.msgObj) {
-        if (typeof(r.msgObj[1]) == "number") {
-          var label = r.xml.label;
-          var msg = 
-            r.msgObj[0] + (label ? "/" + label : "") + 
-            " (" + r.msgObj[1] + ")" +
-            (r.msgObj[2] ? "\n" + r.msgObj[2] : "");
-          if (r.alert) {
-            text += (text ? " \n " : "") + msg;
-          }
-          tooltiptext += (tooltiptext ? "\n" : "") + msg;
-          total += r.msgObj[1];
-          unreadObjs.push({
-            link: r.xml.link, 
-            count: r.msgObj[1],
-            account: r.msgObj[0] + (label ? " [" + label + "]" : label),
-            entries: r.xml.entries
-            });
-        }
-        else {
-          text += (text ? " - " : "") + r.msgObj[0] + " " + r.msgObj[1];
-        }
-      }
-      showAlert = showAlert || r.alert;
-      //Menuitems
-      if (r.count !== null) {
-        loggedins.push({label: r.xml.title, link: r.xml.link});
-      }
-    });
-    if (prefs.notification && (isForced || showAlert) && text) {
-      notify(_("gmail"), text, true);
-    }
-    
-    if (prefs.alert && showAlert && text) {
-      play();
-    }
-    //Tooltiptext
-    gButton.tooltiptext = tooltiptext ? tooltiptext : config.defaultTooltip;
-    //Icon
-    var isRed = false,
-        isGray = false;
-    results.forEach(function (r, i) {
-      if (r.color == "red") isRed = true;
-      if (r.color == "gray") isGray = true;
-    });
-
-    if (isRed) {
-      icon(total, (isForced || showAlert) ? "new" : "red");
-    }
-    else if (isGray)       icon(null,  "gray");
-    if (!isRed && !isGray) icon(null,  "blue");
-    //Update panel if it is open
-    if (contextPanel.isShowing) {
-      if (unreadObjs.length) {
-        contextPanel.port.emit('command', unreadObjs);
-      }
-      else {
-        contextPanel.hide();
-      }
-    }
-  }
-
-  return function (forced) {
-    if (forced) icon(null, "load");
-  
-    pushCount = len;
-    results = [];
-    isForced = forced;
-    gClients.forEach(function(gClient, index) {
-      gClient(forced, index ? true : false)
-    });
-  }
-})();
 
 /** Prefs **/
 sp.on("reset", function() {

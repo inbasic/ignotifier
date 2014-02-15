@@ -3,7 +3,6 @@
  * http://www.codeproject.com/Articles/4768/Basic-use-of-Shell_NotifyIcon-in-Win32
  */
 var {Cc, Ci, Cu}  = require('chrome'),
-    _             = require("sdk/l10n").get,
     prefs         = require("sdk/simple-prefs").prefs,
     pageWorker    = require("sdk/page-worker"),
     data          = require("sdk/self").data,
@@ -160,10 +159,9 @@ nid.hWnd = hWnd;
 nid.uID = config.id.unique;
 nid.uCallbackMessage = config.id.msg;
 nid.uTimeoutAndVersion = config.time.notification;
-nid.szTip = _("gmail");
-nid.uFlags = 0x00000001 /* NIF_MESSAGE */ | 0x00000002 /* NIF_ICON */ | 0x00000004 /* NIF_TIP */ | 0x000000010 /* NIF_INFO */;
+nid.uFlags = 0x00000001 /* NIF_MESSAGE */ | 0x00000002 /* NIF_ICON */ | 0x00000004 /* NIF_TIP */ /* | 0x000000010  NIF_INFO */;
 nid.dwInfoFlags = 0x00000001 /* NIIF_INFO */;
-nid.szInfoTitle = _("gmail"); // "Balloon Tooltip" title
+//nid.szInfoTitle = _("gmail"); // "Balloon Tooltip" title
 nid.cbSize = (function () {
   function FIELD_OFFSET(aType, aField, aPos) {
     var addr2nb = (a) => ctypes.cast(a, ctypes.unsigned_long).value,
@@ -185,11 +183,10 @@ nid.cbSize = (function () {
   return FIELD_OFFSET(NOTIFYICONDATAW, 'szTip', 64);
 })();
 
-var isInstalled = false, oldBadge;
-exports.set = function (badge, msg, callback) {
-  var d = new Promise.defer();
-  if (isInstalled && oldBadge == badge) d.resolve();
-  nid.szInfo = msg;
+var isInstalled = false;
+exports.set = function (badge, msg) {
+  //nid.szInfo = msg;
+  nid.szTip = msg;
   icon(badge).then(function (arr) {
     var  uint8Array = new  Uint8Array(arr);
     nid.hIcon = user32.CreateIcon(hWnd, 16, 16, 1, 32, uint8Array, uint8Array); 
@@ -198,9 +195,7 @@ exports.set = function (badge, msg, callback) {
       nid.address()
     );
     isInstalled = true;
-    oldBadge = badge;
   });
-  return d.promise;
 }
 exports.remove = function () {
   if (!isInstalled) return;

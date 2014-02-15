@@ -57,20 +57,23 @@
     "value": 3
   },
   {
-    "name": "notificationDetails",
-    "title": "Desktop notification type:",
-    "type": "menulist",
-    "value": 1,
-    "options": [
-      {"value": "0", "label": "Author and email count"},
-      {"value": "1", "label": "Author, title and email count"},
-      {"value": "2", "label": "Author, title, summary and email count"}
-    ]
+    "name": "notificationFormat",
+    "title": "Notification Format:",
+    "description": "available keys: [author_name], [author_email], [title] and [summary]",
+    "type": "string",
+    "value": "From: [author_email][break]Title: [title][break]Summary: [summary]"
   },
   {
     "name": "alert",
     "title": "Play alert sound for new emails:",
     "description": "",
+    "type": "bool",
+    "value": true
+  },
+  {
+    "name": "tray",
+    "title": "Display Windows taskbar notification:",
+    "description": "Taskbar notifications are only supported in Windows OS at the moment.",
     "type": "bool",
     "value": true
   },
