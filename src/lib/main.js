@@ -99,22 +99,8 @@ var tm, resetTm, gButton, unreadObjs = [], emailsCache = [], server = new Server
   }
 })();
 
-/** curl **/
-function curl (url, callback, pointer) {
-  var req = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"]
-    .createInstance(Ci.nsIXMLHttpRequest);
-  req.mozBackgroundRequest = true;  //No authentication
-  req.open('GET', url, true);
-  req.onreadystatechange = function () {
-    if (req.readyState == 4) {
-      if (callback) callback.apply(pointer, [req]);
-    }
-  };
-  req.channel.QueryInterface(Ci.nsIHttpChannelInternal)
-    .forceAllowThirdPartyCookie = true;
-  req.send(null);
-}
-function wget (url, timeout) {
+/** content downloader **/
+function curl (url, timeout) {
   var d = new Promise.defer();
   var req = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"]
     .createInstance(Ci.nsIXMLHttpRequest);
@@ -636,7 +622,7 @@ function Server () {
     
     return function () {
       var d = new Promise.defer();
-      new wget(feed, timeout).then(
+      new curl(feed, timeout).then(
         function (req) {
           if (req.status != 200) {
             ids = [];
@@ -822,7 +808,7 @@ sp.on("reset", function() {
  */
 var action = (function () {
   function getAt_2 (url, callback, pointer) {
-    new curl(url + "h/" + Math.ceil(1000000 * Math.random()), function (req) {
+    new curl(url + "h/" + Math.ceil(1000000 * Math.random())).then (function (req) {
       if (!req) return;
       if(req.status == 200) {
         var tmp = /at\=([^\"\&]*)/.exec(req.responseText);
@@ -834,7 +820,7 @@ var action = (function () {
     });
   }
   function getAt (url, callback, pointer) {
-    new curl(url, function (req) {
+    new curl(url).then(function (req) {
       if(req.status == 200) {
         var tmp = /GM_ACTION_TOKEN\=\"([^\"]*)\"/.exec(req.responseText);
         if (tmp && tmp.length) {
@@ -856,7 +842,7 @@ var action = (function () {
     }
     var u = url + "?at=" + at + "&act=" + cmd.replace("rd-all", "rd");
     u += "&t=" + threads.join("&t=");
-    new curl(u, function (req) {
+    new curl(u).then(function (req) {
       if (!req) return;
       if(req.status == 200) {
         if (callback) callback.apply(pointer, [true]);
@@ -901,7 +887,7 @@ var action = (function () {
 /** Get mail body **/
 var getBody = (function () {
   function getIK (url, callback, pointer) {
-    new curl(url, function (req) {
+    new curl(url).then(function (req) {
       var tmp = /var GLOBALS\=\[(?:([^\,]*)\,){10}/.exec(req.responseText || "");
       if (callback) {
         callback.apply(pointer, [tmp && tmp.length > 1 ? tmp[1].replace(/[\"\']/g, "") : null]);
@@ -919,7 +905,7 @@ var getBody = (function () {
           if (callback) callback.apply(pointer, ["Error at resolving user's static ID. Please switch back to summary mode."]);
           return;
         }
-        new curl(url + "?ui=2&ik=" + ik + "&view=pt&search=all&th=" + thread[1], function (req) {
+        new curl(url + "?ui=2&ik=" + ik + "&view=pt&search=all&th=" + thread[1]).then(function (req) {
           var parser = Cc["@mozilla.org/xmlextras/domparser;1"]
             .createInstance(Ci.nsIDOMParser);
           var html = parser.parseFromString(req.responseText, "text/html");
