@@ -25,7 +25,11 @@ var tabs          = require("sdk/tabs"),
       if (os == "WINNT") {
         return require('./tray/winnt/tray');
       }
-      return null;
+      return {
+        set: function () {},
+        remove: function () {},
+        callback: function () {}
+      };
     })();
 
 /** Internal configurations **/
@@ -79,6 +83,11 @@ var config = {
   homepage: "http://add0n.com/gmail-notifier.html"
 };
 
+/** tray callback handling **/
+tray.callback(function () {
+  windows.active.focus();
+  onCommand();
+});
 /** libraries **/
 Cu.import("resource://gre/modules/Promise.jsm");
 
@@ -422,7 +431,7 @@ var aftercustomizationListener = function () {
 aWindow.addEventListener("aftercustomization", aftercustomizationListener, false);
 exports.onUnload = function (reason) {
   aWindow.removeEventListener("aftercustomization", aftercustomizationListener, false);
-  if (tray) tray.remove();
+  tray.remove();
 }
 
 /** Prefs Listener**/
@@ -732,7 +741,7 @@ console.error("exit 0");
         if (!forced && !anyNewEmails) {
           if (newCount) {
             icon(newCount,  "red"); color = "red";
-            if (prefs.tray) tray.set(newCount, tooltip);
+            tray.set(newCount, tooltip);
             gButton.tooltiptext = tooltip;
           }
           else {

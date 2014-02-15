@@ -182,6 +182,16 @@ nid.cbSize = (function () {
   }
   return FIELD_OFFSET(NOTIFYICONDATAW, 'szTip', 64);
 })();
+// callback listener
+var callback;
+var proxyWndProc = WNDPROC (function (hWnd, uMsg, wParam, lParam) {
+  if (uMsg === config.id.msg && (+lParam == 513 || +lParam == 517)) {
+    if (callback) callback();
+  }
+  return user32.DefWindowProcW(hWnd, uMsg, wParam, lParam);
+})
+user32.SetWindowLongW(hWnd, -4 /* GWLP_WNDPROC */, ctypes.cast(proxyWndProc, LONG_PTR));
+
 
 var isInstalled = false;
 exports.set = function (badge, msg) {
@@ -202,13 +212,6 @@ exports.remove = function () {
   shell32.Shell_NotifyIconW(0x00000002 /* NIM_DELETE */, nid.address());
   isInstalled = false;
 }
-exports.callback = function (callback, pointer) {
-  var proxyWndProc = WNDPROC (function (hWnd, uMsg, wParam, lParam) {
-    if (uMsg === config.id.msg && (+lParam == 513 || +lParam == 517)) {
-      callback.apply(pointer);
-    }
-    return user32.DefWindowProcW(hWnd, uMsg, wParam, lParam);
-  })
-  user32.SetWindowLongW(hWnd, -4 /* GWLP_WNDPROC */,
-    ctypes.cast(proxyWndProc, LONG_PTR));
+exports.callback = function (c) {
+  callback = c;
 }
