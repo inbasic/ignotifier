@@ -10,7 +10,7 @@
   "contributors": ["CaTz", "ecaron"],
   
   "url": "",
-  "version": "0.3.8b2",
+  "version": "0.4.0b1",
   "lib": "lib",
   "main": "main",
   
@@ -72,7 +72,7 @@
   },
   {
     "name": "tray",
-    "title": "Display Windows taskbar notification:",
+    "title": "Display Windows taskbar notification (beta):",
     "description": "Taskbar notifications are only supported in Windows OS at the moment.",
     "type": "bool",
     "value": true

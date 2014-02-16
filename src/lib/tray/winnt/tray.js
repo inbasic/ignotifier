@@ -18,7 +18,7 @@ Cu.import("resource://gre/modules/Promise.jsm");
  
 var config = {
   id: {
-    msg: 336518,  // A random number
+    msg: 665,  // A random number
     unique: 24342 // A random number
   },
   time: {
@@ -190,8 +190,7 @@ var proxyWndProc = WNDPROC (function (hWnd, uMsg, wParam, lParam) {
   }
   return user32.DefWindowProcW(hWnd, uMsg, wParam, lParam);
 })
-user32.SetWindowLongW(hWnd, -4 /* GWLP_WNDPROC */, ctypes.cast(proxyWndProc, LONG_PTR));
-
+var oldOffset = user32.SetWindowLongW(hWnd, -4 /* GWLP_WNDPROC */, ctypes.cast(proxyWndProc, LONG_PTR));
 
 var isInstalled = false;
 exports.set = function (badge, msg) {
@@ -212,6 +211,13 @@ exports.remove = function () {
   shell32.Shell_NotifyIconW(0x00000002 /* NIM_DELETE */, nid.address());
   isInstalled = false;
 }
-exports.callback = function (c) {
-  callback = c;
+exports.callback = {
+  install: function (c) {
+    callback = c;
+  },
+  remove: function () {
+    console.error(0, oldOffset.toSource())
+    user32.SetWindowLongW(hWnd, -4, oldOffset);
+  }
 }
+

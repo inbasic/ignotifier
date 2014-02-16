@@ -28,7 +28,10 @@ var tabs          = require("sdk/tabs"),
       return {
         set: function () {},
         remove: function () {},
-        callback: function () {}
+        callback: {
+          install: function () {},
+          remove: function () {}
+        }
       };
     })();
 
@@ -84,9 +87,9 @@ var config = {
 };
 
 /** tray callback handling **/
-tray.callback(function () {
-  windows.active.focus();
-  onCommand();
+tray.callback.install(function () {
+  console.error(windows.active.focus);
+  timer.setTimeout(onCommand, 100);
 });
 /** libraries **/
 Cu.import("resource://gre/modules/Promise.jsm");
@@ -242,7 +245,7 @@ contextPanel.port.on("clipboard", (function () {
     .getService(Ci.nsIClipboardHelper);
   return function (str) {
     gClipboardHelper.copyString(str);
-    notify(_("gmail"), _("msg13"), true);
+    notify(_("gmail"), _("msg13"));
   }
 })());
 
@@ -425,13 +428,14 @@ exports.main = function(options, callbacks) {
 var aWindow = windows.active;
 var aftercustomizationListener = function () {
   let button = aWindow.document.getElementById(config.toolbar.id);
-  if (!button) return;
+  if (!button || !button.nextSibling) return;
   prefs.nextSibling = button.nextSibling.id;
 }
 aWindow.addEventListener("aftercustomization", aftercustomizationListener, false);
 exports.onUnload = function (reason) {
   aWindow.removeEventListener("aftercustomization", aftercustomizationListener, false);
   tray.remove();
+  tray.callback.remove();
 }
 
 /** Prefs Listener**/
@@ -669,7 +673,6 @@ function Server () {
         color = "load";
       }
       Promise.all(emails.map(e => e())).then(function (objs) {
-        console.error(objs);
         var isAuthorized = objs.reduce((p, c) => p || (!c.notAuthorized && c.network), false);
         var anyNewEmails = objs.reduce((p, c) => p || (c.newIDs.length !== 0), false);
         if (!isAuthorized) {
@@ -684,7 +687,7 @@ function Server () {
           }
           tray.remove();
           gButton.tooltiptext = config.defaultTooltip;
-console.error("exit 4");
+console.error(objs, "exit 4");
           return;
         }
         //Removing not logged-in accounts
@@ -701,7 +704,7 @@ console.error("exit 4");
         var newCount = objs.reduce((p,c) => p + c.xml.fullcount, 0);
         // 
         if (!anyNewEmails && !forced && count === newCount) {
-console.error("exit 0");
+console.error(objs, "exit 0", forced, anyNewEmails);
           return; //Everything is clear
         }
         count = newCount;
@@ -737,7 +740,7 @@ console.error("exit 0");
             p += c.xml.title + 
             (c.xml.label ? " [" + c.xml.label + "]" : "") +
             " (" + c.xml.fullcount + ")" + "\n", ""
-          );
+          ).replace(/\n$/, "");
         if (!forced && !anyNewEmails) {
           if (newCount) {
             icon(newCount,  "red"); color = "red";
@@ -749,13 +752,13 @@ console.error("exit 0");
             tray.remove();
             gButton.tooltiptext = tooltip;
           }
-console.error("exit 1");
+console.error(objs, "exit 1", forced, anyNewEmails);
         }
-        else if (forced && !anyNewEmails) {
+        else if (forced && !newCount) {
           icon(null,  "gray"); color = "gray";
           tray.remove();
           gButton.tooltiptext = tooltip;
-console.error("exit 3");
+console.error(objs, "exit 3", forced, anyNewEmails);
         }
         else {
           icon(newCount, "new"); color = "new";
@@ -766,7 +769,7 @@ console.error("exit 3");
           if (prefs.alert) play();
           gButton.tooltiptext = tooltip;
           
-console.error("exit 2");
+console.error(objs, "exit 2", forced, anyNewEmails);
         }
         //Updating the toolbar panel if exists
         if (contextPanel.isShowing) {
@@ -806,7 +809,17 @@ sp.on("reset", function() {
   prefs.currentTab          = false;
   prefs.doReadOnArchive     = true;
   prefs.soundVolume         = 80;
+  prefs.tray                = true;
+  prefs.notificationFormat  = "From: [author_email][break]Title: [title][break]Summary: [summary]";
 });
+sp.on("tray", function() {
+  if (!prefs.tray) {
+    tray.remove();
+  }
+  else {
+    tm.reset(true);
+  }
+})
 
 /**
  * Send archive, mark as read, mark as unread, and trash commands to Gmail server
