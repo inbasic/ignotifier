@@ -191,7 +191,7 @@ ul
   text-overflow: ellipsis;
 }
 #content[type="expanded"] .sender {
-  max-width: 420px;
+  max-width: 410px;
 }
 
 #email {

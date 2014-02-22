@@ -162,6 +162,8 @@ nid.uTimeoutAndVersion = config.time.notification;
 nid.uFlags = 0x00000001 /* NIF_MESSAGE */ | 0x00000002 /* NIF_ICON */ | 0x00000004 /* NIF_TIP */ /* | 0x000000010  NIF_INFO */;
 nid.dwInfoFlags = 0x00000001 /* NIIF_INFO */;
 //nid.szInfoTitle = _("gmail"); // "Balloon Tooltip" title
+// Windows Version
+var version = parseInt((/\d\.\d/.exec(windows.active.navigator.oscpu) || ["0"])[0].replace(".", ""));
 nid.cbSize = (function () {
   function FIELD_OFFSET(aType, aField, aPos) {
     var addr2nb = (a) => ctypes.cast(a, ctypes.unsigned_long).value,
@@ -169,8 +171,6 @@ nid.cbSize = (function () {
         addr_field = typeof(aPos) === "undefined" ? addr2nb(s.addressOfField(aField)) : addr2nb(s[aField].addressOfElement(aPos));
     return addr_field - addr2nb(s.address());
   }
-  // Windows Version
-  var version = parseInt((/\d\.\d/.exec(windows.active.navigator.oscpu) || ["0"])[0].replace(".", ""));
   if (version >= 60) { //Vista
     return NOTIFYICONDATAW.size;
   }
@@ -190,7 +190,17 @@ var proxyWndProc = WNDPROC (function (hWnd, uMsg, wParam, lParam) {
   }
   return user32.DefWindowProcW(hWnd, uMsg, wParam, lParam);
 })
-var oldOffset = user32.SetWindowLongW(hWnd, -4 /* GWLP_WNDPROC */, ctypes.cast(proxyWndProc, LONG_PTR));
+
+var oldOffset;
+if (!prefs.trayFirstRun) {
+  prefs.trayFirstRun = true;
+  if (version >= 60) { //Vista
+    prefs.doTrayCallback = true;
+  }
+}
+if (prefs.doTrayCallback) {
+  oldOffset = user32.SetWindowLongW(hWnd, -4 /* GWLP_WNDPROC */, ctypes.cast(proxyWndProc, LONG_PTR));
+}
 
 var isInstalled = false;
 exports.set = function (badge, msg) {
@@ -216,8 +226,9 @@ exports.callback = {
     callback = c;
   },
   remove: function () {
-    console.error(0, oldOffset.toSource())
-    user32.SetWindowLongW(hWnd, -4, oldOffset);
+    if (oldOffset) {
+      user32.SetWindowLongW(hWnd, -4, oldOffset);
+    }
   }
 }
 

@@ -10,7 +10,7 @@
   "contributors": ["CaTz", "ecaron"],
   
   "url": "",
-  "version": "0.4.0b1",
+  "version": "0.4.0",
   "lib": "lib",
   "main": "main",
   
@@ -76,6 +76,13 @@
     "description": "Taskbar notifications are only supported in Windows OS at the moment.",
     "type": "bool",
     "value": true
+  },
+  {
+    "name": "doTrayCallback",
+    "title": "Open toolbar panel when click on the taskbar notification icon (beta):",
+    "description": "This feature is highly experimental and might make your Firefox browser unstable. [Restart required]",
+    "type": "bool",
+    "value": false
   },
   {
     "name": "alphabetic",

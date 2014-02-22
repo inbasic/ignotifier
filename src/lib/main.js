@@ -54,7 +54,8 @@ var config = {
       return temp;
     },
     maxCount: 20,
-    maxReport: 1 //Maximum number of simultaneous reports from a single account
+    maxReport: 1, //Maximum number of simultaneous reports from a single account
+    timeout: 9000
   },
   //Timing
   get period () {return (prefs.period > 10 ? prefs.period : 10) * 1000},
@@ -88,7 +89,7 @@ var config = {
 
 /** tray callback handling **/
 tray.callback.install(function () {
-  console.error(windows.active.focus);
+  windows.active.focus();
   timer.setTimeout(onCommand, 100);
 });
 /** libraries **/
@@ -664,7 +665,7 @@ function Server () {
       return d.promise;
     }
   }
-  var emails = config.email.feeds.map((feed) => new Email(feed, 5000));
+  var emails = config.email.feeds.map((feed) => new Email(feed, config.email.timeout));
   return (function () {
     var color = "blue", count = -1;
     return function (forced) {
@@ -680,6 +681,7 @@ function Server () {
             icon(null,  "blue");
             color = "blue";
             count = -1;
+            unreadObjs = [];
           }
           if (forced) {
             open(config.email.url);
@@ -687,7 +689,6 @@ function Server () {
           }
           tray.remove();
           gButton.tooltiptext = config.defaultTooltip;
-console.error(objs, "exit 4");
           return;
         }
         //Removing not logged-in accounts
@@ -704,7 +705,6 @@ console.error(objs, "exit 4");
         var newCount = objs.reduce((p,c) => p + c.xml.fullcount, 0);
         // 
         if (!anyNewEmails && !forced && count === newCount) {
-console.error(objs, "exit 0", forced, anyNewEmails);
           return; //Everything is clear
         }
         count = newCount;
@@ -743,33 +743,33 @@ console.error(objs, "exit 0", forced, anyNewEmails);
           ).replace(/\n$/, "");
         if (!forced && !anyNewEmails) {
           if (newCount) {
-            icon(newCount,  "red"); color = "red";
+            icon(newCount,  "red");
+            color = "red";
             tray.set(newCount, tooltip);
             gButton.tooltiptext = tooltip;
           }
           else {
-            icon(null,  "gray"); color = "gray";
+            icon(null,  "gray");
+            color = "gray";
             tray.remove();
             gButton.tooltiptext = tooltip;
           }
-console.error(objs, "exit 1", forced, anyNewEmails);
         }
         else if (forced && !newCount) {
-          icon(null,  "gray"); color = "gray";
+          icon(null,  "gray");
+          color = "gray";
           tray.remove();
           gButton.tooltiptext = tooltip;
-console.error(objs, "exit 3", forced, anyNewEmails);
         }
         else {
-          icon(newCount, "new"); color = "new";
+          icon(newCount, "new");
+          color = "new";
           if (prefs.notification) {
             notify(_("gmail"), report, true);
           }
           if (prefs.tray) tray.set(newCount, tooltip);
           if (prefs.alert) play();
           gButton.tooltiptext = tooltip;
-          
-console.error(objs, "exit 2", forced, anyNewEmails);
         }
         //Updating the toolbar panel if exists
         if (contextPanel.isShowing) {
@@ -811,6 +811,7 @@ sp.on("reset", function() {
   prefs.soundVolume         = 80;
   prefs.tray                = true;
   prefs.notificationFormat  = "From: [author_email][break]Title: [title][break]Summary: [summary]";
+  prefs.doTrayCallback      = false;
 });
 sp.on("tray", function() {
   if (!prefs.tray) {
@@ -819,7 +820,7 @@ sp.on("tray", function() {
   else {
     tm.reset(true);
   }
-})
+});
 
 /**
  * Send archive, mark as read, mark as unread, and trash commands to Gmail server
@@ -958,7 +959,7 @@ var notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob/mas
             timer.setTimeout(function () {
               // If main window is not focused, restore it first!
               windows.active.focus();
-              onCommand();
+              timer.setTimeout(onCommand, 100);
             }, 100);
           }
         }, "");
