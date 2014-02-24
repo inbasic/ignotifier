@@ -632,7 +632,7 @@ function Server () {
   }
 
   function Email (feed, timeout) {
-    var ids = [];
+    var ids = [], pCount = 0;
     
     return function () {
       var d = new Promise.defer();
@@ -651,8 +651,15 @@ function Server () {
           //Cleaning old entries
           var cIDs = xml.entries.map(e => e.id);
           //Finding new ids
-          var newIDs = cIDs.filter(id => ids.indexOf(id) === -1);
+          var newIDs;
+          if (xml.fullcount > 20 && pCount > xml.fullcount) {
+            newIDs = [];
+          }
+          else {
+            newIDs = cIDs.filter(id => ids.indexOf(id) === -1);
+          }
           ids = cIDs;
+          pCount = xml.fullcount;
           
           d.resolve({
             network: true,
