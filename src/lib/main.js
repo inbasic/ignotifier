@@ -652,7 +652,7 @@ function Server () {
           var cIDs = xml.entries.map(e => e.id);
           //Finding new ids
           var newIDs;
-          if (xml.fullcount > 20 && pCount > xml.fullcount) {
+          if (xml.fullcount >= 20 && pCount >= xml.fullcount) {
             newIDs = [];
           }
           else {
