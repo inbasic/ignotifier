@@ -79,8 +79,8 @@ var kernel32 = ctypes.open("kernel32.dll"),
 XPCOMUtils.defineLazyGetter(user32, "DefWindowProcW", function() {
   return user32.declare("DefWindowProcW", ctypes.winapi_abi, LRESULT, HWND, UINT, WPARAM, LPARAM);
 });
-XPCOMUtils.defineLazyGetter(user32, "SetWindowLongW", function() {
-  return user32.declare("SetWindowLongW", ctypes.winapi_abi, LONG_PTR , HWND, INT, LONG_PTR);
+XPCOMUtils.defineLazyGetter(user32, "SetWindowLongPtrW", function() {
+  return user32.declare("SetWindowLongPtrW", ctypes.winapi_abi, LONG_PTR , HWND, INT, LONG_PTR);
 });
 XPCOMUtils.defineLazyGetter(user32, "CreateIcon", function() {
   return user32.declare("CreateIcon", ctypes.winapi_abi, HICON, HINSTANCE, INT , INT, BYTE, BYTE, LPVOID, LPVOID);
@@ -149,7 +149,7 @@ function getHWND () {
     .treeOwner
     .QueryInterface(Ci.nsIInterfaceRequestor)
     .nsIBaseWindow;
-  return ctypes.cast(ctypes.uint32_t(baseWindow.nativeHandle), ctypes.voidptr_t);
+  return ctypes.cast(ctypes.uintptr_t(baseWindow.nativeHandle), ctypes.voidptr_t);
 }
 var hWnd = getHWND();
 
@@ -199,7 +199,7 @@ if (!prefs.trayFirstRun) {
   }
 }
 if (prefs.doTrayCallback) {
-  oldOffset = user32.SetWindowLongW(hWnd, -4 /* GWLP_WNDPROC */, ctypes.cast(proxyWndProc, LONG_PTR));
+  oldOffset = user32.SetWindowLongPtrW(hWnd, -4 /* GWLP_WNDPROC */, ctypes.cast(proxyWndProc, LONG_PTR));
 }
 
 var isInstalled = false;
@@ -227,7 +227,7 @@ exports.callback = {
   },
   remove: function () {
     if (oldOffset) {
-      user32.SetWindowLongW(hWnd, -4, oldOffset);
+      user32.SetWindowLongPtrW(hWnd, -4, oldOffset);
     }
   }
 }
