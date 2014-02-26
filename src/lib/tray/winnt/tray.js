@@ -80,7 +80,7 @@ XPCOMUtils.defineLazyGetter(user32, "DefWindowProcW", function() {
   return user32.declare("DefWindowProcW", ctypes.winapi_abi, LRESULT, HWND, UINT, WPARAM, LPARAM);
 });
 XPCOMUtils.defineLazyGetter(user32, "SetWindowLongPtrW", function() {
-  return user32.declare("SetWindowLongPtrW", ctypes.winapi_abi, LONG_PTR , HWND, INT, LONG_PTR);
+  return user32.declare(is64bit ? "SetWindowLongPtrW" : "SetWindowLongW", ctypes.winapi_abi, LONG_PTR , HWND, INT, LONG_PTR);
 });
 XPCOMUtils.defineLazyGetter(user32, "CreateIcon", function() {
   return user32.declare("CreateIcon", ctypes.winapi_abi, HICON, HINSTANCE, INT , INT, BYTE, BYTE, LPVOID, LPVOID);
