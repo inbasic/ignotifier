@@ -639,7 +639,6 @@ function Server () {
       new curl(feed, timeout).then(
         function (req) {
           if (req.status != 200) {
-            ids = [];
             return d.resolve({
               network: req.status !== 0,
               notAuthorized: req.status === 401,
@@ -652,13 +651,15 @@ function Server () {
           var cIDs = xml.entries.map(e => e.id);
           //Finding new ids
           var newIDs;
-          if (xml.fullcount >= 20 && pCount >= xml.fullcount) {
+          if (pCount >= 20 && pCount >= xml.fullcount) {
             newIDs = [];
           }
           else {
             newIDs = cIDs.filter(id => ids.indexOf(id) === -1);
           }
-          ids = cIDs;
+          //
+          ids.push.apply(ids, newIDs);
+
           pCount = xml.fullcount;
           
           d.resolve({
