@@ -650,16 +650,11 @@ function Server () {
           //Cleaning old entries
           var cIDs = xml.entries.map(e => e.id);
           //Finding new ids
-          var newIDs;
+          var newIDs = cIDs.filter(id => ids.indexOf(id) === -1);
+          ids.push.apply(ids, newIDs);
           if (pCount >= 20 && pCount >= xml.fullcount) {
             newIDs = [];
           }
-          else {
-            newIDs = cIDs.filter(id => ids.indexOf(id) === -1);
-          }
-          //
-          ids.push.apply(ids, newIDs);
-
           pCount = xml.fullcount;
           
           d.resolve({
