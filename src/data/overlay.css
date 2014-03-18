@@ -74,3 +74,8 @@
   margin: 6px 3px 0 -31px;
   width: 28px;
 }
+/* Windows Large Icon (icon + text)*/
+#navigator-toolbox[mode="full"] #igmail-notifier:after,
+#navigator-toolbox[iconsize="large"][mode="full"] #igmail-notifier:after {
+  margin: -20px -12px 20px 0;
+}

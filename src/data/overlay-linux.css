@@ -1,24 +1,83 @@
-#navigator-toolbox[iconsize="large"] #igmail-notifier:after,
 #igmail-notifier:after {
   line-height: 12px;
+  margin: -10px 0 0 20px;
 }
-#igmail-notifier[length="1"]:after,
-#navigator-toolbox[iconsize="large"] #igmail-notifier[length="1"]:after {
-  margin: 6px -3px 0 -7px;
+#igmail-notifier[length="1"]:after{
+  margin: -10px 0 0 10px;
   width: 10px;
 }
-#igmail-notifier[length="2"]:after,
-#navigator-toolbox[iconsize="large"] #igmail-notifier[length="2"]:after {
-  margin: 6px -1px 0 -15px;
+#igmail-notifier[length="2"]:after {
+  margin: -10px 0 0 4px;
   width: 16px;
 }
-#igmail-notifier[length="3"]:after,
-#navigator-toolbox[iconsize="large"] #igmail-notifier[length="3"]:after {
-  margin: 6px -2px 0 -20px;
+#igmail-notifier[length="3"]:after {
+  margin: -10px 0 0 0;
   width: 22px;
 }
-#igmail-notifier[length="4"]:after,
+#igmail-notifier[length="4"]:after {
+  margin: -10px 0 0 0;
+  width: 28px;
+}
+
+#navigator-toolbox[iconsize="large"] #igmail-notifier:after{
+  margin: -10px 0 0 22px;
+}
+#navigator-toolbox[iconsize="large"] #igmail-notifier[length="1"]:after {
+  margin: -10px 0 0 12px;
+  width: 10px;
+}
+#navigator-toolbox[iconsize="large"] #igmail-notifier[length="2"]:after {
+  margin: -10px 0 0 6px;
+  width: 16px;
+}
+#navigator-toolbox[iconsize="large"] #igmail-notifier[length="3"]:after {
+  margin: -10px 0 0 0;
+  width: 22px;
+}
 #navigator-toolbox[iconsize="large"] #igmail-notifier[length="4"]:after{
-  margin: 6px -5px 0 -23px;
+  margin: -10px 0 0 0;
+  width: 28px;
+}
+
+#navigator-toolbox[mode="full"] #igmail-notifier:after {
+  margin: -30px 0 16px 0;
+}
+#navigator-toolbox[mode="full"] #igmail-notifier[length="1"]:after {
+  margin: -30px 0 16px 12px;
+  width: 10px;
+}
+#navigator-toolbox[mode="full"] #igmail-notifier[length="2"]:after {
+  margin: -30px 0 16px 12px;
+  width: 16px;
+}
+#navigator-toolbox[mode="full"] #igmail-notifier[length="3"]:after {
+  margin: -30px 0 16px 0;
+  width: 22px;
+}
+#navigator-toolbox[mode="full"] #igmail-notifier[length="4"]:after{
+  margin: -30px 0 16px 0;
+  width: 28px;
+}
+
+#navigator-toolbox[iconsize="large"][mode="full"] #igmail-notifier .toolbarbutton-icon {
+  margin: 4px;
+}
+#navigator-toolbox[iconsize="large"][mode="full"] #igmail-notifier:after {
+  margin: -30px 0 18px 0;
+}
+#navigator-toolbox[iconsize="large"][mode="full"] #igmail-notifier[length="1"]:after {
+  margin: -30px 0 18px 18px;
+  width: 10px;
+}
+#navigator-toolbox[iconsize="large"][mode="full"] #igmail-notifier[length="2"]:after {
+  margin: -30px 0 18px 12px;
+  width: 16px;
+}
+#navigator-toolbox[iconsize="large"][mode="full"] #igmail-notifier[length="3"]:after {
+  margin: -30px 0 18px 20px;
+  width: 22px;
+}
+#navigator-toolbox[iconsize="large"][mode="full"] #igmail-notifier[length="4"]:after {
+  margin: -30px 0 18px 20px;
   width: 28px;
 }

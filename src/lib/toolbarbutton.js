@@ -65,32 +65,6 @@ exports.ToolbarButton = function ToolbarButton(options) {
         var tb = toolbarbuttonExists(doc, options.id);
       }
 
-      // found a toolbar to use?
-      if (tb) {
-        let b4;
-
-        // find the toolbarbutton to insert before
-        if (insertbefore) {
-          b4 = $(insertbefore);
-        }
-        if (!b4) {
-          let currentset = tb.getAttribute("currentset").split(",");
-          let i = currentset.indexOf(options.id) + 1;
-
-          // was the toolbarbutton id found in the curent set?
-          if (i > 0) {
-            let len = currentset.length;
-            // find a toolbarbutton to the right which actually exists
-            for (; i < len; i++) {
-              b4 = $(currentset[i]);
-              if (b4) break;
-            }
-          }
-        }
-
-        tb.insertItem(options.id, b4, null, false);
-      }
-      
       if (setBadge.value) setBadge ({value: setBadge.value});
       if (setType.value) setType({value: setType.value});
 
