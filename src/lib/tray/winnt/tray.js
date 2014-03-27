@@ -205,7 +205,7 @@ if (prefs.doTrayCallback) {
 var isInstalled = false;
 exports.set = function (badge, msg) {
   //nid.szInfo = msg;
-  nid.szTip = msg;
+  nid.szTip = msg.substring(0, 63); // maximum of 64 characters
   icon(badge).then(function (arr) {
     var  uint8Array = new  Uint8Array(arr);
     nid.hIcon = user32.CreateIcon(hWnd, 16, 16, 1, 32, uint8Array, uint8Array); 

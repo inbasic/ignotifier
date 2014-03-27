@@ -743,7 +743,7 @@ function Server () {
             p += c.xml.title + 
             (c.xml.label ? " [" + c.xml.label + "]" : "") +
             " (" + c.xml.fullcount + ")" + "\n", ""
-          ).replace(/\n$/, "");
+          ).replace(/\n$/, "");  
         if (!forced && !anyNewEmails) {
           if (newCount) {
             icon(newCount,  "red");
