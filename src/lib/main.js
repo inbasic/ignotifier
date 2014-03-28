@@ -994,8 +994,11 @@ var play = function () {
     }
   }
 
-  pageWorker.Page({
-    contentScript: "var audio = new Audio('" + path + "'); audio.volume = " + config.soundVolume + "; audio.play();",
-    contentURL: data.url("sound.html")
+  var worker = pageWorker.Page({
+    contentScript: "var audio = new Audio('" + path + "'); audio.addEventListener('ended', function () {self.postMessage()}); audio.volume = " + config.soundVolume + "; audio.play();",
+    contentURL: data.url("sound.html"),
+    onMessage: function(arr) {
+      worker.destroy();
+    }
   });
 }

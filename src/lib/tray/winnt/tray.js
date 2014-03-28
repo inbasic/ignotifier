@@ -124,7 +124,7 @@ function icon (badge) {
     }
     img.src = "source";
   }
-  pageWorker.Page({
+  var worker = pageWorker.Page({
     contentURL: data.url("notification-icon.html"),
     contentScript: ("(" + getIcon)
       .replace(/source/g, data.url("tray.png"))
@@ -132,6 +132,7 @@ function icon (badge) {
       ")();",
     onMessage: function(arr) {
       d.resolve(arr);
+      worker.destroy();
     }
   });
   return d.promise;
