@@ -370,7 +370,7 @@ self.port.on("action-response", function(cmd) {
     obj.removeAttribute("wait");
     obj.removeAttribute("disabled");
   }
-  self.port.emit("decrease_mails", iIndex, jIndex);
+  //self.port.emit("decrease_mails", iIndex, jIndex);
 });
 new Listen("expand", "click", function () {
   var type = $("content").getAttribute("type");

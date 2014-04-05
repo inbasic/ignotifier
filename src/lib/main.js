@@ -211,33 +211,6 @@ contextPanel.port.on("body", function (link) {
     contextPanel.port.emit("body-response", link, content);
   });
 });
-contextPanel.port.on("decrease_mails", function (iIndex, jIndex) {
-  //decrease the number of mails
-  unreadObjs[iIndex].entries.splice(jIndex, 1);
-  unreadObjs[iIndex].count -= 1;
-
-  var total = 0;
-  unreadObjs.forEach(function (e, i) {
-    total += e.count;
-  });
-
-  if (total > 0) {
-    icon(total, "red");
-  }
-  else {
-    icon(total, "gray");
-  }
-  /*
-  //Refresh Gmail tab
-  for each(var tab in tabs) {
-    if (tab.url.indexOf(unreadObjs[iIndex].link.replace("http", "").replace("https", ""))) {
-      tab.attach({
-        contentScript: 'var evt = document.createEvent("KeyboardEvent");evt.initKeyEvent("keypress",true,true,null,0,0,0,0,0,117);document.dispatchEvent(evt);'
-      });
-    }
-  }
-  */
-});
 contextPanel.port.on("update", function () {
   tm.reset(true);
 });
