@@ -633,50 +633,60 @@ function Server () {
 
   function Email (feed, timeout) {
     var ids = [], pCount = 0;
-    
-    return function () {
-      var d = new Promise.defer();
-      new curl(feed, timeout).then(
-        function (req) {
-          if (req.status != 200) {
-            return d.resolve({
-              network: req.status !== 0,
-              notAuthorized: req.status === 401,
-              xml: null,
-              newIDs: []
+    var d;
+    return {
+      execute: function () {
+        d = new Promise.defer();
+        new curl(feed, timeout).then(
+          function (req) {
+            if (req.status != 200) {
+              return d.resolve({
+                network: req.status !== 0,
+                notAuthorized: req.status === 401,
+                xml: null,
+                newIDs: []
+              });
+            }
+            var xml = new Parse(req, feed);
+            //Cleaning old entries
+            var cIDs = xml.entries.map(e => e.id);
+            //Finding new ids
+            var newIDs = cIDs.filter(id => ids.indexOf(id) === -1);
+            ids.push.apply(ids, newIDs);
+            if (pCount >= 20 && pCount >= xml.fullcount) {
+              newIDs = [];
+            }
+            pCount = xml.fullcount;
+            
+            d.resolve({
+              network: true,
+              notAuthorized: false,
+              xml: xml,
+              newIDs: newIDs
             });
           }
-          var xml = new Parse(req, feed);
-          //Cleaning old entries
-          var cIDs = xml.entries.map(e => e.id);
-          //Finding new ids
-          var newIDs = cIDs.filter(id => ids.indexOf(id) === -1);
-          ids.push.apply(ids, newIDs);
-          if (pCount >= 20 && pCount >= xml.fullcount) {
-            newIDs = [];
-          }
-          pCount = xml.fullcount;
-          
-          d.resolve({
-            network: true,
-            notAuthorized: false,
-            xml: xml,
-            newIDs: newIDs
-          });
-        }
-      );
-      return d.promise;
+        );
+        return d.promise;
+      },
+      reject: function () {
+        if (d) d.reject();
+      }
     }
+
   }
   var emails = config.email.feeds.map((feed) => new Email(feed, config.email.timeout));
   return (function () {
     var color = "blue", count = -1;
     return function (forced) {
+      console.error('****')
       if (forced) {
         icon(null, "load"); 
         color = "load";
       }
-      Promise.all(emails.map(e => e())).then(function (objs) {
+      // Cancel previous execution?
+      emails.forEach(e => e.reject());
+      // Execute fresh servers
+      Promise.all(emails.map(e => e.execute())).then(function (objs) {
         var isAuthorized = objs.reduce((p, c) => p || (!c.notAuthorized && c.network), false);
         var anyNewEmails = objs.reduce((p, c) => p || (c.newIDs.length !== 0), false);
         if (!isAuthorized) {
