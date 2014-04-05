@@ -678,7 +678,6 @@ function Server () {
   return (function () {
     var color = "blue", count = -1;
     return function (forced) {
-      console.error('****')
       if (forced) {
         icon(null, "load"); 
         color = "load";
