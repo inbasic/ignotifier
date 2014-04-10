@@ -97,7 +97,7 @@ exports.getPlainText = function(node){
       }
     }
     t += gap;
-    t =t.replace(/(<[^>^<]+>)/ig, function (s){ //String HTML tags
+    t =t.replace(/(<[^>^<]+>)/ig, function (s){ //Strip HTML tags
       return s.contains("<a href") || s.contains("</a>") ? s : s.replace(/\</g, "&lt;").replace(/\>/g, "&gt;");
     });
     return t;

@@ -1,16 +1,90 @@
 const NS_XUL = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
-const NS_SVG = "http://www.w3.org/2000/svg";
-const NS_XLINK = "http://www.w3.org/1999/xlink";
 
-const {unload} = require("unload+");
-const {listen} = require("listen");
-const winUtils = require("sdk/deprecated/window-utils");
+var prefs    = require("sdk/simple-prefs").prefs,
+    winUtils = require("sdk/deprecated/window-utils"),
+    utils    = require('sdk/window/utils');
+
 const browserURL = "chrome://browser/content/browser.xul";
+
+/** unload+.js [start] **/
+var unload = (function () {
+  var unloaders = [];
+
+  function unloadersUnlaod() {
+    unloaders.slice().forEach(function(unloader) unloader());
+    unloaders.length = 0;
+  }
+
+  require("sdk/system/unload").when(unloadersUnlaod);
+
+  function removeUnloader(unloader) {
+    let index = unloaders.indexOf(unloader);
+    if (index != -1)
+      unloaders.splice(index, 1);
+  }
+
+  return {
+    unload: function unload(callback, container) {
+      // Calling with no arguments runs all the unloader callbacks
+      if (callback == null) {
+        unloadersUnlaod();
+        return null;
+      }
+
+      var remover = removeUnloader.bind(null, unloader);
+
+      // The callback is bound to the lifetime of the container if we have one
+      if (container != null) {
+        // Remove the unloader when the container unloads
+        container.addEventListener("unload", remover, false);
+
+        // Wrap the callback to additionally remove the unload listener
+        let origCallback = callback;
+        callback = function() {
+          container.removeEventListener("unload", remover, false);
+          origCallback();
+        }
+      }
+
+      // Wrap the callback in a function that ignores failures
+      function unloader() {
+        try {
+          callback();
+        }
+        catch(ex) {}
+      }
+      unloaders.push(unloader);
+
+      // Provide a way to remove the unloader
+      return remover;
+    }
+  };
+})().unload;
+/** unload+.js [end] **/
+/** listen.js [start] **/
+var listen = function listen(window, node, event, func, capture) {
+  // Default to use capture
+  if (capture == null)
+    capture = true;
+
+  node.addEventListener(event, func, capture);
+  function undoListen() {
+    node.removeEventListener(event, func, capture);
+  }
+
+  // Undo the listener on unload and provide a way to undo everything
+  let undoUnload = unload(undoListen, window);
+  return function() {
+    undoListen();
+    undoUnload();
+  };
+}
+/** listen.js [end] **/
 
 exports.ToolbarButton = function ToolbarButton(options) {
   var unloaders = [],
-      toolbarID = "",
-      insertbefore = "",
+      toolbarID = prefs.toolbarID || "",
+      insertbefore = prefs.nextSibling || "",
       destroyed = false,
       destoryFuncs = [];
 
@@ -18,6 +92,7 @@ exports.ToolbarButton = function ToolbarButton(options) {
     onTrack: function (window) {
       if ("chrome://browser/content/browser.xul" != window.location || destroyed)
         return;
+
       let doc = window.document;
       let $ = function(id) doc.getElementById(id);
       options.tooltiptext = options.tooltiptext || '';
@@ -65,13 +140,43 @@ exports.ToolbarButton = function ToolbarButton(options) {
         var tb = toolbarbuttonExists(doc, options.id);
       }
 
+      // found a toolbar to use?
+      if (tb) {
+        let b4;
+
+        // find the toolbarbutton to insert before
+        if (insertbefore) {
+          b4 = $(insertbefore);
+        }
+        if (!b4) {
+          let currentset = tb.getAttribute("currentset").split(",");
+          let i = currentset.indexOf(options.id) + 1;
+
+          // was the toolbarbutton id found in the curent set?
+          if (i > 0) {
+            let len = currentset.length;
+            // find a toolbarbutton to the right which actually exists
+            for (; i < len; i++) {
+              b4 = $(currentset[i]);
+              if (b4) break;
+            }
+          }
+          if (!b4) b4 = $("home-button");
+        }
+
+        tb.insertItem(options.id, b4, null, false);
+      }
+      // Set badge after insderting the toolbar
       if (setBadge.value) setBadge ({value: setBadge.value});
       if (setType.value) setType({value: setType.value});
-
+      
       var saveTBNodeInfo = function(e) {
         toolbarID = tbb.parentNode.getAttribute("id") || "";
         insertbefore = (tbb.nextSibling || "")
             && tbb.nextSibling.getAttribute("id").replace(/^wrapper-/i, "");
+
+        prefs.nextSibling = insertbefore;
+        prefs.toolbarID = toolbarID;  
       };
 
       window.addEventListener("aftercustomization", saveTBNodeInfo, false);
@@ -104,7 +209,7 @@ exports.ToolbarButton = function ToolbarButton(options) {
   
     getToolbarButtons(function(tbb) {
       if ((aOptions.value + "").length > 4) {
-        aOptions.value = "9999"
+        aOptions.value = "9999";
       }
       tbb.setAttribute("value", aOptions.value ? aOptions.value : "");
       tbb.setAttribute("length", aOptions.value ? (aOptions.value + "").length : 0);
@@ -132,11 +237,16 @@ exports.ToolbarButton = function ToolbarButton(options) {
       if (destroyed) return;
 
       // record the new position for future windows
-      toolbarID = pos.toolbarID;
-      insertbefore = pos.insertbefore;
+      toolbarID = prefs.toolbarID || pos.toolbarID;
+      insertbefore = prefs.nextSibling || pos.insertbefore;
 
+      if (toolbarID == "BrowserToolbarPalette") {
+        toolbarID = "nav-bar";
+        insertbefore = "home-button";
+      }
+      
       // change the current position for open windows
-      for each (var window in winUtils.windowIterator()) {
+      for each (var window in utils.windows()) {
         if (browserURL != window.location) return;
 
         let doc = window.document;
@@ -147,8 +257,6 @@ exports.ToolbarButton = function ToolbarButton(options) {
 
         var tb = $(toolbarID);
         var b4 = $(insertbefore);
-
-        // TODO: if b4 dne, but insertbefore is in currentset, then find toolbar to right
 
         if (tb) {
           tb.insertItem(options.id, b4, null, false);
@@ -175,14 +283,14 @@ exports.ToolbarButton = function ToolbarButton(options) {
       }, options.id);
     },
     get object () {
-      return winUtils.activeBrowserWindow.document.getElementById(options.id);
+      return utils.getMostRecentBrowserWindow().document.getElementById(options.id);
     }
   };
 };
 
 function getToolbarButtons(callback, id) {
   let buttons = [];
-  for each (var window in winUtils.windowIterator()) {
+  for each (var window in utils.windows()) {
     if (browserURL != window.location) continue;
     let tbb = window.document.getElementById(id);
     if (tbb) buttons.push(tbb);
@@ -197,5 +305,5 @@ function toolbarbuttonExists(doc, id) {
     if ((new RegExp("(?:^|,)" + id + "(?:,|$)")).test(toolbars[i].getAttribute("currentset")))
       return toolbars[i];
   }
-  return doc.getElementById("nav-bar");
+  return false;
 }

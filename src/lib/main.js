@@ -6,7 +6,6 @@ var tabs          = require("sdk/tabs"),
     sp            = require("sdk/simple-prefs"),
     pageWorker    = require("sdk/page-worker"),
     _             = require("sdk/l10n").get,
-    toolbarbutton = require("./toolbarbutton"),
     userstyles    = require("./userstyles"),
     plainText     = require('./plain-text'),
     prefs         = sp.prefs,
@@ -21,6 +20,8 @@ var tabs          = require("sdk/tabs"),
         return require("sdk/windows").browserWindows.activeWindow
       }
     },
+    isAustralis   = "gCustomizeMode" in windows.active,
+    toolbarbutton = isAustralis ? require("toolbarbutton/new") : require("toolbarbutton/old"),
     tray          = (function () {
       if (os == "WINNT") {
         return require('./tray/winnt/tray');
@@ -34,7 +35,7 @@ var tabs          = require("sdk/tabs"),
         }
       };
     })();
-
+ 
 /** Internal configurations **/
 var config = {
   //Gmail
@@ -74,11 +75,8 @@ var config = {
     id: "igmail-notifier",
     move: {
       toolbarID: "nav-bar", 
-      get insertbefore () {
-        var id = prefs.nextSibling;
-        return id ? id : "home-button"
-      }, 
-      forceMove: false
+      insertbefore: "home-button", 
+      forceMove: true
     }
   },
   defaultTooltip: _("gmail") + "\n\n" + 
@@ -101,7 +99,7 @@ var tm, resetTm, gButton, unreadObjs = [], emailsCache = [], server = new Server
 /** Loading style **/
 (function () {
   userstyles.load(data.url("overlay.css"));
-  if ("gCustomizeMode" in windows.active && os == "WINNT") { //Australis
+  if (isAustralis && os == "WINNT") {
     userstyles.load(data.url("overlay-australis.css"));
   }
   else if (os == "Linux") {
@@ -398,16 +396,7 @@ exports.main = function(options, callbacks) {
   }
 };
 
-/** Store toolbar button position **/
-var aWindow = windows.active;
-var aftercustomizationListener = function () {
-  let button = aWindow.document.getElementById(config.toolbar.id);
-  if (!button || !button.nextSibling) return;
-  prefs.nextSibling = button.nextSibling.id;
-}
-aWindow.addEventListener("aftercustomization", aftercustomizationListener, false);
 exports.onUnload = function (reason) {
-  aWindow.removeEventListener("aftercustomization", aftercustomizationListener, false);
   tray.remove();
   tray.callback.remove();
 }
