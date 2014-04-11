@@ -260,15 +260,14 @@ gButton = toolbarbutton.ToolbarButton({
     }
   },
   onContext: (function () {
-    var installed = false;
     return function (e, menupopup, _menuitem, _menuseparator) {
       //Install command event listener
-      if (!installed) {
+      if (!menupopup.installed) {
         menupopup.addEventListener("command", function (e) {
           var link = e.originalTarget.value;
           if (link) open(link.replace(/\?.*/ , ""));
         });
-        installed = true;
+        menupopup.installed = true;
       }
       //remove old items
       while (menupopup.firstChild) {
