@@ -35,7 +35,7 @@ var tabs          = require("sdk/tabs"),
         }
       };
     })();
- 
+
 /** Internal configurations **/
 var config = {
   //Gmail
@@ -90,8 +90,15 @@ tray.callback.install(function () {
   windows.active.focus();
   timer.setTimeout(onCommand, 100);
 });
+
 /** libraries **/
-Cu.import("resource://gre/modules/Promise.jsm");
+try {
+  Cu.import("resource://gre/modules/Promise.jsm");
+}
+catch (e) {}
+if (!Promise || !Promise.all) { //Support for FF < 25
+  Promise = require('./q.js').Promise;
+}
 
 /** Global variables */
 var tm, resetTm, gButton, unreadObjs = [], emailsCache = [], server = new Server();
