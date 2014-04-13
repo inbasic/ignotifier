@@ -1,22 +1,39 @@
 #igmail-notifier:after {
+  font-family: Arial;
   line-height: 12px;
   margin: -10px 0 0 20px;
+}
+#igmail-notifier[cui-areatype="toolbar"]:after {
+  font-size: 10px;
+  margin: 6px 0 0 -17px;
 }
 #igmail-notifier[length="1"]:after{
   margin: -10px 0 0 10px;
   width: 10px;
 }
+#igmail-notifier[cui-areatype="toolbar"][length="1"]:after{
+  margin: 7px -13px 0 -14px;
+}
 #igmail-notifier[length="2"]:after {
   margin: -10px 0 0 4px;
   width: 16px;
+}
+#igmail-notifier[cui-areatype="toolbar"][length="2"]:after{
+  margin: 7px -13px 0 -20px;
 }
 #igmail-notifier[length="3"]:after {
   margin: -10px 0 0 0;
   width: 22px;
 }
+#igmail-notifier[cui-areatype="toolbar"][length="3"]:after{
+  margin: 7px -13px 0 -26px;
+}
 #igmail-notifier[length="4"]:after {
   margin: -10px 0 0 0;
   width: 28px;
+}
+#igmail-notifier[cui-areatype="toolbar"][length="4"]:after{
+  margin: 7px -13px 0 -29px;
 }
 
 #navigator-toolbox[iconsize="large"] #igmail-notifier:after{

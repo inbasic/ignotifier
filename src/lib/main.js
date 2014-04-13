@@ -106,10 +106,7 @@ var tm, resetTm, gButton, unreadObjs = [], emailsCache = [], server = new Server
 /** Loading style **/
 (function () {
   userstyles.load(data.url("overlay.css"));
-  if (isAustralis && os == "WINNT") {
-    userstyles.load(data.url("overlay-australis.css"));
-  }
-  else if (os == "Linux") {
+  if (os == "Linux") {
     userstyles.load(data.url("overlay-linux.css"));
   }
   else if (os == "Darwin") {

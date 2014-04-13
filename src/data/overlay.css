@@ -60,7 +60,7 @@ toolbarpaletteitem[place="palette"] > #igmail-notifier {
 #igmail-notifier:after {
   position: relative;
   display:  table;
-  font-family: arial;
+  font-family: Arial;
   font-size: 10px;
   font-weight: 600;
   content: attr(value);
