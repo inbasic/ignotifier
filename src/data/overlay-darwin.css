@@ -14,22 +14,33 @@
   margin: -12px 0 0 10px;
   width: 10px;
 }
+#igmail-notifier[cui-areatype="toolbar"][length="1"]:after{
+  margin: -10px -13px 0 0;
+}
 #igmail-notifier[length="2"]:after,
 #navigator-toolbox[iconsize="large"] #igmail-notifier[length="2"]:after {
   margin: -12px 0 0 8px;
   width: 12px;
+}
+#igmail-notifier[cui-areatype="toolbar"][length="2"]:after{
+  margin: -10px -14px 0 0;
 }
 #igmail-notifier[length="3"]:after,
 #navigator-toolbox[iconsize="large"] #igmail-notifier[length="3"]:after {
   margin: -12px 0 0 1px;
   width: 19px;
 }
+#igmail-notifier[cui-areatype="toolbar"][length="3"]:after{
+  margin: -10px -14px 0 -7px;
+}
 #igmail-notifier[length="4"]:after,
 #navigator-toolbox[iconsize="large"] #igmail-notifier[length="4"]:after{
   margin: -12px 0 0 0;
   width: 21px;
 }
-
+#igmail-notifier[cui-areatype="toolbar"][length="4"]:after{
+  margin: -10px -14px 0 -13px;
+}
 /** Retina Display **/
 @media (min-resolution: 2dppx) {
   #igmail-notifier,

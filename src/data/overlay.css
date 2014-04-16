@@ -82,17 +82,29 @@ toolbarpaletteitem[place="palette"] > #igmail-notifier:after,
   margin: 6px -1px 0 -9px;
   width: 10px;
 }
+#igmail-notifier[cui-areatype="toolbar"][length="1"]:after{
+  margin: 7px 3px 0 -13px;
+}
 #igmail-notifier[length="2"]:after {
   margin: 6px 0 0 -16px;
   width: 16px;
+}
+#igmail-notifier[cui-areatype="toolbar"][length="2"]:after{
+  margin: 7px 3px 0 -19px;
 }
 #igmail-notifier[length="3"]:after {
   margin: 6px -1px 0 -19px;
   width: 20px;
 }
+#igmail-notifier[cui-areatype="toolbar"][length="3"]:after{
+  margin: 7px 3px 0 -23px;
+}
 #igmail-notifier[length="4"]:after {
   margin: 6px -2px 0 -20px;
   width: 22px;
+}
+#igmail-notifier[cui-areatype="toolbar"][length="4"]:after{
+  margin: 7px 3px 0 -27px;
 }
 /* Windows Large Icon */
 #navigator-toolbox[iconsize="large"] #igmail-notifier[length="1"]:after {
