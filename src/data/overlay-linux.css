@@ -1,10 +1,14 @@
 #igmail-notifier:after {
-  font-family: Arial;
-  line-height: 12px;
   margin: -10px 0 0 20px;
+  padding-top: 1px;
 }
 #igmail-notifier[cui-areatype="toolbar"]:after {
+  font-family: "Liberation Sans", FreeSans, Arial, Sans-serif;
+  letter-spacing: -0.05ex;
   font-size: 10px;
+  line-height: 11px;
+  padding-top: 0;
+  padding-left: 0;
   margin: 6px 0 0 -17px;
 }
 #igmail-notifier[length="1"]:after{
@@ -12,6 +16,8 @@
   width: 10px;
 }
 #igmail-notifier[cui-areatype="toolbar"][length="1"]:after{
+  padding-top: 1px;
+  padding-left: 1px;
   margin: 7px -13px 0 -14px;
 }
 #igmail-notifier[length="2"]:after {
@@ -19,6 +25,7 @@
   width: 16px;
 }
 #igmail-notifier[cui-areatype="toolbar"][length="2"]:after{
+  padding-top: 1px;
   margin: 7px -13px 0 -20px;
 }
 #igmail-notifier[length="3"]:after {
@@ -26,13 +33,15 @@
   width: 22px;
 }
 #igmail-notifier[cui-areatype="toolbar"][length="3"]:after{
-  margin: 7px -13px 0 -26px;
+  padding-top: 1px;
+  margin: 7px -13px 0 -25px;
 }
 #igmail-notifier[length="4"]:after {
   margin: -10px 0 0 0;
   width: 28px;
 }
 #igmail-notifier[cui-areatype="toolbar"][length="4"]:after{
+  padding-top: 1px;
   margin: 7px -13px 0 -29px;
 }
 
