@@ -722,7 +722,7 @@ function Server () {
           if (newCount) {
             icon(newCount,  "red");
             color = "red";
-            tray.set(newCount, tooltip);
+            if (prefs.tray) tray.set(newCount, tooltip);
             gButton.tooltiptext = tooltip;
           }
           else {
