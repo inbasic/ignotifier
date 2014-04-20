@@ -50,7 +50,15 @@ var config = {
       var temp = (prefs.feeds.replace(/rss20/g, "atom10") || FEEDS).split(",");
       //Check Feed formats
       temp.forEach(function (feed, index) {
-        temp[index] = feed.replace(/^\s\s*/, '').replace(/\s\s*$/, '')
+        temp[index] = feed.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+      });
+      //Validating URLS
+      temp = temp.filter(function (url) {
+        var valid = url.match(/^(ht|f)tps?:\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/);
+        if (!valid) {
+          console.error(_("msg14") + url);
+        }
+        return valid;
       });
       return temp;
     },
