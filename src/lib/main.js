@@ -47,7 +47,7 @@ var config = {
       "https://mail.google.com/mail/u/3/feed/atom",
     get feeds() {
       //server implementation only supports atom feeds
-      var temp = (prefs.feeds.replace(/rss20/g, "atom10") || FEEDS).split(",");
+      var temp = (prefs.feeds.replace(/rss20/g, "atom10") || config.email.FEEDS).split(",");
       //Check Feed formats
       temp.forEach(function (feed, index) {
         temp[index] = feed.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
