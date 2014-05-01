@@ -8,6 +8,9 @@ exports.ToolbarButton = function (options) {
   var listen = {
     onWidgetBeforeDOMChange: function(tbb, aNextNode, aContainer, aIsRemoval) {
       if (tbb.id != options.id) return;
+      if (tbb.installed) return;
+      tbb.installed = true;
+      
       if (badge) {
         tbb.setAttribute("value", badge ? badge : "");
         tbb.setAttribute("length", badge ? (badge + "").length : 0);
