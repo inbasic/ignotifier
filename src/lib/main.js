@@ -64,7 +64,10 @@ var config = {
     },
     maxCount: 20,
     maxReport: 1, //Maximum number of simultaneous reports from a single account
-    timeout: 9000
+    timeout: 9000,
+    get truncate () {
+      return Math.ceil((Math.max(prefs.notificationTruncate, 20) || 70) / 2) * 2;
+    }
   },
   //Timing
   get period () {return (prefs.period > 10 ? prefs.period : 10) * 1000},
@@ -711,12 +714,16 @@ function Server () {
             .splice(0, config.email.maxReport).forEach(function (e) {
             tmp.push(e);
           });
-        });          
+        });
+        function shorten (str) {
+          if (str.length < config.email.truncate) return str;
+          return str.substr(0, config.email.truncate / 2) + "..." + str.substr(str.length - config.email.truncate / 2);
+        }
         var report = tmp.map(e => prefs.notificationFormat
           .replace("[author_name]", e.author_name)
           .replace("[author_email]", "<" + e.author_email + ">")
-          .replace("[summary]", e.summary)
-          .replace("[title]", e.title)
+          .replace("[summary]", shorten(e.summary))
+          .replace("[title]", shorten(e.title))
           .replace(/\[break\]/g, "\n")).join("\n\n");
         // Preparing the tooltip
         var tooltip = 
