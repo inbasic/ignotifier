@@ -284,6 +284,7 @@ exports.ToolbarButton = function ToolbarButton(options) {
       return value;
     },
     set type(value) setType({value: value}),
+    get badge () setBadge.value,
     set badge(value) setBadge({value: value}),
     get tooltiptext() options.tooltiptext,
     set tooltiptext(value) {

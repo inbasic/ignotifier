@@ -112,7 +112,7 @@ if (!Promise || !Promise.all) { //Support for FF < 25
 }
 
 /** Global variables */
-var tm, resetTm, gButton, unreadObjs = [], emailsCache = [], server = new Server();
+var tm, resetTm, gButton, emailsCache = [], server = new Server();
 
 /** Loading style **/
 (function () {
@@ -197,7 +197,7 @@ function open (url, inBackground) {
   }
 }
 
-/** Multi email Panel **/
+/** Multi account Panel **/
 var contextPanel = panel.Panel({
   contentURL: data.url("context.html"),
   contentScriptFile: data.url("context.js")
@@ -238,21 +238,15 @@ contextPanel.port.on("clipboard", (function () {
 
 /** onCommand **/
 var onCommand = function (e) {
-  if (!unreadObjs.length) {
+  if (!gButton.badge) {
     open(config.email.url);
   }
-  else if (unreadObjs.length == 1 && prefs.oldFashion == "1") {
-    open(unreadObjs[0].link);
+  else if (gButton.badge == 1 && prefs.oldFashion == "1") {
+    //open(unreadObjs[0].link);
   }
   else {
     contextPanel.port.emit("resize", prefs.size);
-    try {
-      contextPanel.show(gButton.object);
-    }
-    catch (e) {
-      contextPanel.show(null, gButton.object);
-    }
-    contextPanel.port.emit('command', unreadObjs);
+    contextPanel.show(gButton.object);
   }
 }
 
@@ -601,7 +595,6 @@ function Server () {
         tmp.forEach(function (entry) {
           rtn.push(new toObj(entry));
         });
-        
         return rtn;
       }
     }
@@ -633,7 +626,6 @@ function Server () {
               newIDs = [];
             }
             pCount = xml.fullcount;
-            
             d.resolve({
               network: true,
               notAuthorized: false,
@@ -669,7 +661,7 @@ function Server () {
             icon(null,  "blue");
             color = "blue";
             count = -1;
-            unreadObjs = [];
+            contextPanel.hide();
           }
           if (forced) {
             open(config.email.url);
@@ -677,6 +669,7 @@ function Server () {
           }
           tray.remove();
           gButton.tooltiptext = config.defaultTooltip;
+          contextPanel.hide();
           return;
         }
         //Removing not logged-in accounts
@@ -693,19 +686,12 @@ function Server () {
         var newCount = objs.reduce((p,c) => p + c.xml.fullcount, 0);
         // 
         if (!anyNewEmails && !forced && count === newCount) {
+          contextPanel.port.emit('update-date', objs); //Updating the date of the panel
           return; //Everything is clear
         }
         count = newCount;
         //
         emailsCache = objs;
-        unreadObjs = objs.filter(o => o.xml.fullcount).map(function (o) { /** Remove this object **/
-          return {
-            link: o.xml.link, 
-            count: o.xml.fullcount,
-            account: o.xml.title + (o.xml.label ? " [" + o.xml.label + "]" : ""),
-            entries: o.xml.entries
-          }
-        })
         // Preparing the report
         var tmp = [];
         objs.forEach (function (o) {
@@ -739,12 +725,14 @@ function Server () {
             color = "red";
             if (prefs.tray) tray.set(newCount, tooltip);
             gButton.tooltiptext = tooltip;
+            contextPanel.port.emit('update', objs);
           }
           else {
             icon(null,  "gray");
             color = "gray";
             tray.remove();
             gButton.tooltiptext = tooltip;
+            contextPanel.hide();
           }
         }
         else if (forced && !newCount) {
@@ -752,6 +740,7 @@ function Server () {
           color = "gray";
           tray.remove();
           gButton.tooltiptext = tooltip;
+          contextPanel.hide();
         }
         else {
           icon(newCount, "new");
@@ -762,15 +751,7 @@ function Server () {
           if (prefs.tray) tray.set(newCount, tooltip);
           if (prefs.alert) play();
           gButton.tooltiptext = tooltip;
-        }
-        //Updating the toolbar panel if exists
-        if (contextPanel.isShowing) {
-          if (unreadObjs.length) {
-            contextPanel.port.emit('command', unreadObjs);
-          }
-          else {
-            contextPanel.hide();
-          }
+          contextPanel.port.emit('update-reset', objs);
         }
       });
     }

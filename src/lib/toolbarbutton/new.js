@@ -91,6 +91,7 @@ exports.ToolbarButton = function (options) {
         tbb.setAttribute("type", value);
       });
     },
+    get badge() badge,
     set badge(value) {
       if ((value + "").length > 4) {
         value = "9999";

@@ -31,25 +31,41 @@ var html = (function() {
   }
 })();
 
-var unreadObjs, contentCache = [];
-var selectedAccount, doNext = false,
-    doPrevious = false;
-self.port.on("command", function(uo) {
+var objs, contentCache = [], selected = {};
+
+self.port.on("update-reset", function(o) {
   //Update
-  unreadObjs = uo;
-  //Is previouly selected account still available?
-  if (selectedAccount) {
-    var isAvailable = false;
-    unreadObjs.forEach(function(obj) {
-      if (obj.account == selectedAccount) {
-        isAvailable = true;
-      }
+  objs = o;
+  //Selected account
+  var unreadEntries = 
+    objs.map(obj => obj.xml.entries.filter((e) => obj.newIDs.indexOf(e.id) != -1)).
+    reduce((p,c) => p.concat(c), []);
+  if (unreadEntries.length) {
+    var newestEntry = unreadEntries.reduce(function (p, c) {
+      var d1 = new Date(p.modified);
+      var d2 = new Date(c.modified);
+      return d1 > d2 ? p : c;
     });
-    if (!isAvailable) {
-      selectedAccount = unreadObjs[0].account;
-    }
+    selected.entry = newestEntry;
+    selected.parent = objs.reduce((p,c) => c.xml.entries.indexOf(newestEntry) != -1 ? c : p);
+  }
+  else if (selected.entry) {  }
+  else {
+    selected = {
+      entry: objs[0].xml.entries[0],
+      parent: objs[0]
+    };
   }
   update();
+});
+self.port.on("update", function (o) {
+  objs = o;
+  update();
+});
+self.port.on("update-date", function () {
+  //This function is called on every server response.
+  if (!selected.entry) return;
+  body.date = prettyDate(selected.entry.modified);
 });
 /** objects **/
 var accountSelector = (function() {
@@ -134,20 +150,22 @@ var Listen = function(id, on, callback, pointer) {
     if (callback) callback.apply(pointer, [e]);
   }, false);
 }
+
 new Listen("account_selector", "click", function(e) {
   // Clear old list
-  while ($("accounts").firstChild) {
-    $("accounts").removeChild($("accounts").firstChild);
-  }
-  // Add new items
-  unreadObjs.forEach(function(obj) {
-    var li = html("li", obj.account);
-    if (selectedAccount && obj.account == selectedAccount) {
-      li.classList.add("selected");
-    }
-    $("accounts").appendChild(li);
-  });
-  e.stopPropagation();
+  $("accounts").innerHTML = "";
+  // Add new items (remove no-unread accounts first)
+  objs.
+    filter(o => o.xml.fullcount).
+    map(o => [o.xml.title + (o.xml.label ? " [" + o.xml.label + "]" : ""), o.xml.link]).forEach(function (arr) {
+      var li = html("li", arr[0]);
+
+      li.setAttribute("value", arr[1]);
+      if (selected.entry && arr[1] == selected.parent.xml.link) {
+        li.classList.add("selected");
+      }
+      $("accounts").appendChild(li);
+    });
   // Show menu
   $("accounts").style.display = "block";
   e.stopPropagation();
@@ -159,188 +177,140 @@ new Listen("account_selector", "click", function(e) {
   window.addEventListener("click", tmp, false);
 });
 new Listen("accounts", "click", function(e) {
-  selectedAccount = e.originalTarget.textContent;
-  //unselect the selected
-  var li = $("accounts").firstChild;
-  while (li) {
-    li.classList.remove("selected");
-    li = li.nextElementSibling;
+  var target = e.originalTarget || e.target;
+  var link = target.getAttribute("value");
+  if (selected.parent.xml.link != link) {
+    var obj = objs.reduce((p,c) => c.xml.link == link ? c : p);
+    selected.entry = obj.xml.entries[0];
+    selected.parent = obj;
+    update();
   }
-  e.originalTarget.classList.add("selected");
-  update();
 });
 new Listen("next", "click", function(e) {
-  doNext = true;
-  update();
+  update(false, true);
 });
 new Listen("previous", "click", function(e) {
-  doPrevious = true;
-  update();
+  update(true, false);
 });
 /** Update UI if necessary **/
-var iIndex, jIndex;
-var update = (function() {
-  var _selectedAccount, _tag = [];
-  return function() {
-    // Is update required?
-    for (var i = unreadObjs.length - 1; i >= 0; i -= 1) {
-      iIndex = i;
-      var obj = unreadObjs[i];
-      if (obj.account == selectedAccount && obj.count) {
-        break;
+var update = (function () {
+  var old = {link: null, id: null, count: null};
+  var index;
+  return function (previous, next) {
+    // Make sure the selected entry is still available 
+    var isAvailable = objs.reduce((p,c) => p.concat(c.xml.entries), []).reduce((p,c) => p || c.id == selected.entry.id, false);
+    if (!isAvailable) {
+      // does the old account still have unread entries?
+      var obj = objs.filter(o => o.xml.link == selected.parent.xml.link);
+      if (obj.length && obj[0].xml.fullcount) {
+        selected.entry = obj[0].xml.entries[Math.min(obj[0].xml.entries.length - 1, index)];
+        selected.parent = obj[0];
+      }
+      else {
+        selected.parent = objs.reduce((p,c) => c.xml.fullcount ? c : p);
+        selected.entry = selected.parent.xml.entries[0];
       }
     }
-    var obj = unreadObjs[iIndex];
-    // Update accoutSelector
-    var doAccountSelector = !_selectedAccount || _selectedAccount != selectedAccount;
+    else { // Even if the selected entry is available still the parent might have been changed
+      selected.parent = objs.filter(o => o.xml.link == selected.parent.xml.link)[0];
+    }
+    // updating current index
+    selected.parent.xml.entries.forEach(function (entry, i) {
+      if (entry.id == selected.entry.id) {
+        if (index != i) {
+          index = i;
+          // Although body is updated but index is not
+          stat.current = index + 1;
+        }
+      }
+    });
+
+    // Is previous or next requested
+    if (previous && index > 0) {
+      index -= 1;
+      selected.entry = selected.parent.xml.entries[index];
+    }
+    if (next && selected.parent.xml.entries.length - 1 > index) {
+      index += 1;
+      selected.entry = selected.parent.xml.entries[index];
+    }
+
+    // What parts need update
+    var doAccountSelector = old.link != selected.parent.xml.link,
+        doAccountBody = old.id != selected.entry.id,
+        doNumber = old.count != selected.parent.xml.fullcount,
+        doPrevious = index !== 0;
+        doNext = index != selected.parent.xml.entries.length - 1;
+
     if (doAccountSelector) {
-      if (!selectedAccount) {
-        selectedAccount = obj.account;
-      }
-      _selectedAccount = selectedAccount;
-      accountSelector.text = selectedAccount;
+      old.link = selected.parent.xml.link;
+      accountSelector.text = selected.parent.xml.title + (selected.parent.xml.label ? " [" + selected.parent.xml.label + "]" : "");
     }
-    // Update email's body
-    function updateBody(entry, index) {
-      var base = /[^\?]*/.exec(entry.link)[0];
-      var id = /message_id\=([^\&]*)/.exec(entry.link);
-      
+    if (doAccountBody) {
+      old.id = selected.entry.id;
+
+      var base = /[^\?]*/.exec(selected.entry.link)[0];
+      var message_id = /message_id\=([^\&]*)/.exec(selected.entry.link);
       stat.current = index + 1;
-      body.title = entry.title;
-      body.titleLink = (id.length == 2 && id[1]) ? base + "/?shva=1#inbox/" + id[1] : entry.link;
-      body.name = entry.author_name;
-      body.nameLink = base + "?view=cm&fs=1&tf=1&to=" + entry.author_email;
-      body.email = "<" + entry.author_email + ">";
-      body.date = prettyDate(entry.modified);
+      body.title = selected.entry.title;
+      body.titleLink = (message_id.length == 2 && message_id[1]) ? base + "/?shva=1#inbox/" + message_id[1] : selected.entry.link;
+      body.name = selected.entry.author_name;
+      body.nameLink = base + "?view=cm&fs=1&tf=1&to=" + selected.entry.author_email;
+      body.email = "<" + selected.entry.author_email + ">";
       updateContent ();
-      _tag[selectedAccount] = entry.id;
     }
-    var doBody = !_tag[selectedAccount] || doAccountSelector || doNext || doPrevious;
-    // Make sure selected item is still available
-    if (!doBody) {
-      var isAvailable = false;
-      obj.entries.forEach(function(entry, index) {
-        if (entry.id == _tag[selectedAccount]) {
-          isAvailable = true;
-          // Tag is available but its index is wrong due to recent update,
-          // So switch to the first index (newest one)
-          if (index != parseInt(stat.current) - 1) {
-            _tag[selectedAccount] = null;
-            doBody = true;
-          }
-          // Old entry, just update time
-          else {
-            body.date = prettyDate(entry.modified);
-          }
-        }
-      });
-      if (!isAvailable) {
-        doBody = true;
-        if (jIndex && obj.entries[jIndex - 1]) {
-          _tag[selectedAccount] = obj.entries[jIndex - 1].id;
-        } 
-        else {
-          _tag[selectedAccount] = null;
-        }
-      }
+    if (doNumber) {
+      old.count = selected.parent.xml.fullcount;
+      stat.total = selected.parent.xml.fullcount;
     }
-    if (doBody) {
-      if (!_tag[selectedAccount]) {
-        _tag[selectedAccount] = obj.entries[0].id;
-      }
-      var detected = false;
-      for (var j = obj.entries.length - 1; j >= 0; j -= 1) {
-        var entry = obj.entries[j];
-        if (entry.id == _tag[selectedAccount]) {
-          detected = true;
-          if (doNext) {
-            jIndex = j + 1;
-            doNext = false;
-          }
-          else if (doPrevious) {
-            doPrevious = false;
-            jIndex = j - 1;
-            updateBody(obj.entries[jIndex], jIndex);
-          }
-          else {
-            jIndex = j;
-          }
-          updateBody(obj.entries[jIndex], jIndex);
-          break;
-        }
-      }
-      // In case, email thread is not detected, switch to the first email
-      if (!detected) {
-        jIndex = 0;
-        updateBody(obj.entries[jIndex], jIndex);
-      }
-    }
-    // Update toolbar buttons
-    var pr = false,
-        nt = false;
-    if (jIndex == 0) {
-      pr = true;
-    }
-    if (jIndex == obj.count - 1 || jIndex == 19) {
-      nt = true;
-    }
-    if (obj.count == 1) {
-      pr = true;
-      nt = true;
-    }
-    if (pr) {
-      $("previous").setAttribute("disabled", true);
-    }
-    else {
+    if (doPrevious) {
       $("previous").removeAttribute("disabled");
     }
-    if (nt) {
-      $("next").setAttribute("disabled", true);
-    }
     else {
+      $("previous").setAttribute("disabled", true);
+    }
+    if (doNext) {
       $("next").removeAttribute("disabled");
     }
-    // Update stat
-    stat.total = obj.count;
+    else {
+      $("next").setAttribute("disabled", true);
+    }
+    body.date = prettyDate(selected.entry.modified);
+    
+    console.error("doAccountSelector: " + doAccountSelector, "doAccountBody: " + doAccountBody, "doNumber: " + doNumber)
   }
 })();
+
 new Listen("archive", "click", function(e) {
   $("archive").setAttribute("wait", true);
   $("archive").setAttribute("disabled", true);
-  var link = unreadObjs[iIndex].entries[jIndex].link;
-  self.port.emit("action", link, "rc_%5Ei");
+  self.port.emit("action", selected.entry.link, "rc_%5Ei");
 });
 new Listen("trash", "click", function(e) {
   $("trash").setAttribute("wait", true);
   $("trash").setAttribute("disabled", true);
-  var link = unreadObjs[iIndex].entries[jIndex].link;
-  self.port.emit("action", link, "tr");
+  self.port.emit("action", selected.entry.link, "tr");
 });
 new Listen("spam", "click", function(e) {
   $("spam").setAttribute("wait", true);
   $("spam").setAttribute("disabled", true);
-  var link = unreadObjs[iIndex].entries[jIndex].link;
-  self.port.emit("action", link, "sp");
+  self.port.emit("action", selected.entry.link, "sp");
 });
 new Listen("read", "click", function(e) {
   $("read").textContent = "Wait...";
   $("read").setAttribute("disabled", true);
-  var link = unreadObjs[iIndex].entries[jIndex].link;
-  self.port.emit("action", link, "rd");
+  self.port.emit("action", selected.entry.link, "rd");
 });
 new Listen("refresh", "click", function(e) {
   self.port.emit("update");  
 });
 new Listen("inbox", "click", function(e) {
-  self.port.emit("open", unreadObjs[iIndex].link); 
+  self.port.emit("open", selected.parent.xml.link); 
 });
 new Listen("read-all", "click", function(e) {
   $("read-all").setAttribute("wait", true);
   $("read-all").setAttribute("disabled", true);
-  var links = [];
-  unreadObjs[iIndex].entries.forEach(function (entry) {
-    links.push(entry.link);
-  });
+  var links = selected.parent.xml.entries.map(e => e.link);
   self.port.emit("action", links, "rd-all");
 });
 self.port.on("action-response", function(cmd) {
@@ -370,7 +340,6 @@ self.port.on("action-response", function(cmd) {
     obj.removeAttribute("wait");
     obj.removeAttribute("disabled");
   }
-  //self.port.emit("decrease_mails", iIndex, jIndex);
 });
 new Listen("expand", "click", function () {
   var type = $("content").getAttribute("type");
@@ -378,14 +347,13 @@ new Listen("expand", "click", function () {
 });
 function updateContent () {
   function doSummary () {
-    var summary = unreadObjs[iIndex].entries[jIndex].summary;
+    var summary = selected.entry.summary;
     $("email_body").textContent = summary + " ...";
   }
 
   var type = $("content").getAttribute("type");
   if (type) {
-    if (typeof iIndex === 'undefined' || typeof jIndex === 'undefined') return;
-    var link = unreadObjs[iIndex].entries[jIndex].link;
+    var link = selected.entry.link;
     var content = contentCache[link];
     if (content) {
       $("content").removeAttribute("mode");
@@ -401,13 +369,11 @@ function updateContent () {
   else {
     doSummary();
   }
-
 }
 self.port.on("body-response", function(link, content) {
-  if (link == unreadObjs[iIndex].entries[jIndex].link) {
+  if (link == selected.entry.link) {
     // For chat conversations, there is no full content mode
-    contentCache[link] = 
-      content === "..." ?  unreadObjs[iIndex].entries[jIndex].summary + " ..." : content;
+    contentCache[link] = content === "..." ?  selected.entry.summary + " ..." : content;
     updateContent ();
   }
 });
