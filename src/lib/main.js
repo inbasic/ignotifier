@@ -908,7 +908,7 @@ var getBody = (function () {
           var message = html.documentElement.getElementsByClassName("message");
           var body = "...";
           try {
-            body = plainText.getPlainText(message[message.length - 1].children[0].children[2]);
+            body = plainText.getPlainText(message[message.length - 1].children[0].children[2], url);
           } catch (e) {}
           if (callback) callback.apply(pointer, [body]);
         });

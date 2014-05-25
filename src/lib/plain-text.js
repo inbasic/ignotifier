@@ -24,7 +24,23 @@ var prefs = require("sdk/simple-prefs").prefs,
       }
     };
 
-exports.getPlainText = function(node){
+function colorToHex(color) {
+  if (color.substr(0, 1) === '#') {
+      return color;
+  }
+  var digits = /(.*?)rgb\((\d+), (\d+), (\d+)\)/.exec(color);
+
+  var red = parseInt(digits[2]);
+  var green = parseInt(digits[3]);
+  var blue = parseInt(digits[4]);
+
+  var rgb = blue | (green << 8) | (red << 16);
+  return digits[1] + '#' + rgb.toString(16);
+};
+
+    
+    
+exports.getPlainText = function(node, link){
   var normalize = function(a){
     if(!a) return "";
     return a
@@ -89,8 +105,30 @@ exports.getPlainText = function(node){
       if (c.localName == "a" && c.href && c.textContent) {
         t += "<a href='" + c.href + "'>" + c.textContent + "</a>";
       }
+      if (c.localName === "img" && c.src) {
+        var href;
+        if (c.src.contains("http")) {
+          href = c.src;
+        }
+        else if (c.src.contains("mail/u/")) {
+          href = "https://mail.google.com" + c.src;
+        }
+        else {
+          href = link + c.src;
+        }
+        t += "<img src='" + href + "'></img>";
+      }
       else if (c.nodeType == 3) {
-        t += c.nodeValue;
+        var color;
+        try {
+          color = windows.active.getComputedStyle(c.parentNode, null).getPropertyValue("color");
+        } catch (e) {}
+        if (color && color !== "rgb(0, 0, 0)") {
+          t += '<font color="' + colorToHex (color) + '">' + c.nodeValue + '</font>';
+        }
+        else {
+          t += c.nodeValue;
+        }
       }
       else if(c.childNodes.length) {
         recurse(c);
@@ -98,7 +136,8 @@ exports.getPlainText = function(node){
     }
     t += gap;
     t =t.replace(/(<[^>^<]+>)/ig, function (s){ //Strip HTML tags
-      return s.contains("<a href") || s.contains("</a>") ? s : s.replace(/\</g, "&lt;").replace(/\>/g, "&gt;");
+      var safe = s.contains("<a href") || s.contains("</a>") || s.contains("<img src") || s.contains("</img>") || s.contains("<font color") || s.contains("</font>");
+      return safe ? s : s.replace(/\</g, "&lt;").replace(/\>/g, "&gt;");
     });
     return t;
   }

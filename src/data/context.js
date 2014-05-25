@@ -276,8 +276,6 @@ var update = (function () {
       $("next").setAttribute("disabled", true);
     }
     body.date = prettyDate(selected.entry.modified);
-    
-    console.error("doAccountSelector: " + doAccountSelector, "doAccountBody: " + doAccountBody, "doNumber: " + doNumber)
   }
 })();
 
