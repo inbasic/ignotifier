@@ -112,7 +112,7 @@ if (!Promise || !Promise.all) { //Support for FF < 25
 }
 
 /** Global variables */
-var tm, resetTm, gButton, emailsCache = [], server = new Server();
+var tm, resetTm, gButton, emailsCache = [], server = new Server(), silent;
 
 /** Loading style **/
 (function () {
@@ -268,57 +268,74 @@ gButton = toolbarbutton.ToolbarButton({
       }
     }
   },
-  onContext: (function () {
-    return function (e, menupopup, _menuitem, _menuseparator) {
-      //Install command event listener
-      if (!menupopup.installed) {
-        menupopup.addEventListener("command", function (e) {
-          var link = e.originalTarget.value;
-          if (link) open(link.replace(/\?.*/ , ""));
-        });
-        menupopup.installed = true;
+  onContext: function (e, menupopup, menuitem, menuseparator, menu) {
+    //Install command event listener
+    if (!menupopup.installed) {
+      menupopup.addEventListener("command", function (e) {
+        var link = e.originalTarget.getAttribute("link");
+        if (link) open(link.replace(/\?.*/ , ""));
+      });
+      menupopup.installed = true;
+    }
+    // remove old items
+    while (menupopup.firstChild) {
+      menupopup.removeChild(menupopup.firstChild);
+    }
+    // insert new items
+    let show = emailsCache.map(o => o.xml.rootLink).map((e,i,a) => a.indexOf(e) == i);
+    let items = emailsCache.filter((e, i) => show[i]).map(function (o) {
+      return {
+        type: menuitem,
+        label: o.xml.title,
+        link: o.xml.rootLink
       }
-      //remove old items
-      while (menupopup.firstChild) {
-        menupopup.removeChild(menupopup.firstChild);
-      }
-      var tmp = (function () {  //[title, link] (no duplicated account)
-        var t1 = emailsCache.map(o => [o.xml.title, o.xml.link]);
-        var t2 = [];
-        return t1.filter(function (o) {
-          if (t2.indexOf(o[0]) !== -1) return false;
-          t2.push(o[0]);
-          return true;
-        })
-      })();
-      function addChild (label, value) {
-        var item = _menuitem.cloneNode(true);
-        item.setAttribute("label", label);
-        item.setAttribute("value", value);
-        menupopup.appendChild(item);
-        return item;
-      }
-      if (tmp.length) {
-        tmp.forEach(function (obj) {
-          addChild(obj[0], obj[1]);
-        });
-      }
-      else {
-        addChild(_("context"), "");
-      }
-      //Permanent List
-      menupopup.appendChild(_menuseparator.cloneNode(false));
-      addChild(_("label1"), "").addEventListener("command", function (e) {
+    });
+    if (items.length) items.push({type: menuseparator});
+    items = items.concat([
+      {type: menu, label:_("label3"), childs: [
+        {type: menupopup, childs: [
+          {type: menuitem, label:_("label4"), value: 300},
+          {type: menuitem, label:_("label5"), value: 900},
+          {type: menuitem, label:_("label6"), value: 1800},
+          {type: menuitem, label:_("label7"), value: 3600},
+          {type: menuitem, label:_("label8"), value: 7200},
+          {type: menuitem, label:_("label9"), value: 18000}
+        ], command: function (e) {
+          if (silent) timer.clearTimeout(silent);
+          silent = timer.setTimeout(function () {
+            silent = null;
+          }, parseInt(e.originalTarget.getAttribute("value")) * 1000);
+        }}
+      ]},
+      {type: menuitem, label:_("label10"), command: function () {
+        if (silent) timer.clearTimeout(silent);
+        silent = null;
+      }},
+      {type: menuseparator}, 
+      {type: menuitem, label:_("label1"), command: function (e) {
         if (!tm) tm = new manager ("firstTime", "period", server);
         tm.reset(true);
-      });
-      addChild(_("label2"), "").addEventListener("command", function (e) {
+      }},
+      {type: menuitem, label:_("label2"), command: function (e) {
         windows.active.BrowserOpenAddonsMgr(
           "addons://detail/" + encodeURIComponent("jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack")
         );
+      }}
+    ]);
+    
+    function appendChilds (root, arr) {
+      arr.forEach(function (e) {
+        let element = e.type.cloneNode(false);
+        ["label", "tooltip", "value", "link"].filter(i => e[i]).forEach(i => element.setAttribute(i, e[i]));
+        if (e.command) {
+          element.addEventListener("command", e.command, false);
+        }
+        root.appendChild (element);
+        if (e.childs && e.childs.length) appendChilds(element, e.childs);
       });
     }
-  })(),
+    appendChilds(menupopup, items);
+  },
   onCommand: onCommand
 });
 
@@ -546,6 +563,17 @@ function Server () {
           if (label) {
             temp += "/?shva=1#label/" + label;
           }
+        } catch(e) {}
+
+        return temp;
+      },
+      get rootLink () {
+        var temp = config.email.url,
+            label;
+        try {
+          //Inbox href
+          temp = xml.getElementsByTagName("link")[0].getAttribute("href").replace("http://", "https://");
+          temp = fixID (temp);
         } catch(e) {}
 
         return temp;
@@ -924,6 +952,8 @@ var getBody = (function () {
 /** Notifier **/
 var notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob/master/lib/simple-notify.js
   return function (title, text, clickable, link) {
+    if (silent) return;
+  
     try {
       let alertServ = Cc["@mozilla.org/alerts-service;1"].
                       getService(Ci.nsIAlertsService);
@@ -954,6 +984,8 @@ var notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob/mas
 
 /** Player **/
 var play = function () {
+  if (silent) return;
+
   var path = "alert.wav";
   
   if (prefs.soundNotification == 2 && prefs.sound) {

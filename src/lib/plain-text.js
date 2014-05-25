@@ -94,7 +94,6 @@ function recurse (n, link) {
             tmp += '<hr/>';
           }
           else {
-            console.log(c);
             tmp += c.outerHTML;
           }
         }
