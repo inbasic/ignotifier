@@ -22,7 +22,7 @@ a:focus
   color: #191919;
 }
 
-ul
+#accounts
 {
   list-style: none;
 }
@@ -203,7 +203,7 @@ ul
   line-height: 24px;
 }
 
-#content p
+#content>p
 {
   float: none;
   clear: both;
@@ -214,7 +214,8 @@ ul
   white-space: pre-wrap;
   word-break: break-all;
 }
-#content p a {
+
+#content>p a {
   color: #1155CC;
 }
 .btn
