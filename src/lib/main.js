@@ -163,10 +163,12 @@ function open (url, inBackground) {
     for each(var tab in (prefs.searchMode ? windows.activeWindow.tabs : tabs)) {
       if (tab.url == url) {
         if (!prefs.onGmailNotification) notify(_("gmail"), _("msg8"));
+        tab.activate();
+        tab.window.activate();  // Focus not active window
         return;
       }
       var parse1 = url_parse(tab.url);
-      if (parse1.base == parse2.base && !/to\=/.test(url)) {
+      if (parse1.base == parse2.base && !/to\=/.test(url) && parse1.base.contains("mail.google")) {
         var reload = parse2.id && tab.url.indexOf(parse2.id) == -1;
         if (tab == tabs.activeTab && !reload) {
           if (!prefs.onGmailNotification) notify(_("gmail"), _("msg8"));
