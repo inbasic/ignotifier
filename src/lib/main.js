@@ -232,9 +232,9 @@ contextPanel.port.on("update", function () {
 contextPanel.port.on("clipboard", (function () {
   var gClipboardHelper = Cc["@mozilla.org/widget/clipboardhelper;1"]
     .getService(Ci.nsIClipboardHelper);
-  return function (str) {
+  return function (str, type) {
     gClipboardHelper.copyString(str);
-    notify(_("gmail"), _("msg13"));
+    notify(_("gmail"), type ? _("msg15") : _("msg13"));
   }
 })());
 

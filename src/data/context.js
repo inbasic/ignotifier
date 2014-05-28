@@ -397,7 +397,12 @@ function prettyDate(time) {
 }
 // Link opener for html
 document.defaultView.addEventListener('ignotifier-open', function(e) {
-  self.port.emit(e.detail.button === 2 ? "clipboard" : "open", e.detail.link);
+  if (e.detail.link) {
+    self.port.emit(e.detail.button === 2 ? "clipboard" : "open", e.detail.link, 0);
+  }
+  else if (e.detail.button === 2 && e.detail.selectedText) {
+    self.port.emit("clipboard", e.detail.selectedText, 1);
+  }
 });
 
 // Resize

@@ -5,16 +5,14 @@
         <link rel="stylesheet" href="context.css" />        
         <script>
           window.addEventListener("click", function (e) {
-            var url = e.originalTarget.href;
-            if (url) {
-              e.preventDefault();
-              var event = document.createEvent('CustomEvent');
-              event.initCustomEvent("ignotifier-open", true, true, {
-                link: url,
-                button: e.button
-              });
-              document.documentElement.dispatchEvent(event);
-            }
+            e.preventDefault();
+            var event = document.createEvent('CustomEvent');
+            event.initCustomEvent("ignotifier-open", true, true, {
+              link: e.originalTarget.href,
+              selectedText: window.getSelection() + '',
+              button: e.button
+            });
+            document.documentElement.dispatchEvent(event);
           });
         </script>
     </head>
