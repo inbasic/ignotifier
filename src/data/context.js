@@ -41,11 +41,11 @@ self.port.on("update-reset", function(o) {
     objs.map(obj => obj.xml.entries.filter((e) => obj.newIDs.indexOf(e.id) != -1)).
     reduce((p,c) => p.concat(c), []);
   if (unreadEntries.length) {
-    var newestEntry = unreadEntries.reduce(function (p, c) {
+    var newestEntry = unreadEntries.sort(function (p, c) {
       var d1 = new Date(p.modified);
       var d2 = new Date(c.modified);
-      return d1 > d2 ? p : c;
-    });
+      return d1 < d2;
+    })[0];
     selected.entry = newestEntry;
     selected.parent = objs.reduce((p,c) => c.xml.entries.indexOf(newestEntry) != -1 ? c : p);
   }

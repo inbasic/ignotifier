@@ -932,15 +932,7 @@ var getBody = (function () {
           return;
         }
         new curl(url + "?ui=2&ik=" + ik + "&view=pt&search=all&th=" + thread[1]).then(function (req) {
-          var parser = Cc["@mozilla.org/xmlextras/domparser;1"]
-            .createInstance(Ci.nsIDOMParser);
-          var html = parser.parseFromString(req.responseText, "text/html");
-          var message = html.documentElement.getElementsByClassName("message");
-          var body = "...";
-          try {
-            body = plainText.getPlainText(message[message.length - 1].children[0].children[2], url);
-            //body = message[message.length - 1].children[0].children[2].outerHTML;
-          } catch (e) {}
+          var body = plainText.getPlainText(req, url);
           if (callback) callback.apply(pointer, [body]);
         });
       });
