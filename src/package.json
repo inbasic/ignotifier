@@ -1,21 +1,21 @@
 {
   "fullName": "Gmail Notifier (restartless)",
   "name": "gmail-notifier",
-  
+
   "description": "Multi-account Gmail notifier (without storing passwords locally)",
 
   "license": "mozilla public license 1.1",
 
   "author": "InBasic",
   "contributors": ["CaTz", "ecaron"],
-  
+
   "url": "",
-  "version": "0.4.4",
+  "version": "0.4.5b1",
   "lib": "lib",
   "main": "main",
-  
+
   "permissions": {"private-browsing": true},
-  
+
   "preferences": [{
     "name": "period",
     "title": "Check for new emails every (seconds):",
@@ -81,14 +81,14 @@
   },
   {
     "name": "tray",
-    "title": "Display Windows taskbar notification (beta):",
-    "description": "Taskbar notifications are only supported in Windows OS at the moment.",
+    "title": "Display \"Windows taskbar notification\" or \"Mac OS Dock notification\":",
+    "description": "Taskbar notifications are not supported on Linux OS at the moment.",
     "type": "bool",
     "value": true
   },
   {
     "name": "doTrayCallback",
-    "title": "Open toolbar panel when click on the taskbar notification icon (beta):",
+    "title": "Open toolbar panel when click on the taskbar notification icon (Windows only, beta):",
     "description": "This feature is highly experimental and might make your Firefox browser unstable. [Restart required]",
     "type": "bool",
     "value": false
@@ -215,5 +215,5 @@
     "title": "Reset all settings back:"
   }],
 
-  "id": "jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls" 
+  "id": "jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls"
 }

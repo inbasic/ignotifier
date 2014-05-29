@@ -26,6 +26,9 @@ var tabs          = require("sdk/tabs"),
       if (os == "WINNT") {
         return require('./tray/winnt/tray');
       }
+      if (os == "Darwin") {
+        return require('./tray/darwin/tray');
+      }
       return {
         set: function () {},
         remove: function () {},
@@ -41,9 +44,9 @@ var config = {
   //Gmail
   email: {
     url: "https://mail.google.com/mail/u/0",
-    FEEDS: "https://mail.google.com/mail/u/0/feed/atom," + 
-      "https://mail.google.com/mail/u/1/feed/atom," + 
-      "https://mail.google.com/mail/u/2/feed/atom," + 
+    FEEDS: "https://mail.google.com/mail/u/0/feed/atom," +
+      "https://mail.google.com/mail/u/1/feed/atom," +
+      "https://mail.google.com/mail/u/2/feed/atom," +
       "https://mail.google.com/mail/u/3/feed/atom",
     get feeds() {
       //server implementation only supports atom feeds
@@ -73,7 +76,7 @@ var config = {
   get period () {return (prefs.period > 10 ? prefs.period : 10) * 1000},
   get resetPeriod () {
     if (!prefs.resetPeriod) {
-      return 0; 
+      return 0;
     }
     return (prefs.resetPeriod > 5 ? prefs.resetPeriod : 5) * 1000 * 60
   },
@@ -85,12 +88,12 @@ var config = {
   toolbar: {
     id: "igmail-notifier",
     move: {
-      toolbarID: "nav-bar", 
-      insertbefore: "home-button", 
+      toolbarID: "nav-bar",
+      insertbefore: "home-button",
       forceMove: true
     }
   },
-  defaultTooltip: _("gmail") + "\n\n" + 
+  defaultTooltip: _("gmail") + "\n\n" +
     _("tooltip1") + "\n" + _("tooltip2") + "\n" + _("tooltip3"),
   //Homepage:
   homepage: "http://add0n.com/gmail-notifier.html"
@@ -317,7 +320,7 @@ gButton = toolbarbutton.ToolbarButton({
         if (silent) timer.clearTimeout(silent);
         silent = null;
       }},
-      {type: menuseparator}, 
+      {type: menuseparator},
       {type: menuitem, label:_("label1"), command: function (e) {
         if (!tm) tm = new manager ("firstTime", "period", server);
         tm.reset(true);
@@ -328,7 +331,7 @@ gButton = toolbarbutton.ToolbarButton({
         );
       }}
     ]);
-    
+
     function appendChilds (root, arr) {
       arr.forEach(function (e) {
         let element = e.type.cloneNode(false);
@@ -348,14 +351,14 @@ gButton = toolbarbutton.ToolbarButton({
 /** icon designer**/
 var icon = (function () {
   var i = 0, t = [];
-  
+
   function clearTimeout () {
     t.forEach(function (_t) {
       timer.clearTimeout(t);
       t.splice(t.indexOf(t), 1);
     });
   }
-  
+
   return function (number, clr) {
     // Big count number?
     gButton.badge = number;
@@ -370,7 +373,7 @@ var icon = (function () {
           break;
       }
     }
-    
+
     if (clr == "load") {
       clearTimeout();
       t.push(timer.setTimeout(function () {
@@ -467,7 +470,7 @@ var manager = function (once, period, func) {
     }, first ? config[once] : config[period]);
   }
   run(once, period);
-  
+
   return {
     reset: function (forced) {
       timer.clearTimeout(_timer);
@@ -513,14 +516,14 @@ function Server () {
     }
     else {
       if (!req.responseText) return;
-      
+
       var parser = Cc["@mozilla.org/xmlextras/domparser;1"]
         .createInstance(Ci.nsIDOMParser);
       xml = parser.parseFromString(req.responseText, "text/xml");
     }
     //Sometimes id is wrong in the feed structure!
     function fixID (link) {
-      var id = /u\/\d/.exec(feed);  
+      var id = /u\/\d/.exec(feed);
       if (id.length) {
         return link.replace(/u\/\d/, id[0]);
       };
@@ -681,7 +684,7 @@ function Server () {
     var color = "blue", count = -1;
     return function (forced) {
       if (forced) {
-        icon(null, "load"); 
+        icon(null, "load");
         color = "load";
       }
       // Cancel previous execution?
@@ -718,7 +721,7 @@ function Server () {
         });
         // New total count number
         var newCount = objs.reduce((p,c) => p + c.xml.fullcount, 0);
-        // 
+        //
         if (!anyNewEmails && !forced && count === newCount) {
           contextPanel.port.emit('update-date', objs); //Updating the date of the panel
           return; //Everything is clear
@@ -746,13 +749,13 @@ function Server () {
           .replace("[title]", shorten(e.title))
           .replace(/\[break\]/g, "\n")).join("\n\n");
         // Preparing the tooltip
-        var tooltip = 
-          _("gmail") + "\n\n" + 
-          objs.reduce((p,c) => 
-            p += c.xml.title + 
+        var tooltip =
+          _("gmail") + "\n\n" +
+          objs.reduce((p,c) =>
+            p += c.xml.title +
             (c.xml.label ? " [" + c.xml.label + "]" : "") +
             " (" + c.xml.fullcount + ")" + "\n", ""
-          ).replace(/\n$/, "");  
+          ).replace(/\n$/, "");
         if (!forced && !anyNewEmails) {
           if (newCount) {
             icon(newCount,  "red");
@@ -805,7 +808,7 @@ sp.on("reset", function() {
   prefs.feeds               = config.email.FEEDS;
   prefs.clrPattern          = 0;
   prefs.oldFashion          = 0;
-  prefs.forceVisible        = true; 
+  prefs.forceVisible        = true;
   prefs.middleClick         = 0;
   prefs.onGmailNotification = false;
   prefs.notificationDetails = 1;
@@ -865,7 +868,7 @@ var action = (function () {
       }
     });
   }
-  
+
   function sendCmd (url, at, threads, cmd, callback, pointer) {
     if (cmd == "rc_%5Ei" && prefs.doReadOnArchive) {
       sendCmd(url, at, threads, "rd");
@@ -882,7 +885,7 @@ var action = (function () {
       }
     });
   }
-  
+
   return function (links, cmd, callback, pointer) {
     if (typeof(links) == "string") {
       links = [links];
@@ -908,7 +911,7 @@ var action = (function () {
         }
       }
       else {
-        if (callback) callback.apply(pointer, [false, "Error at fetching 'at'"]); 
+        if (callback) callback.apply(pointer, [false, "Error at fetching 'at'"]);
       }
     });
   }
@@ -924,7 +927,7 @@ var getBody = (function () {
       }
     });
   }
-  
+
   return function (link, callback, pointer) {
     link = link.replace("http://", "https://");
     var url = /[^\?]*/.exec(link)[0] + "/";
@@ -951,11 +954,11 @@ var getBody = (function () {
 var notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob/master/lib/simple-notify.js
   return function (title, text, clickable, link) {
     if (silent) return;
-  
+
     try {
       let alertServ = Cc["@mozilla.org/alerts-service;1"].
                       getService(Ci.nsIAlertsService);
-      alertServ.showAlertNotification(data.url("notification.png"), title, text, clickable, link, 
+      alertServ.showAlertNotification(data.url("notification.png"), title, text, clickable, link,
         function (subject, topic, data) {
           if (topic == "alertclickcallback") {
             timer.setTimeout(function () {
@@ -985,7 +988,7 @@ var play = function () {
   if (silent) return;
 
   var path = "alert.wav";
-  
+
   if (prefs.soundNotification == 2 && prefs.sound) {
     let file = Cc["@mozilla.org/file/local;1"].createInstance(Ci.nsIFile);
     file.initWithPath(prefs.sound);
