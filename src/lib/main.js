@@ -240,11 +240,15 @@ contextPanel.port.on("clipboard", (function () {
 
 /** onCommand **/
 var onCommand = function (e) {
+  var doOldFashion = prefs.oldFashion == "1" &&
+    emailsCache.map(o => o.xml.rootLink)
+        .filter((v,i,a) => a.indexOf(v) === i).length == 1;
+
   if (!gButton.badge) {
     open(config.email.url);
   }
-  else if (gButton.badge == 1 && prefs.oldFashion == "1") {
-    //open(unreadObjs[0].link);
+  else if (doOldFashion) {
+    open(emailsCache[0].xml.rootLink);
   }
   else {
     contextPanel.port.emit("resize", prefs.size);
@@ -737,7 +741,7 @@ function Server () {
         }
         var report = tmp.map(e => prefs.notificationFormat
           .replace("[author_name]", e.author_name)
-          .replace("[author_email]", "<" + e.author_email + ">")
+          .replace("[author_email]", e.author_email)
           .replace("[summary]", shorten(e.summary))
           .replace("[title]", shorten(e.title))
           .replace(/\[break\]/g, "\n")).join("\n\n");

@@ -219,11 +219,6 @@ a:focus
   color: #1155CC;
 }
 
-#content>p img
-{
-  max-width: 500px;
-}
-
 .btn
 {
   border: 1px solid rgba(0, 0, 0, 0.15);
