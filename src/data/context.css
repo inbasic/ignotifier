@@ -110,6 +110,7 @@ a:focus
   margin: 0;
   padding: 0;
   -moz-user-select: none;
+  color: #000 !important; /* KDE dark theme issue */
 }
 
 #header #accounts li
