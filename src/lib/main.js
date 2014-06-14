@@ -643,7 +643,7 @@ function Server () {
     return {
       execute: function () {
         d = new Promise.defer();
-        new curl(feed, timeout).then(
+        new curl(feed + "?rand=" + Math.round(Math.random() * 10000000), timeout).then(
           function (req) {
             if (req.status != 200) {
               return d.resolve({
