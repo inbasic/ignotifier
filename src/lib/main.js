@@ -83,7 +83,7 @@ var config = {
   get soundVolume () {return (prefs.soundVolume < 100 ? prefs.soundVolume : 100) / 100},
   //Toolbar
   toolbar: {
-    id: "igmail-notifier",
+    id: "igmail-notifier-2",
     move: {
       toolbarID: "nav-bar", 
       insertbefore: "home-button", 
