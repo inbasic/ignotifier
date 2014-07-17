@@ -30,7 +30,9 @@ exports.getPlainText = function (req, link) {
     var message = fragment.querySelectorAll(".message");
     message = message[message.length - 1].children[0].children[2];
     return message
-      .innerHTML.replace(/src\=\"\/mail\/u\//g, 'src="https://mail.google.com/mail/u/');
+      .innerHTML
+      .replace(/src\=\"\/mail\/u\//g, 'src="https://mail.google.com/mail/u/')
+      .replace(/\?ui\=2\&/g, link + "?ui=2&");
   }
   catch (e) {
     return "...";

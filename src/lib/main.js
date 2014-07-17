@@ -53,7 +53,10 @@ var config = {
       var temp = (prefs.feeds.replace(/rss20/g, "atom10") || config.email.FEEDS).split(",");
       //Check Feed formats
       temp.forEach(function (feed, index) {
-        temp[index] = feed.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+        temp[index] = feed
+          .replace(/^\s\s*/, '')
+          .replace(/\s\s*$/, '')
+          .replace(/atom\/(.*)/, function (a,b){return "atom/" + b.replace(/\s/g, "-").toLowerCase()});
       });
       //Validating URLS
       temp = temp.filter(function (url) {
@@ -93,10 +96,14 @@ var config = {
       forceMove: true
     }
   },
+  panel: {
+    get fullWidth () {return prefs.fullWidth > 400 ? prefs.fullWidth : 400},
+    get fullHeight () {return prefs.fullHeight > 400 ? prefs.fullHeight : 400},
+  },
   defaultTooltip: _("gmail") + "\n\n" +
     _("tooltip1") + "\n" + _("tooltip2") + "\n" + _("tooltip3"),
   //Homepage:
-  homepage: "http://add0n.com/gmail-notifier.html"
+  homepage: "http://firefox.add0n.com/gmail-notifier.html"
 };
 
 /** tray callback handling **/
@@ -224,11 +231,14 @@ function open (url, inBackground) {
 
 /** Multi account Panel **/
 var contextPanel = panel.Panel({
-  contentURL: data.url("context.html"),
-  contentScriptFile: data.url("context.js")
+  contentURL: data.url("panel/context.html"),
+  contentScriptFile: data.url("panel/context.js")
 });
-contextPanel.port.on("resize", function({width, height, mode}) {
-  contextPanel.resize(width, height);
+contextPanel.on("show", function() {
+  contextPanel.port.emit("show");
+});
+contextPanel.port.on("resize", function(mode) {
+  contextPanel.resize(mode == 1 ? config.panel.fullWidth : 430, mode == 1 ? config.panel.fullHeight : 210);
   prefs.size = mode;
 });
 contextPanel.port.on("open", function (link) {
@@ -251,6 +261,9 @@ contextPanel.port.on("body", function (link) {
 });
 contextPanel.port.on("update", function () {
   tm.reset(true);
+});
+contextPanel.port.on("keyUp", function () {
+  contextPanel.port.emit("keyUp", prefs.keyUp);
 });
 contextPanel.port.on("clipboard", (function () {
   var gClipboardHelper = Cc["@mozilla.org/widget/clipboardhelper;1"]
@@ -456,6 +469,9 @@ exports.onUnload = function (reason) {
 }
 
 /** Prefs Listener**/
+sp.on("keyUp", function () {
+  contextPanel.port.emit("keyUp", prefs.keyUp);
+});
 sp.on("clrPattern", function () {
   tm.reset();
 });
@@ -842,6 +858,9 @@ sp.on("reset", function() {
   prefs.tray                = true;
   prefs.notificationFormat  = "From: [author_email][break]Title: [title][break]Summary: [summary]";
   prefs.doTrayCallback      = false;
+  prefs.keyUp               = false;
+  prefs.fullWidth            = 700;
+  prefs.fullHeight           = 600;
 });
 sp.on("tray", function() {
   if (!prefs.tray) {

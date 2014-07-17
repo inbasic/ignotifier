@@ -10,7 +10,7 @@
   "contributors": ["CaTz", "ecaron"],
 
   "url": "",
-  "version": "0.4.5b2",
+  "version": "0.4.5b4",
   "lib": "lib",
   "main": "main",
 
@@ -174,11 +174,25 @@
     ]
   },
   {
-    "name": "forceVisible",
-    "title": "Always try to keep toolbar button visible:",
-    "description": "Only available for Firefox 28.0 or less",
+    "name": "fullWidth",
+    "title": "Toolbar panel width in the full-content view mode (px):",
+    "description": "Minimum width is 400px",
+    "type": "integer",
+    "value": 700
+  },
+  {
+    "name": "fullHeight",
+    "title": "Toolbar panel height in the full-content view mode (px):",
+    "description": "Minimum height is 400px",
+    "type": "integer",
+    "value": 600
+  },
+  {
+    "name": "keyUp",
+    "title": "Support keyboard shortcuts on the toolbar panel:",
+    "description": "!: Report as spam, # :Trash, e : Archive, Shift + i: Mark as read",
     "type": "bool",
-    "value": true
+    "value": false
   },
   {
     "name": "middleClick",
@@ -213,6 +227,13 @@
     "label": "Reset",
     "name": "reset",
     "title": "Reset all settings back:"
+  },
+  {
+    "name": "forceVisible",
+    "title": "Always try to keep toolbar button visible:",
+    "description": "Only available for Firefox 28.0 or less",
+    "type": "bool",
+    "value": true
   }],
 
   "id": "jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls"

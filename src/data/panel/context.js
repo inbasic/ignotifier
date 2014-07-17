@@ -1,13 +1,33 @@
-﻿var $ = (function() {
-  var cache = [];
-  return function(id) {
-    if (cache[id]) {
-      return cache[id];
-    }
-    cache[id] = document.getElementById(id);
-    return cache[id];
+﻿var doKeyUp = false;
+
+var qs = function (q, m) {
+  var reserved = {
+    'stats': 'header div[name="stat"] b',
+    'accounts': '#accounts',
+    'content': '#content',
+    'expand': '#expand',
+    'date': '#content div[name="date"]',
+    'email': '#content div[name="email"]',
+    'sender': '#content div[name="sender"] a',
+    'title': '#content div[name="title"] a',
+    'next': 'header div div:nth-child(2)',
+    'previous': 'header div div:nth-child(1)',
+    'archive': 'footer div[name="archive"]',
+    'spam': 'footer div[name="spam"]',
+    'gmail': 'footer div[name="gmail"]',
+    'trash': 'footer div[name="trash"]',
+    'refresh': 'footer div[name="refresh"]',
+    'read': 'footer div[name="read"]',
+    'read-all': 'footer div[name="read-all"]',
+    'email-container': 'header div[name="email-container"]',
+    'iframe': '#content iframe',
   }
-})();
+  q = reserved[q] || q;
+  qs.cache = qs.cache || [];
+  qs.cache[q] = qs.cache[q] || document[m ? "querySelectorAll" : "querySelector"](q);
+  return qs.cache[q];
+}
+
 var html = (function() {
   // List of all used elements
   var li = document.createElement("li");
@@ -67,9 +87,10 @@ self.port.on("update-date", function () {
   if (!selected.entry) return;
   body.date = prettyDate(selected.entry.modified);
 });
+
 /** objects **/
 var accountSelector = (function() {
-  var tmp = $("account_selector").getElementsByTagName("span")[0];
+  var tmp = qs('email-container');
   return {
     get text() {
       return tmp.textContent;
@@ -80,7 +101,7 @@ var accountSelector = (function() {
   }
 })();
 var stat = (function() {
-  var list = $("stat").getElementsByTagName("b");
+  var list = qs('stats', true);
   return {
     get current() {
       return list[0].textContent;
@@ -97,18 +118,11 @@ var stat = (function() {
   }
 })();
 var body = (function() {
-  var content = $("email_body"),
-      date = $("date"),
-      email = $("email"),
-      name = $("name"),
-      title = $("title");
+  var date = qs('date'),
+      email = qs('email'),
+      name = qs('sender'),
+      title = qs('title');
   return {
-    get content() {
-      return content.textContent
-    },
-    set content(val) {
-      content.textContent = val;
-    },
     get date() {
       return date.textContent
     },
@@ -141,8 +155,8 @@ var body = (function() {
   }
 })();
 /** Listeners **/
-var Listen = function(id, on, callback, pointer) {
-  var elem = $(id);
+var Listen = function(query, on, callback, pointer) {
+  var elem = qs(query);
   elem.addEventListener(on, function(e) {
     if (elem.getAttribute("disabled") == "true") {
       return;
@@ -151,9 +165,9 @@ var Listen = function(id, on, callback, pointer) {
   }, false);
 }
 
-new Listen("account_selector", "click", function(e) {
+new Listen('email-container', "click", function(e) {
   // Clear old list
-  $("accounts").innerHTML = "";
+  qs("accounts").innerHTML = "";
   // Add new items (remove no-unread accounts first)
   objs.
     filter(o => o.xml.fullcount).
@@ -161,17 +175,18 @@ new Listen("account_selector", "click", function(e) {
       var li = html("li", arr[0]);
 
       li.setAttribute("value", arr[1]);
+      li.setAttribute("class", "ellipsis");
       if (selected.entry && arr[1] == selected.parent.xml.link) {
         li.classList.add("selected");
       }
-      $("accounts").appendChild(li);
+      qs("accounts").appendChild(li);
     });
   // Show menu
-  $("accounts").style.display = "block";
+  qs("accounts").style.display = "block";
   e.stopPropagation();
 
   function tmp(e) {
-    $("accounts").style.display = "none";
+    qs("accounts").style.display = "none";
     window.removeEventListener("click", tmp);
   }
   window.addEventListener("click", tmp, false);
@@ -264,75 +279,75 @@ var update = (function () {
       stat.total = selected.parent.xml.fullcount;
     }
     if (doPrevious) {
-      $("previous").removeAttribute("disabled");
+      qs("previous").removeAttribute("disabled");
     }
     else {
-      $("previous").setAttribute("disabled", true);
+      qs("previous").setAttribute("disabled", true);
     }
     if (doNext) {
-      $("next").removeAttribute("disabled");
+      qs("next").removeAttribute("disabled");
     }
     else {
-      $("next").setAttribute("disabled", true);
+      qs("next").setAttribute("disabled", true);
     }
     body.date = prettyDate(selected.entry.modified);
   }
 })();
 
-new Listen("archive", "click", function(e) {
-  $("archive").setAttribute("wait", true);
-  $("archive").setAttribute("disabled", true);
+new Listen('archive', "click", function(e) {
+  qs('archive').setAttribute("wait", true);
+  qs('archive').setAttribute("disabled", true);
   self.port.emit("action", selected.entry.link, "rc_%5Ei");
 });
-new Listen("trash", "click", function(e) {
-  $("trash").setAttribute("wait", true);
-  $("trash").setAttribute("disabled", true);
+new Listen('trash', "click", function(e) {
+  qs('trash').setAttribute("wait", true);
+  qs('trash').setAttribute("disabled", true);
   self.port.emit("action", selected.entry.link, "tr");
 });
-new Listen("spam", "click", function(e) {
-  $("spam").setAttribute("wait", true);
-  $("spam").setAttribute("disabled", true);
+new Listen('spam', "click", function(e) {
+  qs('spam').setAttribute("wait", true);
+  qs('spam').setAttribute("disabled", true);
   self.port.emit("action", selected.entry.link, "sp");
 });
-new Listen("read", "click", function(e) {
-  $("read").textContent = "Wait...";
-  $("read").setAttribute("disabled", true);
+new Listen('read', "click", function(e) {
+  qs('read').textContent = "Wait...";
+  qs('read').setAttribute("disabled", true);
   self.port.emit("action", selected.entry.link, "rd");
 });
-new Listen("refresh", "click", function(e) {
+new Listen('refresh', "click", function(e) {
   self.port.emit("update");  
 });
-new Listen("inbox", "click", function(e) {
+new Listen('gmail', "click", function(e) {
   self.port.emit("open", selected.parent.xml.link); 
 });
-new Listen("read-all", "click", function(e) {
-  $("read-all").setAttribute("wait", true);
-  $("read-all").setAttribute("disabled", true);
+new Listen('read-all', "click", function(e) {
+  qs('read-all').setAttribute("wait", true);
+  qs('read-all').setAttribute("disabled", true);
   var links = selected.parent.xml.entries.map(e => e.link);
   self.port.emit("action", links, "rd-all");
 });
 self.port.on("action-response", function(cmd) {
   if (cmd == "rd") {
-    $("read").textContent = "Mark as read";
-    $("read").removeAttribute("disabled");
+    qs('read').textContent = "Mark as read";
+    qs('read').removeAttribute("disabled");
   }
   else {
     var obj;
     switch (cmd) {
     case "rd":
-      obj = $("read");
+      obj = qs('read');
       break;
     case "rd-all":
-      obj = $("read-all");
+      obj = qs('read-all');
       break;
     case "tr":
-      obj = $("trash");
+      obj = qs('trash');
       break;
     case "rc_%5Ei":
-      obj = $("archive");
+      obj = qs('archive');
       break;
     case "sp":
-      obj = $("spam");
+      obj = qs('spam');
       break;
     }
     obj.removeAttribute("wait");
@@ -340,27 +355,26 @@ self.port.on("action-response", function(cmd) {
   }
 });
 new Listen("expand", "click", function () {
-  var type = $("content").getAttribute("type");
-  resize(type ? 0 : 1);
+  resize(qs("body").getAttribute("mode") == "expanded");
 });
 function updateContent () {
   function doSummary () {
     var summary = selected.entry.summary;
-    $("email_body").textContent = summary + " ...";
+    qs("iframe").contentDocument.body.textContent = summary + " ...";
   }
 
-  var type = $("content").getAttribute("type");
+  var type = qs("body").getAttribute("mode") == "expanded";
   if (type) {
     var link = selected.entry.link;
     var content = contentCache[link];
     if (content) {
-      $("content").removeAttribute("mode");
+      qs("content").removeAttribute("loading");
       //content is a safe HTML parsed by (plain-text.js)
-      $("email_body").innerHTML = content;
+      qs("iframe").contentDocument.body.innerHTML = content;
     }
     else {
       doSummary ();
-      $("content").setAttribute("mode", "loading");
+      qs("content").setAttribute("loading", "true");
       self.port.emit("body", link);
     }
   }
@@ -376,6 +390,16 @@ self.port.on("body-response", function(link, content) {
   }
 });
 /** misc functions **/
+// iframe manipulations
+(function () {
+  var doc = qs("iframe").contentDocument;
+  var head = doc.getElementsByTagName('head')[0];
+  var link = doc.createElement("link");
+  link.setAttribute("rel", "stylesheet");
+  link.setAttribute("type", "text/css");
+  link.setAttribute("href", "resource://jid0-gjwrpchs3ugt7xydvqvk4dqk8ls-at-jetpack/gmail-notifier/data/panel/body/email.css");
+  head.appendChild(link);
+})();
 // JavaScript Pretty Date by John Resig (ejohn.org)
 function prettyDate(time) {
   var date = new Date((time || "")),
@@ -396,41 +420,55 @@ function prettyDate(time) {
     day_diff && Math.ceil(day_diff / 7) + " weeks ago";
 }
 // Link opener for html
-document.defaultView.addEventListener('ignotifier-open', function(e) {
-  if (e.detail.link) {
-    self.port.emit(e.detail.button === 2 ? "clipboard" : "open", e.detail.link, 0);
+function opener (e) {
+  e.preventDefault();
+  var target = e.originalTarget;
+  var selectedText = target.ownerDocument.getSelection() + '';
+  if (target.href) {
+    self.port.emit(e.button === 2 ? "clipboard" : "open", target.href, 0);
   }
-  else if (e.detail.button === 2 && e.detail.selectedText) {
-    self.port.emit("clipboard", e.detail.selectedText, 1);
+  else if (e.button === 2 && selectedText) {
+    self.port.emit("clipboard", selectedText, 1);
   }
-});
-
+}
+window.addEventListener("click", opener);
+qs("iframe").contentDocument.addEventListener("click", opener);
+function keyup (e) {
+  if (!doKeyUp) return;
+  
+  if (e.keyCode == 49 && e.shiftKey) qs("spam").click();
+  if (e.keyCode == 51 && e.shiftKey) qs("trash").click();
+  if (e.keyCode == 73 && e.shiftKey) qs("read").click();
+  if (e.keyCode == 69) qs("archive").click();
+}
+window.addEventListener("keyup", keyup);
+qs("iframe").contentDocument.addEventListener("keyup", keyup);
 // Resize
 function resize(mode) {
   mode = parseInt(mode);
-  width = mode ? 530 : 430;
-  height = mode ? 500 : 210;
-  document.body.clientWidth = width + "px";
-  $("email_body").style.height = (height - 178) + "px";
-  self.port.emit('resize', {
-    width: width,
-    height: height,
-    mode: mode
-  });
+  self.port.emit('resize', mode);
   if (mode) {
-    $("header").setAttribute("type", "expanded");
-    $("content").setAttribute("type", "expanded");
-    $("toolbar").setAttribute("type", "expanded");
+    qs("body").setAttribute("mode", "expanded");
   }
   else {
-    $("header").removeAttribute("type");
-    $("content").removeAttribute("type");
-    $("toolbar").removeAttribute("type");
+    qs("body").removeAttribute("mode");
+    qs("content").removeAttribute("loading");
   }
   updateContent();
   //Close account selection menu if it is open
-  $("accounts").style.display = "none";
+  qs("accounts").style.display = "none";
 }
 self.port.on("resize", function (mode) {
   resize(mode);
+});
+// Keyboard support
+self.port.on("keyUp", function (b) {
+  doKeyUp = b;
+});
+window.addEventListener("load", function () {
+  self.port.emit("keyUp");
+});
+// Make sure window has focus when it is shown
+self.port.on("show", function onShow() {
+  window.focus();
 });
