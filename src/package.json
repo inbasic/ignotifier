@@ -195,6 +195,13 @@
     "value": false
   },
   {
+    "name": "render",
+    "title": "Render emails as HTML in full-content mode:",
+    "description": "If you prefer text-only rendering, uncheck the box.",
+    "type": "bool",
+    "value": true
+  },
+  {
     "name": "middleClick",
     "title": "Customize middle-click on toolbar button:",
     "type": "menulist",

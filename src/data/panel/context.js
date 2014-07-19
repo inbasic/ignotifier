@@ -355,7 +355,7 @@ self.port.on("action-response", function(cmd) {
   }
 });
 new Listen("expand", "click", function () {
-  resize(qs("body").getAttribute("mode") == "expanded");
+  resize(qs("body").getAttribute("mode") == "expanded" ? 0 : 1);
 });
 function updateContent () {
   function doSummary () {
@@ -405,8 +405,8 @@ function opener (e) {
   e.preventDefault();
   var target = e.originalTarget;
   var selectedText = target.ownerDocument.getSelection() + '';
-  if (target.href) {
-    self.port.emit(e.button === 2 ? "clipboard" : "open", target.href, 0);
+  if (target.href || target.src) {
+    self.port.emit(e.button === 2 ? "clipboard" : "open", target.href || target.src, 0);
   }
   else if (e.button === 2 && selectedText) {
     self.port.emit("clipboard", selectedText, 1);

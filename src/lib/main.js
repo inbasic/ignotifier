@@ -7,7 +7,7 @@ var tabs          = require("sdk/tabs"),
     pageWorker    = require("sdk/page-worker"),
     _             = require("sdk/l10n").get,
     userstyles    = require("./userstyles"),
-    plainText     = require('./plain-text'),
+    renderer      = require('./renderer'),
     prefs         = sp.prefs,
     data          = self.data,
     {Cc, Ci, Cu}  = require('chrome'),
@@ -861,6 +861,7 @@ sp.on("reset", function() {
   prefs.keyUp               = false;
   prefs.fullWidth            = 700;
   prefs.fullHeight           = 600;
+  prefs.render               = true;
 });
 sp.on("tray", function() {
   if (!prefs.tray) {
@@ -978,7 +979,7 @@ var getBody = (function () {
           return;
         }
         new curl(url + "?ui=2&ik=" + ik + "&view=pt&search=all&th=" + thread[1]).then(function (req) {
-          var body = plainText.getPlainText(req, url);
+          var body = renderer[prefs.render ? "getHTMLText" : "getPlainText"](req, url);
           if (callback) callback.apply(pointer, [body]);
         });
       });
