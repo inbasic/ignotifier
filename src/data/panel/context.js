@@ -405,8 +405,16 @@ function opener (e) {
   e.preventDefault();
   var target = e.originalTarget;
   var selectedText = target.ownerDocument.getSelection() + '';
-  if (target.href || target.src) {
-    self.port.emit(e.button === 2 ? "clipboard" : "open", target.href || target.src, 0);
+  
+  var link = target.href || target.src;
+  
+  console.error(target.localName, target.parentNode.localName)
+  if (target.localName == "img" && target.parentNode && target.parentNode.localName == "a") {
+    link = target.parentNode.href || link;
+  }
+  
+  if (link) {
+    self.port.emit(e.button === 2 ? "clipboard" : "open", link, 0);
   }
   else if (e.button === 2 && selectedText) {
     self.port.emit("clipboard", selectedText, 1);
