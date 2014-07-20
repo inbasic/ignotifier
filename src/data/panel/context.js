@@ -408,8 +408,7 @@ function opener (e) {
   
   var link = target.href || target.src;
   
-  console.error(target.localName, target.parentNode.localName)
-  if (target.localName == "img" && target.parentNode && target.parentNode.localName == "a") {
+  if (target.localName != "a" && target.parentNode && target.parentNode.localName == "a") {
     link = target.parentNode.href || link;
   }
   
