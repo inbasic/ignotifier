@@ -472,5 +472,5 @@ function prettyDate(time) {
     day_diff < 7 && day_diff + " days ago" || 
     day_diff < 7 * 7 && Math.ceil(day_diff / 7) + " weeks ago" ||
     day_diff < 7 * 4 * 3 && Math.ceil(day_diff / 7 / 4) + " months ago" ||
-    [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ][date.getMonth()] + " " + date.getFullYear().toString().substring(2);
+    [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ][date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear().toString();
 }
