@@ -1,7 +1,9 @@
 var {Cc, Ci, Cu}  = require('chrome');
 var windows = {
   get active () { // Chrome window
-    return require('sdk/window/utils').getMostRecentBrowserWindow()
+    return Cc["@mozilla.org/appshell/appShellService;1"]
+      .getService(Ci.nsIAppShellService)
+      .hiddenDOMWindow;
   }
 }
 
