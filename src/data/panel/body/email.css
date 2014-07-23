@@ -1,6 +1,9 @@
 body {
   margin: 0;
-  font: 12px arial,sans-serif;
+}
+body, td {
+  font-family: arial,sans-serif;
+  font-size: 12px;
 }
 a {
   color: #1155CC;

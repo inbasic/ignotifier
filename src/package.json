@@ -10,7 +10,7 @@
   "contributors": ["CaTz", "ecaron"],
 
   "url": "",
-  "version": "0.4.5b4",
+  "version": "0.4.5",
   "lib": "lib",
   "main": "main",
 
@@ -178,7 +178,7 @@
     "title": "Toolbar panel width in the full-content view mode (px):",
     "description": "Minimum width is 400px",
     "type": "integer",
-    "value": 700
+    "value": 750
   },
   {
     "name": "fullHeight",

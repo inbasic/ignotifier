@@ -859,7 +859,7 @@ sp.on("reset", function() {
   prefs.notificationFormat  = "From: [author_email][break]Title: [title][break]Summary: [summary]";
   prefs.doTrayCallback      = false;
   prefs.keyUp               = false;
-  prefs.fullWidth            = 700;
+  prefs.fullWidth            = 750;
   prefs.fullHeight           = 600;
   prefs.render               = true;
 });

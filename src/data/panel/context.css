@@ -85,6 +85,7 @@ header div[name="stat"] {
   min-width: 50px;
   text-align: center;
   border-left: 1px solid #DCDCDC;
+  padding-left: 5px;
 }
 header div[name="nav"] {
   display: flex;
