@@ -235,6 +235,7 @@ body[mode="expanded"] #expand {
 /* tooltip */
 .tooltip {
   position: relative;
+  z-index: 99;
 }
 .tooltip:hover:before {
   position: absolute;
@@ -260,6 +261,9 @@ body[mode="expanded"] #expand {
   white-space: nowrap;
 }
 footer div[name="gmail"]:hover:after  {
+  left: -5px;
+}
+body[mode="expanded"] footer div[name="gmail"]:hover:after  {
   left: -22px;
 }
 footer div[name="archive"]:hover:after  {
@@ -275,5 +279,8 @@ footer div[name="refresh"]:hover:after  {
   left: -12px;
 }
 footer div[name="read-all"]:hover:after  {
+  left: -62px;
+}
+body[mode="expanded"] footer div[name="read-all"]:hover:after  {
   left: -35px;
 }
