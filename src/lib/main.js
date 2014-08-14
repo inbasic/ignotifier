@@ -681,10 +681,15 @@ function Server () {
         d = new Promise.defer();
         new curl(feed + "?rand=" + Math.round(Math.random() * 10000000), timeout).then(
           function (req) {
-            if (req.status != 200) {
+            // Make sure the response belongs to the feed
+            var feedRoot = /\/\/.*\/u\/\d+/.exec(feed), status = req.status;
+            if (status === 200 && feedRoot && feedRoot.length && req.response.indexOf(feedRoot[0]) === -1) {
+              status = 401;
+            }
+            if (status != 200) {
               return d.resolve({
-                network: req.status !== 0,
-                notAuthorized: req.status === 401,
+                network: status !== 0,
+                notAuthorized: status === 401,
                 xml: null,
                 newIDs: []
               });
