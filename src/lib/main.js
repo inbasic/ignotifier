@@ -719,7 +719,6 @@ function Server () {
         if (d) d.reject();
       }
     }
-
   }
   var emails = config.email.feeds.map((feed) => new Email(feed, config.email.timeout));
   return (function () {
@@ -733,6 +732,17 @@ function Server () {
       emails.forEach(e => e.reject());
       // Execute fresh servers
       Promise.all(emails.map(e => e.execute())).then(function (objs) {
+        // Make sure there is no duplicate account
+        var tmp = objs
+          .map(o => o.notAuthorized == true ? null : o.xml.title + "/" + o.xml.label)
+          .map((l,i,a) => !l ? false : a.indexOf(l) !== i)
+        tmp.forEach(function (v, i) {
+          if (!v) return;
+          objs[i].notAuthorized = true;
+          objs[i].xml = null;
+          objs[i].newIDs = [];
+        });
+        
         var isAuthorized = objs.reduce((p, c) => p || (!c.notAuthorized && c.network), false);
         var anyNewEmails = objs.reduce((p, c) => p || (c.newIDs.length !== 0), false);
         if (!isAuthorized) {
