@@ -156,7 +156,7 @@ var tm, resetTm, gButton, emailsCache = [], server = new Server(), silent;
 })();
 
 /** content downloader **/
-function curl (url, timeout) {
+function curl (url, timeout, noRedirection) {
   var d = new Promise.defer();
   var req = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"]
     .createInstance(Ci.nsIXMLHttpRequest);
@@ -168,6 +168,11 @@ function curl (url, timeout) {
       d.resolve(req);
     }
   };
+  // prevent redirects
+  if (noRedirection) {
+  req.channel.QueryInterface(Ci.nsIHttpChannel)
+    .redirectionLimit = 0;
+  }
   req.channel.QueryInterface(Ci.nsIHttpChannelInternal)
     .forceAllowThirdPartyCookie = true;
   req.send(null);
@@ -680,17 +685,12 @@ function Server () {
       execute: function () {
         d = new Promise.defer();
         var url = feed + "?rand=" + Math.round(Math.random() * 10000000);
-        new curl(url, timeout).then(
+        new curl(url, timeout, true).then(
           function (req) {
-            var status = req.status;
-            // Check whether the response is from an authorized account
-            if (req.responseURL != url) {
-              status = 401;
-            }
-            if (status != 200) {
+            if (req.status != 200) {
               return d.resolve({
-                network: status !== 0,
-                notAuthorized: status === 401,
+                network: req.status !== 0,
+                notAuthorized: req.status === 401,
                 xml: null,
                 newIDs: []
               });
