@@ -679,11 +679,12 @@ function Server () {
     return {
       execute: function () {
         d = new Promise.defer();
-        new curl(feed + "?rand=" + Math.round(Math.random() * 10000000), timeout).then(
+        var url = feed + "?rand=" + Math.round(Math.random() * 10000000);
+        new curl(url, timeout).then(
           function (req) {
-            // Make sure the response belongs to the feed
-            var feedRoot = /\/\/.*\/u\/\d+/.exec(feed), status = req.status;
-            if (status === 200 && feedRoot && feedRoot.length && req.response.indexOf(feedRoot[0]) === -1) {
+            var status = req.status;
+            // Check whether the response is from an authorized account
+            if (req.responseURL != url) {
               status = 401;
             }
             if (status != 200) {
