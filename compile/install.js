@@ -18,7 +18,7 @@ program
     'A TCP server such as "Extension auto installer" is required.'
   )
   .option('-e, --xpi', 
-    'Create XPI file in /src dir'
+    'Create XPI file in /src.safariextension dir'
   )
   .option('-j, --jsconsole', 
     'Show jsConsole in run mode'
@@ -40,7 +40,7 @@ program
 var installer = function (callback) {
   var child;
 
-  var cmd = "ls src/*.xpi"
+  var cmd = "ls src.safariextension/*.xpi"
   child = exec(cmd, {}, function (error, stdout, stderr) {
       if (stdout) {
         fs.readFile(/.*/.exec(stdout)[0], null, function(err, buffer) {
@@ -68,9 +68,10 @@ var installer = function (callback) {
 /** Find SDK **/
 var isWindows = !!process.platform.match(/^win/);
 
+process.chdir(require("path").join(__dirname, '..'));
+
 fs.readdir(program.sdk, function (err, files) {
   if (err) throw new Error(err);
-
 
   var actualAddonPath, sdkVersion, sdkVersionMatched = false;
   /** In case user supplied path pointing to actual SDK directory **/
@@ -139,11 +140,13 @@ fs.readdir(program.sdk, function (err, files) {
         stage += 1;
         break;
       case 2:
-        cfx.stdin.write("echo step 2&&cd " + __dirname + "/..\n");
+        var cmd = "echo step 2&&cd " + require("path").join(__dirname, '..');
+        if (isWindows) cmd += "&&" + /\w\:/.exec(require("path").resolve('.'))[0];
+        cfx.stdin.write(cmd + "\n");
         stage += 1;
         break;
       case 3:
-        cfx.stdin.write("echo step 3&&cd src\n");
+        cfx.stdin.write("echo step 3&&cd src.safariextension\n");
         stage += 1;
         break;
       case 4:
