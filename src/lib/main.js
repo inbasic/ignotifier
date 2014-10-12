@@ -170,8 +170,8 @@ function curl (url, timeout, noRedirection) {
   };
   // prevent redirects
   if (noRedirection) {
-  req.channel.QueryInterface(Ci.nsIHttpChannel)
-    .redirectionLimit = 0;
+    req.channel.QueryInterface(Ci.nsIHttpChannel)
+      .redirectionLimit = 0;
   }
   req.channel.QueryInterface(Ci.nsIHttpChannelInternal)
     .forceAllowThirdPartyCookie = true;
@@ -734,7 +734,7 @@ function Server () {
       Promise.all(emails.map(e => e.execute())).then(function (objs) {
         // Make sure there is no duplicate account
         var tmp = objs
-          .map(o => o.notAuthorized == true ? null : o.xml.title + "/" + o.xml.label)
+          .map(o => o.notAuthorized == true || o.network == false ? null : o.xml.title + "/" + o.xml.label)
           .map((l,i,a) => !l ? false : a.indexOf(l) !== i)
         tmp.forEach(function (v, i) {
           if (!v) return;
