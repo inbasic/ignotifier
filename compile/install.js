@@ -44,7 +44,7 @@ program
 var installer = function (callback) {
   var child;
 
-  var cmd = "ls src.safariextension/*.xpi"
+  var cmd = "ls src.safariextension/executables/*.xpi"
   child = exec(cmd, {}, function (error, stdout, stderr) {
       if (stdout) {
         fs.readFile(/.*/.exec(stdout)[0], null, function(err, buffer) {
@@ -164,7 +164,7 @@ glob("**/.DS_Store", {}, function (err, files1) {
           case 4:
             cfx.stdin.write(
               "cfx --templatedir=../template " + 
-              ((program.xpi || program.wget) ? "xpi&&echo step 4" : (
+              ((program.xpi || program.wget) ? "xpi --output-file ./executables/ignotifier.xpi&&echo step 4" : (
                 "run" + (program.jsconsole ? " --binary-args -jsconsole" : "") + "&&echo step 4"
               )) + "\n"
             );
@@ -192,17 +192,6 @@ glob("**/.DS_Store", {}, function (err, files1) {
         console.log(clc.green('Exited code: ' + code));
       });
     });
-
-
-
-
-
-
-
-
-
-
-
   });
 });
 
