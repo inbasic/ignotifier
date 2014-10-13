@@ -21,12 +21,12 @@ NetUtil.asyncFetch(data.url("./firefox/overlay.css"), function(inputStream, stat
   }
   var css = NetUtil.readInputStreamToString(inputStream, inputStream.available());
   css = css
+    .replace(/__extra__/g, config.ui.extra) // need to be first
     .replace(/__id__/g, "#" + id)
     .replace(/__font_family__/g, config.ui.fontFamily)
     .replace(/__font_size__/g, config.ui.fontSize)
     .replace(/__height__/g, config.ui.height)
     .replace(/__line_height__/g, config.ui.lineHeight)
-    .replace(/__extra__/g, config.ui.extra)
     .replace(/__margin_1__/g, config.ui.margin["1"])
     .replace(/__margin_2__/g, config.ui.margin["2"])
     .replace(/__margin_3__/g, config.ui.margin["3"])

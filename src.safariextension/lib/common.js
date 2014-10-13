@@ -227,6 +227,7 @@ var checkEmails = (function () {
             app.button.badge = 0;
             color = "blue";
             count = -1;
+            cachedEmails = [];
             app.popup.detach();
           }
           if (forced) {
@@ -579,5 +580,3 @@ config.on("tray.show", function () {
     app.tray.remove();
   }
 });
-
-actions.openOptions();

@@ -5,6 +5,7 @@
   "dependencies" :
     { 
       "cli-color": "0.2",
-      "commander": "1.1"
+      "commander": "1.1",
+      "glob": "4.0.6"
     }
 }

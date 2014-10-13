@@ -1,0 +1,4 @@
+addon-sdk*
+node_modules/
+test/
+.DS_Store

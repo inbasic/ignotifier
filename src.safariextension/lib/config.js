@@ -232,25 +232,73 @@ config.ui = {
     app.storage.write("clrPattern", val);
     config.on.emit("ui.pattern");
   },
-  fontFamily: "Arial",
-  fontSize: "10px",
-  height: "11px",
-  lineHeight: "10px",
+  get fontFamily () {
+    if (os === "darwin") return "sans-serif";
+    if (os === "linux") return "\"Liberation Sans\", FreeSans, Arial, Sans-serif";
+    return "Arial";
+  },
+  get fontSize () {
+    if (os === "darwin") return "8px";
+    return "10px";
+  },
+  get height () {
+    if (os === "darwin") return "10px";
+    return "11px";
+  },
+  get lineHeight () {
+    if (os === "linux") return "11px";
+    return "10px";
+  },
   backgroundColor: "#3366CC",
   color: "#fff",
   margin: {
-    "1": "7px 3px 0 -13px", // badge length of "1"
-    "2": "7px 3px 0 -19px",
-    "3": "7px 3px 0 -23px",
-    "4": "7px 3px 0 -27px"
+    get "1" () {  // badge length of "1"
+      if (os === "darwin") return "-10px -13px 0 0";
+      if (os === "linux") return "7px 3px 0 -13px";
+      return "7px 3px 0 -13px";
+    },
+    get "2" () {
+      if (os === "darwin") return "-10px -14px 0 0";
+      if (os === "linux") return "7px 3px 0 -19px";
+      return "7px 3px 0 -19px";
+    },
+    get "3" () {
+      if (os === "darwin") return "-10px -14px 0 -7px";
+      if (os === "linux") return "7px 4px 0 -26px";
+      return "7px 3px 0 -23px";
+    },
+    get "4" () {
+      if (os === "darwin") return "-10px -14px 0 -13px";
+      if (os === "linux") return "7px 2px 0 -30px";
+      return "7px 3px 0 -27px";
+    }
   },
   width: {
-    "1": "10px",  // badge width of "1"
-    "2": "16px",
-    "3": "20px",
-    "4": "22px"
+    get "1" () { // badge width of "1"
+      return "10px";
+    },
+    get "2" () {
+      if (os === "darwin") return "12px";
+      return "16px";
+    },
+    get "3" () {
+      if (os === "darwin") return "19px";
+      return "20px";
+    },
+    get "4" () {
+      if (os === "darwin") return "21px";
+      return "22px";
+    }
   },
-  extra: ""
+  get extra ()  {
+    if (os === "darwin") {
+      return "__id__:moz-window-inactive:after {background-color: #99B2E5}";
+    }
+    if (os === "linux") {
+      return "__id__:after {padding-top: 1px; letter-spacing: -0.05ex;}";
+    }
+    return "";
+  }
 }
 
 config.popup = {
@@ -302,7 +350,7 @@ config.tabs = {
     app.storage.write("searchMode", val);
   },
   get NotifyGmailIsOpen () {
-    return app.storage.read("onGmailNotification") === "true" ? true : false;
+    return app.storage.read("onGmailNotification") === "false" ? false : true;
   },
   set NotifyGmailIsOpen (val) {
     app.storage.write("onGmailNotification", val);
