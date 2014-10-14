@@ -423,10 +423,11 @@ app.popup.receive("body", function (link) {
   });
 });
 app.popup.receive("keyUp", function () {
-  app.popup.send("keyUp", config.keyUp);
+  app.popup.send("keyUp", config.popup.keyUp);
 });
 app.popup.receive("options", function () {
   actions.openOptions();
+  app.popup.hide();
 });
 
 // user interactions
@@ -569,7 +570,7 @@ config.on("email.check.resetPeriod", function () {
   }
 });
 config.on("keyUp", function () {
-  app.popup.send("keyUp", config.keyUp);
+  app.popup.send("keyUp", config.popup.keyUp);
 });
 config.on("ui.pattern", actions.reset);
 config.on("tray.show", function () {

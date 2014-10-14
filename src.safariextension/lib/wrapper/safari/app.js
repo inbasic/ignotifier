@@ -225,14 +225,25 @@ app.notify = function(text, title, callback) {
 };
 
 app.play = (function () {
-  var audio;
+  var audio, isActivated = false;
   // Audio only works on a window that has been visible at least once!
-  window.setTimeout(function () {
-    app.popup.show();
-  }, 100);
-  window.setTimeout(function () {
-    app.popup.hide();
-  }, 120);
+  function activate () {
+    if (isActivated) {
+      return new app.Promise(function (resolve) {
+        resolve(true);
+      });
+    }
+    var d = new app.Promise.defer();
+    window.setTimeout(function () {
+      app.popup.show();
+      window.setTimeout(function () {
+        app.popup.hide();
+        d.resolve(true);
+      }, 10);
+    }, 0);
+    isActivated = true;
+    return d.promise;
+  }
   function reset () {
     var win = safari.extension.toolbarItems[0].popover.contentWindow;
     var data = config.notification.sound.custom.file;
@@ -250,7 +261,10 @@ app.play = (function () {
       if (config.notification.silent) return;
       if(!audio) reset();
       audio.volume = config.notification.sound.volume / 100;
-      audio.play();
+      activate().then(function () {
+        audio.play();
+        console.error('lll');
+      });
     },
     reset: reset
   }

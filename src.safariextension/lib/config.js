@@ -8,8 +8,6 @@ else {
   var config = {};
 }
 
-config.keyUp = false;
-
 config.email = (function () {
   function feedFixer (val) {
     return val
@@ -339,6 +337,12 @@ config.popup = {
   },
   set display (val) {
     app.storage.write("render", val);
+  },
+  get keyUp () { // false: plain-text, true: html
+    return app.storage.read("keyUp") === "true" ? true : false;
+  },
+  set keyUp (val) {
+    app.storage.write("keyUp", val);
   }
 }
 
