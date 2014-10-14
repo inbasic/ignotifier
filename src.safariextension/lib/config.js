@@ -103,7 +103,12 @@ config.email = (function () {
       app.storage.write("notificationTruncate", Math.max(val, 20));
     },
     maxReport: 1, //Maximum number of simultaneous reports from a single account
-    alphabetic: false,
+    get alphabetic () {
+      return app.storage.read("alphabetic") === "true" ? true : false;
+    },
+    set alphabetic (val) {
+      app.storage.write("alphabetic", val);
+    },
     get doReadOnArchive () {
       return app.storage.read("doReadOnArchive") === "false" ? false : true;
     },
