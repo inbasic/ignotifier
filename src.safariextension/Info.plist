@@ -55,6 +55,8 @@
 			<string>All</string>
 		</dict>
 	</dict>
+	<key>Update Manifest URL</key>
+	<string>https://raw.githubusercontent.com/inbasic/ignotifier/multi-browser/src.safariextension/update.plist</string>
 	<key>Website</key>
 	<string>http://add0n.com/gmail-notifier.html</string>
 </dict>
