@@ -36,16 +36,19 @@ app.button = (function () {
 app.popup = (function () {
   return {
     show: function () { },
+    hide: function () {
+      var popup = chrome.extension.getViews({type:'popup'})[0];
+      if (popup) {
+        popup.close();
+      }
+    },
     attach: function () {
       chrome.browserAction.setPopup({
         popup: "data/popup/index.html"
       });
     },
     detach: function () {
-      var popup = chrome.extension.getViews({type:'popup'})[0];
-      if (popup) {
-        popup.close();
-      }
+      this.hide();
       chrome.browserAction.setPopup({
         popup: ""
       });

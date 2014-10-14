@@ -15,6 +15,16 @@ else {
   }
 }
 
+function getLastMessage (responseText) {
+  var html = app.parser().parseFromString(responseText, "text/html");
+  var message = html.documentElement.getElementsByClassName("message");
+  var body = "";
+  try {
+    body = message[message.length - 1].children[0].children[2];
+  } catch (e) {}
+  return body;
+}
+
 render.getHTMLText = function (req, link) {
   if (isFirefox) {
     function parseHTML(doc, html, allowStyle, baseURI, isXML) {
@@ -49,18 +59,14 @@ render.getHTMLText = function (req, link) {
     }
   }
   else {
-    return req.responseText;
+    var body = getLastMessage(req.responseText);
+    return body ? body.innerHTML : req.responseText;
   }
 }
 
 render.getPlainText = function (req, link) {
-  var html = app.parser().parseFromString(req.responseText, "text/html");
-  var message = html.documentElement.getElementsByClassName("message");
-  var body = "...";
-  try {
-    body = message[message.length - 1].children[0].children[2];
-  } catch (e) {}
-  
+  var body = getLastMessage(req.responseText) || "..."
+
   var normalize = function(a) {
     if(!a) return "";
     return a

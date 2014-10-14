@@ -106,7 +106,7 @@ var icon = (function () {
 function open (url, inBackground, refresh) {
   function url_parse (url) {
     url = url || "";
-    var temp = /^(http.*):\/\/w{0,3}\.*([^\#\?]*)[^\#]*#*([^\/]*)/.exec(url.replace("gmail", "mail.google"));
+    var temp = /^(.*):\/\/w{0,3}\.*([^\#\?]*)[^\#]*#*([^\/]*)/.exec(url.replace("gmail", "mail.google"));
     var temp2 =  /message_id\=([^&]*)|\#[^\/]*\/([^&]*)/.exec(url);
     return {
       protocol: temp && temp[1] ? temp[1] : "https",
