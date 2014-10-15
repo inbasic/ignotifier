@@ -301,7 +301,6 @@ XPCOMUtils.defineLazyGetter(exports, "play", function () {
           path = Services.io.newFileURI(file);
         }
       }
-      console.error(path)
       var worker = pageWorker.Page({
         contentScript: 
           "var audio = new Audio('" + path + "');" + 

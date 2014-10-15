@@ -104,25 +104,49 @@ var icon = (function () {
 })();
 
 function open (url, inBackground, refresh) {
-  function url_parse (url) {
-    url = url || "";
-    var temp = /^(.*):\/\/w{0,3}\.*([^\#\?]*)[^\#]*#*([^\/]*)/.exec(url.replace("gmail", "mail.google"));
-    var temp2 =  /message_id\=([^&]*)|\#[^\/]*\/([^&]*)/.exec(url);
-    return {
-      protocol: temp && temp[1] ? temp[1] : "https",
-      base: temp && temp[2] ? temp[2].replace(/\/$/, '') : config.email.url,
-      label: temp && temp[3] ? temp[3] : "inbox",
-      id: temp2 && (temp2[1] || temp2[2]) ? temp2[1] || temp2[2] : ""
+  function parseUri (str) {
+    str = str.replace("gmail", "mail.google");
+    var o = {
+      strictMode: false,
+      key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
+      q:   {
+        name:   "queryKey",
+        parser: /(?:^|&)([^&=]*)=?([^&]*)/g
+      },
+      parser: {
+        strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
+        loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
+      }
+    };
+    var m = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
+      uri = {},
+      i   = 14;
+
+    while (i--) uri[o.key[i]] = m[i] || "";
+
+    uri[o.q.name] = {};
+    uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
+      if ($1) uri[o.q.name][$1] = $2;
+    });
+    uri.base = uri.host.split("&")[0];
+
+    if (uri.host.indexOf("mail.google") !== -1) {
+      uri.message_id = (/message_id\=([^&]*)|\#[^\/]*\/([^&]*)/.exec(uri.host) || [])[1] || uri.anchor.split("/")[1];
+      uri.label = (/\#([^\/]*)/.exec(uri.source) || [])[1];
     }
-  }
-  var parse2 = url_parse(url);
+
+    return uri;
+  };
+
   app.windows.active()
     .then(function () {
       return app.windows.tabs.list(config.tabs.search)
     })
     .then(function (tabs) {
+      var parse2 = parseUri(url);
+
       for (var i = 0; tab = tabs[i], i < tabs.length; i++) {
-        if (tab.url == url) {
+        if (tab.url === url) {
           if (config.tabs.NotifyGmailIsOpen && tab.active) {
             app.notify(app.l10n("msg_1"));
           }
@@ -135,9 +159,10 @@ function open (url, inBackground, refresh) {
           if (refresh) tab.url = url;
           return;
         }
-        var parse1 = url_parse(tab.url);
-        if (parse1.base == parse2.base && !/to\=/.test(url) && parse1.base.indexOf("mail.google") !== -1) {
-          var reload = parse2.id && tab.url.indexOf(parse2.id) === -1 || refresh;
+        var parse1 = parseUri(tab.url);
+        // Only if Gmail
+        if (parse1.base.indexOf("mail.google") !== -1 && parse1.base === parse2.base && !/to\=/.test(url)) {
+          var reload = parse2.message_id && tab.url.indexOf(parse2.message_id) === -1 || refresh;
           if (tab.active && !reload) {
             if (config.tabs.NotifyGmailIsOpen) {
               app.notify(app.l10n("msg_1"));
@@ -560,7 +585,6 @@ app.unload(function () {
 });
 // pref listeners
 config.on("email.check.resetPeriod", function () {
-  console.error("on resetPeriod")
   if (config.email.check.resetPeriod) {
     resetTimer.fill(config.email.check.resetPeriod * 1000 * 60);
     resetTimer.reset();

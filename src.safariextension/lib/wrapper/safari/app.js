@@ -263,7 +263,6 @@ app.play = (function () {
       audio.volume = config.notification.sound.volume / 100;
       activate().then(function () {
         audio.play();
-        console.error('lll');
       });
     },
     reset: reset
