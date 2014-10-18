@@ -35,7 +35,7 @@ gmail.body = (function () {
     if (contents[link]) {
       return app.Promise.resolve(contents[link]);
     }
-    
+
     var url = /[^\?]*/.exec(link)[0] + "/";
     var thread = /message\_id\=([^\&]*)/.exec(link);
     if (!thread.length) {
@@ -131,18 +131,3 @@ gmail.action = (function () {
     });
   }
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -115,6 +115,13 @@ config.email = (function () {
     set doReadOnArchive (val) {
       app.storage.write("doReadOnArchive", val);
     },
+    get openInboxOnOne () {
+      var tmp = app.storage.read("oldFashion");
+      return  +tmp;
+    },
+    set openInboxOnOne (val) {
+      app.storage.write("oldFashion", val);
+    },
     check: {
       get first () {
         var tmp = app.storage.read("initialPeriod");

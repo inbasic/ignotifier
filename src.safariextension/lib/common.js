@@ -14,7 +14,7 @@ if (isFirefox) {
 
 // add a repeater to check all accounts
 var repeater = new timer.repeater(
-  (config.email.check.first ? config.email.check.first : 5) * 1000, 
+  (config.email.check.first ? config.email.check.first : 5) * 1000,
   config.email.check.period * 1000
 );
 
@@ -44,11 +44,22 @@ var actions = {
       .reduce(function (p, c) {
         return p + c;
       }, 0);
-    if (hasUnread) {
-      app.popup.show();
+    var numberOfAccounts = checkEmails.getCached()
+      .map(function (o) {
+        return o.xml ? o.xml.title : null
+      })
+      .filter(function (o, i, a) {
+        console.error(a);
+        return o && a.indexOf(o) === i;
+      })
+      .length;
+
+      console.error(hasUnread, numberOfAccounts);
+    if (!hasUnread || (config.email.openInboxOnOne === 1 && numberOfAccounts === 1)) {
+      open(config.email.url);
     }
     else {
-      open(config.email.url);
+      app.popup.show();
     }
   }
 }
@@ -155,7 +166,7 @@ function open (url, inBackground, refresh) {
           tab.window().then(function (win) {
             win.focus();
           });
-          
+
           if (refresh) tab.url = url;
           return;
         }
@@ -215,7 +226,7 @@ var checkEmails = (function () {
           e.reject();
         });
       }
-      
+
       if (config.email.feeds.join(", ") !== feeds) {
         emails = config.email.feeds.map(function (feed) {
           return new server.Email(feed, config.email.timeout);
@@ -388,7 +399,7 @@ if (!config.email.check.first) {  // manual mode
 }
 // periodic reset
 var resetTimer = new timer.repeater(
-  config.email.check.resetPeriod * 1000 * 60, 
+  config.email.check.resetPeriod * 1000 * 60,
   config.email.check.resetPeriod * 1000 * 60
 );
 resetTimer.on(actions.reset);
@@ -531,11 +542,11 @@ app.button.onContext(function (e, menupopup, menuitem, menuseparator, menu) {
 app.startup(function () {
   if (!config.welcome.version) {
     config.email.feeds_0 = "inbox";
-    if (!isSafari) {  // in safari if user is not logged-in it will cause multiple password prompts  
-      config.email.feeds_1 = 
-      config.email.feeds_2 = 
-      config.email.feeds_3 = 
-      config.email.feeds_4 = 
+    if (!isSafari) {  // in safari if user is not logged-in it will cause multiple password prompts
+      config.email.feeds_1 =
+      config.email.feeds_2 =
+      config.email.feeds_3 =
+      config.email.feeds_4 =
       config.email.feeds_5 = "inbox";
     }
   }
