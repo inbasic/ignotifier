@@ -105,24 +105,37 @@ function icon (badge) {
         break;
       }
       context.drawImage(img,0,1);
-      context.fillStyle = "#3366CC"; 
-      context.fillRect (xRect, 6, 16, 16);
-      context.fillStyle = '#fff';
-      context.font = '9px Arial';
-      context.fillText("badge".length <= 3 ? "badge" : "999", xText, 14);
+      if (badge > 0) {
+        context.fillStyle = "#3366CC";
+        context.fillRect (xRect, 6, 16, 16);
+        context.fillStyle = '#fff';
+        context.font = '9px Arial';
+        context.fillText("badge".length <= 3 ? "badge" : "999", xText, 14);
+      }
       var arr = context.getImageData(0,0,16,16).data, tmp = [];
       for (var i = 0, n = arr.length; i < n; i += 4) {   //r,g,b,alpha
         [tmp[i + 1], tmp[i + 3]] = [arr[i + 1], arr[i + 3]];
-        [tmp[i + 2], tmp[i]]  = [arr[i], arr[i + 2]]; 
+        [tmp[i + 2], tmp[i]]  = [arr[i], arr[i + 2]];
       }
       self.postMessage(tmp);
     }
     img.src = "source";
   }
+  var color = badge > 0 ? "red" : badge === -1 ? "blue" : "gray";
+  if (config.ui.pattern === 1) {
+    switch (color) {
+    case "blue":
+      color = "gray";
+      break;
+    case "gray":
+      color = "blue";
+      break;
+    }
+  }
   var worker = pageWorker.Page({
     contentURL: data.url("firefox/notification.html"),
     contentScript: ("(" + getIcon)
-      .replace(/source/g, data.url("icons/tray/red.png"))
+      .replace(/source/g, data.url("icons/tray/" + color + ".png"))
       .replace(/badge/g, badge) +
       ")();",
     onMessage: function(arr) {
@@ -192,11 +205,12 @@ if (config.tray.doTrayCallback) {
 
 var isInstalled = false;
 exports.set = function (badge, msg) {
+  if(!config.tray.show) return;
   //nid.szInfo = msg;
   nid.szTip = msg.substring(0, 63); // maximum of 64 characters
   icon(badge).then(function (arr) {
     var  uint8Array = new  Uint8Array(arr);
-    nid.hIcon = user32.CreateIcon(hWnd, 16, 16, 1, 32, uint8Array, uint8Array); 
+    nid.hIcon = user32.CreateIcon(hWnd, 16, 16, 1, 32, uint8Array, uint8Array);
     shell32.Shell_NotifyIconW(
       isInstalled ? 0x00000001 /* NIM_MODIFY */ : 0x00000000 /* NIM_ADD */,
       nid.address()

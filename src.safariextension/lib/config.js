@@ -425,6 +425,13 @@ config.tray = {
     app.storage.write("show", val);
     config.on.emit("tray.show");
   },
+  get permanent () {
+    return app.storage.read("permanent") === "true" ? true : false;
+  },
+  set permanent (val) {
+    app.storage.write("permanent", val);
+    config.on.emit("tray.show");
+  },
   set doTrayCallback (val) {
     app.storage.write("doTrayCallback", val);
   },

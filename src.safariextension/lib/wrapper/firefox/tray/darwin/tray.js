@@ -1,10 +1,12 @@
 var {Cc, Ci}  = require('chrome'),
-    unload    = require("sdk/system/unload");
+    unload    = require("sdk/system/unload"),
+    config    = require('../../../../config');
 
 var dock = Cc["@mozilla.org/widget/macdocksupport;1"]
   .getService(Ci.nsIMacDockSupport);
 
 exports.set = function (badge, msg) {
+  if(!config.tray.show) return;
   dock.badgeText = badge;
 }
 exports.remove = function () {

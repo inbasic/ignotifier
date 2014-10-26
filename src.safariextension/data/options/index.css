@@ -42,7 +42,7 @@
 }
 .safari .only-safari,
 .mac .only-mac,
-.firefox .only-firefox {
+.gecko .only-firefox {
   display: block;
 }
 

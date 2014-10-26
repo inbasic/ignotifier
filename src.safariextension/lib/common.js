@@ -268,7 +268,12 @@ var checkEmails = (function () {
             open(config.email.url);
             app.notify(app.l10n("log-in-to-your-account"))
           }
-          app.tray.remove();
+          if (config.tray.permanent && config.tray.show) {
+            app.tray.set(-1, config.labels.tooltip);
+          }
+          else {
+            app.tray.remove();
+          }
           app.button.label = config.labels.tooltip;
           app.popup.detach();
           return;
@@ -346,7 +351,12 @@ var checkEmails = (function () {
             icon("gray");
             app.button.badge = 0;
             color = "gray";
-            app.tray.remove();
+            if (config.tray.permanent && config.tray.show) {
+              app.tray.set(0, config.labels.tooltip);
+            }
+            else {
+              app.tray.remove();
+            }
             app.button.label = tooltip;
             app.popup.detach();
           }
@@ -355,7 +365,12 @@ var checkEmails = (function () {
           icon("gray");
           app.button.badge = 0;
           color = "gray";
-          app.tray.remove();
+          if (config.tray.permanent && config.tray.show) {
+            app.tray.set(0, config.labels.tooltip);
+          }
+          else {
+            app.tray.remove();
+          }
           app.button.label = tooltip;
           app.popup.detach();
         }
