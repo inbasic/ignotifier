@@ -49,12 +49,10 @@ var actions = {
         return o.xml ? o.xml.title : null
       })
       .filter(function (o, i, a) {
-        console.error(a);
         return o && a.indexOf(o) === i;
       })
       .length;
 
-      console.error(hasUnread, numberOfAccounts);
     if (!hasUnread || (config.email.openInboxOnOne === 1 && numberOfAccounts === 1)) {
       open(config.email.url);
     }
@@ -172,7 +170,7 @@ function open (url, inBackground, refresh) {
         }
         var parse1 = parseUri(tab.url);
         // Only if Gmail
-        if (parse1.base.indexOf("mail.google") !== -1 && parse1.base === parse2.base && !/to\=/.test(url)) {
+        if (parse1.base.indexOf("mail.google") !== -1 && parse1.base === parse2.base && parse1.directory.indexOf(parse2.directory) === 0 && !/to\=/.test(url)) {
           var reload = parse2.message_id && tab.url.indexOf(parse2.message_id) === -1 || refresh;
           if (tab.active && !reload) {
             if (config.tabs.NotifyGmailIsOpen) {

@@ -243,7 +243,7 @@ var update = (function () {
     var isAvailable = objs.reduce(function (p, c) {
       return p.concat(c.xml.entries)
     }, []).reduce(function (p, c) {
-      return p || c.id == selected.entry.id;
+      return p || selected.entry && c.id == selected.entry.id;
     }, false);
     if (!isAvailable) {
       // does the old account still have unread entries?
@@ -307,7 +307,8 @@ var update = (function () {
       body.title = selected.entry.title;
       body.titleLink = (message_id.length == 2 && message_id[1]) ? base + "/?shva=1#inbox/" + message_id[1] : selected.entry.link;
       body.name = selected.entry.author_name;
-      body.nameLink = base + "?view=cm&fs=1&tf=1&to=" + selected.entry.author_email;
+      //body.nameLink = base + "?view=cm&fs=1&tf=1&to=" + selected.entry.author_email;
+      body.nameLink = "mailto:" + selected.entry.author_email + "?subject=Re: " + selected.entry.title;
       body.email = "<" + selected.entry.author_email + ">";
       updateContent ();
     }
@@ -511,7 +512,7 @@ background.receive("show", function () {
     obj.removeAttribute("disabled");
   });
   qs('read').textContent = "Mark as read";
-  
+
   background.send("resize");
   background.send("keyUp");
   window.focus(); // Make sure window has focus when it is shown

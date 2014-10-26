@@ -84,9 +84,12 @@ config.email = (function () {
         .map(function (tag) {
           return tag.indexOf("http:") === -1 ? "https://mail.google.com/mail/u/" + tag : tag;
         })
+        .map(function (tag) { //only feeds without "/inbox" show the right fullcount
+          return tag.replace("/inbox", "");
+        })
         .sort();
       if (!merged.length) {
-        merged = ["https://mail.google.com/mail/u/0/feed/atom/inbox"];
+        merged = ["https://mail.google.com/mail/u/0/feed/atom"];
       }
       return merged;
     },
@@ -307,7 +310,7 @@ config.ui = {
     if (os === "linux") {
       return "__id__:after {padding-top: 1px; letter-spacing: -0.05ex;}";
     }
-    return "";
+    return "__id__:after {padding-bottom: 1px;}";
   }
 }
 

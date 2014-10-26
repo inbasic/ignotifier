@@ -17,14 +17,13 @@
     "notification.png"
   ],
   "browser_action": {
-    "default_icon": "data/icons/blue/19.png",
-    "default_popup": "data/popup/index.html"
+    "default_icon": "data/icons/blue/19.png"
   },
   "background": {
     "page": "lib/wrapper/chrome/background.html"
   },
   "options_page": "data/options/index.html",
-  "homepage_url": "http://add0n.com/gmail-notifier-chrome.html",
+  "homepage_url": "http://add0n.com/gmail-notifier.html",
   "icons": {
     "16": "data/icons/red/16.png",
     "48": "data/icons/red/48.png",
