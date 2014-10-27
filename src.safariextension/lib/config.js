@@ -28,6 +28,7 @@ config.email = (function () {
   }
   return {
     url: "https://mail.google.com/mail/u/0",
+    compose: "https://mail.google.com/mail/?ui=2&view=cm",
     get feeds_0 () {
       return app.storage.read("feeds_0") || "";
     },
@@ -393,8 +394,15 @@ config.tabs = {
     set _current (val) {
       app.storage.write("currentTab", val);
     },
+    get _newWindow () {
+      return app.storage.read("newWindow") === "true" ? true : false;
+    },
+    set _newWindow (val) {
+      app.storage.write("newWindow", val);
+    },
     get mode () { // 0: new tab, 1: new window, 2: current tab
       if (this._current) return 2;
+      if (this._newWindow) return 1;
       return 0;
     }
   }

@@ -104,7 +104,7 @@ function icon (badge) {
         [xText, xRect] = [1, 0]
         break;
       }
-      context.drawImage(img,0,1);
+      context.drawImage(img, 0, badge > 0 ? 1 : 3);
       if (badge > 0) {
         context.fillStyle = "#3366CC";
         context.fillRect (xRect, 6, 16, 16);

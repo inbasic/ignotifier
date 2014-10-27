@@ -17,7 +17,7 @@
   "msg_3": {
     "message": "Selected text is copied to the clipboard."
   },
-  
+
   "label_1": {
     "message": "Refresh"
   },
@@ -48,9 +48,11 @@
   "label_10": {
     "message": "Enable notifications"
   },
+  "label_11": {
+    "message": "Compose an email"
+  },
 
-  
-  
+
   "options_title": {
     "message": "Options - Gmail™ notifier"
   },
@@ -194,7 +196,7 @@
   },
   "options_notifications_25": {
     "message": "In safari most likey the default sound notifications are not playing properly, if so use a custom sound file as your notification."
-  }, 
+  },
 
   "options_tab": {
     "message": "Tab Opening:"
@@ -213,6 +215,9 @@
   },
   "options_tab_5": {
     "message": "Open Gmail account in a background tab"
+  },
+  "options_tab_6": {
+    "message": "Open Gmail account in a new window"
   },
   "options_toolbar": {
     "message": "Toolbar:"

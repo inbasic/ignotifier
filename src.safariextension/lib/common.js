@@ -170,7 +170,13 @@ function open (url, inBackground, refresh) {
         }
         var parse1 = parseUri(tab.url);
         // Only if Gmail
-        if (parse1.base.indexOf("mail.google") !== -1 && parse1.base === parse2.base && parse1.directory.indexOf(parse2.directory) === 0 && !/to\=/.test(url)) {
+        if (
+          parse1.base.indexOf("mail.google") !== -1 &&
+          parse1.base === parse2.base &&
+          parse1.directory.indexOf(parse2.directory) === 0 &&
+          !/to\=/.test(url) &&
+          !/view\=cm/.test(url)
+        ) {
           var reload = parse2.message_id && tab.url.indexOf(parse2.message_id) === -1 || refresh;
           if (tab.active && !reload) {
             if (config.tabs.NotifyGmailIsOpen) {
@@ -530,6 +536,9 @@ app.button.onContext(function (e, menupopup, menuitem, menuseparator, menu) {
     ]},
     {type: menuitem, label: app.l10n("label_10"), command: actions.silent},
     {type: menuseparator},
+    {type: menuitem, label: app.l10n("label_11"), command: function () {
+      open(config.email.compose);
+    }},
     {type: menuitem, label: app.l10n("label_1"), command: actions.reset},
     {type: menuitem, label: app.l10n("label_2"), command: actions.openOptions}
   ]);
