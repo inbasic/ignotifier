@@ -24,7 +24,7 @@ var {Cc, Ci, Cu}  = require('chrome'),
         return require("sdk/windows").browserWindows.activeWindow
       },
     }
-    
+
 Cu.import("resource://gre/modules/Promise.jsm");
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 
@@ -70,7 +70,14 @@ var options = (function () {
       worker.on('pageshow', (w) => array.add(workers, w));
       worker.on('pagehide', (w) => array.remove(workers, w));
       worker.on('detach', (w) => array.remove(workers, w));
-      
+      // PageMod has no access to mozFullPath of input.
+      worker.port.on("get-sound-fullpath", function () {
+        var browserWindow = Cc["@mozilla.org/appshell/window-mediator;1"].
+                        getService(Ci.nsIWindowMediator).
+                        getMostRecentWindow("navigator:browser");
+        var file = browserWindow.content.document.querySelector("input[type=file]").files[0].mozFullPath;
+        config.notification.sound.custom.file = file;
+      });
       options_arr.forEach(function (arr) {
         worker.port.on(arr[0], arr[1]);
       });
@@ -127,6 +134,9 @@ exports.button = {
   },
   onContext: function (c) {
     tbExtra.onContext(c);
+  },
+  onClick: function (c) {
+    tbExtra.onClick(c);
   },
   set label (val) {
     button.label = val;
@@ -250,17 +260,17 @@ exports.windows = (function () {
 exports.notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob/master/lib/simple-notify.js
   var alertServ = Cc["@mozilla.org/alerts-service;1"].
     getService(Ci.nsIAlertsService);
-  
+
   return function (text, title , callback) {
     title = title || l10n("gmail");
     if (config.notification.silent) return;
 
     try {
       alertServ.showAlertNotification(
-        data.url("icons/notification/32.png"), 
-        title, 
-        text, 
-        callback ? true : false, 
+        data.url("icons/notification/32.png"),
+        title,
+        text,
+        callback ? true : false,
         "",
         function (subject, topic, data) {
           if (topic == "alertclickcallback") {
@@ -273,10 +283,10 @@ exports.notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob
           notificationBox = browser.getNotificationBox();
 
       notification = notificationBox.appendNotification(
-        text, 
+        text,
         'jetpack-notification-box',
-        data.url("icons/notification/16.png"), 
-        notificationBox.PRIORITY_INFO_MEDIUM, 
+        data.url("icons/notification/16.png"),
+        notificationBox.PRIORITY_INFO_MEDIUM,
         []
       );
       timer.setTimeout(function() {
@@ -289,23 +299,23 @@ exports.notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob
 XPCOMUtils.defineLazyGetter(exports, "play", function () {
   Cu.import("resource://gre/modules/FileUtils.jsm");
   Cu.import("resource://gre/modules/Services.jsm");
-  
+
   return {
     now: function () {
       if (config.notification.silent) return;
 
       var path = "../../data/sounds/" + config.notification.sound.original;
-      if (config.notification.sound.type === 4 && config.notification.sound.custom) {
-        var file = new FileUtils.File(config.notification.sound.custom);
+      if (config.notification.sound.type === 4 && config.notification.sound.custom.file) {
+        var file = new FileUtils.File(config.notification.sound.custom.file);
         if (file.exists()) {
-          path = Services.io.newFileURI(file);
+          path = Services.io.newFileURI(file).spec;
         }
       }
       var worker = pageWorker.Page({
-        contentScript: 
-          "var audio = new Audio('" + path + "');" + 
+        contentScript:
+          "var audio = new Audio('" + path + "');" +
           "audio.addEventListener('ended', function () {self.postMessage()});" +
-          "audio.volume = " + (config.notification.sound.volume / 100) + ";" + 
+          "audio.volume = " + (config.notification.sound.volume / 100) + ";" +
           "audio.play();",
         contentURL: data.url("firefox/sound.html"),
         onMessage: function() {

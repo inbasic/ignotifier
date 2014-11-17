@@ -487,7 +487,13 @@ app.popup.receive("options", function () {
 
 // user interactions
 app.button.onCommand(actions.onCommand);
-
+app.button.onClick (function (e) {
+if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
+  e.preventDefault();
+  e.stopPropagation();
+  actions.reset();
+}
+});
 app.button.onContext(function (e, menupopup, menuitem, menuseparator, menu) {
   //Install command event listener
   if (!menupopup.isInstalled) {
@@ -562,16 +568,6 @@ app.button.onContext(function (e, menupopup, menuitem, menuseparator, menu) {
 });
 // initialization
 app.startup(function () {
-  if (!config.welcome.version) {
-    config.email.feeds_0 = "inbox";
-    if (!isSafari) {  // in safari if user is not logged-in it will cause multiple password prompts
-      config.email.feeds_1 =
-      config.email.feeds_2 =
-      config.email.feeds_3 =
-      config.email.feeds_4 =
-      config.email.feeds_5 = "inbox";
-    }
-  }
   //welcome
   if (app.version() !== config.welcome.version) {
     if (config.welcome.notification) {
@@ -586,6 +582,17 @@ app.startup(function () {
     config.welcome.version = app.version();
   }
 });
+if (!config.welcome.version) {
+  config.email.feeds_0 = "inbox";
+  if (!isSafari) {  // in safari if user is not logged-in it will cause multiple password prompts
+    config.email.feeds_1 =
+    config.email.feeds_2 =
+    config.email.feeds_3 =
+    config.email.feeds_4 =
+    config.email.feeds_5 = "inbox";
+  }
+}
+
 //tray notification
 app.tray.callback(function () {
   app.windows.active().then(function (win) {

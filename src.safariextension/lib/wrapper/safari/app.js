@@ -21,6 +21,7 @@ app.button = (function () {
       callback = c;
     },
     onContext: function () {},
+    onClick: function () {},
     set label (val) {
       toolbarItem.toolTip = val;
     },
@@ -247,9 +248,9 @@ app.play = (function () {
   function reset () {
     var win = safari.extension.toolbarItems[0].popover.contentWindow;
     var data = config.notification.sound.custom.file;
-    
+
     if (config.notification.sound.type === 4 && data) {
-      audio = new win.Audio(data); 
+      audio = new win.Audio(data);
     }
     else {
       audio = new win.Audio('../../../data/sounds/' + config.notification.sound.original);

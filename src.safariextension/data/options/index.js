@@ -3,7 +3,7 @@ var background = {}, manifest = {},
   isSafari = typeof safari !== 'undefined',
   isOpera = typeof chrome !== 'undefined' && navigator.userAgent.indexOf("OPR") !== -1,
   isChrome = typeof chrome !== 'undefined' && navigator.userAgent.indexOf("OPR") === -1;
-  
+
 /**** wrapper (start) ****/
 if (isChrome || isOpera) {
   background.send = function (id, data) {
@@ -82,17 +82,22 @@ var connect = function (elem, pref) {
           pref: "notification.sound.custom.mime",
           value: file.type
         });
-        var reader = new FileReader();
-        reader.onload = function (e) {
-          background.send("changed", {
-            pref: "notification.sound.custom.file",
-            value: e.target.result
-          });
+        if (isFirefox) {
+          self.port.emit("get-sound-fullpath");
         }
-        reader.onerror = function (e) {
-          alert(e);
+        else {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            background.send("changed", {
+              pref: "notification.sound.custom.file",
+              value: e.target.result
+            });
+          }
+          reader.onerror = function (e) {
+            alert(e);
+          }
+          reader.readAsDataURL(file);
         }
-        reader.readAsDataURL(file);
         return;
       }
       background.send("changed", {
@@ -123,5 +128,5 @@ window.addEventListener("load", function () {
   [].forEach.call(prefs, function (elem) {
     var pref = elem.getAttribute("data-pref");
     window[pref] = connect(elem, pref);
-  });  
+  });
 }, false);

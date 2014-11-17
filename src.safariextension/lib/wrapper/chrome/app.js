@@ -15,6 +15,7 @@ app.button = (function () {
       callback = c;
     },
     onContext: function () {},
+    onClick: function () {},
     set label (val) {
       chrome.browserAction.setTitle({
         title: val
@@ -196,10 +197,10 @@ app.windows = (function () {
 app.notify = function (text, title, callback) {
   title = title || app.l10n("gmail");
   if (config.notification.silent) return;
-  
+
   var notification,
       icon = "../../../data/icons/notification/48.png";
-      
+
   if (typeof window.webkitNotifications == 'undefined' && typeof Notification == 'undefined') {
     console.error('Notification dismissed', title, text);
     return; //Opera
@@ -207,10 +208,10 @@ app.notify = function (text, title, callback) {
 
   if (window.webkitNotifications) {
     notification = webkitNotifications.createNotification(icon, title, text);
-  } 
+  }
   else {
     notification = new Notification(title, {
-      body: text, 
+      body: text,
       icon: icon
     });
   }
@@ -223,7 +224,7 @@ app.notify = function (text, title, callback) {
     if (notification) {
       if (window.webkitNotifications) {
         notification.cancel();
-      } 
+      }
       else {
         notification.close();
       }
@@ -255,7 +256,7 @@ app.play = (function () {
     now: function () {
       if (config.notification.silent) return;
       if (!audio) reset();
-    
+
       audio.volume = config.notification.sound.volume / 100;
       audio.load;
       audio.play();
@@ -290,7 +291,7 @@ app.options = {
   send: function (id, data) {
     chrome.tabs.query({}, function(tabs) {
       tabs.forEach(function (tab) {
-        chrome.tabs.sendMessage(tab.id, {method: id, data: data}, function() {}); 
+        chrome.tabs.sendMessage(tab.id, {method: id, data: data}, function() {});
       });
     });
   },

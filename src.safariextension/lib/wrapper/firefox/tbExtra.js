@@ -9,7 +9,7 @@ var {Cu, components}        = require('chrome'),
 
 var id = ('action-button--' + self.id.toLowerCase()+ '-' + self.name).
   replace(/[^a-z0-9_-]/g, '');
-var badge = 0, onContext;
+var badge = 0, onContext, onClick;
 
 Cu.import("resource://gre/modules/FileUtils.jsm");
 Cu.import("resource://gre/modules/NetUtil.jsm");
@@ -37,7 +37,7 @@ NetUtil.asyncFetch(data.url("./firefox/overlay.css"), function(inputStream, stat
     .replace(/__width_4__/g, config.ui.width["4"])
     .replace(/__bg_color__/g, config.ui.backgroundColor)
     .replace(/__color__/g, config.ui.color);
-    
+
   userstyles.load("data:text/css;base64," + base64.encode(css));
 });
 
@@ -45,7 +45,7 @@ function setBadge (value) {
   badge = value;
   var button = CustomizableUI.getWidget(id);
   if (!button) return;
-  
+
   if ((value + "").length > 4) {
     value = "9999";
   }
@@ -68,20 +68,25 @@ var listen = {
     if (!tbb.isOnContextInstalled) {
       tbb.isOnContextInstalled = true;
       var NS_XUL = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
-      
+
       let doc = tbb.ownerDocument.defaultView.document;
       let menupopup = doc.createElementNS(NS_XUL, "menupopup");
       let menu = doc.createElementNS(NS_XUL, "menu");
       let menuitem = doc.createElementNS(NS_XUL, "menuitem");
       let menuseparator = doc.createElementNS(NS_XUL, "menuseparator");
-      
+
       tbb.addEventListener("contextmenu", function (e) {
         if (onContext) {
           //Prevent Firefox context menu
-          e.stopPropagation(); 
+          e.stopPropagation();
           e.preventDefault();
           onContext(e, menupopup, menuitem, menuseparator, menu);
           menupopup.openPopup(tbb , "after_end", 0, 0, false);
+        }
+      }, true);
+      tbb.addEventListener("click", function (e) {
+        if (onClick) {
+          onClick(e);
         }
       }, true);
       tbb.appendChild(menupopup);
@@ -97,4 +102,7 @@ unload.when(function () {
 exports.setBadge = setBadge;
 exports.onContext = function (c) {
   onContext = c;
+};
+exports.onClick = function (c) {
+  onClick = c;
 };
