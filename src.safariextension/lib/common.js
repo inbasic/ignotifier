@@ -114,6 +114,7 @@ var icon = (function () {
 
 function open (url, inBackground, refresh) {
   function parseUri (str) {
+    str = str || "";
     str = str.replace("gmail", "mail.google");
     var o = {
       strictMode: false,
@@ -416,6 +417,21 @@ repeater.on(checkEmails.execute);
 if (!config.email.check.first) {  // manual mode
   repeater.stop();
 }
+// On safari to prevent multiple authentication popups, the repeater is disabled until the first account is logged-in
+if (isSafari && config.email.check.first) {
+  function isLoggedin (callback) {
+    app.get("https://mail.google.com/mail/u/0/feed/atom").then(function (req) {
+      if (req.status === 200) {
+        repeater.reset();
+      }
+      else {
+        app.timer.setTimeout(isLoggedin, 60000);
+      }
+    });
+  }
+  repeater.stop();
+  isLoggedin();
+}
 // periodic reset
 var resetTimer = new timer.repeater(
   config.email.check.resetPeriod * 1000 * 60,
@@ -583,14 +599,12 @@ app.startup(function () {
   }
 });
 if (!config.welcome.version) {
-  config.email.feeds_0 = "inbox";
-  if (!isSafari) {  // in safari if user is not logged-in it will cause multiple password prompts
-    config.email.feeds_1 =
-    config.email.feeds_2 =
-    config.email.feeds_3 =
-    config.email.feeds_4 =
-    config.email.feeds_5 = "inbox";
-  }
+  config.email.feeds_0 =
+  config.email.feeds_1 =
+  config.email.feeds_2 =
+  config.email.feeds_3 =
+  config.email.feeds_4 =
+  config.email.feeds_5 = "inbox";
 }
 
 //tray notification

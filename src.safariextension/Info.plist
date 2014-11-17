@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>InBasic</string>
 	<key>Builder Version</key>
-	<string>9537.78.2</string>
+	<string>10600.1.25</string>
 	<key>CFBundleDisplayName</key>
 	<string>Gmail™ Notifier</string>
 	<key>CFBundleIdentifier</key>
@@ -43,6 +43,8 @@
 	</dict>
 	<key>Description</key>
 	<string>Multiple label and account notifier for Google Mail (Gmail)</string>
+	<key>DeveloperIdentifier</key>
+	<string>2C3W8RZ8ND</string>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>
