@@ -469,7 +469,7 @@ app.popup.receive("open", function (link) {
 });
 app.popup.receive("clipboard", function (o) {
   app.clipboard(o.str);
-  notify(l10n(o.type ? "msg_3" : "msg_2"));
+  app.notify(app.l10n(o.type ? "msg_3" : "msg_2"));
 });
 app.popup.receive("update", function () {
   repeater.reset(true);

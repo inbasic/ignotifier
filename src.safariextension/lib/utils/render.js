@@ -33,10 +33,10 @@ render.getHTMLText = function (req, link) {
         var parser = Cc[PARSER_UTILS].getService(Ci.nsIParserUtils);
         if ("parseFragment" in parser) {
             return parser.parseFragment(
-              html, 
+              html,
               allowStyle ? parser.SanitizerAllowStyle : 0,
-              !!isXML, 
-              baseURI, 
+              !!isXML,
+              baseURI,
               doc.documentElement
             );
         }
@@ -47,12 +47,13 @@ render.getHTMLText = function (req, link) {
     }
     var fragment = parseHTML(win().document, req.responseText, true, req.channel.URI);
     try {
-      var message = fragment.querySelectorAll(".message");
-      message = message[message.length - 1].children[0].children[2];
+      var message = fragment.querySelector(".bodycontainer");
       return message
         .innerHTML
         .replace(/src\=\"\/mail\/u\//g, 'src="https://mail.google.com/mail/u/')
-        .replace(/\?ui\=2\&/g, link + "?ui=2&");
+        .replace(/\?ui\=2\&/g, link + "?ui=2&")
+        .replace(/\<u\/\>/g, "")
+        .replace(/display\:none\!important\;/g, "");
     }
     catch (e) {
       return "...";

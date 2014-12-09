@@ -9,3 +9,18 @@ a {
   color: #1155CC;
   text-decoration: none;
 }
+
+body>table:first-child,
+body>hr,
+.maincontent>table:first-child,
+.maincontent>hr {
+  display: none;
+}
+
+.message>tbody>tr:nth-child(1), .message>tbody>tr:nth-child(2) {
+  display: none;
+}
+
+.message>tbody>tr>td>table>tbody>tr>td {
+  padding: 0 6px;
+}
