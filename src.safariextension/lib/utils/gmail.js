@@ -20,7 +20,6 @@ gmail.body = (function () {
       var tmp = /var GLOBALS\=\[(?:([^\,]*)\,){10}/.exec(req.responseText || "");
       var ik = tmp && tmp.length > 1 ? tmp[1].replace(/[\"\']/g, "") : null;
       if (ik) {
-        console.error("getIK", ik);
         iks[url] = ik;
         return ik;
       }
@@ -42,7 +41,6 @@ gmail.body = (function () {
       return app.Promise.reject(Error('gmail.js -> body -> Error at resolving thread. Please switch back to the summary mode.'));
     }
     return getIK(url).then(function (ik) {
-      console.error(url + "?ui=2&ik=" + ik + "&view=pt&search=all&msg=" + thread[1])
       return new app.get(url + "?ui=2&ik=" + ik + "&view=pt&search=all&msg=" + thread[1]).then(function (req) {
         var body = render[config.popup.display ? "getHTMLText" : "getPlainText"](req, url);
         contents[link] = body;
@@ -67,7 +65,6 @@ gmail.action = (function () {
       }
       if(req.status == 200) {
         var tmp = /at\=([^\"\&]*)/.exec(req.responseText);
-        console.error("getAt_2", tmp[1]);
         return tmp && tmp.length > 1 ? tmp[1] : null;
       }
       else {
@@ -83,7 +80,6 @@ gmail.action = (function () {
       if(req.status == 200) {
         var tmp = /GM_ACTION_TOKEN\=\"([^\"]*)\"/.exec(req.responseText);
         if (tmp && tmp.length) {
-          console.error("getAt", tmp[1]);
           return tmp[1];
         }
         else {
