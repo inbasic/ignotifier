@@ -65,6 +65,12 @@ config.email = (function () {
     set feeds_5 (val) {
       app.storage.write("feeds_5", feedFixer(val));
     },
+    get feeds_custom () {
+      return app.storage.read("feeds_custom") || "";
+    },
+    set feeds_custom (val) {
+      app.storage.write("feeds_custom", val);
+    },
     get feeds () {
       var tmp = ["0", "1", "2", "3", "4", "5"]
         .map(function (i) {
@@ -79,19 +85,39 @@ config.email = (function () {
       var merged = [];
       merged = merged.concat.apply(merged, tmp);
       merged = merged
-        .filter(function (tag) {
-          return tag;
-        })
         .map(function (tag) {
           return tag.indexOf("http:") === -1 ? "https://mail.google.com/mail/u/" + tag : tag;
-        })
+        });
+
+      if (config.email.feeds_custom) {
+        merged = merged.concat.apply(
+          merged,
+          config.email.feeds_custom.split(/\ *\,\ */g)
+            .map (function (feed) {
+              return feed.trim();
+            })
+            .filter(function (feed) {
+              return /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(feed);
+            })
+        );
+      }
+      merged = merged
         .map(function (tag) { //only feeds without "/inbox" show the right fullcount
           return tag.replace("/inbox", "");
+        })
+        .filter(function (feed) {
+          return feed;
+        })
+        .filter(function (feed, index, feeds) {
+          return feeds.indexOf(feed) === index;
         })
         .sort();
       if (!merged.length) {
         merged = ["https://mail.google.com/mail/u/0/feed/atom"];
       }
+
+      console.error(merged)
+
       return merged;
     },
     timeout: 9000,

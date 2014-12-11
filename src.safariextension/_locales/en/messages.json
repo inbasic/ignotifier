@@ -119,6 +119,12 @@
   "options_gmail_10": {
     "message": "Receive notifications for the following labels and accounts:"
   },
+  "options_gmail_11": {
+    "message": "Custom feeds:"
+  },
+  "options_gmail_12": {
+    "message": "Separate feeds by "," (Comma). Sample feed: https://mail.google.com/mail/u/0/feed/atom/inbox"
+  },
   "options_notifications": {
     "message": "Notifications:"
   },
