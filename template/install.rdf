@@ -7,6 +7,7 @@
     <em:bootstrap>true</em:bootstrap>
     <em:unpack>false</em:unpack>
     <em:optionsType>2</em:optionsType>
+    <em:optionsURL>chrome://ignotifier/content/options-opener.xul</em:optionsURL>
 
     <!-- Firefox -->
     <em:targetApplication>
