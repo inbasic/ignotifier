@@ -430,7 +430,7 @@ function updateContent () {
     var content = contentCache[link];
     if (content) {
       qs("content").removeAttribute("loading");
-      //content is a safe HTML parsed by (plain-text.js)
+      //content is a safe HTML parsed by (lib/utils/render.js)
       qs("iframe").contentDocument.body.innerHTML = content;
     }
     else {

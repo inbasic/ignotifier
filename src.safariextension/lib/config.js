@@ -115,9 +115,6 @@ config.email = (function () {
       if (!merged.length) {
         merged = ["https://mail.google.com/mail/u/0/feed/atom"];
       }
-
-      console.error(merged)
-
       return merged;
     },
     timeout: 9000,
