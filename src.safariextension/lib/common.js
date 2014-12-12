@@ -507,7 +507,7 @@ app.button.onClick (function (e) {
 if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
   e.preventDefault();
   e.stopPropagation();
-  actions.reset();
+  config.toolbar.clicks.middle === 0 ? actions.reset() : open(config.email.url);
 }
 });
 app.button.onContext(function (e, menupopup, menuitem, menuseparator, menu) {

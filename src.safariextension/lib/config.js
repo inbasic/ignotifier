@@ -486,6 +486,16 @@ config.tray = {
   }
 }
 
+config.toolbar = {
+  clicks: {
+    get middle () { // 0: refresh accounts, 1: open primary account
+      return +app.storage.read("middleClick") || 0;
+    },
+    set middle (val) {
+      app.storage.write("middleClick", val);
+    }
+  }
+}
 // Complex get and set
 config.get = function (name) {
   return name.split(".").reduce(function(p, c) {
