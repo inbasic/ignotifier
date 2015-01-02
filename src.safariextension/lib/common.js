@@ -419,16 +419,23 @@ if (!config.email.check.first) {  // manual mode
 }
 // On safari to prevent multiple authentication popups, the repeater is disabled until the first account is logged-in
 if (isSafari && config.email.check.first) {
-  function isLoggedin (callback) {
-    app.get("https://mail.google.com/mail/u/0/feed/atom").then(function (req) {
-      if (req.status === 200) {
-        repeater.reset();
-      }
-      else {
-        app.timer.setTimeout(isLoggedin, 60000);
-      }
-    });
-  }
+  var isLoggedin = (function () {
+    return function () {
+      app.get("https://mail.google.com/mail/u/0/feed/atom").then(function (req) {
+        if (req.status === 200) {
+          repeater.reset();
+          if (config.notification.safari.oneTime) {
+            window.alert(app.l10n("msg_4"));
+            open("https://mail.google.com/mail/u/0/#inbox");
+            config.notification.safari.oneTime = false;
+          }
+        }
+        else {
+          app.timer.setTimeout(isLoggedin, 60000);
+        }
+      });
+    }
+  })();
   repeater.stop();
   isLoggedin();
 }

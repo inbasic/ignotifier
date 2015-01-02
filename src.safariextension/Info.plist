@@ -7,7 +7,7 @@
 	<key>Builder Version</key>
 	<string>10600.1.25</string>
 	<key>CFBundleDisplayName</key>
-	<string>Gmail™ Notifier</string>
+	<string>Email Notifier for Gmail</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.add0n.gmail</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -44,7 +44,7 @@
 	<key>Description</key>
 	<string>Multiple label and account notifier for Google Mail (Gmail)</string>
 	<key>DeveloperIdentifier</key>
-	<string>2C3W8RZ8ND</string>
+	<string>L62F677Y54</string>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>

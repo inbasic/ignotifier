@@ -457,7 +457,7 @@ background.receive("body-response", function(o) {
   var link = doc.createElement("link");
   link.setAttribute("rel", "stylesheet");
   link.setAttribute("type", "text/css");
-  link.setAttribute("href", manifest.url + "data/popup/body/email.css");
+  link.setAttribute("href", manifest.url + "data/popup/body/" + (isFirefox ? "email-firefox.css" : "email-chrome.css"));
   head.appendChild(link);
 })();
 // Link opener for html

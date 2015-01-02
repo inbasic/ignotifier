@@ -16,7 +16,7 @@ server.Parser = function(req, feed) {
   }
   else {
     if (!req.responseText) return;
-    xml = app.parser.parseFromString(req.responseText, "text/xml");
+    xml = app.parser().parseFromString(req.responseText, "text/xml");
   }
   //Sometimes id is wrong in the feed structure!
   function fixID (link) {

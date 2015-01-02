@@ -76,6 +76,9 @@ config.email = (function () {
         .map(function (i) {
           return config.email["feeds_" + i];
         })
+        .filter(function (tag) {
+          return tag;
+        })
         .map(function (f, i) {
           return f.split(", ").map(function (tag) {
             if (!tag) return "";
@@ -249,7 +252,15 @@ config.notification = {
     val = +val;
     app.storage.write("notificationTime", val > 3 ? val : 3);
   },
-  silent: false
+  silent: false,
+  safari: {
+    get oneTime () {
+      return app.storage.read("safari-onetime") === "false" ? false : true;
+    },
+    set oneTime (val) {
+      app.storage.write("safari-onetime", val);
+    }
+  }
 }
 
 config.labels = {

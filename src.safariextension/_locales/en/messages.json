@@ -17,6 +17,9 @@
   "msg_3": {
     "message": "Selected text is copied to the clipboard."
   },
+  "msg_4": {
+    "message": "Note: For the notifier to work properly, you need to be logged-in into your Google account."
+  },
 
   "label_1": {
     "message": "Refresh"
@@ -123,7 +126,7 @@
     "message": "Custom feeds:"
   },
   "options_gmail_12": {
-    "message": "Separate feeds by "," (Comma). Sample feed: https://mail.google.com/mail/u/0/feed/atom/inbox"
+    "message": "Separate feeds by \",\" (Comma). Sample feed: https://mail.google.com/mail/u/0/feed/atom/inbox"
   },
   "options_notifications": {
     "message": "Notifications:"
