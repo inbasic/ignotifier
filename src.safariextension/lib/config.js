@@ -155,7 +155,6 @@ config.email = (function () {
     check: {
       get first () {
         var tmp = app.storage.read("initialPeriod");
-        console.error(tmp);
         if (tmp === null) return 5;
         tmp = +tmp;
         return isNaN(tmp) ? 5 : tmp;
@@ -163,6 +162,7 @@ config.email = (function () {
       set first (val) {
         val = +val;
         if (val < 0) val = 0;
+        if (val === 0 && !isFirefox) val = 5;
         app.storage.write("initialPeriod", val);
       },
       get period () {

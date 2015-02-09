@@ -87,7 +87,7 @@
     "message": "Do not check for new emails on startup for"
   },
   "options_timings_l8": {
-    "message": "Set the value to zero for no email check until the first manual refresh."
+    "message": "Set the value to zero for no email check until the first manual refresh [Only available on Firefox]."
   },
   "options_gmail": {
     "message": "Gmail:"
