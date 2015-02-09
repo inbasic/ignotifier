@@ -1,0 +1,11 @@
+body {
+  margin: 0;
+}
+body, td {
+  font-family: arial,sans-serif;
+  font-size: 12px;
+}
+a {
+  color: #1155CC;
+  text-decoration: none;
+}
