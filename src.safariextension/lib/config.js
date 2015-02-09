@@ -155,6 +155,7 @@ config.email = (function () {
     check: {
       get first () {
         var tmp = app.storage.read("initialPeriod");
+        console.error(tmp);
         if (tmp === null) return 5;
         tmp = +tmp;
         return isNaN(tmp) ? 5 : tmp;
