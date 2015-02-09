@@ -569,7 +569,11 @@ app.button.onContext(function (e, menupopup, menuitem, menuseparator, menu) {
       open(config.email.compose);
     }},
     {type: menuitem, label: app.l10n("label_1"), command: actions.reset},
-    {type: menuitem, label: app.l10n("label_2"), command: actions.openOptions}
+    {type: menuitem, label: app.l10n("label_2"), command: actions.openOptions},
+    {type: menuseparator},
+    {type: menuitem, label: app.l10n("label_12"), command: function () {
+      open(config.welcome.homepage + "?type=context");
+    }}
   ]);
 
   function appendChilds (root, arr) {
