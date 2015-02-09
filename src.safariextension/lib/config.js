@@ -1,4 +1,8 @@
-var isFirefox = typeof require !== 'undefined';
+var isFirefox = typeof require !== 'undefined',
+    isSafari  = typeof safari !== 'undefined',
+    isOpera   = typeof chrome !== 'undefined' && navigator.userAgent.indexOf("OPR") !== -1,
+    isChrome  = typeof chrome !== 'undefined' && navigator.userAgent.indexOf("OPR") === -1;
+
 if (isFirefox) {
   var app = require('./wrapper/firefox/app');
   var os = require("sdk/system").platform;

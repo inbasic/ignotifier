@@ -165,7 +165,6 @@ exports.button = {
         });
       }
       appendChilds(menupopup, items);
-      console.error(items);
     });
   },
   onClick: function (c) {
