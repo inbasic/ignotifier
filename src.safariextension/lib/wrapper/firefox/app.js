@@ -133,7 +133,40 @@ exports.button = {
     button.onClick = c;
   },
   onContext: function (c) {
-    tbExtra.onContext(c);
+    tbExtra.onContext(function (e, menupopup, menuitem, menuseparator, menu) {
+      var types = {
+        "menupopup": menupopup,
+        "menuitem": menuitem,
+        "menuseparator": menuseparator,
+        "menu": menu
+      }
+      // remove old items
+      while (menupopup.firstChild) {
+        menupopup.removeChild(menupopup.firstChild);
+      }
+      var items = c();
+      function appendChilds (root, arr) {
+        arr.forEach(function (e) {
+          var element = types[e.type].cloneNode(false);
+          ["label", "tooltip", "value", "link"].filter(function (i) {
+            return e[i];
+          }).forEach(function (i) {
+            return element.setAttribute(i, e[i]);
+          });
+          if (e.command) {
+            element.addEventListener("command", function (event) {
+              event.preventDefault();
+              event.stopPropagation();
+              e.command(event);
+            }, false);
+          }
+          root.appendChild (element);
+          if (e.childs && e.childs.length) appendChilds(element, e.childs);
+        });
+      }
+      appendChilds(menupopup, items);
+      console.error(items);
+    });
   },
   onClick: function (c) {
     tbExtra.onClick(c);

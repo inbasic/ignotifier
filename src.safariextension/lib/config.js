@@ -162,7 +162,7 @@ config.email = (function () {
       set first (val) {
         val = +val;
         if (val < 0) val = 0;
-        if (val === 0 && !isFirefox) val = 5;
+        if (val === 0 && isSafari) val = 5;
         app.storage.write("initialPeriod", val);
       },
       get period () {

@@ -517,81 +517,63 @@ if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
   config.toolbar.clicks.middle === 0 ? actions.reset() : open(config.email.url);
 }
 });
-app.button.onContext(function (e, menupopup, menuitem, menuseparator, menu) {
-  //Install command event listener
-  if (!menupopup.isInstalled) {
-    menupopup.addEventListener("command", function (e) {
-      e.stopPropagation();
-      e.preventDefault();
-      var link = e.originalTarget.getAttribute("link");
-      if (link) {
-        open(link.replace(/\?.*/ , ""));
-      }
-    });
-    menupopup.isInstalled = true;
-  }
-  // remove old items
-  while (menupopup.firstChild) {
-    menupopup.removeChild(menupopup.firstChild);
-  }
+app.button.onContext(function () {
   // insert new items
   var show = checkEmails.getCached().map(function (o) {
     return o.xml.rootLink;
   }).map(function (e,i,a) {
     return a.indexOf(e) == i;
   });
-  var items = checkEmails.getCached().filter(function (e, i){
-    return show[i];
-  }).map(function (o) {
-    return {
-      type: menuitem,
-      label: o.xml.title,
-      link: o.xml.rootLink
-    }
-  });
-  if (items.length) items.push({type: menuseparator});
+  var items = [];
+  if (isFirefox) {
+    items = checkEmails.getCached().filter(function (e, i) {
+      return show[i];
+    }).map(function (o) {
+      return {
+        type: "menuitem",
+        label: o.xml.title,
+        command: function (link, e) {
+          if (link) {
+            open(link.replace(/\?.*/ , ""));
+          }
+        }.bind(this, o.xml.rootLink)
+      }
+    });
+    if (items.length) items.push({type: "menuseparator"});
+
+    items = items.concat([
+      {type: "menu", label: app.l10n("label_3"), childs: [
+        {type: "menupopup", childs: [
+          {type: "menuitem", label: app.l10n("label_4"), value: 300},
+          {type: "menuitem", label: app.l10n("label_5"), value: 900},
+          {type: "menuitem", label: app.l10n("label_6"), value: 1800},
+          {type: "menuitem", label: app.l10n("label_7"), value: 3600},
+          {type: "menuitem", label: app.l10n("label_8"), value: 7200},
+          {type: "menuitem", label: app.l10n("label_9"), value: 18000}
+        ], command: function (e) {
+          actions.silent(parseInt(e.originalTarget.getAttribute("value")) * 1000);
+        }}
+      ]},
+      {type: "menuitem", label: app.l10n("label_10"), command: actions.silent},
+      {type: "menuseparator"}
+    ]);
+  }
   items = items.concat([
-    {type: menu, label: app.l10n("label_3"), childs: [
-      {type: menupopup, childs: [
-        {type: menuitem, label: app.l10n("label_4"), value: 300},
-        {type: menuitem, label: app.l10n("label_5"), value: 900},
-        {type: menuitem, label: app.l10n("label_6"), value: 1800},
-        {type: menuitem, label: app.l10n("label_7"), value: 3600},
-        {type: menuitem, label: app.l10n("label_8"), value: 7200},
-        {type: menuitem, label: app.l10n("label_9"), value: 18000}
-      ], command: function (e) {
-        actions.silent(parseInt(e.originalTarget.getAttribute("value")) * 1000);
-      }}
-    ]},
-    {type: menuitem, label: app.l10n("label_10"), command: actions.silent},
-    {type: menuseparator},
-    {type: menuitem, label: app.l10n("label_11"), command: function () {
+    {type: "menuitem", label: app.l10n("label_11"), command: function () {
       open(config.email.compose);
     }},
-    {type: menuitem, label: app.l10n("label_1"), command: actions.reset},
-    {type: menuitem, label: app.l10n("label_2"), command: actions.openOptions},
-    {type: menuseparator},
-    {type: menuitem, label: app.l10n("label_12"), command: function () {
-      open(config.welcome.homepage + "?type=context");
-    }}
+    {type: "menuitem", label: app.l10n("label_1"), command: actions.reset},
   ]);
-
-  function appendChilds (root, arr) {
-    arr.forEach(function (e) {
-      var element = e.type.cloneNode(false);
-      ["label", "tooltip", "value", "link"].filter(function (i) {
-        return e[i];
-      }).forEach(function (i) {
-        return element.setAttribute(i, e[i]);
-      });
-      if (e.command) {
-        element.addEventListener("command", e.command, false);
-      }
-      root.appendChild (element);
-      if (e.childs && e.childs.length) appendChilds(element, e.childs);
-    });
+  if (isFirefox) {
+    items = items.concat([
+      {type: "menuitem", label: app.l10n("label_2"), command: actions.openOptions},
+      {type: "menuseparator"},
+      {type: "menuitem", label: app.l10n("label_12"), command: function () {
+        open(config.welcome.homepage + "?type=context");
+      }}
+    ]);
   }
-  appendChilds(menupopup, items);
+  return items;
 });
 // initialization
 app.startup(function () {

@@ -3,7 +3,7 @@
   "short_name": "ignotifier",
   "description": "__MSG_description__",
   "author": "InBasic",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "manifest_version": 2,
   "default_locale": "en",
   "permissions": [
@@ -11,7 +11,8 @@
     "storage",
     "tabs",
     "notifications",
-    "background"
+    "background",
+    "contextMenus"
   ],
   "web_accessible_resources": [
     "notification.png"

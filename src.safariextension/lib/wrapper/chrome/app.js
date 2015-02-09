@@ -10,11 +10,23 @@ app.button = (function () {
       callback();
     }
   });
+
   return {
     onCommand: function (c) {
       callback = c;
     },
-    onContext: function () {},
+    onContext: function (c) {
+      chrome.contextMenus.removeAll();
+      var items = c();
+      items.forEach(function (obj) {
+        chrome.contextMenus.create({
+          title: obj.label,
+          type: obj.type === "menuseparator" ? "separator" : "normal",
+          contexts: ["browser_action"],
+          onclick: obj.command
+        });
+      });
+    },
     onClick: function () {},
     set label (val) {
       chrome.browserAction.setTitle({
