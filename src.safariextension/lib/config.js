@@ -410,6 +410,12 @@ config.tabs = {
     app.storage.write("onGmailNotification", val);
   },
   open: {
+    get useBlankTabs () {
+      return app.storage.read("useBlankTabs") === "false" ? false : true;
+    },
+    set useBlankTabs (val) {
+      app.storage.write("useBlankTabs", val);
+    },
     get background () {
       return app.storage.read("background") === "true" ? true : false;
     },

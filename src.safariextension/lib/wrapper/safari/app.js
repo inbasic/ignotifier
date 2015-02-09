@@ -189,13 +189,36 @@ app.windows = (function () {
         });
       },
       open: function (url, inBackground) {
-        var index = safari.application.activeBrowserWindow.tabs.reduce(function (p,c,i){
-          return c == safari.application.activeBrowserWindow.activeTab ? i : p
-        }, 0);
-        var tab = safari.application.activeBrowserWindow.openTab(
-          inBackground ? "background" : "foreground",
-          config.tabs.open.relatedToCurrent ? index + 1 : safari.application.activeBrowserWindow.tabs.length);
-        tab.url = url;
+        (function () {
+          if (config.tabs.open.relatedToCurrent || !config.tabs.open.useBlankTabs) {
+            return new app.Promise(function (resolve) {
+              resolve(null);
+            });
+          }
+          else {
+            return app.windows.tabs.list(true).then(function (tabs) {
+              return tabs.reduce(function (p, c) {
+                return p || (c.url === undefined ? c : null);
+              }, null)
+            })
+          }
+        })().then(function (t) {
+          if (t) {
+            t.url = url;
+            if (!inBackground) {
+              t.activate();
+            }
+          }
+          else {
+            var index = safari.application.activeBrowserWindow.tabs.reduce(function (p,c,i){
+              return c == safari.application.activeBrowserWindow.activeTab ? i : p
+            }, 0);
+            var tab = safari.application.activeBrowserWindow.openTab(
+              inBackground ? "background" : "foreground",
+              config.tabs.open.relatedToCurrent ? index + 1 : safari.application.activeBrowserWindow.tabs.length);
+            tab.url = url;
+          }
+        })
       }
     }
   }

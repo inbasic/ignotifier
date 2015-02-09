@@ -183,10 +183,31 @@ app.windows = (function () {
           active: true,
           currentWindow: true
         }, function (tabs) {
-          chrome.tabs.create({
-            url: url,
-            index: config.tabs.open.relatedToCurrent && tabs && tabs.length ? tabs[0].index + 1 : null,
-            active: !inBackground
+          (function () {
+            if (config.tabs.open.relatedToCurrent || !config.tabs.open.useBlankTabs) {
+              return app.Promise.resolve(null);
+            }
+            else {
+              return app.windows.tabs.list(true).then(function (tabs) {
+                return tabs.reduce(function (p, c) {
+                  return p || (c.url === "chrome://newtab/" ? c : null);
+                }, null)
+              })
+          }
+          })().then(function (t) {
+            if (t) {
+              t.url = url;
+              if (!inBackground) {
+                t.activate();
+              }
+            }
+            else {
+              chrome.tabs.create({
+                url: url,
+                index: config.tabs.open.relatedToCurrent && tabs && tabs.length ? tabs[0].index + 1 : null,
+                active: !inBackground
+              });
+            }
           });
         });
       }

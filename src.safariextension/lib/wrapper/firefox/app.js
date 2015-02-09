@@ -246,12 +246,32 @@ exports.windows = (function () {
       },
       open: function (url, inBackground) {
         var gBrowser = windows.active.gBrowser;
-        var t = gBrowser.addTab(url, {
-          relatedToCurrent: config.tabs.open.relatedToCurrent
+        // use old blank tabs?
+        (function () {
+          if (config.tabs.open.relatedToCurrent || !config.tabs.open.useBlankTabs) {
+            return Promise.resolve(null);
+          }
+          return exports.windows.tabs.list(true).then(function (tabs) {
+            return tabs.reduce(function (p, c) {
+              return p || (c.url === "about:newtab" || c.url === "about:blank" ? c : null);
+            }, null);
+          });
+        })().then(function (t) {
+          if (t) {
+            t.url = url;
+            if (!inBackground) {
+              t.activate();
+            }
+          }
+          else {
+            t = gBrowser.addTab(url, {
+              relatedToCurrent: config.tabs.open.relatedToCurrent
+            });
+            if (!inBackground) {
+              gBrowser.selectedTab = t;
+            }
+          }
         });
-        if (!inBackground) {
-          gBrowser.selectedTab = t;
-        }
       }
     }
   }

@@ -228,6 +228,9 @@
   "options_tab_6": {
     "message": "Open Gmail account in a new window"
   },
+  "options_tab_7": {
+    "message": "Always use blank tabs instead of opening a new tab when open in tab is activated"
+  },
   "options_toolbar": {
     "message": "Toolbar:"
   },
