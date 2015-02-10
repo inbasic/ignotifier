@@ -54,6 +54,7 @@ var button = buttons.ActionButton({
     }
   }
 });
+tbExtra.setButton(button);
 
 /* option */
 var options = (function () {
