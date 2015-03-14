@@ -129,8 +129,6 @@ config.email = (function () {
           "https://mail.google.com/mail/u/2/feed/atom",
           "https://mail.google.com/mail/u/3/feed/atom"
         ];
-      }
-      console.error(merged);
       return merged;
     },
     timeout: 9000,
