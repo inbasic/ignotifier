@@ -231,7 +231,7 @@ var checkEmails = (function () {
           e.reject();
         });
       }
-
+console.error(config.email.feeds);
       if (config.email.feeds.join(", ") !== feeds) {
         emails = config.email.feeds.map(function (feed) {
           return new server.Email(feed, config.email.timeout);

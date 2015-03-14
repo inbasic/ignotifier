@@ -6,7 +6,6 @@ var {Cc, Ci, Cu, components} = require('chrome'),
     base64     = require("sdk/base64"),
     unload     = require("sdk/system/unload"),
     userstyles = require("./userstyles"),
-    config     = require("../../config");
     is36       = Cc["@mozilla.org/xpcom/version-comparator;1"]
       .getService(Ci.nsIVersionComparator)
       .compare(system.version, "36.0") >= 0,

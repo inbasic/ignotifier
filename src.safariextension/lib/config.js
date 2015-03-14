@@ -76,12 +76,11 @@ config.email = (function () {
       app.storage.write("feeds_custom", val);
     },
     get feeds () {
+
+
       var tmp = ["0", "1", "2", "3", "4", "5"]
         .map(function (i) {
           return config.email["feeds_" + i];
-        })
-        .filter(function (tag) {
-          return tag;
         })
         .map(function (f, i) {
           return f.split(", ").map(function (tag) {
@@ -89,8 +88,12 @@ config.email = (function () {
             return tag.indexOf("http:") === -1 ? i + "/feed/atom/" + tag : tag;
           });
         });
+
       var merged = [];
       merged = merged.concat.apply(merged, tmp);
+      merged = merged.filter(function (s) {
+        return s;
+      });
       merged = merged
         .map(function (tag) {
           return tag.indexOf("http:") === -1 ? "https://mail.google.com/mail/u/" + tag : tag;
@@ -120,8 +123,14 @@ config.email = (function () {
         })
         .sort();
       if (!merged.length) {
-        merged = ["https://mail.google.com/mail/u/0/feed/atom"];
+        merged = [
+          "https://mail.google.com/mail/u/0/feed/atom",
+          "https://mail.google.com/mail/u/1/feed/atom",
+          "https://mail.google.com/mail/u/2/feed/atom",
+          "https://mail.google.com/mail/u/3/feed/atom"
+        ];
       }
+      console.error(merged);
       return merged;
     },
     timeout: 9000,
