@@ -2,6 +2,18 @@
   "gmail": {
     "message": "Gmail™ notifier"
   },
+  "toolbar_label": {
+    "message": "Gmail™ notifier"
+  },
+  "tooltip_1": {
+    "message": "Left click: Open Gmail or mail preview panel"
+  },
+  "tooltip_2": {
+    "message": "Middle (or Ctrl+Left) click: Refresh all accounts"
+  },
+  "tooltip_3": {
+    "message": "Right click: Account selections"
+  },
   "description": {
     "message": "Multiple label and account notifier for Google Mail (Gmail)"
   },
@@ -58,6 +70,12 @@
     "message": "Open homepage"
   },
 
+  "unknown": {
+    "message": "unknown"
+  },
+  "log-in-to-your-account": {
+    "message": "Please log into your account"
+  },
 
   "options_title": {
     "message": "Options - Gmail™ notifier"
@@ -326,5 +344,9 @@
   },
   "options_empty": {
     "message": "not defined"
+  },
+
+  "popup_settings": {
+    "message": "settingsfff"
   }
 }

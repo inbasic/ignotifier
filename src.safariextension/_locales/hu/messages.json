@@ -1,0 +1,414 @@
+{
+    "label_9": {
+        "message": "5 órára",
+        "description": ""
+    },
+    "options_notifications_19": {
+        "message": "Windows e-mail értesítés",
+        "description": ""
+    },
+    "options_notifications_17": {
+        "message": "Checker Plus bell értesítés",
+        "description": ""
+    },
+    "options_notifications_13": {
+        "message": "A tálca értesítés ikonjára kattintás nyissa meg az eszközpanelt (Csak Windows, béta)",
+        "description": ""
+    },
+    "options_timings_l7": {
+        "message": "Ne keressen új leveleket induláskor",
+        "description": ""
+    },
+    "label_4": {
+        "message": "5 percre",
+        "description": ""
+    },
+    "options_timings_l3": {
+        "message": "Emlékeztessen az összes olvasatlan levélre minden",
+        "description": ""
+    },
+    "options_gmail_1": {
+        "message": "Elsődleges fiók(/mail/u/0/)",
+        "description": ""
+    },
+    "options_gmail_10": {
+        "message": "A következő címkék és fiókok esetén legyen értesítés:",
+        "description": ""
+    },
+    "options_notifications_1": {
+        "message": "Asztali értesítések megjelenítése új levelek érkezésekor",
+        "description": ""
+    },
+    "options_notifications_9": {
+        "message": "Hangjelzés lejátszása új levelek érkezésekor",
+        "description": ""
+    },
+    "label_6": {
+        "message": "30 percre",
+        "description": ""
+    },
+    "options_misc_8": {
+        "message": "Összes beállítás visszaállítása alapértelmezettre",
+        "description": ""
+    },
+    "options_timings_l4": {
+        "message": "Állítsa az értéket 0-ra nem ismétlődő értesítésekhez.",
+        "description": ""
+    },
+    "options_tab_6": {
+        "message": "Gmail-fiók megnyitása új ablakban",
+        "description": ""
+    },
+    "options_notifications_25": {
+        "message": "Gyakran az alapértelmezett hangértesítések nem jól kerülnek lejátszásra Safari-ban. Ebben az esetben állítson be egyéni hangfájlt.",
+        "description": ""
+    },
+    "options_toolbar_15": {
+        "message": "Az eszköztár gombjára a középső egérgombbal kattintás",
+        "description": ""
+    },
+    "options_toolbar_10": {
+        "message": "A legkisebb magasság is 500px.",
+        "description": ""
+    },
+    "label_3": {
+        "message": "Összes értesítés tiltása",
+        "description": ""
+    },
+    "options_empty": {
+        "message": "nincs megadva",
+        "description": ""
+    },
+    "options_notifications_3": {
+        "message": "Ez az beállítás lehet, hogy nem működik ezen az operációs rendszeren.",
+        "description": ""
+    },
+    "options_timings": {
+        "message": "Időzítés",
+        "description": ""
+    },
+    "options_gmail_5": {
+        "message": "Negyedik fiók (/mail/u/3/)",
+        "description": ""
+    },
+    "label_5": {
+        "message": "15 percre",
+        "description": ""
+    },
+    "options_misc_1": {
+        "message": "Fiókok betűrendbe rendezése",
+        "description": ""
+    },
+    "options_seconds": {
+        "message": "másodperc",
+        "description": ""
+    },
+    "options_tab": {
+        "message": "Megnyitandó fül:",
+        "description": ""
+    },
+    "label_10": {
+        "message": "Értesítések engedélyezése",
+        "description": ""
+    },
+    "options_notifications_23": {
+        "message": "A hangértesítés hangereje",
+        "description": ""
+    },
+    "options_timings_l2": {
+        "message": "A legkisebb időköz 10 másodperc.",
+        "description": ""
+    },
+    "options_toolbar_11": {
+        "message": "Gyorsbillentyű támogatása az eszköztár gombján.",
+        "description": ""
+    },
+    "options_gmail_9": {
+        "message": "Néhány népszerű címke: \"beérkező\", \"fontos\", \"^smartlabel_personal\", \"^smartlabel_newsletter\", \"^smartlabel_notification\", and \"^smartlabel_group\"",
+        "description": ""
+    },
+    "options_misc_6": {
+        "message": "Ne jelenítse meg a már megnyitott Gmail weboldal miatti figyelmeztetést.",
+        "description": ""
+    },
+    "options_notifications_4": {
+        "message": "Értesítés formátuma",
+        "description": ""
+    },
+    "label_2": {
+        "message": "Beállítások",
+        "description": ""
+    },
+    "options_toolbar_14": {
+        "message": "Amennyiben a levelet szövegként szeretné látni, nem jelölje be ezt a jelölőnégyzetet.",
+        "description": ""
+    },
+    "options_notifications_18": {
+        "message": "Checker Plus ding értesítés",
+        "description": ""
+    },
+    "options_tab_5": {
+        "message": "Gmail-fiók megnyitása egy háttér fülön",
+        "description": ""
+    },
+    "label_7": {
+        "message": "1 órára",
+        "description": ""
+    },
+    "msg_2": {
+        "message": "A link a vágólapra került.",
+        "description": ""
+    },
+    "options_title": {
+        "message": "Beállítások - Gmail™ értesítő",
+        "description": ""
+    },
+    "gmail": {
+        "message": "Gmail™ értesítő",
+        "description": ""
+    },
+    "options_toolbar_8": {
+        "message": "A legkisebb szélesség 500px.",
+        "description": ""
+    },
+    "options_notifications_16": {
+        "message": "Gmail értesítő alapértelmezett jelzése",
+        "description": ""
+    },
+    "options_notifications_14": {
+        "message": "Ez a tulajdonság jelenleg komoly fejlesztés alatt áll, így a Forefox-ot instabillá teheti. [Újraindítás szükséges].",
+        "description": ""
+    },
+    "options_gmail_3": {
+        "message": "Másodlagos fiók (/mail/u/1/)",
+        "description": ""
+    },
+    "options_notifications_11": {
+        "message": "\"Windows tálca értesítés\" vagy \"Mac OS Dock értesítés\" megjelenítése",
+        "description": ""
+    },
+    "options_notifications_2": {
+        "message": "Asztali értesítés megjelenítése",
+        "description": ""
+    },
+    "log_in_to_your_account": {
+        "message": "Jelentkezzen be Gmail-fiókjába",
+        "description": ""
+    },
+    "options_notifications_15": {
+        "message": "Hangértesítés",
+        "description": ""
+    },
+    "options_notifications_21": {
+        "message": "A felhasználó által megadott hang",
+        "description": ""
+    },
+    "options_toolbar_9": {
+        "message": "Eszköztár panel magassága teljes tartalom módban",
+        "description": ""
+    },
+    "options_toolbar_1": {
+        "message": "Eszköztárgomb viselkedése",
+        "description": ""
+    },
+    "options_notifications_8": {
+        "message": "Hogy ne lehessen szólevágás, nagy számot adjon meg.",
+        "description": ""
+    },
+    "msg_3": {
+        "message": "A kijelölt szöveg a vágólapra került.",
+        "description": ""
+    },
+    "options_misc_7": {
+        "message": "Üdvözlő oldal megjelenítése frissítéskor",
+        "description": ""
+    },
+    "options_gmail": {
+        "message": "Gmail:",
+        "description": ""
+    },
+    "label_1": {
+        "message": "Frissítés",
+        "description": ""
+    },
+    "options_notifications_5": {
+        "message": "Elérhető gyorsbillentyűk:",
+        "description": ""
+    },
+    "options_notifications_24": {
+        "message": "A hangerő 0 és 100 közötti szám, ahol 100 a leghangosabb és az alapértelmezett is.",
+        "description": ""
+    },
+    "options_notifications_10": {
+        "message": "Megjegyzés Mac használóknak. A Firefox 28.0 verziójától az összes asztali értesítést a Mac Notification Center (Mac Üzenetközpont) kezeli, ami extra hangjelzést okoz. Ezért célszerű vagy ezt, vagy a Notification Center hangfigyelmeztetését kikapcsolni.",
+        "description": ""
+    },
+    "options_misc_2": {
+        "message": "Az alapértelmezett rendezés a bejelentkezés sorrendje.",
+        "description": ""
+    },
+    "options_toolbar_2": {
+        "message": "Mindig nyissa meg a levél előnézetpanelét",
+        "description": ""
+    },
+    "options_gmail_4": {
+        "message": "Harmadik fiók (/mail/u/2/)",
+        "description": ""
+    },
+    "options_toolbar_5": {
+        "message": "Csak az összegzés megjelenítése",
+        "description": ""
+    },
+    "options_notifications_12": {
+        "message": "Tálca értesítések nem támogatottak jelenleg Linux alatt.",
+        "description": ""
+    },
+    "options_minutes": {
+        "message": "perc",
+        "description": ""
+    },
+    "msg_1": {
+        "message": "Már megnyitotta a Gmail-t. Kattintson az eszköztár gombjára a Gmail megnyitásához új ablakban vagy már megnyitott Gmail lapra váltáshoz.",
+        "description": ""
+    },
+    "options_misc_5": {
+        "message": "Kék szín a \"Nincs olvasatlan\" és szürke szín a \"Szétkapcsolva\"",
+        "description": ""
+    },
+    "options_timings_l8": {
+        "message": "Állítsa nullára az értéket, hogy ne legyen automatikus ellenőrzés az első kézi frissítésig.",
+        "description": ""
+    },
+    "options_notifications": {
+        "message": "Értesítések:",
+        "description": ""
+    },
+    "options_timings_l6": {
+        "message": "A nem nulla érték életre kelti az asztali értesítőt és a hangjelzést (hasonló, min az új levél érkezése) mindaddig amíg van olvasatlan levele.",
+        "description": ""
+    },
+    "options_notifications_22": {
+        "message": "Amennyiben böngészője nem játssza le a hangot jelzéskor, próbálja azt WAV formátumúvá konvertálni online eszköz segítségével.",
+        "description": ""
+    },
+    "options_tab_1": {
+        "message": "Gmail-fiók keresése csak az aktív böngészőablakban",
+        "description": ""
+    },
+    "options_timings_l1": {
+        "message": "Új levelek ellenőrzése",
+        "description": ""
+    },
+    "options_toolbar_4": {
+        "message": "Eszköztár panel mód",
+        "description": ""
+    },
+    "options_misc_3": {
+        "message": "Eszköztár panel színmintája",
+        "description": ""
+    },
+    "options_toolbar_12": {
+        "message": "!: Spam bejelentése, #: Kuka, e: Archiválás, Shift + i: Megjelölés olvasottként.",
+        "description": ""
+    },
+    "options_px": {
+        "message": "px",
+        "description": ""
+    },
+    "options_notifications_20": {
+        "message": "Felhasználó által megadott hang",
+        "description": ""
+    },
+    "options_toolbar_3": {
+        "message": "Gmail-fiók megnyitása csak akkor, ha egy fiók be van jelentkezve",
+        "description": ""
+    },
+    "options_gmail_7": {
+        "message": "Hatodik fiók (/mail/u/5/)",
+        "description": ""
+    },
+    "options_toolbar": {
+        "message": "Eszköztár:",
+        "description": ""
+    },
+    "options_notifications_6": {
+        "message": "Értesítés levágása, ha hosszabb mint",
+        "description": ""
+    },
+    "options_tab_3": {
+        "message": "Gmail-fiók megnyitása az aktív fül mellett",
+        "description": ""
+    },
+    "options_gmail_8": {
+        "message": "Archiváláskor olvasottnak megjelölés",
+        "description": ""
+    },
+    "options_toolbar_17": {
+        "message": "Elsődleges Gmail-fiók megnyitása",
+        "description": ""
+    },
+    "options_notifications_7": {
+        "message": "karakternél a [cím] és az [összegzés] mező.",
+        "description": ""
+    },
+    "label_8": {
+        "message": "2 órára",
+        "description": ""
+    },
+    "options_toolbar_6": {
+        "message": "Teljes tartalom megjelenítése",
+        "description": ""
+    },
+    "options_tab_2": {
+        "message": "Ne keressen megnyitott Gmail-fiókokért más böngészőablakot. Ha a Gmail nincs megnyitva, új fülön nyissa meg.",
+        "description": ""
+    },
+    "label_11": {
+        "message": "Levél írása",
+        "description": ""
+    },
+    "options_toolbar_7": {
+        "message": "Eszköztár panel szélessége teljes tartalom módban",
+        "description": ""
+    },
+    "options_timings_l5": {
+        "message": "A legrövidebb időköz 5 perc.",
+        "description": ""
+    },
+    "options_misc": {
+        "message": "Egyebek:",
+        "description": ""
+    },
+    "options_gmail_2": {
+        "message": "Vesszővel (\",\"-vel) válassza el.",
+        "description": ""
+    },
+    "options_misc_4": {
+        "message": "Szürke szín a \"Nincs olvasatlan\" és kék szín a \"Szétkapcsolva\"",
+        "description": ""
+    },
+    "options_toolbar_13": {
+        "message": "Levél megjelenítése HTML-ként teljes tartalom módban",
+        "description": ""
+    },
+    "options_toolbar_16": {
+        "message": "Összes fiók frissítése",
+        "description": ""
+    },
+    "options_gmail_6": {
+        "message": "Ötödik fiók (/mail/u/4/)",
+        "description": ""
+    },
+    "options_inshort": {
+        "message": "Egy vagy több Google Mail (Gmail) fiókhoz, illetve címkéhez értesítő.",
+        "description": ""
+    },
+    "options_tab_4": {
+        "message": "Gmail-fiók megnyitása az aktív fülön",
+        "description": ""
+    },
+    "description": {
+        "message": "Egy vagy több Google Mail (Gmail) fiókhoz, illetve címkéhez értesítő",
+        "description": ""
+    }
+}

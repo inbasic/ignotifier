@@ -92,7 +92,7 @@ server.Parser = function(req, feed) {
       return temp;
     },
     get entries () {
-      var tmp = Array.prototype.slice.call( xml.getElementsByTagName("entry") );
+      var tmp = Array.prototype.slice.call(xml.getElementsByTagName("entry"));
       function toObj (entry) {
         return {
           get title () {
@@ -107,13 +107,13 @@ server.Parser = function(req, feed) {
           get issued () {
             return entry.getElementsByTagName("issued")[0].textContent;
           },
-          get author_name () {
-            return entry.getElementsByTagName("author")[0]
-              .getElementsByTagName("name")[0].textContent;
+          get author_name () {  // author might be empty.
+            return entry.getElementsByTagName("author")[0] ?
+              entry.getElementsByTagName("author")[0].getElementsByTagName("name")[0].textContent : app.l10n("msg_1");
           },
           get author_email () {
-            return entry.getElementsByTagName("author")[0]
-              .getElementsByTagName("email")[0].textContent;
+            return entry.getElementsByTagName("author")[0] ?
+              entry.getElementsByTagName("author")[0].getElementsByTagName("email")[0].textContent : "";
           },
           get id () {
             return entry.getElementsByTagName("id")[0].textContent;

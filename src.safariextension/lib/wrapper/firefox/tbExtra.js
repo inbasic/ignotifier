@@ -5,6 +5,7 @@ var {Cc, Ci, Cu, components} = require('chrome'),
     timer      = require("sdk/timers"),
     base64     = require("sdk/base64"),
     unload     = require("sdk/system/unload"),
+    config     = require("../../config"),
     userstyles = require("./userstyles"),
     is36       = Cc["@mozilla.org/xpcom/version-comparator;1"]
       .getService(Ci.nsIVersionComparator)

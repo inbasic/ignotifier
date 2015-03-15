@@ -76,8 +76,6 @@ config.email = (function () {
       app.storage.write("feeds_custom", val);
     },
     get feeds () {
-
-
       var tmp = ["0", "1", "2", "3", "4", "5"]
         .map(function (i) {
           return config.email["feeds_" + i];
@@ -129,6 +127,7 @@ config.email = (function () {
           "https://mail.google.com/mail/u/2/feed/atom",
           "https://mail.google.com/mail/u/3/feed/atom"
         ];
+      }
       return merged;
     },
     timeout: 9000,
