@@ -272,7 +272,7 @@ var checkEmails = (function () {
           }
           if (forced) {
             open(config.email.url);
-            app.notify(app.l10n("log-in-to-your-account"))
+            app.notify(app.l10n("log_into_your_account"))
           }
           if (config.tray.permanent && config.tray.show) {
             app.tray.set(-1, config.labels.tooltip);

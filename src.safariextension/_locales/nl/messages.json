@@ -99,6 +99,10 @@
         "message": "Accounts alfabetisch sorteren",
         "description": ""
     },
+    "tooltip_1": {
+        "message": "Linksklik: Gmail of het e-mailvoorbeeldpaneel openen",
+        "description": ""
+    },
     "options_seconds": {
         "message": "seconden",
         "description": ""
@@ -211,6 +215,10 @@
         "message": "Gedrag van werkbalkknop",
         "description": ""
     },
+    "unknown": {
+        "message": "onbekend",
+        "description": ""
+    },
     "options_notifications_8": {
         "message": "Om te afbreking te voorkomen, vul hier een groot getal in.",
         "description": ""
@@ -251,6 +259,10 @@
         "message": "Altijd e-mail-voorbeeldpaneel openen",
         "description": ""
     },
+    "popup_settings": {
+        "message": "instellingenfff",
+        "description": ""
+    },
     "options_gmail_4": {
         "message": "Derde account (/mail/u/2)",
         "description": ""
@@ -276,7 +288,11 @@
         "description": ""
     },
     "options_timings_l8": {
-        "message": "Stel de waarde op nul in om geen e-mailcontrole uit te voeren zolang er nog geen handmatige verversing is uitgevoerd.",
+        "message": "Stel de waarde op nul in om geen e-mailcontrole uit te voeren zolang er nog geen handmatige verversing is uitgevoerd [Niet beschikbaar in Safari].",
+        "description": ""
+    },
+    "tooltip_3": {
+        "message": "Rechtsklik: Accountselectie",
         "description": ""
     },
     "options_notifications": {
@@ -303,8 +319,16 @@
         "message": "Werkbalkpaneel-modus",
         "description": ""
     },
+    "toolbar_label": {
+        "message": "Gmail™-melder",
+        "description": ""
+    },
     "options_misc_3": {
         "message": "Kleurenpatroon van werkbalk is",
+        "description": ""
+    },
+    "options_gmail_12": {
+        "message": "Scheidt feeds met het kommateken (\",\"). Voorbeeldfeed: https://mail.google.com/mail/u/0/feed/atom/inbox",
         "description": ""
     },
     "options_toolbar_12": {
@@ -317,6 +341,10 @@
     },
     "options_notifications_20": {
         "message": "Eigen gekozen geluid",
+        "description": ""
+    },
+    "options_tab_7": {
+        "message": "Altijd lege tabbladen gebruiken in plaats een nieuw tabblad te openen wanneer een tabblad is geactiveerd",
         "description": ""
     },
     "options_toolbar_3": {
@@ -333,6 +361,10 @@
     },
     "options_notifications_6": {
         "message": "Meldingen afbreken die langer zijn dan",
+        "description": ""
+    },
+    "tooltip_2": {
+        "message": "Middelklik (of Ctrl+Links): Alle accounts verversen",
         "description": ""
     },
     "options_tab_3": {
@@ -355,8 +387,16 @@
         "message": "Voor 2 uur",
         "description": ""
     },
+    "msg_4": {
+        "message": "Let op: om de melder correct te laten werken moet u ingelogd zijn op uw Google-account.",
+        "description": ""
+    },
     "options_toolbar_6": {
         "message": "Volledige inhoud weergeven",
+        "description": ""
+    },
+    "options_gmail_11": {
+        "message": "Aangepaste feeds:",
         "description": ""
     },
     "options_tab_2": {
@@ -405,6 +445,10 @@
     },
     "options_tab_4": {
         "message": "Gmail-account openen op actief tabblad",
+        "description": ""
+    },
+    "label_12": {
+        "message": "Website openen",
         "description": ""
     },
     "description": {

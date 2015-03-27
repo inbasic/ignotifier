@@ -60,7 +60,7 @@
         "description": ""
     },
     "options_notifications_25": {
-        "message": "Safari często odtwarza nieprawidłowo domyślnie dźwięki powiadomień. W takim przypadku spróbuj użyć własnych dźwięków powiadomień.",
+        "message": "Safari często odtwarza nieprawidłowo domyślne dźwięki powiadomień. Gdy tak się będzie działo, spróbuj użyć własnych dźwięków powiadomień.",
         "description": ""
     },
     "options_toolbar_15": {
@@ -97,6 +97,10 @@
     },
     "options_misc_1": {
         "message": "Sortuj konta alfabetycznie",
+        "description": ""
+    },
+    "tooltip_1": {
+        "message": "LPM: Otwórz Gmail lub panel podglądu wiadomości",
         "description": ""
     },
     "options_seconds": {
@@ -211,6 +215,10 @@
         "message": "Zachowanie przycisku paska narzędzi",
         "description": ""
     },
+    "unknown": {
+        "message": "nieznane",
+        "description": ""
+    },
     "options_notifications_8": {
         "message": "Jeżeli nie chcesz skracać, wpisz dużą liczbę.",
         "description": ""
@@ -251,6 +259,10 @@
         "message": "Zawsze otwieraj panel podglądu wiadomości",
         "description": ""
     },
+    "popup_settings": {
+        "message": "settingsfff",
+        "description": ""
+    },
     "options_gmail_4": {
         "message": "Trzecie konto (/mail/u/2/)",
         "description": ""
@@ -260,7 +272,7 @@
         "description": ""
     },
     "options_notifications_12": {
-        "message": "Obecnie, powiadomienia paska zadań nie są wspierane na systemach Linux.",
+        "message": "Obecnie, powiadomienia paska zadań nie są wspierane na systemach Linuks.",
         "description": ""
     },
     "options_minutes": {
@@ -276,7 +288,11 @@
         "description": ""
     },
     "options_timings_l8": {
-        "message": "Ustaw wartość na zero, aby nie sprawdzać wiadomości przed pierwszym odświeżeniem ręcznym.",
+        "message": "Ustaw wartość na zero, aby nie sprawdzać nowych wiadomości przed pierwszym ręcznym odświeżeniem [niedostępne na Safari].",
+        "description": ""
+    },
+    "tooltip_3": {
+        "message": "PPM: Wybór kont",
         "description": ""
     },
     "options_notifications": {
@@ -288,7 +304,7 @@
         "description": ""
     },
     "options_notifications_22": {
-        "message": "Jeżeli tTwoja przeglądarka nie odtwarza dźwięku powiadomienia, spróbuj go przekonwertować do zwykłego formatu WAV przy pomocy narzędzi konwersji online.",
+        "message": "Jeżeli Twoja przeglądarka nie odtwarza dźwięku powiadomienia, spróbuj go przekonwertować do zwykłego formatu WAV przy pomocy narzędzi konwersji online.",
         "description": ""
     },
     "options_tab_1": {
@@ -303,8 +319,16 @@
         "message": "Tryb panelu paska narzędzi",
         "description": ""
     },
+    "toolbar_label": {
+        "message": "Powiadomienia Gmail™",
+        "description": ""
+    },
     "options_misc_3": {
         "message": "Kolor paska narzędzi:",
+        "description": ""
+    },
+    "options_gmail_12": {
+        "message": "Oddzielaj kanały znakiem \",\" (przecinek). Przykładowy kanał:\nhttps://mail.google.com/mail/u/0/feed/atom/inbox",
         "description": ""
     },
     "options_toolbar_12": {
@@ -319,8 +343,12 @@
         "message": "Własny sygnał",
         "description": ""
     },
+    "options_tab_7": {
+        "message": "Zawsze używaj pustych kart zamiast otwierania nowej karty przy aktywnej takiej opcji",
+        "description": ""
+    },
     "options_toolbar_3": {
-        "message": "Otwieraj konto Gmail tylko, jeżeli zalogowano na jedno",
+        "message": "Otwieraj konto Gmail, tylko jeżeli zalogowano na jednym",
         "description": ""
     },
     "options_gmail_7": {
@@ -335,8 +363,12 @@
         "message": "Skracaj powiadomienia dłuższe niż",
         "description": ""
     },
+    "tooltip_2": {
+        "message": "Kółko myszy (lub Ctrl+LPM): Odśwież wszystkie konta",
+        "description": ""
+    },
     "options_tab_3": {
-        "message": "Otwórz kolejne konto Gmail po aktywnej karcie",
+        "message": "Otwórz kolejne konto Gmail za aktywną kartą",
         "description": ""
     },
     "options_gmail_8": {
@@ -355,8 +387,16 @@
         "message": "Przez 2 godziny",
         "description": ""
     },
+    "msg_4": {
+        "message": "Informacja: Aby powiadomienia działały poprawnie, musisz być zalogowany do swojego konta Google.",
+        "description": ""
+    },
     "options_toolbar_6": {
         "message": "Pokazuj pełną zawartość",
+        "description": ""
+    },
+    "options_gmail_11": {
+        "message": "Własne kanały:",
         "description": ""
     },
     "options_tab_2": {
@@ -372,7 +412,7 @@
         "description": ""
     },
     "options_timings_l5": {
-        "message": "Minimalny okres czasu to 5 minut.",
+        "message": "Minimalny czas to 5 minut.",
         "description": ""
     },
     "options_misc": {
@@ -400,15 +440,19 @@
         "description": ""
     },
     "options_inshort": {
-        "message": "Wielokrotne etykiety i powiadomienia kont dla Poczty Google (Gmail).",
+        "message": "Etykiety i powiadomienia kont dla Poczty Google (Gmail).",
         "description": ""
     },
     "options_tab_4": {
         "message": "Otwórz konto Gmail w aktywnej karcie",
         "description": ""
     },
+    "label_12": {
+        "message": "Otwórz stronę domową",
+        "description": ""
+    },
     "description": {
-        "message": "Wielokrotne etykiety i powiadomienia kont dla Poczty Google (Gmail)",
+        "message": "Etykiety i powiadomienia kont dla Poczty Google (Gmail)",
         "description": ""
     }
 }
