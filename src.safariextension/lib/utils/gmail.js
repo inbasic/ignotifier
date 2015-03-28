@@ -42,15 +42,13 @@ gmail.body = (function () {
     }
     return getIK(url).then(function (ik) {
       return new app.get(url + "?ui=2&ik=" + ik + "&view=pt&search=all&msg=" + thread[1]).then(function (req) {
-        var body = render[config.popup.display ? "getHTMLText" : "getPlainText"](req, url);
+        var body = render[config.popup.display ? "getHTMLText" : "getPlainText"](req, url, link);
         contents[link] = body;
         return body;
       });
     });
   }
 })();
-
-
 
 /**
  * Send archive, mark as read, mark as unread, and trash commands to Gmail server
