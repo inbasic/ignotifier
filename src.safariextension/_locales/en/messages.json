@@ -76,6 +76,9 @@
   "log_into_your_account": {
     "message": "Please log into your account"
   },
+  "notification": {
+    "message": "From: [author_email][break]Title: [title][break]Summary: [summary]"
+  },
 
   "options_title": {
     "message": "Options - Gmail™ notifier"
