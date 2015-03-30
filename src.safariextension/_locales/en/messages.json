@@ -1,9 +1,9 @@
 {
   "gmail": {
-    "message": "Gmail™ notifier"
+    "message": "Gmail™ Notifier"
   },
   "toolbar_label": {
-    "message": "Gmail™ notifier"
+    "message": "Gmail™ Notifier"
   },
   "tooltip_1": {
     "message": "Left click: Open Gmail or mail preview panel"
@@ -90,13 +90,13 @@
     "message": "Timings"
   },
   "options_timings_l1": {
-    "message": "Check for new emails every"
+    "message": "Check for new emails every (in seconds):"
   },
   "options_timings_l2": {
     "message": "Minimum period is 10 seconds."
   },
   "options_timings_l3": {
-    "message": "Remind for all unread emails every"
+    "message": "Remind for all unread emails every (in minutes):"
   },
   "options_timings_l4": {
     "message": "Set the value to zero for none-periodic reminders."
@@ -108,7 +108,7 @@
     "message": "Non-zero value fires both desktop notification and alert sound (similar to new email arrival) eternally if you have unread email(s)."
   },
   "options_timings_l7": {
-    "message": "Do not check for new emails on startup for"
+    "message": "Do not check for new emails on startup for (in seconds):"
   },
   "options_timings_l8": {
     "message": "Set the value to zero for no email check until the first manual refresh [Not available on Safari]."
@@ -159,7 +159,7 @@
     "message": "Display desktop notification for new emails"
   },
   "options_notifications_2": {
-    "message": "Show desktop notification for"
+    "message": "Show desktop notification for (in seconds):"
   },
   "options_notifications_3": {
     "message": "This option may not work based on your OS."
@@ -277,13 +277,13 @@
     "message": "Show full content"
   },
   "options_toolbar_7": {
-    "message": "Toolbar panel width in the full-content view mode is"
+    "message": "Toolbar panel width in the full-content view mode is (in pixels):"
   },
   "options_toolbar_8": {
     "message": "Minimum width is 500px."
   },
   "options_toolbar_9": {
-    "message": "Toolbar panel height in the full-content view mode is"
+    "message": "Toolbar panel height in the full-content view mode is (in pixels):"
   },
   "options_toolbar_10": {
     "message": "Minimum height is 500px."
@@ -335,12 +335,6 @@
   },
   "options_misc_8": {
     "message": "Reset all settings back to factory"
-  },
-  "options_seconds": {
-    "message": "seconds"
-  },
-  "options_minutes": {
-    "message": "minutes"
   },
   "options_px": {
     "message": "px"
