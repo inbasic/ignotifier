@@ -41,7 +41,7 @@ gmail.body = (function () {
       return app.Promise.reject(Error('gmail.js -> body -> Error at resolving thread. Please switch back to the summary mode.'));
     }
     return getIK(url).then(function (ik) {
-      return new app.get(url + "?ui=2&ik=" + ik + "&view=pt&search=all&msg=" + thread[1]).then(function (req) {
+      return new app.get(url + "?ui=2&ik=" + ik + "&view=pt&dsqt=1&search=all&msg=" + thread[1]).then(function (req) {
         var body = render[config.popup.display ? "getHTMLText" : "getPlainText"](req, url, link);
         contents[link] = body;
         return body;
