@@ -228,7 +228,7 @@
     "message": "Volume is a number between 0 to 100 where 100 is the highest volume (default)."
   },
   "options_notifications_25": {
-    "message": "In safari most likey the default sound notifications are not playing properly, if so use a custom sound file as your notification."
+    "message": "In safari most likely the default sound notifications are not playing properly, if so use a custom sound file as your notification."
   },
 
   "options_tab": {
