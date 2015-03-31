@@ -1,15 +1,15 @@
+'use strict';
+
 var isFirefox = typeof require !== 'undefined',
-    isSafari  = typeof safari !== 'undefined',
-    isOpera   = typeof chrome !== 'undefined' && navigator.userAgent.indexOf("OPR") !== -1,
-    isChrome  = typeof chrome !== 'undefined' && navigator.userAgent.indexOf("OPR") === -1;
+    isSafari  = typeof safari !== 'undefined';
 
 if (isFirefox) {
-  app = require('./wrapper/firefox/app');
-  config = require('./config');
-  timer = require('./utils/timer');
-  server = require('./utils/server');
-  gmail = require('./utils/gmail');
-  tab = require('./utils/tab');
+  var app = require('./wrapper/firefox/app');
+  var config = require('./config');
+  var timer = require('./utils/timer');
+  var server = require('./utils/server');
+  var gmail = require('./utils/gmail');
+  var tab = require('./utils/tab');
 }
 
 // add a repeater to check all accounts
@@ -34,7 +34,7 @@ var actions = {
     repeater.reset(true);
   },
   openOptions: function () {
-    open(app.manifest.url + "data/options/index.html", false, true);
+    open(app.manifest.url + 'data/options/index.html', false, true);
   },
   onCommand: function () {
     var hasUnread = checkEmails.getCached()
@@ -46,7 +46,7 @@ var actions = {
       }, 0);
     var numberOfAccounts = checkEmails.getCached()
       .map(function (o) {
-        return o.xml ? o.xml.title : null
+        return o.xml ? o.xml.title : null;
       })
       .filter(function (o, i, a) {
         return o && a.indexOf(o) === i;
@@ -60,45 +60,45 @@ var actions = {
       app.popup.show();
     }
   }
-}
+};
 
 var icon = (function () {
   var i = 0, t = [];
 
   function clearTimeout () {
     t.forEach(function (_t) {
-      app.timer.clearTimeout(t);
-      t.splice(t.indexOf(t), 1);
+      app.timer.clearTimeout(_t);
+      t.splice(t.indexOf(_t), 1);
     });
   }
 
   return function (clr) {
     // Change color pattern?
-    if (config.ui.pattern == 1) {
+    if (config.ui.pattern === 1) {
       switch (clr) {
-        case "blue":
-          clr = "gray";
+        case 'blue':
+          clr = 'gray';
           break;
-        case "gray":
-          clr = "blue";
+        case 'gray':
+          clr = 'blue';
           break;
       }
     }
     clearTimeout();
-    if (clr == "load") {
+    if (clr === 'load') {
       t.push(app.timer.setTimeout(function () {
-        app.button.color = "load" + i;
+        app.button.color = 'load' + i;
         i += 1;
         i = i % 4;
-        icon("load");
+        icon('load');
       }, 200));
     }
-    else if (clr == "new") {
+    else if (clr === 'new') {
       t.push(app.timer.setTimeout(function () {
-        app.button.color = i % 2 ? "red" : "new";
+        app.button.color = i % 2 ? 'red' : 'new';
         if (i < 7) {
           i += 1;
-          icon("new");
+          icon('new');
         }
         else {
           i = 0;
@@ -109,18 +109,18 @@ var icon = (function () {
       i = 0;
       app.button.color = clr;
     }
-  }
+  };
 })();
 
 function open (url, inBackground, refresh) {
   function parseUri (str) {
-    str = str || "";
-    str = str.replace("gmail", "mail.google");
+    str = str || '';
+    str = str.replace('gmail', 'mail.google');
     var o = {
       strictMode: false,
-      key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
+      key: ['source', 'protocol', 'authority', 'userInfo', 'user', 'password', 'host', 'port', 'relative', 'path', 'directory', 'file', 'query', 'anchor'],
       q:   {
-        name:   "queryKey",
+        name:   'queryKey',
         parser: /(?:^|&)([^&=]*)=?([^&]*)/g
       },
       parser: {
@@ -128,29 +128,33 @@ function open (url, inBackground, refresh) {
         loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
       }
     };
-    var m = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
+    var m = o.parser[o.strictMode ? 'strict' : 'loose'].exec(str),
       uri = {},
       i   = 14;
 
-    while (i--) uri[o.key[i]] = m[i] || "";
+    while (i--) {
+      uri[o.key[i]] = m[i] || '';
+    }
 
     uri[o.q.name] = {};
     uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
-      if ($1) uri[o.q.name][$1] = $2;
+      if ($1) {
+        uri[o.q.name][$1] = $2;
+      }
     });
-    uri.base = uri.host.split("&")[0];
+    uri.base = uri.host.split('&')[0];
 
-    if (uri.host.indexOf("mail.google") !== -1) {
-      uri.message_id = (/message_id\=([^&]*)|\#[^\/]*\/([^&]*)/.exec(uri.host) || [])[1] || uri.anchor.split("/")[1];
+    if (uri.host.indexOf('mail.google') !== -1) {
+      uri.message_id = (/message_id\=([^&]*)|\#[^\/]*\/([^&]*)/.exec(uri.host) || [])[1] || uri.anchor.split('/')[1];
       uri.label = (/\#([^\/]*)/.exec(uri.source) || [])[1];
     }
 
     return uri;
-  };
+  }
 
   app.windows.active()
     .then(function () {
-      return app.windows.tabs.list(config.tabs.search)
+      return app.windows.tabs.list(config.tabs.search);
     })
     .then(function (tabs) {
       var parse2 = parseUri(url);
@@ -158,7 +162,7 @@ function open (url, inBackground, refresh) {
       for (var i = 0; tab = tabs[i], i < tabs.length; i++) {
         if (tab.url === url) {
           if (config.tabs.NotifyGmailIsOpen && tab.active) {
-            app.notify(app.l10n("msg_1"));
+            app.notify(app.l10n('msg_1'));
           }
           tab.activate();
           // Focus the tab container
@@ -166,13 +170,15 @@ function open (url, inBackground, refresh) {
             win.focus();
           });
 
-          if (refresh) tab.url = url;
+          if (refresh) {
+            tab.url = url;
+          }
           return;
         }
         var parse1 = parseUri(tab.url);
         // Only if Gmail
         if (
-          parse1.base.indexOf("mail.google") !== -1 &&
+          parse1.base.indexOf('mail.google') !== -1 &&
           parse1.base === parse2.base &&
           parse1.directory.indexOf(parse2.directory) === 0 &&
           !/to\=/.test(url) &&
@@ -181,7 +187,7 @@ function open (url, inBackground, refresh) {
           var reload = parse2.message_id && tab.url.indexOf(parse2.message_id) === -1 || refresh;
           if (tab.active && !reload) {
             if (config.tabs.NotifyGmailIsOpen) {
-              app.notify(app.l10n("msg_1"));
+              app.notify(app.l10n('msg_1'));
             }
           }
           else if (tab.active && reload) {
@@ -206,24 +212,24 @@ function open (url, inBackground, refresh) {
         });
       }
       else if (config.tabs.open.mode === 0) {
-        app.windows.tabs.open(url, typeof inBackground !== "undefined" ? inBackground : config.tabs.open.background);
+        app.windows.tabs.open(url, typeof inBackground !== 'undefined' ? inBackground : config.tabs.open.background);
       }
       else {
-        app.windows.open(url, typeof inBackground !== "undefined" ? inBackground : config.tabs.open.background);
+        app.windows.open(url, typeof inBackground !== 'undefined' ? inBackground : config.tabs.open.background);
       }
     });
 }
 
 var checkEmails = (function () {
-  var color = "blue", count = -1, cachedEmails;
-  var emails, feeds = "";
+  var color = 'blue', count = -1, cachedEmails;
+  var emails, feeds = '';
 
   return {
     execute: function (forced) {
       if (forced) {
-        icon("load");
+        icon('load');
         app.button.badge = 0;
-        color = "load";
+        color = 'load';
       }
       // Cancel previous execution?
       if (emails && emails.length) {
@@ -231,11 +237,11 @@ var checkEmails = (function () {
           e.reject();
         });
       }
-      if (config.email.feeds.join(", ") !== feeds) {
+      if (config.email.feeds.join(', ') !== feeds) {
         emails = config.email.feeds.map(function (feed) {
           return new server.Email(feed, config.email.timeout);
         });
-        feeds = config.email.feeds.join(", ");
+        feeds = config.email.feeds.join(', ');
       }
       // Execute fresh servers
       app.Promise.all(emails.map(function (e) {
@@ -243,13 +249,15 @@ var checkEmails = (function () {
       })).then(function (objs) {
         // Make sure there is no duplicate account
         var tmp = objs.map(function (o) {
-          return o.notAuthorized == true || o.network == false ? null : o.xml.title + "/" + o.xml.label;
+          return o.notAuthorized === true || o.network === false ? null : o.xml.title + '/' + o.xml.label;
         })
-        .map(function (l,i,a) {
-          return !l ? false : a.indexOf(l) !== i
+        .map(function (l, i, a) {
+          return !l ? false : a.indexOf(l) !== i;
         });
         tmp.forEach(function (v, i) {
-          if (!v) return;
+          if (!v) {
+            return;
+          }
           objs[i].notAuthorized = true;
           objs[i].xml = null;
           objs[i].newIDs = [];
@@ -262,17 +270,17 @@ var checkEmails = (function () {
           return p || (c.newIDs.length !== 0);
         }, false);
         if (!isAuthorized) {
-          if (color !== "blue") {
-            icon("blue");
+          if (color !== 'blue') {
+            icon('blue');
             app.button.badge = 0;
-            color = "blue";
+            color = 'blue';
             count = -1;
             cachedEmails = [];
             app.popup.detach();
           }
           if (forced) {
             open(config.email.url);
-            app.notify(app.l10n("log_into_your_account"))
+            app.notify(app.l10n('log_into_your_account'));
           }
           if (config.tray.permanent && config.tray.show) {
             app.tray.set(-1, config.labels.tooltip);
@@ -289,15 +297,19 @@ var checkEmails = (function () {
           return o.network && !o.notAuthorized;
         });
         //Sorting accounts
-        objs.sort(function(a,b) {
+        objs.sort(function (a, b) {
           var var1 = config.email.alphabetic ? a.xml.title : a.xml.link,
               var2 = config.email.alphabetic ? b.xml.title : b.xml.link;
-          if (var1 > var2) return 1;
-          if (var1 < var2) return -1;
+          if (var1 > var2) {
+            return 1;
+          }
+          if (var1 < var2) {
+            return -1;
+          }
           return 0;
         });
         // New total count number
-        var newCount = objs.reduce(function(p,c) {
+        var newCount = objs.reduce(function (p, c) {
           return p + c.xml.fullcount;
         }, 0);
         //
@@ -313,7 +325,7 @@ var checkEmails = (function () {
         objs.forEach (function (o) {
           (o.xml.entries || [])
             .filter(function (e) {
-              return anyNewEmails ? o.newIDs.indexOf(e.id) !== -1 : o.xml.fullcount !== 0
+              return anyNewEmails ? o.newIDs.indexOf(e.id) !== -1 : o.xml.fullcount !== 0;
             })
             .splice(0, config.email.maxReport)
             .forEach(function (e) {
@@ -321,30 +333,32 @@ var checkEmails = (function () {
             });
         });
         function shorten (str) {
-          if (str.length < config.email.truncate) return str;
-          return str.substr(0, config.email.truncate / 2) + "..." + str.substr(str.length - config.email.truncate / 2);
+          if (str.length < config.email.truncate) {
+            return str;
+          }
+          return str.substr(0, config.email.truncate / 2) + '...' + str.substr(str.length - config.email.truncate / 2);
         }
         var report = tmp.map(function (e) {
           return config.notification.format
-            .replace("[author_name]", e.author_name)
-            .replace("[author_email]", e.author_email)
-            .replace("[summary]", shorten(e.summary))
-            .replace("[title]", shorten(e.title))
-            .replace(/\[break\]/g, "\n")
-        }).join("\n\n");
+            .replace('[author_name]', e.author_name)
+            .replace('[author_email]', e.author_email)
+            .replace('[summary]', shorten(e.summary))
+            .replace('[title]', shorten(e.title))
+            .replace(/\[break\]/g, '\n');
+        }).join('\n\n');
         // Preparing the tooltip
         var tooltip =
-          app.l10n("gmail") + "\n\n" +
+          app.l10n('gmail') + '\n\n' +
           objs.reduce(function (p, c) {
             return p +=
               c.xml.title +
-              (c.xml.label ? " [" + c.xml.label + "]" : "") +
-              " (" + c.xml.fullcount + ")" + "\n";
-          }, "").replace(/\n$/, "");
+              (c.xml.label ? ' [' + c.xml.label + ']' : '') +
+              ' (' + c.xml.fullcount + ')' + '\n';
+          }, '').replace(/\n$/, '');
 
         if (!forced && !anyNewEmails) {
           if (newCount) {
-            icon("red");
+            icon('red');
             app.button.badge = newCount;
             if (config.tray.show) {
               app.tray.set(newCount, tooltip);
@@ -354,9 +368,9 @@ var checkEmails = (function () {
             app.popup.attach();
           }
           else {
-            icon("gray");
+            icon('gray');
             app.button.badge = 0;
-            color = "gray";
+            color = 'gray';
             if (config.tray.permanent && config.tray.show) {
               app.tray.set(0, config.labels.tooltip);
             }
@@ -368,9 +382,9 @@ var checkEmails = (function () {
           }
         }
         else if (forced && !newCount) {
-          icon("gray");
+          icon('gray');
           app.button.badge = 0;
-          color = "gray";
+          color = 'gray';
           if (config.tray.permanent && config.tray.show) {
             app.tray.set(0, config.labels.tooltip);
           }
@@ -381,12 +395,12 @@ var checkEmails = (function () {
           app.popup.detach();
         }
         else {
-          icon("new");
+          icon('new');
           app.button.badge = newCount;
-          color = "new";
+          color = 'new';
           app.popup.attach();
           if (config.notification.show) {
-            app.notify(report, "", function () {
+            app.notify(report, '', function () {
               app.timer.setTimeout(function () {
                 // restore browser window first!
                 app.windows.active().then(function (win) {
@@ -410,7 +424,7 @@ var checkEmails = (function () {
     getCached: function () {
       return cachedEmails || [];
     }
-  }
+  };
 })();
 repeater.on(checkEmails.execute);
 if (!config.email.check.first) {  // manual mode
@@ -420,12 +434,12 @@ if (!config.email.check.first) {  // manual mode
 if (isSafari && config.email.check.first) {
   var isLoggedin = (function () {
     return function () {
-      app.get("https://mail.google.com/mail/u/0/feed/atom").then(function (req) {
+      app.get('https://mail.google.com/mail/u/0/feed/atom').then(function (req) {
         if (req.status === 200) {
           repeater.reset();
           if (config.notification.safari.oneTime) {
-            window.alert(app.l10n("msg_4"));
-            open("https://mail.google.com/mail/u/0/#inbox");
+            window.alert(app.l10n('msg_4'));
+            open('https://mail.google.com/mail/u/0/#inbox');
             config.notification.safari.oneTime = false;
           }
         }
@@ -433,7 +447,7 @@ if (isSafari && config.email.check.first) {
           app.timer.setTimeout(isLoggedin, 60000);
         }
       });
-    }
+    };
   })();
   repeater.stop();
   isLoggedin();
@@ -450,40 +464,40 @@ if (!config.email.check.resetPeriod) {
 
 //popup
 function doPopupResize () {
-  app.popup.send("resize", {
+  app.popup.send('resize', {
     width: config.popup.width,
     height: config.popup.height,
     mode: config.popup.mode
   });
 }
-app.popup.receive("resize", doPopupResize);
-app.popup.receive("mode", function (mode) {
+app.popup.receive('resize', doPopupResize);
+app.popup.receive('mode', function (mode) {
   config.popup.mode = mode;
   doPopupResize ();
 });
-app.popup.receive("show", function () {
+app.popup.receive('show', function () {
   var objs = checkEmails.getCached();
   if (objs.length) {
-    app.popup.send("update-reset", objs);
+    app.popup.send('update-reset', objs);
   }
 });
-app.popup.receive("open", function (link) {
+app.popup.receive('open', function (link) {
   app.popup.hide();
   if (link) {
     open(link);
   }
 });
-app.popup.receive("clipboard", function (o) {
+app.popup.receive('clipboard', function (o) {
   app.clipboard(o.str);
-  app.notify(app.l10n(o.type ? "msg_3" : "msg_2"));
+  app.notify(app.l10n(o.type ? 'msg_3' : 'msg_2'));
 });
-app.popup.receive("update", function () {
+app.popup.receive('update', function () {
   repeater.reset(true);
 });
-app.popup.receive("action", function (o) {
+app.popup.receive('action', function (o) {
   gmail.action(o.links, o.cmd).then(
     function () {
-      app.popup.send("action-response", o.cmd);
+      app.popup.send('action-response', o.cmd);
       repeater.reset();
     },
     function (e) {
@@ -491,18 +505,18 @@ app.popup.receive("action", function (o) {
     }
   );
 });
-app.popup.receive("body", function (link) {
+app.popup.receive('body', function (link) {
   gmail.body(link).then(function (content) {
-    app.popup.send("body-response", {
+    app.popup.send('body-response', {
       link: link,
       content: content
     });
   });
 });
-app.popup.receive("keyUp", function () {
-  app.popup.send("keyUp", config.popup.keyUp);
+app.popup.receive('keyUp', function () {
+  app.popup.send('keyUp', config.popup.keyUp);
 });
-app.popup.receive("options", function () {
+app.popup.receive('options', function () {
   actions.openOptions();
   app.popup.hide();
 });
@@ -510,18 +524,23 @@ app.popup.receive("options", function () {
 // user interactions
 app.button.onCommand(actions.onCommand);
 app.button.onClick (function (e) {
-if (e.button == 1 || (e.button == 0 && e.ctrlKey)) {
-  e.preventDefault();
-  e.stopPropagation();
-  config.toolbar.clicks.middle === 0 ? actions.reset() : open(config.email.url);
-}
+  if (e.button === 1 || (e.button === 0 && e.ctrlKey)) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (config.toolbar.clicks.middle === 0) {
+      actions.reset();
+    }
+    else {
+      open(config.email.url);
+    }
+  }
 });
 app.button.onContext(function () {
   // insert new items
   var show = checkEmails.getCached().map(function (o) {
     return o.xml.rootLink;
-  }).map(function (e,i,a) {
-    return a.indexOf(e) == i;
+  }).map(function (e, i, a) {
+    return a.indexOf(e) === i;
   });
   var items = [];
   if (isFirefox) {
@@ -529,46 +548,48 @@ app.button.onContext(function () {
       return show[i];
     }).map(function (o) {
       return {
-        type: "menuitem",
+        type: 'menuitem',
         label: o.xml.title,
         command: function (link, e) {
           if (link) {
-            open(link.replace(/\?.*/ , ""));
+            open(link.replace(/\?.*/ , ''));
           }
         }.bind(this, o.xml.rootLink)
-      }
+      };
     });
-    if (items.length) items.push({type: "menuseparator"});
+    if (items.length) {
+      items.push({type: 'menuseparator'});
+    }
 
     items = items.concat([
-      {type: "menu", label: app.l10n("label_3"), childs: [
-        {type: "menupopup", childs: [
-          {type: "menuitem", label: app.l10n("label_4"), value: 300},
-          {type: "menuitem", label: app.l10n("label_5"), value: 900},
-          {type: "menuitem", label: app.l10n("label_6"), value: 1800},
-          {type: "menuitem", label: app.l10n("label_7"), value: 3600},
-          {type: "menuitem", label: app.l10n("label_8"), value: 7200},
-          {type: "menuitem", label: app.l10n("label_9"), value: 18000}
+      {type: 'menu', label: app.l10n('label_3'), childs: [
+        {type: 'menupopup', childs: [
+          {type: 'menuitem', label: app.l10n('label_4'), value: 300},
+          {type: 'menuitem', label: app.l10n('label_5'), value: 900},
+          {type: 'menuitem', label: app.l10n('label_6'), value: 1800},
+          {type: 'menuitem', label: app.l10n('label_7'), value: 3600},
+          {type: 'menuitem', label: app.l10n('label_8'), value: 7200},
+          {type: 'menuitem', label: app.l10n('label_9'), value: 18000}
         ], command: function (e) {
-          actions.silent(parseInt(e.originalTarget.getAttribute("value")) * 1000);
+          actions.silent(parseInt(e.originalTarget.getAttribute('value')) * 1000);
         }}
       ]},
-      {type: "menuitem", label: app.l10n("label_10"), command: actions.silent},
-      {type: "menuseparator"}
+      {type: 'menuitem', label: app.l10n('label_10'), command: actions.silent},
+      {type: 'menuseparator'}
     ]);
   }
   items = items.concat([
-    {type: "menuitem", label: app.l10n("label_11"), command: function () {
+    {type: 'menuitem', label: app.l10n('label_11'), command: function () {
       open(config.email.compose);
     }},
-    {type: "menuitem", label: app.l10n("label_1"), command: actions.reset},
+    {type: 'menuitem', label: app.l10n('label_1'), command: actions.reset},
   ]);
   if (isFirefox) {
     items = items.concat([
-      {type: "menuitem", label: app.l10n("label_2"), command: actions.openOptions},
-      {type: "menuseparator"},
-      {type: "menuitem", label: app.l10n("label_12"), command: function () {
-        open(config.welcome.homepage + "?type=context");
+      {type: 'menuitem', label: app.l10n('label_2'), command: actions.openOptions},
+      {type: 'menuseparator'},
+      {type: 'menuitem', label: app.l10n('label_12'), command: function () {
+        open(config.welcome.homepage + '?type=context');
       }}
     ]);
   }
@@ -579,10 +600,10 @@ app.startup(function () {
   //welcome
   if (app.version() !== config.welcome.version) {
     if (config.welcome.notification) {
-      var url = config.welcome.homepage
-        + "?type=" + (config.welcome.version ? "upgrade" : "install")
-        + (config.welcome.version ? "&p=" + config.welcome.version : "")
-        + "&v=" + app.version();
+      var url = config.welcome.homepage +
+        '?type=' + (config.welcome.version ? 'upgrade' : 'install') +
+        (config.welcome.version ? '&p=' + config.welcome.version : '') +
+        '&v=' + app.version();
       app.timer.setTimeout(function () {
         open(url, false);
       }, config.welcome.time);
@@ -596,7 +617,7 @@ if (!config.welcome.version) {
   config.email.feeds_2 =
   config.email.feeds_3 =
   config.email.feeds_4 =
-  config.email.feeds_5 = "inbox";
+  config.email.feeds_5 = 'inbox';
 }
 
 //tray notification
@@ -607,15 +628,15 @@ app.tray.callback(function () {
   });
 });
 //options
-app.options.receive("changed", function (o) {
+app.options.receive('changed', function (o) {
   config.set(o.pref, o.value);
-  app.options.send("set", {
+  app.options.send('set', {
     pref: o.pref,
     value: config.get(o.pref)
-  })
+  });
 });
-app.options.receive("get", function (pref) {
-  app.options.send("set", {
+app.options.receive('get', function (pref) {
+  app.options.send('set', {
     pref: pref,
     value: config.get(pref)
   });
@@ -623,14 +644,14 @@ app.options.receive("get", function (pref) {
 app.unload(function () {
   app.windows.tabs.list().then(function (tabs) {
     tabs.forEach(function (tab) {
-      if (tab.url ===  app.manifest.url + "data/options/index.html") {
+      if (tab.url ===  app.manifest.url + 'data/options/index.html') {
         tab.close();
       }
     });
   });
 });
 // pref listeners
-config.on("email.check.resetPeriod", function () {
+config.on('email.check.resetPeriod', function () {
   if (config.email.check.resetPeriod) {
     resetTimer.fill(config.email.check.resetPeriod * 1000 * 60);
     resetTimer.reset();
@@ -639,11 +660,11 @@ config.on("email.check.resetPeriod", function () {
     resetTimer.stop();
   }
 });
-config.on("keyUp", function () {
-  app.popup.send("keyUp", config.popup.keyUp);
+config.on('keyUp', function () {
+  app.popup.send('keyUp', config.popup.keyUp);
 });
-config.on("ui.pattern", actions.reset);
-config.on("tray.show", function () {
+config.on('ui.pattern', actions.reset);
+config.on('tray.show', function () {
   if (config.tray.show) {
     actions.reset();
   }
