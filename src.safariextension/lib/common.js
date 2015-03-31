@@ -73,21 +73,39 @@ var icon = (function () {
   }
 
   return function (clr) {
-    // Change color pattern?
-    if (config.ui.pattern === 1) {
-      switch (clr) {
-        case 'blue':
-          clr = 'gray';
-          break;
-        case 'gray':
-          clr = 'blue';
-          break;
+    function set (clr) {
+      // Change color pattern?
+      if (config.ui.pattern === 1) {
+        switch (clr) {
+          case 'blue':
+            clr = 'gray';
+            break;
+          case 'gray':
+            clr = 'blue';
+            break;
+        }
       }
+      if (config.ui.pattern === 2) {
+        switch (clr) {
+          case 'blue':
+            clr = 'gray';
+            break;
+          case 'red':
+            clr = 'blue';
+            break;
+          case 'gray':
+            clr = 'red';
+            break;
+        }
+      }
+      console.error(clr);
+      app.button.color = clr;
     }
+
     clearTimeout();
     if (clr === 'load') {
       t.push(app.timer.setTimeout(function () {
-        app.button.color = 'load' + i;
+        set('load' + i);
         i += 1;
         i = i % 4;
         icon('load');
@@ -95,7 +113,7 @@ var icon = (function () {
     }
     else if (clr === 'new') {
       t.push(app.timer.setTimeout(function () {
-        app.button.color = i % 2 ? 'red' : 'new';
+        set(i % 2 ? 'red' : 'new');
         if (i < 7) {
           i += 1;
           icon('new');
@@ -107,7 +125,7 @@ var icon = (function () {
     }
     else {
       i = 0;
-      app.button.color = clr;
+      set(clr);
     }
   };
 })();

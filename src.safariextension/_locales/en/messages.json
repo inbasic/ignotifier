@@ -327,6 +327,9 @@
   "options_misc_5": {
     "message": "Blue color for \"No Unread\" and gray color for \"Disconnected\""
   },
+  "options_misc_9": {
+    "message": "Red color for \"No Unread\" and gray color for \"Disconnected\""
+  },
   "options_misc_6": {
     "message": "Do not show desktop notification to warn that Gmail website is already open"
   },
