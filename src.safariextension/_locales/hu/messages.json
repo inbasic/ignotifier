@@ -16,7 +16,7 @@
         "description": ""
     },
     "options_timings_l7": {
-        "message": "Ne keressen új leveleket induláskor",
+        "message": "Ne keressen új leveleket induláskor ennyi másodpercig:",
         "description": ""
     },
     "label_4": {
@@ -24,7 +24,7 @@
         "description": ""
     },
     "options_timings_l3": {
-        "message": "Emlékeztessen az összes olvasatlan levélre minden",
+        "message": "Emlékeztessen az összes olvasatlan levélre (percenként):",
         "description": ""
     },
     "options_gmail_1": {
@@ -95,6 +95,10 @@
         "message": "15 percre",
         "description": ""
     },
+    "options_misc_9": {
+        "message": "Piros szín a \"Nincs olvasatlan\" és szürke szín a \"Szétkapcsolva\"",
+        "description": ""
+    },
     "options_misc_1": {
         "message": "Fiókok betűrendbe rendezése",
         "description": ""
@@ -103,12 +107,16 @@
         "message": "Jobb egér: Gmail vagy előnézeti panel megnyitása",
         "description": ""
     },
-    "options_seconds": {
-        "message": "másodperc",
+    "notification": {
+        "message": "Feladó: [author_email][break]Tárgy: [title][break]Összegzés: [summary]",
         "description": ""
     },
     "options_tab": {
         "message": "Lap megnyitása:",
+        "description": ""
+    },
+    "log_into_your_account": {
+        "message": "Jelentkezzen be fiókjába",
         "description": ""
     },
     "label_10": {
@@ -192,7 +200,7 @@
         "description": ""
     },
     "options_notifications_2": {
-        "message": "Asztali értesítés megjelenítése eddig:",
+        "message": "Asztali értesítés megjelenítése ennyi másodpercig:",
         "description": ""
     },
     "log_in_to_your_account": {
@@ -208,7 +216,7 @@
         "description": ""
     },
     "options_toolbar_9": {
-        "message": "Eszköztár panel magassága teljes tartalom módban",
+        "message": "Teljes tartalom megjelenítésekor az eszköztár panel magassága pixelben:",
         "description": ""
     },
     "options_toolbar_1": {
@@ -275,10 +283,6 @@
         "message": "Tálcaértesítések nem támogatottak jelenleg Linux alatt.",
         "description": ""
     },
-    "options_minutes": {
-        "message": "perc",
-        "description": ""
-    },
     "msg_1": {
         "message": "Már megnyitotta a Gmail-t. Kattintson az eszköztár gombjára a Gmail megnyitásához új ablakban vagy már megnyitott Gmail lapra váltáshoz.",
         "description": ""
@@ -312,7 +316,7 @@
         "description": ""
     },
     "options_timings_l1": {
-        "message": "Új levelek ellenőrzése minden",
+        "message": "Új levelek ellenőrzése ennyi másodpercenként:",
         "description": ""
     },
     "options_toolbar_4": {
@@ -408,7 +412,7 @@
         "description": ""
     },
     "options_toolbar_7": {
-        "message": "Eszköztár panel szélessége teljes tartalom módban",
+        "message": "Teljes tartalom megjelenítésekor az eszköztár panel szélessége pixelben:",
         "description": ""
     },
     "options_timings_l5": {

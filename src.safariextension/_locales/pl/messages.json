@@ -16,7 +16,7 @@
         "description": ""
     },
     "options_timings_l7": {
-        "message": "Nie sprawdzaj nowych wiadomości przy starcie przez",
+        "message": "Nie sprawdzaj nowych wiadomości przy starcie przez (sekundy):",
         "description": ""
     },
     "label_4": {
@@ -24,7 +24,7 @@
         "description": ""
     },
     "options_timings_l3": {
-        "message": "Przypominaj o nieprzeczytanych wiadomościach co",
+        "message": "Przypominaj o nieprzeczytanych wiadomościach co (minuty):",
         "description": ""
     },
     "options_gmail_1": {
@@ -60,7 +60,7 @@
         "description": ""
     },
     "options_notifications_25": {
-        "message": "Safari często odtwarza nieprawidłowo domyślne dźwięki powiadomień. Gdy tak się będzie działo, spróbuj użyć własnych dźwięków powiadomień.",
+        "message": "Safari często odtwarza nieprawidłowo domyślne dźwięki powiadomień. W takim przypadku spróbuj użyć własnych dźwięków powiadomień.",
         "description": ""
     },
     "options_toolbar_15": {
@@ -95,6 +95,10 @@
         "message": "Przez 15 minut",
         "description": ""
     },
+    "options_misc_9": {
+        "message": "Czerwony dla \"Brak nieprzeczytanych\" i szary dla \"Rozłączony\"",
+        "description": ""
+    },
     "options_misc_1": {
         "message": "Sortuj konta alfabetycznie",
         "description": ""
@@ -103,12 +107,16 @@
         "message": "LPM: Otwórz Gmail lub panel podglądu wiadomości",
         "description": ""
     },
-    "options_seconds": {
-        "message": "[sekundy]",
+    "notification": {
+        "message": "Od: [author_email][break]Tytuł: [title][break]Streszczenie: [summary]",
         "description": ""
     },
     "options_tab": {
         "message": "Otwieranie kart:",
+        "description": ""
+    },
+    "log_into_your_account": {
+        "message": "Proszę się zalogować do swojego konta",
         "description": ""
     },
     "label_10": {
@@ -192,7 +200,7 @@
         "description": ""
     },
     "options_notifications_2": {
-        "message": "Pokazuj powiadomienia na pulpicie przez",
+        "message": "Pokazuj powiadomienia na pulpicie przez (sekundy):",
         "description": ""
     },
     "log_in_to_your_account": {
@@ -208,7 +216,7 @@
         "description": ""
     },
     "options_toolbar_9": {
-        "message": "Wysokość panelu paska narzędzi w trybie pełnej zawartości:",
+        "message": "Wysokość panelu paska narzędzi w trybie pełnej zawartości (piksele):",
         "description": ""
     },
     "options_toolbar_1": {
@@ -260,7 +268,7 @@
         "description": ""
     },
     "popup_settings": {
-        "message": "settingsfff",
+        "message": "Ustawienia",
         "description": ""
     },
     "options_gmail_4": {
@@ -273,10 +281,6 @@
     },
     "options_notifications_12": {
         "message": "Obecnie, powiadomienia paska zadań nie są wspierane na systemach Linuks.",
-        "description": ""
-    },
-    "options_minutes": {
-        "message": "[minuty]",
         "description": ""
     },
     "msg_1": {
@@ -312,7 +316,7 @@
         "description": ""
     },
     "options_timings_l1": {
-        "message": "Sprawdzaj nowe wiadomości co",
+        "message": "Sprawdzaj nowe wiadomości co (sekundy):",
         "description": ""
     },
     "options_toolbar_4": {
@@ -408,7 +412,7 @@
         "description": ""
     },
     "options_toolbar_7": {
-        "message": "Szerokość panelu paska narzędzi w trybie pełnej zawartości:",
+        "message": "Szerokość panelu paska narzędzi w trybie pełnej zawartości (piksele):",
         "description": ""
     },
     "options_timings_l5": {

@@ -16,7 +16,7 @@
         "description": ""
     },
     "options_timings_l7": {
-        "message": "Niet controleren op nieuwe e-mails bij opstarten voor de duur van",
+        "message": "Niet controleren op nieuwe e-mails bij opstarten voor de duur van (in seconden):",
         "description": ""
     },
     "label_4": {
@@ -24,7 +24,7 @@
         "description": ""
     },
     "options_timings_l3": {
-        "message": "Herinnering voor alle ongelezen e-mails, elke",
+        "message": "Herinnering voor alle ongelezen e-mails, elke (in minuten):",
         "description": ""
     },
     "options_gmail_1": {
@@ -95,6 +95,10 @@
         "message": "Voor 15 minuten",
         "description": ""
     },
+    "options_misc_9": {
+        "message": "Red color for \"No Unread\" and gray color for \"Disconnected\"",
+        "description": ""
+    },
     "options_misc_1": {
         "message": "Accounts alfabetisch sorteren",
         "description": ""
@@ -103,12 +107,16 @@
         "message": "Linksklik: Gmail of het e-mailvoorbeeldpaneel openen",
         "description": ""
     },
-    "options_seconds": {
-        "message": "seconden",
+    "notification": {
+        "message": "Van: [author_email][break]Titel: [title][break]Samenvatting: [summary]",
         "description": ""
     },
     "options_tab": {
         "message": "Tabblad openen:",
+        "description": ""
+    },
+    "log_into_your_account": {
+        "message": "Log alstublieft in op uw account",
         "description": ""
     },
     "label_10": {
@@ -192,7 +200,7 @@
         "description": ""
     },
     "options_notifications_2": {
-        "message": "Bureaubladmelding weergeven voor de duur van",
+        "message": "Bureaubladmelding weergeven voor de duur van (in seconden):",
         "description": ""
     },
     "log_in_to_your_account": {
@@ -208,7 +216,7 @@
         "description": ""
     },
     "options_toolbar_9": {
-        "message": "Werkbalkpaneel-hoogte in de volledige-inhoudsweergave is",
+        "message": "Werkbalkpaneel-hoogte in de volledige-inhoudsweergave is (in pixels):",
         "description": ""
     },
     "options_toolbar_1": {
@@ -260,7 +268,7 @@
         "description": ""
     },
     "popup_settings": {
-        "message": "instellingenfff",
+        "message": "Instellingen",
         "description": ""
     },
     "options_gmail_4": {
@@ -273,10 +281,6 @@
     },
     "options_notifications_12": {
         "message": "Taakbalkmeldingen worden momenteel niet ondersteund op Linux-besturingssystemen.",
-        "description": ""
-    },
-    "options_minutes": {
-        "message": "minuten",
         "description": ""
     },
     "msg_1": {
@@ -312,7 +316,7 @@
         "description": ""
     },
     "options_timings_l1": {
-        "message": "Op nieuwe e-mails controleren, elke",
+        "message": "Op nieuwe e-mails controleren, elke (in seconden):",
         "description": ""
     },
     "options_toolbar_4": {
@@ -408,7 +412,7 @@
         "description": ""
     },
     "options_toolbar_7": {
-        "message": "Breedte van werkbalkpaneel in volledige-inhoudsweergave is",
+        "message": "Breedte van werkbalkpaneel in volledige-inhoudsweergave is (in pixels):",
         "description": ""
     },
     "options_timings_l5": {
