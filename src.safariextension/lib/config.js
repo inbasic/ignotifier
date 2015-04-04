@@ -249,7 +249,7 @@ config.notification = {
         app.play.reset();
       },
       get name () {
-        return app.storage.read('sound_name') || 'unknown';
+        return app.storage.read('sound_name') || app.l10n('unknown');
       },
       set name (val) {
         app.storage.write('sound_name', val);
