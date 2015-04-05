@@ -239,6 +239,10 @@
         "message": "要想没有截断和省略号，在这里使用较大的数值。",
         "description": ""
     },
+    "options_donation": {
+        "message": "Make a Donation",
+        "description": ""
+    },
     "msg_3": {
         "message": "选定文本已复制到剪贴板。",
         "description": ""

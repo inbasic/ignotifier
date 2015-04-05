@@ -466,7 +466,7 @@ config.tabs = {
   },
   open: {
     get useBlankTabs () {
-      return app.storage.read('useBlankTabs') === 'false' ? false : true;
+      return app.storage.read('useBlankTabs') === 'true' ? true : false;
     },
     set useBlankTabs (val) {
       app.storage.write('useBlankTabs', val);

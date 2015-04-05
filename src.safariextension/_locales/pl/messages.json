@@ -239,6 +239,10 @@
         "message": "Jeżeli nie chcesz skracać, wpisz dużą liczbę.",
         "description": ""
     },
+    "options_donation": {
+        "message": "Make a Donation",
+        "description": ""
+    },
     "msg_3": {
         "message": "Zaznaczony tekst został skopiowany do schowka.",
         "description": ""

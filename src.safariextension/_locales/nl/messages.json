@@ -239,6 +239,10 @@
         "message": "Om te afbreking te voorkomen, vul hier een groot getal in.",
         "description": ""
     },
+    "options_donation": {
+        "message": "Make a Donation",
+        "description": ""
+    },
     "msg_3": {
         "message": "Geselecteerde tekst is gekopieerd naar het klembord.",
         "description": ""

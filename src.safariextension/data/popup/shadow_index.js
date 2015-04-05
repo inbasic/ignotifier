@@ -1,3 +1,5 @@
+'use strict';
+
 var isFirefox = typeof InstallTrigger !== 'undefined';
 
 if (!isFirefox) {
