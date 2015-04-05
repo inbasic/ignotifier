@@ -21,15 +21,15 @@ To compile ignotifier project you need to have these softwares and libraries ava
 ###How to compile ignotifier
 1. Open a new terminal in the root dir (directory contains src, preview, template, and compile folders)
 2. Run ``npm install`` to acquire the necessary nodejs packages
-3. Run ``node compile/install.js`` to run ignotifier in a new Firefox profile  
-   To make the xpi run ``node compile/install.js --xpi``  
-   For more options use ``node compile/install.js --help``  
+3. Run ``node compile/install.js`` to run ignotifier in a new Firefox profile
+   To make the xpi run ``node compile/install.js --xpi``
+   For more options use ``node compile/install.js --help``
 
 ###How to translate ignotifier
 * To translate ignotifier into your language head to [transifex.com](https://www.transifex.com/projects/p/gmail-notifier-addon) page.
 * After the translation is ready, insert the translated file in `/src.safariextension/_locales` folder
 * For Firefox to recognize the translation, you need to run the following commend in the root directory
-`node compile/convert.js -i src.safariextension/_locales/en/messages.json -o src.safariextension/locale/en-US.properties` 
+`node compile/convert.js -i src.safariextension/_locales/en/messages.json -o src.safariextension/locale/en.properties`
 
 > This will convert the English JSON file into `en-US.properties` which is recognizable by Firefox.
 

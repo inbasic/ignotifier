@@ -71,6 +71,10 @@
         "message": "Minimale hoogte is 500px.",
         "description": ""
     },
+    "options_notifications_26": {
+        "message": "Always show tray notification (Windows only)",
+        "description": ""
+    },
     "label_3": {
         "message": "Alle meldingen uitschakelen",
         "description": ""
@@ -97,6 +101,10 @@
     },
     "options_misc_9": {
         "message": "Red color for \"No Unread\" and gray color for \"Disconnected\"",
+        "description": ""
+    },
+    "options_notifications_27": {
+        "message": "Tray notification will be shown even if there is no unread message.",
         "description": ""
     },
     "options_misc_1": {
@@ -132,7 +140,7 @@
         "description": ""
     },
     "options_toolbar_11": {
-        "message": "Toetsenbordsneltoetsen ondersteunen op het werkbalkpaneel.",
+        "message": "Support keyboard shortcuts on the toolbar panel",
         "description": ""
     },
     "options_gmail_9": {
@@ -172,7 +180,7 @@
         "description": ""
     },
     "options_title": {
-        "message": "Voorkeuren - Gmail™-melder",
+        "message": "Options - Gmail™ Notifier",
         "description": ""
     },
     "gmail": {
@@ -184,7 +192,7 @@
         "description": ""
     },
     "options_notifications_16": {
-        "message": "Standaardwaarschuwing van Gmail-melder",
+        "message": "Gmail Notifier default alert",
         "description": ""
     },
     "options_notifications_14": {
@@ -248,7 +256,7 @@
         "description": ""
     },
     "options_notifications_5": {
-        "message": "Beschikbare sleutels:",
+        "message": "Available variables:",
         "description": ""
     },
     "options_notifications_24": {
@@ -345,6 +353,10 @@
     },
     "options_notifications_20": {
         "message": "Eigen gekozen geluid",
+        "description": ""
+    },
+    "and": {
+        "message": "and",
         "description": ""
     },
     "options_tab_7": {

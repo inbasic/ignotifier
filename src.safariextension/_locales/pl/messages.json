@@ -71,6 +71,10 @@
         "message": "Minimalna wysokość to 500px.",
         "description": ""
     },
+    "options_notifications_26": {
+        "message": "Zawsze pokazuj ikony powiadomień (tylko Windows)",
+        "description": ""
+    },
     "label_3": {
         "message": "Wyłącz wszystkie powiadomienia",
         "description": ""
@@ -97,6 +101,10 @@
     },
     "options_misc_9": {
         "message": "Czerwony dla \"Brak nieprzeczytanych\" i szary dla \"Rozłączony\"",
+        "description": ""
+    },
+    "options_notifications_27": {
+        "message": "Ikony obszaru powiadomień będą zawsze wyświetlane, nawet gdy brak nieprzeczytanych wiadomości.",
         "description": ""
     },
     "options_misc_1": {
@@ -132,7 +140,7 @@
         "description": ""
     },
     "options_toolbar_11": {
-        "message": "Wsparcie skrótów klawiszowych w panelu paska narzędzi.",
+        "message": "Wsparcie skrótów klawiszowych w panelu paska narzędzi",
         "description": ""
     },
     "options_gmail_9": {
@@ -345,6 +353,10 @@
     },
     "options_notifications_20": {
         "message": "Własny sygnał",
+        "description": ""
+    },
+    "and": {
+        "message": "i",
         "description": ""
     },
     "options_tab_7": {

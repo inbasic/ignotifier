@@ -71,6 +71,10 @@
         "message": "A legkisebb magasság is 500px.",
         "description": ""
     },
+    "options_notifications_26": {
+        "message": "Mindig látszódjon a tálcaértesítő (Csak Windows)",
+        "description": ""
+    },
     "label_3": {
         "message": "Összes értesítés tiltása",
         "description": ""
@@ -97,6 +101,10 @@
     },
     "options_misc_9": {
         "message": "Piros szín a \"Nincs olvasatlan\" és szürke szín a \"Szétkapcsolva\"",
+        "description": ""
+    },
+    "options_notifications_27": {
+        "message": "A tálcaértesítő akkor is látszódjon, amikor nincs olvasatlan üzenet. ",
         "description": ""
     },
     "options_misc_1": {
@@ -132,7 +140,7 @@
         "description": ""
     },
     "options_toolbar_11": {
-        "message": "Gyorsbillentyű támogatása az eszköztár gombján.",
+        "message": "Gyorsbillentyű támogatása az eszköztár gombján",
         "description": ""
     },
     "options_gmail_9": {
@@ -172,7 +180,7 @@
         "description": ""
     },
     "options_title": {
-        "message": "Beállítások - Gmail™ értesítő",
+        "message": "Beállítások - Gmail™ Értesítő",
         "description": ""
     },
     "gmail": {
@@ -248,7 +256,7 @@
         "description": ""
     },
     "options_notifications_5": {
-        "message": "Használható kulcsszavak:",
+        "message": "Használható változók:",
         "description": ""
     },
     "options_notifications_24": {
@@ -345,6 +353,10 @@
     },
     "options_notifications_20": {
         "message": "Felhasználó által megadott hang",
+        "description": ""
+    },
+    "and": {
+        "message": "és",
         "description": ""
     },
     "options_tab_7": {

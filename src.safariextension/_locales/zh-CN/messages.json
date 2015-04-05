@@ -56,7 +56,7 @@
         "description": ""
     },
     "options_tab_6": {
-        "message": "在新窗口中打开 Gmail 帐户",
+        "message": "在新窗口打开 Gmail 帐户",
         "description": ""
     },
     "options_notifications_25": {
@@ -69,6 +69,10 @@
     },
     "options_toolbar_10": {
         "message": "最小高度为 500px。",
+        "description": ""
+    },
+    "options_notifications_26": {
+        "message": "始终显示托盘通知 (仅 Windows)",
         "description": ""
     },
     "label_3": {
@@ -97,6 +101,10 @@
     },
     "options_misc_9": {
         "message": "红色表示“无未读邮件”，灰色表示“已断开”",
+        "description": ""
+    },
+    "options_notifications_27": {
+        "message": "托盘通知图标将始终显示，即使没有未读邮件。",
         "description": ""
     },
     "options_misc_1": {
@@ -132,11 +140,11 @@
         "description": ""
     },
     "options_toolbar_11": {
-        "message": "工具栏面板上支持键盘快捷键。",
+        "message": "工具栏面板上支持键盘快捷键",
         "description": ""
     },
     "options_gmail_9": {
-        "message": "热门的一些标签: \"inbox\", \"important\", \"^smartlabel_personal\", \"^smartlabel_newsletter\", \"^smartlabel_notification\", 及 \"^smartlabel_group\"",
+        "message": "部分常用标签: \"inbox\", \"important\", \"^smartlabel_personal\", \"^smartlabel_newsletter\", \"^smartlabel_notification\", \"^smartlabel_group\"",
         "description": ""
     },
     "options_misc_6": {
@@ -160,7 +168,7 @@
         "description": ""
     },
     "options_tab_5": {
-        "message": "在后台标签页中打开 Gmail 帐户",
+        "message": "在后台标签页打开 Gmail 帐户",
         "description": ""
     },
     "label_7": {
@@ -172,7 +180,7 @@
         "description": ""
     },
     "options_title": {
-        "message": "选项 - Gmail™ notifier",
+        "message": "选项 - Gmail™ Notifier",
         "description": ""
     },
     "gmail": {
@@ -184,7 +192,7 @@
         "description": ""
     },
     "options_notifications_16": {
-        "message": "Gmail notifier 默认声音",
+        "message": "Gmail Notifier 默认声音",
         "description": ""
     },
     "options_notifications_14": {
@@ -240,7 +248,7 @@
         "description": ""
     },
     "options_gmail": {
-        "message": "Gmail:",
+        "message": "Gmail：",
         "description": ""
     },
     "label_1": {
@@ -248,7 +256,7 @@
         "description": ""
     },
     "options_notifications_5": {
-        "message": "可用快捷键：",
+        "message": "可用变量:",
         "description": ""
     },
     "options_notifications_24": {
@@ -280,7 +288,7 @@
         "description": ""
     },
     "options_notifications_12": {
-        "message": "任务栏通知目前在 Linux 操作系统上不支持。",
+        "message": "任务栏通知目前不支持 Linux 操作系统。",
         "description": ""
     },
     "msg_1": {
@@ -292,7 +300,7 @@
         "description": ""
     },
     "options_timings_l8": {
-        "message": "设置值为零将禁用邮件检查，除非手动刷新 [Safari 上不可用]。",
+        "message": "设置值为 0 将禁用邮件检查，除非手动刷新 [Safari 上不可用]。",
         "description": ""
     },
     "tooltip_3": {
@@ -332,7 +340,7 @@
         "description": ""
     },
     "options_gmail_12": {
-        "message": "用 \",\" (半角逗号) 分隔收取点。样例收取点: https://mail.google.com/mail/u/0/feed/atom/inbox",
+        "message": "用 \",\" (半角逗号) 分隔收取点。收取点样例: https://mail.google.com/mail/u/0/feed/atom/inbox",
         "description": ""
     },
     "options_toolbar_12": {
@@ -345,6 +353,10 @@
     },
     "options_notifications_20": {
         "message": "用户定义声音",
+        "description": ""
+    },
+    "and": {
+        "message": "及",
         "description": ""
     },
     "options_tab_7": {
@@ -448,7 +460,7 @@
         "description": ""
     },
     "options_tab_4": {
-        "message": "在当前标签页中打开 Gmail 帐户",
+        "message": "在当前标签页打开 Gmail 帐户",
         "description": ""
     },
     "label_12": {
