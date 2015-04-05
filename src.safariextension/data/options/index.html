@@ -9,14 +9,30 @@
 </head>
 <body class="flex">
   <div id="header" class="flex">
-    <div style="">
-      <span data-l10n-id="options_title"></span>
-      <br/>
-      <span class="note" data-l10n-id="options_inshort"></span>
-    </div>
-    <div>
-      fff
-    </div>
+    <table width=100%>
+      <tr>
+        <td rowspan="2" type=icon></td>
+        <td type=title><span data-l10n-id="options_title"></span></td>
+        <td rowspan="2" type=donation>
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+            <input name="cmd" value="_s-xclick" type="hidden">
+            <input name="custom" value="ignotifier-firefox" type="hidden">
+            <input name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----" type="hidden">
+            <div class="button-set" data-role="button-set">
+              <button class="active" onclick="formSubmit()"><span data-l10n-id="options_donation"></span></button>
+            </div>
+          </form>
+        </td>
+        <td rowspan="2" type=links>
+          <a href="https://addons.mozilla.org/en-US/firefox/addon/gmail-notifier-restartless/"><img src="../icons/browsers/firefox.png"></img></a>
+          <a href="https://chrome.google.com/webstore/detail/gmail-notifier/dcjichoefijpinlfnjghokpkojhlhkgl"><img src="../icons/browsers/chrome.png"></img></a>
+          <a href="https://addons.opera.com/en/extensions/details/gmail-notifier/?display=en"><img src="../icons/browsers/opera.png"></img></a>
+        </td>
+      </tr>
+      <tr>
+        <td type=inshort><span class="note" data-l10n-id="options_inshort"></span></td>
+      </tr>
+    </table>
   </div>
 
   <div id="content" class="flex">

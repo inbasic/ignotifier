@@ -74,9 +74,8 @@ body>* {
 
 #header {
   width: 100%;
-  background: #F1F1F1 url(../icons/options/64.png) left 35px center no-repeat;
+  background-color: #F1F1F1;
   border-bottom: solid 1px #E5E5E5;
-  height: 94px;
   justify-content: center;
   -webkit-justify-content: center;
 }
@@ -87,6 +86,46 @@ body>* {
   font-size: 140%;
 }
 
+#header table {
+  height: 94px;
+}
+#header td[type=icon] {
+  width: 90px;
+  background-image: url(../icons/options/64.png);
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+}
+#header td[type=title] {
+  vertical-align: bottom;
+}
+#header td[type=inshort] {
+  vertical-align: top;
+}
+#header td[type=donation] {
+  text-align: center;
+  width: 300px;
+}
+#header button {
+  background-color: #F07600;
+  color: #FFF;
+  border: 1px solid transparent;
+  border-radius: 0px;
+  cursor: pointer;
+  height: 32px;
+  line-height: 20px;
+  min-height: 32px;
+  min-width: 90px;
+  outline: medium none;
+  text-align: center;
+  vertical-align: middle !important;
+}
+#header td[type=links] {
+  width: 200px;
+}
+#header td[type=links] ul{
+  list-style-type: none;
+  padding: 0;
+}
 
 table {
   border-collapse: collapse;

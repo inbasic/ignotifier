@@ -89,6 +89,9 @@
   "options_inshort": {
     "message": "Multiple label and account notifier for Google Mail (Gmail)."
   },
+  "options_donation": {
+    "message": "Make a Donation"
+  },
   "options_timings": {
     "message": "Timings"
   },
