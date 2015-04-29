@@ -22,6 +22,9 @@ config.email = (function () {
           .replace(/^\s\s*/, '')
           .replace(/\s\s*$/, '')
           .replace(/\s/g, '-')
+          .replace(/\//g, '-')
+          .replace(/^\"/g, '')
+          .replace(/\"$/g, '')
           .toLowerCase();
       })
       .filter(function (tag) {  // remove empty tags
