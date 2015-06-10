@@ -21,8 +21,8 @@ app.button = (function () {
       items.forEach(function (obj) {
         chrome.contextMenus.create({
           title: obj.label,
-          type: obj.type === "menuseparator" ? "separator" : "normal",
-          contexts: ["browser_action"],
+          type: obj.type === 'menuseparator' ? 'separator' : 'normal',
+          contexts: ['browser_action'],
           onclick: obj.command
         });
       });

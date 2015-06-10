@@ -98,7 +98,6 @@ var icon = (function () {
             break;
         }
       }
-      console.error(clr);
       app.button.color = clr;
     }
 
@@ -594,6 +593,13 @@ app.button.onContext(function () {
       ]},
       {type: 'menuitem', label: app.l10n('label_10'), command: actions.silent},
       {type: 'menuseparator'}
+    ]);
+  }
+  else {
+    items = items.concat([
+      {type: 'menuitem', label: app.l10n('label_3') + ' ' + app.l10n('label_4').toLowerCase(), command: actions.silent.bind(actions, 300 * 1000)},
+      {type: 'menuitem', label: app.l10n('label_3') + ' ' + app.l10n('label_7').toLowerCase(), command: actions.silent.bind(actions, 3600 * 1000)},
+      {type: 'menuitem', label: app.l10n('label_10'), command: actions.silent}
     ]);
   }
   items = items.concat([
