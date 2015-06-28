@@ -25,6 +25,8 @@ var {Cc, Ci, Cu}  = require('chrome'),
       },
     }
 
+var exportsHelper = {};
+
 Cu.import("resource://gre/modules/Promise.jsm");
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 
@@ -349,7 +351,7 @@ exports.notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob
   }
 })();
 
-XPCOMUtils.defineLazyGetter(exports, "play", function () {
+XPCOMUtils.defineLazyGetter(exportsHelper, "play", function () {
   Cu.import("resource://gre/modules/FileUtils.jsm");
   Cu.import("resource://gre/modules/Services.jsm");
 
@@ -379,12 +381,22 @@ XPCOMUtils.defineLazyGetter(exports, "play", function () {
     reset: function () {}
   }
 });
+Object.defineProperty(exports, 'play', {
+  get () {
+    return exportsHelper.play;
+  }
+});
 
-XPCOMUtils.defineLazyGetter(exports, "clipboard", function () {
+XPCOMUtils.defineLazyGetter(exportsHelper, "clipboard", function () {
   var clipboardHelper = Cc["@mozilla.org/widget/clipboardhelper;1"]
     .getService(Ci.nsIClipboardHelper);
   return function (str) {
     clipboardHelper.copyString(str);
+  }
+});
+Object.defineProperty(exports, 'clipboard', {
+  get () {
+    return exportsHelper.clipboard;
   }
 });
 

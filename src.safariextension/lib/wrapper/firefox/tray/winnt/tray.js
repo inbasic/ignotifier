@@ -15,6 +15,8 @@ var {Cc, Ci, Cu}  = require('chrome'),
     version       = parseInt((/\d\.\d/.exec(oscpu) || ['0'])[0].replace('.', '')), // Windows Version
     config        = require('../../../../config');
 
+var exportsHelper = {};
+
 var {XPCOMUtils} = Cu.import('resource://gre/modules/XPCOMUtils.jsm');
 var {ctypes} = Cu.import('resource://gre/modules/ctypes.jsm');
 Cu.import('resource://gre/modules/Promise.jsm');

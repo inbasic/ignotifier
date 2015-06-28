@@ -8,10 +8,10 @@
   "default_locale": "en",
   "permissions": [
     "https://mail.google.com/",
+    "http://add0n.com/gmail-notifier.html",
     "storage",
     "tabs",
     "notifications",
-    "background",
     "contextMenus"
   ],
   "web_accessible_resources": [
