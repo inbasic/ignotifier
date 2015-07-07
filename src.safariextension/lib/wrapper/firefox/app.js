@@ -70,9 +70,9 @@ var options = (function () {
     },
     onAttach: function(worker) {
       array.add(workers, worker);
-      worker.on('pageshow', (w) => array.add(workers, w));
-      worker.on('pagehide', (w) => array.remove(workers, w));
-      worker.on('detach', (w) => array.remove(workers, w));
+      worker.on('pageshow', function() { array.add(workers, this); });
+      worker.on('pagehide', function() { array.remove(workers, this); });
+      worker.on('detach', function() { array.remove(workers, this); });
       // PageMod has no access to mozFullPath of input.
       worker.port.on("get-sound-fullpath", function () {
         var browserWindow = Cc["@mozilla.org/appshell/window-mediator;1"].
@@ -89,7 +89,6 @@ var options = (function () {
   return {
     send: function (id, data) {
       workers.forEach(function (worker) {
-        if (!worker || !worker.url) return;
         worker.port.emit(id, data);
       });
     },
@@ -382,7 +381,7 @@ XPCOMUtils.defineLazyGetter(exportsHelper, "play", function () {
   }
 });
 Object.defineProperty(exports, 'play', {
-  get () {
+  get: function () {
     return exportsHelper.play;
   }
 });
@@ -395,7 +394,7 @@ XPCOMUtils.defineLazyGetter(exportsHelper, "clipboard", function () {
   }
 });
 Object.defineProperty(exports, 'clipboard', {
-  get () {
+  get: function () {
     return exportsHelper.clipboard;
   }
 });
