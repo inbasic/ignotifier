@@ -114,7 +114,7 @@ function icon (badge) {
         context.fillRect (xRect, 6, 16, 16);
         context.fillStyle = '#fff';
         context.font = '9px Arial';
-        context.fillText('badge'.length <= 3 ? 'badge' : '999', xText, 14);
+        context.fillText('badge'.length <= 3 ? 'badge' : '>1K', xText, 14);
       }
       var arr = context.getImageData(0, 0, 16, 16).data, tmp = [];
       for (var i = 0, n = arr.length; i < n; i += 4) {   //r,g,b,alpha

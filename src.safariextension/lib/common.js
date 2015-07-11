@@ -237,6 +237,12 @@ function open (url, inBackground, refresh) {
     });
 }
 
+function setBadge (val) {
+  if (val > 999) {
+    val = '>' + Math.round(val / 1000) + 'K'
+  }
+  app.button.badge = val + '';
+}
 var checkEmails = (function () {
   var color = 'blue', count = -1, cachedEmails;
   var emails, feeds = '';
@@ -245,7 +251,7 @@ var checkEmails = (function () {
     execute: function (forced) {
       if (forced) {
         icon('load');
-        app.button.badge = 0;
+        setBadge(0);
         color = 'load';
       }
       // Cancel previous execution?
@@ -289,7 +295,7 @@ var checkEmails = (function () {
         if (!isAuthorized) {
           if (color !== 'blue') {
             icon('blue');
-            app.button.badge = 0;
+            setBadge(0);
             color = 'blue';
             count = -1;
             cachedEmails = [];
@@ -376,7 +382,7 @@ var checkEmails = (function () {
         if (!forced && !anyNewEmails) {
           if (newCount) {
             icon('red');
-            app.button.badge = newCount;
+            setBadge(newCount);
             if (config.tray.show) {
               app.tray.set(newCount, tooltip);
             }
@@ -386,7 +392,7 @@ var checkEmails = (function () {
           }
           else {
             icon('gray');
-            app.button.badge = 0;
+            setBadge(0);
             color = 'gray';
             if (config.tray.permanent && config.tray.show) {
               app.tray.set(0, config.labels.tooltip);
@@ -400,7 +406,7 @@ var checkEmails = (function () {
         }
         else if (forced && !newCount) {
           icon('gray');
-          app.button.badge = 0;
+          setBadge(0);
           color = 'gray';
           if (config.tray.permanent && config.tray.show) {
             app.tray.set(0, config.labels.tooltip);
@@ -413,7 +419,7 @@ var checkEmails = (function () {
         }
         else {
           icon('new');
-          app.button.badge = newCount;
+          setBadge(newCount);
           color = 'new';
           app.popup.attach();
           if (config.notification.show) {
