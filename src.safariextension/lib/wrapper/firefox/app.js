@@ -438,3 +438,51 @@ exports.manifest = {
 }
 
 exports.tray = require('./tray/wrapper').tray;
+
+exports.contentScript = (function () {
+  var workers = [], content_script_arr = [];
+  pageMod.PageMod({
+    include: ['https://mail.google.com/*', 'https://gmail.com/*', 'http://mail.google.com/*', 'http://gmail.com/*'],
+    contentScriptFile: [data.url('./content_script/firefox/firefox.js'), data.url('./content_script/inject_firefox.js')],
+    contentScriptWhen: 'start',
+    attachTo: ['top', 'existing'],
+    contentScriptOptions: {
+      base: data.url('.')
+    },
+    onAttach: function(worker) {
+      array.add(workers, worker);
+      worker.on('pageshow', function() { array.add(workers, this); });
+      worker.on('pagehide', function() { array.remove(workers, this); });
+      worker.on('detach', function() { array.remove(workers, this); });
+      content_script_arr.forEach(function (arr) {
+        worker.port.on(arr[0], arr[1]);
+      });
+    }
+  });
+  return {
+    send: function (id, data, global) {
+      if (global === true) {
+        workers.forEach(function (worker) {
+          worker.port.emit(id, data);
+        });
+      }
+      else if ('emit' in this) {
+        this.emit(id, data);
+      }
+      else {
+        workers.forEach(function (worker) {
+          if (worker.tab !== tabs.activeTab) {
+            return;
+          }
+          worker.port.emit(id, data);
+        });
+      }
+    },
+    receive: function (id, callback) {
+      content_script_arr.push([id, callback]);
+      workers.forEach(function (worker) {
+        worker.port.on(id, callback);
+      });
+    }
+  };
+})();

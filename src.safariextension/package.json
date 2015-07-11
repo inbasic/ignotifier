@@ -16,7 +16,8 @@
   "icon": "data/icons/red/32.png",
   "icon64": "data/icons/red/64.png",
   "permissions": {
-    "private-browsing": true
+    "private-browsing": true,
+    "unsafe-content-script": true
   }
 }
 

@@ -7,7 +7,10 @@
   "manifest_version": 2,
   "default_locale": "en",
   "permissions": [
-    "https://mail.google.com/",
+    "https://mail.google.com/*",
+    "http://mail.google.com/*",
+    "https://gmail.com/*",
+    "http://gmail.com/*",
     "http://add0n.com/gmail-notifier.html",
     "storage",
     "tabs",
@@ -29,5 +32,11 @@
     "16": "data/icons/red/16.png",
     "48": "data/icons/red/48.png",
     "128": "data/icons/red/128.png"
-  }
+  },
+  "content_scripts": [{
+    "matches": ["https://mail.google.com/*", "https://gmail.com/*", "http://mail.google.com/*", "http://gmail.com/*"],
+    "js": ["data/content_script/chrome/chrome.js", "data/content_script/inject_chrome.js"],
+    "run_at": "document_start",
+    "all_frames": false
+  }]
 }

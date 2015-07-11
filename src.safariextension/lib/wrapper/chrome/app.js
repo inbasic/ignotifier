@@ -1,11 +1,20 @@
-var app = {};
+/* globals config, chrome, webkitNotifications */
+'use strict';
+
+var app = new EventEmitter();
+
+app.once('load', function () {
+  var script = document.createElement('script');
+  document.body.appendChild(script);
+  script.src = '../../common.js';
+});
 
 /* exports */
 app.Promise = Promise;
 
 app.button = (function () {
   var callback;
-  chrome.browserAction.onClicked.addListener(function(tab) {
+  chrome.browserAction.onClicked.addListener(function () {
     if (callback) {
       callback();
     }
@@ -31,19 +40,19 @@ app.button = (function () {
     set label (val) {
       chrome.browserAction.setTitle({
         title: val
-      })
+      });
     },
     set badge (val) {
       chrome.browserAction.setBadgeText({
-        text: (val ? val : "") + ""
+        text: (val ? val : '') + ''
       });
     },
     set color (val) {
       chrome.browserAction.setIcon({
-        path: "../../../data/icons/" + val + "/19.png"
+        path: '../../../data/icons/' + val + '/19.png'
       });
     }
-  }
+  };
 })();
 
 app.popup = (function () {
@@ -57,26 +66,26 @@ app.popup = (function () {
     },
     attach: function () {
       chrome.browserAction.setPopup({
-        popup: "data/popup/index.html"
+        popup: 'data/popup/index.html'
       });
     },
     detach: function () {
       this.hide();
       chrome.browserAction.setPopup({
-        popup: ""
+        popup: ''
       });
     },
     send: function (id, data) {
       chrome.extension.sendRequest({method: id, data: data});
     },
     receive: function (id, callback) {
-      chrome.extension.onRequest.addListener(function(request, sender, c) {
-        if (request.method == id && !sender.tab) {
+      chrome.extension.onRequest.addListener(function (request, sender) {
+        if (request.method === id && !sender.tab) {
           callback(request.data);
         }
       });
     }
-  }
+  };
 })();
 
 app.timer = window;
@@ -86,34 +95,34 @@ app.get = function (url, headers, data, timeout) {
 
   var xhr = new XMLHttpRequest();
   var d = app.Promise.defer();
-  xhr.onreadystatechange = function() {
+  xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
       d.resolve(xhr);
     }
   };
-  xhr.open(data ? "POST" : "GET", url, true);
+  xhr.open(data ? 'POST' : 'GET', url, true);
   for (var id in headers) {
     xhr.setRequestHeader(id, headers[id]);
   }
   if (data) {
     var arr = [];
-    for(e in data) {
-      arr.push(e + "=" + data[e]);
+    for (var e in data) {
+      arr.push(e + '=' + data[e]);
     }
-    data = arr.join("&");
+    data = arr.join('&');
   }
   xhr.timeout = timeout;
-  xhr.send(data ? data : "");
+  xhr.send(data ? data : '');
   return d.promise;
-}
+};
 
 app.parser = function () {
   return new DOMParser();
-}
+};
 
 app.l10n = function (id) {
   return chrome.i18n.getMessage(id);
-}
+};
 
 app.windows = (function () {
   function toWindow (win) {
@@ -124,12 +133,12 @@ app.windows = (function () {
           focused: true
         });
       }
-    }
+    };
   }
   function toTab(tab) {
     return {
       get url () {
-        return tab.url
+        return tab.url;
       },
       set url (val) {
         chrome.tabs.update(tab.id, {
@@ -138,7 +147,7 @@ app.windows = (function () {
       },
       activate: function () {
         chrome.tabs.update(tab.id, {
-           active: true
+          active: true
         });
       },
       window: function () {
@@ -154,7 +163,7 @@ app.windows = (function () {
       close: function () {
         tab.close();
       }
-    }
+    };
   }
   return {
     active: function () {
@@ -175,7 +184,7 @@ app.windows = (function () {
         var d = app.Promise.defer();
         chrome.tabs.query({
           currentWindow: currentWindow
-        },function(tabs) {
+        }, function (tabs) {
           d.resolve(tabs.map(toTab));
         });
         return d.promise;
@@ -202,10 +211,10 @@ app.windows = (function () {
             else {
               return app.windows.tabs.list(true).then(function (tabs) {
                 return tabs.reduce(function (p, c) {
-                  return p || (c.url === "chrome://newtab/" ? c : null);
-                }, null)
-              })
-          }
+                  return p || (c.url === 'chrome://newtab/' ? c : null);
+                }, null);
+              });
+            }
           })().then(function (t) {
             if (t) {
               t.url = url;
@@ -224,17 +233,19 @@ app.windows = (function () {
         });
       }
     }
-  }
+  };
 })();
 
 app.notify = function (text, title, callback) {
-  title = title || app.l10n("gmail");
-  if (config.notification.silent) return;
+  title = title || app.l10n('gmail');
+  if (config.notification.silent) {
+    return;
+  }
 
   var notification,
-      icon = "../../../data/icons/notification/48.png";
+      icon = '../../../data/icons/notification/48.png';
 
-  if (typeof window.webkitNotifications == 'undefined' && typeof Notification == 'undefined') {
+  if (typeof window.webkitNotifications === 'undefined' && typeof Notification === 'undefined') {
     console.error('Notification dismissed', title, text);
     return; //Opera
   }
@@ -252,7 +263,7 @@ app.notify = function (text, title, callback) {
     if (callback) {
       callback();
     }
-  }
+  };
   window.setTimeout(function () {
     if (notification) {
       if (window.webkitNotifications) {
@@ -263,13 +274,13 @@ app.notify = function (text, title, callback) {
       }
     }
   }, config.notification.time * 1000);
-}
+};
 
 app.play = (function () {
   var audio;
   function reset () {
     audio = document.createElement('audio');
-    audio.setAttribute("preload", "auto");
+    audio.setAttribute('preload', 'auto');
     audio.autobuffer = true;
     var source = document.createElement('source');
     var data = config.notification.sound.custom.file;
@@ -287,71 +298,116 @@ app.play = (function () {
 
   return {
     now: function () {
-      if (config.notification.silent) return;
-      if (!audio) reset();
+      if (config.notification.silent) {
+        return;
+      }
+      if (!audio) {
+        reset();
+      }
 
       audio.volume = config.notification.sound.volume / 100;
       audio.load;
       audio.play();
     },
     reset: reset
-  }
+  };
 })();
 
-app.clipboard = function () {}
+app.clipboard = function () {};
 
 app.version = function () {
-  return chrome[chrome.runtime && chrome.runtime.getManifest ? "runtime" : "extension"].getManifest().version;
-}
+  return chrome[chrome.runtime && chrome.runtime.getManifest ? 'runtime' : 'extension'].getManifest().version;
+};
 
 app.startup = function (c) {
   c();
-}
+};
 
 app.unload = (function () {
   var callbacks = [];
-  window.addEventListener("unload", function () {
+  window.addEventListener('unload', function () {
     callbacks.forEach(function (c) {
-      c()
+      c();
     });
   }, false);
   return function (c) {
     callbacks.push(c);
-  }
+  };
 })();
 
 app.options = {
   send: function (id, data) {
-    chrome.tabs.query({}, function(tabs) {
+    chrome.tabs.query({}, function (tabs) {
       tabs.forEach(function (tab) {
-        chrome.tabs.sendMessage(tab.id, {method: id, data: data}, function() {});
+        chrome.tabs.sendMessage(tab.id, {method: id, data: data}, function () {});
       });
     });
   },
   receive: function (id, callback) {
-    chrome.extension.onRequest.addListener(function(request, sender, callback2) {
-      if (request.method == id && sender.tab) {
+    chrome.extension.onRequest.addListener(function (request, sender) {
+      if (request.method === id && sender.tab) {
         callback(request.data);
       }
     });
   }
-}
+};
 
-app.storage = {
-  read: function (id) {
-    return localStorage[id] || null;
-  },
-  write: function (id, data) {
-    localStorage[id] = data + "";
-  }
-}
+app.storage = (function () {
+  var objs = {};
+  chrome.storage.local.get(null, function (o) {
+    objs = o;
+    app.emit('load');
+  });
+  return {
+    read: function (id) {
+      return (objs[id] || !isNaN(objs[id])) ? objs[id] + '' : objs[id];
+    },
+    write: function (id, data) {
+      objs[id] = data;
+      var tmp = {};
+      tmp[id] = data;
+      chrome.storage.local.set(tmp, function () {});
+    }
+  };
+})();
 
 app.manifest = {
   url: chrome.extension.getURL('')
-}
+};
 
 app.tray = {
   set: function () {},
   remove: function () {},
   callback: function () {}
-}
+};
+
+app.contentScript = (function () {
+  return {
+    send: function (id, data, global) {
+      if (global) {
+        chrome.tabs.query({}, function (tabs) {
+          tabs.forEach(function (tab) {
+            chrome.tabs.sendMessage(tab.id, {method: id, data: data}, function () {});
+          });
+        });
+      }
+      else if ('id' in this && 'windowId' in this) {
+        chrome.tabs.sendMessage(this.id, {method: id, data: data}, function () {});
+      }
+      else {
+        chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+          tabs.forEach(function (tab) {
+            chrome.tabs.sendMessage(tab.id, {method: id, data: data}, function () {});
+          });
+        });
+      }
+    },
+    receive: function (id, callback) {
+      chrome.runtime.onMessage.addListener(function (message, sender) {
+        if (message.method === id && sender.tab && sender.tab.url.indexOf('http') === 0) {
+          callback.call(sender.tab, message.data);
+        }
+      });
+    }
+  };
+})();

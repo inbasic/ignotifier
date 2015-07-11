@@ -516,6 +516,7 @@ app.popup.receive('action', function (o) {
     function () {
       app.popup.send('action-response', o.cmd);
       repeater.reset();
+      app.contentScript.send('refresh', null, true);
     },
     function (e) {
       app.notify(e);
