@@ -241,7 +241,7 @@ function setBadge (val) {
   if (val > 999) {
     val = '>' + Math.round(val / 1000) + 'K'
   }
-  app.button.badge = val + '';
+  app.button.badge = val === 0 ? '' : val + '';
 }
 var checkEmails = (function () {
   var color = 'blue', count = -1, cachedEmails;
@@ -703,7 +703,6 @@ config.on('tray.show', function () {
 });
 // update
 app.on('update', function () {
-  console.error('here');
   app.timer.setTimeout(function () {
     repeater.reset();
     app.contentScript.send('refresh', null, true);
