@@ -35,4 +35,3 @@ window.addEventListener('DOMContentLoaded', inject, false);
 background.receive('refresh', function () {
   window.postMessage('ignotifier-refresh', '*');
 });
-console.error('loaded');

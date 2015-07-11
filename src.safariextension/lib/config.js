@@ -140,7 +140,7 @@ config.email = (function () {
     timeout: 9000,
     get threatAsNew () {     // in minutes
       var tmp = app.storage.read('threatAsNew');
-      return tmp === null ? 10 : +tmp;
+      return tmp === null || tmp === undefined ? 10 : +tmp;
     },
     set threatAsNew (val) {
       val = +val;
