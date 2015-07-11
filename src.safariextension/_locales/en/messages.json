@@ -351,11 +351,11 @@
   "options_misc_8": {
     "message": "Reset all settings back to factory"
   },
-  "options_misc_9": {
+  "options_misc_10": {
     "message": "Only fire desktop and sound notifications when email has arrived in less than (in minutes): "
   },
-  "options_misc_10": {
-    "message": "By setting this preference to zero you will receive neither desktop nor sound notifications; however, you will still get badge notification."
+  "options_misc_11": {
+    "message": "By setting this preference to zero, you will receive neither desktop nor sound notifications; however, you will still get badge notification."
   },
   "options_px": {
     "message": "px"
