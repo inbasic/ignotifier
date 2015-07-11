@@ -1,4 +1,5 @@
 var {Cc, Ci, Cu}  = require('chrome'),
+    {on, off, once, emit} = require('sdk/event/core'),
     buttons       = require("sdk/ui/button/action"),
     tabs          = require("sdk/tabs"),
     self          = require("sdk/self"),
@@ -12,6 +13,8 @@ var {Cc, Ci, Cu}  = require('chrome'),
     pageMod       = require("sdk/page-mod"),
     sp            = require("sdk/simple-prefs"),
     unload        = require("sdk/system/unload"),
+    events        = require("sdk/system/events"),
+    tabsUtils     = require("sdk/tabs/utils"),
     prefs         = sp.prefs,
     config        = require("../../config"),
     tbExtra       = require("./tbExtra"),
@@ -29,6 +32,14 @@ var exportsHelper = {};
 
 Cu.import("resource://gre/modules/Promise.jsm");
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
+
+// Event Emitter
+exports.on = on.bind(null, exports);
+exports.once = once.bind(null, exports);
+exports.emit = emit.bind(null, exports);
+exports.removeListener = function removeListener (type, listener) {
+  off(exports, type, listener);
+};
 
 /* popup */
 var popup = panel.Panel({
@@ -486,3 +497,15 @@ exports.contentScript = (function () {
     }
   };
 })();
+
+/* updating badge when action is posted */
+function listener(event) {
+  var channel = event.subject.QueryInterface(Ci.nsIHttpChannel);
+  var url = channel.URI.spec;
+  if (url.indexOf('https://mail.google.com/mail/u') === -1 || url.indexOf('act=') === -1) {
+    return;
+  }
+  channel = channel.QueryInterface(Ci.nsIHttpChannel);
+  exports.emit('update');
+}
+events.on('http-on-modify-request', listener);

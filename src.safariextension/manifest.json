@@ -7,15 +7,12 @@
   "manifest_version": 2,
   "default_locale": "en",
   "permissions": [
-    "https://mail.google.com/*",
-    "http://mail.google.com/*",
-    "https://gmail.com/*",
-    "http://gmail.com/*",
-    "http://add0n.com/gmail-notifier.html",
+    "<all_urls>",
     "storage",
     "tabs",
     "notifications",
-    "contextMenus"
+    "contextMenus",
+    "webRequest"
   ],
   "web_accessible_resources": [
     "notification.png"

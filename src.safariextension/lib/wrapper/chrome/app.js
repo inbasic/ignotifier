@@ -411,3 +411,13 @@ app.contentScript = (function () {
     }
   };
 })();
+/* updating badge when action is posted */
+chrome.webRequest.onHeadersReceived.addListener(
+  function (info) {
+    if (info.url.indexOf('act=') !== -1) {
+      app.emit('update');
+    }
+  },
+  {urls: ['https://mail.google.com/mail/u*']},
+  ['responseHeaders']
+);

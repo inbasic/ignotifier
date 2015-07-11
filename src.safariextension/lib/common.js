@@ -515,8 +515,6 @@ app.popup.receive('action', function (o) {
   gmail.action(o.links, o.cmd).then(
     function () {
       app.popup.send('action-response', o.cmd);
-      repeater.reset();
-      app.contentScript.send('refresh', null, true);
     },
     function (e) {
       app.notify(e);
@@ -697,3 +695,11 @@ config.on('tray.show', function () {
     app.tray.remove();
   }
 });
+// update
+app.on('update', function () {
+  console.error('here');
+  app.timer.setTimeout(function () {
+    repeater.reset();
+    app.contentScript.send('refresh', null, true);
+  }, 500);
+})
