@@ -138,6 +138,14 @@ config.email = (function () {
       return merged;
     },
     timeout: 9000,
+    get threatAsNew () {     // in minutes
+      var tmp = +app.storage.read('threatAsNew')
+      return isNaN(tmp) ? 10 : tmp;
+    },
+    set threatAsNew (val) {
+      val = +val;
+      app.storage.write('threatAsNew', Math.max(val, 0));
+    },
     get truncate () {
       return +app.storage.read('notificationTruncate') || 70;
     },

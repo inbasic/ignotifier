@@ -153,7 +153,12 @@ server.Email = function (feed, timeout) {
           }
           var xml = new server.Parser(req, feed);
           //Cleaning old entries
-          var cIDs = xml.entries.map(function (e) {
+          var cIDs = xml.entries
+          .filter(function (e) {
+            var age = ((new Date()).getTime() - (new Date(e.modified)).getTime());
+            return age < 1000 * 60 * config.email.threatAsNew;
+          })
+          .map(function (e) {
             return e.id;
           });
           //Finding new ids
