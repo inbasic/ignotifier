@@ -307,6 +307,13 @@ config.labels = {
 
 config.ui = {
   badge: true,
+  get minimal () {
+    return app.storage.read('minimal') === 'false' ? false : true;
+  },
+  set minimal (val) {
+    app.storage.write('minimal', val);
+    config.on.emit('ui.minimal');
+  },
   get pattern () { // 0: normal color scheme, 1: reverse color scheme
     return +app.storage.read('clrPattern');
   },

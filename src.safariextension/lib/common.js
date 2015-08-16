@@ -242,8 +242,8 @@ function open (url, inBackground, refresh) {
 }
 
 function setBadge (val) {
-  if (val > 999) {
-    val = '>' + Math.round(val / 1000) + 'K'
+  if (val > 999 && config.ui.minimal) {
+    val = '>' + Math.round(val / 1000) + 'K';
   }
   app.button.badge = val === 0 ? '' : val + '';
 }
@@ -697,6 +697,7 @@ config.on('keyUp', function () {
   app.popup.send('keyUp', config.popup.keyUp);
 });
 config.on('ui.pattern', actions.reset);
+config.on('ui.minimal', actions.reset);
 config.on('tray.show', function () {
   if (config.tray.show) {
     actions.reset();
