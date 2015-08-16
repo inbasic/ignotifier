@@ -357,6 +357,12 @@
   "options_misc_11": {
     "message": "By setting this preference to zero, you will receive neither desktop nor sound notifications; however, you will still get badge notification."
   },
+  "options_misc_12": {
+    "message": "Do not include login details in the tooltip text"
+  },
+  "options_misc_13": {
+    "message": "By default, the notifier updates tooltip text of the toolbar button with login info. By unchecking this option, the tooltip text remains the default value."
+  },
   "options_px": {
     "message": "px"
   },

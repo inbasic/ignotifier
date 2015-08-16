@@ -19,7 +19,7 @@ function inject () {
             labels = labels.parentNode;
             var active = labels.querySelector('[tabindex="0"]');
             if (active) {
-              active.click();
+              /* active.click(); */
             }
           }
         });

@@ -36,7 +36,7 @@ var actions = {
   openOptions: function () {
     open(app.manifest.url + 'data/options/index.html', false, true);
   },
-  onCommand: function () {
+  onCommand: function (link) {
     var hasUnread = checkEmails.getCached()
       .map(function (o) {
         return o.xml ? o.xml.fullcount : 0;
@@ -52,12 +52,16 @@ var actions = {
         return o && a.indexOf(o) === i;
       })
       .length;
-
-    if (!hasUnread || (config.email.openInboxOnOne === 1 && numberOfAccounts === 1)) {
-      open(config.email.url);
+    if (isFirefox) {
+      if (!hasUnread || (config.email.openInboxOnOne === 1 && numberOfAccounts === 1)) {
+        open(config.email.url);
+      }
+      else {
+        app.popup.show();
+      }
     }
     else {
-      app.popup.show();
+      open(link || config.email.url);
     }
   }
 };
@@ -428,7 +432,7 @@ var checkEmails = (function () {
                 // restore browser window first!
                 app.windows.active().then(function (win) {
                   win.focus();
-                  app.timer.setTimeout(actions.onCommand, 100);
+                  app.timer.setTimeout(actions.onCommand, 100, tmp.length ? tmp[0].link : null);
                 });
               }, 100);
             });

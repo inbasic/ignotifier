@@ -184,7 +184,7 @@ exports.button = {
     tbExtra.onClick(c);
   },
   set label (val) {
-    button.label = val;
+    button.label = config.ui.tooltip ? val : l10n('toolbar_label');
   },
   set badge (val) {
     if (config.ui.badge) {

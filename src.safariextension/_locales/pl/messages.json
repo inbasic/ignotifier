@@ -100,7 +100,7 @@
         "description": ""
     },
     "options_misc_9": {
-        "message": "Czerwony dla \"Brak nieprzeczytanych\" i szary dla \"Rozłączony\"",
+        "message": "Czerwony dla \"Nieprzeczytane\" i szary dla \"Rozłączony\"",
         "description": ""
     },
     "options_notifications_27": {
@@ -240,7 +240,7 @@
         "description": ""
     },
     "options_donation": {
-        "message": "Make a Donation",
+        "message": "Złóż dotację",
         "description": ""
     },
     "msg_3": {
@@ -355,6 +355,10 @@
         "message": "px",
         "description": ""
     },
+    "options_misc_11": {
+        "message": "Ustawienie tej opcji na zero spowoduje, iż nie będziesz otrzymywać powiadomień na pulpicie ani dźwiękowych; jednakże nadal będziesz otrzymywać powiadomienia z ikonki na pasku narzędzi.",
+        "description": ""
+    },
     "options_notifications_20": {
         "message": "Własny sygnał",
         "description": ""
@@ -401,6 +405,10 @@
     },
     "options_notifications_7": {
         "message": "znaków dla pól [title] oraz [summary].",
+        "description": ""
+    },
+    "options_misc_10": {
+        "message": "Uruchom powiadomienia na pulpicie oraz dźwiękowe, gdy e-mail został otrzymany poniżej (minut):",
         "description": ""
     },
     "label_8": {

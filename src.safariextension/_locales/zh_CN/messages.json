@@ -240,7 +240,7 @@
         "description": ""
     },
     "options_donation": {
-        "message": "Make a Donation",
+        "message": "捐款",
         "description": ""
     },
     "msg_3": {
@@ -355,6 +355,10 @@
         "message": "像素",
         "description": ""
     },
+    "options_misc_11": {
+        "message": "如果将此选项设置为 0，您将不再收到桌面和声音通知，但仍可收到网址栏徽章通知。",
+        "description": ""
+    },
     "options_notifications_20": {
         "message": "用户定义声音",
         "description": ""
@@ -401,6 +405,10 @@
     },
     "options_notifications_7": {
         "message": "字符的标题和摘要。",
+        "description": ""
+    },
+    "options_misc_10": {
+        "message": "仅在邮件抵达未超过x分钟时发出桌面和声音通知：",
         "description": ""
     },
     "label_8": {

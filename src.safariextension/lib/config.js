@@ -459,6 +459,12 @@ config.popup = {
   },
   set keyUp (val) {
     app.storage.write('keyUp', val);
+  },
+  get tooltip () {
+    return app.storage.read('tooltip') === 'false' ? false : true;
+  },
+  set tooltip (val) {
+    app.storage.write('tooltip', val);
   }
 };
 

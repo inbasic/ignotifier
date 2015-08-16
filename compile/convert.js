@@ -1,28 +1,31 @@
 'use strict';
 
-var fs = require('fs'),
-    program = require('commander');
+var fs = require('fs');
 
-program
-  .option('-i, --input <input locale file>')
-  .option('-o, --output <input locale file>')
-  .parse(process.argv);
-
-fs.readFile(program.input, 'utf8', function (err, data) {
-  if (err) {
-    throw err;
-  }
-  var json = JSON.parse(data);
-  var c = '';
-  for (var name in json) {
-    c += name + '=' + json[name].message + '\n';
-  }
-  fs.writeFile(program.output, c, 'utf8', function (err) {
+function convert (input, output) {
+  fs.readFile('src.safariextension/_locales/' + input + '/messages.json', 'utf8', function (err, data) {
     if (err) {
       throw err;
     }
-    else {
-      console.log('done');
+    var json = JSON.parse(data);
+    var c = '';
+    for (var name in json) {
+      c += name + '=' + json[name].message + '\n';
     }
+    fs.writeFile('src.safariextension/locale/' + output + '.properties', c, 'utf8', function (err) {
+      if (err) {
+        throw err;
+      }
+      else {
+        console.log('done');
+      }
+    });
   });
-});
+}
+
+convert('en', 'en');
+convert('el', 'el');
+//convert('he', 'he');
+convert('nl', 'nl');
+convert('pl', 'pl');
+convert('zh_CN', 'zh-CN');

@@ -7,8 +7,7 @@
   "manifest_version": 2,
   "default_locale": "en",
   "permissions": [
-    "<all_urls>",
-    "storage",
+    "https://mail.google.com/mail/",
     "tabs",
     "notifications",
     "contextMenus",

@@ -72,7 +72,7 @@
         "description": ""
     },
     "options_notifications_26": {
-        "message": "Always show tray notification (Windows only)",
+        "message": "Systeemvakmelding altijd weergeven (wordt alleen ondersteund op Windows)",
         "description": ""
     },
     "label_3": {
@@ -100,11 +100,11 @@
         "description": ""
     },
     "options_misc_9": {
-        "message": "Red color for \"No Unread\" and gray color for \"Disconnected\"",
+        "message": "Rode kleur voor \"Geen ongelezen berichten\" en grijze kleur voor \"Niet verbonden\"",
         "description": ""
     },
     "options_notifications_27": {
-        "message": "Tray notification will be shown even if there is no unread message.",
+        "message": "Er zal een systeemvakmelding worden weergegeven zelfs als er geen ongelezen bericht is.",
         "description": ""
     },
     "options_misc_1": {
@@ -140,7 +140,7 @@
         "description": ""
     },
     "options_toolbar_11": {
-        "message": "Support keyboard shortcuts on the toolbar panel",
+        "message": "Toetsenbordsneltoetsen ondersteunen op het werkbalkpaneel",
         "description": ""
     },
     "options_gmail_9": {
@@ -180,7 +180,7 @@
         "description": ""
     },
     "options_title": {
-        "message": "Options - Gmail™ Notifier",
+        "message": "Voorkeuren - Gmail™-melder",
         "description": ""
     },
     "gmail": {
@@ -192,7 +192,7 @@
         "description": ""
     },
     "options_notifications_16": {
-        "message": "Gmail Notifier default alert",
+        "message": "Standaardwaarschuwing van Gmail-melder",
         "description": ""
     },
     "options_notifications_14": {
@@ -240,7 +240,7 @@
         "description": ""
     },
     "options_donation": {
-        "message": "Make a Donation",
+        "message": "Doe een donatie",
         "description": ""
     },
     "msg_3": {
@@ -260,7 +260,7 @@
         "description": ""
     },
     "options_notifications_5": {
-        "message": "Available variables:",
+        "message": "Beschikbare variabelen",
         "description": ""
     },
     "options_notifications_24": {
@@ -355,12 +355,16 @@
         "message": "px",
         "description": ""
     },
+    "options_misc_11": {
+        "message": "Door deze instelling op nul te zetten ontvangt geen bureaublad- of geluidsmeldingen; u krijgt echter nog wél de indicator op de knop.",
+        "description": ""
+    },
     "options_notifications_20": {
         "message": "Eigen gekozen geluid",
         "description": ""
     },
     "and": {
-        "message": "and",
+        "message": "en",
         "description": ""
     },
     "options_tab_7": {
@@ -401,6 +405,10 @@
     },
     "options_notifications_7": {
         "message": "tekens voor [title] en [summary]-velden",
+        "description": ""
+    },
+    "options_misc_10": {
+        "message": "Alleen bureaublad- en geluidsmeldingen weergeven wanneer een e-mail binnen is ontvangen in minder dan (in minuten):",
         "description": ""
     },
     "label_8": {
