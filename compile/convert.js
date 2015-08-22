@@ -28,4 +28,5 @@ convert('el', 'el');
 //convert('he', 'he');
 convert('nl', 'nl');
 convert('pl', 'pl');
+convert('ru', 'ru');
 convert('zh_CN', 'zh-CN');
