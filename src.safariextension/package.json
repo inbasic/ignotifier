@@ -17,7 +17,8 @@
   "icon64": "data/icons/red/64.png",
   "permissions": {
     "private-browsing": true,
-    "unsafe-content-script": true
+    "unsafe-content-script": true,
+    "cross-domain-content": ["file:///"]
   }
 }
 

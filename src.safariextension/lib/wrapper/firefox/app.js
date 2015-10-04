@@ -374,6 +374,10 @@ XPCOMUtils.defineLazyGetter(exportsHelper, "play", function () {
         var file = new FileUtils.File(config.notification.sound.custom.file);
         if (file.exists()) {
           path = Services.io.newFileURI(file).spec;
+          let res = Services.io.getProtocolHandler('resource').QueryInterface(Ci.nsIResProtocolHandler);
+          let name = 'igsound';
+          res.setSubstitution(name, Services.io.newURI(path, null, null));
+          path = 'resource://' + name;
         }
       }
       var worker = pageWorker.Page({

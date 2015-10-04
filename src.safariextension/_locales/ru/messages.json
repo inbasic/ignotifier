@@ -12,7 +12,7 @@
         "description": ""
     },
     "options_notifications_13": {
-        "message": "При клике на значок в трее открывать окно дополнения (только для Windows, beta)",
+        "message": "При клике на значок в трее открывать окно предварительного просмотра (только для Windows, beta)",
         "description": ""
     },
     "options_timings_l7": {
@@ -32,7 +32,7 @@
         "description": ""
     },
     "options_gmail_10": {
-        "message": "Получать оповещения для следующих ярлыков и аккаунтов:",
+        "message": "Получать оповещения для следующих аккаунтов и ярлыков:",
         "description": ""
     },
     "options_notifications_1": {
@@ -72,11 +72,11 @@
         "description": ""
     },
     "options_notifications_26": {
-        "message": "Всегда показывать оповещение в трее (Только Windows)",
+        "message": "Всегда показывать значок уведомления в трее (Только Windows)",
         "description": ""
     },
     "label_3": {
-        "message": "Отключить все оповещения",
+        "message": "Отключить все оповещения...",
         "description": ""
     },
     "options_empty": {
@@ -132,7 +132,7 @@
         "description": ""
     },
     "options_notifications_23": {
-        "message": "Громкость звукового оповещения",
+        "message": "Громкость звукового оповещения:",
         "description": ""
     },
     "options_timings_l2": {
@@ -156,7 +156,7 @@
         "description": ""
     },
     "options_notifications_4": {
-        "message": "Формат оповещения",
+        "message": "Формат уведомления",
         "description": ""
     },
     "label_2": {
@@ -200,7 +200,7 @@
         "description": ""
     },
     "options_misc_14": {
-        "message": "Не показывать точное количество непрочитанных сообщений на значке в панели инструментов, если оно более 999",
+        "message": "Не показывать точное количество непрочитанных сообщений на значке в панели инструментов, если оно превышает 999",
         "description": ""
     },
     "options_notifications_14": {
@@ -224,11 +224,11 @@
         "description": ""
     },
     "options_notifications_15": {
-        "message": "Звуковое оповещение",
+        "message": "Звуковое оповещение:",
         "description": ""
     },
     "options_notifications_21": {
-        "message": "Пользовательский звук",
+        "message": "Пользовательский звук:",
         "description": ""
     },
     "options_toolbar_9": {
@@ -256,7 +256,7 @@
         "description": ""
     },
     "options_misc_7": {
-        "message": "Показывать страницу приветствия при обновлении",
+        "message": "Показывать страницу приветствия при обновлении дополнения",
         "description": ""
     },
     "options_gmail": {
@@ -280,7 +280,7 @@
         "description": ""
     },
     "options_misc_2": {
-        "message": "По умолчанию сортировка по времени входа.",
+        "message": "По умолчанию - сортировка по времени входа.",
         "description": ""
     },
     "options_toolbar_2": {
@@ -328,11 +328,11 @@
         "description": ""
     },
     "options_notifications_22": {
-        "message": "Если Ваш браузер не проигрывает звук, попробуйте конвертировать его в формат WAV.",
+        "message": "Если Ваш браузер не проигрывает звук, попробуйте конвертировать звуковой файл в формат WAV.",
         "description": ""
     },
     "options_tab_1": {
-        "message": "Отслеживать открытую вкладку с Gmail только в активном окне браузера",
+        "message": "Отслеживать открытую вкладку Gmail только в активном окне браузера",
         "description": ""
     },
     "options_timings_l1": {
@@ -376,7 +376,7 @@
         "description": ""
     },
     "options_tab_7": {
-        "message": "Использовать имеющуюся пустую вкладку вместо открытия новой, если активна функция \"Открывать в новой вкладке\"",
+        "message": "Использовать имеющуюся пустую вкладку вместо открытия новой, если активна функция \"Открывать во вкладке\"",
         "description": ""
     },
     "options_toolbar_3": {
@@ -392,7 +392,7 @@
         "description": ""
     },
     "options_notifications_6": {
-        "message": "Обрезать оповещение длиннее чем",
+        "message": "Обрезать текст уведомления длиннее чем",
         "description": ""
     },
     "tooltip_2": {
@@ -452,7 +452,7 @@
         "description": ""
     },
     "options_misc": {
-        "message": "Разное:",
+        "message": "Дополнительно:",
         "description": ""
     },
     "options_gmail_2": {
