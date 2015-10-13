@@ -307,6 +307,12 @@ config.labels = {
 
 config.ui = {
   badge: true,
+  get tooltip () {
+    return app.storage.read('tooltip') === 'true' ? true : false;
+  },
+  set tooltip (val) {
+    app.storage.write('tooltip', val);
+  },
   get minimal () {
     return app.storage.read('minimal') === 'false' ? false : true;
   },
@@ -466,12 +472,6 @@ config.popup = {
   },
   set keyUp (val) {
     app.storage.write('keyUp', val);
-  },
-  get tooltip () {
-    return app.storage.read('tooltip') === 'false' ? false : true;
-  },
-  set tooltip (val) {
-    app.storage.write('tooltip', val);
   }
 };
 

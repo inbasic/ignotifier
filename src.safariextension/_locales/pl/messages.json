@@ -147,6 +147,10 @@
         "message": "Popularne etykiety: \"inbox\", \"important\", \"^smartlabel_personal\", \"^smartlabel_newsletter\", \"^smartlabel_notification\" oraz \"^smartlabel_group\"",
         "description": ""
     },
+    "options_misc_13": {
+        "message": "Rozszerzenie domyślnie aktualizuje treść okienka podpowiedzi na przycisku paska narzędzi informacjami o profilu. Odznaczenie tej opcji spowoduje zachowanie treści w domyślnej wartości.",
+        "description": ""
+    },
     "options_misc_6": {
         "message": "Nie pokazuj powiadomień na pulpicie, jeśli strona Gmail jest już otworzona",
         "description": ""
@@ -193,6 +197,10 @@
     },
     "options_notifications_16": {
         "message": "Domyślny sygnał Powiadomień Gmail™",
+        "description": ""
+    },
+    "options_misc_14": {
+        "message": "Nie wyświetlaj szczegółowej liczby na znaczku, gdy liczba nieprzeczytanych wiadomości jest większa niż 999",
         "description": ""
     },
     "options_notifications_14": {
@@ -469,6 +477,10 @@
     },
     "options_inshort": {
         "message": "Etykiety i powiadomienia kont dla Poczty Google (Gmail).",
+        "description": ""
+    },
+    "options_misc_12": {
+        "message": "Nie uwzględniaj informacji o profilu w treści okienka podpowiedzi",
         "description": ""
     },
     "options_tab_4": {

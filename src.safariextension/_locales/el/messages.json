@@ -147,6 +147,10 @@
         "message": "Μερικές δημοφιλείς ετικέτες: \"Εισερχόμενα\", \"σημαντικό\", \"^ smartlabel προσωπικά\", \"^ smartlabel ενημερωτικό δελτίο\", \"^ κοινοποίηση smartlabel\", και \"^ smartlabel_group\"",
         "description": ""
     },
+    "options_misc_13": {
+        "message": "By default, the notifier updates tooltip text of the toolbar button with login info. By unchecking this option, the tooltip text remains the default value.",
+        "description": ""
+    },
     "options_misc_6": {
         "message": "Να μην εμφανίζεται ειδοποίηση στην επιφάνεια εργασίας για να προειδοποιήσει ότι η ιστοσελίδα του Gmail είναι ήδη ανοικτή",
         "description": ""
@@ -193,6 +197,10 @@
     },
     "options_notifications_16": {
         "message": "Gmail Notifier προεπιλεγμένη ειδοποίηση",
+        "description": ""
+    },
+    "options_misc_14": {
+        "message": "Do not show the exact badge number when the number of unread emails is greater than 999",
         "description": ""
     },
     "options_notifications_14": {
@@ -469,6 +477,10 @@
     },
     "options_inshort": {
         "message": "Πολλαπλές ετικέτες και λογαριασμοι κοινοποιών για το Google Mail (Gmail).",
+        "description": ""
+    },
+    "options_misc_12": {
+        "message": "Do not include login details in the tooltip text",
         "description": ""
     },
     "options_tab_4": {

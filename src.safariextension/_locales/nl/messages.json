@@ -147,6 +147,10 @@
         "message": "Enkele populaire labels: \"postvakIN\", \"belangrijk\", \"^slimlabel_persoonlijk\", \"^slimlabel_nieuwsbrief\", \"^slimlabel_melding\" en \"^slimlabel_groep\"",
         "description": ""
     },
+    "options_misc_13": {
+        "message": "Standaard weergeeft de melder inloggegevens op de tooltip van de werkbalkknop. Door deze optie uit te vinden zal de tekst op de standaardwaarde blijven.",
+        "description": ""
+    },
     "options_misc_6": {
         "message": "Geen bureaubladmeldingen weergeven om te waarschuwen dat de Gmail-website al geopend is",
         "description": ""
@@ -193,6 +197,10 @@
     },
     "options_notifications_16": {
         "message": "Standaardwaarschuwing van Gmail-melder",
+        "description": ""
+    },
+    "options_misc_14": {
+        "message": "Geen exact badgenummer weergeven wanneer het aantal ongelezen e-mails hoger is dan 999",
         "description": ""
     },
     "options_notifications_14": {
@@ -469,6 +477,10 @@
     },
     "options_inshort": {
         "message": "Labels- en accountsmelder voor Google Mail (Gmail)",
+        "description": ""
+    },
+    "options_misc_12": {
+        "message": "Geen inloggegevens in de tooltiptekst weergeven",
         "description": ""
     },
     "options_tab_4": {
