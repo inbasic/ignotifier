@@ -176,6 +176,7 @@ config.email = (function () {
     },
     set openInboxOnOne (val) {
       app.storage.write('oldFashion', val);
+      config.on.emit('email.openInboxOnOne');
     },
     check: {
       get first () {

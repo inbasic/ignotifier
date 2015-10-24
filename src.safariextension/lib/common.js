@@ -392,7 +392,12 @@ var checkEmails = (function () {
             }
             app.button.label = tooltip;
             app.popup.send('update', objs);
-            app.popup.attach();
+            if (tmp.length === 1 && config.email.openInboxOnOne === 1) {
+              app.popup.detach();
+            }
+            else {
+              app.popup.attach();
+            }
           }
           else {
             icon('gray');
@@ -425,7 +430,12 @@ var checkEmails = (function () {
           icon('new');
           setBadge(newCount);
           color = 'new';
-          app.popup.attach();
+          if (tmp.length === 1 && config.email.openInboxOnOne === 1) {
+            app.popup.detach();
+          }
+          else {
+            app.popup.attach();
+          }
           if (config.notification.show) {
             app.notify(report, '', function () {
               app.timer.setTimeout(function () {
@@ -691,6 +701,29 @@ config.on('email.check.resetPeriod', function () {
   }
   else {
     resetTimer.stop();
+  }
+});
+config.on('email.openInboxOnOne', function () {
+  var numberOfAccounts = checkEmails.getCached()
+    .map(function (o) {
+      return o.xml ? o.xml.title : null;
+    })
+    .filter(function (o, i, a) {
+      return o && a.indexOf(o) === i;
+    })
+    .length;
+  var hasUnread = checkEmails.getCached()
+    .map(function (o) {
+      return o.xml ? o.xml.fullcount : 0;
+    })
+    .reduce(function (p, c) {
+      return p + c;
+    }, 0);
+  if (numberOfAccounts === 1 && config.email.openInboxOnOne === 1) {
+    app.popup.detach();
+  }
+  else if (hasUnread) {
+    app.popup.attach();
   }
 });
 config.on('keyUp', function () {

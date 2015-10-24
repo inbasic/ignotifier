@@ -11,7 +11,8 @@
     "tabs",
     "notifications",
     "contextMenus",
-    "webRequest"
+    "webRequest",
+    "storage"
   ],
   "web_accessible_resources": [
     "notification.png"
