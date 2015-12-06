@@ -25,6 +25,7 @@ function convert (input, output) {
 
 convert('en', 'en');
 convert('el', 'el');
+convert('hu', 'hu');
 //convert('he', 'he');
 convert('nl', 'nl');
 convert('pl', 'pl');

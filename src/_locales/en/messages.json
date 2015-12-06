@@ -419,7 +419,7 @@
     "message": "1 minute ago"
   },
   "popup_msg_3_format": {
-    "message": "%d minute(s) ago"
+    "message": "%d minutes ago"
   },
   "popup_msg_4": {
     "message": "1 hour ago"
