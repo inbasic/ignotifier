@@ -1,0 +1,498 @@
+{
+    "label_9": {
+        "message": "Przez 5 godzin",
+        "description": ""
+    },
+    "options_notifications_19": {
+        "message": "Sygnał e-mail Windows",
+        "description": ""
+    },
+    "options_notifications_17": {
+        "message": "Dzwonek Checker Plus",
+        "description": ""
+    },
+    "options_notifications_13": {
+        "message": "Otwórz panel paska narzędzi podczas kliknięcia na ikonkę powiadomień paska zadań (tylko Windows, beta)",
+        "description": ""
+    },
+    "options_timings_l7": {
+        "message": "Nie sprawdzaj nowych wiadomości przy starcie przez (sekundy):",
+        "description": ""
+    },
+    "label_4": {
+        "message": "Przez 5 minut",
+        "description": ""
+    },
+    "options_timings_l3": {
+        "message": "Przypominaj o nieprzeczytanych wiadomościach co (minuty):",
+        "description": ""
+    },
+    "options_gmail_1": {
+        "message": "Konto główne (/mail/u/0/)",
+        "description": ""
+    },
+    "options_gmail_10": {
+        "message": "Otrzymuj powiadomienia dla następujących etykiet oraz kont:",
+        "description": ""
+    },
+    "options_notifications_1": {
+        "message": "Wyświetlaj na pulpicie powiadomienia o nowych wiadomościach",
+        "description": ""
+    },
+    "options_notifications_9": {
+        "message": "Odtwórz dźwięk po otrzymaniu nowych wiadomości",
+        "description": ""
+    },
+    "label_6": {
+        "message": "Przez 30 minut",
+        "description": ""
+    },
+    "options_misc_8": {
+        "message": "Przywróć wszystkie ustawienia do fabrycznych",
+        "description": ""
+    },
+    "options_timings_l4": {
+        "message": "Ustaw wartość na zero, aby nie otrzymywać przypomnień.",
+        "description": ""
+    },
+    "options_tab_6": {
+        "message": "Otwórz konto Gmail w nowym oknie",
+        "description": ""
+    },
+    "options_notifications_25": {
+        "message": "Safari często odtwarza nieprawidłowo domyślne dźwięki powiadomień. W takim przypadku spróbuj użyć własnych dźwięków powiadomień.",
+        "description": ""
+    },
+    "options_toolbar_15": {
+        "message": "Akcja środkowego przycisku myszy na pasku narzędzi:",
+        "description": ""
+    },
+    "options_toolbar_10": {
+        "message": "Minimalna wysokość to 500px.",
+        "description": ""
+    },
+    "options_notifications_26": {
+        "message": "Zawsze pokazuj ikony powiadomień (tylko Windows)",
+        "description": ""
+    },
+    "label_3": {
+        "message": "Wyłącz wszystkie powiadomienia",
+        "description": ""
+    },
+    "options_empty": {
+        "message": "nie określono",
+        "description": ""
+    },
+    "options_notifications_3": {
+        "message": "Ta opcja może nie działać na Twoim systemie operacyjnym.",
+        "description": ""
+    },
+    "options_timings": {
+        "message": "Czasowe",
+        "description": ""
+    },
+    "options_gmail_5": {
+        "message": "Czwarte konto (/mail/u/3/)",
+        "description": ""
+    },
+    "label_5": {
+        "message": "Przez 15 minut",
+        "description": ""
+    },
+    "options_misc_9": {
+        "message": "Czerwony dla \"Nieprzeczytane\" i szary dla \"Rozłączony\"",
+        "description": ""
+    },
+    "options_notifications_27": {
+        "message": "Ikony obszaru powiadomień będą zawsze wyświetlane, nawet gdy brak nieprzeczytanych wiadomości.",
+        "description": ""
+    },
+    "options_misc_1": {
+        "message": "Sortuj konta alfabetycznie",
+        "description": ""
+    },
+    "tooltip_1": {
+        "message": "LPM: Otwórz Gmail lub panel podglądu wiadomości",
+        "description": ""
+    },
+    "notification": {
+        "message": "Od: [author_email][break]Tytuł: [title][break]Streszczenie: [summary]",
+        "description": ""
+    },
+    "options_tab": {
+        "message": "Otwieranie kart:",
+        "description": ""
+    },
+    "log_into_your_account": {
+        "message": "Proszę się zalogować do swojego konta",
+        "description": ""
+    },
+    "label_10": {
+        "message": "Włącz powiadomienia",
+        "description": ""
+    },
+    "options_notifications_23": {
+        "message": "Głośność dźwięku powiadomienia",
+        "description": ""
+    },
+    "options_timings_l2": {
+        "message": "Minimalny okres czasu to 10 sekund.",
+        "description": ""
+    },
+    "options_toolbar_11": {
+        "message": "Wsparcie skrótów klawiszowych w panelu paska narzędzi",
+        "description": ""
+    },
+    "options_gmail_9": {
+        "message": "Popularne etykiety: \"inbox\", \"important\", \"^smartlabel_personal\", \"^smartlabel_newsletter\", \"^smartlabel_notification\" oraz \"^smartlabel_group\"",
+        "description": ""
+    },
+    "options_misc_13": {
+        "message": "Rozszerzenie domyślnie aktualizuje treść okienka podpowiedzi na przycisku paska narzędzi informacjami o profilu. Odznaczenie tej opcji spowoduje zachowanie treści w domyślnej wartości.",
+        "description": ""
+    },
+    "options_misc_6": {
+        "message": "Nie pokazuj powiadomień na pulpicie, jeśli strona Gmail jest już otworzona",
+        "description": ""
+    },
+    "options_notifications_4": {
+        "message": "Format powiadomienia",
+        "description": ""
+    },
+    "label_2": {
+        "message": "Ustawienia",
+        "description": ""
+    },
+    "options_toolbar_14": {
+        "message": "Jeżeli wolisz sam tekst w trybie pełnej zawartości, odznacz to pole.",
+        "description": ""
+    },
+    "options_notifications_18": {
+        "message": "Dzwoneczek Checker Plus",
+        "description": ""
+    },
+    "options_tab_5": {
+        "message": "Otwórz konto Gmail w karcie w tle",
+        "description": ""
+    },
+    "label_7": {
+        "message": "Przez godzinę",
+        "description": ""
+    },
+    "msg_2": {
+        "message": "Link został skopiowany do schowka.",
+        "description": ""
+    },
+    "options_title": {
+        "message": "Opcje - Powiadomienia Gmail™",
+        "description": ""
+    },
+    "gmail": {
+        "message": "Powiadomienia Gmail™",
+        "description": ""
+    },
+    "options_toolbar_8": {
+        "message": "Minimalna szerokość to 500px.",
+        "description": ""
+    },
+    "options_notifications_16": {
+        "message": "Domyślny sygnał Powiadomień Gmail™",
+        "description": ""
+    },
+    "options_misc_14": {
+        "message": "Nie wyświetlaj szczegółowej liczby na znaczku, gdy liczba nieprzeczytanych wiadomości jest większa niż 999",
+        "description": ""
+    },
+    "options_notifications_14": {
+        "message": "Ta funkcjonalność jest eksperymentalna i może uczynić Twoją przeglądarkę Firefox niestabilną [wymagany restart].",
+        "description": ""
+    },
+    "options_gmail_3": {
+        "message": "Drugie konto (/mail/u/1/)",
+        "description": ""
+    },
+    "options_notifications_11": {
+        "message": "Wyświetlaj \"powiadomienia paska zadań Windows\" lub \"powiadomienia Mac OS Dock\"",
+        "description": ""
+    },
+    "options_notifications_2": {
+        "message": "Pokazuj powiadomienia na pulpicie przez (sekundy):",
+        "description": ""
+    },
+    "log_in_to_your_account": {
+        "message": "Proszę się zalogować do konta Gmail",
+        "description": ""
+    },
+    "options_notifications_15": {
+        "message": "Dźwięk powiadomienia",
+        "description": ""
+    },
+    "options_notifications_21": {
+        "message": "Własny dźwięk powiadomień:",
+        "description": ""
+    },
+    "options_toolbar_9": {
+        "message": "Wysokość panelu paska narzędzi w trybie pełnej zawartości (piksele):",
+        "description": ""
+    },
+    "options_toolbar_1": {
+        "message": "Zachowanie przycisku paska narzędzi",
+        "description": ""
+    },
+    "unknown": {
+        "message": "nieznane",
+        "description": ""
+    },
+    "options_notifications_8": {
+        "message": "Jeżeli nie chcesz skracać, wpisz dużą liczbę.",
+        "description": ""
+    },
+    "options_donation": {
+        "message": "Złóż dotację",
+        "description": ""
+    },
+    "msg_3": {
+        "message": "Zaznaczony tekst został skopiowany do schowka.",
+        "description": ""
+    },
+    "options_misc_7": {
+        "message": "Pokazuj stronę powitalną po aktualizacji",
+        "description": ""
+    },
+    "options_gmail": {
+        "message": "Gmail:",
+        "description": ""
+    },
+    "label_1": {
+        "message": "Odśwież",
+        "description": ""
+    },
+    "options_notifications_5": {
+        "message": "Dostępne klucze:",
+        "description": ""
+    },
+    "options_notifications_24": {
+        "message": "Głośność to liczba pomiędzy 0 i 100, gdzie 100 oznacza najwyższą głośność (domyślnie).",
+        "description": ""
+    },
+    "options_notifications_10": {
+        "message": "Informacja dla użytkowników systemu Mac. Począwszy od Firefox 28.0, wszystkie powiadomienia na pulpicie są przechwytywane przez Centrum Powiadomień Mac, które wywołuje dodatkowy dźwięk powiadomienia. Zalecane jest wyłączenie jednego z tych dźwięków.",
+        "description": ""
+    },
+    "options_misc_2": {
+        "message": "Domyślne sortowanie bazuje na kolejności zalogowania.",
+        "description": ""
+    },
+    "options_toolbar_2": {
+        "message": "Zawsze otwieraj panel podglądu wiadomości",
+        "description": ""
+    },
+    "popup_settings": {
+        "message": "Ustawienia",
+        "description": ""
+    },
+    "options_gmail_4": {
+        "message": "Trzecie konto (/mail/u/2/)",
+        "description": ""
+    },
+    "options_toolbar_5": {
+        "message": "Pokazuj tylko podsumowanie",
+        "description": ""
+    },
+    "options_notifications_12": {
+        "message": "Obecnie, powiadomienia paska zadań nie są wspierane na systemach Linuks.",
+        "description": ""
+    },
+    "msg_1": {
+        "message": "Karta jest już otworzona. Naciśnij na przycisku paska narzędzi, aby otworzyć Gmail w nowej karcie lub aby przełączyć się na istniejącą kartę Gmail.",
+        "description": ""
+    },
+    "options_misc_5": {
+        "message": "Niebieski dla \"Nieprzeczytane\" i szary dla \"Rozłączony\"",
+        "description": ""
+    },
+    "options_timings_l8": {
+        "message": "Ustaw wartość na zero, aby nie sprawdzać nowych wiadomości przed pierwszym ręcznym odświeżeniem [niedostępne na Safari].",
+        "description": ""
+    },
+    "tooltip_3": {
+        "message": "PPM: Wybór kont",
+        "description": ""
+    },
+    "options_notifications": {
+        "message": "Powiadomienia:",
+        "description": ""
+    },
+    "options_timings_l6": {
+        "message": "Wartości inne niż zero wyzwalają powiadomienia na pulpicie oraz dźwięk (podobnie jak otrzymanie nowej poczty), dopóki posiadasz nieprzeczytane wiadomości.",
+        "description": ""
+    },
+    "options_notifications_22": {
+        "message": "Jeżeli Twoja przeglądarka nie odtwarza dźwięku powiadomienia, spróbuj go przekonwertować do zwykłego formatu WAV przy pomocy narzędzi konwersji online.",
+        "description": ""
+    },
+    "options_tab_1": {
+        "message": "Szukaj w aktywnym oknie otwartej karty z kontem Gmail",
+        "description": ""
+    },
+    "options_timings_l1": {
+        "message": "Sprawdzaj nowe wiadomości co (sekundy):",
+        "description": ""
+    },
+    "options_toolbar_4": {
+        "message": "Tryb panelu paska narzędzi",
+        "description": ""
+    },
+    "toolbar_label": {
+        "message": "Powiadomienia Gmail™",
+        "description": ""
+    },
+    "options_misc_3": {
+        "message": "Kolor paska narzędzi:",
+        "description": ""
+    },
+    "options_gmail_12": {
+        "message": "Oddzielaj kanały znakiem \",\" (przecinek). Przykładowy kanał:\nhttps://mail.google.com/mail/u/0/feed/atom/inbox",
+        "description": ""
+    },
+    "options_toolbar_12": {
+        "message": "!: Zgłoś spam, #: Usuń, e: Archiwizuj, Shift + i: Oznacz jako przeczytane.",
+        "description": ""
+    },
+    "options_px": {
+        "message": "px",
+        "description": ""
+    },
+    "options_misc_11": {
+        "message": "Ustawienie tej opcji na zero spowoduje, iż nie będziesz otrzymywać powiadomień na pulpicie ani dźwiękowych; jednakże nadal będziesz otrzymywać powiadomienia z ikonki na pasku narzędzi.",
+        "description": ""
+    },
+    "options_notifications_20": {
+        "message": "Własny sygnał",
+        "description": ""
+    },
+    "and": {
+        "message": "i",
+        "description": ""
+    },
+    "options_tab_7": {
+        "message": "Zawsze używaj pustych kart zamiast otwierania nowej karty przy aktywnej takiej opcji",
+        "description": ""
+    },
+    "options_toolbar_3": {
+        "message": "Otwieraj konto Gmail, tylko jeżeli zalogowano na jednym",
+        "description": ""
+    },
+    "options_gmail_7": {
+        "message": "Szóste konto (/mail/u/5/)",
+        "description": ""
+    },
+    "options_toolbar": {
+        "message": "Pasek narzędzi:",
+        "description": ""
+    },
+    "options_notifications_6": {
+        "message": "Skracaj powiadomienia dłuższe niż",
+        "description": ""
+    },
+    "tooltip_2": {
+        "message": "Kółko myszy (lub Ctrl+LPM): Odśwież wszystkie konta",
+        "description": ""
+    },
+    "options_tab_3": {
+        "message": "Otwórz kolejne konto Gmail za aktywną kartą",
+        "description": ""
+    },
+    "options_gmail_8": {
+        "message": "Oznacz wiadomość jako przeczytaną podczas archiwizowania",
+        "description": ""
+    },
+    "options_toolbar_17": {
+        "message": "Otwórz główne konto Gmail",
+        "description": ""
+    },
+    "options_notifications_7": {
+        "message": "znaków dla pól [title] oraz [summary].",
+        "description": ""
+    },
+    "options_misc_10": {
+        "message": "Uruchom powiadomienia na pulpicie oraz dźwiękowe, gdy e-mail został otrzymany poniżej (minut):",
+        "description": ""
+    },
+    "label_8": {
+        "message": "Przez 2 godziny",
+        "description": ""
+    },
+    "msg_4": {
+        "message": "Informacja: Aby powiadomienia działały poprawnie, musisz być zalogowany do swojego konta Google.",
+        "description": ""
+    },
+    "options_toolbar_6": {
+        "message": "Pokazuj pełną zawartość",
+        "description": ""
+    },
+    "options_gmail_11": {
+        "message": "Własne kanały:",
+        "description": ""
+    },
+    "options_tab_2": {
+        "message": "Nie przeszukuj innych okien przeglądarki pod kątem otwartych kont Gmail. Jeżeli Gmail nie jest otworzony w aktywnym oknie, otwórz nową kartę.",
+        "description": ""
+    },
+    "label_11": {
+        "message": "Stwórz wiadomość",
+        "description": ""
+    },
+    "options_toolbar_7": {
+        "message": "Szerokość panelu paska narzędzi w trybie pełnej zawartości (piksele):",
+        "description": ""
+    },
+    "options_timings_l5": {
+        "message": "Minimalny czas to 5 minut.",
+        "description": ""
+    },
+    "options_misc": {
+        "message": "Różności:",
+        "description": ""
+    },
+    "options_gmail_2": {
+        "message": "Oddzielaj etykiety znakiem \",\" (przecinek).",
+        "description": ""
+    },
+    "options_misc_4": {
+        "message": "Szary dla \"Nieprzeczytane\" i niebieski dla \"Rozłączony\"",
+        "description": ""
+    },
+    "options_toolbar_13": {
+        "message": "Wyświetlaj wiadomości jako HTML w trybie pełnej zawartości",
+        "description": ""
+    },
+    "options_toolbar_16": {
+        "message": "Odśwież wszystkie konta",
+        "description": ""
+    },
+    "options_gmail_6": {
+        "message": "Piąte konto (/mail/u/4)",
+        "description": ""
+    },
+    "options_inshort": {
+        "message": "Etykiety i powiadomienia kont dla Poczty Google (Gmail).",
+        "description": ""
+    },
+    "options_misc_12": {
+        "message": "Nie uwzględniaj informacji o profilu w treści okienka podpowiedzi",
+        "description": ""
+    },
+    "options_tab_4": {
+        "message": "Otwórz konto Gmail w aktywnej karcie",
+        "description": ""
+    },
+    "label_12": {
+        "message": "Otwórz stronę domową",
+        "description": ""
+    },
+    "description": {
+        "message": "Etykiety i powiadomienia kont dla Poczty Google (Gmail)",
+        "description": ""
+    }
+}
