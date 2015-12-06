@@ -51,6 +51,8 @@ var popup = panel.Panel({
   contentScriptOptions: {
     base: loader.prefixURI,
     locales: {
+      'popup_wait': l10n('popup_wait'),
+      'popup_read': l10n('popup_read'),
       'popup_msg_1': l10n('popup_msg_1'),
       'popup_msg_2': l10n('popup_msg_2'),
       'popup_msg_3': l10n('popup_msg_3'),

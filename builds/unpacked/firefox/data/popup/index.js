@@ -125,7 +125,7 @@ var body = (function() {
       return title.textContent;
     },
     set title(val) {
-      title.textContent = val  || "(no subject)";
+      title.textContent = val  || manifest.locale('popup_no_subject');
     },
     set titleLink(val) {
       title.setAttribute("href", val)
@@ -316,7 +316,7 @@ new Listen('spam', "click", function(e) {
   });
 });
 new Listen('read', "click", function(e) {
-  qs('read').textContent = "Wait...";
+  qs('read').textContent = manifest.locale('popup_wait');
   qs('read').setAttribute("disabled", true);
   background.send("action", {
     links: selected.entry.link,
@@ -346,7 +346,7 @@ new Listen('read-all', "click", function(e) {
 
 background.receive("action-response", function(cmd) {
   if (cmd == "rd") {
-    qs('read').textContent = "Mark as read";
+    qs('read').textContent = manifest.locale('popup_read');
     qs('read').removeAttribute("disabled");
   }
   else {
@@ -470,7 +470,7 @@ background.receive("show", function () {
     obj.removeAttribute("wait");
     obj.removeAttribute("disabled");
   });
-  qs('read').textContent = "Mark as read";
+  qs('read').textContent = manifest.locale('popup_read');
 
   background.send("resize");
   background.send("keyUp");
