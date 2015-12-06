@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html>
+<head>
+  <title data-l10n-id="options_title"></title>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/png" href="../icons/options/16.png">
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <script src="css_browser_selector.js"></script> <!-- this is required to differentiate mac and windows version -->
+</head>
+<body class="flex">
+  <div id="header" class="flex">
+    <table width=100%>
+      <tr>
+        <td rowspan="2" type=icon></td>
+        <td type=title><span data-l10n-id="options_title"></span></td>
+        <td rowspan="2" type=donation>
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+            <input name="cmd" value="_s-xclick" type="hidden">
+            <input name="custom" value="ignotifier-firefox" type="hidden">
+            <input name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----" type="hidden">
+            <div class="button-set" data-role="button-set">
+              <button class="active"><span data-l10n-id="options_donation"></span></button>
+            </div>
+          </form>
+        </td>
+        <td rowspan="2" type=links>
+          <a href="https://addons.mozilla.org/firefox/addon/gmail-notifier-restartless/"><img src="../icons/browsers/firefox.png"></img></a>
+          <a href="https://chrome.google.com/webstore/detail/gmail-notifier/dcjichoefijpinlfnjghokpkojhlhkgl"><img src="../icons/browsers/chrome.png"></img></a>
+          <a href="https://addons.opera.com/extensions/details/gmail-notifier/"><img src="../icons/browsers/opera.png"></img></a>
+        </td>
+      </tr>
+      <tr>
+        <td type=inshort><span class="note" data-l10n-id="options_inshort"></span></td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="content" class="flex">
+    <table width="100%">
+      <tr>
+        <td data-l10n-id="options_timings"></td>
+        <td>
+          <span data-l10n-id="options_timings_l1"></span>  <input data-pref="email.check.period" type="number" min="10"></input>
+          <p class="note" data-l10n-id="options_timings_l2"></p>
+          <p class="spacer"></p>
+          <span data-l10n-id="options_timings_l3"></span> <input data-pref="email.check.resetPeriod" type="number" min="0"></input>
+          <p class="note" data-l10n-id="options_timings_l4"></p>
+          <p class="note" data-l10n-id="options_timings_l5"></p>
+          <p class="note" data-l10n-id="options_timings_l6"></p>
+          <p class="spacer"></p>
+          <span data-l10n-id="options_timings_l7"></span> <input data-pref="email.check.first" type="number" min="0"></input>
+          <p class="note" data-l10n-id="options_timings_l8"></p>
+        </td>
+      </tr>
+      <tr>
+        <td data-l10n-id="options_gmail"></td>
+        <td>
+          <p data-l10n-id="options_gmail_10"></p>
+          <div class="box">
+            <label data-l10n-id="options_gmail_1"></label>
+            <input type="text" data-pref="email.feeds_0" placeholder="inbox"/>
+          </div>
+          <p class="note" data-l10n-id="options_gmail_2"></p>
+          <p class="note" data-l10n-id="options_gmail_9"></p>
+          <p class="spacer"></p>
+          <div class="box">
+            <label data-l10n-id="options_gmail_3"></label>
+            <input type="text" data-pref="email.feeds_1" placeholder="inbox"/>
+          </div>
+          <p class="spacer"></p>
+          <div class="box">
+            <label data-l10n-id="options_gmail_4"></label>
+            <input type="text" data-pref="email.feeds_2" placeholder="inbox"/>
+          </div>
+          <p class="spacer"></p>
+          <div class="box">
+            <label data-l10n-id="options_gmail_5"></label>
+            <input type="text" data-pref="email.feeds_3" placeholder="inbox"/>
+          </div>
+          <p class="spacer"></p>
+          <div class="box">
+            <label data-l10n-id="options_gmail_6"></label>
+            <input type="text" data-pref="email.feeds_4" placeholder="inbox"/>
+          </div>
+          <p class="spacer"></p>
+          <div class="box">
+            <label data-l10n-id="options_gmail_7"></label>
+            <input type="text" data-pref="email.feeds_5" placeholder="inbox"/>
+          </div>
+          <p class="spacer"></p>
+          <div class="box">
+            <label data-l10n-id="options_gmail_11"></label>
+            <input type="text" data-pref="email.feeds_custom" placeholder="https://mail.google.com/mail/u/0/feed/atom/inbox"/>
+          </div>
+          <p class="note" data-l10n-id="options_gmail_12"></p>
+        </td>
+      </tr>
+      <tr>
+        <td data-l10n-id="options_notifications"></td>
+        <td>
+          <label>
+            <input type="checkbox" data-pref="notification.show"> <span data-l10n-id="options_notifications_1"></span>
+          </label>
+          <p class="spacer"></p>
+          <span data-l10n-id="options_notifications_2"></span> <input data-pref="notification.time" type="number" min="3"></input>
+          <p class="note" data-l10n-id="options_notifications_3"></p>
+          <p class="spacer"></p>
+          <div class="box">
+            <label data-l10n-id="options_notifications_4"></label>
+            <input type="text" data-pref="notification.format"/>
+          </div>
+          <p class="note"><span data-l10n-id="options_notifications_5"></span> [author_name], [author_email], [title] <span data-l10n-id="and"></span> [summary].</p>
+          <p class="spacer"></p>
+          <span data-l10n-id="options_notifications_6"></span> <input data-pref="email.truncate" type="number" min="20"></input> <span data-l10n-id="options_notifications_7"></span>
+          <p class="note" data-l10n-id="options_notifications_8"></p>
+          <p class="spacer"></p>
+          <label>
+            <input type="checkbox" data-pref="notification.sound.play"> <span data-l10n-id="options_notifications_9"></span>
+          </label>
+          <p class="note only-mac" data-l10n-id="options_notifications_10"></p>
+          <p class="spacer"></p>
+          <div class="only-firefox">
+            <label>
+              <input type="checkbox" data-pref="tray.show"> <span data-l10n-id="options_notifications_11"></span>
+            </label>
+            <p class="note" data-l10n-id="options_notifications_12"></p>
+            <p class="spacer"></p>
+            <label>
+              <input type="checkbox" data-pref="tray.doTrayCallback"> <span data-l10n-id="options_notifications_13"></span>
+            </label>
+            <p class="note" data-l10n-id="options_notifications_14"></p>
+            <p class="spacer"></p>
+            <label>
+              <input type="checkbox" data-pref="tray.permanent"> <span data-l10n-id="options_notifications_26"></span>
+            </label>
+            <p class="note" data-l10n-id="options_notifications_27"></p>
+            <p class="spacer"></p>
+          </div>
+
+          <div class="box">
+              <label data-l10n-id="options_notifications_15"></label>
+              <select data-pref="notification.sound.type">
+                <option data-l10n-id="options_notifications_16"></option>
+                <option data-l10n-id="options_notifications_17"></option>
+                <option data-l10n-id="options_notifications_18"></option>
+                <option data-l10n-id="options_notifications_19"></option>
+                <option data-l10n-id="options_notifications_20"></option>
+              </select>
+          </div>
+          <p class="note only-safari" data-l10n-id="options_notifications_25"></p>
+          <p class="spacer"></p>
+          <div class="box" id="sound">
+            <span data-l10n-id="options_notifications_21"></span><span style="color: blue; margin-left: 5px;" data-pref="notification.sound.custom.name"></span>. <input type="file" data-pref="notification.sound.custom.file"></input>
+          </div>
+          <p class="note" data-l10n-id="options_notifications_22"></p>
+          <p class="spacer"></p>
+          <span data-l10n-id="options_notifications_23"></span> <input data-pref="notification.sound.volume" type="number" min="1" max="100"></input>
+          <br/>
+          <p class="note" data-l10n-id="options_notifications_24"></p>
+        </td>
+      </tr>
+      <tr>
+        <td data-l10n-id="options_tab"></td>
+        <td>
+          <label>
+            <input type="checkbox" data-pref="tabs.search"> <span data-l10n-id="options_tab_1"></span>
+          </label>
+          <p class="note" data-l10n-id="options_tab_2"></p>
+          <p class="spacer"></p>
+          <label>
+            <input type="checkbox" data-pref="tabs.open.relatedToCurrent"> <span data-l10n-id="options_tab_3"></span>
+          </label>
+          <p class="spacer"></p>
+          <label>
+            <input type="checkbox" data-pref="tabs.open._current"> <span data-l10n-id="options_tab_4"></span>
+          </label>
+          <p class="spacer"></p>
+          <label>
+            <input type="checkbox" data-pref="tabs.open.background"> <span data-l10n-id="options_tab_5"></span>
+          </label>
+          <p class="spacer"></p>
+          <label>
+            <input type="checkbox" data-pref="tabs.open.useBlankTabs"> <span data-l10n-id="options_tab_7"></span>
+          </label>
+          <p class="spacer"></p>
+          <label>
+            <input type="checkbox" data-pref="tabs.open._newWindow"> <span data-l10n-id="options_tab_6"></span>
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <td data-l10n-id="options_toolbar"></td>
+        <td>
+          <div class="box">
+              <label data-l10n-id="options_toolbar_1"></label>
+              <select data-pref="email.openInboxOnOne">
+                <option data-l10n-id="options_toolbar_2"></option>
+                <option data-l10n-id="options_toolbar_3"></option>
+              </select>
+          </div>
+          <p class="spacer"></p>
+          <div class="box">
+              <label data-l10n-id="options_toolbar_4"></label>
+              <select data-pref="popup.mode">
+                <option data-l10n-id="options_toolbar_5"></option>
+                <option data-l10n-id="options_toolbar_6"></option>
+              </select>
+          </div>
+          <p class="spacer"></p>
+          <span data-l10n-id="options_toolbar_7"></span> <input data-pref="popup.expanded.width" type="number" min="500"></input>
+          <p class="note" data-l10n-id="options_toolbar_8"></p>
+          <p class="spacer"></p>
+          <span data-l10n-id="options_toolbar_9"></span> <input data-pref="popup.expanded.height" type="number" min="500"></input>
+          <p class="note" data-l10n-id="options_toolbar_10"></p>
+          <p class="spacer"></p>
+          <label>
+            <input type="checkbox" data-pref="popup.keyUp"> <span data-l10n-id="options_toolbar_11"></span>
+          </label>
+          <p class="note" data-l10n-id="options_toolbar_12"></p>
+          <p class="spacer"></p>
+          <label>
+            <input type="checkbox" data-pref="popup.display"> <span data-l10n-id="options_toolbar_13"></span>
+          </label>
+          <p class="note" data-l10n-id="options_toolbar_14"></p>
+          <div class="only-firefox">
+            <p class="spacer"></p>
+            <div class="box">
+                <label data-l10n-id="options_toolbar_15"></label>
+                <select data-pref="toolbar.clicks.middle">
+                  <option data-l10n-id="options_toolbar_16"></option>
+                  <option data-l10n-id="options_toolbar_17"></option>
+                </select>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td data-l10n-id="options_misc"></td>
+        <td>
+          <label>
+            <input type="checkbox" data-pref="email.doReadOnArchive"/> <span data-l10n-id="options_gmail_8"></span>
+          </label>
+          <p class="spacer"></p>
+          <label>
+            <input type="checkbox" data-pref="email.alphabetic"> <span data-l10n-id="options_misc_1"></span>
+          </label>
+          <p class="note" data-l10n-id="options_misc_2"></p>
+          <p class="spacer"></p>
+          <div class="box">
+              <label data-l10n-id="options_misc_3"></label>
+              <select data-pref="ui.pattern">
+                <option data-l10n-id="options_misc_4"></option>
+                <option data-l10n-id="options_misc_5"></option>
+                <option data-l10n-id="options_misc_9"></option>
+              </select>
+          </div>
+          <p class="spacer"></p>
+          <label>
+            <input type="checkbox" data-pref="tabs.NotifyGmailIsOpen"> <span data-l10n-id="options_misc_6"></span>
+          </label>
+          <p class="spacer"></p>
+          <span data-l10n-id="options_misc_10"></span> <input data-pref="email.threatAsNew" type="number" min="0"></input>
+          <p class="note" data-l10n-id="options_misc_11"></p>
+          <p class="spacer"></p>
+          <div class="only-firefox">
+            <label>
+              <input type="checkbox" data-pref="ui.tooltip"> <span data-l10n-id="options_misc_12"></span>
+            </label>
+            <p class="note" data-l10n-id="options_misc_13"></p>
+            <p class="spacer"></p>
+          </div>
+          <label>
+            <input type="checkbox" data-pref="ui.minimal"> <span data-l10n-id="options_misc_14"></span>
+          </label>
+          <p class="spacer"></p>
+          <label>
+            <input type="checkbox" data-pref="welcome.notification"> <span data-l10n-id="options_misc_7"></span>
+          </label>
+          <p class="spacer"></p>
+          <label>
+            <input type="checkbox" data-pref="reset"> <span data-l10n-id="options_misc_8"></span>
+          </label>
+          <p class="spacer"></p>
+        </td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

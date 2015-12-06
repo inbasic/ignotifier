@@ -3,7 +3,7 @@
 var fs = require('fs');
 
 function convert (input, output) {
-  fs.readFile('src.safariextension/_locales/' + input + '/messages.json', 'utf8', function (err, data) {
+  fs.readFile('src/_locales/' + input + '/messages.json', 'utf8', function (err, data) {
     if (err) {
       throw err;
     }
@@ -12,7 +12,7 @@ function convert (input, output) {
     for (var name in json) {
       c += name + '=' + json[name].message + '\n';
     }
-    fs.writeFile('src.safariextension/locale/' + output + '.properties', c, 'utf8', function (err) {
+    fs.writeFile('src/locale/' + output + '.properties', c, 'utf8', function (err) {
       if (err) {
         throw err;
       }
