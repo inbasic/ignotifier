@@ -549,26 +549,29 @@ function prettyDate(time) {
   return day_diff == 0 && (
     diff < 60 && manifest.locale('popup_msg_1') ||
     diff < 120 && manifest.locale('popup_msg_2') ||
-    diff < 3600 && Math.floor(diff / 60) + " " + manifest.locale('popup_msg_3') ||
+    diff < 3600 &&  manifest.locale('popup_msg_3_format').replace('%d', Math.floor(diff / 60)) ||
     diff < 7200 && manifest.locale('popup_msg_4') ||
     diff < 86400 && Math.floor(diff / 3600) + " " + manifest.locale('popup_msg_5')) ||
     day_diff == 1 && manifest.locale('popup_msg_6') ||
-    day_diff < 7 && day_diff + " " + manifest.locale('popup_msg_7') ||
-    day_diff < 7 * 7 && Math.ceil(day_diff / 7) + " " + manifest.locale('popup_msg_8') ||
-    day_diff < 7 * 4 * 3 && Math.ceil(day_diff / 7 / 4) + " " + manifest.locale('popup_msg_9') ||
-    [
-      manifest.locale('popup_msg_10'),
-      manifest.locale('popup_msg_11'),
-      manifest.locale('popup_msg_12'),
-      manifest.locale('popup_msg_13'),
-      manifest.locale('popup_msg_14'),
-      manifest.locale('popup_msg_15'),
-      manifest.locale('popup_msg_16'),
-      manifest.locale('popup_msg_17'),
-      manifest.locale('popup_msg_18'),
-      manifest.locale('popup_msg_19'),
-      manifest.locale('popup_msg_20'),
-      manifest.locale('popup_msg_21')
-    ][date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear().toString();
+    day_diff < 7 &&  manifest.locale('popup_msg_7_format').replace('%d', day_diff) ||
+    day_diff < 7 * 7 && manifest.locale('popup_msg_8_format').replace('%d', Math.ceil(day_diff / 7)) ||
+    day_diff < 7 * 4 * 3 && manifest.locale('popup_msg_9_format').replace('%d', Math.ceil(day_diff / 7 / 4)) ||
+    manifest.locale('popup_date_format')
+      .replace('%dd', date.getDate())
+      .replace('%yy', date.getFullYear().toString())
+      .replace('%mm', [
+        manifest.locale('popup_msg_10'),
+        manifest.locale('popup_msg_11'),
+        manifest.locale('popup_msg_12'),
+        manifest.locale('popup_msg_13'),
+        manifest.locale('popup_msg_14'),
+        manifest.locale('popup_msg_15'),
+        manifest.locale('popup_msg_16'),
+        manifest.locale('popup_msg_17'),
+        manifest.locale('popup_msg_18'),
+        manifest.locale('popup_msg_19'),
+        manifest.locale('popup_msg_20'),
+        manifest.locale('popup_msg_21')
+      ][date.getMonth()]);
 }
 

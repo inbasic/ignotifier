@@ -382,6 +382,9 @@
   "popup_wait": {
     "message": "Wait..."
   },
+  "popup_date_format": {
+    "message": "%mm %dd, %yy"
+  },
   "popup_no_subject": {
     "message": "(no subject)"
   },
@@ -415,8 +418,8 @@
   "popup_msg_2": {
     "message": "1 minute ago"
   },
-  "popup_msg_3": {
-    "message": "minutes ago"
+  "popup_msg_3_format": {
+    "message": "%d minute(s) ago"
   },
   "popup_msg_4": {
     "message": "1 hour ago"
@@ -427,14 +430,14 @@
   "popup_msg_6": {
     "message": "Yesterday"
   },
-  "popup_msg_7": {
-    "message": "days ago"
+  "popup_msg_7_format": {
+    "message": "%d days ago"
   },
-  "popup_msg_8": {
-    "message": "weeks ago"
+  "popup_msg_8_format": {
+    "message": "%d week(s) ago"
   },
-  "popup_msg_9": {
-    "message": "months ago"
+  "popup_msg_9_format": {
+    "message": "%d month(s) ago"
   },
   "popup_msg_10": {
     "message": "January"
