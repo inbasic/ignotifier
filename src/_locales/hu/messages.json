@@ -224,7 +224,7 @@
         "description": ""
     },
     "popup_msg_9_format": {
-        "message": "%d month(s) ago",
+        "message": "%d hónappal ezelőtt",
         "description": ""
     },
     "popup_msg_11": {
@@ -396,7 +396,7 @@
         "description": ""
     },
     "popup_date_format": {
-        "message": "%mm %dd, %yy",
+        "message": "%yy. %mm %dd.",
         "description": ""
     },
     "options_notifications": {
@@ -420,7 +420,7 @@
         "description": ""
     },
     "popup_msg_7_format": {
-        "message": "%d days ago",
+        "message": "%d nappal ezelőtt",
         "description": ""
     },
     "options_timings_l1": {
@@ -484,7 +484,7 @@
         "description": ""
     },
     "popup_msg_8_format": {
-        "message": "%d week(s) ago",
+        "message": "%d héttel ezelőtt",
         "description": ""
     },
     "options_toolbar": {
@@ -612,7 +612,7 @@
         "description": ""
     },
     "popup_msg_3_format": {
-        "message": "%d minutes ago",
+        "message": "%d perccel ezelőtt",
         "description": ""
     },
     "label_12": {

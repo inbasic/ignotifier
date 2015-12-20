@@ -16,7 +16,7 @@
         "description": ""
     },
     "options_timings_l7": {
-        "message": "Nie sprawdzaj nowych wiadomości przy starcie przez (sekundy):",
+        "message": "Sprawdzaj nowe wiadomości przy starcie po (sekundy):",
         "description": ""
     },
     "label_4": {
@@ -25,6 +25,10 @@
     },
     "options_timings_l3": {
         "message": "Przypominaj o nieprzeczytanych wiadomościach co (minuty):",
+        "description": ""
+    },
+    "popup_msg_4": {
+        "message": "godzinę temu",
         "description": ""
     },
     "options_gmail_1": {
@@ -71,6 +75,10 @@
         "message": "Minimalna wysokość to 500px.",
         "description": ""
     },
+    "popup_msg_10": {
+        "message": "stycznia",
+        "description": ""
+    },
     "options_notifications_26": {
         "message": "Zawsze pokazuj ikony powiadomień (tylko Windows)",
         "description": ""
@@ -84,7 +92,7 @@
         "description": ""
     },
     "options_notifications_3": {
-        "message": "Ta opcja może nie działać na Twoim systemie operacyjnym.",
+        "message": "Ta opcja może nie działać na twoim systemie operacyjnym.",
         "description": ""
     },
     "options_timings": {
@@ -103,6 +111,10 @@
         "message": "Czerwony dla \"Nieprzeczytane\" i szary dla \"Rozłączony\"",
         "description": ""
     },
+    "popup_msg_5": {
+        "message": "godzin(y) temu",
+        "description": ""
+    },
     "options_notifications_27": {
         "message": "Ikony obszaru powiadomień będą zawsze wyświetlane, nawet gdy brak nieprzeczytanych wiadomości.",
         "description": ""
@@ -117,6 +129,10 @@
     },
     "notification": {
         "message": "Od: [author_email][break]Tytuł: [title][break]Streszczenie: [summary]",
+        "description": ""
+    },
+    "popup_trash": {
+        "message": "Usuń",
         "description": ""
     },
     "options_tab": {
@@ -136,7 +152,7 @@
         "description": ""
     },
     "options_timings_l2": {
-        "message": "Minimalny okres czasu to 10 sekund.",
+        "message": "Minimalny odstęp czasowy to 10 sekund.",
         "description": ""
     },
     "options_toolbar_11": {
@@ -147,12 +163,24 @@
         "message": "Popularne etykiety: \"inbox\", \"important\", \"^smartlabel_personal\", \"^smartlabel_newsletter\", \"^smartlabel_notification\" oraz \"^smartlabel_group\"",
         "description": ""
     },
+    "popup_msg_17": {
+        "message": "sierpnia",
+        "description": ""
+    },
+    "popup_msg_15": {
+        "message": "czerwca",
+        "description": ""
+    },
     "options_misc_13": {
         "message": "Rozszerzenie domyślnie aktualizuje treść okienka podpowiedzi na przycisku paska narzędzi informacjami o profilu. Odznaczenie tej opcji spowoduje zachowanie treści w domyślnej wartości.",
         "description": ""
     },
     "options_misc_6": {
         "message": "Nie pokazuj powiadomień na pulpicie, jeśli strona Gmail jest już otworzona",
+        "description": ""
+    },
+    "popup_read": {
+        "message": "Przeczytane",
         "description": ""
     },
     "options_notifications_4": {
@@ -164,7 +192,7 @@
         "description": ""
     },
     "options_toolbar_14": {
-        "message": "Jeżeli wolisz sam tekst w trybie pełnej zawartości, odznacz to pole.",
+        "message": "Jeżeli wolisz surowy tekst w trybie pełnej zawartości, odznacz to pole.",
         "description": ""
     },
     "options_notifications_18": {
@@ -179,6 +207,10 @@
         "message": "Przez godzinę",
         "description": ""
     },
+    "popup_archive": {
+        "message": "Archiwizuj",
+        "description": ""
+    },
     "msg_2": {
         "message": "Link został skopiowany do schowka.",
         "description": ""
@@ -187,8 +219,28 @@
         "message": "Opcje - Powiadomienia Gmail™",
         "description": ""
     },
+    "popup_msg_13": {
+        "message": "kwietnia",
+        "description": ""
+    },
+    "popup_msg_9_format": {
+        "message": "miesięcy temu: %d",
+        "description": ""
+    },
+    "popup_msg_11": {
+        "message": "lutego",
+        "description": ""
+    },
+    "popup_open_inbox": {
+        "message": "Otwórz skrzynkę",
+        "description": ""
+    },
     "gmail": {
         "message": "Powiadomienia Gmail™",
+        "description": ""
+    },
+    "popup_msg_6": {
+        "message": "wczoraj",
         "description": ""
     },
     "options_toolbar_8": {
@@ -201,6 +253,10 @@
     },
     "options_misc_14": {
         "message": "Nie wyświetlaj szczegółowej liczby na znaczku, gdy liczba nieprzeczytanych wiadomości jest większa niż 999",
+        "description": ""
+    },
+    "popup_msg_18": {
+        "message": "września",
         "description": ""
     },
     "options_notifications_14": {
@@ -223,6 +279,10 @@
         "message": "Proszę się zalogować do konta Gmail",
         "description": ""
     },
+    "popup_of": {
+        "message": "z",
+        "description": ""
+    },
     "options_notifications_15": {
         "message": "Dźwięk powiadomienia",
         "description": ""
@@ -241,6 +301,14 @@
     },
     "unknown": {
         "message": "nieznane",
+        "description": ""
+    },
+    "popup_msg_21": {
+        "message": "grudnia",
+        "description": ""
+    },
+    "popup_read_all": {
+        "message": "Wszystkie przeczytane",
         "description": ""
     },
     "options_notifications_8": {
@@ -307,6 +375,10 @@
         "message": "Karta jest już otworzona. Naciśnij na przycisku paska narzędzi, aby otworzyć Gmail w nowej karcie lub aby przełączyć się na istniejącą kartę Gmail.",
         "description": ""
     },
+    "popup_refresh": {
+        "message": "Odśwież",
+        "description": ""
+    },
     "options_misc_5": {
         "message": "Niebieski dla \"Nieprzeczytane\" i szary dla \"Rozłączony\"",
         "description": ""
@@ -315,8 +387,16 @@
         "message": "Ustaw wartość na zero, aby nie sprawdzać nowych wiadomości przed pierwszym ręcznym odświeżeniem [niedostępne na Safari].",
         "description": ""
     },
+    "popup_msg_19": {
+        "message": "października",
+        "description": ""
+    },
     "tooltip_3": {
         "message": "PPM: Wybór kont",
+        "description": ""
+    },
+    "popup_date_format": {
+        "message": "%dd %mm %yy",
         "description": ""
     },
     "options_notifications": {
@@ -324,7 +404,11 @@
         "description": ""
     },
     "options_timings_l6": {
-        "message": "Wartości inne niż zero wyzwalają powiadomienia na pulpicie oraz dźwięk (podobnie jak otrzymanie nowej poczty), dopóki posiadasz nieprzeczytane wiadomości.",
+        "message": "Wartości inne niż zero wyzwalają powiadomienia na pulpicie oraz dźwięk, dopóki posiadasz nieprzeczytane wiadomości (podobnie jak otrzymanie nowej poczty).",
+        "description": ""
+    },
+    "popup_msg_12": {
+        "message": "marca",
         "description": ""
     },
     "options_notifications_22": {
@@ -333,6 +417,10 @@
     },
     "options_tab_1": {
         "message": "Szukaj w aktywnym oknie otwartej karty z kontem Gmail",
+        "description": ""
+    },
+    "popup_msg_7_format": {
+        "message": "%d dni temu",
         "description": ""
     },
     "options_timings_l1": {
@@ -345,6 +433,14 @@
     },
     "toolbar_label": {
         "message": "Powiadomienia Gmail™",
+        "description": ""
+    },
+    "popup_msg_1": {
+        "message": "przed chwilą",
+        "description": ""
+    },
+    "popup_open_settings": {
+        "message": "Otwórz ustawienia",
         "description": ""
     },
     "options_misc_3": {
@@ -376,7 +472,7 @@
         "description": ""
     },
     "options_tab_7": {
-        "message": "Zawsze używaj pustych kart zamiast otwierania nowej karty przy aktywnej takiej opcji",
+        "message": "Zawsze używaj pustych kart zamiast otwierania nowej karty (gdy opcja otwierania na karcie jest aktywna)",
         "description": ""
     },
     "options_toolbar_3": {
@@ -387,12 +483,20 @@
         "message": "Szóste konto (/mail/u/5/)",
         "description": ""
     },
+    "popup_msg_8_format": {
+        "message": "%d tygodni(e) temu",
+        "description": ""
+    },
     "options_toolbar": {
         "message": "Pasek narzędzi:",
         "description": ""
     },
     "options_notifications_6": {
         "message": "Skracaj powiadomienia dłuższe niż",
+        "description": ""
+    },
+    "popup_wait": {
+        "message": "Czekaj...",
         "description": ""
     },
     "tooltip_2": {
@@ -419,12 +523,28 @@
         "message": "Uruchom powiadomienia na pulpicie oraz dźwiękowe, gdy e-mail został otrzymany poniżej (minut):",
         "description": ""
     },
+    "popup_no_subject": {
+        "message": "(brak tematu)",
+        "description": ""
+    },
+    "popup_msg_2": {
+        "message": "minutę temu",
+        "description": ""
+    },
+    "popup_msg_16": {
+        "message": "lipca",
+        "description": ""
+    },
     "label_8": {
         "message": "Przez 2 godziny",
         "description": ""
     },
     "msg_4": {
         "message": "Informacja: Aby powiadomienia działały poprawnie, musisz być zalogowany do swojego konta Google.",
+        "description": ""
+    },
+    "popup_msg_20": {
+        "message": "listopada",
         "description": ""
     },
     "options_toolbar_6": {
@@ -448,7 +568,7 @@
         "description": ""
     },
     "options_timings_l5": {
-        "message": "Minimalny czas to 5 minut.",
+        "message": "Minimalny odstęp czasowy to 5 minut.",
         "description": ""
     },
     "options_misc": {
@@ -475,6 +595,10 @@
         "message": "Piąte konto (/mail/u/4)",
         "description": ""
     },
+    "popup_msg_14": {
+        "message": "maja",
+        "description": ""
+    },
     "options_inshort": {
         "message": "Etykiety i powiadomienia kont dla Poczty Google (Gmail).",
         "description": ""
@@ -487,12 +611,20 @@
         "message": "Otwórz konto Gmail w aktywnej karcie",
         "description": ""
     },
+    "popup_msg_3_format": {
+        "message": "%d minut(y) temu",
+        "description": ""
+    },
     "label_12": {
         "message": "Otwórz stronę domową",
         "description": ""
     },
     "description": {
         "message": "Etykiety i powiadomienia kont dla Poczty Google (Gmail)",
+        "description": ""
+    },
+    "popup_spam": {
+        "message": "Zgłoś spam",
         "description": ""
     }
 }

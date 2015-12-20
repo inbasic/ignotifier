@@ -27,6 +27,10 @@
         "message": "Herinnering voor alle ongelezen e-mails, elke (in minuten):",
         "description": ""
     },
+    "popup_msg_4": {
+        "message": "1 uur geleden",
+        "description": ""
+    },
     "options_gmail_1": {
         "message": "Hoofdaccount (/mail/u/0/)",
         "description": ""
@@ -71,6 +75,10 @@
         "message": "Minimale hoogte is 500px.",
         "description": ""
     },
+    "popup_msg_10": {
+        "message": "januari",
+        "description": ""
+    },
     "options_notifications_26": {
         "message": "Systeemvakmelding altijd weergeven (wordt alleen ondersteund op Windows)",
         "description": ""
@@ -103,6 +111,10 @@
         "message": "Rode kleur voor \"Geen ongelezen berichten\" en grijze kleur voor \"Niet verbonden\"",
         "description": ""
     },
+    "popup_msg_5": {
+        "message": "uren geleden",
+        "description": ""
+    },
     "options_notifications_27": {
         "message": "Er zal een systeemvakmelding worden weergegeven zelfs als er geen ongelezen bericht is.",
         "description": ""
@@ -117,6 +129,10 @@
     },
     "notification": {
         "message": "Van: [author_email][break]Titel: [title][break]Samenvatting: [summary]",
+        "description": ""
+    },
+    "popup_trash": {
+        "message": "Prullenbak",
         "description": ""
     },
     "options_tab": {
@@ -147,12 +163,24 @@
         "message": "Enkele populaire labels: \"postvakIN\", \"belangrijk\", \"^slimlabel_persoonlijk\", \"^slimlabel_nieuwsbrief\", \"^slimlabel_melding\" en \"^slimlabel_groep\"",
         "description": ""
     },
+    "popup_msg_17": {
+        "message": "augustus",
+        "description": ""
+    },
+    "popup_msg_15": {
+        "message": "juni",
+        "description": ""
+    },
     "options_misc_13": {
         "message": "Standaard weergeeft de melder inloggegevens op de tooltip van de werkbalkknop. Door deze optie uit te vinden zal de tekst op de standaardwaarde blijven.",
         "description": ""
     },
     "options_misc_6": {
         "message": "Geen bureaubladmeldingen weergeven om te waarschuwen dat de Gmail-website al geopend is",
+        "description": ""
+    },
+    "popup_read": {
+        "message": "Als gelezen markeren",
         "description": ""
     },
     "options_notifications_4": {
@@ -179,6 +207,10 @@
         "message": "Voor 1 uur",
         "description": ""
     },
+    "popup_archive": {
+        "message": "Archief",
+        "description": ""
+    },
     "msg_2": {
         "message": "Link is gekopieerd naar het klembord.",
         "description": ""
@@ -187,8 +219,28 @@
         "message": "Voorkeuren - Gmail™-melder",
         "description": ""
     },
+    "popup_msg_13": {
+        "message": "april",
+        "description": ""
+    },
+    "popup_msg_9_format": {
+        "message": "%d maand(en) geleden",
+        "description": ""
+    },
+    "popup_msg_11": {
+        "message": "februari",
+        "description": ""
+    },
+    "popup_open_inbox": {
+        "message": "Postvak IN openen",
+        "description": ""
+    },
     "gmail": {
         "message": "Gmail™-melder",
+        "description": ""
+    },
+    "popup_msg_6": {
+        "message": "Gisteren",
         "description": ""
     },
     "options_toolbar_8": {
@@ -201,6 +253,10 @@
     },
     "options_misc_14": {
         "message": "Geen exact badgenummer weergeven wanneer het aantal ongelezen e-mails hoger is dan 999",
+        "description": ""
+    },
+    "popup_msg_18": {
+        "message": "september",
         "description": ""
     },
     "options_notifications_14": {
@@ -223,6 +279,10 @@
         "message": "Log alstublieft in op uw Gmail-account",
         "description": ""
     },
+    "popup_of": {
+        "message": "van",
+        "description": ""
+    },
     "options_notifications_15": {
         "message": "Meldingsgeluid is",
         "description": ""
@@ -241,6 +301,14 @@
     },
     "unknown": {
         "message": "onbekend",
+        "description": ""
+    },
+    "popup_msg_21": {
+        "message": "december",
+        "description": ""
+    },
+    "popup_read_all": {
+        "message": "Alles als gelezen markeren",
         "description": ""
     },
     "options_notifications_8": {
@@ -307,6 +375,10 @@
         "message": "Tabblad is al geopend. Klik op de werkbalkknop om Gmail in een nieuw tabblad te openen of om naar een bestaand Gmail-tabblad over te schakelen.",
         "description": ""
     },
+    "popup_refresh": {
+        "message": "Verversen",
+        "description": ""
+    },
     "options_misc_5": {
         "message": "Blauwe kleur voor \"Geen ongelezen berichten en grijze kleur voor \"Niet verbonden\"",
         "description": ""
@@ -315,8 +387,16 @@
         "message": "Stel de waarde op nul in om geen e-mailcontrole uit te voeren zolang er nog geen handmatige verversing is uitgevoerd [Niet beschikbaar in Safari].",
         "description": ""
     },
+    "popup_msg_19": {
+        "message": "oktober",
+        "description": ""
+    },
     "tooltip_3": {
         "message": "Rechtsklik: Accountselectie",
+        "description": ""
+    },
+    "popup_date_format": {
+        "message": "%mm %dd, %yy",
         "description": ""
     },
     "options_notifications": {
@@ -327,12 +407,20 @@
         "message": "Een waarde hoger dan nul zorgt voor constante bureaubladmeldingen en waarschuwingsgeluiden (vergelijkbaar met het arriveren van een Nieuwe e-mail) wanneer u ongelezen e-mail(s) hebt.",
         "description": ""
     },
+    "popup_msg_12": {
+        "message": "maart",
+        "description": ""
+    },
     "options_notifications_22": {
         "message": "Als uw browser geen meldingsgeluid afspeelt, probeer dan om het te converteren naar plat WAV-formaat middels een online converteerapplicatie.",
         "description": ""
     },
     "options_tab_1": {
         "message": "Alleen op het actieve venster zoeken naar een openstaand Gmail-account",
+        "description": ""
+    },
+    "popup_msg_7_format": {
+        "message": "%d dagen geleden",
         "description": ""
     },
     "options_timings_l1": {
@@ -345,6 +433,14 @@
     },
     "toolbar_label": {
         "message": "Gmail™-melder",
+        "description": ""
+    },
+    "popup_msg_1": {
+        "message": "zojuist",
+        "description": ""
+    },
+    "popup_open_settings": {
+        "message": "Instellingen openen",
         "description": ""
     },
     "options_misc_3": {
@@ -387,12 +483,20 @@
         "message": "Zesde account (/mail/u/5)",
         "description": ""
     },
+    "popup_msg_8_format": {
+        "message": "%d we(e)k(en) geleden",
+        "description": ""
+    },
     "options_toolbar": {
         "message": "Werkbalk:",
         "description": ""
     },
     "options_notifications_6": {
         "message": "Meldingen afbreken die langer zijn dan",
+        "description": ""
+    },
+    "popup_wait": {
+        "message": "Wachten...",
         "description": ""
     },
     "tooltip_2": {
@@ -419,12 +523,28 @@
         "message": "Alleen bureaublad- en geluidsmeldingen weergeven wanneer een e-mail binnen is ontvangen in minder dan (in minuten):",
         "description": ""
     },
+    "popup_no_subject": {
+        "message": "(geen onderwerp)",
+        "description": ""
+    },
+    "popup_msg_2": {
+        "message": "1 minuut geleden",
+        "description": ""
+    },
+    "popup_msg_16": {
+        "message": "juli",
+        "description": ""
+    },
     "label_8": {
         "message": "Voor 2 uur",
         "description": ""
     },
     "msg_4": {
         "message": "Let op: om de melder correct te laten werken moet u ingelogd zijn op uw Google-account.",
+        "description": ""
+    },
+    "popup_msg_20": {
+        "message": "november",
         "description": ""
     },
     "options_toolbar_6": {
@@ -475,6 +595,10 @@
         "message": "Vijfde account (/mail/u/4)",
         "description": ""
     },
+    "popup_msg_14": {
+        "message": "mei",
+        "description": ""
+    },
     "options_inshort": {
         "message": "Labels- en accountsmelder voor Google Mail (Gmail)",
         "description": ""
@@ -487,12 +611,20 @@
         "message": "Gmail-account openen op actief tabblad",
         "description": ""
     },
+    "popup_msg_3_format": {
+        "message": "%d minuten geleden",
+        "description": ""
+    },
     "label_12": {
         "message": "Website openen",
         "description": ""
     },
     "description": {
         "message": "Labels- en accountsmelder voor Google Mail (Gmail)",
+        "description": ""
+    },
+    "popup_spam": {
+        "message": "Spam",
         "description": ""
     }
 }

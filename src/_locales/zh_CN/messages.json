@@ -27,6 +27,10 @@
         "message": "提醒有未读邮件，每隔（分钟）：",
         "description": ""
     },
+    "popup_msg_4": {
+        "message": "1 小时前",
+        "description": ""
+    },
     "options_gmail_1": {
         "message": "主帐户 (/mail/u/0/)",
         "description": ""
@@ -71,6 +75,10 @@
         "message": "最小高度为 500px。",
         "description": ""
     },
+    "popup_msg_10": {
+        "message": "1月",
+        "description": ""
+    },
     "options_notifications_26": {
         "message": "始终显示托盘通知 (仅 Windows)",
         "description": ""
@@ -103,6 +111,10 @@
         "message": "红色表示“无未读邮件”，灰色表示“已断开”",
         "description": ""
     },
+    "popup_msg_5": {
+        "message": "小时前",
+        "description": ""
+    },
     "options_notifications_27": {
         "message": "托盘通知图标将始终显示，即使没有未读邮件。",
         "description": ""
@@ -117,6 +129,10 @@
     },
     "notification": {
         "message": "来自: [author_email][break]标题: [title][break]摘要: [summary]",
+        "description": ""
+    },
+    "popup_trash": {
+        "message": "删除",
         "description": ""
     },
     "options_tab": {
@@ -147,12 +163,24 @@
         "message": "部分常用标签: \"inbox\", \"important\", \"^smartlabel_personal\", \"^smartlabel_newsletter\", \"^smartlabel_notification\", \"^smartlabel_group\"",
         "description": ""
     },
+    "popup_msg_17": {
+        "message": "8月",
+        "description": ""
+    },
+    "popup_msg_15": {
+        "message": "6月",
+        "description": ""
+    },
     "options_misc_13": {
         "message": "默认情况下，本扩展的工具栏按钮的工具提示带有登录信息。取消此选项时，工具提示文本将恢复默认值。",
         "description": ""
     },
     "options_misc_6": {
         "message": "不在 Gmail 网站已经打开时显示桌面通知",
+        "description": ""
+    },
+    "popup_read": {
+        "message": "标为已读",
         "description": ""
     },
     "options_notifications_4": {
@@ -179,6 +207,10 @@
         "message": "禁用 1 小时",
         "description": ""
     },
+    "popup_archive": {
+        "message": "归档",
+        "description": ""
+    },
     "msg_2": {
         "message": "链接已复制到剪贴板。",
         "description": ""
@@ -187,8 +219,28 @@
         "message": "选项 - Gmail™ Notifier",
         "description": ""
     },
+    "popup_msg_13": {
+        "message": "4月",
+        "description": ""
+    },
+    "popup_msg_9_format": {
+        "message": "%d 个月前",
+        "description": ""
+    },
+    "popup_msg_11": {
+        "message": "2月",
+        "description": ""
+    },
+    "popup_open_inbox": {
+        "message": "打开收件箱",
+        "description": ""
+    },
     "gmail": {
         "message": "Gmail™ Notifier",
+        "description": ""
+    },
+    "popup_msg_6": {
+        "message": "昨天",
         "description": ""
     },
     "options_toolbar_8": {
@@ -201,6 +253,10 @@
     },
     "options_misc_14": {
         "message": "未读邮件超过 999 封时，不在徽章上显示确切数字",
+        "description": ""
+    },
+    "popup_msg_18": {
+        "message": "9月",
         "description": ""
     },
     "options_notifications_14": {
@@ -223,6 +279,10 @@
         "message": "请登录您的 Gmail 帐户",
         "description": ""
     },
+    "popup_of": {
+        "message": "/",
+        "description": ""
+    },
     "options_notifications_15": {
         "message": "声音通知为",
         "description": ""
@@ -241,6 +301,14 @@
     },
     "unknown": {
         "message": "未知",
+        "description": ""
+    },
+    "popup_msg_21": {
+        "message": "12月",
+        "description": ""
+    },
+    "popup_read_all": {
+        "message": "全部标为已读",
         "description": ""
     },
     "options_notifications_8": {
@@ -307,6 +375,10 @@
         "message": "标签页已经打开。点击工具栏上的按钮在新标签页中打开 Gmail，或者切换到现有的 Gmail 标签页。",
         "description": ""
     },
+    "popup_refresh": {
+        "message": "刷新",
+        "description": ""
+    },
     "options_misc_5": {
         "message": "蓝色表示“无未读邮件”，灰色表示“已断开”",
         "description": ""
@@ -315,8 +387,16 @@
         "message": "设置值为 0 将禁用邮件检查，除非手动刷新 [Safari 上不可用]。",
         "description": ""
     },
+    "popup_msg_19": {
+        "message": "10月",
+        "description": ""
+    },
     "tooltip_3": {
         "message": "右键单击：选择帐户",
+        "description": ""
+    },
+    "popup_date_format": {
+        "message": "%yy-%mm-%dd",
         "description": ""
     },
     "options_notifications": {
@@ -327,12 +407,20 @@
         "message": "非零的值将反复触发桌面通知和提醒声音（类似有新邮件到达），如果您有未读的邮件。",
         "description": ""
     },
+    "popup_msg_12": {
+        "message": "3月",
+        "description": ""
+    },
     "options_notifications_22": {
         "message": "如果您的浏览器没有播放通知声音，尝试使用一种在线转换工具，将它转换为一个纯净的 WAV 格式。",
         "description": ""
     },
     "options_tab_1": {
         "message": "只在活动窗口中搜索已打开的 Gmail 帐户",
+        "description": ""
+    },
+    "popup_msg_7_format": {
+        "message": "%d 天前",
         "description": ""
     },
     "options_timings_l1": {
@@ -345,6 +433,14 @@
     },
     "toolbar_label": {
         "message": "Gmail™ Notifier",
+        "description": ""
+    },
+    "popup_msg_1": {
+        "message": "刚刚",
+        "description": ""
+    },
+    "popup_open_settings": {
+        "message": "打开设置",
         "description": ""
     },
     "options_misc_3": {
@@ -387,12 +483,20 @@
         "message": "第六帐户 (/mail/u/5/)",
         "description": ""
     },
+    "popup_msg_8_format": {
+        "message": "%d 周前",
+        "description": ""
+    },
     "options_toolbar": {
         "message": "工具栏：",
         "description": ""
     },
     "options_notifications_6": {
         "message": "截断通知中超过",
+        "description": ""
+    },
+    "popup_wait": {
+        "message": "等待...",
         "description": ""
     },
     "tooltip_2": {
@@ -419,12 +523,28 @@
         "message": "仅在邮件抵达未超过x分钟时发出桌面和声音通知：",
         "description": ""
     },
+    "popup_no_subject": {
+        "message": "(无主题)",
+        "description": ""
+    },
+    "popup_msg_2": {
+        "message": "1 分钟前",
+        "description": ""
+    },
+    "popup_msg_16": {
+        "message": "7月",
+        "description": ""
+    },
     "label_8": {
         "message": "禁用 2 小时",
         "description": ""
     },
     "msg_4": {
         "message": "注意：为了通知能正常工作，您需要先登录到您的 Google 帐户。",
+        "description": ""
+    },
+    "popup_msg_20": {
+        "message": "11月",
         "description": ""
     },
     "options_toolbar_6": {
@@ -475,6 +595,10 @@
         "message": "第五帐户 (/mail/u/4/)",
         "description": ""
     },
+    "popup_msg_14": {
+        "message": "5月",
+        "description": ""
+    },
     "options_inshort": {
         "message": "支持多个标签和帐户的通知工具，适用于 Google Mail (Gmail)。",
         "description": ""
@@ -487,12 +611,20 @@
         "message": "在当前标签页打开 Gmail 帐户",
         "description": ""
     },
+    "popup_msg_3_format": {
+        "message": "%d 分钟前",
+        "description": ""
+    },
     "label_12": {
         "message": "打开主页",
         "description": ""
     },
     "description": {
         "message": "支持多个标签和帐户的通知工具，适用于 Google Mail (Gmail)",
+        "description": ""
+    },
+    "popup_spam": {
+        "message": "垃圾",
         "description": ""
     }
 }
