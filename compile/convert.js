@@ -38,4 +38,5 @@ convert('he', 'he');
 convert('nl', 'nl');
 convert('pl', 'pl');
 convert('ru', 'ru');
+convert('sr', 'sr');
 convert('zh_CN', 'zh-CN');
