@@ -1,6 +1,7 @@
 'use strict';
 
 var fs = require('fs');
+var path = require('path');
 
 function convert (input, output) {
 
@@ -31,12 +32,19 @@ function convert (input, output) {
   });
 }
 
-convert('en', 'en');
-convert('el', 'el');
-convert('hu', 'hu');
-convert('he', 'he');
-convert('nl', 'nl');
-convert('pl', 'pl');
-convert('ru', 'ru');
-convert('sr', 'sr');
-convert('zh_CN', 'zh-CN');
+function map (input) {
+  return input.replace('_', '-');
+}
+
+fs.readdir('src/locale', function (err, files) {
+  console.error(err);
+  files.forEach(function (file) {
+    fs.unlinkSync(path.resolve('src/locale', file));
+  });
+  fs.readdir('src/_locales/', function (err, files) {
+    files.forEach(function (file) {
+      convert (file, map(file));
+    });
+  });
+});
+
