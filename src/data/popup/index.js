@@ -2,7 +2,13 @@
 //
 (function (locales) {
   [].forEach.call(locales, function (locale) {
-    var elem  = document.querySelector('[title="' + locale.dataset.l10nId + '"');
+    var elem;
+    try {
+      elem  = document.querySelector('[title="' + locale.dataset.l10nId + '"');
+    }
+    catch (e) {
+      console.error(e, locale.dataset.l10nId);
+    }
     if (elem) {
       elem.title = locale.textContent;
     }
