@@ -275,8 +275,10 @@ var checkEmails = (function () {
       }
       // Execute fresh servers
       app.Promise.all(emails.map(function (e) {
-        return e.execute();
+        return e.execute().catch (() => null);
       })).then(function (objs) {
+        // Removing error objects
+        objs = objs.filter(o => o);
         // Make sure there is no duplicate account
         var tmp = objs.map(function (o) {
           return o.notAuthorized === true || o.network === false ? null : o.xml.title + '/' + o.xml.label;
@@ -375,7 +377,7 @@ var checkEmails = (function () {
             .replace('[summary]', shorten(e.summary))
             .replace('[title]', shorten(e.title))
             .replace(/\[break\]/g, '\n');
-        }).join('\n\n');
+        });
         // Preparing the tooltip
         var tooltip =
           app.l10n('gmail') + '\n\n' +
@@ -440,14 +442,16 @@ var checkEmails = (function () {
             app.popup.attach();
           }
           if (config.notification.show) {
-            app.notify(report, '', function () {
-              app.timer.setTimeout(function () {
-                // restore browser window first!
-                app.windows.active().then(function (win) {
-                  win.focus();
-                  app.timer.setTimeout(actions.onCommand, 100, tmp.length ? tmp[0].link : null);
-                });
-              }, 100);
+            report.forEach(function (r) {
+              app.notify(r, '', function () {
+                app.timer.setTimeout(function () {
+                  // restore browser window first!
+                  app.windows.active().then(function (win) {
+                    win.focus();
+                    app.timer.setTimeout(actions.onCommand, 100, tmp.length ? tmp[0].link : null);
+                  });
+                }, 100);
+              });
             });
           }
           if (config.tray.show) {
@@ -459,6 +463,8 @@ var checkEmails = (function () {
           app.button.label = tooltip;
           app.popup.send('update-reset', objs);
         }
+      }, function () {
+        // this should not be called
       });
     },
     getCached: function () {

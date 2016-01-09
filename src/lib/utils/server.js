@@ -140,7 +140,7 @@ server.Email = function (feed, timeout) {
   return {
     execute: function () {
       d = app.Promise.defer();
-      var url = feed + "?rand=" + Math.round(Math.random() * 10000000);
+      var url = feed + '?rand=' + Math.round(Math.random() * 10000000);
       new app.get(url, null, null, timeout).then(
         function (req) {
           if (req.status != 200) {
@@ -153,7 +153,7 @@ server.Email = function (feed, timeout) {
           }
           var xml = new server.Parser(req, feed);
           //Cleaning old entries
-          var cIDs = xml.entries
+          var cIDs = (xml.entries || [])
           .filter(function (e) {
             var age = ((new Date()).getTime() - (new Date(e.modified)).getTime());
             return age < 1000 * 60 * config.email.threatAsNew;
@@ -177,7 +177,7 @@ server.Email = function (feed, timeout) {
             newIDs: newIDs
           });
         }
-      );
+      ).catch (e => d.reject(e));
       return d.promise;
     },
     reject: function () {

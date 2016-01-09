@@ -7,6 +7,7 @@ var {Cc, Ci, Cu}  = require('chrome'),
     array         = require('sdk/util/array'),
     data          = self.data,
     panel         = require("sdk/panel"),
+    notifications = require("sdk/notifications"),
     l10n          = require("sdk/l10n").get,
     timer         = require("sdk/timers"),
     pageWorker    = require("sdk/page-worker"),
@@ -277,7 +278,10 @@ exports.windows = (function () {
     return {
       obj: win,
       focus: function () {
-        (win.focus || win.activate)();
+        try {
+          (win.focus || win.activate)();
+        }
+        catch (e) {}
       }
     }
   }
@@ -360,43 +364,35 @@ exports.windows = (function () {
   }
 })();
 
-exports.notify = (function () { // https://github.com/fwenzel/copy-shorturl/blob/master/lib/simple-notify.js
-  var alertServ = Cc["@mozilla.org/alerts-service;1"].
-    getService(Ci.nsIAlertsService);
-
-  return function (text, title , callback) {
-    title = title || l10n("gmail");
-    if (config.notification.silent) return;
-
-    try {
-      alertServ.showAlertNotification(
-        data.url("icons/notification/32.png"),
-        title,
-        text,
-        callback ? true : false,
-        "",
-        function (subject, topic, data) {
-          if (topic == "alertclickcallback") {
-            timer.setTimeout(callback, 100);
-          }
-        }, "");
+exports.notify = (function () {
+  let stack = [], wait = false;
+  function doOne () {
+    if (wait) {
+      return;
     }
-    catch(e) {
-      let browser = windows.active.gBrowser,
-          notificationBox = browser.getNotificationBox();
-
-      notification = notificationBox.appendNotification(
-        text,
-        'jetpack-notification-box',
-        data.url("icons/notification/16.png"),
-        notificationBox.PRIORITY_INFO_MEDIUM,
-        []
-      );
-      timer.setTimeout(function() {
-        notification.close();
-      }, config.notification.time * 1000);
+    if (stack.length === 0) {
+      return;
+    }
+    wait = true;
+    let obj = stack.shift();
+    notifications.notify({
+      title: obj.title || l10n("gmail"),
+      text: obj.text,
+      onClick: obj.onClick,
+      iconURL: data.url('./icons/red/128.png')
+    });
+    timer.setTimeout(function () {
+      wait = false;
+      doOne();
+    }, 4000);
+  }
+  return function (text, title, onClick) {
+    stack.push({text, title, onClick});
+    if (!wait) {
+      doOne();
     }
   }
+
 })();
 
 XPCOMUtils.defineLazyGetter(exportsHelper, "play", function () {
