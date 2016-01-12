@@ -6,9 +6,7 @@
     try {
       elem  = document.querySelector('[title="' + locale.dataset.l10nId + '"');
     }
-    catch (e) {
-      console.error(e, locale.dataset.l10nId);
-    }
+    catch (e) {}
     if (elem) {
       elem.title = locale.textContent;
     }

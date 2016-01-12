@@ -3,7 +3,7 @@
 var fs = require('fs');
 var path = require('path');
 
-function convert (input, output) {
+function convert (input, outputs) {
 
   fs.exists('src/_locales/' + input + '/messages.json', function (exists) {
     if (exists) {
@@ -16,13 +16,15 @@ function convert (input, output) {
         for (var name in json) {
           c += name + '=' + json[name].message + '\n';
         }
-        fs.writeFile('src/locale/' + output + '.properties', c, 'utf8', function (err) {
-          if (err) {
-            throw err;
-          }
-          else {
-            console.log('[done]', input + '/messages.json');
-          }
+        outputs.forEach(function (output) {
+          fs.writeFile('src/locale/' + output + '.properties', c, 'utf8', function (err) {
+            if (err) {
+              throw err;
+            }
+            else {
+              console.log('[done]', input + '/messages.json');
+            }
+          });
         });
       });
     }
@@ -33,7 +35,10 @@ function convert (input, output) {
 }
 
 function map (input) {
-  return input.replace('_', '-');
+  if (input === 'en') {
+    return ['en', 'en-US'];
+  }
+  return [input.replace('_', '-')];
 }
 
 fs.readdir('src/locale', function (err, files) {
