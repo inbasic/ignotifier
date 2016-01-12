@@ -287,6 +287,15 @@ config.notification = {
     val = +val;
     app.storage.write('notificationTime', val > 3 ? val : 3);
   },
+  get silentTime () {
+    return +app.storage.read('silentTime') || 10; // in minutes
+  },
+  set silentTime (val) {
+    val = +val;
+    val = val > 1 ? val : 1;
+    val = val < 1000 ? val : 1000;
+    app.storage.write('silentTime', val);
+  },
   silent: false,
   safari: {
     get oneTime () {

@@ -60,6 +60,9 @@
   "label_9": {
     "message": "For 5 hours"
   },
+  "label_13": {
+    "message": "For a custom time period"
+  },
   "label_10": {
     "message": "Enable notifications"
   },
@@ -241,6 +244,12 @@
   },
   "options_notifications_27": {
     "message": "Tray notification will be shown even if there is no unread message."
+  },
+  "options_notifications_28": {
+    "message": "Disable all notifications for a custom time period (in minutes):"
+  },
+  "options_notifications_29": {
+    "message": "This option is related to the right click menu on the toolbar button -> disable all notifications -> custom time period."
   },
 
   "options_tab": {

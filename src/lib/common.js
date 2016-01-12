@@ -20,11 +20,12 @@ var repeater = new timer.repeater(
 
 var actions = {
   silent: function (time) {
-    if (config.notification.silent) {
-      app.timer.clearTimeout(config.notification.silent);
-    }
+    app.timer.clearTimeout(config.notification.silent);
     config.notification.silent = false;
-    if (time) {
+    if (time === 'custom') {
+      time = config.notification.silentTime * 60 * 1000;
+    }
+    if (!isNaN(time)) {
       config.notification.silent = app.timer.setTimeout(function () {
         config.notification.silent = false;
       }, time);
@@ -580,6 +581,7 @@ app.button.onClick (function (e) {
     }
   }
 });
+
 app.button.onContext(function () {
   // insert new items
   var show = checkEmails.getCached().map(function (o) {
@@ -614,7 +616,8 @@ app.button.onContext(function () {
           {type: 'menuitem', label: app.l10n('label_6'), value: 1800},
           {type: 'menuitem', label: app.l10n('label_7'), value: 3600},
           {type: 'menuitem', label: app.l10n('label_8'), value: 7200},
-          {type: 'menuitem', label: app.l10n('label_9'), value: 18000}
+          {type: 'menuitem', label: app.l10n('label_9'), value: 18000},
+          {type: 'menuitem', label: app.l10n('label_13'), value: config.notification.silentTime * 60},
         ], command: function (e) {
           actions.silent(parseInt(e.originalTarget.getAttribute('value')) * 1000);
         }}
@@ -625,9 +628,26 @@ app.button.onContext(function () {
   }
   else {
     items = items.concat([
-      {type: 'menuitem', label: app.l10n('label_3') + ' ' + app.l10n('label_4').toLowerCase(), command: actions.silent.bind(actions, 300 * 1000)},
-      {type: 'menuitem', label: app.l10n('label_3') + ' ' + app.l10n('label_7').toLowerCase(), command: actions.silent.bind(actions, 3600 * 1000)},
-      {type: 'menuitem', label: app.l10n('label_10'), command: actions.silent}
+      {
+        type: 'menuitem',
+        label: app.l10n('label_3') + ' ' + app.l10n('label_4').toLowerCase(),
+        command: actions.silent.bind(actions, 300 * 1000)
+      },
+      {
+        type: 'menuitem',
+        label: app.l10n('label_3') + ' ' + app.l10n('label_7').toLowerCase(),
+        command: actions.silent.bind(actions, 3600 * 1000)
+      },
+      {
+        type: 'menuitem',
+        label: app.l10n('label_3') + ' ' + app.l10n('label_13').toLowerCase(),
+        command: actions.silent.bind(actions, 'custom')
+      },
+      {
+        type: 'menuitem',
+        label: app.l10n('label_10'),
+        command: actions.silent
+      }
     ]);
   }
   items = items.concat([

@@ -387,6 +387,9 @@ exports.notify = (function () {
     }, 4000);
   }
   return function (text, title, onClick) {
+    if (config.notification.silent) {
+      return;
+    }
     stack.push({text, title, onClick});
     if (!wait) {
       doOne();
