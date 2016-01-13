@@ -282,7 +282,7 @@ var checkEmails = (function () {
         objs = objs.filter(o => o);
         // Make sure there is no duplicate account
         var tmp = objs.map(function (o) {
-          return o.notAuthorized === true || o.network === false ? null : o.xml.title + '/' + o.xml.label;
+          return o.notAuthorized === true || o.network === false ? null : (o.xml ? o.xml.title + '/' + o.xml.label : null);
         })
         .map(function (l, i, a) {
           return !l ? false : a.indexOf(l) !== i;
@@ -356,7 +356,7 @@ var checkEmails = (function () {
         // Preparing the report
         var tmp = [];
         objs.forEach (function (o) {
-          (o.xml.entries || [])
+          (o.xml ? o.xml.entries : [])
             .filter(function (e) {
               return anyNewEmails ? o.newIDs.indexOf(e.id) !== -1 : o.xml.fullcount !== 0;
             })
@@ -585,8 +585,12 @@ app.button.onClick (function (e) {
 app.button.onContext(function () {
   // insert new items
   var show = checkEmails.getCached().map(function (o) {
-    return o.xml.rootLink;
-  }).map(function (e, i, a) {
+    return o.xml ? o.xml.rootLink : null;
+  })
+  .filter(function (o) {
+    return o;
+  })
+  .map(function (e, i, a) {
     return a.indexOf(e) === i;
   });
   var items = [];
