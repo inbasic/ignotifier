@@ -327,7 +327,7 @@ var checkEmails = (function () {
         }
         //Removing not logged-in accounts
         objs = objs.filter(function (o) {
-          return o.network && !o.notAuthorized;
+          return o.network && !o.notAuthorized && o.xml;
         });
         //Sorting accounts
         objs.sort(function (a, b) {
