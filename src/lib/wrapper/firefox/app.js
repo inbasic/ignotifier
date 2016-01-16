@@ -1,53 +1,73 @@
+'use strict';
+
 var {Cc, Ci, Cu}  = require('chrome'),
     {on, off, once, emit} = require('sdk/event/core'),
-    buttons       = require("sdk/ui/button/action"),
-    tabs          = require("sdk/tabs"),
-    self          = require("sdk/self"),
-    loader        = require('@loader/options'),
-    array         = require('sdk/util/array'),
-    data          = self.data,
-    panel         = require("sdk/panel"),
-    notifications = require("sdk/notifications"),
-    l10n          = require("sdk/l10n").get,
-    timer         = require("sdk/timers"),
-    pageWorker    = require("sdk/page-worker"),
-    pageMod       = require("sdk/page-mod"),
-    sp            = require("sdk/simple-prefs"),
-    unload        = require("sdk/system/unload"),
-    events        = require("sdk/system/events"),
-    tabsUtils     = require("sdk/tabs/utils"),
-    prefs         = sp.prefs,
-    config        = require("../../config"),
-    tbExtra       = require("./tbExtra"),
-    windows       = {
+    {ToggleButton} = require('sdk/ui/button/toggle'),
+    tabs = require('sdk/tabs'),
+    self = require('sdk/self'),
+    loader = require('@loader/options'),
+    array = require('sdk/util/array'),
+    data = self.data,
+    panel = require('sdk/panel'),
+    notifications = require('sdk/notifications'),
+    l10n = require('sdk/l10n').get,
+    timer = require('sdk/timers'),
+    pageWorker = require('sdk/page-worker'),
+    pageMod = require('sdk/page-mod'),
+    sp = require('sdk/simple-prefs'),
+    prefs = sp.prefs,
+    unload = require('sdk/system/unload'),
+    events = require('sdk/system/events'),
+    config = require('../../config'),
+    tbExtra = require('./tbExtra'),
+    windows = {
       utils: require('sdk/window/utils'),
       get active () { // Chrome window
         return this.utils.getMostRecentBrowserWindow();
       },
       get SDKWindow () { // SDK window
-        return require("sdk/windows").browserWindows.activeWindow
+        return require('sdk/windows').browserWindows.activeWindow;
       },
-    }
+    };
 
 var exportsHelper = {};
 
-Cu.import("resource://gre/modules/Promise.jsm");
-Cu.import("resource://gre/modules/XPCOMUtils.jsm");
+var {Promise} = Cu.import('resource://gre/modules/Promise.jsm');
+var {XPCOMUtils} = Cu.import('resource://gre/modules/XPCOMUtils.jsm');
 
 // Event Emitter
 exports.on = on.bind(null, exports);
 exports.once = once.bind(null, exports);
 exports.emit = emit.bind(null, exports);
-exports.removeListener = function removeListener (type, listener) {
-  off(exports, type, listener);
-};
+exports.removeListener = (type, listener) => off(exports, type, listener);
+
+/* button */
+var button = new ToggleButton({
+  id: self.name,
+  label: l10n('toolbar_label'),
+  icon: {
+    '16': './icons/blue/16.png',
+    '32': './icons/blue/32.png'
+  },
+  onChange: function (state) {
+    if (button.onClick && state.checked) {
+      button.onClick();
+    }
+    if (button.detached) {
+      button.state('window', {
+        checked: false
+      });
+    }
+  }
+});
+button.detached = true;
 
 /* popup */
 var popup = panel.Panel({
-  contentURL: data.url("./popup/index.html"),
+  contentURL: data.url('./popup/index.html'),
   contentScriptFile: [
-    data.url("./popup/firefox/firefox.js"),
-    data.url("./popup/index.js")
+    data.url('./popup/firefox/firefox.js'),
+    data.url('./popup/index.js')
   ],
   contentScriptOptions: {
     base: loader.prefixURI,
@@ -81,36 +101,25 @@ var popup = panel.Panel({
       'popup_msg_20': l10n('popup_msg_20'),
       'popup_msg_21': l10n('popup_msg_21')
     }
+  },
+  onHide: function () {
+    button.state('window', {
+      checked: false
+    });
   }
 });
 popup.on('show', () => popup.port.emit('show'));
-
-/* button */
-var button = buttons.ActionButton({
-  id: self.name,
-  label: l10n("toolbar_label"),
-  icon: {
-    "16": "./icons/blue/16.png",
-    "32": "./icons/blue/32.png"
-  },
-  onClick: function() {
-    if (button.onClick) {
-      button.onClick();
-    }
-  }
-});
-tbExtra.setButton(button);
 
 /* option */
 var options = (function () {
   var workers = [], options_arr = [];
   pageMod.PageMod({
-    include: data.url("options/index.html"),
+    include: data.url('options/index.html'),
     contentScriptFile: [
-      data.url("options/firefox/firefox.js"),
-      data.url("options/index.js")
+      data.url('options/firefox/firefox.js'),
+      data.url('options/index.js')
     ],
-    contentScriptWhen: "start",
+    contentScriptWhen: 'start',
     contentScriptOptions: {
       base: loader.prefixURI
     },
@@ -120,11 +129,11 @@ var options = (function () {
       worker.on('pagehide', function() { array.remove(workers, this); });
       worker.on('detach', function() { array.remove(workers, this); });
       // PageMod has no access to mozFullPath of input.
-      worker.port.on("get-sound-fullpath", function () {
-        var browserWindow = Cc["@mozilla.org/appshell/window-mediator;1"].
+      worker.port.on('get-sound-fullpath', function () {
+        var browserWindow = Cc['@mozilla.org/appshell/window-mediator;1'].
                         getService(Ci.nsIWindowMediator).
-                        getMostRecentWindow("navigator:browser");
-        var file = browserWindow.content.document.querySelector("input[type=file]").files[0].mozFullPath;
+                        getMostRecentWindow('navigator:browser');
+        var file = browserWindow.content.document.querySelector('input[type=file]').files[0].mozFullPath;
         config.notification.sound.custom.file = file;
       });
       options_arr.forEach(function (arr) {
@@ -139,14 +148,14 @@ var options = (function () {
       });
     },
     receive: (id, callback) => options_arr.push([id, callback])
-  }
+  };
 })();
 
 function get (url, headers, data, timeout) {
   headers = headers || {};
 
   var d = new Promise.defer();
-  var req = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"]
+  var req = Cc['@mozilla.org/xmlextras/xmlhttprequest;1']
     .createInstance(Ci.nsIXMLHttpRequest);
   req.mozBackgroundRequest = true;  //No authentication
   req.timeout = timeout;
@@ -155,7 +164,7 @@ function get (url, headers, data, timeout) {
     req.setRequestHeader(id, headers[id]);
   }
   req.onreadystatechange = function () {
-    if (req.readyState == 4) {
+    if (req.readyState === 4) {
       d.resolve(req);
     }
   };
@@ -164,12 +173,12 @@ function get (url, headers, data, timeout) {
     .forceAllowThirdPartyCookie = true;
   if (data) {
     var arr = [];
-    for(e in data) {
-      arr.push(e + "=" + data[e]);
+    for (let e in data) {
+      arr.push(e + '=' + data[e]);
     }
-    data = arr.join("&");
+    data = arr.join('&');
   }
-  req.send(data ? data : "");
+  req.send(data ? data : '');
   return d.promise;
 }
 
@@ -182,12 +191,12 @@ exports.button = {
   },
   onContext: function (c) {
     tbExtra.onContext(function (e, menupopup, menuitem, menuseparator, menu) {
-      var types = {
-        "menupopup": menupopup,
-        "menuitem": menuitem,
-        "menuseparator": menuseparator,
-        "menu": menu
-      }
+      let types = {
+        'menupopup': menupopup,
+        'menuitem': menuitem,
+        'menuseparator': menuseparator,
+        'menu': menu
+      };
       // remove old items
       while (menupopup.firstChild) {
         menupopup.removeChild(menupopup.firstChild);
@@ -196,20 +205,22 @@ exports.button = {
       function appendChilds (root, arr) {
         arr.forEach(function (e) {
           var element = types[e.type].cloneNode(false);
-          ["label", "tooltip", "value", "link"].filter(function (i) {
+          ['label', 'tooltip', 'value', 'link'].filter(function (i) {
             return e[i];
           }).forEach(function (i) {
             return element.setAttribute(i, e[i]);
           });
           if (e.command) {
-            element.addEventListener("command", function (event) {
+            element.addEventListener('command', function (event) {
               event.preventDefault();
               event.stopPropagation();
               e.command(event);
             }, false);
           }
           root.appendChild (element);
-          if (e.childs && e.childs.length) appendChilds(element, e.childs);
+          if (e.childs && e.childs.length) {
+            appendChilds(element, e.childs);
+          }
         });
       }
       appendChilds(menupopup, items);
@@ -218,21 +229,22 @@ exports.button = {
   onClick: function (c) {
     tbExtra.onClick(c);
   },
-  set label (val) {
+  set label (val) { //jshint ignore:line
     button.label = config.ui.tooltip ? l10n('toolbar_label') : val;
   },
-  set badge (val) {
+  set badge (val) { //jshint ignore:line
     if (config.ui.badge) {
-      tbExtra.setBadge(val);
+      button.badge = val ? val : '';
+      button.badgeColor = config.ui.backgroundColor;
     }
   },
-  set color (val) {
+  set color (val) { //jshint ignore:line
     button.icon = {
-      "16": "./icons/" + val + "/16.png",
-      "32": "./icons/" + val + "/32.png"
-    }
+      '16': './icons/' + val + '/16.png',
+      '32': './icons/' + val + '/32.png'
+    };
   }
-}
+};
 
 exports.popup = {
   show: function () {
@@ -242,13 +254,14 @@ exports.popup = {
       position: button
     });
   },
-  hide: function () {
+  hide: () => popup.hide(),
+  attach: () => button.detached = false,
+  detach: () => {
+    button.detached = true;
     popup.hide();
   },
-  attach: function () {},
-  detach: () => popup.hide(),
   send: function (id, data) {
-    if (id === "resize") {
+    if (id === 'resize') {
       popup.resize(data.width, data.height);
     }
     if (popup.isShowing) {
@@ -256,16 +269,16 @@ exports.popup = {
     }
   },
   receive: (id, callback) => popup.port.on(id, callback)
-}
+};
 
 exports.timer = timer;
 
 exports.get = get;
 
 exports.parser = function () {
-  return Cc["@mozilla.org/xmlextras/domparser;1"]
+  return Cc['@mozilla.org/xmlextras/domparser;1']
     .createInstance(Ci.nsIDOMParser);
-}
+};
 
 exports.l10n = (id) => l10n(id);
 
@@ -279,15 +292,15 @@ exports.windows = (function () {
         }
         catch (e) {}
       }
-    }
+    };
   }
   function toTab (tab) {
     return {
       get url () {
-        return tab.url
+        return tab.url;
       },
       set url (val) {
-        if (tab.url == val) {
+        if (tab.url === val) {
           tab.reload();
         }
         else {
@@ -297,12 +310,12 @@ exports.windows = (function () {
       activate: () => tab.activate(),
       window: () => Promise.resolve(toWindow(toWindow(tab.window))),
       get active () {
-        return tab == tabs.activeTab;
+        return tab === tabs.activeTab;
       },
       close: function () {
         tab.close();
       }
-    }
+    };
   }
   return {
     active: function () {
@@ -336,7 +349,7 @@ exports.windows = (function () {
           }
           return exports.windows.tabs.list(true).then(function (tabs) {
             return tabs.reduce(function (p, c) {
-              return p || (c.url === "about:newtab" || c.url === "about:blank" ? c : null);
+              return p || (c.url === 'about:newtab' || c.url === 'about:blank' ? c : null);
             }, null);
           });
         })().then(function (t) {
@@ -357,7 +370,7 @@ exports.windows = (function () {
         });
       }
     }
-  }
+  };
 })();
 
 exports.notify = (function () {
@@ -372,7 +385,7 @@ exports.notify = (function () {
     wait = true;
     let obj = stack.shift();
     notifications.notify({
-      title: obj.title || l10n("gmail"),
+      title: obj.title || l10n('gmail'),
       text: obj.text,
       onClick: obj.onClick,
       iconURL: data.url('./icons/red/128.png')
@@ -390,19 +403,20 @@ exports.notify = (function () {
     if (!wait) {
       doOne();
     }
-  }
-
+  };
 })();
 
-XPCOMUtils.defineLazyGetter(exportsHelper, "play", function () {
-  Cu.import("resource://gre/modules/FileUtils.jsm");
-  Cu.import("resource://gre/modules/Services.jsm");
+XPCOMUtils.defineLazyGetter(exportsHelper, 'play', function () {
+  let {FileUtils} = Cu.import('resource://gre/modules/FileUtils.jsm');
+  let {Services} = Cu.import('resource://gre/modules/Services.jsm');
 
   return {
     now: function () {
-      if (config.notification.silent) return;
+      if (config.notification.silent) {
+        return;
+      }
 
-      var path = "../../data/sounds/" + config.notification.sound.original;
+      var path = '../../data/sounds/' + config.notification.sound.original;
       if (config.notification.sound.type === 4 && config.notification.sound.custom.file) {
         var file = new FileUtils.File(config.notification.sound.custom.file);
         if (file.exists()) {
@@ -426,7 +440,7 @@ XPCOMUtils.defineLazyGetter(exportsHelper, "play", function () {
       });
     },
     reset: function () {}
-  }
+  };
 });
 Object.defineProperty(exports, 'play', {
   get: function () {
@@ -434,12 +448,12 @@ Object.defineProperty(exports, 'play', {
   }
 });
 
-XPCOMUtils.defineLazyGetter(exportsHelper, "clipboard", function () {
-  var clipboardHelper = Cc["@mozilla.org/widget/clipboardhelper;1"]
+XPCOMUtils.defineLazyGetter(exportsHelper, 'clipboard', function () {
+  var clipboardHelper = Cc['@mozilla.org/widget/clipboardhelper;1']
     .getService(Ci.nsIClipboardHelper);
   return function (str) {
     clipboardHelper.copyString(str);
-  }
+  };
 });
 Object.defineProperty(exports, 'clipboard', {
   get: function () {
@@ -447,43 +461,39 @@ Object.defineProperty(exports, 'clipboard', {
   }
 });
 
-exports.version = function () {
-  return self.version;
-}
+exports.version = () => self.version;
 
 exports.startup = function (c) {
-  if (self.loadReason == "startup" || self.loadReason == "install") {
+  if (self.loadReason === 'startup' || self.loadReason === 'install') {
     c();
   }
-}
+};
 
-exports.unload = function (c) {
-  unload.when(c);
-}
+exports.unload = (c) => unload.when(c);
 
 exports.options = options;
 
 exports.storage = {
   read: function (id) {
-    return (prefs[id] || prefs[id] + "" === "false" || !isNaN(prefs[id])) ? (prefs[id] + "") : null;
+    return (prefs[id] || prefs[id] + '' === 'false' || !isNaN(prefs[id])) ? (prefs[id] + '') : null;
   },
   write: function (id, data) {
-    data = data + "";
-    if (data === "true" || data === "false") {
-      prefs[id] = data === "true" ? true : false;
+    data = data + '';
+    if (data === 'true' || data === 'false') {
+      prefs[id] = data === 'true' ? true : false;
     }
     else if (parseInt(data) + '' === data) {
       prefs[id] = parseInt(data);
     }
     else {
-      prefs[id] = data + "";
+      prefs[id] = data + '';
     }
   }
-}
+};
 
 exports.manifest = {
   url: loader.prefixURI
-}
+};
 
 exports.tray = require('./tray/wrapper').tray;
 
@@ -505,4 +515,4 @@ exports.connect = function (actions) {
   Cu.import(data.url('firefox/shared/connect.jsm'), connect);
   connect.remote.actions = actions;
   Object.freeze(connect);
-}
+};
