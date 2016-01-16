@@ -1,6 +1,9 @@
 body {
   margin: 0;
 }
+table {
+  color: inherit;
+}
 body, td {
   font-family: arial,sans-serif;
   font-size: 12px;

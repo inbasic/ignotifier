@@ -59,10 +59,6 @@ var popup = panel.Panel({
       'popup_msg_7_format': l10n('popup_msg_7_format'),
       'popup_msg_8_format': l10n('popup_msg_8_format'),
       'popup_msg_9_format': l10n('popup_msg_9_format'),
-
-
-
-
       'popup_msg_1': l10n('popup_msg_1'),
       'popup_msg_2': l10n('popup_msg_2'),
       'popup_msg_3': l10n('popup_msg_3'),
