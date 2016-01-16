@@ -379,6 +379,9 @@ var checkEmails = (function () {
             .replace('[title]', shorten(e.title))
             .replace(/\[break\]/g, '\n');
         });
+        if (config.notification.combined) {
+          report = [report.join('\n\n')];
+        }
         // Preparing the tooltip
         var tooltip =
           app.l10n('gmail') + '\n\n' +

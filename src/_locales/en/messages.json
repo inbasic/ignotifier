@@ -251,7 +251,9 @@
   "options_notifications_29": {
     "message": "This option is related to the right click menu on the toolbar button -> disable all notifications -> custom time period."
   },
-
+  "options_notifications_30": {
+    "message": "Combine all concurrent desktop notifications into a single notification"
+  },
   "options_tab": {
     "message": "Tab Opening:"
   },

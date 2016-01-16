@@ -227,6 +227,12 @@ config.notification = {
   set show (val) {
     app.storage.write('notification', val);
   },
+  get combined () {
+    return app.storage.read('combined') === 'true' ? true : false;
+  },
+  set combined (val) {
+    app.storage.write('combined', val);
+  },
   sound: {
     get play () {
       return app.storage.read('alert') === 'false' ? false : true;
