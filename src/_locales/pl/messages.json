@@ -15,6 +15,10 @@
         "message": "Otwórz panel paska narzędzi podczas kliknięcia na ikonkę powiadomień paska zadań (tylko Windows, beta)",
         "description": ""
     },
+    "options_notifications_30": {
+        "message": "Połącz wszystkie jednoczesne powiadomienia na pulpicie w pojedyncze",
+        "description": ""
+    },
     "options_timings_l7": {
         "message": "Sprawdzaj nowe wiadomości przy starcie po (sekundy):",
         "description": ""
@@ -55,6 +59,10 @@
         "message": "Przywróć wszystkie ustawienia do fabrycznych",
         "description": ""
     },
+    "options_notifications_28": {
+        "message": "Wyłącz wszystkie powiadomienia na własny odstęp czasowy (minuty):",
+        "description": ""
+    },
     "options_timings_l4": {
         "message": "Ustaw wartość na zero, aby nie otrzymywać przypomnień.",
         "description": ""
@@ -85,6 +93,10 @@
     },
     "label_3": {
         "message": "Wyłącz wszystkie powiadomienia",
+        "description": ""
+    },
+    "label_13": {
+        "message": "Własny odstęp czasowy",
         "description": ""
     },
     "options_empty": {
@@ -501,6 +513,10 @@
     },
     "tooltip_2": {
         "message": "Kółko myszy (lub Ctrl+LPM): Odśwież wszystkie konta",
+        "description": ""
+    },
+    "options_notifications_29": {
+        "message": "Ta opcja jest dostępna po naciśnięciu Prawym Przyciskiem Myszy na przycisk na pasku narzędzi -> Wyłącz wszystkie powiadomienia -> Własny odstęp czasowy.",
         "description": ""
     },
     "options_tab_3": {

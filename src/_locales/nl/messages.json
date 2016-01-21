@@ -15,6 +15,10 @@
         "message": "Werkbalkpaneel openen bij klikken op taakbalkmeldingspictogram (alleen op Windows - beta)",
         "description": ""
     },
+    "options_notifications_30": {
+        "message": "Alle bureaubladmeldingen samenvoegen in één melding",
+        "description": ""
+    },
     "options_timings_l7": {
         "message": "Niet controleren op nieuwe e-mails bij opstarten voor de duur van (in seconden):",
         "description": ""
@@ -55,6 +59,10 @@
         "message": "Alle instellingen naar standaardwaarden herstellen",
         "description": ""
     },
+    "options_notifications_28": {
+        "message": "Schakelt alle meldingen uit voor een aangepaste tijdsperiode (in minuten):",
+        "description": ""
+    },
     "options_timings_l4": {
         "message": "Stel de waarde op nul in voor niet-periodieke herinneringen.",
         "description": ""
@@ -85,6 +93,10 @@
     },
     "label_3": {
         "message": "Alle meldingen uitschakelen",
+        "description": ""
+    },
+    "label_13": {
+        "message": "Voor een aangepaste tijdsperiode",
         "description": ""
     },
     "options_empty": {
@@ -501,6 +513,10 @@
     },
     "tooltip_2": {
         "message": "Middelklik (of Ctrl+Links): Alle accounts verversen",
+        "description": ""
+    },
+    "options_notifications_29": {
+        "message": "Deze optie is gerelateerd aan het rechtermuisknopmenu op de werkbalkknop -> Alle meldingen uitschakelen -> Aangepaste tijdsperiode.",
         "description": ""
     },
     "options_tab_3": {

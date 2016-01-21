@@ -15,6 +15,10 @@
         "message": "在点击任务栏通知图标时打开工具栏面板（仅 Windows，测试版）",
         "description": ""
     },
+    "options_notifications_30": {
+        "message": "整合所有连续的桌面通知为单条通知",
+        "description": ""
+    },
     "options_timings_l7": {
         "message": "不检查新邮件，在刚启动的（秒）：",
         "description": ""
@@ -55,6 +59,10 @@
         "message": "重置所有设置到出厂设置",
         "description": ""
     },
+    "options_notifications_28": {
+        "message": "指定时间内禁止所有通知 (分钟):",
+        "description": ""
+    },
     "options_timings_l4": {
         "message": "设置值为 0 可禁用定期提醒。",
         "description": ""
@@ -85,6 +93,10 @@
     },
     "label_3": {
         "message": "禁用所有通知",
+        "description": ""
+    },
+    "label_13": {
+        "message": "自定义时间长度",
         "description": ""
     },
     "options_empty": {
@@ -501,6 +513,10 @@
     },
     "tooltip_2": {
         "message": "中键 (或 Ctrl+左键) 单击：刷新所有帐户",
+        "description": ""
+    },
+    "options_notifications_29": {
+        "message": "此选项有关工具栏按钮的右键菜单 -> 禁止所有通知 -> 自定义时间长度。",
         "description": ""
     },
     "options_tab_3": {

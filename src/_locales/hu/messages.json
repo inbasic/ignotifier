@@ -15,6 +15,10 @@
         "message": "A tálcaértesítés ikonjára kattintás nyissa meg az eszközpanelt (Csak Windows, béta)",
         "description": ""
     },
+    "options_notifications_30": {
+        "message": "Az összes egyidejű asztali értesítés összevonása egy értesítéssé",
+        "description": ""
+    },
     "options_timings_l7": {
         "message": "Ne keressen új leveleket induláskor ennyi másodpercig:",
         "description": ""
@@ -55,6 +59,10 @@
         "message": "Összes beállítás visszaállítása alapértelmezettre",
         "description": ""
     },
+    "options_notifications_28": {
+        "message": "Összes értesítés tiltása egyéni időhosszra (percben):",
+        "description": ""
+    },
     "options_timings_l4": {
         "message": "Állítsa az értéket 0-ra nem ismétlődő értesítésekhez.",
         "description": ""
@@ -85,6 +93,10 @@
     },
     "label_3": {
         "message": "Összes értesítés tiltása",
+        "description": ""
+    },
+    "label_13": {
+        "message": "Egyéni időhosszra",
         "description": ""
     },
     "options_empty": {
@@ -501,6 +513,10 @@
     },
     "tooltip_2": {
         "message": "Középső (vagy Ctrl+Bal) egér: Összes fiók frissítése",
+        "description": ""
+    },
+    "options_notifications_29": {
+        "message": "Ez az beállítás kapcsolatban van az eszköztáron lévő gombon jobb egérrel elérhető menü -> összes értesítés tiltása -> egyéni időhosszra beállítással.",
         "description": ""
     },
     "options_tab_3": {
