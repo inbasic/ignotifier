@@ -42,6 +42,7 @@ exports.emit = emit.bind(null, exports);
 exports.removeListener = (type, listener) => off(exports, type, listener);
 
 /* button */
+var buttonDetached = false;
 var button = new ToggleButton({
   id: self.name,
   label: l10n('toolbar_label'),
@@ -53,14 +54,11 @@ var button = new ToggleButton({
     if (button.onClick && state.checked) {
       button.onClick();
     }
-    if (button.detached) {
-      button.state('window', {
-        checked: false
-      });
-    }
+    button.state('window', {
+      checked: !buttonDetached
+    });
   }
 });
-button.detached = true;
 
 /* popup */
 var popup = panel.Panel({
@@ -101,15 +99,14 @@ var popup = panel.Panel({
       'popup_msg_20': l10n('popup_msg_20'),
       'popup_msg_21': l10n('popup_msg_21')
     }
-  },
-  onHide: function () {
-    button.state('window', {
-      checked: false
-    });
   }
 });
 popup.on('show', () => popup.port.emit('show'));
-
+popup.on('hide', () => {
+  button.state('window', {
+    checked: false
+  });
+});
 /* option */
 var options = (function () {
   var workers = [], options_arr = [];
@@ -248,6 +245,7 @@ exports.button = {
 
 exports.popup = {
   show: function () {
+    buttonDetached = false;
     popup.show({
       width: config.popup.width,
       height: config.popup.height,
@@ -255,9 +253,9 @@ exports.popup = {
     });
   },
   hide: () => popup.hide(),
-  attach: () => button.detached = false,
+  attach: function () {},
   detach: () => {
-    button.detached = true;
+    buttonDetached = true;
     popup.hide();
   },
   send: function (id, data) {
