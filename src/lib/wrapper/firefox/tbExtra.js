@@ -6,7 +6,7 @@ var {Cu} = require('chrome'),
 
 const NS_XUL = 'http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul';
 
-var onContext, onClick;
+var onContext, onClick, button;
 
 (function (listen) {
   let {CustomizableUI} = Cu.import('resource:///modules/CustomizableUI.jsm');
@@ -36,6 +36,13 @@ var onContext, onClick;
           menupopup.openPopup(tbb , 'after_end', 0, 0, false);
         }
       }, true);
+      tbb.addEventListener('popuphidden', function () {
+        if (button) {
+          button.state('window', {
+            checked: false
+          });
+        }
+      });
       tbb.addEventListener('click', function (e) {
         if (onClick) {
           onClick(e);
@@ -48,3 +55,4 @@ var onContext, onClick;
 
 exports.onContext = (c) => onContext = c;
 exports.onClick = (c) => onClick = c;
+exports.attach = (b) => button = b;

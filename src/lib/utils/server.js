@@ -177,7 +177,9 @@ server.Email = function (feed, timeout) {
             newIDs: newIDs
           });
         }
-      ).catch (e => d.reject(e));
+      ).catch(function (e) {
+        d.reject(e)
+      });
       return d.promise;
     },
     reject: function () {

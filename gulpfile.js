@@ -117,7 +117,7 @@ gulp.task('firefox-pack', function () {
     cwd: './builds/unpacked/firefox'
   }))
   .pipe(shell([
-    'zip firefox.xpi install.rdf icon.png icon64.png',
+    'zip firefox.xpi icon.png icon64.png',
   ], {
     cwd: './builds/packed'
   }));

@@ -8,7 +8,7 @@ else {
 }
 
 /** Repeater: Repeats a function infinity with an interval pattern
- *  Example: 
+ *  Example:
  *  var repeater = new repeater(1000, 10000, 2000);
  *  var i = 0;
  *  repeater.on(function () {
@@ -41,7 +41,7 @@ timer.repeater = function () {
       catch (e) {}
     }, t, arguments);
   }
-  
+
   return {
     reset: function () {
       stop();

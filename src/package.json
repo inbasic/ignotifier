@@ -1,5 +1,5 @@
 {
-  "fullName": "Gmail Notifier (restartless)",
+  "title": "Gmail™ Notifier (restartless)",
   "name": "ignotifier",
   "description": "Multiple label and account notifier for Google Mail (Gmail)",
   "id": "jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack",
@@ -13,14 +13,9 @@
   "lib": "lib",
   "main": "./lib/common.js",
   "url": "http://firefox.add0n.com/gmail-notifier.html",
-  "icon": "data/icons/red/32.png",
-  "icon64": "data/icons/red/64.png",
   "permissions": {
     "private-browsing": true,
     "unsafe-content-script": true,
     "cross-domain-content": ["file:///"]
   }
 }
-
-
-

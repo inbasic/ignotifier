@@ -22,6 +22,7 @@ var {Cc, Ci, Cu}  = require('chrome'),
     tbExtra = require('./tbExtra'),
     windows = {
       utils: require('sdk/window/utils'),
+      browsers: require('sdk/windows').browserWindows,
       get active () { // Chrome window
         return this.utils.getMostRecentBrowserWindow();
       },
@@ -42,7 +43,6 @@ exports.emit = emit.bind(null, exports);
 exports.removeListener = (type, listener) => off(exports, type, listener);
 
 /* button */
-var buttonDetached = false;
 var button = new ToggleButton({
   id: self.name,
   label: l10n('toolbar_label'),
@@ -55,10 +55,11 @@ var button = new ToggleButton({
       button.onClick();
     }
     button.state('window', {
-      checked: !buttonDetached
+      checked: false
     });
   }
 });
+tbExtra.attach(button);
 
 /* popup */
 var popup = panel.Panel({
@@ -101,11 +102,22 @@ var popup = panel.Panel({
     }
   }
 });
-popup.on('show', () => popup.port.emit('show'));
-popup.on('hide', () => {
+popup.on('show', () => {
   button.state('window', {
+    checked: true
+  });
+  popup.port.emit('show');
+});
+popup.on('hide', () => {
+  button.state('window', {  // private window issue
     checked: false
   });
+  // making sure no window is still on checked state
+  for (let window of windows.browsers) {
+    button.state(window, {
+      checked: false
+    });
+  }
 });
 /* option */
 var options = (function () {
@@ -245,7 +257,6 @@ exports.button = {
 
 exports.popup = {
   show: function () {
-    buttonDetached = false;
     popup.show({
       width: config.popup.width,
       height: config.popup.height,
@@ -254,10 +265,7 @@ exports.popup = {
   },
   hide: () => popup.hide(),
   attach: function () {},
-  detach: () => {
-    buttonDetached = true;
-    popup.hide();
-  },
+  detach: () => popup.hide(),
   send: function (id, data) {
     if (id === 'resize') {
       popup.resize(data.width, data.height);

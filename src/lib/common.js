@@ -276,10 +276,12 @@ var checkEmails = (function () {
       }
       // Execute fresh servers
       app.Promise.all(emails.map(function (e) {
-        return e.execute().catch (() => null);
+        return e.execute().catch (function () {});
       })).then(function (objs) {
         // Removing error objects
-        objs = objs.filter(o => o);
+        objs = objs.filter(function (o) {
+          return o;
+        });
         // Make sure there is no duplicate account
         var tmp = objs.map(function (o) {
           return o.notAuthorized === true || o.network === false ? null : (o.xml ? o.xml.title + '/' + o.xml.label : null);
