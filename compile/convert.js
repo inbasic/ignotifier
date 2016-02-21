@@ -38,6 +38,9 @@ function map (input) {
   if (input === 'en') {
     return ['en', 'en-US'];
   }
+  if (input === 'ru') {
+    return ['ru', 'ru-RU'];
+  }
   return [input.replace('_', '-')];
 }
 
