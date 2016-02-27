@@ -488,7 +488,13 @@ config.popup = {
   },
   set keyUp (val) {
     app.storage.write('keyUp', val);
-  }
+  },
+  get populate () { // populate popup in background after a minute
+    return app.storage.read('populate') === 'false' ? false : true;
+  },
+  set populate (val) {
+    app.storage.write('populate', val);
+  },
 };
 
 config.tabs = {

@@ -31,6 +31,17 @@ var {Cc, Ci, Cu}  = require('chrome'),
       },
     };
 
+Function.prototype.once = function () {
+  var original = this;
+  var isItCalled = false;
+  return function () {
+    if (!isItCalled) {
+      isItCalled = true;
+      return original.apply(this, Array.from(arguments));
+    }
+  };
+};
+
 var exportsHelper = {};
 
 var {Promise} = Cu.import('resource://gre/modules/Promise.jsm');
@@ -221,66 +232,76 @@ function get (url, headers, data, timeout) {
 /* exports */
 exports.Promise = Promise;
 
-exports.button = {
-  onCommand: function (c) {
-    button.onClick = c;
-  },
-  onContext: function (c) {
-    tbExtra.onContext(function (e, menupopup, menuitem, menuseparator, menu) {
-      let types = {
-        'menupopup': menupopup,
-        'menuitem': menuitem,
-        'menuseparator': menuseparator,
-        'menu': menu
-      };
-      // remove old items
-      while (menupopup.firstChild) {
-        menupopup.removeChild(menupopup.firstChild);
-      }
-      var items = c();
-      function appendChilds (root, arr) {
-        arr.forEach(function (e) {
-          var element = types[e.type].cloneNode(false);
-          ['label', 'tooltip', 'value', 'link'].filter(function (i) {
-            return e[i];
-          }).forEach(function (i) {
-            return element.setAttribute(i, e[i]);
+exports.button = (function () {
+  let populate = function () {
+    timer.setTimeout(popup.init, 30 * 1000);
+  }.once();
+  return {
+    onCommand: function (c) {
+      button.onClick = c;
+    },
+    onContext: function (c) {
+      tbExtra.onContext(function (e, menupopup, menuitem, menuseparator, menu) {
+        let types = {
+          'menupopup': menupopup,
+          'menuitem': menuitem,
+          'menuseparator': menuseparator,
+          'menu': menu
+        };
+        // remove old items
+        while (menupopup.firstChild) {
+          menupopup.removeChild(menupopup.firstChild);
+        }
+        var items = c();
+        function appendChilds (root, arr) {
+          arr.forEach(function (e) {
+            var element = types[e.type].cloneNode(false);
+            ['label', 'tooltip', 'value', 'link'].filter(function (i) {
+              return e[i];
+            }).forEach(function (i) {
+              return element.setAttribute(i, e[i]);
+            });
+            if (e.command) {
+              element.addEventListener('command', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                e.command(event);
+              }, false);
+            }
+            root.appendChild (element);
+            if (e.childs && e.childs.length) {
+              appendChilds(element, e.childs);
+            }
           });
-          if (e.command) {
-            element.addEventListener('command', function (event) {
-              event.preventDefault();
-              event.stopPropagation();
-              e.command(event);
-            }, false);
-          }
-          root.appendChild (element);
-          if (e.childs && e.childs.length) {
-            appendChilds(element, e.childs);
-          }
-        });
+        }
+        appendChilds(menupopup, items);
+      });
+    },
+    onClick: function (c) {
+      tbExtra.onClick(c);
+    },
+    set label (val) { //jshint ignore:line
+      button.label = config.ui.tooltip ? l10n('toolbar_label') : val;
+    },
+    set badge (val) { //jshint ignore:line
+      if (config.ui.badge) {
+        button.badge = val ? val : '';
+        button.badgeColor = config.ui.backgroundColor;
       }
-      appendChilds(menupopup, items);
-    });
-  },
-  onClick: function (c) {
-    tbExtra.onClick(c);
-  },
-  set label (val) { //jshint ignore:line
-    button.label = config.ui.tooltip ? l10n('toolbar_label') : val;
-  },
-  set badge (val) { //jshint ignore:line
-    if (config.ui.badge) {
-      button.badge = val ? val : '';
-      button.badgeColor = config.ui.backgroundColor;
+      // populate the panel in background
+
+      if (config.popup.populate) {
+        populate();
+      }
+    },
+    set color (val) { //jshint ignore:line
+      button.icon = {
+        '16': './icons/' + val + '/16.png',
+        '32': './icons/' + val + '/32.png'
+      };
     }
-  },
-  set color (val) { //jshint ignore:line
-    button.icon = {
-      '16': './icons/' + val + '/16.png',
-      '32': './icons/' + val + '/32.png'
-    };
-  }
-};
+  };
+})();
 
 exports.popup = {
   show: function () {
