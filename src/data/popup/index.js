@@ -106,19 +106,19 @@ var body = (function() {
       title = qs('title');
   return {
     get date() {
-      return date.textContent
+      return date.textContent;
     },
     set date(val) {
       date.textContent = val;
     },
     get email() {
-      return email.textContent
+      return email.textContent;
     },
     set email(val) {
       email.textContent = val;
     },
     get name() {
-      return name.textContent
+      return name.textContent;
     },
     set name(val) {
       name.textContent = val;

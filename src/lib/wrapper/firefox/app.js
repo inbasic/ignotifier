@@ -8,7 +8,7 @@ var {Cc, Ci, Cu}  = require('chrome'),
     loader = require('@loader/options'),
     array = require('sdk/util/array'),
     data = self.data,
-    panel = require('sdk/panel'),
+    Panel = require('sdk/panel').Panel,
     notifications = require('sdk/notifications'),
     l10n = require('sdk/l10n').get,
     timer = require('sdk/timers'),
@@ -61,8 +61,52 @@ var button = new ToggleButton({
 });
 tbExtra.attach(button);
 
-/* popup */
-var popup = panel.Panel({
+/**
+ * popup
+ * popup get populated once init is called. Before that listeners are stacked
+*/
+var popup = (function (options) {
+  let panel, callbacks = [];
+  return {
+    init: function () {
+      if (panel) {
+        return popup;
+      }
+      else {
+        panel = new Panel(options);
+        callbacks.forEach(obj => panel.port.on(obj.id, obj.callback));
+        panel.on('show', () => {
+          button.state('window', {
+            checked: true
+          });
+          panel.port.emit('show');
+        });
+        panel.on('hide', () => {
+          button.state('window', {  // private window issue
+            checked: false
+          });
+          // making sure no window is still on checked state
+          for (let window of windows.browsers) {
+            button.state(window, {
+              checked: false
+            });
+          }
+        });
+        return popup;
+      }
+    },
+    show: (options) => panel.show(options),
+    hide: () => panel.hide(),
+    resize: (width, height) => panel.resize(width, height),
+    port: {
+      on: (id, callback) => panel ? panel.port.on(id, callback) : callbacks.push({id, callback}),
+      emit: (id, params) => panel ? panel.port.emit(id, params) : null
+    },
+    get isShowing () {
+      return panel ? panel.isShowing : false;
+    }
+  };
+})({
   contentURL: data.url('./popup/index.html'),
   contentScriptFile: [
     data.url('./popup/firefox/firefox.js'),
@@ -100,23 +144,6 @@ var popup = panel.Panel({
       'popup_msg_20': l10n('popup_msg_20'),
       'popup_msg_21': l10n('popup_msg_21')
     }
-  }
-});
-popup.on('show', () => {
-  button.state('window', {
-    checked: true
-  });
-  popup.port.emit('show');
-});
-popup.on('hide', () => {
-  button.state('window', {  // private window issue
-    checked: false
-  });
-  // making sure no window is still on checked state
-  for (let window of windows.browsers) {
-    button.state(window, {
-      checked: false
-    });
   }
 });
 /* option */
@@ -257,7 +284,7 @@ exports.button = {
 
 exports.popup = {
   show: function () {
-    popup.show({
+    popup.init().show({
       width: config.popup.width,
       height: config.popup.height,
       position: button
