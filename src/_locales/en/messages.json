@@ -70,7 +70,10 @@
     "message": "Compose an email"
   },
   "label_12": {
-    "message": "Open homepage"
+    "message": "Open FAQs"
+  },
+  "label_14": {
+    "message": "Logged-in accounts"
   },
 
   "unknown": {

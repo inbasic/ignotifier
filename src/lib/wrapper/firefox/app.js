@@ -242,7 +242,7 @@ exports.button = (function () {
     onCommand: function (c) {
       button.onClick = c;
     },
-    onContext: function (c) {
+    onContext: function (ref) {
       tbExtra.onContext(function (e, menupopup, menuitem, menuseparator, menu) {
         let types = {
           'menupopup': menupopup,
@@ -254,10 +254,48 @@ exports.button = (function () {
         while (menupopup.firstChild) {
           menupopup.removeChild(menupopup.firstChild);
         }
-        var items = c();
+        var items = [
+          {type: 'menu', label: l10n('label_14'), childs: [
+            {type: 'menupopup', childs: ref.accounts.map(function (obj) {
+              return {type: 'menuitem', label: obj.label, command: obj.command};
+            })}
+          ]},
+          {type: 'menuseparator'},
+          {type: 'menu', label: l10n('label_3'), childs: [
+            {type: 'menupopup', childs: [
+              {type: 'menuitem', label: l10n('label_4'), command: () => ref.silent(300)},
+              {type: 'menuitem', label: l10n('label_5'), command: () => ref.silent(900)},
+              {type: 'menuitem', label: l10n('label_6'), command: () => ref.silent(1800)},
+              {type: 'menuitem', label: l10n('label_7'), command: () => ref.silent(3600)},
+              {type: 'menuitem', label: l10n('label_8'), command: () => ref.silent(7200)},
+              {type: 'menuitem', label: l10n('label_9'), command: () => ref.silent(18000)},
+              {type: 'menuitem', label: l10n('label_13'), command: () => ref.silent('custom')},
+            ]}
+          ]},
+          {
+            type: 'menuitem',
+            label: l10n('label_10'),
+            command: () => ref.silent(),
+            state: ref.state
+          },
+          {type: 'menuseparator'},
+          {type: 'menuitem', label: l10n('label_11'), command: () => ref.compose()},
+          {type: 'menuitem', label: l10n('label_1'), command: () => ref.refresh()},
+          {type: 'menuseparator'},
+          {type: 'menuitem', label: l10n('label_12'), command: () => ref.faq()},
+          {type: 'menuitem', label: l10n('label_2'), command: () => ref.options()}
+        ];
+
         function appendChilds (root, arr) {
           arr.forEach(function (e) {
             var element = types[e.type].cloneNode(false);
+            if (e.type === 'menu' && e.childs[0].childs.length === 0) {
+              element.setAttribute('disabled', 'true');
+            }
+            if ('state' in e) {
+              element.setAttribute('type', 'checkbox');
+              element.setAttribute('checked', e.state);
+            }
             ['label', 'tooltip', 'value', 'link'].filter(function (i) {
               return e[i];
             }).forEach(function (i) {
@@ -279,6 +317,8 @@ exports.button = (function () {
         appendChilds(menupopup, items);
       });
     },
+    fireContext: function () {},
+    onState: function () {},
     onClick: function (c) {
       tbExtra.onClick(c);
     },

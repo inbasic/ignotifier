@@ -23,12 +23,12 @@ var actions = {
     app.timer.clearTimeout(config.notification.silent);
     config.notification.silent = false;
     if (time === 'custom') {
-      time = config.notification.silentTime * 60 * 1000;
+      time = config.notification.silentTime * 60;
     }
     if (!isNaN(time)) {
       config.notification.silent = app.timer.setTimeout(function () {
         config.notification.silent = false;
-      }, time);
+      }, time * 1000);
     }
   },
   reset: function () {
@@ -311,6 +311,7 @@ var checkEmails = (function () {
             color = 'blue';
             count = -1;
             cachedEmails = [];
+            app.button.fireContext();
             app.popup.detach();
           }
           if (forced) {
@@ -355,6 +356,7 @@ var checkEmails = (function () {
         count = newCount;
         //
         cachedEmails = objs;
+        app.button.fireContext();
         // Preparing the report
         var tmp = [];
         objs.forEach (function (o) {
@@ -398,6 +400,7 @@ var checkEmails = (function () {
           if (newCount) {
             icon('red');
             setBadge(newCount);
+            color = 'red';
             if (config.tray.show) {
               app.tray.set(newCount, tooltip);
             }
@@ -587,95 +590,44 @@ app.button.onClick (function (e) {
   }
 });
 
-app.button.onContext(function () {
-  // insert new items
-  var show = checkEmails.getCached().map(function (o) {
-    return o.xml ? o.xml.rootLink : null;
-  })
-  .filter(function (o) {
-    return o;
-  })
-  .map(function (e, i, a) {
-    return a.indexOf(e) === i;
-  });
-  var items = [];
-  if (isFirefox) {
-    items = checkEmails.getCached().filter(function (e, i) {
+app.button.onContext({
+  get accounts () {
+    var show = checkEmails.getCached().map(function (o) {
+      return o.xml ? o.xml.rootLink : null;
+    })
+    .filter(function (o) {
+      return o;
+    })
+    .map(function (e, i, a) {
+      return a.indexOf(e) === i;
+    });
+    return checkEmails.getCached().filter(function (e, i) {
       return show[i];
     }).map(function (o) {
       return {
-        type: 'menuitem',
         label: o.xml.title,
-        command: function (link, e) {
+        command: function (link) {
           if (link) {
             open(link.replace(/\?.*/ , ''));
           }
         }.bind(this, o.xml.rootLink)
       };
     });
-    if (items.length) {
-      items.push({type: 'menuseparator'});
-    }
-
-    items = items.concat([
-      {type: 'menu', label: app.l10n('label_3'), childs: [
-        {type: 'menupopup', childs: [
-          {type: 'menuitem', label: app.l10n('label_4'), value: 300},
-          {type: 'menuitem', label: app.l10n('label_5'), value: 900},
-          {type: 'menuitem', label: app.l10n('label_6'), value: 1800},
-          {type: 'menuitem', label: app.l10n('label_7'), value: 3600},
-          {type: 'menuitem', label: app.l10n('label_8'), value: 7200},
-          {type: 'menuitem', label: app.l10n('label_9'), value: 18000},
-          {type: 'menuitem', label: app.l10n('label_13'), value: config.notification.silentTime * 60},
-        ], command: function (e) {
-          actions.silent(parseInt(e.originalTarget.getAttribute('value')) * 1000);
-        }}
-      ]},
-      {type: 'menuitem', label: app.l10n('label_10'), command: actions.silent},
-      {type: 'menuseparator'}
-    ]);
+  },
+  silent: actions.silent,
+  faq: function () {
+    open(config.welcome.homepage + '?type=context');
+  },
+  refresh: actions.reset,
+  compose: function () {
+    open(config.email.compose);
+  },
+  options: actions.openOptions,
+  get state () {
+    return !config.notification.silent;
   }
-  else {
-    items = items.concat([
-      {
-        type: 'menuitem',
-        label: app.l10n('label_3') + ' ' + app.l10n('label_4').toLowerCase(),
-        command: actions.silent.bind(actions, 300 * 1000)
-      },
-      {
-        type: 'menuitem',
-        label: app.l10n('label_3') + ' ' + app.l10n('label_7').toLowerCase(),
-        command: actions.silent.bind(actions, 3600 * 1000)
-      },
-      {
-        type: 'menuitem',
-        label: app.l10n('label_3') + ' ' + app.l10n('label_13').toLowerCase(),
-        command: actions.silent.bind(actions, 'custom')
-      },
-      {
-        type: 'menuitem',
-        label: app.l10n('label_10'),
-        command: actions.silent
-      }
-    ]);
-  }
-  items = items.concat([
-    {type: 'menuitem', label: app.l10n('label_11'), command: function () {
-      open(config.email.compose);
-    }},
-    {type: 'menuitem', label: app.l10n('label_1'), command: actions.reset},
-  ]);
-  if (isFirefox) {
-    items = items.concat([
-      {type: 'menuitem', label: app.l10n('label_2'), command: actions.openOptions},
-      {type: 'menuseparator'},
-      {type: 'menuitem', label: app.l10n('label_12'), command: function () {
-        open(config.welcome.homepage + '?type=context');
-      }}
-    ]);
-  }
-  return items;
 });
+
 // initialization
 app.startup(function () {
   //welcome

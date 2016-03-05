@@ -25,6 +25,8 @@ app.Promise = Promise;
 
 app.button = (function () {
   var callback;
+  var onContext;
+  var ids = {childs: []};
   chrome.browserAction.onClicked.addListener(function () {
     if (callback) {
       callback();
@@ -36,29 +38,135 @@ app.button = (function () {
       callback = c;
     },
     onContext: function (c) {
-      chrome.contextMenus.removeAll();
-      var items = c();
-      items.forEach(function (obj) {
-        chrome.contextMenus.create({
-          title: obj.label,
-          type: obj.type === 'menuseparator' ? 'separator' : 'normal',
-          contexts: ['browser_action'],
-          onclick: obj.command
+      onContext = c;
+      ids.root = chrome.contextMenus.create({
+        title: app.l10n('label_14'),
+        contexts: ['browser_action'],
+        enabled: false
+      });
+      ids.disable = chrome.contextMenus.create({
+        title: app.l10n('label_3'),
+        contexts: ['browser_action']
+      });
+      chrome.contextMenus.create({
+        parentId: ids.disable,
+        title: app.l10n('label_4'),
+        contexts: ['browser_action'],
+        onclick: function () {
+          onContext.silent(300);
+        }
+      });
+      chrome.contextMenus.create({
+        parentId: ids.disable,
+        title: app.l10n('label_5'),
+        contexts: ['browser_action'],
+        onclick: function () {
+          onContext.silent(900);
+        }
+      });
+      chrome.contextMenus.create({
+        parentId: ids.disable,
+        title: app.l10n('label_6'),
+        contexts: ['browser_action'],
+        onclick: function () {
+          onContext.silent(1800);
+        }
+      });
+      chrome.contextMenus.create({
+        parentId: ids.disable,
+        title: app.l10n('label_7'),
+        contexts: ['browser_action'],
+        onclick: function () {
+          onContext.silent(3600);
+        }
+      });
+      chrome.contextMenus.create({
+        parentId: ids.disable,
+        title: app.l10n('label_8'),
+        contexts: ['browser_action'],
+        onclick: function () {
+          onContext.silent(7200);
+        }
+      });
+      chrome.contextMenus.create({
+        parentId: ids.disable,
+        title: app.l10n('label_9'),
+        contexts: ['browser_action'],
+        onclick: function () {
+          onContext.silent(18000);
+        }
+      });
+      chrome.contextMenus.create({
+        parentId: ids.disable,
+        title: app.l10n('label_13'),
+        contexts: ['browser_action'],
+        onclick: function () {
+          onContext.silent('custom');
+        }
+      });
+      ids.silent = chrome.contextMenus.create({
+        title: app.l10n('label_10'),
+        type: 'checkbox',
+        checked: onContext.state,
+        contexts: ['browser_action'],
+        onclick: function () {
+          onContext.silent();
+        }
+      });
+      chrome.contextMenus.create({
+        title: app.l10n('label_11'),
+        contexts: ['browser_action'],
+        onclick: onContext.compose
+      });
+      chrome.contextMenus.create({
+        title: app.l10n('label_1'),
+        contexts: ['browser_action'],
+        onclick: onContext.refresh
+      });
+      chrome.contextMenus.create({
+        title: app.l10n('label_12'),
+        contexts: ['browser_action'],
+        onclick: onContext.faq
+      });
+    },
+    fireContext: function () {
+      ids.childs.forEach(function (obj) {
+        chrome.contextMenus.remove(obj.id);
+      });
+      ids.childs = [];
+      var accounts = onContext.accounts;
+      accounts.forEach(function (obj) {
+        ids.childs.push({
+          name: obj.name,
+          id: chrome.contextMenus.create({
+            parentId: ids.root,
+            contexts: ['browser_action'],
+            title: obj.label,
+            onclick: obj.command
+          })
         });
+      });
+      chrome.contextMenus.update(ids.root, {
+        enabled: accounts.length !== 0
+      });
+    },
+    onState: function () {
+      chrome.contextMenus.update(ids.silent, {
+        checked: onContext.state
       });
     },
     onClick: function () {},
-    set label (val) {
+    set label (val) { // jshint ignore:line
       chrome.browserAction.setTitle({
         title: val
       });
     },
-    set badge (val) {
+    set badge (val) { // jshint ignore:line
       chrome.browserAction.setBadgeText({
         text: (val ? val : '') + ''
       });
     },
-    set color (val) {
+    set color (val) { // jshint ignore:line
       chrome.browserAction.setIcon({
         path: '../../../data/icons/' + val + '/19.png'
       });

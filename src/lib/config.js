@@ -302,7 +302,14 @@ config.notification = {
     val = val < 1000 ? val : 1000;
     app.storage.write('silentTime', val);
   },
-  silent: false,
+  _silent: false,
+  get silent () {
+    return config.notification._silent;
+  },
+  set silent (val) {
+    config.notification._silent = val;
+    app.button.onState();
+  },
   safari: {
     get oneTime () {
       return app.storage.read('safari-onetime') === 'false' ? false : true;
