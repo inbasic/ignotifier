@@ -81,7 +81,7 @@ var popup = (function (options) {
   return {
     init: function () {
       if (panel) {
-        return popup;
+        return panel;
       }
       else {
         panel = new Panel(options);
@@ -103,11 +103,13 @@ var popup = (function (options) {
             });
           }
         });
-        return popup;
+        return panel;
       }
     },
-    show: (options) => panel.show(options),
-    hide: () => panel.hide(),
+    show: (options) => {
+      popup.init().show(options);
+    },
+    hide: () => panel ? panel.hide() : null,
     resize: (width, height) => panel.resize(width, height),
     port: {
       on: (id, callback) => panel ? panel.port.on(id, callback) : callbacks.push({id, callback}),
@@ -305,7 +307,7 @@ exports.button = (function () {
 
 exports.popup = {
   show: function () {
-    popup.init().show({
+    popup.show({
       width: config.popup.width,
       height: config.popup.height,
       position: button
