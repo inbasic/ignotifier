@@ -183,6 +183,10 @@
         "message": "juni",
         "description": ""
     },
+    "label_14": {
+        "message": "Ingelogde accounts",
+        "description": ""
+    },
     "options_misc_13": {
         "message": "Standaard weergeeft de melder inloggegevens op de tooltip van de werkbalkknop. Door deze optie uit te vinden zal de tekst op de standaardwaarde blijven.",
         "description": ""
@@ -632,7 +636,7 @@
         "description": ""
     },
     "label_12": {
-        "message": "Website openen",
+        "message": "Veel gestelde vragen (FAQ) openen",
         "description": ""
     },
     "description": {

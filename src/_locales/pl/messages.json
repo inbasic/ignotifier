@@ -96,7 +96,7 @@
         "description": ""
     },
     "label_13": {
-        "message": "Własny odstęp czasowy",
+        "message": "Na własny odstęp czasowy",
         "description": ""
     },
     "options_empty": {
@@ -181,6 +181,10 @@
     },
     "popup_msg_15": {
         "message": "czerwca",
+        "description": ""
+    },
+    "label_14": {
+        "message": "Zalogowane konta",
         "description": ""
     },
     "options_misc_13": {
@@ -632,7 +636,7 @@
         "description": ""
     },
     "label_12": {
-        "message": "Otwórz stronę domową",
+        "message": "Otwórz FAQ",
         "description": ""
     },
     "description": {

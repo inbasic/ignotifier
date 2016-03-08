@@ -15,6 +15,10 @@
         "message": "Ouvrir le panneau de la barre d'outils sur clic de l'icône de notification dans la barre de tâches (uniquement sous Windows, beta)",
         "description": ""
     },
+    "options_notifications_30": {
+        "message": "Combine all concurrent desktop notifications into a single notification",
+        "description": ""
+    },
     "options_timings_l7": {
         "message": "Ne pas relever les nouveaux e-mails au démarrage avant (en secondes) :",
         "description": ""
@@ -55,6 +59,10 @@
         "message": "Réinitialiser tous les paramètres aux valeurs par défaut",
         "description": ""
     },
+    "options_notifications_28": {
+        "message": "Disable all notifications for a custom time period (in minutes):",
+        "description": ""
+    },
     "options_timings_l4": {
         "message": "Positionner la valeur à zéro pour tous les rappels non périodiques.",
         "description": ""
@@ -85,6 +93,10 @@
     },
     "label_3": {
         "message": "Désactiver toutes les notifications",
+        "description": ""
+    },
+    "label_13": {
+        "message": "For a custom time period",
         "description": ""
     },
     "options_empty": {
@@ -169,6 +181,10 @@
     },
     "popup_msg_15": {
         "message": "Juin",
+        "description": ""
+    },
+    "label_14": {
+        "message": "Logged-in accounts",
         "description": ""
     },
     "options_misc_13": {
@@ -503,6 +519,10 @@
         "message": "Clic milieu (ou Ctrl+clic gauche) : Rafraîchir tous les comptes",
         "description": ""
     },
+    "options_notifications_29": {
+        "message": "This option is related to the right click menu on the toolbar button -> disable all notifications -> custom time period.",
+        "description": ""
+    },
     "options_tab_3": {
         "message": "Ouvrir un nouveau compte Gmail à côté de l'onglet actif",
         "description": ""
@@ -616,7 +636,7 @@
         "description": ""
     },
     "label_12": {
-        "message": "Ouvrir la page d'accueil",
+        "message": "Open FAQs",
         "description": ""
     },
     "description": {

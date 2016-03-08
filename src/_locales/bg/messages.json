@@ -1,0 +1,650 @@
+{
+    "label_9": {
+        "message": "За 5 часа",
+        "description": ""
+    },
+    "options_notifications_19": {
+        "message": "Оповестяване за поща на Уиндоус",
+        "description": ""
+    },
+    "options_notifications_17": {
+        "message": "Камбана",
+        "description": ""
+    },
+    "options_notifications_13": {
+        "message": "Отваряне на панела при щракване върху иконката в лентата на задачите (Само за Уиндоус, бета)",
+        "description": ""
+    },
+    "options_notifications_30": {
+        "message": "Обединяване на всички едновременни известия на работния плот в едно известие",
+        "description": ""
+    },
+    "options_timings_l7": {
+        "message": "Без проверка за нови писма при стартиране (в секунди):",
+        "description": ""
+    },
+    "label_4": {
+        "message": "За 5 минути",
+        "description": ""
+    },
+    "options_timings_l3": {
+        "message": "Напомняне за непрочетени писма на всеки (в минути):",
+        "description": ""
+    },
+    "popup_msg_4": {
+        "message": "Преди 1 час",
+        "description": ""
+    },
+    "options_gmail_1": {
+        "message": "Главен акаунт (/mail/u/0/)",
+        "description": ""
+    },
+    "options_gmail_10": {
+        "message": "Получаване на известия за следните етикети и акаунти:",
+        "description": ""
+    },
+    "options_notifications_1": {
+        "message": "Показване на известия на работния плот за нови писма",
+        "description": ""
+    },
+    "options_notifications_9": {
+        "message": "Свирене на звуково оповестяване за нови писма",
+        "description": ""
+    },
+    "label_6": {
+        "message": "За 30 минути",
+        "description": ""
+    },
+    "options_misc_8": {
+        "message": "Нулиране на всички настройки към първоначалните",
+        "description": ""
+    },
+    "options_notifications_28": {
+        "message": "Изключване на всички известия за избран период (в минути):",
+        "description": ""
+    },
+    "options_timings_l4": {
+        "message": "Задайте стойността на нула за непериодични напомняния.",
+        "description": ""
+    },
+    "options_tab_6": {
+        "message": "Отваряне на Джимейл в нов прозорец",
+        "description": ""
+    },
+    "options_notifications_25": {
+        "message": "В Сафари първоначалното звуково известяване може да не работи. Ако е така, използвайте потребителски файл.",
+        "description": ""
+    },
+    "options_toolbar_15": {
+        "message": "Натискане със средното копче върху лентата",
+        "description": ""
+    },
+    "options_toolbar_10": {
+        "message": "Минималната височина е 500 пиксела.",
+        "description": ""
+    },
+    "popup_msg_10": {
+        "message": "Януари",
+        "description": ""
+    },
+    "options_notifications_26": {
+        "message": "Винаги да се показват известия в областта за уведомяване (само за Уиндоус)",
+        "description": ""
+    },
+    "label_3": {
+        "message": "Изключване на известията",
+        "description": ""
+    },
+    "label_13": {
+        "message": "За избран период",
+        "description": ""
+    },
+    "options_empty": {
+        "message": "не е обозначено",
+        "description": ""
+    },
+    "options_notifications_3": {
+        "message": "Тази функция може да не работи на вашата операционна система.",
+        "description": ""
+    },
+    "options_timings": {
+        "message": "Разписание",
+        "description": ""
+    },
+    "options_gmail_5": {
+        "message": "Четвърти акаунт (/mail/u/3/)",
+        "description": ""
+    },
+    "label_5": {
+        "message": "За 15 минути",
+        "description": ""
+    },
+    "options_misc_9": {
+        "message": "Червен цвят за \"Няма непрочетени\" и сив цвят за \"Няма връзка\"",
+        "description": ""
+    },
+    "popup_msg_5": {
+        "message": "часа назад",
+        "description": ""
+    },
+    "options_notifications_27": {
+        "message": "Известията в областта за уведомяване ще се показват дори ако няма непрочетени писма.",
+        "description": ""
+    },
+    "options_misc_1": {
+        "message": "Сортиране на акаунтите по азбучен ред",
+        "description": ""
+    },
+    "tooltip_1": {
+        "message": "Щракване с ляво копче: Отваряне на Джимейл или панела за предварителен преглед",
+        "description": ""
+    },
+    "notification": {
+        "message": "От: [author_email][break] Заглавие: [title][break] Обобщение: [summary]",
+        "description": ""
+    },
+    "popup_trash": {
+        "message": "Кошче",
+        "description": ""
+    },
+    "options_tab": {
+        "message": "Отваряне на подпрозорец:",
+        "description": ""
+    },
+    "log_into_your_account": {
+        "message": "Моля, влезте в акаунта си",
+        "description": ""
+    },
+    "label_10": {
+        "message": "Включване на известията",
+        "description": ""
+    },
+    "options_notifications_23": {
+        "message": "Гръмкостта на звуковото оповестяване е",
+        "description": ""
+    },
+    "options_timings_l2": {
+        "message": "Минималният период е 10 секунди.",
+        "description": ""
+    },
+    "options_toolbar_11": {
+        "message": "Поддръжка на клавишни комбинации в панела",
+        "description": ""
+    },
+    "options_gmail_9": {
+        "message": "Някои популярни етикети: \"Входяща поща\", \"Важни\", \"^smartlabel_personal\", \"^smartlabel_newsletter\", \"^smartlabel_notification\" и \"^smartlabel_group\"",
+        "description": ""
+    },
+    "popup_msg_17": {
+        "message": "Август",
+        "description": ""
+    },
+    "popup_msg_15": {
+        "message": "Юни",
+        "description": ""
+    },
+    "label_14": {
+        "message": "Logged-in accounts",
+        "description": ""
+    },
+    "options_misc_13": {
+        "message": "По подразбиране, известителят обновява подсказките на копчето с входна информация. Ако изчистите отметката, текста в подсказката ще остане на първоначалната стойност.",
+        "description": ""
+    },
+    "options_misc_6": {
+        "message": "Без показване на известия на работния плот, които оповестяват, че сайта на Джимейл е вече отворен",
+        "description": ""
+    },
+    "popup_read": {
+        "message": "Отбелязване като прочетено",
+        "description": ""
+    },
+    "options_notifications_4": {
+        "message": "Формат на известията",
+        "description": ""
+    },
+    "label_2": {
+        "message": "Настройки",
+        "description": ""
+    },
+    "options_toolbar_14": {
+        "message": "Ако предпочитате само текст в режима на цяло съдържание, махнете отметката.",
+        "description": ""
+    },
+    "options_notifications_18": {
+        "message": "Звънене",
+        "description": ""
+    },
+    "options_tab_5": {
+        "message": "Отваряне на Джимейл в подпрозорец на заден план",
+        "description": ""
+    },
+    "label_7": {
+        "message": "За 1 час",
+        "description": ""
+    },
+    "popup_archive": {
+        "message": "Архив",
+        "description": ""
+    },
+    "msg_2": {
+        "message": "Връзката е копирана в буфера.",
+        "description": ""
+    },
+    "options_title": {
+        "message": "Настройки",
+        "description": ""
+    },
+    "popup_msg_13": {
+        "message": "Април",
+        "description": ""
+    },
+    "popup_msg_9_format": {
+        "message": "Преди %d месец(а)",
+        "description": ""
+    },
+    "popup_msg_11": {
+        "message": "Февруари",
+        "description": ""
+    },
+    "popup_open_inbox": {
+        "message": "Отваряне на входящата кутия",
+        "description": ""
+    },
+    "gmail": {
+        "message": "Известител за Джимейл",
+        "description": ""
+    },
+    "popup_msg_6": {
+        "message": "Вчера",
+        "description": ""
+    },
+    "options_toolbar_8": {
+        "message": "Минималната ширина е 500 пиксела.",
+        "description": ""
+    },
+    "options_notifications_16": {
+        "message": "Оповестяване по подразбиране",
+        "description": ""
+    },
+    "options_misc_14": {
+        "message": "Без показване на точния брой в значката, когато непрочетените писма надхвърлят 999",
+        "description": ""
+    },
+    "popup_msg_18": {
+        "message": "Септември",
+        "description": ""
+    },
+    "options_notifications_14": {
+        "message": "Тази функция е експериментална и може да направи разглеждача Файърфокс нестабилен. [Изисква се рестарт].",
+        "description": ""
+    },
+    "options_gmail_3": {
+        "message": "Втори акаунт (/mail/u/1/)",
+        "description": ""
+    },
+    "options_notifications_11": {
+        "message": "Показване на \"Известие в лентата със задачи на Уиндоус\" или \"Известие в лентата на Макинтош\"",
+        "description": ""
+    },
+    "options_notifications_2": {
+        "message": "Показване на известия на работния плот за (в секунди):",
+        "description": ""
+    },
+    "log_in_to_your_account": {
+        "message": "Моля, влезте в акаунта си в Джимейл",
+        "description": ""
+    },
+    "popup_of": {
+        "message": "of",
+        "description": ""
+    },
+    "options_notifications_15": {
+        "message": "Звуковото оповестяване е",
+        "description": ""
+    },
+    "options_notifications_21": {
+        "message": "Потребителският оповестителен звук е",
+        "description": ""
+    },
+    "options_toolbar_9": {
+        "message": "Височина на панела в режим на преглед на цялото съдържание (в пиксели):",
+        "description": ""
+    },
+    "options_toolbar_1": {
+        "message": "Поведение на копчето на лентата",
+        "description": ""
+    },
+    "unknown": {
+        "message": "неизвестно",
+        "description": ""
+    },
+    "popup_msg_21": {
+        "message": "Декември",
+        "description": ""
+    },
+    "popup_read_all": {
+        "message": "Отбелязване на всички като прочетени",
+        "description": ""
+    },
+    "options_notifications_8": {
+        "message": "Ако искате да няма многоточие, използвайте по-голямо число.",
+        "description": ""
+    },
+    "options_donation": {
+        "message": "Направете дарение",
+        "description": ""
+    },
+    "msg_3": {
+        "message": "Избраният текст е копиран в буфера.",
+        "description": ""
+    },
+    "options_misc_7": {
+        "message": "Показване на приветстващата страница при надграждане",
+        "description": ""
+    },
+    "options_gmail": {
+        "message": "Джимейл:",
+        "description": ""
+    },
+    "label_1": {
+        "message": "Обновяване",
+        "description": ""
+    },
+    "options_notifications_5": {
+        "message": "Налични променливи:",
+        "description": ""
+    },
+    "options_notifications_24": {
+        "message": "Гръмкостта е число между 0 и 100, където 100 е най-високото (по подразбиране).",
+        "description": ""
+    },
+    "options_notifications_10": {
+        "message": "Бележка за потребителите на Макинтош. От Файърфокс 28.0, всички известия на работния плот ще се управляват от Центъра за известия, което поражда допълнително звуково оповестяване. Трябва да изключите или това оповестяване, или оповестяването в Центъра за известия.",
+        "description": ""
+    },
+    "options_misc_2": {
+        "message": "По подразбиране се сортира по ред на влизане.",
+        "description": ""
+    },
+    "options_toolbar_2": {
+        "message": "Винаги да се отваря панел с предварителен преглед",
+        "description": ""
+    },
+    "popup_settings": {
+        "message": "настройки",
+        "description": ""
+    },
+    "options_gmail_4": {
+        "message": "Трети акаунт (/mail/u/2/)",
+        "description": ""
+    },
+    "options_toolbar_5": {
+        "message": "Показване само на обобщение",
+        "description": ""
+    },
+    "options_notifications_12": {
+        "message": "В момента не се поддържат известия в лентата със задачи под Линукс.",
+        "description": ""
+    },
+    "msg_1": {
+        "message": "Подпрозорецът вече е отворен. Натиснете копчето на лентата, за да отворите Джимейл в нов подпрозорец или да преминете към вече отворен раздел.",
+        "description": ""
+    },
+    "popup_refresh": {
+        "message": "Презареждане",
+        "description": ""
+    },
+    "options_misc_5": {
+        "message": "Син цвят за \"Няма непрочетени\" и сив цвят за \"Няма връзка\"",
+        "description": ""
+    },
+    "options_timings_l8": {
+        "message": "Задайте стойността на нула, за да не се проверява за нови писма до първото ръчно обновяване [Не е налично в Сафари].",
+        "description": ""
+    },
+    "popup_msg_19": {
+        "message": "Октомври",
+        "description": ""
+    },
+    "tooltip_3": {
+        "message": "Щракване с дясно копче: Избор на акаунт",
+        "description": ""
+    },
+    "popup_date_format": {
+        "message": "%mm %dd, %yy",
+        "description": ""
+    },
+    "options_notifications": {
+        "message": "Известия:",
+        "description": ""
+    },
+    "options_timings_l6": {
+        "message": "Ако имате непрочетени писма, стойностите, различни от нула, пускат оповестителен звук и известия на работния плот безкрайно.",
+        "description": ""
+    },
+    "popup_msg_12": {
+        "message": "Март",
+        "description": ""
+    },
+    "options_notifications_22": {
+        "message": "Ако разглеждачът ви не просвирва оповестителния звук, опитайте се да го преобразувате във формат WAV, използвайки инструмент за преобразуване в интернет.",
+        "description": ""
+    },
+    "options_tab_1": {
+        "message": "Търсене за отворен акаунт само в активния прозорец",
+        "description": ""
+    },
+    "popup_msg_7_format": {
+        "message": "Преди %d дена",
+        "description": ""
+    },
+    "options_timings_l1": {
+        "message": "Проверка за нови писма на всеки (в секунди):",
+        "description": ""
+    },
+    "options_toolbar_4": {
+        "message": "Режим на панела",
+        "description": ""
+    },
+    "toolbar_label": {
+        "message": "Известител за Джимейл",
+        "description": ""
+    },
+    "popup_msg_1": {
+        "message": "Току-що",
+        "description": ""
+    },
+    "popup_open_settings": {
+        "message": "Отваряне на настройките",
+        "description": ""
+    },
+    "options_misc_3": {
+        "message": "Цвят на иконката на лентата",
+        "description": ""
+    },
+    "options_gmail_12": {
+        "message": "Отделяйте емисиите със \",\" (запетая). Примерна емисия: https://mail.google.com/mail/u/0/feed/atom/inbox",
+        "description": ""
+    },
+    "options_toolbar_12": {
+        "message": "!: Докладване като спам, #: Кошче, e: Архив, Shift + i: Отбелязване като прочетено.",
+        "description": ""
+    },
+    "options_px": {
+        "message": "px",
+        "description": ""
+    },
+    "options_misc_11": {
+        "message": "Ако стойността се зададе на нула, няма да получавате нито звукови оповестявания, нито известия на работния плот. Ще работи само значката за известия.",
+        "description": ""
+    },
+    "options_notifications_20": {
+        "message": "Потребителски звук",
+        "description": ""
+    },
+    "and": {
+        "message": "и",
+        "description": ""
+    },
+    "options_tab_7": {
+        "message": "Винаги да се използват празни подпрозорци вместо да се отваря нов, когато е включено отварянето в подпрозорци",
+        "description": ""
+    },
+    "options_toolbar_3": {
+        "message": "Отваряне на Джимейл ако се използва само един акаунт",
+        "description": ""
+    },
+    "options_gmail_7": {
+        "message": "Шести акаунт (/mail/u/5/)",
+        "description": ""
+    },
+    "popup_msg_8_format": {
+        "message": "Преди %d седмица(и)",
+        "description": ""
+    },
+    "options_toolbar": {
+        "message": "Лента:",
+        "description": ""
+    },
+    "options_notifications_6": {
+        "message": "Съкращаване на известията, по-дълги от",
+        "description": ""
+    },
+    "popup_wait": {
+        "message": "Изчакайте...",
+        "description": ""
+    },
+    "tooltip_2": {
+        "message": "Щракване със средно копче (или Контрол + Ляво): Обновяване на всички акаунти",
+        "description": ""
+    },
+    "options_notifications_29": {
+        "message": "Тази настройка е свързана с менюто на копчето -> изключване на всички известия -> избран период.",
+        "description": ""
+    },
+    "options_tab_3": {
+        "message": "Отваряне на Джимейл до активния подпрозорец",
+        "description": ""
+    },
+    "options_gmail_8": {
+        "message": "Отбелязване на писмото като прочетено при архвиране",
+        "description": ""
+    },
+    "options_toolbar_17": {
+        "message": "Отваряне на главния акаунт",
+        "description": ""
+    },
+    "options_notifications_7": {
+        "message": "символа за полетата [заглавие] и [обобщение].",
+        "description": ""
+    },
+    "options_misc_10": {
+        "message": "Да се появяват известия на работния плот и звукови оповестявания само за писма, пристигнали по-рано от (в минути):",
+        "description": ""
+    },
+    "popup_no_subject": {
+        "message": "(няма тема)",
+        "description": ""
+    },
+    "popup_msg_2": {
+        "message": "Преди 1 минута",
+        "description": ""
+    },
+    "popup_msg_16": {
+        "message": "Юли",
+        "description": ""
+    },
+    "label_8": {
+        "message": "За 2 часа",
+        "description": ""
+    },
+    "msg_4": {
+        "message": "Бележка: За да работи правилно известителя, трябва да сте влезли в акаунта си в Гугъл.",
+        "description": ""
+    },
+    "popup_msg_20": {
+        "message": "Ноември",
+        "description": ""
+    },
+    "options_toolbar_6": {
+        "message": "Показване на цялото съдържание",
+        "description": ""
+    },
+    "options_gmail_11": {
+        "message": "Потребителски емисии:",
+        "description": ""
+    },
+    "options_tab_2": {
+        "message": "Без търсене в други прозорци за отворени акаунти. Ако Джимейл не е отворена в активния прозорец, да се отвори нов подпрозорец.",
+        "description": ""
+    },
+    "label_11": {
+        "message": "Писане на писмо",
+        "description": ""
+    },
+    "options_toolbar_7": {
+        "message": "Ширина на панела в режим на преглед на цялото съдържание (в пиксели):",
+        "description": ""
+    },
+    "options_timings_l5": {
+        "message": "Минималният период е 5 минути.",
+        "description": ""
+    },
+    "options_misc": {
+        "message": "Разни:",
+        "description": ""
+    },
+    "options_gmail_2": {
+        "message": "Разделяйте етикетите със \",\" (запетая).",
+        "description": ""
+    },
+    "options_misc_4": {
+        "message": "Сив цвят за \"Няма непрочетени\" и син цвят за \"Няма връзка\"",
+        "description": ""
+    },
+    "options_toolbar_13": {
+        "message": "Извеждане на писмата като ЕМХТ (HTML) в режима на цяло съдържание",
+        "description": ""
+    },
+    "options_toolbar_16": {
+        "message": "Обновяване на всички акаунти",
+        "description": ""
+    },
+    "options_gmail_6": {
+        "message": "Пети акаунт (/mail/u/4/)",
+        "description": ""
+    },
+    "popup_msg_14": {
+        "message": "Май",
+        "description": ""
+    },
+    "options_inshort": {
+        "message": "Известител за няколко акаунта в Гугъл поща (Джимейл).",
+        "description": ""
+    },
+    "options_misc_12": {
+        "message": "Без входни детайли в подсказките",
+        "description": ""
+    },
+    "options_tab_4": {
+        "message": "Отваряне на Джимейл в активния подпрозорец",
+        "description": ""
+    },
+    "popup_msg_3_format": {
+        "message": "Преди %d минути",
+        "description": ""
+    },
+    "label_12": {
+        "message": "Open FAQs",
+        "description": ""
+    },
+    "description": {
+        "message": "Известител за няколко акаунта в Гугъл поща (Джимейл)",
+        "description": ""
+    },
+    "popup_spam": {
+        "message": "Спам",
+        "description": ""
+    }
+}

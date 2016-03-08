@@ -183,6 +183,10 @@
         "message": "Июнь",
         "description": ""
     },
+    "label_14": {
+        "message": "Logged-in accounts",
+        "description": ""
+    },
     "options_misc_13": {
         "message": "По умолчанию в тексте всплывающей подсказки значка на панели инструментов показывается название учетной записи.",
         "description": ""
@@ -632,7 +636,7 @@
         "description": ""
     },
     "label_12": {
-        "message": "Открыть домашнюю страницу",
+        "message": "Open FAQs",
         "description": ""
     },
     "description": {

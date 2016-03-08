@@ -183,6 +183,10 @@
         "message": "6月",
         "description": ""
     },
+    "label_14": {
+        "message": "已登录帐户",
+        "description": ""
+    },
     "options_misc_13": {
         "message": "默认情况下，本扩展的工具栏按钮的工具提示带有登录信息。取消此选项时，工具提示文本将恢复默认值。",
         "description": ""
@@ -632,7 +636,7 @@
         "description": ""
     },
     "label_12": {
-        "message": "打开主页",
+        "message": "打开常见问题",
         "description": ""
     },
     "description": {

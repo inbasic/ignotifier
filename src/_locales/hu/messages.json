@@ -183,6 +183,10 @@
         "message": "Június",
         "description": ""
     },
+    "label_14": {
+        "message": "Bejelentkezett fiókok",
+        "description": ""
+    },
     "options_misc_13": {
         "message": "Alapértelmezetten az értesítő frissíti az eszköztár gombjának buboréksúgóját a bejelentkezési információval. Ezen opció kikapcsolásával a buboréksúgó szövege az alapértelmezett szöveg marad.",
         "description": ""
@@ -320,7 +324,7 @@
         "description": ""
     },
     "popup_read_all": {
-        "message": "Összes megjelölés olvasottként",
+        "message": "Összes megjelölése olvasottként",
         "description": ""
     },
     "options_notifications_8": {
@@ -632,7 +636,7 @@
         "description": ""
     },
     "label_12": {
-        "message": "Kezdőlap megnyitása",
+        "message": "GyÍK megnyitása",
         "description": ""
     },
     "description": {
