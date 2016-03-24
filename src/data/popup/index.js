@@ -426,6 +426,7 @@ background.receive("body-response", function(o) {
 // Link opener for html
 function opener (e) {
   e.preventDefault();
+  e.stopPropagation();
   var target = e.originalTarget || e.target;
   var selectedText = target.ownerDocument.getSelection() + '';
 
