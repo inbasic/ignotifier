@@ -179,7 +179,12 @@ function open (url, inBackground, refresh) {
 
   app.windows.active()
     .then(function () {
-      return app.windows.tabs.list(config.tabs.search);
+      var tabs = [];
+      try { // http://add0n.com/gmail-notifier.html#comment-2622018574
+        tabs = app.windows.tabs.list(config.tabs.search);
+      }
+      catch (e) {}
+      return tabs;
     })
     .then(function (tabs) {
       var parse2 = parseUri(url);
