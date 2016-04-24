@@ -37,7 +37,8 @@ gmail.body = (function () {
 
     var url = /[^\?]*/.exec(link)[0] + "/";
     var thread = /message\_id\=([^\&]*)/.exec(link);
-    if (!thread.length) {
+
+    if (!thread || !thread.length) {
       return app.Promise.reject(Error('gmail.js -> body -> Error at resolving thread. Please switch back to the summary mode.'));
     }
     return getIK(url).then(function (ik) {
