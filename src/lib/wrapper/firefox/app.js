@@ -182,7 +182,6 @@ var options = (function () {
       });
       worker.on('detach', function() {
         array.remove(workers, this);
-        worker.tab.close();
       });
       // PageMod has no access to mozFullPath of input.
       worker.port.on('get-sound-fullpath', function () {
@@ -195,6 +194,18 @@ var options = (function () {
       options_arr.forEach(function (arr) {
         worker.port.on(arr[0], arr[1]);
       });
+    }
+  });
+  unload.when(function (e) {
+    // https://github.com/inbasic/ignotifier/issues/400
+    if (e === 'shutdown') {
+      return;
+    }
+    var tbs = windows.SDKWindow.tabs;
+    for each (var tab in tbs) {
+      if (tab && tab.url && tab.url.startsWith(self.data.url(''))) {
+        tab.close();
+      }
     }
   });
   return {
