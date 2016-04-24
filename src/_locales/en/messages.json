@@ -488,5 +488,12 @@
   },
   "popup_msg_21": {
     "message": "December"
+  },
+
+  "settings_open_title": {
+    "message": "Open options (settings) page"
+  },
+  "settings_open_label": {
+    "message": "Open Options"
   }
 }

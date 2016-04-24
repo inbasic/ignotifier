@@ -217,6 +217,7 @@ var options = (function () {
     receive: (id, callback) => options_arr.push([id, callback])
   };
 })();
+sp.on('settings_open', () => exports.emit('open-options'));
 
 function get (url, headers, data, timeout) {
   headers = headers || {};
@@ -341,7 +342,10 @@ exports.button = (function () {
       tbExtra.onClick(c);
     },
     set label (val) { //jshint ignore:line
-      button.label = config.ui.tooltip ? l10n('toolbar_label') : val;
+      try {
+        button.label = config.ui.tooltip ? l10n('toolbar_label') : val;
+      }
+      catch (e) {}
     },
     set badge (val) { //jshint ignore:line
       if (config.ui.badge) {

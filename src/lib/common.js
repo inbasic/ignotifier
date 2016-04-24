@@ -66,6 +66,7 @@ var actions = {
     }
   }
 };
+app.on('open-options', actions.openOptions);
 if (isFirefox) {
   app.connect(actions);
 }
