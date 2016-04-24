@@ -20,9 +20,10 @@ server.Parser = function(req, feed) {
   }
   //Sometimes id is wrong in the feed structure!
   function fixID (link) {
-    var id = /u\/\d/.exec(feed);
+    var id = /u\/\d+/.exec(feed);
     if (id && id.length) {
-      return link.replace(/u\/\d/, id[0]);
+      console.error(id[0])
+      return link.replace(/u\/\d+/, id[0]);
     };
     return link;
   }
