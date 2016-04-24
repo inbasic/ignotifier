@@ -174,9 +174,16 @@ var options = (function () {
     },
     onAttach: function(worker) {
       array.add(workers, worker);
-      worker.on('pageshow', function() { array.add(workers, this); });
-      worker.on('pagehide', function() { array.remove(workers, this); });
-      worker.on('detach', function() { array.remove(workers, this); });
+      worker.on('pageshow', function() {
+        array.add(workers, this);
+      });
+      worker.on('pagehide', function() {
+        array.remove(workers, this);
+      });
+      worker.on('detach', function() {
+        array.remove(workers, this);
+        worker.tab.close();
+      });
       // PageMod has no access to mozFullPath of input.
       worker.port.on('get-sound-fullpath', function () {
         var browserWindow = Cc['@mozilla.org/appshell/window-mediator;1'].

@@ -679,15 +679,6 @@ app.options.receive('get', function (pref) {
     value: config.get(pref)
   });
 });
-app.unload(function () {
-  app.windows.tabs.list().then(function (tabs) {
-    tabs.forEach(function (tab) {
-      if (tab.url ===  app.manifest.url + 'data/options/index.html') {
-        tab.close();
-      }
-    });
-  });
-});
 // pref listeners
 config.on('email.check.resetPeriod', function () {
   if (config.email.check.resetPeriod) {
