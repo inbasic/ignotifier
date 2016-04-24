@@ -42,6 +42,9 @@ gmail.body = (function () {
     }
     return getIK(url).then(function (ik) {
       return new app.get(url + "?ui=2&ik=" + ik + "&view=pt&dsqt=1&search=all&msg=" + thread[1]).then(function (req) {
+        if (req.status !== 200) {
+          return '...';
+        }
         var body = render[config.popup.display ? "getHTMLText" : "getPlainText"](req, url, link);
         contents[link] = body;
         return body;
