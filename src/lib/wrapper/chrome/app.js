@@ -396,39 +396,22 @@ app.notify = function (text, title, callback) {
 };
 
 app.play = (function () {
-  var audio;
-  function reset () {
-    audio = document.createElement('audio');
-    audio.setAttribute('preload', 'auto');
-    audio.autobuffer = true;
-    var source = document.createElement('source');
-    var data = config.notification.sound.custom.file;
-    var mime = config.notification.sound.mime || 'audio/wav';
-    if (config.notification.sound.type === 4 && data && audio.canPlayType(mime)) {
-      source.type = mime;
-      source.src = data;
-    }
-    else {
-      source.type = 'audio/wav';
-      source.src = '../../../data/sounds/' + config.notification.sound.original;
-    }
-    audio.appendChild(source);
-  }
+  var audio = document.createElement('audio');
+  audio.setAttribute('preload', 'auto');
+  audio.setAttribute('autobuffer', 'true');
 
-  return {
-    now: function () {
-      if (config.notification.silent) {
-        return;
-      }
-      if (!audio) {
-        reset();
-      }
-
-      audio.volume = config.notification.sound.volume / 100;
-      audio.load;
-      audio.play();
-    },
-    reset: reset
+  return function (index) {
+    if (config.notification.silent) {
+      return;
+    }
+    var type = index === null ? config.notification.sound.media.default.type : config.notification.sound.media['custom' + index].type;
+    var path = '../../../data/sounds/' + type + '.wav';
+    if (type === 4) {
+      path = index === null ? config.notification.sound.media.default.file : config.notification.sound.media['custom' + index].file;
+    }
+    audio.src = path;
+    audio.volume = config.notification.sound.volume / 100;
+    audio.play();
   };
 })();
 

@@ -57,39 +57,39 @@
         <td>
           <p data-l10n-id="options_gmail_10"></p>
           <div class="box">
-            <label data-l10n-id="options_gmail_1"></label>
+            <div data-l10n-id="options_gmail_1"></div>
             <input type="text" data-pref="email.feeds_0" placeholder="e.g.: inbox, important"/>
           </div>
           <p class="note" data-l10n-id="options_gmail_2"></p>
           <p class="note" data-l10n-id="options_gmail_9"></p>
           <p class="spacer"></p>
           <div class="box">
-            <label data-l10n-id="options_gmail_3"></label>
+            <div data-l10n-id="options_gmail_3"></div>
             <input type="text" data-pref="email.feeds_1" placeholder="e.g.: inbox, important"/>
           </div>
           <p class="spacer"></p>
           <div class="box">
-            <label data-l10n-id="options_gmail_4"></label>
+            <div data-l10n-id="options_gmail_4"></div>
             <input type="text" data-pref="email.feeds_2" placeholder="e.g.: inbox, important"/>
           </div>
           <p class="spacer"></p>
           <div class="box">
-            <label data-l10n-id="options_gmail_5"></label>
+            <div data-l10n-id="options_gmail_5"></div>
             <input type="text" data-pref="email.feeds_3" placeholder="e.g.: inbox, important"/>
           </div>
           <p class="spacer"></p>
           <div class="box">
-            <label data-l10n-id="options_gmail_6"></label>
+            <div data-l10n-id="options_gmail_6"></div>
             <input type="text" data-pref="email.feeds_4" placeholder="e.g.: inbox, important"/>
           </div>
           <p class="spacer"></p>
           <div class="box">
-            <label data-l10n-id="options_gmail_7"></label>
+            <div data-l10n-id="options_gmail_7"></div>
             <input type="text" data-pref="email.feeds_5" placeholder="e.g.: inbox, important"/>
           </div>
           <p class="spacer"></p>
           <div class="box">
-            <label data-l10n-id="options_gmail_11"></label>
+            <div data-l10n-id="options_gmail_11"></div>
             <input type="text" data-pref="email.feeds_custom" placeholder="https://mail.google.com/mail/u/0/feed/atom/inbox"/>
           </div>
           <p class="note" data-l10n-id="options_gmail_12"></p>
@@ -106,7 +106,7 @@
           <p class="note" data-l10n-id="options_notifications_3"></p>
           <p class="spacer"></p>
           <div class="box">
-            <label data-l10n-id="options_notifications_4"></label>
+            <div data-l10n-id="options_notifications_4"></div>
             <input type="text" data-pref="notification.format"/>
           </div>
           <p class="note"><span data-l10n-id="options_notifications_5"></span> [author_name], [author_email], [title] <span data-l10n-id="and"></span> [summary].</p>
@@ -137,22 +137,115 @@
             <p class="spacer"></p>
           </div>
 
-          <div class="box">
-              <label data-l10n-id="options_notifications_15"></label>
-              <select data-pref="notification.sound.type">
+          <div>
+            <div class="box">
+              <div data-l10n-id="options_notifications_15"></div>
+              <select data-pref="notification.sound.media.default.type">
                 <option data-l10n-id="options_notifications_16"></option>
                 <option data-l10n-id="options_notifications_17"></option>
                 <option data-l10n-id="options_notifications_18"></option>
                 <option data-l10n-id="options_notifications_19"></option>
                 <option data-l10n-id="options_notifications_20"></option>
               </select>
+              <label class="browse">Browse<input type="file" data-pref="notification.sound.media.default.file"></input></label>
+            </div>
+            <p class="spacer"></p>
+            <div class="box">
+              <div data-l10n-id="options_notifications_31"></div>
+              <select data-pref="notification.sound.media.custom0.selector">
+                <option data-l10n-id="options_notifications_32"></option>
+                <option data-l10n-id="options_notifications_33"></option>
+                <option data-l10n-id="options_notifications_34"></option>
+              </select>
+              <input type="text" data-pref="notification.sound.media.custom0.filter">
+              <select data-pref="notification.sound.media.custom0.type">
+                <option data-l10n-id="options_notifications_16"></option>
+                <option data-l10n-id="options_notifications_17"></option>
+                <option data-l10n-id="options_notifications_18"></option>
+                <option data-l10n-id="options_notifications_19"></option>
+                <option data-l10n-id="options_notifications_20"></option>
+              </select>
+              <label class="browse">Browse<input type="file" data-pref="notification.sound.media.custom0.file"></input></label>
+            </div>
+            <p class="spacer"></p>
+            <div class="box">
+              <div data-l10n-id="options_notifications_31"></div>
+              <select data-pref="notification.sound.media.custom1.selector">
+                <option data-l10n-id="options_notifications_32"></option>
+                <option data-l10n-id="options_notifications_33"></option>
+                <option data-l10n-id="options_notifications_34"></option>
+              </select>
+              <input type="text" data-pref="notification.sound.media.custom1.filter">
+              <select data-pref="notification.sound.media.custom1.type">
+                <option data-l10n-id="options_notifications_16"></option>
+                <option data-l10n-id="options_notifications_17"></option>
+                <option data-l10n-id="options_notifications_18"></option>
+                <option data-l10n-id="options_notifications_19"></option>
+                <option data-l10n-id="options_notifications_20"></option>
+              </select>
+              <label class="browse">Browse<input type="file" data-pref="notification.sound.media.custom1.file"></input></label>
+            </div>
+            <p class="spacer"></p>
+            <div class="box">
+              <div data-l10n-id="options_notifications_31"></div>
+              <select data-pref="notification.sound.media.custom2.selector">
+                <option data-l10n-id="options_notifications_32"></option>
+                <option data-l10n-id="options_notifications_33"></option>
+                <option data-l10n-id="options_notifications_34"></option>
+              </select>
+              <input type="text" data-pref="notification.sound.media.custom2.filter">
+              <select data-pref="notification.sound.media.custom2.type">
+                <option data-l10n-id="options_notifications_16"></option>
+                <option data-l10n-id="options_notifications_17"></option>
+                <option data-l10n-id="options_notifications_18"></option>
+                <option data-l10n-id="options_notifications_19"></option>
+                <option data-l10n-id="options_notifications_20"></option>
+              </select>
+              <label class="browse">Browse<input type="file" data-pref="notification.sound.media.custom2.file"></input></label>
+            </div>
+            <p class="spacer"></p>
+            <div class="box">
+              <div data-l10n-id="options_notifications_31"></div>
+              <select data-pref="notification.sound.media.custom3.selector">
+                <option data-l10n-id="options_notifications_32"></option>
+                <option data-l10n-id="options_notifications_33"></option>
+                <option data-l10n-id="options_notifications_34"></option>
+              </select>
+              <input type="text" data-pref="notification.sound.media.custom3.filter">
+              <select data-pref="notification.sound.media.custom3.type">
+                <option data-l10n-id="options_notifications_16"></option>
+                <option data-l10n-id="options_notifications_17"></option>
+                <option data-l10n-id="options_notifications_18"></option>
+                <option data-l10n-id="options_notifications_19"></option>
+                <option data-l10n-id="options_notifications_20"></option>
+              </select>
+              <label class="browse">Browse<input type="file" data-pref="notification.sound.media.custom3.file"></input></label>
+            </div>
+            <p class="spacer"></p>
+            <div class="box">
+              <div data-l10n-id="options_notifications_31"></div>
+              <select data-pref="notification.sound.media.custom4.selector">
+                <option data-l10n-id="options_notifications_32"></option>
+                <option data-l10n-id="options_notifications_33"></option>
+                <option data-l10n-id="options_notifications_34"></option>
+              </select>
+              <input type="text" data-pref="notification.sound.media.custom4.filter">
+              <select data-pref="notification.sound.media.custom4.type">
+                <option data-l10n-id="options_notifications_16"></option>
+                <option data-l10n-id="options_notifications_17"></option>
+                <option data-l10n-id="options_notifications_18"></option>
+                <option data-l10n-id="options_notifications_19"></option>
+                <option data-l10n-id="options_notifications_20"></option>
+              </select>
+              <label class="browse">Browse<input type="file" data-pref="notification.sound.media.custom4.file"></input></label>
+            </div>
           </div>
+
           <p class="note only-safari" data-l10n-id="options_notifications_25"></p>
           <p class="spacer"></p>
-          <div class="box" id="sound">
-            <span data-l10n-id="options_notifications_21"></span><span style="color: blue; margin-left: 5px;" data-pref="notification.sound.custom.name"></span>. <input type="file" data-pref="notification.sound.custom.file"></input>
-          </div>
+
           <p class="note" data-l10n-id="options_notifications_22"></p>
+          <p class="note" data-l10n-id="options_notifications_35"></p>
           <p class="spacer"></p>
           <span data-l10n-id="options_notifications_23"></span> <input data-pref="notification.sound.volume" type="number" min="1" max="100"></input>
           <br/>
@@ -200,7 +293,7 @@
         <td data-l10n-id="options_toolbar"></td>
         <td>
           <div class="box">
-              <label data-l10n-id="options_toolbar_1"></label>
+              <div data-l10n-id="options_toolbar_1"></div>
               <select data-pref="email.openInboxOnOne">
                 <option data-l10n-id="options_toolbar_2"></option>
                 <option data-l10n-id="options_toolbar_3"></option>
@@ -208,7 +301,7 @@
           </div>
           <p class="spacer"></p>
           <div class="box">
-              <label data-l10n-id="options_toolbar_4"></label>
+              <div data-l10n-id="options_toolbar_4"></div>
               <select data-pref="popup.mode">
                 <option data-l10n-id="options_toolbar_5"></option>
                 <option data-l10n-id="options_toolbar_6"></option>
@@ -233,7 +326,7 @@
           <div class="only-firefox">
             <p class="spacer"></p>
             <div class="box">
-                <label data-l10n-id="options_toolbar_15"></label>
+                <div data-l10n-id="options_toolbar_15"></div>
                 <select data-pref="toolbar.clicks.middle">
                   <option data-l10n-id="options_toolbar_16"></option>
                   <option data-l10n-id="options_toolbar_17"></option>
@@ -255,7 +348,7 @@
           <p class="note" data-l10n-id="options_misc_2"></p>
           <p class="spacer"></p>
           <div class="box">
-              <label data-l10n-id="options_misc_3"></label>
+              <div data-l10n-id="options_misc_3"></div>
               <select data-pref="ui.pattern">
                 <option data-l10n-id="options_misc_4"></option>
                 <option data-l10n-id="options_misc_5"></option>

@@ -18,46 +18,35 @@ var connect = function (elem, pref) {
     pref = pref || elem.getAttribute('data-pref');
     background.send('get', pref);
     elem.addEventListener('change', function () {
-      if (pref === 'notification.sound.custom.file') {
+      if (pref.endsWith('.file')) {
+        var base = pref.replace('.file', '');
         var file = this.files[0];
+        var input = document.querySelector('[data-pref="' + pref + '"]');
+        if (input) {
+          input.parentNode.style.display = 'none';
+        }
         background.send('changed', {
-          pref: 'notification.sound.custom.file',
-          value: this.value
-        });
-        background.send('changed', {
-          pref: 'notification.sound.type',
-          value: 4
-        });
-        background.send('changed', {
-          pref: 'notification.sound.custom.name',
-          value: file.name
-        });
-        background.send('changed', {
-          pref: 'notification.sound.custom.mime',
+          pref: base + '.mime',
           value: file.type
         });
-        if (isFirefox) {
-          self.port.emit('get-sound-fullpath');
-        }
-        else {
-          var reader = new FileReader();
-          reader.onload = function (e) {
-            background.send('changed', {
-              pref: 'notification.sound.custom.file',
-              value: e.target.result
-            });
-          };
-          reader.onerror = function (e) {
-            alert(e);
-          };
-          reader.readAsDataURL(file);
-        }
-        return;
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          background.send('changed', {
+            pref,
+            value: e.target.result
+          });
+        };
+        reader.onerror = function (e) {
+          alert(e);
+        };
+        reader.readAsDataURL(file);
       }
-      background.send('changed', {
-        pref: pref,
-        value: this[att]
-      });
+      else {
+        background.send('changed', {
+          pref: pref,
+          value: this[att]
+        });
+      }
     });
   }
   return {
@@ -79,7 +68,20 @@ background.receive('set', function (o) {
   }
 });
 
-window.addEventListener('load', function () {
+background.receive('custom-sound', function (pref) {
+  if (isFirefox) {
+    background.send('custom-sound', pref);
+  }
+  else {
+    var input = document.querySelector('[data-pref="' + pref + '"]');
+    if (input) {
+      console.error(input, pref)
+      input.parentElement.style.display = 'inline-block';
+    }
+  }
+});
+
+window.addEventListener('DOMContentLoaded', function () {
   var prefs = document.querySelectorAll('*[data-pref]');
   [].forEach.call(prefs, function (elem) {
     var pref = elem.getAttribute('data-pref');

@@ -138,6 +138,42 @@ var icon = (function () {
   };
 })();
 
+function play (arr) {
+  var filters = [0, 1, 2, 3, 4].map(function (index) {
+    return {
+      filter: config.notification.sound.media['custom' + index].filter,
+      selector: config.notification.sound.media['custom' + index].selector,
+      index: index
+    };
+  }).
+  filter(function (obj) {
+    return obj.filter;
+  }).
+  filter(function (obj) {
+    if (obj.selector === 0) {
+      return arr.reduce(function (p, c) {
+        return p || (
+          c.author_email.toLowerCase().indexOf(obj.filter.toLowerCase()) !== -1 ||
+          c.author_name.toLowerCase().indexOf(obj.filter.toLowerCase()) !== -1
+        );
+      }, false);
+    }
+    if (obj.selector === 1) {
+      return arr.reduce(function (p, c) {
+        console.error(c.title, obj.filter)
+        return p || c.title.toLowerCase().indexOf(obj.filter.toLowerCase()) !== -1;
+      }, false);
+    }
+    if (obj.selector === 2) {
+      return arr.reduce(function (p, c) {
+        return p || c.summary.toLowerCase().indexOf(obj.filter.toLowerCase()) !== -1;
+      }, false);
+    }
+    return false;
+  });
+  app.play(filters.length ? filters[0].index : null);
+}
+
 function open (url, inBackground, refresh) {
   function parseUri (str) {
     str = str || '';
@@ -473,7 +509,7 @@ var checkEmails = (function () {
             app.tray.set(newCount, tooltip);
           }
           if (config.notification.sound.play) {
-            app.play.now();
+            play(tmp);
           }
           app.button.label = tooltip;
           app.popup.send('update-reset', objs);

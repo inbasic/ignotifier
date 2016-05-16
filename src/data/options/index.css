@@ -15,19 +15,27 @@
 }
 
 .box {
-  width:100%;
-  display: table;
-}
-.box label {
-  display: table-cell;
-  width: 1px;
-  white-space: nowrap;
-  padding-right: 5px;
+  display: flex;
+  align-items: center;
 }
 .box input,
 .box select {
   display: table-cell;
   width:100%;
+}
+.box div {
+  white-space: nowrap;
+  margin-right: 10px;
+}
+
+.browse {
+  display: none;
+  font-weight: bold;
+  padding: 0 5px;
+  cursor: pointer;
+}
+.browse input {
+  display: none;
 }
 
 .spacer {
@@ -56,6 +64,24 @@ table {
   font-size: 14px;
   color: #222;
   font-family: arial,sans-serif;
+}
+select,
+input {
+  background-color: #fff;
+}
+input {
+  height: 24px;
+  border: 1px solid #C8C8C8;
+}
+select {
+  height: 22px;
+  border: 0;
+  outline: 1px solid #C8C8C8;
+}
+
+input[type=checkbox] {
+  width: 20px;
+  height: 20px;
 }
 
 input[type=number] {

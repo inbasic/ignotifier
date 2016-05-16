@@ -248,35 +248,204 @@ config.notification = {
       val = val < 100 ? val : 100;
       app.storage.write('soundVolume', val);
     },
-    get type () { // 0-3: built-in, 4: user defined
-      return +app.storage.read('soundNotification') || 0;
-    },
-    set type (val) {
-      app.storage.write('soundNotification', val);
-      app.play.reset();
-    },
-    get original () {
-      return (this.type % 4) + '.wav';
-    },
-    custom: {
-      get file () {
-        return app.storage.read('sound_file');
+    media: {
+      default: {
+        get type () { // 0-3: built-in, 4: user defined
+          return +app.storage.read('notification.sound.media.default.type') || 0;
+        },
+        set type (val) {
+          app.storage.write('notification.sound.media.default.type', val);
+          if (val === 4) {
+            app.options.send('custom-sound', 'notification.sound.media.default.file');
+          }
+        },
+        get file () {
+          return app.storage.read('notification.sound.media.default.file');
+        },
+        set file (val) {
+          app.storage.write('notification.sound.media.default.file', val);
+        },
+        get mime () {
+          return app.storage.read('notification.sound.media.default.mime');
+        },
+        set mime (val) {
+          app.storage.write('notification.sound.media.default.mime', val);
+        }
       },
-      set file (val) {
-        app.storage.write('sound_file', val);
-        app.play.reset();
+      custom0: {
+        get type () { // 0-3: built-in, 4: user defined
+          return +app.storage.read('notification.sound.media.custom0.type') || 0;
+        },
+        set type (val) {
+          app.storage.write('notification.sound.media.custom0.type', val);
+          if (val === 4) {
+            app.options.send('custom-sound', 'notification.sound.media.custom0.file');
+          }
+        },
+        get file () {
+          return app.storage.read('notification.sound.media.custom0.file');
+        },
+        set file (val) {
+          app.storage.write('notification.sound.media.custom0.file', val);
+        },
+        get mime () {
+          return app.storage.read('notification.sound.media.custom0.mime');
+        },
+        set mime (val) {
+          app.storage.write('notification.sound.media.custom0.mime', val);
+        },
+        get filter () {
+          return app.storage.read('notification.sound.media.custom0.filter') || '';
+        },
+        set filter (val) {
+          app.storage.write('notification.sound.media.custom0.filter', val);
+        },
+        get selector () {
+          return +app.storage.read('notification.sound.media.custom0.selector') || 0;
+        },
+        set selector (val) {
+          app.storage.write('notification.sound.media.custom0.selector', val);
+        },
       },
-      get name () {
-        return app.storage.read('sound_name') || app.l10n('unknown');
+      custom1: {
+        get type () { // 0-3: built-in, 4: user defined
+          return +app.storage.read('notification.sound.media.custom1.type') || 0;
+        },
+        set type (val) {
+          app.storage.write('notification.sound.media.custom1.type', val);
+          if (val === 4) {
+            app.options.send('custom-sound', 'notification.sound.media.custom1.file');
+          }
+        },
+        get file () {
+          return app.storage.read('notification.sound.media.custom1.file');
+        },
+        set file (val) {
+          app.storage.write('notification.sound.media.custom1.file', val);
+        },
+        get mime () {
+          return app.storage.read('notification.sound.media.custom1.mime');
+        },
+        set mime (val) {
+          app.storage.write('notification.sound.media.custom1.mime', val);
+        },
+        get filter () {
+          return app.storage.read('notification.sound.media.custom1.filter') || '';
+        },
+        set filter (val) {
+          app.storage.write('notification.sound.media.custom1.filter', val);
+        },
+        get selector () {
+          return +app.storage.read('notification.sound.media.custom1.selector') || 0;
+        },
+        set selector (val) {
+          app.storage.write('notification.sound.media.custom1.selector', val);
+        }
       },
-      set name (val) {
-        app.storage.write('sound_name', val);
+      custom2: {
+        get type () { // 0-3: built-in, 4: user defined
+          return +app.storage.read('notification.sound.media.custom2.type') || 0;
+        },
+        set type (val) {
+          app.storage.write('notification.sound.media.custom2.type', val);
+          if (val === 4) {
+            app.options.send('custom-sound', 'notification.sound.media.custom2.file');
+          }
+        },
+        get file () {
+          return app.storage.read('notification.sound.media.custom2.file');
+        },
+        set file (val) {
+          app.storage.write('notification.sound.media.custom2.file', val);
+        },
+        get mime () {
+          return app.storage.read('notification.sound.media.custom2.mime');
+        },
+        set mime (val) {
+          app.storage.write('notification.sound.media.custom2.mime', val);
+        },
+        get filter () {
+          return app.storage.read('notification.sound.media.custom2.filter') || '';
+        },
+        set filter (val) {
+          app.storage.write('notification.sound.media.custom2.filter', val);
+        },
+        get selector () {
+          return +app.storage.read('notification.sound.media.custom2.selector') || 0;
+        },
+        set selector (val) {
+          app.storage.write('notification.sound.media.custom2.selector', val);
+        }
       },
-      get mime () {
-        return app.storage.read('sound_mime');
+      custom3: {
+        get type () { // 0-3: built-in, 4: user defined
+          return +app.storage.read('notification.sound.media.custom3.type') || 0;
+        },
+        set type (val) {
+          app.storage.write('notification.sound.media.custom3.type', val);
+          if (val === 4) {
+            app.options.send('custom-sound', 'notification.sound.media.custom3.file');
+          }
+        },
+        get file () {
+          return app.storage.read('notification.sound.media.custom3.file');
+        },
+        set file (val) {
+          app.storage.write('notification.sound.media.custom3.file', val);
+        },
+        get mime () {
+          return app.storage.read('notification.sound.media.custom3.mime');
+        },
+        set mime (val) {
+          app.storage.write('notification.sound.media.custom3.mime', val);
+        },
+        get filter () {
+          return app.storage.read('notification.sound.media.custom3.filter') || '';
+        },
+        set filter (val) {
+          app.storage.write('notification.sound.media.custom3.filter', val);
+        },
+        get selector () {
+          return +app.storage.read('notification.sound.media.custom3.selector') || 0;
+        },
+        set selector (val) {
+          app.storage.write('notification.sound.media.custom3.selector', val);
+        }
       },
-      set mime (val) {
-        app.storage.write('sound_mime', val);
+      custom4: {
+        get type () { // 0-3: built-in, 4: user defined
+          return +app.storage.read('notification.sound.media.custom4.type') || 0;
+        },
+        set type (val) {
+          app.storage.write('notification.sound.media.custom4.type', val);
+          if (val === 4) {
+            app.options.send('custom-sound', 'notification.sound.media.custom4.file');
+          }
+        },
+        get file () {
+          return app.storage.read('notification.sound.media.custom4.file');
+        },
+        set file (val) {
+          app.storage.write('notification.sound.media.custom4.file', val);
+        },
+        get mime () {
+          return app.storage.read('notification.sound.media.custom4.mime');
+        },
+        set mime (val) {
+          app.storage.write('notification.sound.media.custom4.mime', val);
+        },
+        get filter () {
+          return app.storage.read('notification.sound.media.custom4.filter') || '';
+        },
+        set filter (val) {
+          app.storage.write('notification.sound.media.custom4.filter', val);
+        },
+        get selector () {
+          return +app.storage.read('notification.sound.media.custom4.selector') || 0;
+        },
+        set selector (val) {
+          app.storage.write('notification.sound.media.custom4.selector', val);
+        }
       }
     }
   },

@@ -22,7 +22,6 @@ server.Parser = function(req, feed) {
   function fixID (link) {
     var id = /u\/\d+/.exec(feed);
     if (id && id.length) {
-      console.error(id[0])
       return link.replace(/u\/\d+/, id[0]);
     };
     return link;

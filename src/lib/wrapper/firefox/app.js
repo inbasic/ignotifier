@@ -47,6 +47,9 @@ var exportsHelper = {};
 var {Promise} = Cu.import('resource://gre/modules/Promise.jsm');
 var {XPCOMUtils} = Cu.import('resource://gre/modules/XPCOMUtils.jsm');
 
+var filePicker = Cc['@mozilla.org/filepicker;1'].createInstance(Ci.nsIFilePicker);
+var mimeService = Cc['@mozilla.org/mime;1'].getService(Ci.nsIMIMEService);
+
 // Event Emitter
 exports.on = on.bind(null, exports);
 exports.once = once.bind(null, exports);
@@ -184,12 +187,17 @@ var options = (function () {
         array.remove(workers, this);
       });
       // PageMod has no access to mozFullPath of input.
-      worker.port.on('get-sound-fullpath', function () {
+      worker.port.on('custom-sound', function (pref) {
         var browserWindow = Cc['@mozilla.org/appshell/window-mediator;1'].
-                        getService(Ci.nsIWindowMediator).
-                        getMostRecentWindow('navigator:browser');
-        var file = browserWindow.content.document.querySelector('input[type=file]').files[0].mozFullPath;
-        config.notification.sound.custom.file = file;
+                                getService(Ci.nsIWindowMediator).
+                                getMostRecentWindow('navigator:browser');
+        filePicker.init(browserWindow, l10n('msg_5'), Ci.nsIFilePicker.modeOpen);
+        filePicker.appendFilters(Ci.nsIFilePicker.filterAll | Ci.nsIFilePicker.filterAudio);
+        var rv = filePicker.show();
+        if (rv === Ci.nsIFilePicker.returnOK) {
+          config.set(pref, filePicker.file.path);
+          config.set(pref.replace('.file', '.mime'), mimeService.getTypeFromFile(filePicker.file));
+        }
       });
       options_arr.forEach(function (arr) {
         worker.port.on(arr[0], arr[1]);
@@ -528,36 +536,36 @@ XPCOMUtils.defineLazyGetter(exportsHelper, 'play', function () {
   let {FileUtils} = Cu.import('resource://gre/modules/FileUtils.jsm');
   let {Services} = Cu.import('resource://gre/modules/Services.jsm');
 
-  return {
-    now: function () {
-      if (config.notification.silent) {
-        return;
+  return function (index) {
+    if (config.notification.silent) {
+      return;
+    }
+    let type = index === null ? config.notification.sound.media.default.type : config.notification.sound.media['custom' + index].type;
+    let path = '../../data/sounds/' + type + '.wav';
+    let cPath;
+    if (type === 4) {
+      cPath = index === null ? config.notification.sound.media.default.file : config.notification.sound.media['custom' + index].file;
+      let file = new FileUtils.File(cPath);
+      if (file.exists()) {
+        let res = Services.io.getProtocolHandler('resource').QueryInterface(Ci.nsIResProtocolHandler);
+        let name = 'igsound';
+        res.setSubstitution(name, Services.io.newURI(Services.io.newFileURI(file).spec, null, null));
+        path = 'resource://' + name;
       }
-
-      var path = '../../data/sounds/' + config.notification.sound.original;
-      if (config.notification.sound.type === 4 && config.notification.sound.custom.file) {
-        var file = new FileUtils.File(config.notification.sound.custom.file);
-        if (file.exists()) {
-          path = Services.io.newFileURI(file).spec;
-          let res = Services.io.getProtocolHandler('resource').QueryInterface(Ci.nsIResProtocolHandler);
-          let name = 'igsound';
-          res.setSubstitution(name, Services.io.newURI(path, null, null));
-          path = 'resource://' + name;
-        }
-      }
-      var worker = pageWorker.Page({
-        contentScript:
-          "var audio = new Audio('" + path + "');" +
-          "audio.addEventListener('ended', function () {self.postMessage()});" +
-          "audio.volume = " + (config.notification.sound.volume / 100) + ";" +
-          "audio.play();",
-        contentURL: data.url("firefox/sound.html"),
-        onMessage: function() {
-          worker.destroy();
-        }
-      });
-    },
-    reset: function () {}
+    }
+    console.error(path);
+    let worker = pageWorker.Page({
+      contentScript: `
+        var audio = new Audio("${path}");
+        audio.addEventListener('ended', function () {
+          self.postMessage()
+        });
+        audio.volume = ${(config.notification.sound.volume / 100)};
+        audio.play();
+      `,
+      contentURL: data.url('firefox/sound.html'),
+      onMessage: () => worker.destroy()
+    });
   };
 });
 Object.defineProperty(exports, 'play', {
