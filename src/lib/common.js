@@ -437,6 +437,24 @@ var checkEmails = (function () {
               (c.xml.label ? ' [' + c.xml.label + ']' : '') +
               ' (' + c.xml.fullcount + ')' + '\n';
           }, '').replace(/\n$/, '');
+        // Preparing tray tooltip; make sure length is less than 64 chars
+        var trayTooltip = (function () {
+          var name = objs.reduce(function (p, c) {
+            return p +=
+              c.xml.title +
+              (c.xml.label ? ' [' + c.xml.label + ']' : '') +
+              ' (' + c.xml.fullcount + ')' + '\n';
+          }, '').replace(/\n$/, '');
+
+          var title = app.l10n('gmail') + '\n\n';
+          if (name.length + title.length < 64) {
+            name = title + name;
+          }
+          if (name.length > 64) {
+            name = name.replace(/\@.* \(/g , ' (');
+          }
+          return name;
+        })();
 
         if (!forced && !anyNewEmails) {
           if (newCount) {
@@ -444,7 +462,7 @@ var checkEmails = (function () {
             setBadge(newCount);
             color = 'red';
             if (config.tray.show) {
-              app.tray.set(newCount, tooltip);
+              app.tray.set(newCount, trayTooltip);
             }
             app.button.label = tooltip;
             app.popup.send('update', objs);
@@ -506,7 +524,7 @@ var checkEmails = (function () {
             });
           }
           if (config.tray.show) {
-            app.tray.set(newCount, tooltip);
+            app.tray.set(newCount, trayTooltip);
           }
           if (config.notification.sound.play) {
             play(tmp);

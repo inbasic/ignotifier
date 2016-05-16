@@ -553,7 +553,6 @@ XPCOMUtils.defineLazyGetter(exportsHelper, 'play', function () {
         path = 'resource://' + name;
       }
     }
-    console.error(path);
     let worker = pageWorker.Page({
       contentScript: `
         var audio = new Audio("${path}");
