@@ -19,6 +19,10 @@
         "message": "Az összes egyidejű asztali értesítés összevonása egy értesítéssé",
         "description": ""
     },
+    "settings_open_label": {
+        "message": "Beállítások megnyitása",
+        "description": ""
+    },
     "options_timings_l7": {
         "message": "Ne keressen új leveleket induláskor ennyi másodpercig:",
         "description": ""
@@ -65,6 +69,10 @@
     },
     "options_timings_l4": {
         "message": "Állítsa az értéket 0-ra nem ismétlődő értesítésekhez.",
+        "description": ""
+    },
+    "options_notifications_32": {
+        "message": "név vagy levél tartalmazza",
         "description": ""
     },
     "options_tab_6": {
@@ -183,6 +191,10 @@
         "message": "Június",
         "description": ""
     },
+    "options_notifications_34": {
+        "message": "levélösszegző tartalmazza",
+        "description": ""
+    },
     "label_14": {
         "message": "Bejelentkezett fiókok",
         "description": ""
@@ -201,6 +213,10 @@
     },
     "options_notifications_4": {
         "message": "Értesítés formátuma",
+        "description": ""
+    },
+    "settings_open_title": {
+        "message": "Beállítások oldal megnyitása",
         "description": ""
     },
     "label_2": {
@@ -300,7 +316,7 @@
         "description": ""
     },
     "options_notifications_15": {
-        "message": "Hangértesítés",
+        "message": "Alapértelmezett hangértesítés bekapcsolva",
         "description": ""
     },
     "options_notifications_21": {
@@ -387,6 +403,10 @@
         "message": "Tálcaértesítések nem támogatottak jelenleg Linux alatt.",
         "description": ""
     },
+    "options_notifications_35": {
+        "message": "Új egyéni hang választásához először válassz egy beépített hangot, majd állítsd be az egyéni hangértesítés opciót.  ",
+        "description": ""
+    },
     "msg_1": {
         "message": "Már megnyitotta a Gmail-t. Kattintson az eszköztár gombjára a Gmail megnyitásához új ablakban vagy már megnyitott Gmail lapra váltáshoz.",
         "description": ""
@@ -405,6 +425,10 @@
     },
     "popup_msg_19": {
         "message": "Október",
+        "description": ""
+    },
+    "options_notifications_33": {
+        "message": "levél címe tartalmazza",
         "description": ""
     },
     "tooltip_3": {
@@ -428,7 +452,7 @@
         "description": ""
     },
     "options_notifications_22": {
-        "message": "Amennyiben böngészője nem játssza le a hangot jelzéskor, próbálja azt WAV formátumúvá konvertálni online eszköz segítségével.",
+        "message": "Amennyiben böngésződ nem játssza le az egyéni hangot, próbáld a hangot online konvertáló segítségével egyszerű WAV formátumra átalakítani..",
         "description": ""
     },
     "options_tab_1": {
@@ -547,6 +571,10 @@
         "message": "(nincs tárgy)",
         "description": ""
     },
+    "msg_5": {
+        "message": "Válassz egy hangfájlt",
+        "description": ""
+    },
     "popup_msg_2": {
         "message": "1 perccel ezelőtt",
         "description": ""
@@ -585,6 +613,10 @@
     },
     "options_toolbar_7": {
         "message": "Teljes tartalom megjelenítésekor az eszköztár panel szélessége pixelben:",
+        "description": ""
+    },
+    "options_notifications_31": {
+        "message": "Egyéni hangértesítés",
         "description": ""
     },
     "options_timings_l5": {

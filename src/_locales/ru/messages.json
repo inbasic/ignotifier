@@ -19,6 +19,10 @@
         "message": "Объединять несколько параллельных уведомлений в одно",
         "description": ""
     },
+    "settings_open_label": {
+        "message": "Open Options",
+        "description": ""
+    },
     "options_timings_l7": {
         "message": "Не проверять почту сразу после запуска в течении (в секундах):",
         "description": ""
@@ -65,6 +69,10 @@
     },
     "options_timings_l4": {
         "message": "Установите ноль для отключения напоминаний.",
+        "description": ""
+    },
+    "options_notifications_32": {
+        "message": "name or email contains",
         "description": ""
     },
     "options_tab_6": {
@@ -183,6 +191,10 @@
         "message": "Июнь",
         "description": ""
     },
+    "options_notifications_34": {
+        "message": "email summary contains",
+        "description": ""
+    },
     "label_14": {
         "message": "Logged-in accounts",
         "description": ""
@@ -201,6 +213,10 @@
     },
     "options_notifications_4": {
         "message": "Формат уведомления",
+        "description": ""
+    },
+    "settings_open_title": {
+        "message": "Open options (settings) page",
         "description": ""
     },
     "label_2": {
@@ -300,7 +316,7 @@
         "description": ""
     },
     "options_notifications_15": {
-        "message": "Звуковое оповещение:",
+        "message": "Default sound notification is",
         "description": ""
     },
     "options_notifications_21": {
@@ -387,6 +403,10 @@
         "message": "Оповещения на панели задач для Linux OS пока не поддерживаются.",
         "description": ""
     },
+    "options_notifications_35": {
+        "message": "To select a new custom sound, select a built-in sound first and then change the option to custom sound",
+        "description": ""
+    },
     "msg_1": {
         "message": "Вкладка уже открыта. Нажмите на кнопку на панели инструментов чтобы открыть Gmail в новой вкладке или перейти на уже открытую вкладку Gmail.",
         "description": ""
@@ -405,6 +425,10 @@
     },
     "popup_msg_19": {
         "message": "Октябрь",
+        "description": ""
+    },
+    "options_notifications_33": {
+        "message": "email title contains",
         "description": ""
     },
     "tooltip_3": {
@@ -428,7 +452,7 @@
         "description": ""
     },
     "options_notifications_22": {
-        "message": "Если Ваш браузер не проигрывает звук, попробуйте конвертировать звуковой файл в формат WAV.",
+        "message": "If your browser is not playing the custom notification sound, try to convert it into a plain WAV format using an online conversion tool.",
         "description": ""
     },
     "options_tab_1": {
@@ -547,6 +571,10 @@
         "message": "(без темы)",
         "description": ""
     },
+    "msg_5": {
+        "message": "Select an audio sound file",
+        "description": ""
+    },
     "popup_msg_2": {
         "message": "1 минуту назад",
         "description": ""
@@ -585,6 +613,10 @@
     },
     "options_toolbar_7": {
         "message": "Ширина окна просмотра в полном режиме (в пискелях):",
+        "description": ""
+    },
+    "options_notifications_31": {
+        "message": "Custom sound notification",
         "description": ""
     },
     "options_timings_l5": {

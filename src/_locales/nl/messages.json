@@ -19,6 +19,10 @@
         "message": "Alle bureaubladmeldingen samenvoegen in één melding",
         "description": ""
     },
+    "settings_open_label": {
+        "message": "Opties openen",
+        "description": ""
+    },
     "options_timings_l7": {
         "message": "Niet controleren op nieuwe e-mails bij opstarten voor de duur van (in seconden):",
         "description": ""
@@ -65,6 +69,10 @@
     },
     "options_timings_l4": {
         "message": "Stel de waarde op nul in voor niet-periodieke herinneringen.",
+        "description": ""
+    },
+    "options_notifications_32": {
+        "message": "naam of e-mail bevat",
         "description": ""
     },
     "options_tab_6": {
@@ -183,6 +191,10 @@
         "message": "juni",
         "description": ""
     },
+    "options_notifications_34": {
+        "message": "e-mail-samenvatting bevat",
+        "description": ""
+    },
     "label_14": {
         "message": "Ingelogde accounts",
         "description": ""
@@ -201,6 +213,10 @@
     },
     "options_notifications_4": {
         "message": "Meldingopmaak",
+        "description": ""
+    },
+    "settings_open_title": {
+        "message": "Open de opties-pagina (instellingen)",
         "description": ""
     },
     "label_2": {
@@ -300,7 +316,7 @@
         "description": ""
     },
     "options_notifications_15": {
-        "message": "Meldingsgeluid is",
+        "message": "Standaard meldingsgeluid is",
         "description": ""
     },
     "options_notifications_21": {
@@ -387,6 +403,10 @@
         "message": "Taakbalkmeldingen worden momenteel niet ondersteund op Linux-besturingssystemen.",
         "description": ""
     },
+    "options_notifications_35": {
+        "message": "Om een nieuw aangepast geluid te selecteren moet u eerst een ingebouwd geluid selecteren en deze wijzigen naar een aangepast geluid",
+        "description": ""
+    },
     "msg_1": {
         "message": "Tabblad is al geopend. Klik op de werkbalkknop om Gmail in een nieuw tabblad te openen of om naar een bestaand Gmail-tabblad over te schakelen.",
         "description": ""
@@ -405,6 +425,10 @@
     },
     "popup_msg_19": {
         "message": "oktober",
+        "description": ""
+    },
+    "options_notifications_33": {
+        "message": "e-mail-titel bevat",
         "description": ""
     },
     "tooltip_3": {
@@ -428,7 +452,7 @@
         "description": ""
     },
     "options_notifications_22": {
-        "message": "Als uw browser geen meldingsgeluid afspeelt, probeer dan om het te converteren naar plat WAV-formaat middels een online converteerapplicatie.",
+        "message": "Als uw browser geen aangepast meldingsgeluid afspeelt, probeer dan om het te converteren naar plat WAV-formaat middels een online converteerapplicatie.",
         "description": ""
     },
     "options_tab_1": {
@@ -547,6 +571,10 @@
         "message": "(geen onderwerp)",
         "description": ""
     },
+    "msg_5": {
+        "message": "Selecteer een audiobestand",
+        "description": ""
+    },
     "popup_msg_2": {
         "message": "1 minuut geleden",
         "description": ""
@@ -585,6 +613,10 @@
     },
     "options_toolbar_7": {
         "message": "Breedte van werkbalkpaneel in volledige-inhoudsweergave is (in pixels):",
+        "description": ""
+    },
+    "options_notifications_31": {
+        "message": "Aangepaste geluidsmelding",
         "description": ""
     },
     "options_timings_l5": {

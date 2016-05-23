@@ -19,6 +19,10 @@
         "message": "Споји сва истовремена десктоп обавештења у једно обавештење",
         "description": ""
     },
+    "settings_open_label": {
+        "message": "Отвори опције",
+        "description": ""
+    },
     "options_timings_l7": {
         "message": "Не проверавај нову пошту при покретању у року од (у секундама):",
         "description": ""
@@ -65,6 +69,10 @@
     },
     "options_timings_l4": {
         "message": "Постави вредност на нула за искључивање подсетника.",
+        "description": ""
+    },
+    "options_notifications_32": {
+        "message": "име или е-пошта садржи",
         "description": ""
     },
     "options_tab_6": {
@@ -116,7 +124,7 @@
         "description": ""
     },
     "label_5": {
-        "message": "На 15 минутаs",
+        "message": "На 15 минута",
         "description": ""
     },
     "options_misc_9": {
@@ -183,6 +191,10 @@
         "message": "јун",
         "description": ""
     },
+    "options_notifications_34": {
+        "message": "кратак преглед е-поште садржи",
+        "description": ""
+    },
     "label_14": {
         "message": "Пријављени налози",
         "description": ""
@@ -201,6 +213,10 @@
     },
     "options_notifications_4": {
         "message": "Формат обавештења",
+        "description": ""
+    },
+    "settings_open_title": {
+        "message": "Отвори страницу опција (подешавања)",
         "description": ""
     },
     "label_2": {
@@ -300,7 +316,7 @@
         "description": ""
     },
     "options_notifications_15": {
-        "message": "Звук обавештења је",
+        "message": "Подразумевано звучно обавештење је",
         "description": ""
     },
     "options_notifications_21": {
@@ -316,7 +332,7 @@
         "description": ""
     },
     "unknown": {
-        "message": "непознато",
+        "message": "непознат",
         "description": ""
     },
     "popup_msg_21": {
@@ -387,6 +403,10 @@
         "message": "Обавештења на траци задатака нису подржана у Linux систему.",
         "description": ""
     },
+    "options_notifications_35": {
+        "message": "За избор новог прилагођеног звука, изаберите прво уграђени звук а затим промените опцију на прилагођени звук",
+        "description": ""
+    },
     "msg_1": {
         "message": "Картица је већ отворена. Кликните на дугме на алатној траци да отворите Gmail у новој картици или да се пребаците на постојећу Gmail картицу.",
         "description": ""
@@ -405,6 +425,10 @@
     },
     "popup_msg_19": {
         "message": "октобар",
+        "description": ""
+    },
+    "options_notifications_33": {
+        "message": "наслов е-поште садржи",
         "description": ""
     },
     "tooltip_3": {
@@ -428,7 +452,7 @@
         "description": ""
     },
     "options_notifications_22": {
-        "message": "Ако Ваш прегледач не емитује звук обавештења, покушајте да га конвертујете у WAV формат.",
+        "message": "Ако ваш прегледач не емитује прилагођени звук обавештења, покушајте да га конвертујете у WAV формат користећи алат за конвертовање на мрежи.",
         "description": ""
     },
     "options_tab_1": {
@@ -547,6 +571,10 @@
         "message": "(без наслова)",
         "description": ""
     },
+    "msg_5": {
+        "message": "Изаберите датотеку звучног обавештења",
+        "description": ""
+    },
     "popup_msg_2": {
         "message": "пре 1 минут",
         "description": ""
@@ -585,6 +613,10 @@
     },
     "options_toolbar_7": {
         "message": "Ширина панела у режиму приказа пуног садржаја (у пикселима):",
+        "description": ""
+    },
+    "options_notifications_31": {
+        "message": "Прилагођени звук обавештења",
         "description": ""
     },
     "options_timings_l5": {

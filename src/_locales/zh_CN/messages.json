@@ -19,6 +19,10 @@
         "message": "整合所有连续的桌面通知为单条通知",
         "description": ""
     },
+    "settings_open_label": {
+        "message": "打开选项",
+        "description": ""
+    },
     "options_timings_l7": {
         "message": "不检查新邮件，在刚启动的（秒）：",
         "description": ""
@@ -65,6 +69,10 @@
     },
     "options_timings_l4": {
         "message": "设置值为 0 可禁用定期提醒。",
+        "description": ""
+    },
+    "options_notifications_32": {
+        "message": "名称或电子邮件包含",
         "description": ""
     },
     "options_tab_6": {
@@ -183,6 +191,10 @@
         "message": "6月",
         "description": ""
     },
+    "options_notifications_34": {
+        "message": "邮件摘要包含",
+        "description": ""
+    },
     "label_14": {
         "message": "已登录帐户",
         "description": ""
@@ -201,6 +213,10 @@
     },
     "options_notifications_4": {
         "message": "通知格式",
+        "description": ""
+    },
+    "settings_open_title": {
+        "message": "打开选项（设置）页面",
         "description": ""
     },
     "label_2": {
@@ -300,7 +316,7 @@
         "description": ""
     },
     "options_notifications_15": {
-        "message": "声音通知为",
+        "message": "默认声音是",
         "description": ""
     },
     "options_notifications_21": {
@@ -387,6 +403,10 @@
         "message": "任务栏通知目前不支持 Linux 操作系统。",
         "description": ""
     },
+    "options_notifications_35": {
+        "message": "要选择一个新的自定义声音，选择一个内置声音，然后再更改此选项为自定义声音",
+        "description": ""
+    },
     "msg_1": {
         "message": "标签页已经打开。点击工具栏上的按钮在新标签页中打开 Gmail，或者切换到现有的 Gmail 标签页。",
         "description": ""
@@ -405,6 +425,10 @@
     },
     "popup_msg_19": {
         "message": "10月",
+        "description": ""
+    },
+    "options_notifications_33": {
+        "message": "邮件标题包含",
         "description": ""
     },
     "tooltip_3": {
@@ -428,7 +452,7 @@
         "description": ""
     },
     "options_notifications_22": {
-        "message": "如果您的浏览器没有播放通知声音，尝试使用一种在线转换工具，将它转换为一个纯净的 WAV 格式。",
+        "message": "如果您的浏览器不能播放自定义的声音，请尝试用在线转换工具将它转换为纯 WAV 格式。",
         "description": ""
     },
     "options_tab_1": {
@@ -547,6 +571,10 @@
         "message": "(无主题)",
         "description": ""
     },
+    "msg_5": {
+        "message": "选择一个声音文件",
+        "description": ""
+    },
     "popup_msg_2": {
         "message": "1 分钟前",
         "description": ""
@@ -585,6 +613,10 @@
     },
     "options_toolbar_7": {
         "message": "完整内容模式下的工具栏面板宽度为（像素）：",
+        "description": ""
+    },
+    "options_notifications_31": {
+        "message": "自定义声音通知",
         "description": ""
     },
     "options_timings_l5": {

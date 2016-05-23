@@ -139,6 +139,7 @@ var icon = (function () {
 })();
 
 function play (arr) {
+  console.error(arr, arr.map(o => [o.id, o.link]));
   var filters = [0, 1, 2, 3, 4].map(function (index) {
     return {
       filter: config.notification.sound.media['custom' + index].filter,

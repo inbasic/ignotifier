@@ -19,6 +19,10 @@
         "message": "Обединяване на всички едновременни известия на работния плот в едно известие",
         "description": ""
     },
+    "settings_open_label": {
+        "message": "Open Options",
+        "description": ""
+    },
     "options_timings_l7": {
         "message": "Без проверка за нови писма при стартиране (в секунди):",
         "description": ""
@@ -36,7 +40,7 @@
         "description": ""
     },
     "options_gmail_1": {
-        "message": "Главен акаунт (/mail/u/0/)",
+        "message": "Главна сметка (/mail/u/0/)",
         "description": ""
     },
     "options_gmail_10": {
@@ -65,6 +69,10 @@
     },
     "options_timings_l4": {
         "message": "Задайте стойността на нула за непериодични напомняния.",
+        "description": ""
+    },
+    "options_notifications_32": {
+        "message": "name or email contains",
         "description": ""
     },
     "options_tab_6": {
@@ -112,7 +120,7 @@
         "description": ""
     },
     "options_gmail_5": {
-        "message": "Четвърти акаунт (/mail/u/3/)",
+        "message": "Четвърта сметка (/mail/u/3/)",
         "description": ""
     },
     "label_5": {
@@ -152,7 +160,7 @@
         "description": ""
     },
     "log_into_your_account": {
-        "message": "Моля, влезте в акаунта си",
+        "message": "Моля, влезте в сметката си",
         "description": ""
     },
     "label_10": {
@@ -183,8 +191,12 @@
         "message": "Юни",
         "description": ""
     },
+    "options_notifications_34": {
+        "message": "email summary contains",
+        "description": ""
+    },
     "label_14": {
-        "message": "Logged-in accounts",
+        "message": "Вписани сметки",
         "description": ""
     },
     "options_misc_13": {
@@ -201,6 +213,10 @@
     },
     "options_notifications_4": {
         "message": "Формат на известията",
+        "description": ""
+    },
+    "settings_open_title": {
+        "message": "Open options (settings) page",
         "description": ""
     },
     "label_2": {
@@ -280,7 +296,7 @@
         "description": ""
     },
     "options_gmail_3": {
-        "message": "Втори акаунт (/mail/u/1/)",
+        "message": "Втора сметка (/mail/u/1/)",
         "description": ""
     },
     "options_notifications_11": {
@@ -292,7 +308,7 @@
         "description": ""
     },
     "log_in_to_your_account": {
-        "message": "Моля, влезте в акаунта си в Джимейл",
+        "message": "Моля, влезте в профила си в Джимейл",
         "description": ""
     },
     "popup_of": {
@@ -300,7 +316,7 @@
         "description": ""
     },
     "options_notifications_15": {
-        "message": "Звуковото оповестяване е",
+        "message": "Default sound notification is",
         "description": ""
     },
     "options_notifications_21": {
@@ -376,7 +392,7 @@
         "description": ""
     },
     "options_gmail_4": {
-        "message": "Трети акаунт (/mail/u/2/)",
+        "message": "Трета сметка (/mail/u/2/)",
         "description": ""
     },
     "options_toolbar_5": {
@@ -385,6 +401,10 @@
     },
     "options_notifications_12": {
         "message": "В момента не се поддържат известия в лентата със задачи под Линукс.",
+        "description": ""
+    },
+    "options_notifications_35": {
+        "message": "To select a new custom sound, select a built-in sound first and then change the option to custom sound",
         "description": ""
     },
     "msg_1": {
@@ -407,8 +427,12 @@
         "message": "Октомври",
         "description": ""
     },
+    "options_notifications_33": {
+        "message": "email title contains",
+        "description": ""
+    },
     "tooltip_3": {
-        "message": "Щракване с дясно копче: Избор на акаунт",
+        "message": "Щракване с дясно копче: Избор на сметка",
         "description": ""
     },
     "popup_date_format": {
@@ -428,7 +452,7 @@
         "description": ""
     },
     "options_notifications_22": {
-        "message": "Ако разглеждачът ви не просвирва оповестителния звук, опитайте се да го преобразувате във формат WAV, използвайки инструмент за преобразуване в интернет.",
+        "message": "If your browser is not playing the custom notification sound, try to convert it into a plain WAV format using an online conversion tool.",
         "description": ""
     },
     "options_tab_1": {
@@ -496,7 +520,7 @@
         "description": ""
     },
     "options_gmail_7": {
-        "message": "Шести акаунт (/mail/u/5/)",
+        "message": "Шеста сметка (/mail/u/5/)",
         "description": ""
     },
     "popup_msg_8_format": {
@@ -532,7 +556,7 @@
         "description": ""
     },
     "options_toolbar_17": {
-        "message": "Отваряне на главния акаунт",
+        "message": "Отваряне на главната сметка",
         "description": ""
     },
     "options_notifications_7": {
@@ -545,6 +569,10 @@
     },
     "popup_no_subject": {
         "message": "(няма тема)",
+        "description": ""
+    },
+    "msg_5": {
+        "message": "Select an audio sound file",
         "description": ""
     },
     "popup_msg_2": {
@@ -587,6 +615,10 @@
         "message": "Ширина на панела в режим на преглед на цялото съдържание (в пиксели):",
         "description": ""
     },
+    "options_notifications_31": {
+        "message": "Custom sound notification",
+        "description": ""
+    },
     "options_timings_l5": {
         "message": "Минималният период е 5 минути.",
         "description": ""
@@ -608,11 +640,11 @@
         "description": ""
     },
     "options_toolbar_16": {
-        "message": "Обновяване на всички акаунти",
+        "message": "Обновяване на всички сметки",
         "description": ""
     },
     "options_gmail_6": {
-        "message": "Пети акаунт (/mail/u/4/)",
+        "message": "Пета сметка (/mail/u/4/)",
         "description": ""
     },
     "popup_msg_14": {
@@ -620,7 +652,7 @@
         "description": ""
     },
     "options_inshort": {
-        "message": "Известител за няколко акаунта в Гугъл поща (Джимейл).",
+        "message": "Известител за няколко профила в Гугъл поща (Джимейл).",
         "description": ""
     },
     "options_misc_12": {
@@ -636,11 +668,11 @@
         "description": ""
     },
     "label_12": {
-        "message": "Open FAQs",
+        "message": "Отваряне на въпросника",
         "description": ""
     },
     "description": {
-        "message": "Известител за няколко акаунта в Гугъл поща (Джимейл)",
+        "message": "Известител за няколко профила в Гугъл поща (Джимейл)",
         "description": ""
     },
     "popup_spam": {

@@ -19,6 +19,10 @@
         "message": "Połącz wszystkie jednoczesne powiadomienia na pulpicie w pojedyncze",
         "description": ""
     },
+    "settings_open_label": {
+        "message": "Otwórz opcje",
+        "description": ""
+    },
     "options_timings_l7": {
         "message": "Sprawdzaj nowe wiadomości przy starcie po (sekundy):",
         "description": ""
@@ -65,6 +69,10 @@
     },
     "options_timings_l4": {
         "message": "Ustaw wartość na zero, aby nie otrzymywać przypomnień.",
+        "description": ""
+    },
+    "options_notifications_32": {
+        "message": "nazwa lub e-mail zawiera",
         "description": ""
     },
     "options_tab_6": {
@@ -183,6 +191,10 @@
         "message": "czerwca",
         "description": ""
     },
+    "options_notifications_34": {
+        "message": "podsumowanie e-mail'a zawiera",
+        "description": ""
+    },
     "label_14": {
         "message": "Zalogowane konta",
         "description": ""
@@ -201,6 +213,10 @@
     },
     "options_notifications_4": {
         "message": "Format powiadomienia",
+        "description": ""
+    },
+    "settings_open_title": {
+        "message": "Otwórz stronę opcji (ustawień)",
         "description": ""
     },
     "label_2": {
@@ -300,7 +316,7 @@
         "description": ""
     },
     "options_notifications_15": {
-        "message": "Dźwięk powiadomienia",
+        "message": "Domyślny dźwięk powiadomienia to",
         "description": ""
     },
     "options_notifications_21": {
@@ -387,6 +403,10 @@
         "message": "Obecnie, powiadomienia paska zadań nie są wspierane na systemach Linuks.",
         "description": ""
     },
+    "options_notifications_35": {
+        "message": "Aby wybrać nowy własny dźwięk, najpierw wybierz wbudowany dźwięk, a następnie zmień wybór na Własny dźwięk",
+        "description": ""
+    },
     "msg_1": {
         "message": "Karta jest już otworzona. Naciśnij na przycisku paska narzędzi, aby otworzyć Gmail w nowej karcie lub aby przełączyć się na istniejącą kartę Gmail.",
         "description": ""
@@ -405,6 +425,10 @@
     },
     "popup_msg_19": {
         "message": "października",
+        "description": ""
+    },
+    "options_notifications_33": {
+        "message": "tytuł e-mail'a zawiera",
         "description": ""
     },
     "tooltip_3": {
@@ -428,7 +452,7 @@
         "description": ""
     },
     "options_notifications_22": {
-        "message": "Jeżeli Twoja przeglądarka nie odtwarza dźwięku powiadomienia, spróbuj go przekonwertować do zwykłego formatu WAV przy pomocy narzędzi konwersji online.",
+        "message": "Jeżeli Twoja przeglądarka nie odtwarza własnego dźwięku powiadomienia, spróbuj go przetworzyć na format WAV przy pomocy narzędzi konwersji w sieci.",
         "description": ""
     },
     "options_tab_1": {
@@ -547,6 +571,10 @@
         "message": "(brak tematu)",
         "description": ""
     },
+    "msg_5": {
+        "message": "Wybierz plik z dźwiękiem audio",
+        "description": ""
+    },
     "popup_msg_2": {
         "message": "minutę temu",
         "description": ""
@@ -585,6 +613,10 @@
     },
     "options_toolbar_7": {
         "message": "Szerokość panelu paska narzędzi w trybie pełnej zawartości (piksele):",
+        "description": ""
+    },
+    "options_notifications_31": {
+        "message": "Własny dźwięk powiadomienia",
         "description": ""
     },
     "options_timings_l5": {
