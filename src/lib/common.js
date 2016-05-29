@@ -139,7 +139,6 @@ var icon = (function () {
 })();
 
 function play (arr) {
-  console.error(arr, arr.map(o => [o.id, o.link]));
   var filters = [0, 1, 2, 3, 4].map(function (index) {
     return {
       filter: config.notification.sound.media['custom' + index].filter,
@@ -161,7 +160,6 @@ function play (arr) {
     }
     if (obj.selector === 1) {
       return arr.reduce(function (p, c) {
-        console.error(c.title, obj.filter)
         return p || c.title.toLowerCase().indexOf(obj.filter.toLowerCase()) !== -1;
       }, false);
     }
