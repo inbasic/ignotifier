@@ -12,7 +12,7 @@
         "description": ""
     },
     "options_notifications_13": {
-        "message": "Отваряне на панела при щракване върху иконката в лентата на задачите (Само за Уиндоус, бета)",
+        "message": "Отваряне на панела при щракване върху иконката в лентата на задачите (Само за Уиндоус, в бета)",
         "description": ""
     },
     "options_notifications_30": {
@@ -20,7 +20,7 @@
         "description": ""
     },
     "settings_open_label": {
-        "message": "Open Options",
+        "message": "Отваряне на настройките",
         "description": ""
     },
     "options_timings_l7": {
@@ -44,7 +44,7 @@
         "description": ""
     },
     "options_gmail_10": {
-        "message": "Получаване на известия за следните етикети и акаунти:",
+        "message": "Получаване на известия за следните етикети и сметки:",
         "description": ""
     },
     "options_notifications_1": {
@@ -72,11 +72,11 @@
         "description": ""
     },
     "options_notifications_32": {
-        "message": "name or email contains",
+        "message": "името или писмото съдържа",
         "description": ""
     },
     "options_tab_6": {
-        "message": "Отваряне на Джимейл в нов прозорец",
+        "message": "Отваряне на пощата в нов прозорец",
         "description": ""
     },
     "options_notifications_25": {
@@ -140,11 +140,11 @@
         "description": ""
     },
     "options_misc_1": {
-        "message": "Сортиране на акаунтите по азбучен ред",
+        "message": "Подреждане на сметките по азбучен ред",
         "description": ""
     },
     "tooltip_1": {
-        "message": "Щракване с ляво копче: Отваряне на Джимейл или панела за предварителен преглед",
+        "message": "Щракване с ляво копче: Отваряне на пощата или панела за предварителен преглед",
         "description": ""
     },
     "notification": {
@@ -192,7 +192,7 @@
         "description": ""
     },
     "options_notifications_34": {
-        "message": "email summary contains",
+        "message": "обобщението на писмото съдържа",
         "description": ""
     },
     "label_14": {
@@ -204,7 +204,7 @@
         "description": ""
     },
     "options_misc_6": {
-        "message": "Без показване на известия на работния плот, които оповестяват, че сайта на Джимейл е вече отворен",
+        "message": "Без показване на известия на работния плот, които оповестяват, че сайта на пощата е вече отворен",
         "description": ""
     },
     "popup_read": {
@@ -216,7 +216,7 @@
         "description": ""
     },
     "settings_open_title": {
-        "message": "Open options (settings) page",
+        "message": "Отваряне на страницата с настройките",
         "description": ""
     },
     "label_2": {
@@ -232,7 +232,7 @@
         "description": ""
     },
     "options_tab_5": {
-        "message": "Отваряне на Джимейл в подпрозорец на заден план",
+        "message": "Отваряне на пощата в подпрозорец на заден план",
         "description": ""
     },
     "label_7": {
@@ -268,7 +268,7 @@
         "description": ""
     },
     "gmail": {
-        "message": "Известител за Джимейл",
+        "message": "Известител за пощата на Гугъл",
         "description": ""
     },
     "popup_msg_6": {
@@ -292,7 +292,7 @@
         "description": ""
     },
     "options_notifications_14": {
-        "message": "Тази функция е експериментална и може да направи разглеждача Файърфокс нестабилен. [Изисква се рестарт].",
+        "message": "Тази функция е експериментална и може да направи разглеждача Файърфокс нестабилен. [Изисква се повторно пускане].",
         "description": ""
     },
     "options_gmail_3": {
@@ -308,7 +308,7 @@
         "description": ""
     },
     "log_in_to_your_account": {
-        "message": "Моля, влезте в профила си в Джимейл",
+        "message": "Моля, влезте в профила си в пощата на Гугъл",
         "description": ""
     },
     "popup_of": {
@@ -316,7 +316,7 @@
         "description": ""
     },
     "options_notifications_15": {
-        "message": "Default sound notification is",
+        "message": "Звуковото известие по подразбиране е",
         "description": ""
     },
     "options_notifications_21": {
@@ -360,7 +360,7 @@
         "description": ""
     },
     "options_gmail": {
-        "message": "Джимейл:",
+        "message": "Поща на Гугъл:",
         "description": ""
     },
     "label_1": {
@@ -404,11 +404,11 @@
         "description": ""
     },
     "options_notifications_35": {
-        "message": "To select a new custom sound, select a built-in sound first and then change the option to custom sound",
+        "message": "За да изберете нов потребителски звук, първо изберете вграден звук и след това променете настройката на потребителски.",
         "description": ""
     },
     "msg_1": {
-        "message": "Подпрозорецът вече е отворен. Натиснете копчето на лентата, за да отворите Джимейл в нов подпрозорец или да преминете към вече отворен раздел.",
+        "message": "Подпрозорецът вече е отворен. Натиснете копчето на лентата, за да отворите пощата в нов подпрозорец или да преминете към вече отворен раздел.",
         "description": ""
     },
     "popup_refresh": {
@@ -428,7 +428,7 @@
         "description": ""
     },
     "options_notifications_33": {
-        "message": "email title contains",
+        "message": "заглавието на писмото съдържа",
         "description": ""
     },
     "tooltip_3": {
@@ -452,11 +452,11 @@
         "description": ""
     },
     "options_notifications_22": {
-        "message": "If your browser is not playing the custom notification sound, try to convert it into a plain WAV format using an online conversion tool.",
+        "message": "Ако четецът ви не възпроизвежда потребителския звук, опитайте се да го преобразувате във формат WAV.",
         "description": ""
     },
     "options_tab_1": {
-        "message": "Търсене за отворен акаунт само в активния прозорец",
+        "message": "Търсене за отворена сметка само в активния прозорец",
         "description": ""
     },
     "popup_msg_7_format": {
@@ -472,7 +472,7 @@
         "description": ""
     },
     "toolbar_label": {
-        "message": "Известител за Джимейл",
+        "message": "Известител за пощата на Гугъл",
         "description": ""
     },
     "popup_msg_1": {
@@ -516,7 +516,7 @@
         "description": ""
     },
     "options_toolbar_3": {
-        "message": "Отваряне на Джимейл ако се използва само един акаунт",
+        "message": "Отваряне на пощата ако се използва само една сметка",
         "description": ""
     },
     "options_gmail_7": {
@@ -540,7 +540,7 @@
         "description": ""
     },
     "tooltip_2": {
-        "message": "Щракване със средно копче (или Контрол + Ляво): Обновяване на всички акаунти",
+        "message": "Щракване със средно копче (или Контрол + Ляво): Обновяване на всички сметки",
         "description": ""
     },
     "options_notifications_29": {
@@ -548,7 +548,7 @@
         "description": ""
     },
     "options_tab_3": {
-        "message": "Отваряне на Джимейл до активния подпрозорец",
+        "message": "Отваряне на пощата до активния подпрозорец",
         "description": ""
     },
     "options_gmail_8": {
@@ -572,7 +572,7 @@
         "description": ""
     },
     "msg_5": {
-        "message": "Select an audio sound file",
+        "message": "Изберете звуков файл",
         "description": ""
     },
     "popup_msg_2": {
@@ -588,7 +588,7 @@
         "description": ""
     },
     "msg_4": {
-        "message": "Бележка: За да работи правилно известителя, трябва да сте влезли в акаунта си в Гугъл.",
+        "message": "Бележка: За да работи правилно известителя, трябва да сте влезли в профила си в Гугъл.",
         "description": ""
     },
     "popup_msg_20": {
@@ -604,7 +604,7 @@
         "description": ""
     },
     "options_tab_2": {
-        "message": "Без търсене в други прозорци за отворени акаунти. Ако Джимейл не е отворена в активния прозорец, да се отвори нов подпрозорец.",
+        "message": "Без търсене в други прозорци за отворени сметки. Ако пощата не е отворена в активния прозорец, да се отвори нов подпрозорец.",
         "description": ""
     },
     "label_11": {
@@ -616,7 +616,7 @@
         "description": ""
     },
     "options_notifications_31": {
-        "message": "Custom sound notification",
+        "message": "Звуково известие по избор",
         "description": ""
     },
     "options_timings_l5": {
@@ -652,7 +652,7 @@
         "description": ""
     },
     "options_inshort": {
-        "message": "Известител за няколко профила в Гугъл поща (Джимейл).",
+        "message": "Известител за няколко профила в пощата на Гугъл (Джимейл).",
         "description": ""
     },
     "options_misc_12": {
@@ -660,7 +660,7 @@
         "description": ""
     },
     "options_tab_4": {
-        "message": "Отваряне на Джимейл в активния подпрозорец",
+        "message": "Отваряне на пощата в активния подпрозорец",
         "description": ""
     },
     "popup_msg_3_format": {
@@ -672,7 +672,7 @@
         "description": ""
     },
     "description": {
-        "message": "Известител за няколко профила в Гугъл поща (Джимейл)",
+        "message": "Известител за няколко профила в пощата на Гугъл (Джимейл)",
         "description": ""
     },
     "popup_spam": {

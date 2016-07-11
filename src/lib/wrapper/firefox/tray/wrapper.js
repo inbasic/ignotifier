@@ -1,19 +1,28 @@
-var {Cc, Ci, Cu} = require('chrome'),
-    os           = require("sdk/system").platform,
-    config       = require('../../../config');
+'use strict';
 
-var tray = (function () {
-  if (os === "winnt") {
-    return require('./winnt/tray');
+var os = require('sdk/system').platform;
+
+exports.tray = (function () {
+  let callback = function () {};
+  let module;
+
+  if (os !== 'winnt' && os !== 'darwin') {
+    return {
+      set: function () {},
+      remove: function () {},
+      callback: function () {}
+    };
   }
-  if (os === "darwin") {
-    return require('./darwin/tray');
-  }
+
   return {
-    set: function () {},
-    remove: function () {},
-    callback: function () {}
+    set: (a, b) => {
+      if (!module) {
+        module = require('./' + os + '/tray');
+        module.callback(callback);
+      }
+      module.set(a, b);
+    },
+    remove: () => module ? module.remove() : null,
+    callback: (c) => callback = c
   };
 })();
-
-exports.tray = tray;

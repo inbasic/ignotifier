@@ -743,6 +743,9 @@ config.on('email.check.resetPeriod', function () {
     resetTimer.stop();
   }
 });
+config.on('email.check.period', function () {
+  repeater.fill(config.email.check.period * 1000);
+});
 config.on('email.openInboxOnOne', function () {
   var numberOfAccounts = checkEmails.getCached()
     .map(function (o) {

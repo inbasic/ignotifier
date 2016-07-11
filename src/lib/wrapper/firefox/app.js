@@ -18,6 +18,7 @@ var {Cc, Ci, Cu}  = require('chrome'),
     prefs = sp.prefs,
     unload = require('sdk/system/unload'),
     events = require('sdk/system/events'),
+    {all, defer, race, resolve, reject} = require('sdk/core/promise'),
     config = require('../../config'),
     tbExtra = require('./tbExtra'),
     windows = {
@@ -31,7 +32,7 @@ var {Cc, Ci, Cu}  = require('chrome'),
       },
     };
 
-Function.prototype.once = function () {
+Function.prototype.once = function () { //jshint ignore:line
   var original = this;
   var isItCalled = false;
   return function () {
@@ -42,13 +43,19 @@ Function.prototype.once = function () {
   };
 };
 
+exports.Promise = function (callback) {
+  let d = defer();
+  callback(d.resolve, d.reject);
+  return d.promise;
+};
+exports.Promise.defer = defer;
+exports.Promise.all = all;
+exports.Promise.race = race;
+exports.Promise.resolve = resolve;
+exports.Promise.reject = reject;
+
 var exportsHelper = {};
-
-var {Promise} = Cu.import('resource://gre/modules/Promise.jsm');
 var {XPCOMUtils} = Cu.import('resource://gre/modules/XPCOMUtils.jsm');
-
-var filePicker = Cc['@mozilla.org/filepicker;1'].createInstance(Ci.nsIFilePicker);
-var mimeService = Cc['@mozilla.org/mime;1'].getService(Ci.nsIMIMEService);
 
 // Event Emitter
 exports.on = on.bind(null, exports);
@@ -164,7 +171,7 @@ var popup = (function (options) {
 });
 /* option */
 var options = (function () {
-  var workers = [], options_arr = [];
+  let workers = [], options_arr = [];
   pageMod.PageMod({
     include: data.url('options/index.html'),
     contentScriptFile: [
@@ -191,6 +198,8 @@ var options = (function () {
         var browserWindow = Cc['@mozilla.org/appshell/window-mediator;1'].
                                 getService(Ci.nsIWindowMediator).
                                 getMostRecentWindow('navigator:browser');
+        var filePicker = Cc['@mozilla.org/filepicker;1'].createInstance(Ci.nsIFilePicker);
+        var mimeService = Cc['@mozilla.org/mime;1'].getService(Ci.nsIMIMEService);
         filePicker.init(browserWindow, l10n('msg_5'), Ci.nsIFilePicker.modeOpen);
         filePicker.appendFilters(Ci.nsIFilePicker.filterAll | Ci.nsIFilePicker.filterAudio);
         var rv = filePicker.show();
@@ -230,13 +239,13 @@ sp.on('settings_open', () => exports.emit('open-options'));
 function get (url, headers, data, timeout) {
   headers = headers || {};
 
-  var d = new Promise.defer();
-  var req = Cc['@mozilla.org/xmlextras/xmlhttprequest;1']
+  let d = defer();
+  let req = Cc['@mozilla.org/xmlextras/xmlhttprequest;1']
     .createInstance(Ci.nsIXMLHttpRequest);
   req.mozBackgroundRequest = true;  //No authentication
   req.timeout = timeout;
   req.open('GET', url, true);
-  for (var id in headers) {
+  for (let id in headers) {
     req.setRequestHeader(id, headers[id]);
   }
   req.onreadystatechange = function () {
@@ -248,7 +257,7 @@ function get (url, headers, data, timeout) {
     .QueryInterface(Ci.nsIHttpChannelInternal)
     .forceAllowThirdPartyCookie = true;
   if (data) {
-    var arr = [];
+    let arr = [];
     for (let e in data) {
       arr.push(e + '=' + data[e]);
     }
@@ -257,9 +266,6 @@ function get (url, headers, data, timeout) {
   req.send(data ? data : '');
   return d.promise;
 }
-
-/* exports */
-exports.Promise = Promise;
 
 exports.button = (function () {
   let populate = function () {
@@ -361,7 +367,6 @@ exports.button = (function () {
         button.badgeColor = config.ui.backgroundColor;
       }
       // populate the panel in background
-
       if (config.popup.populate) {
         populate();
       }
@@ -434,7 +439,7 @@ exports.windows = (function () {
         }
       },
       activate: () => tab.activate(),
-      window: () => Promise.resolve(toWindow(toWindow(tab.window))),
+      window: () => resolve(toWindow(toWindow(tab.window))),
       get active () {
         return tab === tabs.activeTab;
       },
@@ -445,7 +450,7 @@ exports.windows = (function () {
   }
   return {
     active: function () {
-      return Promise.resolve(toWindow(windows.active));
+      return resolve(toWindow(windows.active));
     },
     open: function (url, inBackground) {
       var popup = windows.active.open(url);
@@ -461,17 +466,17 @@ exports.windows = (function () {
         for each (var tab in tbs) {
           temp.push(tab);
         }
-        return Promise.resolve(temp.map(toTab));
+        return resolve(temp.map(toTab));
       },
       active: function () {
-        return Promise.resolve(toTab(tabs.activeTab));
+        return resolve(toTab(tabs.activeTab));
       },
       open: function (url, inBackground) {
         var gBrowser = windows.active.gBrowser;
         // use old blank tabs?
         (function () {
           if (config.tabs.open.relatedToCurrent || !config.tabs.open.useBlankTabs) {
-            return Promise.resolve(null);
+            return resolve(null);
           }
           return exports.windows.tabs.list(true).then(function (tabs) {
             return tabs.reduce(function (p, c) {

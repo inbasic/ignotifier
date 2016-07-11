@@ -12,8 +12,8 @@ app.once('load', function () {
 /* exports */
 if (!Promise.defer) {
   Promise.defer = function () {
-    let deferred = {};
-    let promise = new Promise(function (resolve, reject) {
+    var deferred = {};
+    var promise = new Promise(function (resolve, reject) {
       deferred.resolve = resolve;
       deferred.reject  = reject;
     });

@@ -182,10 +182,10 @@ config.email = (function () {
       get first () {
         var tmp = app.storage.read('initialPeriod');
         if (tmp === null) {
-          return 5;
+          return 10;
         }
         tmp = +tmp;
-        return isNaN(tmp) ? 5 : tmp;
+        return isNaN(tmp) ? 10 : tmp;
       },
       set first (val) {
         val = +val;
@@ -198,11 +198,12 @@ config.email = (function () {
         app.storage.write('initialPeriod', val);
       },
       get period () {
-        return +app.storage.read('period') || 15;
+        return +app.storage.read('period') || 60;
       },
       set period (val) {
         val = parseInt(val);
         app.storage.write('period', val > 10 ? val : 10);
+        config.on.emit('email.check.period');
       },
       get resetPeriod () {
         var tmp = +app.storage.read('resetPeriod');

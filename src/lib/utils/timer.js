@@ -1,10 +1,14 @@
+'use strict';
+
+var app = app || require('../wrapper/firefox/app');
+var timer;
+
 var isFirefox = typeof require !== 'undefined';
 if (isFirefox) {
-  app = require('../wrapper/firefox/app');
   timer = exports;
 }
 else {
-  var timer = {};
+  timer = {};
 }
 
 /** Repeater: Repeats a function infinity with an interval pattern
@@ -56,8 +60,8 @@ timer.repeater = function () {
     fill: function () {
       intervals = [].slice.call(arguments, 0);
     }
-  }
-}
+  };
+};
 
 timer.setTimeout = app.timer.setTimeout;
 timer.clearTimeout = app.timer.clearTimeout;
