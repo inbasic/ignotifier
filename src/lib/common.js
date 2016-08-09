@@ -516,7 +516,7 @@ var checkEmails = (function () {
                   // restore browser window first!
                   app.windows.active().then(function (win) {
                     win.focus();
-                    app.timer.setTimeout(actions.onCommand, 100, tmp.length ? tmp[0].link : null);
+                    app.timer.setTimeout(actions.onCommand, 1000, tmp.length ? tmp[0].link : null);
                   });
                 }, 100);
               });
