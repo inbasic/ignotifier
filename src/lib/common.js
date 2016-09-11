@@ -510,16 +510,14 @@ var checkEmails = (function () {
             app.popup.attach();
           }
           if (config.notification.show) {
-            report.forEach(function (r) {
-              app.notify(r, '', function () {
-                app.timer.setTimeout(function () {
-                  // restore browser window first!
-                  app.windows.active().then(function (win) {
-                    win.focus();
-                    app.timer.setTimeout(actions.onCommand, 1000, tmp.length ? tmp[0].link : null);
-                  });
-                }, 100);
-              });
+            app.notify(report, '', function () {
+              app.timer.setTimeout(function () {
+                // restore browser window first!
+                app.windows.active().then(function (win) {
+                  win.focus();
+                  app.timer.setTimeout(actions.onCommand, 1000, tmp.length ? tmp[0].link : null);
+                });
+              }, 100);
             });
           }
           if (config.tray.show) {

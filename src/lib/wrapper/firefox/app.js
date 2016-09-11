@@ -530,7 +530,10 @@ exports.notify = (function () {
     if (config.notification.silent) {
       return;
     }
-    stack.push({text, title, onClick});
+    if (!Array.isArray(text)) {
+      text = [text];
+    }
+    text.forEach(text => stack.push({text, title, onClick}));
     if (!wait) {
       doOne();
     }

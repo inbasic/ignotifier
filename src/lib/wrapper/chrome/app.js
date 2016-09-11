@@ -355,44 +355,38 @@ app.windows = (function () {
   };
 })();
 
-app.notify = function (text, title, callback) {
+app.notify = function (text, title) {
   title = title || app.l10n('gmail');
   if (config.notification.silent) {
     return;
   }
-
-  var notification,
-      icon = '../../../data/icons/notification/48.png';
-
-  if (typeof window.webkitNotifications === 'undefined' && typeof Notification === 'undefined') {
-    console.error('Notification dismissed', title, text);
-    return; //Opera
+  var isArray = Array.isArray(text);
+  if (isArray && text.length === 1) {
+    isArray = false;
+    text = text[0];
   }
 
-  if (window.webkitNotifications) {
-    notification = webkitNotifications.createNotification(icon, title, text);
-  }
-  else {
-    notification = new Notification(title, {
-      body: text,
-      icon: icon
-    });
-  }
-  notification.onclick = function () {
-    if (callback) {
-      callback();
-    }
-  };
-  window.setTimeout(function () {
-    if (notification) {
-      if (window.webkitNotifications) {
-        notification.cancel();
-      }
-      else {
-        notification.close();
-      }
-    }
-  }, config.notification.time * 1000);
+  chrome.notifications.create(null, {
+    type: isArray ? 'list' : 'basic',
+    iconUrl: '../../../data/icons/notification/48.png',
+    title: title,
+    message: isArray ? '' : text,
+    priority: 2,
+    eventTime: Date.now() + 30000,
+    items: isArray ? text.map(function (message) {
+      var tmp = message.split('\n');
+      return {
+        title: tmp[0].replace('From: ', ''),
+        message: tmp[1]
+      };
+    }): [],
+    isClickable: true,
+    requireInteraction: true
+  }, function (id) {
+    window.setTimeout(function (id) {
+      chrome.notifications.clear(id, function () {});
+    }, config.notification.time * 1000, id);
+  });
 };
 
 app.play = (function () {

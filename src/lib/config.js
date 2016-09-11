@@ -157,7 +157,7 @@ config.email = (function () {
       }
       app.storage.write('notificationTruncate', Math.max(val, 20));
     },
-    maxReport: 1, //Maximum number of simultaneous reports from a single account
+    maxReport: 3, //Maximum number of simultaneous reports from a single account
     get alphabetic () {
       return app.storage.read('alphabetic') === 'true' ? true : false;
     },
