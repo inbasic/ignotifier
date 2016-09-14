@@ -382,7 +382,7 @@
     "message": "Red color for \"No Unread\" and gray color for \"Disconnected\""
   },
   "options_misc_6": {
-    "message": "Do not show desktop notification to warn that Gmail website is already open"
+    "message": "Show desktop notification to warn that Gmail is already opened in the active tab"
   },
   "options_misc_7": {
     "message": "Show welcome page on upgrade"
