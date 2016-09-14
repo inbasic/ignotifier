@@ -22,7 +22,7 @@ function convert (input, outputs) {
               throw err;
             }
             else {
-              console.log('[done]', input + '/messages.json');
+              console.log('[done]', input + '/messages.json', 'src/locale/' + output + '.properties');
             }
           });
         });
@@ -50,7 +50,7 @@ fs.readdir('src/locale', function (err, files) {
     fs.unlinkSync(path.resolve('src/locale', file));
   });
   fs.readdir('src/_locales/', function (err, files) {
-    files.forEach(function (file) {
+    files.filter(f => !f.startsWith('.')).forEach(function (file) {
       convert (file, map(file));
     });
   });

@@ -20,7 +20,7 @@
         "description": ""
     },
     "settings_open_label": {
-        "message": "Open Options",
+        "message": "Открыть настройки",
         "description": ""
     },
     "options_timings_l7": {
@@ -72,7 +72,7 @@
         "description": ""
     },
     "options_notifications_32": {
-        "message": "name or email contains",
+        "message": "имя или адрес содержит",
         "description": ""
     },
     "options_tab_6": {
@@ -192,11 +192,11 @@
         "description": ""
     },
     "options_notifications_34": {
-        "message": "email summary contains",
+        "message": "краткая сводка сообщения содержит",
         "description": ""
     },
     "label_14": {
-        "message": "Logged-in accounts",
+        "message": "Авторизованные аккаунты",
         "description": ""
     },
     "options_misc_13": {
@@ -204,7 +204,7 @@
         "description": ""
     },
     "options_misc_6": {
-        "message": "Не показывать всплывающее уведомление о том, что вкладка Gmail уже открыта",
+        "message": "Показывать всплывающее уведомление о том, что Gmail уже открыт в активной вкладке",
         "description": ""
     },
     "popup_read": {
@@ -216,7 +216,7 @@
         "description": ""
     },
     "settings_open_title": {
-        "message": "Open options (settings) page",
+        "message": "Открыть страницу настроек",
         "description": ""
     },
     "label_2": {
@@ -267,6 +267,10 @@
         "message": "Открыть входящие",
         "description": ""
     },
+    "options_tab_9": {
+        "message": "Если активировано, аддон проверяет на наличие открытого уже Gmail и переключает фокус на него.",
+        "description": ""
+    },
     "gmail": {
         "message": "Оповещение для Gmail™",
         "description": ""
@@ -280,7 +284,7 @@
         "description": ""
     },
     "options_notifications_16": {
-        "message": "Звук оповещения по умолчанию",
+        "message": "По умолчанию",
         "description": ""
     },
     "options_misc_14": {
@@ -316,7 +320,7 @@
         "description": ""
     },
     "options_notifications_15": {
-        "message": "Default sound notification is",
+        "message": "Звук оповещений по умолчанию",
         "description": ""
     },
     "options_notifications_21": {
@@ -404,7 +408,7 @@
         "description": ""
     },
     "options_notifications_35": {
-        "message": "To select a new custom sound, select a built-in sound first and then change the option to custom sound",
+        "message": "Для выбора нового пользовательского звука сначала выберите встроенный звук, а затем измените опцию на пользовательский звук",
         "description": ""
     },
     "msg_1": {
@@ -428,7 +432,7 @@
         "description": ""
     },
     "options_notifications_33": {
-        "message": "email title contains",
+        "message": "заголовок сообщения содержит",
         "description": ""
     },
     "tooltip_3": {
@@ -452,7 +456,7 @@
         "description": ""
     },
     "options_notifications_22": {
-        "message": "If your browser is not playing the custom notification sound, try to convert it into a plain WAV format using an online conversion tool.",
+        "message": "Если ваш браузер не воспроизводит звук оповещения, попробуйте конвертировать файл в формат WAV с помощью онлайн инструментов.",
         "description": ""
     },
     "options_tab_1": {
@@ -516,7 +520,7 @@
         "description": ""
     },
     "options_toolbar_3": {
-        "message": "Открывать Gmail только если залогинен один аккаунт",
+        "message": "Открывать Gmail только если авторизован один аккаунт",
         "description": ""
     },
     "options_gmail_7": {
@@ -567,12 +571,16 @@
         "message": "Всплывающие уведомления и звуковое оповещение только для сообщений, полученных менее чем (в минутах):",
         "description": ""
     },
+    "options_tab_8": {
+        "message": "Игнорировать открытые с Gmail вкладки",
+        "description": ""
+    },
     "popup_no_subject": {
         "message": "(без темы)",
         "description": ""
     },
     "msg_5": {
-        "message": "Select an audio sound file",
+        "message": "Выберите звуковой файл",
         "description": ""
     },
     "popup_msg_2": {
@@ -616,7 +624,7 @@
         "description": ""
     },
     "options_notifications_31": {
-        "message": "Custom sound notification",
+        "message": "Пользовательское звуковое оповещение",
         "description": ""
     },
     "options_timings_l5": {
@@ -668,7 +676,7 @@
         "description": ""
     },
     "label_12": {
-        "message": "Open FAQs",
+        "message": "Открыть FAQ",
         "description": ""
     },
     "description": {
