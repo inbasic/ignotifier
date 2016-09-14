@@ -215,6 +215,9 @@ function open (url, inBackground, refresh) {
 
   app.windows.active()
     .then(function () {
+      if (config.tabs.ignoreOpens) {
+        return [];
+      }
       var tabs = [];
       try { // http://add0n.com/gmail-notifier.html#comment-2622018574
         tabs = app.windows.tabs.list(config.tabs.search);

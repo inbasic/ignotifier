@@ -681,6 +681,12 @@ config.tabs = {
   set search (val) {
     app.storage.write('searchMode', val);
   },
+  get ignoreOpens () { // true: ignore opened Gmail tabs
+    return app.storage.read('ignoreOpens') === 'true' ? true : false;
+  },
+  set ignoreOpens (val) {
+    app.storage.write('ignoreOpens', val);
+  },
   get NotifyGmailIsOpen () {
     return app.storage.read('onGmailNotification') === 'false' ? false : true;
   },
