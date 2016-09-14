@@ -428,34 +428,23 @@ function opener (e) {
   e.preventDefault();
   e.stopPropagation();
   var target = e.originalTarget || e.target;
-  var selectedText = target.ownerDocument.getSelection() + '';
 
-  var link = target.href || target.src;
-
-  if (target.localName != "a" && target.parentNode && target.parentNode.localName == "a") {
-    link = target.parentNode.href || link;
-  }
+  var link = target.href || target.src || target.closest('a').href;
 
   if (link) {
-    if (e.button === 2) {
-      background.send("clipboard", {
-        str: link,
-        type: 0
-      });
-    }
-    else {
-      background.send("open", link);
-    }
-  }
-  else if (e.button === 2 && selectedText) {
-    background.send("clipboard", {
-      str: selectedText,
-      type: 1
+    background.send("open", {
+      link: link,
+      button: e.button,
+      ctrlKey: e.ctrlKey,
+      shiftKey: e.shiftKey,
+      altKey: e.altKey,
+      metaKey: e.metaKey
     });
   }
 }
 window.addEventListener("click", opener);
 qs("iframe").contentDocument.addEventListener("click", opener);
+
 function keyup (e) {
   if (!keyup.doKeyUp) return;
 

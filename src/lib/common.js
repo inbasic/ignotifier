@@ -596,15 +596,21 @@ app.popup.receive('show', function () {
     app.popup.send('update-reset', objs);
   }
 });
-app.popup.receive('open', function (link) {
-  app.popup.hide();
-  if (link) {
-    open(link);
+app.popup.receive('open', function (obj) {
+  // context menu
+  if (obj.button === 2 || !obj.link) {
+    return;
   }
-});
-app.popup.receive('clipboard', function (o) {
-  app.clipboard(o.str);
-  app.notify(app.l10n(o.type ? 'msg_3' : 'msg_2'));
+  else if (obj.button === 0 && (obj.ctrlKey || obj.metaKey)) {
+    open(obj.link, true);
+  }
+  else if (obj.button === 1) {
+    open(obj.link, true);
+  }
+  else {
+    open(obj.link);
+    app.popup.hide();
+  }
 });
 app.popup.receive('update', function () {
   repeater.reset(true);

@@ -130,6 +130,7 @@ var popup = (function (options) {
     }
   };
 })({
+  contextMenu: true,
   contentURL: data.url('./popup/index.html'),
   contentScriptFile: [
     data.url('./popup/firefox/firefox.js'),
@@ -578,19 +579,6 @@ XPCOMUtils.defineLazyGetter(exportsHelper, 'play', function () {
 Object.defineProperty(exports, 'play', {
   get: function () {
     return exportsHelper.play;
-  }
-});
-
-XPCOMUtils.defineLazyGetter(exportsHelper, 'clipboard', function () {
-  var clipboardHelper = Cc['@mozilla.org/widget/clipboardhelper;1']
-    .getService(Ci.nsIClipboardHelper);
-  return function (str) {
-    clipboardHelper.copyString(str);
-  };
-});
-Object.defineProperty(exports, 'clipboard', {
-  get: function () {
-    return exportsHelper.clipboard;
   }
 });
 

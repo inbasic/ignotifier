@@ -409,8 +409,6 @@ app.play = (function () {
   };
 })();
 
-app.clipboard = function () {};
-
 app.version = function () {
   return chrome[chrome.runtime && chrome.runtime.getManifest ? 'runtime' : 'extension'].getManifest().version;
 };
