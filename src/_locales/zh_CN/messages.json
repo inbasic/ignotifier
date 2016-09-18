@@ -204,7 +204,7 @@
         "description": ""
     },
     "options_misc_6": {
-        "message": "不在 Gmail 网站已经打开时显示桌面通知",
+        "message": "Show desktop notification to warn that Gmail is already opened in the active tab",
         "description": ""
     },
     "popup_read": {
@@ -265,6 +265,10 @@
     },
     "popup_open_inbox": {
         "message": "打开收件箱",
+        "description": ""
+    },
+    "options_tab_9": {
+        "message": "When unchecked, Gmail Notifier checks either active window or all open windows for open instance of Gmail and switch to the tab when tab opening is requested.",
         "description": ""
     },
     "gmail": {
@@ -565,6 +569,10 @@
     },
     "options_misc_10": {
         "message": "仅在邮件抵达未超过x分钟时发出桌面和声音通知：",
+        "description": ""
+    },
+    "options_tab_8": {
+        "message": "Ignore opened Gmail tabs",
         "description": ""
     },
     "popup_no_subject": {

@@ -204,11 +204,11 @@
         "description": ""
     },
     "options_misc_6": {
-        "message": "Ne jelenítse meg a már megnyitott Gmail weboldal miatti értesítést.",
+        "message": "Asztali figyelmeztetés megjelenítése, hogy Gmail már az aktív fülön nyitva van  ",
         "description": ""
     },
     "popup_read": {
-        "message": "Megjelölés olvasottként",
+        "message": "Megj. olvasottként",
         "description": ""
     },
     "options_notifications_4": {
@@ -265,6 +265,10 @@
     },
     "popup_open_inbox": {
         "message": "Beérkező levelek megnyitása",
+        "description": ""
+    },
+    "options_tab_9": {
+        "message": "Amikor nincs bepipálva, Gmail értesítő az összes megnyitott ablakot (az aktívat is) ellenőrzi nyitva lévő Gmail példányért és átvált a lapra, amikor lapnyitási kérelmet kap.    ",
         "description": ""
     },
     "gmail": {
@@ -565,6 +569,10 @@
     },
     "options_misc_10": {
         "message": "Csak asztali- és hangértesítés jelezzen amikor levél érkezett kevesebb, mint ennyi percen belül:",
+        "description": ""
+    },
+    "options_tab_8": {
+        "message": "Már nyitva lévő Gmail lapok figyelmen kívül hagyása",
         "description": ""
     },
     "popup_no_subject": {

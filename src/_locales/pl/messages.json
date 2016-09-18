@@ -204,7 +204,7 @@
         "description": ""
     },
     "options_misc_6": {
-        "message": "Nie pokazuj powiadomień na pulpicie, jeśli strona Gmail jest już otworzona",
+        "message": "Pokazuj powiadomienia na pulpicie, aby powiadomić, że Gmail jest już otwarty w aktywnej karcie",
         "description": ""
     },
     "popup_read": {
@@ -265,6 +265,10 @@
     },
     "popup_open_inbox": {
         "message": "Otwórz skrzynkę",
+        "description": ""
+    },
+    "options_tab_9": {
+        "message": "Jeżeli odznaczono, Powiadomienia Gmail sprawdzą wszystkie otwarte okna w poszukiwaniu karty z otwartym Gmail'em, a następnie otworzy ją na żądanie.",
         "description": ""
     },
     "gmail": {
@@ -565,6 +569,10 @@
     },
     "options_misc_10": {
         "message": "Uruchom powiadomienia na pulpicie oraz dźwiękowe, gdy e-mail został otrzymany poniżej (minut):",
+        "description": ""
+    },
+    "options_tab_8": {
+        "message": "Ignoruj otwarte karty Gmail'a",
         "description": ""
     },
     "popup_no_subject": {

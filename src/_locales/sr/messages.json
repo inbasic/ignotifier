@@ -204,11 +204,11 @@
         "description": ""
     },
     "options_misc_6": {
-        "message": "Не приказуј десктоп обавештења као упозорење да је Gmail веб сајт већ отворен",
+        "message": "Прикажи десктоп обавештење као упозорење да је Gmail већ отворен у активној картици",
         "description": ""
     },
     "popup_read": {
-        "message": "Означи прочитано",
+        "message": "Озн. као прочитано",
         "description": ""
     },
     "options_notifications_4": {
@@ -265,6 +265,10 @@
     },
     "popup_open_inbox": {
         "message": "Отвори Примљене",
+        "description": ""
+    },
+    "options_tab_9": {
+        "message": "Када је отчекирано, Gmail Notifier проверава у активном или свим отвореним прозорима да ли има отворених Gmail инстанци и пребацује на картицу када је отварање картице захтевано.",
         "description": ""
     },
     "gmail": {
@@ -565,6 +569,10 @@
     },
     "options_misc_10": {
         "message": "Покрени десктоп и звучна обавештења само за пошту пристиглу у последњих (у минутима): ",
+        "description": ""
+    },
+    "options_tab_8": {
+        "message": "Занемари отворене Gmail картице",
         "description": ""
     },
     "popup_no_subject": {

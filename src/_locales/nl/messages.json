@@ -204,7 +204,7 @@
         "description": ""
     },
     "options_misc_6": {
-        "message": "Geen bureaubladmeldingen weergeven om te waarschuwen dat de Gmail-website al geopend is",
+        "message": "Bureaubladmeldingen weergeven als waarschuwing wanneer Gmail al geopend is op het actieve tabblad",
         "description": ""
     },
     "popup_read": {
@@ -265,6 +265,10 @@
     },
     "popup_open_inbox": {
         "message": "Postvak IN openen",
+        "description": ""
+    },
+    "options_tab_9": {
+        "message": "Als dit niet is aangevinkt zal Gmail Notifier óf het actieve venster controleren óf alle geopende vensters of Gmail al geopend is. Daarna zal naar het actieve tabblad worden overgeschakeld als dat is aangevraagd.",
         "description": ""
     },
     "gmail": {
@@ -565,6 +569,10 @@
     },
     "options_misc_10": {
         "message": "Alleen bureaublad- en geluidsmeldingen weergeven wanneer een e-mail binnen is ontvangen in minder dan (in minuten):",
+        "description": ""
+    },
+    "options_tab_8": {
+        "message": "Geopende Gmail-tabbladen negeren",
         "description": ""
     },
     "popup_no_subject": {

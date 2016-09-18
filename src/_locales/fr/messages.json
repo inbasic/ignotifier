@@ -204,7 +204,7 @@
         "description": ""
     },
     "options_misc_6": {
-        "message": "Ne pas afficher de notification de bureau pour avertir que le site web Gmail est déjà ouvert",
+        "message": "Show desktop notification to warn that Gmail is already opened in the active tab",
         "description": ""
     },
     "popup_read": {
@@ -265,6 +265,10 @@
     },
     "popup_open_inbox": {
         "message": "Ouvrir la boîte de réception",
+        "description": ""
+    },
+    "options_tab_9": {
+        "message": "When unchecked, Gmail Notifier checks either active window or all open windows for open instance of Gmail and switch to the tab when tab opening is requested.",
         "description": ""
     },
     "gmail": {
@@ -565,6 +569,10 @@
     },
     "options_misc_10": {
         "message": "Déclencher uniquement les notifications sonores et de bureau quand un e-mail est arrivé depuis moins de (en minutes) :",
+        "description": ""
+    },
+    "options_tab_8": {
+        "message": "Ignore opened Gmail tabs",
         "description": ""
     },
     "popup_no_subject": {

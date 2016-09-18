@@ -204,7 +204,7 @@
         "description": ""
     },
     "options_misc_6": {
-        "message": "Να μην εμφανίζεται ειδοποίηση στην επιφάνεια εργασίας για να προειδοποιήσει ότι η ιστοσελίδα του Gmail είναι ήδη ανοικτή",
+        "message": "Show desktop notification to warn that Gmail is already opened in the active tab",
         "description": ""
     },
     "popup_read": {
@@ -265,6 +265,10 @@
     },
     "popup_open_inbox": {
         "message": "Ανοίξτε το φάκελο εισερχομένων",
+        "description": ""
+    },
+    "options_tab_9": {
+        "message": "When unchecked, Gmail Notifier checks either active window or all open windows for open instance of Gmail and switch to the tab when tab opening is requested.",
         "description": ""
     },
     "gmail": {
@@ -565,6 +569,10 @@
     },
     "options_misc_10": {
         "message": "Μόνο εμφάνιση στην επιφάνεια εργασίας και ηχητικές ειδοποιήσεις, όταν το ηλεκτρονικό ταχυδρομείου έχει φτάσει σε λιγότερο από (σε λεπτά):",
+        "description": ""
+    },
+    "options_tab_8": {
+        "message": "Ignore opened Gmail tabs",
         "description": ""
     },
     "popup_no_subject": {
