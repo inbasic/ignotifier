@@ -376,8 +376,8 @@ app.notify = function (text, title) {
     items: isArray ? text.map(function (message) {
       var tmp = message.split('\n');
       return {
-        title: tmp[0].replace('From: ', ''),
-        message: tmp[1]
+        title: tmp[1].replace('Title: ', ''),
+        message: tmp[0].replace('From: ', '')
       };
     }): [],
     isClickable: true,
