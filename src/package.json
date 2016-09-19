@@ -4,7 +4,7 @@
   "description": "Multiple label and account notifier for Google Mail (Gmail)",
   "id": "jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack",
   "license": "mozilla public license 1.1",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "author": "InBasic",
   "contributors": [
     "CaTz",
@@ -12,7 +12,7 @@
   ],
   "lib": "lib",
   "main": "./lib/common.js",
-  "url": "http://firefox.add0n.com/gmail-notifier.html",
+  "url": "http://add0n.com/gmail-notifier.html",
   "permissions": {
     "private-browsing": true,
     "unsafe-content-script": true,

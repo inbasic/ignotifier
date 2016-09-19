@@ -598,7 +598,10 @@ app.popup.receive('show', function () {
 });
 app.popup.receive('open', function (obj) {
   // context menu
-  if (obj.button === 2 || !obj.link) {
+  if (typeof obj === 'string') {
+    open(obj);
+  }
+  else if (obj.button === 2 || !obj.link) {
     return;
   }
   else if (obj.button === 0 && (obj.ctrlKey || obj.metaKey)) {
