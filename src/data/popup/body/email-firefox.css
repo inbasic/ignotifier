@@ -7,7 +7,9 @@ table {
 body, td {
   font-family: arial,sans-serif;
   font-size: 12px;
-  /* support black themes; #139 */
+}
+/* support black themes; #139 */
+html, body, td {
   background-color: #fff;
 }
 a {
