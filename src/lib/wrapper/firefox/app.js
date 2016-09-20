@@ -32,6 +32,8 @@ var {Cc, Ci, Cu}  = require('chrome'),
       },
     };
 
+var userActions = [];
+
 Function.prototype.once = function () { //jshint ignore:line
   var original = this;
   var isItCalled = false;
@@ -54,8 +56,15 @@ exports.Promise.race = race;
 exports.Promise.resolve = resolve;
 exports.Promise.reject = reject;
 
+exports.actions = function (callback) {
+  userActions.push(callback);
+};
+
 var exportsHelper = {};
 var {XPCOMUtils} = Cu.import('resource://gre/modules/XPCOMUtils.jsm');
+
+XPCOMUtils.defineLazyModuleGetter(exportsHelper, 'FileUtils', 'resource://gre/modules/FileUtils.jsm');
+XPCOMUtils.defineLazyModuleGetter(exportsHelper, 'Services', 'resource://gre/modules/Services.jsm');
 
 // Event Emitter
 exports.on = on.bind(null, exports);
@@ -118,6 +127,7 @@ var popup = (function (options) {
     },
     show: (options) => {
       popup.init().show(options);
+      userActions.forEach(c => c());
     },
     hide: () => panel ? panel.hide() : null,
     resize: (width, height) => panel.resize(width, height),
@@ -519,7 +529,12 @@ exports.notify = (function () {
     notifications.notify({
       title: obj.title || l10n('gmail'),
       text: obj.text,
-      onClick: obj.onClick,
+      onClick: function () {
+        if (obj.onClick) {
+          obj.onClick();
+        }
+        userActions.forEach(c => c());
+      },
       iconURL: data.url('./icons/red/128.png')
     });
     timer.setTimeout(function () {
@@ -541,46 +556,56 @@ exports.notify = (function () {
   };
 })();
 
-XPCOMUtils.defineLazyGetter(exportsHelper, 'play', function () {
-  let {FileUtils} = Cu.import('resource://gre/modules/FileUtils.jsm');
-  let {Services} = Cu.import('resource://gre/modules/Services.jsm');
 
-  return function (index) {
-    if (config.notification.silent) {
-      return;
-    }
-    let type = index === null ? config.notification.sound.media.default.type : config.notification.sound.media['custom' + index].type;
-    let path = '../../data/sounds/' + type + '.wav';
-    let cPath;
-    if (type === 4) {
-      cPath = index === null ? config.notification.sound.media.default.file : config.notification.sound.media['custom' + index].file;
-      let file = new FileUtils.File(cPath);
-      if (file.exists()) {
-        let res = Services.io.getProtocolHandler('resource').QueryInterface(Ci.nsIResProtocolHandler);
-        let name = 'igsound';
-        res.setSubstitution(name, Services.io.newURI(Services.io.newFileURI(file).spec, null, null));
-        path = 'resource://' + name;
+exports.sound = (function () {
+  var worker;
+
+  return {
+    play: function (index) {
+      if (config.notification.silent) {
+        return;
       }
+      let type = index === null ? config.notification.sound.media.default.type : config.notification.sound.media['custom' + index].type;
+      let path = '../../data/sounds/' + type + '.wav';
+      let cPath;
+      if (type === 4) {
+        cPath = index === null ? config.notification.sound.media.default.file : config.notification.sound.media['custom' + index].file;
+        let file = new exportsHelper.FileUtils.File(cPath);
+        if (file.exists()) {
+          let res = exportsHelper.Services.io.getProtocolHandler('resource').QueryInterface(Ci.nsIResProtocolHandler);
+          let name = 'igsound';
+          res.setSubstitution(name, exportsHelper.Services.io.newURI(exportsHelper.Services.io.newFileURI(file).spec, null, null));
+          path = 'resource://' + name;
+        }
+      }
+      exports.sound.stop();
+      worker = pageWorker.Page({
+        contentScript: `
+          var audio = new Audio("${path}");
+          audio.addEventListener('ended', function () {
+            self.postMessage();
+            console.error(111);
+          });
+          audio.volume = ${(config.notification.sound.volume / 100)};
+          audio.play();
+          self.on('message', () => {
+            audio.pause();
+            audio.currentTime = 0;
+          });
+        `,
+        contentURL: data.url('firefox/sound.html'),
+        onMessage: () => worker.destroy()
+      });
+    },
+    stop: function () {
+      try {
+        worker.postMessage();
+        worker.destroy();
+      }
+      catch (e) {}
     }
-    let worker = pageWorker.Page({
-      contentScript: `
-        var audio = new Audio("${path}");
-        audio.addEventListener('ended', function () {
-          self.postMessage()
-        });
-        audio.volume = ${(config.notification.sound.volume / 100)};
-        audio.play();
-      `,
-      contentURL: data.url('firefox/sound.html'),
-      onMessage: () => worker.destroy()
-    });
   };
-});
-Object.defineProperty(exports, 'play', {
-  get: function () {
-    return exportsHelper.play;
-  }
-});
+})();
 
 exports.version = () => self.version;
 

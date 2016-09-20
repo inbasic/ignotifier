@@ -2,6 +2,7 @@
 'use strict';
 
 var app = new EventEmitter();
+var userActions = [];
 
 app.once('load', function () {
   var script = document.createElement('script');
@@ -22,6 +23,16 @@ if (!Promise.defer) {
   };
 }
 app.Promise = Promise;
+
+app.actions = function (callback) {
+  userActions.push(callback);
+};
+chrome.notifications.onClicked.addListener(function (id) {
+  chrome.notifications.clear(id, function () {});
+  userActions.forEach(function (callback) {
+    callback();
+  });
+});
 
 app.button = (function () {
   var callback;
@@ -389,23 +400,29 @@ app.notify = function (text, title) {
   });
 };
 
-app.play = (function () {
+app.sound = (function () {
   var audio = document.createElement('audio');
   audio.setAttribute('preload', 'auto');
   audio.setAttribute('autobuffer', 'true');
 
-  return function (index) {
-    if (config.notification.silent) {
-      return;
+  return {
+    play: function (index) {
+      if (config.notification.silent) {
+        return;
+      }
+      var type = index === null ? config.notification.sound.media.default.type : config.notification.sound.media['custom' + index].type;
+      var path = '../../../data/sounds/' + type + '.wav';
+      if (type === 4) {
+        path = index === null ? config.notification.sound.media.default.file : config.notification.sound.media['custom' + index].file;
+      }
+      audio.src = path;
+      audio.volume = config.notification.sound.volume / 100;
+      audio.play();
+    },
+    stop: function () {
+      audio.pause();
+      audio.currentTime = 0;
     }
-    var type = index === null ? config.notification.sound.media.default.type : config.notification.sound.media['custom' + index].type;
-    var path = '../../../data/sounds/' + type + '.wav';
-    if (type === 4) {
-      path = index === null ? config.notification.sound.media.default.file : config.notification.sound.media['custom' + index].file;
-    }
-    audio.src = path;
-    audio.volume = config.notification.sound.volume / 100;
-    audio.play();
   };
 })();
 

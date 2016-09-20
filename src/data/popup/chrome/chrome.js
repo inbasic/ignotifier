@@ -32,3 +32,7 @@ var manifest = {
     elem.textContent = chrome.i18n.getMessage(elem.getAttribute('data-l10n-id'));
   });
 })(document.querySelectorAll('*[data-l10n-id]'));
+
+chrome.extension.getBackgroundPage().userActions.forEach(function (callback) {
+  callback();
+});

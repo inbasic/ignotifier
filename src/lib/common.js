@@ -12,6 +12,11 @@ if (isFirefox) {
   var tab = require('./utils/tab');
 }
 
+// disable sound on a user action
+app.actions(function () {
+  app.sound.stop();
+});
+
 // add a repeater to check all accounts
 var repeater = new timer.repeater(
   (config.email.check.first ? config.email.check.first : 5) * 1000,
@@ -170,7 +175,7 @@ function play (arr) {
     }
     return false;
   });
-  app.play(filters.length ? filters[0].index : null);
+  app.sound.play(filters.length ? filters[0].index : null);
 }
 
 function open (url, inBackground, refresh) {
