@@ -381,7 +381,7 @@ exports.notify = (function () {
     }
     wait = true;
     let obj = stack.shift();
-    let notifications = require('sdk/notifications'),
+    let notifications = require('sdk/notifications');
     notifications.notify({
       title: obj.title || l10n('gmail'),
       text: obj.text,
