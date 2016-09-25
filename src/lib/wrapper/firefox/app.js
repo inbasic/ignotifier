@@ -371,7 +371,7 @@ exports.windows = (function () {
 })();
 
 exports.notify = (function () {
-  let stack = [], wait = false;
+  let stack = [], wait = false, notifications;
   function doOne () {
     if (wait) {
       return;
@@ -381,7 +381,7 @@ exports.notify = (function () {
     }
     wait = true;
     let obj = stack.shift();
-    let notifications = require('sdk/notifications');
+    notifications = notifications || require('sdk/notifications');
     notifications.notify({
       title: obj.title || l10n('gmail'),
       text: obj.text,
