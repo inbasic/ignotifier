@@ -9,7 +9,6 @@ var {Cc, Ci, Cu}  = require('chrome'),
     array = require('sdk/util/array'),
     data = self.data,
     panel = require('sdk/panel'),
-    notifications = require('sdk/notifications'),
     l10n = require('sdk/l10n').get,
     timer = require('sdk/timers'),
     pageWorker = require('sdk/page-worker'),
@@ -372,7 +371,7 @@ exports.windows = (function () {
 })();
 
 exports.notify = (function () {
-  let stack = [], wait = false;
+  let stack = [], wait = false, notifications;
   function doOne () {
     if (wait) {
       return;
@@ -382,6 +381,7 @@ exports.notify = (function () {
     }
     wait = true;
     let obj = stack.shift();
+    notifications = notifications || require('sdk/notifications');
     notifications.notify({
       title: obj.title || l10n('gmail'),
       text: obj.text,
