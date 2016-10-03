@@ -12,7 +12,7 @@ var {Cc, Ci, Cu}  = require('chrome'),
     unload        = require('sdk/system/unload'),
     oscpu         = Cc['@mozilla.org/network/protocol;1?name=http']
       .getService(Ci.nsIHttpProtocolHandler).oscpu,
-    version       = parseInt((/\d\.\d/.exec(oscpu) || ['0'])[0].replace('.', '')), // Windows Version
+    version       = parseInt((/\d+\.\d+/.exec(oscpu) || ['0'])[0].replace('.', '')), // Windows Version
     config        = require('../../../../config');
 
 var exportsHelper = {};
