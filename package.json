@@ -3,9 +3,21 @@
   "name" : "ignotifier",
   "version" : "0.2.6",
   "dependencies" :
-    { 
-      "cli-color": "0.2",
-      "commander": "1.1",
-      "glob": "4.0.6"
+    {
+      "cli-color": "*",
+      "commander": "*",
+      "gulp": "*",
+      "gulp-change": "*",
+      "gulp-babel": "*",
+      "babel-preset-es2015": "*",
+      "gulp-if": "*",
+      "gulp-filter": "*",
+      "gulp-shell": "*",
+      "gulp-wait": "*",
+      "gulp-clean": "*",
+      "gulp-zip": "*",
+      "gulp-rename": "*",
+      "run-sequence": "*",
+      "jpm": "*",
     }
 }
