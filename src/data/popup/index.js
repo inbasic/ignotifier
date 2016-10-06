@@ -429,7 +429,7 @@ function opener (e) {
   e.stopPropagation();
   var target = e.originalTarget || e.target;
 
-  var link = target.href || target.src || target.closest('a').href;
+  var link = target.closest('a').href || target.src || target.href;
 
   if (link) {
     background.send("open", {

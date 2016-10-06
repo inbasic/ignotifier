@@ -711,11 +711,9 @@ app.startup(function () {
         '?type=' + (config.welcome.version ? 'upgrade' : 'install') +
         (config.welcome.version ? '&p=' + config.welcome.version : '') +
         '&v=' + app.version();
-      app.timer.setTimeout(function () {
-        open(url, false);
-      }, config.welcome.time);
+      config.welcome.version = app.version();
+      app.timer.setTimeout(open, config.welcome.time, url, false);
     }
-    config.welcome.version = app.version();
   }
 });
 if (!config.welcome.version) {
