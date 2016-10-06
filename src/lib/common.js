@@ -519,13 +519,18 @@ var checkEmails = (function () {
           }
           if (config.notification.show) {
             app.notify(report, '', function () {
-              app.timer.setTimeout(function () {
-                // restore browser window first!
-                app.windows.active().then(function (win) {
-                  win.focus();
-                  app.timer.setTimeout(actions.onCommand, 1000, tmp.length ? tmp[0].link : null);
-                });
-              }, 100);
+              if (isFirefox) {
+                app.timer.setTimeout(function () {
+                  // restore browser window first!
+                  app.windows.active().then(function (win) {
+                    win.focus();
+                    app.timer.setTimeout(actions.onCommand, 1000, tmp.length ? tmp[0].link : null);
+                  });
+                }, 100);
+              }
+              else {
+                open('https://mail.google.com/');
+              }
             });
           }
           if (config.tray.show) {

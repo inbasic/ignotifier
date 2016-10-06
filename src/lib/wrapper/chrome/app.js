@@ -1,4 +1,4 @@
-/* globals config, chrome, webkitNotifications */
+/* globals config, chrome */
 'use strict';
 
 var app = new EventEmitter();
@@ -32,6 +32,10 @@ chrome.notifications.onClicked.addListener(function (id) {
   userActions.forEach(function (callback) {
     callback();
   });
+  console.error(app.notify[id], id)
+  if (app.notify[id]) {
+    app.notify[id]();
+  }
 });
 
 app.button = (function () {
@@ -366,7 +370,7 @@ app.windows = (function () {
   };
 })();
 
-app.notify = function (text, title) {
+app.notify = function (text, title, callback) {
   title = title || app.l10n('gmail');
   if (config.notification.silent) {
     return;
@@ -394,7 +398,9 @@ app.notify = function (text, title) {
     isClickable: true,
     requireInteraction: true
   }, function (id) {
+    app.notify[id] = callback;
     window.setTimeout(function (id) {
+      app.notify[id] = null;
       chrome.notifications.clear(id, function () {});
     }, config.notification.time * 1000, id);
   });
