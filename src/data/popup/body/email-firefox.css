@@ -9,7 +9,7 @@ body, td {
   font-size: 12px;
 }
 /* support black themes; #139 */
-html, body, td {
+html, body {
   background-color: #fff;
 }
 a {
