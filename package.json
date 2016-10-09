@@ -18,6 +18,6 @@
       "gulp-zip": "*",
       "gulp-rename": "*",
       "run-sequence": "*",
-      "jpm": "*",
+      "jpm": "*"
     }
 }
