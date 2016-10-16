@@ -529,12 +529,16 @@ app.contentScript = (function () {
   };
 })();
 /* updating badge when action is posted */
-chrome.webRequest.onHeadersReceived.addListener(
+chrome.webRequest.onCompleted.addListener(
   function (info) {
-    if (info.url.indexOf('act=') !== -1) {
+    if (info.type === 'main_frame' || info.url.indexOf('act=') !== -1) {
       app.emit('update');
     }
   },
   {urls: ['https://mail.google.com/mail/u*']},
-  ['responseHeaders']
+  []
 );
+
+app.isPrivate = function () {
+  return false;
+};

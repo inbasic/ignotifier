@@ -16,6 +16,7 @@ var {Cc, Ci, Cu}  = require('chrome'),
     sp = require('sdk/simple-prefs'),
     prefs = sp.prefs,
     unload = require('sdk/system/unload'),
+    pbrowsing =require('sdk/private-browsing'),
     events = require('sdk/system/events'),
     {all, defer, race, resolve, reject} = require('sdk/core/promise'),
     config = require('../../config'),
@@ -60,10 +61,12 @@ exports.actions = function (callback) {
 };
 
 var exportsHelper = {};
-var {XPCOMUtils} = Cu.import('resource://gre/modules/XPCOMUtils.jsm');
+var {XPCOMUtils} = require('resource://gre/modules/XPCOMUtils.jsm');
 
 XPCOMUtils.defineLazyModuleGetter(exportsHelper, 'FileUtils', 'resource://gre/modules/FileUtils.jsm');
 XPCOMUtils.defineLazyModuleGetter(exportsHelper, 'Services', 'resource://gre/modules/Services.jsm');
+XPCOMUtils.defineLazyModuleGetter(exportsHelper, 'WebRequest', 'resource://gre/modules/WebRequest.jsm');
+XPCOMUtils.defineLazyModuleGetter(exportsHelper, 'MatchPattern', 'resource://gre/modules/MatchPattern.jsm');
 
 // Event Emitter
 exports.on = on.bind(null, exports);
@@ -246,12 +249,13 @@ var options = (function () {
 })();
 sp.on('settings_open', () => exports.emit('open-options'));
 
-function get (url, headers, data, timeout) {
+function get (url, headers, data, timeout, isPrivate) {
   headers = headers || {};
 
   let d = defer();
   let req = Cc['@mozilla.org/xmlextras/xmlhttprequest;1']
     .createInstance(Ci.nsIXMLHttpRequest);
+
   req.mozBackgroundRequest = true;  //No authentication
   req.timeout = timeout;
   req.open('GET', url, true);
@@ -266,6 +270,12 @@ function get (url, headers, data, timeout) {
   req.channel
     .QueryInterface(Ci.nsIHttpChannelInternal)
     .forceAllowThirdPartyCookie = true;
+  if (isPrivate) {
+    try {
+      req.channel.QueryInterface(Ci.nsIPrivateBrowsingChannel).setPrivate(true);
+    }
+    catch (e) {}
+  }
   if (data) {
     let arr = [];
     for (let e in data) {
@@ -459,7 +469,24 @@ exports.windows = (function () {
     };
   }
   return {
-    active: function () {
+    active: function (isPrivate) {
+      if (isPrivate && !pbrowsing.isPrivate(tabs.activeTab)) {
+        for (let window of windows.browsers) {
+          if (pbrowsing.isPrivate(window)) {
+            window.activate();
+            return resolve(toWindow(window));
+          }
+        }
+      }
+      else if (!isPrivate && pbrowsing.isPrivate(tabs.activeTab)) {
+        for (let window of windows.browsers) {
+          if (!pbrowsing.isPrivate(window)) {
+            window.activate();
+            return resolve(toWindow(window));
+          }
+        }
+      }
+
       return resolve(toWindow(windows.active));
     },
     open: function (url, inBackground) {
@@ -584,7 +611,6 @@ exports.sound = (function () {
           var audio = new Audio("${path}");
           audio.addEventListener('ended', function () {
             self.postMessage();
-            console.error(111);
           });
           audio.volume = ${(config.notification.sound.volume / 100)};
           audio.play();
@@ -644,16 +670,18 @@ exports.manifest = {
 exports.tray = require('./tray/wrapper').tray;
 
 /* updating badge when action is posted */
-function listener(event) {
-  var channel = event.subject.QueryInterface(Ci.nsIHttpChannel);
-  var url = channel.URI.spec;
-  if (url.indexOf('https://mail.google.com/mail/u') === -1 || url.indexOf('act=') === -1) {
-    return;
+(function () {
+  let pattern = new exportsHelper.MatchPattern(['https://mail.google.com/mail/u/*']);
+  function observe (details) {
+    if (details.type === 'main_frame' || details.url.indexOf('act=') !== -1) {
+      exports.emit('update');
+    }
   }
-  channel = channel.QueryInterface(Ci.nsIHttpChannel);
-  exports.emit('update');
-}
-events.on('http-on-modify-request', listener);
+  exportsHelper.WebRequest.onCompleted.addListener(observe, {
+    urls: pattern
+  });
+  unload.when(() => exportsHelper.WebRequest.onCompleted.removeListener(observe));
+})();
 
 // connect
 exports.connect = function (actions) {
@@ -662,3 +690,29 @@ exports.connect = function (actions) {
   connect.remote.actions = actions;
   Object.freeze(connect);
 };
+
+// private mode
+exports.isPrivate = (function () {
+  let exists = null;
+  let os = Cc['@mozilla.org/observer-service;1'].getService(Ci.nsIObserverService);
+
+  function exit () {
+    exists = false;
+    exports.emit('update');
+  }
+  os.addObserver(exit, 'last-pb-context-exiting', false);
+  unload.when(() => os.removeObserver(exit, 'last-pb-context-exiting'));
+
+  tabs.on('open', tab => {
+    exists = exists || pbrowsing.isPrivate(tab);
+  });
+
+  return function () {
+    if (exists === null) {
+      for (let tab of tabs) {
+        exists = exists || pbrowsing.isPrivate(tab);
+      }
+    }
+    return exists;
+  };
+})();

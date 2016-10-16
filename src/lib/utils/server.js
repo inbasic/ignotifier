@@ -9,7 +9,7 @@ else {
 }
 
 //
-server.Parser = function(req, feed) {
+server.Parser = function(req, feed, isPrivate) {
   var xml;
   if (req.responseXML) {
     xml = req.responseXML;
@@ -70,6 +70,10 @@ server.Parser = function(req, feed) {
           temp += "/?shva=1#label/" + label;
         }
       } catch(e) {}
+      // account selector uses this url as account identifier
+      if (isPrivate) {
+        temp += '@private';
+      }
 
       return temp;
     },
@@ -121,6 +125,7 @@ server.Parser = function(req, feed) {
           get link () {
             var temp = entry.getElementsByTagName("link")[0].getAttribute("href").replace("http://", "https://");
             temp = fixID (temp);
+
             return temp;
           }
         }
@@ -134,24 +139,24 @@ server.Parser = function(req, feed) {
   }
 }
 
-server.Email = function (feed, timeout) {
+server.Email = function (feed, timeout, isPrivate) {
   var d, ids = [], pCount = 0;
-
   return {
     execute: function () {
       d = app.Promise.defer();
       var url = feed + '?rand=' + Math.round(Math.random() * 10000000);
-      new app.get(url, null, null, timeout).then(
+      new app.get(url, null, null, timeout, isPrivate).then(
         function (req) {
           if (req.status != 200) {
             return d.resolve({
+              isPrivate: isPrivate,
               network: req.status !== 0,
               notAuthorized: req.status === 401,
               xml: null,
               newIDs: []
             });
           }
-          var xml = new server.Parser(req, feed);
+          var xml = new server.Parser(req, feed, isPrivate);
           //Cleaning old entries
           var cIDs = (xml.entries || [])
           .filter(function (e) {
@@ -171,6 +176,7 @@ server.Email = function (feed, timeout) {
           }
           pCount = xml.fullcount;
           d.resolve({
+            isPrivate: isPrivate,
             network: true,
             notAuthorized: false,
             xml: xml,

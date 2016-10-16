@@ -18,6 +18,7 @@ var isOpera = typeof chrome !== 'undefined' && navigator.userAgent.indexOf('OPR'
 var isChrome = typeof chrome !== 'undefined' && navigator.userAgent.indexOf('OPR') === -1;
 
 var objs, contentCache = [], selected = {};
+var isPrivate = false;
 
 var qs = function (q, m) {
   var reserved = {
@@ -211,7 +212,7 @@ var update = (function () {
     if (!isAvailable) {
       // does the old account still have unread entries?
       var obj = objs.filter(function (o) {
-        return o.xml.link == selected.parent.xml.link;
+        return selected.parent && o.xml.link == selected.parent.xml.link;
       });
       if (obj.length && obj[0].xml.fullcount) {
         selected.entry = obj[0].xml.entries[Math.min(obj[0].xml.entries.length - 1, index)];
@@ -228,6 +229,9 @@ var update = (function () {
       selected.parent = objs.filter(function (o) {
         return o.xml.link == selected.parent.xml.link
       })[0];
+    }
+    if (!selected.parent) {
+      return;
     }
     // updating current index
     selected.parent.xml.entries.forEach(function (entry, i) {
@@ -274,6 +278,7 @@ var update = (function () {
       body.nameLink = "mailto:" + selected.entry.author_email + "?subject=Re: " + selected.entry.title;
       body.email = "<" + selected.entry.author_email + ">";
       updateContent ();
+      isPrivate = selected.parent.isPrivate;
     }
     if (doNumber) {
       old.count = selected.parent.xml.fullcount;
@@ -433,6 +438,7 @@ function opener (e) {
 
   if (link) {
     background.send("open", {
+      isPrivate: isPrivate,
       link: link,
       button: e.button,
       ctrlKey: e.ctrlKey,

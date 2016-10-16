@@ -178,7 +178,8 @@ function play (arr) {
   app.sound.play(filters.length ? filters[0].index : null);
 }
 
-function open (url, inBackground, refresh) {
+function open (url, inBackground, refresh, isPrivate) {
+  url = url.replace('@private', ''); // some urls might end with "@private" for private mode
   function parseUri (str) {
     str = str || '';
     str = str.replace('gmail', 'mail.google');
@@ -218,7 +219,7 @@ function open (url, inBackground, refresh) {
     return uri;
   }
 
-  app.windows.active()
+  app.windows.active(isPrivate)
     .then(function () {
       if (config.tabs.ignoreOpens) {
         return [];
@@ -302,7 +303,7 @@ function setBadge (val) {
 }
 var checkEmails = (function () {
   var color = 'blue', count = -1, cachedEmails;
-  var emails, feeds = '';
+  var emails, feeds = '', isPrivate = app.isPrivate();
 
   return {
     execute: function (forced) {
@@ -317,10 +318,19 @@ var checkEmails = (function () {
           e.reject();
         });
       }
-      if (config.email.feeds.join(', ') !== feeds) {
+
+      if (config.email.feeds.join(', ') !== feeds || isPrivate !== app.isPrivate()) {
+        isPrivate = app.isPrivate();
         emails = config.email.feeds.map(function (feed) {
           return new server.Email(feed, config.email.timeout);
         });
+        // supporting private mode
+        if (app.isPrivate()) {
+          emails = emails.concat(config.email.feeds.map(function (feed) {
+            return new server.Email(feed, config.email.timeout, true);
+          }));
+        }
+
         feeds = config.email.feeds.join(', ');
       }
       // Execute fresh servers
@@ -615,13 +625,13 @@ app.popup.receive('open', function (obj) {
     return;
   }
   else if (obj.button === 0 && (obj.ctrlKey || obj.metaKey)) {
-    open(obj.link, true);
+    open(obj.link, true, null, obj.isPrivate);
   }
   else if (obj.button === 1) {
-    open(obj.link, true);
+    open(obj.link, true, null, obj.isPrivate);
   }
   else {
-    open(obj.link);
+    open(obj.link, null, null, obj.isPrivate);
     app.popup.hide();
   }
 });
