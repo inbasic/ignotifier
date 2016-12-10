@@ -232,7 +232,7 @@ var options = (function () {
       return;
     }
     var tbs = windows.SDKWindow.tabs;
-    for each (var tab in tbs) {
+    for (let tab of tbs) {
       if (tab && tab.url && tab.url.startsWith(self.data.url(''))) {
         tab.close();
       }
@@ -500,7 +500,7 @@ exports.windows = (function () {
       list: function (currentWindow) {
         var tbs = currentWindow ? windows.SDKWindow.tabs : tabs;
         var temp = [];
-        for each (var tab in tbs) {
+        for (let tab of tbs) {
           temp.push(tab);
         }
         return resolve(temp.map(toTab));

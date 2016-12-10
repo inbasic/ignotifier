@@ -32,7 +32,6 @@ chrome.notifications.onClicked.addListener(function (id) {
   userActions.forEach(function (callback) {
     callback();
   });
-  console.error(app.notify[id], id)
   if (app.notify[id]) {
     app.notify[id]();
   }
