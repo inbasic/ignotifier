@@ -1,6 +1,8 @@
 ## [Gmail Notifier](http://add0n.com/gmail-notifier.html) multi-browser extension (ignotifier)
 
 ### Description
+
+[![Join the chat at https://gitter.im/inbasic/ignotifier](https://badges.gitter.im/inbasic/ignotifier.svg)](https://gitter.im/inbasic/ignotifier?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [Gmail Notifier](http://add0n.com/gmail-notifier.html) is a multi-account notifier for Google mail (without storing passwords locally)
 
 ![116888](https://cloud.githubusercontent.com/assets/351062/19102298/0a93ce12-8adc-11e6-9a35-b4e183de6c73.png)
