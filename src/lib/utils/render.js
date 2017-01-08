@@ -54,7 +54,7 @@ render.getHTMLText = function (req, link, feed) {
         .innerHTML
         .replace(/src\=\"\/mail\/u\//g, 'src="https://mail.google.com/mail/u/')
         .replace(/\?ui\=2\&/g, link + '?ui=2&')
-        .replace(/\<u\/\>/g, '')
+        .replace(/<u\/\>/g, '')
         .replace(/display\:none\!important\;/g, '')
         .replace('[Quoted text hidden]', '<a href="' + feed + '">[Quoted text hidden]</a>');
     }
@@ -65,7 +65,11 @@ render.getHTMLText = function (req, link, feed) {
   else {
     var body = getLastMessage(req.responseText);
     return body ?
-      body.innerHTML.replace('[Quoted text hidden]', '<a href="' + feed + '">[Quoted text hidden]</a>') :
+      body.innerHTML
+        .replace('[Quoted text hidden]', '<a href="' + feed + '">[Quoted text hidden]</a>')
+        .replace(/src\=\"\/mail\/u\//g, 'src="https://mail.google.com/mail/u/')
+        .replace(/\?ui\=2\&/g, link + '?ui=2&')
+        .replace(/<u\/\>/g, '') :
       req.responseText;
   }
 };
