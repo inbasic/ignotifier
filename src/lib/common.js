@@ -644,7 +644,7 @@ app.popup.receive('action', function (o) {
       app.popup.send('action-response', o.cmd);
     },
     function (e) {
-      app.notify(e);
+      app.notify(e.message || e);
     }
   );
 });
