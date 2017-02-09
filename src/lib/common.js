@@ -419,7 +419,7 @@ var checkEmails = (function () {
         // Preparing the report
         var tmp = [];
         objs.forEach (function (o) {
-          (o.xml ? o.xml.entries : [])
+          (o.xml && o.xml.entries ? o.xml.entries : [])
             .filter(function (e) {
               return anyNewEmails ? o.newIDs.indexOf(e.id) !== -1 : o.xml.fullcount !== 0;
             })

@@ -1,10 +1,13 @@
 'use strict';
 
-var app = app || require('../wrapper/firefox/app');
-var config = config || require('../config');
-var render = render || require('./render');
+var isFirefox = typeof require !== 'undefined';
+if (isFirefox) {
+  var app = require('../wrapper/firefox/app');
+  var config = require('../config');
+  var render = require('./render');
+}
 
-var gmail = typeof exports === undefined ? {} : exports;
+var gmail = typeof exports === 'undefined' ? {} : exports;
 
 gmail.body = (function () {
   var iks = {}, contents = {};

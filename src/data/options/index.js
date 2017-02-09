@@ -75,7 +75,6 @@ background.receive('custom-sound', function (pref) {
   else {
     var input = document.querySelector('[data-pref="' + pref + '"]');
     if (input) {
-      console.error(input, pref)
       input.parentElement.style.display = 'inline-block';
     }
   }
