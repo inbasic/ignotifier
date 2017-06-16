@@ -644,14 +644,14 @@ config.popup = {
     },
     set width (val) {
       val = +val;
-      app.storage.write('fullWidth', Math.max(Math.min(val, 780), 500));
+      app.storage.write('fullWidth', Math.max(val, 500));
     },
     get height () {
       return +app.storage.read('fullHeight') || 600;
     },
     set height (val) {
       val = +val;
-      app.storage.write('fullHeight', Math.max(Math.min(val, 600), 500));
+      app.storage.write('fullHeight', Math.max(val, 500));
     }
   },
   get display () { // false: plain-text, true: html
