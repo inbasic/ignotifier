@@ -1,0 +1,169 @@
+.flex {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+}
+.note {
+  color: #707070 !important;
+  padding: 0;
+  margin: 5px 0 0 0;
+  font-size: 85%;
+}
+.warning {
+  color: #FB8F91;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+}
+.box input,
+.box select {
+  display: table-cell;
+  width:100%;
+}
+.box div {
+  white-space: nowrap;
+  margin-right: 10px;
+}
+
+.browse {
+  display: none;
+  font-weight: bold;
+  padding: 0 5px;
+  cursor: pointer;
+}
+.browse input {
+  display: none;
+}
+
+.spacer {
+  height: 18px;
+  margin: 0;
+}
+
+.only-safari,
+.only-mac,
+.only-firefox {
+  display: none;
+}
+.safari .only-safari,
+.mac .only-mac,
+.gecko .only-firefox {
+  display: block;
+}
+
+body {
+  align-items: center;
+  -webkit-align-items: center;
+  margin: 0;
+}
+body,
+table {
+  font-size: 14px;
+  color: #222;
+  font-family: arial,sans-serif;
+}
+select,
+input {
+  background-color: #fff;
+}
+input {
+  height: 24px;
+  border: 1px solid #C8C8C8;
+}
+select {
+  height: 22px;
+  border: 0;
+  outline: 1px solid #C8C8C8;
+}
+
+input[type=checkbox] {
+  width: 20px;
+  height: 20px;
+}
+
+input[type=number] {
+  width: 55px;
+}
+
+label>input {
+  vertical-align: middle;
+}
+
+body>* {
+  width: 800px;
+  display: -webkit-flex;
+  display: flex;
+}
+
+#header {
+  width: 100%;
+  background-color: #F1F1F1;
+  border-bottom: solid 1px #E5E5E5;
+  justify-content: center;
+  -webkit-justify-content: center;
+}
+#header>div>span {
+  padding-left: 105px;
+}
+#header>div:nth-child(1)>span:nth-child(1) {
+  font-size: 140%;
+}
+
+#header table {
+  height: 94px;
+}
+#header td[type=icon] {
+  width: 90px;
+  background-image: url(../icons/options/64.png);
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+}
+#header td[type=title] {
+  vertical-align: bottom;
+}
+#header td[type=inshort] {
+  vertical-align: top;
+}
+#header td[type=donation] {
+  text-align: center;
+  width: 300px;
+}
+#header button {
+  background-color: #F07600;
+  color: #FFF;
+  border: 1px solid transparent;
+  border-radius: 0px;
+  cursor: pointer;
+  height: 32px;
+  line-height: 20px;
+  min-height: 32px;
+  min-width: 90px;
+  outline: medium none;
+  text-align: center;
+  vertical-align: middle !important;
+}
+#header td[type=links] {
+  width: 200px;
+}
+#header td[type=links] ul{
+  list-style-type: none;
+  padding: 0;
+}
+
+table {
+  border-collapse: collapse;
+}
+#content>table>tbody>tr {
+  border-bottom: solid 1px #E5E5E5;
+}
+#content>table>tbody>tr>td {
+  padding: 20px 0 20px 0;
+}
+#content>table>tbody>tr>td:nth-child(1){
+  width: 120px;
+  font-weight: bold;
+  vertical-align: top;
+}

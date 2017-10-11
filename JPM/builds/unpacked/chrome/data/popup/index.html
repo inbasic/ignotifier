@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="index.css"/>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, target-densityDpi=device-dpi"/>
+  </head>
+
+  <body mode=expanded>
+    <header class="vcenter">
+      <div class="ellipsis" name="email-container">Email</div>
+      <div class="ellipsis" name="stat"><b>-</b> <span data-l10n-id="popup_of"></span> <b>-</b></div>
+      <div class="hcenter" name="nav">
+        <div class="btn" name="previous"></div>
+        <div class="btn" name="next"></div>
+      </div>
+    </header>
+    <div id="content">
+      <div class="ellipsis vcenter" name="title" dir="auto">
+        <a id="title">Title</a>
+      </div>
+      <div name="info">
+        <div name="sender" class="ellipsis">
+          <a href="">Sender</a>
+        </div>
+        <div name="email" class="ellipsis">Email</div>
+        <div name="date" class="ellipsis">date</div>
+      </div>
+      <div name="body">
+        <iframe dir="auto"></iframe>
+      </div>
+    </div>
+
+    <div id="locales" style="display: none;">
+      <span data-l10n-id="popup_open_settings"></span>
+      <span data-l10n-id="popup_open_inbox"></span>
+      <span data-l10n-id="popup_archive"></span>
+      <span data-l10n-id="popup_spam"></span>
+      <span data-l10n-id="popup_trash"></span>
+      <span data-l10n-id="popup_refresh"></span>
+      <span data-l10n-id="popup_read_all"></span>
+    </div>
+
+    <footer class="hcenter vcenter">
+      <div class="btn tooltip" name="settings" title="popup_open_settings"></div>
+      <div class="btn tooltip" name="gmail" title="popup_open_inbox"></div>
+      <div class="btn tooltip" name="archive" title="popup_archive"></div>
+      <div class="btn tooltip" name="spam" title="popup_spam"></div>
+      <div class="btn tooltip" name="trash" title="popup_trash"></div>
+      <div class="btn tooltip" name="refresh" title="popup_refresh"></div>
+      <div class="btn vcenter hcenter" name="read"><span data-l10n-id="popup_read"></span></div>
+      <div class="btn tooltip" name="read-all" title="popup_read_all"></div>
+    </footer>
+    <ol id="accounts"></ol>
+    <div class="btn" id="expand"></div>
+    <script src="chrome/chrome.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

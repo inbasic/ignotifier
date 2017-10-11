@@ -1,0 +1,28 @@
+{
+  "title": "Gmail™ Notifier (restartless)",
+  "name": "ignotifier",
+  "description": "Multiple label and account notifier for Google Mail (Gmail)",
+  "id": "jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack",
+  "license": "MPLv2.0",
+  "version": "0.7.4",
+  "author": "InBasic",
+  "contributors": [
+    "CaTz",
+    "ecaron"
+  ],
+  "lib": "lib",
+  "main": "./lib/common.js",
+  "url": "http://add0n.com/gmail-notifier.html",
+  "permissions": {
+    "private-browsing": true,
+    "unsafe-content-script": true,
+    "cross-domain-content": ["file:///"],
+    "multiprocess": true
+  },
+  "preferences": [{
+    "type": "control",
+    "label": "Open Options",
+    "name": "settings_open",
+    "title": "Open options (settings) page"
+  }]
+}
