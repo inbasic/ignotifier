@@ -151,6 +151,8 @@ label {
 }
 #header [type=title] {
   font-size: 150%;
+  margin-bottom: 5px;
+  text-shadow: 2px 2px 1px #b1b1b1;
 }
 #header [type=description] {
   font-size: 85%;

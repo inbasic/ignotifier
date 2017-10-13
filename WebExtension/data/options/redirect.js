@@ -1,3 +1,5 @@
 'use strict';
 
-document.querySelector('a').click();
+window.setTimeout(() => {
+  document.querySelector('a').click();
+}, 1000);

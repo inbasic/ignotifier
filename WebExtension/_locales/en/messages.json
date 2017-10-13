@@ -102,7 +102,7 @@
     "message": "Make a Donation"
   },
   "options_timings": {
-    "message": "Timings"
+    "message": "Timings:"
   },
   "options_timings_l1": {
     "message": "Check for new emails every (in seconds):"
