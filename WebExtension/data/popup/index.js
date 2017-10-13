@@ -343,7 +343,9 @@ new Listen('gmail', 'click', () => chrome.runtime.sendMessage({
   method: 'open',
   url: selected.parent.xml.link
 }, () => window.close()));
-new Listen('settings', 'click', () => chrome.runtime.openOptionsPage());
+new Listen('settings', 'click', () => chrome.tabs.update({
+  url: '/data/options/index.html'
+}, () => window.close()));
 new Listen('read-all', 'click', () => {
   qs('read-all').setAttribute('wait', true);
   qs('read-all').setAttribute('disabled', true);
