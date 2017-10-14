@@ -334,7 +334,9 @@ var checkEmails = (function() {
             app.popup.attach();
           }
           if (config.notification.show) {
-            app.notify(report, '', () => open('https://mail.google.com/'));
+            // this most likely is the account that user wants to reach!
+            const link = tmp[0].link.split('?')[0];
+            app.notify(report, '', open.bind(null, link));
           }
           if (config.notification.sound.play) {
             play(tmp);
