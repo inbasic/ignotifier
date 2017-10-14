@@ -7,7 +7,13 @@ Object.assign(config.prefs, {
   'tooltip': true,
   'backgroundColor': '#3366CC',
   'firstRun': true,
-  'version': null
+  'version': null,
+  'notification.sound.media.default.file': null,
+  'notification.sound.media.custom0.file': null,
+  'notification.sound.media.custom1.file': null,
+  'notification.sound.media.custom2.file': null,
+  'notification.sound.media.custom3.file': null,
+  'notification.sound.media.custom4.file': null
 });
 
 chrome.storage.local.get(config.prefs, ps => {

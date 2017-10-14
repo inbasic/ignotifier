@@ -128,3 +128,7 @@ document.getElementById('reset').addEventListener('click', () => {
     chrome.storage.local.set(config.prefs, () => window.location.reload());
   });
 });
+
+document.getElementById('test-play').addEventListener('click', () => chrome.runtime.sendMessage({
+  method: 'test-play'
+}));

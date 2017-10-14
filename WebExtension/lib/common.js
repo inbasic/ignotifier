@@ -19,7 +19,7 @@ var actions = {
   onCommand: link => open(link || config.email.url)
 };
 
-function play(arr) {
+function play(arr = []) {
   const media = config.notification.sound.media;
   const filters = [0, 1, 2, 3, 4].map(index => ({
     filter: media['custom' + index].filter,
@@ -408,6 +408,9 @@ chrome.runtime.onMessage.addListener(request => {
     else {
       open(url.link, null, null, url.isPrivate);
     }
+  }
+  else if (method === 'test-play') {
+    play(null);
   }
 });
 

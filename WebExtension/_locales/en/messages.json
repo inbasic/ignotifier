@@ -414,6 +414,13 @@
   "options_empty": {
     "message": "not defined"
   },
+  "options_button_test": {
+    "message": "Play"
+  },
+  "options_button_reset": {
+    "message": "Reset Preferences"
+  },
+
 
   "popup_settings": {
     "message": "settings"
