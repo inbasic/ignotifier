@@ -405,6 +405,9 @@
   "options_misc_14": {
     "message": "Do not show the exact badge number when the number of unread emails is greater than 999"
   },
+  "options_misc_15": {
+    "message": "Open FAQs page on updates"
+  },
   "options_px": {
     "message": "px"
   },

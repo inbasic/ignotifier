@@ -18,7 +18,7 @@ config.map = {
     'notification', 'alert', 'combined', 'searchMode', 'ignoreOpens',
     'relatedToCurrent', 'currentTab', 'background', 'useBlankTabs',
     'newWindow', 'keyUp', 'render', 'doReadOnArchive', 'alphabetic',
-    'onGmailNotification', 'minimal'
+    'onGmailNotification', 'minimal', 'welcome'
   ]
 };
 
@@ -75,5 +75,6 @@ config.prefs = {
   'clrPattern': 0,
   'onGmailNotification': true,
   'threatAsNew': 10, // minutes
-  'minimal': true
+  'minimal': true,
+  'welcome': true
 };

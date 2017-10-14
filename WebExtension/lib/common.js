@@ -267,9 +267,7 @@ var checkEmails = (function() {
               return anyNewEmails ? o.newIDs.indexOf(e.id) !== -1 : o.xml.fullcount !== 0;
             })
             .splice(0, config.email.maxReport)
-            .forEach(function(e) {
-              tmp.push(e);
-            });
+            .forEach(e => tmp.push(e));
         });
         function shorten(str) {
           if (str.length < config.email.truncate) {
@@ -296,7 +294,6 @@ var checkEmails = (function() {
               (c.xml.label ? ' [' + c.xml.label + ']' : '') +
               ' (' + c.xml.fullcount + ')\n';
           }, '').replace(/\n$/, '');
-
         if (!forced && !anyNewEmails) {
           if (newCount) {
             toolbar.icon = 'red';
@@ -304,7 +301,7 @@ var checkEmails = (function() {
             color = 'red';
             toolbar.label = tooltip;
             app.popup.send('update', objs);
-            if (tmp.length === 1 && config.email.openInboxOnOne === 1) {
+            if (objs.length === 1 && config.email.openInboxOnOne === 1) {
               app.popup.detach();
             }
             else {
@@ -330,7 +327,7 @@ var checkEmails = (function() {
           toolbar.icon = 'new';
           toolbar.badge = newCount;
           color = 'new';
-          if (tmp.length === 1 && config.email.openInboxOnOne === 1) {
+          if (objs.length === 1 && config.email.openInboxOnOne === 1) {
             app.popup.detach();
           }
           else {
@@ -387,7 +384,6 @@ app.on('update', () => {
 });
 // messaging
 chrome.runtime.onMessage.addListener(request => {
-  console.log(request);
   const method = request.method;
   if (method === 'update' && request.forced) {
     repeater.reset(true);
@@ -459,14 +455,15 @@ chrome.storage.onChanged.addListener(prefs => {
 });
 
 // FAQs & Feedback & init
-chrome.storage.local.get({
-  'version': null,
-  'welcome': true
-}, prefs => {
+app.on('load', () => {
+  const prefs = config.prefs;
   const version = chrome.runtime.getManifest().version;
 
   if (prefs.version ? (prefs.welcome && prefs.version !== version) : true) {
     chrome.storage.local.set({version}, () => {
+      if (version.indexOf('b') !== -1) {
+        return;
+      }
       chrome.tabs.create({
         url: 'http://add0n.com/gmail-notifier.html?version=' + version +
           '&type=' + (prefs.version ? ('upgrade&p=' + prefs.version) : 'install')
