@@ -95,7 +95,6 @@ gmail.staticID = (iks => url => {
 })({});
 
 gmail.body = (contents => (link, mode) => {
-  console.log(link, mode)
   link = link.replace('http://', 'https://');
   if (contents[link]) {
     return Promise.resolve(contents[link]);
@@ -111,7 +110,7 @@ gmail.body = (contents => (link, mode) => {
     .then(ik => gmail.fetch(url + '&ui=2&ik=' + ik + '&view=pt&dsqt=1&search=all&msg=' + thread)
     .then(r => r.text())
     .then(content => {
-      const body = gmail.render[mode === 1 ? 'getHTMLText' : 'getPlainText'](content, url, link);
+      const body = gmail.render[mode ? 'getHTMLText' : 'getPlainText'](content, url, link);
       contents[link] = body;
       return body;
     }));
@@ -131,120 +130,27 @@ gmail.render = (() => {
   return {
     getHTMLText: (content, link, feed) => {
       const body = getLastMessage(content);
-      return body ?
-        body.innerHTML
-          .replace(/src="\/mail\/u\//g, 'src="https://mail.google.com/mail/u/')
-          .replace(/\?ui=2&/g, link + '?ui=2&')
-          .replace(/<u\/>/g, '')
-          .replace('[Quoted text hidden]', '<a href="' + feed + '">[Quoted text hidden]</a>') :
-        content;
+      if (body) {
+        const table = document.createElement('table');
+        table.classList.add('root');
+        table.appendChild(body);
+        return table;
+      }
+      else {
+        return '';
+      }
     },
     getPlainText: content => {
-      const body = getLastMessage(content) || '...';
-
-      const normalize = a => {
-        if (!a) {
-          return '';
-        }
-        return a
-          .replace(/ +/g, ' ')
-          .replace(/[\t]+/gm, '')
-          .replace(/[ ]+$/gm, '')
-          .replace(/^[ ]+/gm, '')
-          .replace(/\n{2,}/g, '\n\n')
-          .replace(/\n+$/, '')
-          .replace(/^\n+/, '')
-          .replace(/\nNEWLINE\n/g, '\n\n')
-          .replace(/NEWLINE\n/g, '\n\n')
-          .replace(/NEWLINE/g, '\n');
-      };
-      const removeWhiteSpace = node => {
-        const isWhite = node => !(/[^\t\n\r ]/.test(node.nodeValue));
-        const ws = [];
-        const findWhite = node => {
-          for (let i = 0; i < node.childNodes.length; i++) {
-            const n = node.childNodes[i];
-            if (n.nodeType === 3 && isWhite(n)) {
-              ws.push(n);
-            }
-            else if (n.hasChildNodes()) {
-              findWhite(n);
-            }
-          }
-        };
-        findWhite(node);
-        for (let i = 0; i < ws.length; i++) {
-          ws[i].parentNode.removeChild(ws[i]);
-        }
-      };
-      const sty = (n, prop) => {
-        const s = n.currentStyle || window.getComputedStyle(n, null);
-        if (n.tagName === 'SCRIPT') {
-          return 'none';
-        }
-        if (!s[prop]) {
-          return 'LI,P,TR'.indexOf(n.tagName) > -1 ? 'block' : n.style[prop];
-        }
-        if (s[prop] === 'block' && n.tagName === 'TD') {
-          return 'feaux-inline';
-        }
-        return s[prop];
-      };
-
-      const blockTypeNodes = 'table-row,block,list-item';
-      const isBlock = n => {
-        const s = sty(n, 'display') || 'feaux-inline';
-        if (blockTypeNodes.indexOf(s) > -1) {
-          return true;
-        }
-        return false;
-      };
-      const recurse = n => {
-        let t = '';
-        if (/pre/.test(sty(n, 'whiteSpace'))) {
-          t += n.innerHTML
-            .replace(/\t/g, ' ')
-            .replace(/\n/g, ' ');
-          return '';
-        }
-        const s = sty(n, 'display');
-        if (s === 'none') {
-          return '';
-        }
-        const gap = isBlock(n) ? '\n' : ' ';
-
-        t += gap;
-        for (let i = 0; i < n.childNodes.length; i++) {
-          const c = n.childNodes[i];
-          if (c.localName === 'a' && c.href && c.textContent) {
-            t += "<a href='" + c.href + "'>" + c.textContent + '</a>';
-          }
-          else if (c.nodeType === 3) {
-            t += c.nodeValue;
-          }
-          else if (c.childNodes.length) {
-            recurse(c);
-          }
-        }
-        t += gap;
-        t = t.replace(/(<[^>^<]+>)/ig, function(s) { //Strip HTML tags
-          return s.indexOf('<a href') !== -1 || s.indexOf('</a>') !== -1 ? s : s.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        });
-        return t;
-      };
-      const node = body.cloneNode(true);
-      node.innerHTML = node.innerHTML.replace(/<br>/g, '\n');
-      const paras = node.getElementsByTagName('p');
-      for (let i = 0; i < paras.length; i++) {
-        paras[i].innerHTML += 'NEWLINE';
+      const body = getLastMessage(content);
+      if (body) {
+        const span = document.createElement('span');
+        span.style['white-space'] = 'pre-line';
+        span.textContent = body.innerText;
+        return span;
       }
-
-      removeWhiteSpace(node);
-
-      return normalize(recurse(node))
-        .replace(/^\s\s*/, '').replace(/\s\s*$/, '')
-        .replace(/\n\s{2,}\n/g, '\n\n')
-        .replace(/\n/g, '<br>');
+      else {
+        return '';
+      }
     }
   };
 })();

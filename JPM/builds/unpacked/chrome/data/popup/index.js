@@ -151,7 +151,7 @@ var Listen = function (query, on, callback, pointer) {
 
 new Listen('email-container', "click", function(e) {
   // Clear old list
-  qs("accounts").innerHTML = "";
+  qs("accounts").textContent = '';
   // Add new items (remove no-unread accounts first)
   objs.
     filter(function (o) {

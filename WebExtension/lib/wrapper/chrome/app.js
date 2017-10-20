@@ -140,7 +140,6 @@ app.sound = (function() {
       if (d.type === 'main_frame' || d.url.indexOf('act=') !== -1) {
         window.clearTimeout(id);
         id = window.setTimeout(() => {
-          console.log('webRequest update');
           app.emit('update');
         }, 100);
       }

@@ -46,7 +46,6 @@ chrome.storage.local.get(config.prefs, ps => {
   app.emit('load');
 });
 chrome.storage.onChanged.addListener(prefs => {
-  console.log(prefs);
   Object.keys(prefs).forEach(key => config.prefs[key] = prefs[key].newValue);
 });
 

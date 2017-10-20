@@ -5,7 +5,6 @@ var toolbar = {};
 
 Object.defineProperty(toolbar, 'badge', {
   set(val) {
-    console.log('setBadge', val);
     if (val > 999 && config.ui.minimal) {
       val = '>' + Math.round(val / 1000) + 'K';
     }

@@ -109,7 +109,6 @@ var contextmenu = {};
       return;
     }
     cache = accounts.map(a => a.title);
-    console.log('building context-menu');
     ids.childs.forEach(o => chrome.contextMenus.remove(o.id));
     ids.childs = [];
 

@@ -6,7 +6,7 @@ var contentCache = [];
 var selected = {};
 var isPrivate = false;
 
-var notify = msg => console.error(msg) && chrome.notifications.create(null, {
+var notify = msg => chrome.notifications.create(null, {
   type: 'basic',
   iconUrl: '/data/icons/notification/48.png',
   title: chrome.i18n.getMessage('gmail'),
@@ -359,6 +359,7 @@ new Listen('expand', 'click', () => chrome.storage.local.set({
 function updateContent() {
   const doSummary = () => {
     if (selected.entry) {
+      localStorage.setItem('last-id', selected.entry.id);
       qs('iframe').contentDocument.body.textContent = selected.entry.summary + ' ...';
     }
   };
@@ -369,19 +370,29 @@ function updateContent() {
     const content = contentCache[link];
     if (content) {
       qs('content').removeAttribute('loading');
-      //content is a safe HTML parsed by (lib/utils/render.js)
-      qs('iframe').contentDocument.body.innerHTML = content;
+      if (content) {
+        qs('iframe').contentDocument.querySelector('head base').href = link;
+        qs('iframe').contentDocument.body.textContent = '';
+        qs('iframe').contentDocument.body.appendChild(content);
+      }
     }
     else {
       doSummary();
       qs('content').setAttribute('loading', 'true');
-      gmail.body(link, mode).then(content => {
+      chrome.storage.local.get({
+        render: true
+      }, prefs => gmail.body(link, prefs.render).then(content => {
         if (link === selected.entry.link) {
           // For chat conversations, there is no full content mode
-          contentCache[link] = content === '...' ? selected.entry.summary + ' ...' : content;
-          updateContent();
+          if (content) {
+            contentCache[link] = content;
+            updateContent();
+          }
+          else {
+            qs('content').removeAttribute('loading');
+          }
         }
-      }).catch(notify);
+      }).catch(notify));
     }
   }
   else {
@@ -465,8 +476,12 @@ qs('iframe').addEventListener('load', () => chrome.runtime.getBackgroundPage(b =
       if (lastAccount) {
         const account = objs.filter(o => o.xml.title === lastAccount).shift();
         if (account) {
+          const id = localStorage.getItem('last-id');
           selected = {
-            entry: account.xml.entries[0],
+            entry: [
+              ...account.xml.entries.filter(e => e.id === id),
+              account.xml.entries[0]
+            ].shift(),
             parent: account
           };
           return update();

@@ -12,3 +12,9 @@ a {
   color: #1155CC;
   text-decoration: none;
 }
+
+.root {
+  width: 100%;
+  border-collapse: collapse;
+  border: none;
+}

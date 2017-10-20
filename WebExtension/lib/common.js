@@ -163,7 +163,6 @@ var checkEmails = (function() {
 
   return {
     execute: function(forced) {
-      console.log('checkEmails.execute', forced);
       if (forced) {
         toolbar.icon = 'load';
         toolbar.badge = 0;
@@ -365,7 +364,6 @@ app.on('load', () => {
 
   repeater.on(checkEmails.execute);
   if (config.email.check.first === 0) {  // manual mode
-    console.log('stopped the main repeater');
     repeater.stop();
   }
   // periodic reset
@@ -380,10 +378,7 @@ app.on('load', () => {
 });
 
 // updates
-app.on('update', () => {
-  console.log('update is requested');
-  repeater.reset();
-});
+app.on('update', () => repeater.reset());
 // messaging
 chrome.runtime.onMessage.addListener(request => {
   const method = request.method;
