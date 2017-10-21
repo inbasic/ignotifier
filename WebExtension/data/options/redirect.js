@@ -24,3 +24,10 @@ a.addEventListener('click', e => {
     url: chrome.runtime.getURL('/data/options/index.html')
   }, () => window.close());
 });
+
+document.getElementById('cancel').addEventListener('click', e => {
+  e.preventDefault();
+  window.clearTimeout(id);
+  timer.textContent = '';
+  e.target.parentNode.removeChild(e.target);
+});
