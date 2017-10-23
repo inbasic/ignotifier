@@ -479,6 +479,9 @@ app.on('load', () => {
       if (version.indexOf('b') !== -1) {
         return;
       }
+      if (pversion === '0.8.0') {
+        return;
+      }
       chrome.tabs.create({
         url: 'http://add0n.com/gmail-notifier.html?version=' + version +
           '&type=' + (pversion ? ('upgrade&p=' + pversion) : 'install')
