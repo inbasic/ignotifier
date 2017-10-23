@@ -293,6 +293,9 @@ var checkEmails = (function() {
               (c.xml.label ? ' [' + c.xml.label + ']' : '') +
               ' (' + c.xml.fullcount + ')\n';
           }, '').replace(/\n$/, '');
+        const singleAccount = config.email.openInboxOnOne === 1 &&
+          objs.map(o => o.xml.rootLink).filter((s, i, l) => l.indexOf(s) === i).length === 1;
+        console.log(singleAccount, objs.map(o => o.xml.rootLink).filter((s, i, l) => l.indexOf(s) === i).length)
         if (!forced && !anyNewEmails) {
           if (newCount) {
             toolbar.icon = 'red';
@@ -300,7 +303,7 @@ var checkEmails = (function() {
             color = 'red';
             toolbar.label = tooltip;
             app.popup.send('update', objs);
-            if (objs.length === 1 && config.email.openInboxOnOne === 1) {
+            if (singleAccount) {
               app.popup.detach();
             }
             else {
@@ -326,7 +329,7 @@ var checkEmails = (function() {
           toolbar.icon = 'new';
           toolbar.badge = newCount;
           color = 'new';
-          if (objs.length === 1 && config.email.openInboxOnOne === 1) {
+          if (singleAccount) {
             app.popup.detach();
           }
           else {
