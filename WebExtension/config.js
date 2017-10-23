@@ -26,12 +26,12 @@ config.prefs = {
   'period': 60, // seconds
   'initialPeriod': 3, // seconds
   'resetPeriod': 0, // minutes
-  'feeds_0': 'inbox',
-  'feeds_1': 'inbox',
-  'feeds_2': 'inbox',
-  'feeds_3': 'inbox',
-  'feeds_4': 'inbox',
-  'feeds_5': 'inbox',
+  'feeds_0': '',
+  'feeds_1': '',
+  'feeds_2': '',
+  'feeds_3': '',
+  'feeds_4': '',
+  'feeds_5': '',
   'feeds_custom': '',
   'notification': true,
   'notificationTime': 8, // seconds
