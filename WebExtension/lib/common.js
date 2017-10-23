@@ -1,4 +1,4 @@
-/* globals app, config, timer, checkEmails, server, contextmenu, toolbar */
+/* globals app, config, timer, checkEmails, server, contextmenu, toolbar, gmail */
 'use strict';
 
 var repeater; // main repeater
@@ -383,7 +383,7 @@ app.on('load', () => {
 // updates
 app.on('update', () => repeater.reset());
 // messaging
-chrome.runtime.onMessage.addListener(request => {
+chrome.runtime.onMessage.addListener((request, sender, response) => {
   const method = request.method;
   if (method === 'update' && request.forced) {
     repeater.reset(true);
@@ -411,6 +411,17 @@ chrome.runtime.onMessage.addListener(request => {
   }
   else if (method === 'test-play') {
     play(null);
+  }
+  else if (method === 'gmail.action') {
+    gmail.action(request).catch(e => e).then(e => {
+      try {
+        response(e);
+      }
+      catch (e) {
+        window.setTimeout(() => repeater.reset(), 500);
+      }
+    });
+    return true;
   }
 });
 
@@ -463,13 +474,14 @@ app.on('load', () => {
   const version = chrome.runtime.getManifest().version;
 
   if (prefs.version ? (prefs.welcome && prefs.version !== version) : true) {
+    const pversion = prefs.version;
     chrome.storage.local.set({version}, () => {
       if (version.indexOf('b') !== -1) {
         return;
       }
       chrome.tabs.create({
         url: 'http://add0n.com/gmail-notifier.html?version=' + version +
-          '&type=' + (prefs.version ? ('upgrade&p=' + prefs.version) : 'install')
+          '&type=' + (pversion ? ('upgrade&p=' + pversion) : 'install')
       });
     });
   }

@@ -280,40 +280,46 @@ new Listen('accounts', 'click', ({target}) => {
 new Listen('next', 'click', () => update(false, true));
 new Listen('previous', 'click', () => update(true, false));
 
-var action = (cmd, links = selected.entry.link) => gmail.action(links, cmd).catch(e => e).then(e => {
-  if (e && e instanceof Error) { // if error
-    notify(e);
-  }
-  if (cmd === 'rd') {
-    qs('read').textContent = locale.get('popup_read');
-    qs('read').removeAttribute('disabled');
-  }
-  else {
-    let obj;
-    switch (cmd) {
-      case 'rd':
-        obj = qs('read');
-        break;
-      case 'rd-all':
-        obj = qs('read-all');
-        break;
-      case 'tr':
-        obj = qs('trash');
-        break;
-      case 'rc_%5Ei':
-        obj = qs('archive');
-        break;
-      case 'sp':
-        obj = qs('spam');
-        break;
-    }
-    obj.removeAttribute('wait');
-    obj.removeAttribute('disabled');
-  }
+var action = (cmd, links = selected.entry.link) => {
   chrome.runtime.sendMessage({
-    method: 'update'
+    method: 'gmail.action',
+    cmd,
+    links
+  }, e => {
+    if (e && e instanceof Error) { // if error
+      notify(e);
+    }
+    if (cmd === 'rd') {
+      qs('read').textContent = locale.get('popup_read');
+      qs('read').removeAttribute('disabled');
+    }
+    else {
+      let obj;
+      switch (cmd) {
+        case 'rd':
+          obj = qs('read');
+          break;
+        case 'rd-all':
+          obj = qs('read-all');
+          break;
+        case 'tr':
+          obj = qs('trash');
+          break;
+        case 'rc_%5Ei':
+          obj = qs('archive');
+          break;
+        case 'sp':
+          obj = qs('spam');
+          break;
+      }
+      obj.removeAttribute('wait');
+      obj.removeAttribute('disabled');
+    }
+    chrome.runtime.sendMessage({
+      method: 'update'
+    });
   });
-});
+};
 
 new Listen('archive', 'click', () => {
   qs('archive').setAttribute('wait', true);

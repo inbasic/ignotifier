@@ -20,60 +20,6 @@ gmail.get = {
   }
 };
 
-gmail.action = (token => {
-  function getAt(url) {
-    if (token[url]) {
-      return Promise.resolve(token[url]);
-    }
-    return gmail.fetch(url).then(r => r.text()).then(content => {
-      const tmp = /GM_ACTION_TOKEN="([^"]*)"/.exec(content);
-      if (tmp && tmp.length) {
-        token[url] = tmp[1];
-        return token[url];
-      }
-      else {
-        return gmail.fetch(url + 'h/' + Math.ceil(1000000 * Math.random())).then(r => r.text()).then(content => {
-          const tmp = /at=([^"&]*)/.exec(content);
-          if (tmp && tmp.length > 1) {
-            token[url] = tmp[1];
-          }
-          return token[url];
-        });
-      }
-    });
-  }
-
-  function sendCmd(url, at, threads, cmd) {
-    if (cmd === 'rc_%5Ei') {
-      // mark as read on archive
-      chrome.storage.local.get({
-        doReadOnArchive: false
-      }, prefs => {
-        if (prefs.doReadOnArchive === true || prefs.doReadOnArchive === 'true') {
-          sendCmd(url, at, threads, 'rd');
-        }
-      });
-    }
-    return gmail.fetch(url + '&at=' + at + '&act=' + cmd.replace('rd-all', 'rd') + '&t=' + threads.join('&t='));
-  }
-
-  return (links, cmd) => {
-    links = typeof links === 'string' ? [links] : links;
-    const url = /[^?]*/.exec(links[0])[0] + '/?ibxr=0';
-    return getAt(url).then(function(at) {
-      if (!at) {
-        return Promise.reject(new Error('action -> Cannot resolve GM_ACTION_TOKEN'));
-      }
-      const threads = links.map(link => gmail.get.id(link) || '').map(t => t);
-
-      if (threads.length) {
-        return sendCmd(url, at, threads, cmd);
-      }
-      return Promise.reject(Error('action -> Error at resolving thread.'));
-    });
-  };
-})({});
-
 gmail.staticID = (iks => url => {
   if (iks[url]) {
     return Promise.resolve(iks[url]);
