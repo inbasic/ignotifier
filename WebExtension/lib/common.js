@@ -295,7 +295,6 @@ var checkEmails = (function() {
           }, '').replace(/\n$/, '');
         const singleAccount = config.email.openInboxOnOne === 1 &&
           objs.map(o => o.xml.rootLink).filter((s, i, l) => l.indexOf(s) === i).length === 1;
-        console.log(singleAccount, objs.map(o => o.xml.rootLink).filter((s, i, l) => l.indexOf(s) === i).length)
         if (!forced && !anyNewEmails) {
           if (newCount) {
             toolbar.icon = 'red';
@@ -476,10 +475,10 @@ app.on('load', () => {
   if (prefs.version ? (prefs.welcome && prefs.version !== version) : true) {
     const pversion = prefs.version;
     chrome.storage.local.set({version}, () => {
-      if (version.indexOf('b') !== -1) {
+      if (version.indexOf('b') !== -1) {  // beta versions
         return;
       }
-      if (pversion === '0.8.0') {
+      if (pversion === '0.8.0' || pversion === '0.8.1') {
         return;
       }
       chrome.tabs.create({

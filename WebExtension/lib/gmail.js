@@ -2,11 +2,27 @@
 
 var gmail = {};
 
-gmail.fetch = url => fetch(url, {credentials: 'same-origin'}).then(r => {
+/*gmail.fetch = url => fetch(url, {
+  credentials: 'same-origin',
+  mode: 'cors',
+  headers:{
+    'Access-Control-Allow-Origin': '*'
+  }
+}).then(r => {
+  console.log(url, r);
   if (r.ok) {
     return r;
   }
   throw Error('action -> fetch Error');
+});*/
+gmail.fetch = url => new Promise((resolve, reject) => {
+  const req = new XMLHttpRequest();
+  req.onload = () => resolve({
+    text: () => req.response
+  });
+  req.onerror = () => reject(new Error('action -> fetch Error'));
+  req.open('GET', url);
+  req.send();
 });
 
 gmail.get = {
