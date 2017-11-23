@@ -18,7 +18,8 @@ var gmail = {};
 gmail.fetch = url => new Promise((resolve, reject) => {
   const req = new XMLHttpRequest();
   req.onload = () => resolve({
-    text: () => req.response
+    text: () => req.response,
+    status: req.status
   });
   req.onerror = () => reject(new Error('action -> fetch Error'));
   req.open('GET', url);
@@ -70,7 +71,11 @@ gmail.action = (token => {
         }
       });
     }
-    return gmail.fetch(url + '&at=' + at + '&act=' + cmd.replace('rd-all', 'rd') + '&t=' + threads.join('&t='));
+    return gmail.fetch(url + '&at=' + at + '&act=' + cmd.replace('rd-all', 'rd') + '&t=' + threads.join('&t=')).then(r => {
+      if (r.status === 500) {
+        token = {};
+      }
+    });
   }
 
   return ({links, cmd}) => {

@@ -474,6 +474,7 @@ app.on('load', () => {
 
   if (prefs.version ? (prefs.welcome && prefs.version !== version) : true) {
     const pversion = prefs.version;
+    const p = Boolean(pversion);
     chrome.storage.local.set({version}, () => {
       if (version.indexOf('b') !== -1) {  // beta versions
         return;
@@ -483,7 +484,8 @@ app.on('load', () => {
       }
       chrome.tabs.create({
         url: 'http://add0n.com/gmail-notifier.html?version=' + version +
-          '&type=' + (pversion ? ('upgrade&p=' + pversion) : 'install')
+          '&type=' + (p ? ('upgrade&p=' + pversion) : 'install'),
+        active: p === false
       });
     });
   }
