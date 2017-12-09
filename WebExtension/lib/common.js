@@ -457,7 +457,7 @@ chrome.storage.onChanged.addListener(prefs => {
     repeater.reset();
   }
   if (prefs.clrPattern) {
-    actions.reset();
+    repeater.reset();
   }
   if (prefs.period) {
     repeater.fill(prefs.period.newValue * 1000);
