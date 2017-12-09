@@ -9,7 +9,7 @@ Object.defineProperty(toolbar, 'badge', {
       val = '>' + Math.round(val / 1000) + 'K';
     }
     chrome.browserAction.setBadgeText({
-      text: val === 0 ? '' : String(val)
+      text: val === 0 || config.ui.badge === false ? '' : String(val)
     });
   }
 });

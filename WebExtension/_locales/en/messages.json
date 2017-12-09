@@ -279,6 +279,9 @@
   "options_notifications_31": {
     "message": "Ask Gmail to prevent 'inbox.google.com' redirection"
   },
+  "options_notifications_32": {
+    "message": "Display Badge number"
+  },
   "options_tab": {
     "message": "Tab Opening:"
   },

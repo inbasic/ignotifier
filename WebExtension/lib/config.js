@@ -17,7 +17,8 @@ Object.assign(config.prefs, {
 });
 
 chrome.storage.local.get(config.prefs, ps => {
-  if (ps.firstRun) {
+  // fix preferences from older versions
+  if (ps.firstRun && ps.version) {
     config.map.number.forEach(name => ps[name] = Number(ps[name]));
     config.map.checkbox.forEach(name => {
       if (ps[name] === 'true') {
@@ -284,7 +285,9 @@ config.labels = {
 };
 
 config.ui = {
-  badge: true,
+  get badge() {
+    return config.prefs.badge;
+  },
   get tooltip() {
     return config.prefs.tooltip;
   },
