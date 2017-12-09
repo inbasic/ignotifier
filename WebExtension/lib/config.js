@@ -123,6 +123,9 @@ config.email = {
   get doReadOnArchive() {
     return config.prefs.doReadOnArchive;
   },
+  get inboxRedirection() {
+    return config.prefs.inboxRedirection;
+  },
   get openInboxOnOne() {
     return config.prefs.oldFashion;
   },

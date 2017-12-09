@@ -74,23 +74,40 @@ gmail.action = (token => {
     return gmail.fetch(url + '&at=' + at + '&act=' + cmd.replace('rd-all', 'rd') + '&t=' + threads.join('&t=')).then(r => {
       if (r.status === 500) {
         token = {};
+        return 'retry';
       }
     });
   }
 
   return ({links, cmd}) => {
     links = typeof links === 'string' ? [links] : links;
-    const url = /[^?]*/.exec(links[0])[0] + '/?ibxr=0';
-    return getAt(url).then(function(at) {
+    let url = /[^?]*/.exec(links[0])[0];
+
+    const perform = () => getAt(url).then(function(at) {
       if (!at) {
         return Promise.reject(new Error('action -> Cannot resolve GM_ACTION_TOKEN'));
       }
       const threads = links.map(link => gmail.get.id(link) || '').map(t => t);
 
+      let second = false;
       if (threads.length) {
-        return sendCmd(url, at, threads, cmd);
+        return sendCmd(url, at, threads, cmd).then(r => {
+          if (r === 'retry' && second === false) {
+            second = true;
+            return perform();
+          }
+        });
       }
       return Promise.reject(Error('action -> Error at resolving thread.'));
     });
+
+    return new Promise((resolve, reject) => chrome.storage.local.get({
+      inboxRedirection: true
+    }, prefs => {
+      if (prefs.inboxRedirection) {
+        url += '/?ibxr=0';
+      }
+      perform().then(resolve, reject);
+    }));
   };
 })({});

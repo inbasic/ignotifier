@@ -479,12 +479,9 @@ app.on('load', () => {
       if (version.indexOf('b') !== -1) {  // beta versions
         return;
       }
-      if (pversion === '0.8.0' || pversion === '0.8.1') {
-        return;
-      }
       chrome.tabs.create({
-        url: 'http://add0n.com/gmail-notifier.html?version=' + version +
-          '&type=' + (p ? ('upgrade&p=' + pversion) : 'install'),
+        url: chrome.runtime.getManifest().homepage_url + '?version=' + version +
+          '&type=' + (p ? ('upgrade&p=' + prefs.version) : 'install'),
         active: p === false
       });
     });
@@ -492,5 +489,7 @@ app.on('load', () => {
 });
 {
   const {name, version} = chrome.runtime.getManifest();
-  chrome.runtime.setUninstallURL('http://add0n.com/feedback.html?name=' + name + '&version=' + version);
+  chrome.runtime.setUninstallURL(
+    chrome.runtime.getManifest().homepage_url + '?rd=feedback&name=' + name + '&version=' + version
+  );
 }

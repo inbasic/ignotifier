@@ -17,8 +17,8 @@ config.map = {
   checkbox: [
     'notification', 'alert', 'combined', 'searchMode', 'ignoreOpens',
     'relatedToCurrent', 'currentTab', 'background', 'useBlankTabs',
-    'newWindow', 'keyUp', 'render', 'doReadOnArchive', 'alphabetic',
-    'onGmailNotification', 'minimal', 'welcome'
+    'newWindow', 'keyUp', 'render', 'doReadOnArchive', 'inboxRedirection',
+    'alphabetic', 'onGmailNotification', 'minimal', 'welcome'
   ]
 };
 
@@ -71,6 +71,7 @@ config.prefs = {
   'keyUp': false,
   'render': true,
   'doReadOnArchive': true,
+  'inboxRedirection': true,
   'alphabetic': false,
   'clrPattern': 0,
   'onGmailNotification': true,
