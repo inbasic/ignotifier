@@ -227,7 +227,6 @@
   "options_notifications_34": {
     "message": "email summary contains"
   },
-
   "options_notifications_16": {
     "message": "Gmail Notifier default alert"
   },
@@ -414,6 +413,15 @@
   "options_misc_15": {
     "message": "Open FAQs page on updates"
   },
+  "options_plugins": {
+    "message": "Plug-ins:"
+  },
+  "options_plugins_1": {
+    "message": "Gmail labels and star button (experimental)"
+  },
+  "options_plugins_2": {
+    "message": "This plugin displays the star button as well as thread's labels in the popup (expanded mode only). This plug-in is still experimental. Please turn it off if the popup is not loading properly."
+  },
   "options_px": {
     "message": "px"
   },
@@ -426,8 +434,6 @@
   "options_button_reset": {
     "message": "Reset Preferences"
   },
-
-
   "popup_settings": {
     "message": "settings"
   },

@@ -136,6 +136,54 @@ header div[name="nav"] div[name="next"] {
   border-bottom: 1px solid #DCDCDC;
   height: 35px;
 }
+#content div[name="title"] #title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#content div[name="title"] #star {
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  background-position: center;
+  cursor: pointer;
+}
+body[data-star=hide] #content div[name="title"] #star {
+  display: none;
+}
+body[data-star=true] #content div[name="title"] #star {
+  background-image: url('plug-ins/star.svg');
+}
+body[data-star=false] #content div[name="title"] #star {
+  background-image: url('plug-ins/no-star.svg');
+}
+#content div[name=labels] {
+  padding: 0 5px;
+}
+#content div[name=labels] .label {
+  font: 11px arial,sans-serif;
+  background-color: rgb(221, 221, 221);
+  color: rgb(102, 102, 102);
+  margin-right: 5px;
+  padding-left: 5px;
+}
+#content div[name=labels] .label [data-cmd="remove-label"] {
+  padding: 2px 4px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+#content div[name=labels] .label [data-cmd="remove-label"]:hover {
+  color: rgb(221, 221, 221);
+  background-color: rgb(102, 102, 102);
+}
+body[data-labels=false] #content div[name=labels] {
+  display: none;
+}
+body[data-labels=true] #content div[name=labels] {
+  height: 32px;
+}
+
 #content div[name="info"] {
   display: flex;
   display: -webkit-flex;

@@ -339,3 +339,9 @@ config.tabs = {
     }
   }
 };
+
+config['plug-ins'] = {
+  get labels() {
+    return config.prefs['plug-in/labels'];
+  },
+}

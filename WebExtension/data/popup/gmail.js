@@ -49,7 +49,7 @@ gmail.body = (contents => (link, mode) => {
     return Promise.resolve(contents[link]);
   }
 
-  const url = /[^?]*/.exec(link)[0] + '/?ibxr=0';
+  const url = gmail.get.base(link) + '/?ibxr=0';
   const thread = gmail.get.id(link);
 
   if (!thread) {
@@ -77,7 +77,7 @@ gmail.render = (() => {
   };
 
   return {
-    getHTMLText: (content, link, feed) => {
+    getHTMLText: content => {
       const body = getLastMessage(content);
       if (body) {
         const table = document.createElement('table');

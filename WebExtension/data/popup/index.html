@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, target-densityDpi=device-dpi"/>
   </head>
 
-  <body mode=expanded>
+  <body mode=expanded data-star=hide data-labels=false>
     <header class="vcenter">
       <div class="ellipsis" name="email-container">Email</div>
       <div class="ellipsis" name="stat"><b>-</b> <span data-l10n-id="popup_of"></span> <b>-</b></div>
@@ -18,7 +18,15 @@
     <div id="content">
       <div class="ellipsis vcenter" name="title" dir="auto">
         <a id="title">Title</a>
+        <div class="ellipsis vcenter" name="labels" dir="auto" id="labels"></div>
+        <span id="star"></span>
       </div>
+      <template id="label-template">
+        <div class="label vcenter">
+          <span></span>
+          <span data-cmd="remove-label">x</span>
+        </div>
+      </template>
       <div name="info">
         <div name="sender" class="ellipsis">
           <a href="">Sender</a>

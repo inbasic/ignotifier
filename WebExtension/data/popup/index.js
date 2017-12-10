@@ -5,6 +5,25 @@ var objs;
 var contentCache = [];
 var selected = {};
 var isPrivate = false;
+var api = {
+  callbacks: {}
+};
+api.on = function(name, callback) {
+  api.callbacks[name] = api.callbacks[name] || [];
+  api.callbacks[name].push(callback);
+};
+api.emit = function(name, data) {
+  (api.callbacks[name] || []).forEach(c => c(data));
+};
+chrome.storage.local.get({
+  'plug-in/labels': false
+}, prefs => {
+  if (prefs['plug-in/labels']) {
+    document.body.appendChild(Object.assign(document.createElement('script'), {
+      src: 'plug-ins/labels.js'
+    }));
+  }
+});
 
 var notify = msg => chrome.notifications.create(null, {
   type: 'basic',
@@ -74,7 +93,8 @@ var accountSelector = (() => {
     set text(val) {
       localStorage.setItem('last-account', val);
       tmp.textContent = val;
-    }
+    },
+    gen: xml => xml.title + (xml.label ? ' [' + xml.label + ']' : '')
   };
 })();
 var stat = (() => {
@@ -192,8 +212,7 @@ var update = (() => {
 
     if (doAccountSelector) {
       old.link = selected.parent.xml.link;
-      accountSelector.text = selected.parent.xml.title +
-        (selected.parent.xml.label ? ' [' + selected.parent.xml.label + ']' : '');
+      accountSelector.text = accountSelector.gen(selected.parent.xml);
     }
     if (doAccountBody) {
       old.id = selected.entry.id;
@@ -280,12 +299,13 @@ new Listen('accounts', 'click', ({target}) => {
 new Listen('next', 'click', () => update(false, true));
 new Listen('previous', 'click', () => update(true, false));
 
-var action = (cmd, links = selected.entry.link) => {
+var action = (cmd, links = selected.entry.link, callback = () => {}) => {
   chrome.runtime.sendMessage({
     method: 'gmail.action',
     cmd,
     links
   }, e => {
+    callback();
     if (e && e instanceof Error) { // if error
       notify(e);
     }
@@ -312,8 +332,10 @@ var action = (cmd, links = selected.entry.link) => {
           obj = qs('spam');
           break;
       }
-      obj.removeAttribute('wait');
-      obj.removeAttribute('disabled');
+      if (obj) {
+        obj.removeAttribute('wait');
+        obj.removeAttribute('disabled');
+      }
     }
     chrome.runtime.sendMessage({
       method: 'update'
@@ -374,6 +396,7 @@ function updateContent() {
   if (mode === 1) {
     const link = selected.entry.link;
     const content = contentCache[link];
+    api.emit('update-full-content', link);
     if (content) {
       qs('content').removeAttribute('loading');
       if (content) {
@@ -466,7 +489,6 @@ qs('iframe').addEventListener('load', () => chrome.runtime.getBackgroundPage(b =
     const unreadEntries = objs.map(obj => obj.xml.entries
       .filter(e => obj.newIDs.indexOf(e.id) !== -1))
       .reduce((p, c) => p.concat(c), []);
-
     // selecting the correct account
     if (unreadEntries.length) {
       const newestEntry = unreadEntries.sort((p, c) => {
@@ -480,7 +502,7 @@ qs('iframe').addEventListener('load', () => chrome.runtime.getBackgroundPage(b =
     if (!selected.entry) {
       const lastAccount = localStorage.getItem('last-account');
       if (lastAccount) {
-        const account = objs.filter(o => o.xml.title === lastAccount).shift();
+        const account = objs.filter(o => accountSelector.gen(o.xml) === lastAccount).shift();
         if (account) {
           const id = localStorage.getItem('last-id');
           selected = {

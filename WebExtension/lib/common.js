@@ -105,21 +105,17 @@ function open(url, inBackground, refresh) {
             app.notify(app.l10n('msg_1'));
           }
         }
-        else if (tab.active && reload) {
-          chrome.tabs.update(tab.id, {url});
+        const options = {
+          active: true
+        };
+        if (reload) {
+          options.url = url;
         }
-        if (tab.active === false) {
-          const options = {
-            active: true
-          };
-          if (reload) {
-            options.url = url;
-          }
-          chrome.tabs.update(tab.id, options);
-          chrome.windows.update(tab.windowId, {
-            focused: true
-          });
-        }
+        chrome.tabs.update(tab.id, options);
+        chrome.windows.update(tab.windowId, {
+          focused: true
+        });
+
         return;
       }
     }
@@ -422,6 +418,10 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
     });
     return true;
   }
+  else if (method === 'gmail.search') {
+    gmail.search(request).catch(e => e).then(r => response(r.response));
+    return true;
+  }
 });
 
 // pref changes
@@ -457,7 +457,6 @@ chrome.storage.onChanged.addListener(prefs => {
     repeater.reset();
   }
   if (prefs.clrPattern || prefs.badge) {
-    console.error(new Error().stack, prefs);
     actions.reset();
   }
   if (prefs.period) {
