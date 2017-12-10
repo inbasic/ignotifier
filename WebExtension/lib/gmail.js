@@ -65,9 +65,28 @@ gmail.get = {
   gmail.at.invalidate = url => delete token[gmail.get.base(url)];
 }
 
+gmail.formData = (obj, send = false) => {
+  const arr = [];
+  Object.keys(obj).forEach(key => {
+    if (!Array.isArray(obj[key])) {
+      obj[key] = [obj[key]];
+    }
+    if (key !== 'at' || send) {
+      obj[key].forEach(v => {
+        if (key === 'q' && send) {
+          v = v.replace(/\s/, '+');
+        }
+        arr.push(`${key}=${encodeURIComponent(v)}`);
+      });
+    }
+  });
+  return arr.join('&');
+};
+
 gmail.post = (url, data, retry = true) => new Promise((resolve, reject) => {
   const rand = (Math.random().toString(36) + '00000000000000000').slice(2, 14);
-  url = (gmail.get.base(url) + '/h/' + rand + '/?&s=q');
+  url = (gmail.get.base(url) + '/h/' + rand + '/?&' + gmail.formData(data));
+
   const req = new XMLHttpRequest();
   req.open('POST', url);
   req.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
@@ -77,7 +96,7 @@ gmail.post = (url, data, retry = true) => new Promise((resolve, reject) => {
       if (req.response.indexOf('at=' + at) === -1 && retry === true) {
         gmail.at.invalidate(url);
         gmail.at.get(url).then(at => {
-          data = data.replace(/at=[^&]*/, 'at=' + at);
+          data.at = at;
           gmail.post(url, data, false).then(resolve, reject).then(resolve, reject);
         }).catch(reject);
       }
@@ -86,9 +105,9 @@ gmail.post = (url, data, retry = true) => new Promise((resolve, reject) => {
       }
     });
   };
-  req.onerror = () => reject('');
-
-  req.send(data);
+  req.onerror = e => reject('');
+  const c = gmail.formData(data, true);
+  req.send(c);
 });
 
 {
@@ -103,7 +122,18 @@ gmail.post = (url, data, retry = true) => new Promise((resolve, reject) => {
         }
       });
     }
-    const data = 'at=' + at + '&t=' + threads.join('&t=') + '&cat=&tact=' + cmd + '&nvp_tbu_go=Go';
+    const data = {
+      at,
+      t: threads,
+      cat: '',
+      tact: cmd,
+      'nvp_tbu_go': 'Go'
+    };
+    if (cmd === 'rd-all') {
+      delete data.cat;
+      delete data['nvp_tbu_go'];
+      data['nvp_a_arch'] = 'Archive';
+    }
     return gmail.post(url, data);
   }
 
@@ -150,6 +180,10 @@ gmail.search = ({url, query}) => gmail.at.get(url).then(at => {
   if (!at) {
     return Promise.reject(new Error('search -> Cannot resolve GM_ACTION_TOKEN'));
   }
-  const data = `s=q&q=${encodeURIComponent(query)}&nvp_site_mail=Search%20Mail&at=${at}`;
-  return gmail.post(url, data);
+  return gmail.post(url, {
+    s: 'q',
+    q: query,
+    'nvp_site_mail': 'Search Mail',
+    at
+  });
 });

@@ -420,7 +420,7 @@
     "message": "Gmail labels and star button (experimental)"
   },
   "options_plugins_2": {
-    "message": "This plugin displays the star button as well as thread's labels in the popup (expanded mode only). This plug-in is still experimental. Please turn it off if the popup is not loading properly."
+    "message": "This plugin displays the star button as well as thread's labels in the popup (expanded mode only)."
   },
   "options_px": {
     "message": "px"
