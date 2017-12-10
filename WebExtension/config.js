@@ -80,6 +80,7 @@ config.prefs = {
   'minimal': true,
   'welcome': true,
   'badge': true,
+  'backgroundColor': '#6e6e6e',
   // plug-ins
   'plug-in/labels': false
 };

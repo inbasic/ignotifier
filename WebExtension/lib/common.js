@@ -470,6 +470,9 @@ chrome.storage.onChanged.addListener(prefs => {
 // FAQs & Feedback & init
 app.on('load', () => {
   const prefs = config.prefs;
+  // init;
+  toolbar.color = prefs.backgroundColor;
+  //
   const version = chrome.runtime.getManifest().version;
 
   if (prefs.version ? (prefs.welcome && prefs.version !== version) : true) {

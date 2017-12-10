@@ -5,7 +5,6 @@ Object.assign(config.prefs, {
   'timeout': 9000,
   'maxReport': 3,
   'tooltip': true,
-  'backgroundColor': '#3366CC',
   'firstRun': true,
   'version': null,
   'notification.sound.media.default.file': null,
