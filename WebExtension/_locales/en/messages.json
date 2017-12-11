@@ -215,18 +215,6 @@
   "options_notifications_15": {
     "message": "Default sound notification is"
   },
-  "options_notifications_31": {
-    "message": "Custom sound notification"
-  },
-  "options_notifications_32": {
-    "message": "name or email contains"
-  },
-  "options_notifications_33": {
-    "message": "email title contains"
-  },
-  "options_notifications_34": {
-    "message": "email summary contains"
-  },
   "options_notifications_16": {
     "message": "Gmail Notifier default alert"
   },
@@ -276,9 +264,21 @@
     "message": "Combine all concurrent desktop notifications into a single notification"
   },
   "options_notifications_31": {
-    "message": "Ask Gmail to prevent 'inbox.google.com' redirection"
+    "message": "Custom sound notification"
   },
   "options_notifications_32": {
+    "message": "name or email contains"
+  },
+  "options_notifications_33": {
+    "message": "email title contains"
+  },
+  "options_notifications_34": {
+    "message": "email summary contains"
+  },
+  "options_notifications_36": {
+    "message": "Ask Gmail to prevent 'inbox.google.com' redirection"
+  },
+  "options_notifications_37": {
     "message": "Display Badge number"
   },
   "options_tab": {
