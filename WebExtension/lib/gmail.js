@@ -26,6 +26,8 @@ gmail.fetch = url => new Promise((resolve, reject) => {
   req.send();
 });
 
+gmail.random = () => (Math.random().toString(36) + '00000000000000000').slice(2, 14);
+
 gmail.get = {
   base: url => /[^?]*/.exec(url)[0].split('/h')[0].replace(/\/$/, ''),
   id: url => {
@@ -52,10 +54,13 @@ gmail.get = {
         return token[url];
       }
       else {
-        return gmail.fetch(url + 'h/' + Math.ceil(1000000 * Math.random())).then(r => r.text()).then(content => {
+        return gmail.fetch(url + '/h/' + gmail.random()).then(r => r.text()).then(content => {
           const tmp = /at=([^"&]*)/.exec(content);
           if (tmp && tmp.length > 1) {
             token[url] = tmp[1];
+          }
+          else {
+            token[url] = '';
           }
           return token[url];
         });
@@ -84,8 +89,7 @@ gmail.formData = (obj, send = false) => {
 };
 
 gmail.post = (url, data, retry = true) => new Promise((resolve, reject) => {
-  const rand = (Math.random().toString(36) + '00000000000000000').slice(2, 14);
-  url = (gmail.get.base(url) + '/h/' + rand + '/?&' + gmail.formData(data));
+  url = (gmail.get.base(url) + '/h/' + gmail.random() + '/?&' + gmail.formData(data));
 
   const req = new XMLHttpRequest();
   req.open('POST', url);
