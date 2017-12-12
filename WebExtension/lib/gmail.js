@@ -48,101 +48,93 @@ gmail.get = {
       return Promise.resolve(token[url]);
     }
     return gmail.fetch(url).then(r => r.text()).then(content => {
-      const tmp = /GM_ACTION_TOKEN="([^"]*)"/.exec(content);
-      if (tmp && tmp.length) {
-        token[url] = tmp[1];
-        return token[url];
+      const at = /GM_ACTION_TOKEN="([^"]*)"/.exec(content || '');
+      const ik = /var GLOBALS=\[(?:([^,]*),){10}/.exec(content || '');
+      token[url] = {
+        at: at && at.length ? at[1] : '',
+        ik: ik && ik.length ? ik[1].replace(/["']/g, '') : ''
+      };
+
+      if (token[url].at === '') {
+        new Error('action -> Cannot resolve GM_ACTION_TOKEN');
       }
-      else {
-        return gmail.fetch(url + '/h/' + gmail.random()).then(r => r.text()).then(content => {
-          const tmp = /at=([^"&]*)/.exec(content);
-          if (tmp && tmp.length > 1) {
-            token[url] = tmp[1];
-          }
-          else {
-            token[url] = '';
-          }
-          return token[url];
-        });
+      if (token[url].ik === '') {
+        new Error('action -> Cannot resolve GLOBALS');
       }
+
+      return token[url];
     });
   };
   gmail.at.invalidate = url => delete token[gmail.get.base(url)];
 }
 
-gmail.formData = (obj, send = false) => {
+gmail.formData = (obj) => {
   const arr = [];
   Object.keys(obj).forEach(key => {
     if (!Array.isArray(obj[key])) {
       obj[key] = [obj[key]];
     }
-    if (key !== 'at' || send) {
-      obj[key].forEach(v => {
-        if (key === 'q' && send) {
-          v = v.replace(/\s/, '+');
-        }
-        arr.push(`${key}=${encodeURIComponent(v)}`);
-      });
-    }
+    obj[key].forEach(v => {
+/*      if (key === 'q') {
+        v = v.replace(/\s/, '+');
+      }*/
+      arr.push(`${key}=${encodeURIComponent(v)}`);
+    });
   });
   return arr.join('&');
 };
 
-gmail.post = (url, data, retry = true) => new Promise((resolve, reject) => {
-  url = (gmail.get.base(url) + '/h/' + gmail.random() + '/?&' + gmail.formData(data));
+gmail.post = (url, params, threads = [], retry = true) => new Promise((resolve, reject) => {
+  url = (gmail.get.base(url) + '/?' + gmail.formData(params));
 
   const req = new XMLHttpRequest();
   req.open('POST', url);
   req.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
   req.onload = () => {
-    gmail.at.get(url).then(at => {
-      // is token changed
-      if (req.response.indexOf('at=' + at) === -1 && retry === true) {
-        gmail.at.invalidate(url);
-        gmail.at.get(url).then(at => {
-          data.at = at;
-          gmail.post(url, data, false).then(resolve, reject).then(resolve, reject);
-        }).catch(reject);
-      }
-      else {
-        resolve(req);
-      }
-    });
+    if (req.status === 302 && retry === true) {
+      gmail.at.invalidate(url);
+      console.log('retrying');
+      gmail.post(url, params, threads, retry = false).then(resolve, reject);
+    }
+    else if (req.status === 404) {
+      reject(new Error('Gmail is rejecting this action'));
+    }
+    else {
+      resolve(req);
+    }
   };
-  req.onerror = e => reject('');
-  const c = gmail.formData(data, true);
-  req.send(c);
+  req.onerror = () => reject('');
+  req.send(threads.length ? 't=' + threads.join('&t=') : '');
 });
 
 {
-  function sendCmd(url, at, threads, cmd) {
-    if (cmd === 'rc_%5Ei') {
+  function sendCmd(url, at, ik, threads, act) {
+    if (act === 'rc_%5Ei') {
       // mark as read on archive
       chrome.storage.local.get({
         doReadOnArchive: false
       }, prefs => {
         if (prefs.doReadOnArchive === true || prefs.doReadOnArchive === 'true') {
-          sendCmd(url, at, threads, 'rd');
+          gmail.post(url, {
+            ui: 2,
+            ik,
+            at,
+            act: 'rd'
+          }, threads);
         }
       });
     }
-    const data = {
+    return gmail.post(url, {
+      ui: 2,
+      ik,
       at,
-      t: threads,
-      cat: '',
-      tact: cmd,
-      'nvp_tbu_go': 'Go'
-    };
-    if (cmd === 'rd-all') {
-      delete data.cat;
-      delete data['nvp_tbu_go'];
-      data['nvp_a_arch'] = 'Archive';
-    }
-    return gmail.post(url, data);
+      act
+    }, threads);
   }
 
   gmail.action = ({links, cmd}) => {
-    if (cmd === 'rc_Inbox') {
+    if (cmd === 'rc_Inbox' || cmd === 'rd-all') {
+      // remove label Inbox
       cmd = 'rc_^i';
     }
     else if (cmd === 'rc_Spam') {
@@ -151,20 +143,11 @@ gmail.post = (url, data, retry = true) => new Promise((resolve, reject) => {
     links = typeof links === 'string' ? [links] : links;
     let url = /[^?]*/.exec(links[0])[0];
 
-    const perform = () => gmail.at.get(url).then(at => {
-      if (!at) {
-        return Promise.reject(new Error('action -> Cannot resolve GM_ACTION_TOKEN'));
-      }
+    const perform = () => gmail.at.get(url).then(obj => {
       const threads = links.map(link => gmail.get.id(link) || '').map(t => t);
 
-      let second = false;
       if (threads.length) {
-        return sendCmd(url, at, threads, cmd).then(r => {
-          if (r === 'retry' && second === false) {
-            second = true;
-            return perform();
-          }
-        });
+        return sendCmd(url, obj.at, obj.ik, threads, cmd);
       }
       return Promise.reject(Error('action -> Error at resolving thread.'));
     });
@@ -180,14 +163,26 @@ gmail.post = (url, data, retry = true) => new Promise((resolve, reject) => {
   };
 }
 
-gmail.search = ({url, query}) => gmail.at.get(url).then(at => {
-  if (!at) {
-    return Promise.reject(new Error('search -> Cannot resolve GM_ACTION_TOKEN'));
-  }
-  return gmail.post(url, {
-    s: 'q',
-    q: query,
-    'nvp_site_mail': 'Search Mail',
-    at
-  });
-});
+gmail.search = ({url, query}) => gmail.at.get(url).then(({at, ik}) => gmail.post(url, {
+  ui:2,
+  ik,
+  at,
+  view: 'tl',
+  start: 0,
+  num: 55,
+  rt: 'c',
+  q: query,
+  qs: true,
+  search: 'query'
+}).then(r => {
+  const json = JSON.parse(r.response.split('\n')[5]);
+  return json[0][2].map(o => ({
+    thread: o[1],
+    labels: o[5],
+    date: o[16],
+    hdate: o[15],
+    from: o[28],
+    text: o[9],
+    html: o[10]
+  }));
+}));

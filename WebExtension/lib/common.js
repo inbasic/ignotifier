@@ -376,7 +376,7 @@ app.on('load', () => {
 });
 
 // updates
-app.on('update', () => repeater.reset());
+app.on('update', () => repeater && repeater.reset());
 // messaging
 chrome.runtime.onMessage.addListener((request, sender, response) => {
   const method = request.method;
@@ -408,18 +408,21 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
     play(null);
   }
   else if (method === 'gmail.action') {
-    gmail.action(request).catch(e => e).then(e => {
+    gmail.action(request).then(e => {
       try {
         response(e);
       }
       catch (e) {
         window.setTimeout(() => repeater.reset(), 500);
       }
+    }).catch(e => {
+      app.notify(e.message);
+      response(e);
     });
     return true;
   }
   else if (method === 'gmail.search') {
-    gmail.search(request).catch(e => e).then(r => response(r.response));
+    gmail.search(request).then(r => response(r)).catch(e => response(e));
     return true;
   }
 });
@@ -480,6 +483,9 @@ app.on('load', () => {
     const p = Boolean(pversion);
     chrome.storage.local.set({version}, () => {
       if (version.indexOf('b') !== -1) {  // beta versions
+        return;
+      }
+      if (pversion === '0.8.3' || pversion === '0.8.4') {
         return;
       }
       chrome.tabs.create({

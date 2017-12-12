@@ -2,24 +2,16 @@
 'use strict';
 
 {
-  let doc;
+  let response;
   let root;
   let query;
-
-  const getTr = id => {
-    const a = [...doc.querySelectorAll('a')].filter(a => a.href.indexOf('th=' + id) !== -1).shift();
-    if (a) {
-      return a.closest('tr');
-    }
-  };
+  let inprogress = '';
 
   function star(url) {
     const id = gmail.get.id(url);
-    const tr = getTr(id);
-    if (tr) {
-      const img = tr.querySelector('td:first-child img');
-      const star = img && img.src.indexOf('cleardot') === -1;
-      document.body.dataset.star = Boolean(star);
+    const o = response.filter(o => o.thread === id).shift();
+    if (o) {
+      document.body.dataset.star = o.labels.some(s => s.startsWith('^t'));
     }
     else {
       document.body.dataset.star = 'hide';
@@ -27,50 +19,47 @@
   }
   function labels(url) {
     const id = gmail.get.id(url);
-    const tr = getTr(id);
-    const parent = document.getElementById('labels');
-    parent.textContent = '';
-    if (tr) {
-      const font = tr.querySelector('td:nth-child(3) font[color="#006633"]');
-      if (font) {
-        const labels = font.textContent.split(', ');
-        if (labels.length) {
-          const t = document.getElementById('label-template');
-          labels.forEach(label => {
-            const clone = document.importNode(t.content, true);
-            clone.querySelector('span').textContent = label;
-            clone.querySelector('div').dataset.value = label;
-            parent.appendChild(clone);
-          });
+    const o = response.filter(o => o.thread === id).shift();
+    if (o) {
+      const parent = document.getElementById('labels');
+      const t = document.getElementById('label-template');
+      parent.textContent = '';
+      o.labels.map(s => s === '^i' ? 'Inbox' : s).filter(s => s.startsWith('^') === false).forEach(label => {
+        const clone = document.importNode(t.content, true);
+        clone.querySelector('span').textContent = label;
+        clone.querySelector('div').dataset.value = label;
+        parent.appendChild(clone);
+      });
 
-          document.body.dataset.labels = true;
-          return;
-        }
-      }
+      document.body.dataset.labels = true;
     }
-    document.body.dataset.labels = false;
+    else {
+      document.body.dataset.labels = false;
+    }
   }
 
   const update = (q = query, callback = () => {}) => chrome.runtime.sendMessage({
     method: 'gmail.search',
     url: selected.parent.xml.rootLink,
     query: q
-  }, response => {
-    if (response) {
-      root = selected.parent.xml.rootLink;
+  }, r => {
+    if (!r || r instanceof Error) {
+      console.error(r);
+    }
+    else {
+      response = r;
       query = q;
-      const parser = new DOMParser();
-      doc = parser.parseFromString(response, 'text/html');
+      root = selected.parent.xml.rootLink;
       callback();
     }
   });
-  let inprogress = '';
+
   function fetch(url = selected.entry.link) {
     document.body.dataset.labels = false;
     document.body.dataset.star = 'hide';
 
     const q = 'in:' + (selected.parent.xml.label || 'inbox') + ' is:unread';
-    if (q === query && root === selected.parent.xml.rootLink && doc) {
+    if (q === query && root === selected.parent.xml.rootLink && response) {
       star(url);
       labels(url);
     }

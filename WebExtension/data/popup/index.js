@@ -306,9 +306,6 @@ var action = (cmd, links = selected.entry.link, callback = () => {}) => {
     links
   }, e => {
     callback();
-    if (e && e instanceof Error) { // if error
-      notify(e);
-    }
     if (cmd === 'rd') {
       qs('read').textContent = locale.get('popup_read');
       qs('read').removeAttribute('disabled');
@@ -387,10 +384,13 @@ new Listen('expand', 'click', () => chrome.storage.local.set({
 function updateContent() {
   const doSummary = () => {
     if (selected.entry) {
-      localStorage.setItem('last-id', selected.entry.id);
       qs('iframe').contentDocument.body.textContent = selected.entry.summary + ' ...';
     }
   };
+
+  if (selected.entry) {
+    localStorage.setItem('last-id', selected.entry.id);
+  }
 
   const mode = qs('body').getAttribute('mode') === 'expanded' ? 1 : 0;
   if (mode === 1) {
