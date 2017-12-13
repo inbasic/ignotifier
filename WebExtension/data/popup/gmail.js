@@ -3,13 +3,23 @@
 var gmail = {};
 
 gmail.fetch = url => new Promise((resolve, reject) => {
-  const req = new XMLHttpRequest();
-  req.onload = () => resolve({
-    text: () => req.response
+  chrome.storage.local.get({
+    inboxRedirection: true
+  }, prefs => {
+    if (prefs.inboxRedirection) {
+      url = url.replace('?', '?ibxr=0&');
+      if (url.indexOf('ibxr=0') === -1) {
+        url += '?ibxr=0';
+      }
+    }
+    const req = new XMLHttpRequest();
+    req.onload = () => resolve({
+      text: () => req.response
+    });
+    req.onerror = () => reject(new Error('action -> fetch Error'));
+    req.open('GET', url);
+    req.send();
   });
-  req.onerror = () => reject(new Error('action -> fetch Error'));
-  req.open('GET', url);
-  req.send();
 });
 
 gmail.get = {
@@ -49,14 +59,14 @@ gmail.body = (contents => (link, mode) => {
     return Promise.resolve(contents[link]);
   }
 
-  const url = gmail.get.base(link) + '/?ibxr=0';
+  const url = gmail.get.base(link);
   const thread = gmail.get.id(link);
 
   if (!thread) {
     return Promise.reject(Error('body -> Error at resolving thread. Please switch back to the summary mode.'));
   }
   return gmail.staticID(url)
-    .then(ik => gmail.fetch(url + '&ui=2&ik=' + ik + '&view=pt&dsqt=1&search=all&msg=' + thread)
+    .then(ik => gmail.fetch(url + '?ui=2&ik=' + ik + '&view=pt&dsqt=1&search=all&msg=' + thread)
     .then(r => r.text())
     .then(content => {
       const body = gmail.render[mode ? 'getHTMLText' : 'getPlainText'](content, url, link);

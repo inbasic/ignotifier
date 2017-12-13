@@ -42,8 +42,8 @@ chrome.storage.local.get(config.prefs, ps => {
       });
     }
   };
-  window.setTimeout(() => app.emit('load'), 2000);
-  // app.emit('load');
+  //window.setTimeout(() => app.emit('load'), 2000);
+  app.emit('load');
 });
 chrome.storage.onChanged.addListener(prefs => {
   Object.keys(prefs).forEach(key => config.prefs[key] = prefs[key].newValue);

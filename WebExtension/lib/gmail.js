@@ -47,22 +47,31 @@ gmail.get = {
     if (token[url]) {
       return Promise.resolve(token[url]);
     }
-    return gmail.fetch(url).then(r => r.text()).then(content => {
-      const at = /GM_ACTION_TOKEN="([^"]*)"/.exec(content || '');
-      const ik = /var GLOBALS=\[(?:([^,]*),){10}/.exec(content || '');
-      token[url] = {
-        at: at && at.length ? at[1] : '',
-        ik: ik && ik.length ? ik[1].replace(/["']/g, '') : ''
-      };
+    return new Promise((resolve, reject) => {
+      chrome.storage.local.get({
+        inboxRedirection: true
+      }, prefs => {
+        if (prefs.inboxRedirection) {
+          url += '/?ibxr=0';
+        }
+        gmail.fetch(url).then(r => r.text()).then(content => {
+          const at = /GM_ACTION_TOKEN="([^"]*)"/.exec(content || '');
+          const ik = /var GLOBALS=\[(?:([^,]*),){10}/.exec(content || '');
+          token[url] = {
+            at: at && at.length ? at[1] : '',
+            ik: ik && ik.length ? ik[1].replace(/["']/g, '') : ''
+          };
 
-      if (token[url].at === '') {
-        new Error('action -> Cannot resolve GM_ACTION_TOKEN');
-      }
-      if (token[url].ik === '') {
-        new Error('action -> Cannot resolve GLOBALS');
-      }
+          if (token[url].at === '') {
+            new Error('action -> Cannot resolve GM_ACTION_TOKEN');
+          }
+          if (token[url].ik === '') {
+            new Error('action -> Cannot resolve GLOBALS');
+          }
 
-      return token[url];
+          return token[url];
+        }).then(resolve, reject);
+      });
     });
   };
   gmail.at.invalidate = url => delete token[gmail.get.base(url)];
@@ -84,27 +93,37 @@ gmail.formData = (obj) => {
   return arr.join('&');
 };
 
-gmail.post = (url, params, threads = [], retry = true) => new Promise((resolve, reject) => {
-  url = (gmail.get.base(url) + '/?' + gmail.formData(params));
-
+gmail.post = (url, params, threads = [], retry = true, express = false) => new Promise((resolve, reject) => {
   const req = new XMLHttpRequest();
-  req.open('POST', url);
-  req.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
-  req.onload = () => {
-    if (req.status === 302 && retry === true) {
-      gmail.at.invalidate(url);
-      console.log('retrying');
-      gmail.post(url, params, threads, retry = false).then(resolve, reject);
-    }
-    else if (req.status === 404) {
-      reject(new Error('Gmail is rejecting this action'));
-    }
-    else {
-      resolve(req);
-    }
-  };
-  req.onerror = () => reject('');
-  req.send(threads.length ? 't=' + threads.join('&t=') : '');
+  chrome.storage.local.get({
+    inboxRedirection: true,
+    express: false
+  }, prefs => {
+    url = (gmail.get.base(url) + (prefs.inboxRedirection ? '/?ibxr=0&' : '/?') + gmail.formData(params));
+    req.open('POST', url);
+    req.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+    req.onreadystatechange = () => {
+      // consider post as successful if req.readyState === HEADERS_RECEIVED
+      if (express && prefs.express && req.readyState === 2 && req.status === 200) {
+        resolve(req);
+      }
+    };
+    req.onload = () => {
+      if (req.status === 302 && retry === true) {
+        gmail.at.invalidate(url);
+        console.log('retrying');
+        gmail.post(url, params, threads, retry = false).then(resolve, reject);
+      }
+      else if (req.status === 404) {
+        reject(new Error('Gmail is rejecting this action'));
+      }
+      else {
+        resolve(req);
+      }
+    };
+    req.onerror = () => reject('');
+    req.send(threads.length ? 't=' + threads.join('&t=') : '');
+  });
 });
 
 {
@@ -129,7 +148,7 @@ gmail.post = (url, params, threads = [], retry = true) => new Promise((resolve, 
       ik,
       at,
       act
-    }, threads);
+    }, threads, true, true);
   }
 
   gmail.action = ({links, cmd}) => {
@@ -141,9 +160,9 @@ gmail.post = (url, params, threads = [], retry = true) => new Promise((resolve, 
       cmd = 'us';
     }
     links = typeof links === 'string' ? [links] : links;
-    let url = /[^?]*/.exec(links[0])[0];
+    const url = /[^?]*/.exec(links[0])[0];
 
-    const perform = () => gmail.at.get(url).then(obj => {
+    return gmail.at.get(url).then(obj => {
       const threads = links.map(link => gmail.get.id(link) || '').map(t => t);
 
       if (threads.length) {
@@ -151,15 +170,6 @@ gmail.post = (url, params, threads = [], retry = true) => new Promise((resolve, 
       }
       return Promise.reject(Error('action -> Error at resolving thread.'));
     });
-
-    return new Promise((resolve, reject) => chrome.storage.local.get({
-      inboxRedirection: true
-    }, prefs => {
-      if (prefs.inboxRedirection) {
-        url += '/?ibxr=0';
-      }
-      perform().then(resolve, reject);
-    }));
   };
 }
 

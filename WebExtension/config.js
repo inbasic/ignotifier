@@ -19,7 +19,7 @@ config.map = {
     'relatedToCurrent', 'currentTab', 'background', 'useBlankTabs',
     'newWindow', 'keyUp', 'render', 'doReadOnArchive', 'inboxRedirection',
     'alphabetic', 'onGmailNotification', 'minimal', 'welcome', 'badge',
-    'plug-in/labels'
+    'plug-in/labels', 'express'
   ]
 };
 

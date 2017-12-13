@@ -132,3 +132,48 @@ document.getElementById('reset').addEventListener('click', () => {
 document.getElementById('test-play').addEventListener('click', () => chrome.runtime.sendMessage({
   method: 'test-play'
 }));
+
+// pref changes
+chrome.storage.onChanged.addListener(prefs => {
+  chrome.runtime.getBackgroundPage(b => {
+    if (prefs.resetPeriod) {
+      if (prefs.resetPeriod.newValue) {
+        b.resetTimer.fill(prefs.resetPeriod.newValue * 1000 * 60);
+        b.resetTimer.reset();
+      }
+      else {
+        b.resetTimer.stop();
+      }
+    }
+    if (prefs.oldFashion) {
+      const numberOfAccounts = b.checkEmails.getCached()
+        .map(o => o.xml ? o.xml.title : null)
+        .filter((o, i, a) => o && a.indexOf(o) === i)
+        .length;
+      const hasUnread = b.checkEmails.getCached()
+        .map(o => o.xml ? o.xml.fullcount : 0)
+        .reduce((p, c) => p + c, 0);
+      if (numberOfAccounts === 1 && prefs.oldFashion.newValue === 1) {
+        b.app.popup.detach();
+      }
+      else if (hasUnread) {
+        b.app.popup.attach();
+      }
+    }
+    if (prefs.minimal ||
+      prefs.feeds_0 || prefs.feeds_1 || prefs.feeds_2 || prefs.feeds_3 || prefs.feeds_4 || prefs.feeds_5 ||
+      prefs.feeds_custom
+    ) {
+      b.repeater.reset();
+    }
+    if (prefs.clrPattern || prefs.badge) {
+      b.actions.reset();
+    }
+    if (prefs.period) {
+      b.repeater.fill(prefs.period.newValue * 1000);
+    }
+    if (prefs.backgroundColor) {
+      b.toolbar.color = prefs.backgroundColor.newValue;
+    }
+  });
+});
