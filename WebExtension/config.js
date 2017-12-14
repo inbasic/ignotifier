@@ -81,6 +81,7 @@ config.prefs = {
   'welcome': true,
   'badge': true,
   'backgroundColor': '#6e6e6e',
+  'express': false,
   // plug-ins
   'plug-in/labels': false
 };
