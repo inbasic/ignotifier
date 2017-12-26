@@ -55,7 +55,10 @@ gmail.get = {
           url += '/?ibxr=0';
         }
         gmail.fetch(url).then(r => r.text()).then(content => {
-          const at = /GM_ACTION_TOKEN="([^"]*)"/.exec(content || '');
+          let at = /GM_ACTION_TOKEN="([^"]*)"/.exec(content || '');
+          if (!at || at.length === 0) {
+            at = /at=([^"&]*)&/.exec(content || '');
+          }
           const ik = /var GLOBALS=\[(?:([^,]*),){10}/.exec(content || '');
           token[url] = {
             at: at && at.length ? at[1] : '',
@@ -63,10 +66,11 @@ gmail.get = {
           };
 
           if (token[url].at === '') {
-            new Error('action -> Cannot resolve GM_ACTION_TOKEN');
+            throw new Error('action -> Cannot resolve GM_ACTION_TOKEN');
           }
+          // in simple HTLM mode it is not available
           if (token[url].ik === '') {
-            new Error('action -> Cannot resolve GLOBALS');
+//            throw new Error('action -> Cannot resolve GLOBALS');
           }
 
           return token[url];
@@ -152,12 +156,15 @@ gmail.post = (url, params, threads = [], retry = true, express = false) => new P
   }
 
   gmail.action = ({links, cmd}) => {
-    if (cmd === 'rc_Inbox' || cmd === 'rd-all') {
+    if (cmd === 'rc_Inbox') {
       // remove label Inbox
       cmd = 'rc_^i';
     }
     else if (cmd === 'rc_Spam') {
       cmd = 'us';
+    }
+    else if (cmd === 'rd-all') {
+      cmd = 'rd';
     }
     links = typeof links === 'string' ? [links] : links;
     const url = /[^?]*/.exec(links[0])[0];
@@ -185,14 +192,28 @@ gmail.search = ({url, query}) => gmail.at.get(url).then(({at, ik}) => gmail.post
   qs: true,
   search: 'query'
 }).then(r => {
-  const json = JSON.parse(r.response.split('\n')[5]);
-  return json[0][2].map(o => ({
-    thread: o[1],
-    labels: o[5],
-    date: o[16],
-    hdate: o[15],
-    from: o[28],
-    text: o[9],
-    html: o[10]
-  }));
+  const sections = r.response.split('\n');
+  const jsons = sections.filter(s => s.startsWith('[["tb"')).shift();
+  if (jsons) {
+    const json = JSON.parse(jsons);
+    const root = json.filter(a => a[0] === 'tb').shift();
+    if (root) {
+      return root[2].map(o => ({
+        thread: o[1],
+        labels: o[5],
+        date: o[16],
+        hdate: o[15],
+        from: o[28],
+        text: o[9],
+        html: o[10]
+      }));
+    }
+    else {
+      throw new Error('Cannot parse search result/2');
+    }
+  }
+  else {
+    throw new Error('Cannot parse search result/1');
+  }
+
 }));
