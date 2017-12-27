@@ -132,7 +132,7 @@ gmail.post = (url, params, threads = [], retry = true, express = false) => new P
 
 {
   function sendCmd(url, at, ik, threads, act) {
-    if (act === 'rc_%5Ei') {
+    if (act === 'rc_^i') {
       // mark as read on archive
       chrome.storage.local.get({
         doReadOnArchive: false
@@ -215,5 +215,4 @@ gmail.search = ({url, query}) => gmail.at.get(url).then(({at, ik}) => gmail.post
   else {
     throw new Error('Cannot parse search result/1');
   }
-
 }));

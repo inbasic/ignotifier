@@ -442,7 +442,7 @@ app.on('load', () => {
       if (version.indexOf('b') !== -1) {  // beta versions
         return;
       }
-      if (pversion === '0.8.5' || pversion === '0.8.6' || pversion === '0.8.7') {
+      if (pversion === '0.8.5' || pversion === '0.8.6' || pversion === '0.8.7' || pversion === '0.8.8') {
         return;
       }
       chrome.tabs.create({

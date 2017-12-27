@@ -322,7 +322,7 @@ var action = (cmd, links = selected.entry.link, callback = () => {}) => {
         case 'tr':
           obj = qs('trash');
           break;
-        case 'rc_%5Ei':
+        case 'rc_^i':
           obj = qs('archive');
           break;
         case 'sp':
@@ -343,7 +343,7 @@ var action = (cmd, links = selected.entry.link, callback = () => {}) => {
 new Listen('archive', 'click', () => {
   qs('archive').setAttribute('wait', true);
   qs('archive').setAttribute('disabled', true);
-  action('rc_%5Ei');
+  action('rc_^i');
 });
 new Listen('trash', 'click', () => {
   qs('trash').setAttribute('wait', true);
