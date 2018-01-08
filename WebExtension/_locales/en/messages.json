@@ -156,7 +156,7 @@
     "message": "Mark message as read when archiving it"
   },
   "options_gmail_9": {
-    "message": "Some popular labels: \"inbox\", \"important\", \"^smartlabel_personal\", \"^smartlabel_newsletter\", \"^smartlabel_notification\", and \"^smartlabel_group\""
+    "message": "Some popular labels: \"inbox\", \"important\", \"all\", \"unread\", \"^smartlabel_personal\", \"^smartlabel_newsletter\", \"^smartlabel_notification\", and \"^smartlabel_group\""
   },
   "options_gmail_10": {
     "message": "Receive notifications for the following labels and accounts:"
