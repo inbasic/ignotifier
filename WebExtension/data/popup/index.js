@@ -468,16 +468,22 @@ chrome.storage.onChanged.addListener(prefs => {
 
 // communication
 chrome.runtime.onMessage.addListener(request => {
-  if (request.method === 'update-date') {
+  if (request.method === 'validate-current') {
+    if (selected.parent.xml.fullcount === 20) {
+      objs = request.data;
+      update();
+    }
+  }
+  else if (request.method === 'update') {
+    objs = request.data;
+    update();
+  }
+  else if (request.method === 'update-date') {
     //This function is called on every server response.
     if (!selected.entry) {
       return;
     }
     body.date = utils.prettyDate(selected.entry.modified);
-  }
-  else if (request.method === 'update') {
-    objs = request.data;
-    update();
   }
 });
 

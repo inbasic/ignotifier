@@ -167,6 +167,12 @@
   "options_gmail_12": {
     "message": "Separate feeds by \",\" (Comma). Sample feed: https://mail.google.com/mail/u/0/feed/atom/inbox"
   },
+  "options_gmail_13": {
+    "message": "Note: maximum number for all labels except \"inbox\" is 20 (Google feeds only supply the 20 newest entries)"
+  },
+  "options_gmail_14": {
+    "message": "Note: for the Notifier to listen for more than 5 accounts, add feeds URLs to the \"Custom feeds\" field. For instance to listen to the 6 and 7th accounts add:  https://mail.google.com/mail/u/6/feed/atom/inbox,  https://mail.google.com/mail/u/7/feed/atom/inbox"
+  },
   "options_notifications": {
     "message": "Notifications:"
   },

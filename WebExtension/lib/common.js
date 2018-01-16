@@ -54,7 +54,7 @@ function open(url, inBackground, refresh) {
   function parseUri(str) {
     const uri = new URL(str);
     if (uri.hostname.startsWith('mail.google')) {
-      uri.messageId = (/message_id=([^&]*)|#[^/]*\/([^&]*)/.exec(uri.hostname) || [])[1] || uri.hash.split('/')[1];
+      uri.messageId = (/message_id=([^&]*)|#[^/]*\/([^&]*)/.exec(uri.href) || [])[1] || uri.hash.split('/')[1];
       uri.label = (/#([^/]*)/.exec(str) || [])[1];
     }
     return uri;
@@ -248,6 +248,7 @@ var checkEmails = (function() {
         //
         if (!anyNewEmails && !forced && count === newCount) {
           app.popup.send('update-date', objs); //Updating the date of the panel
+          app.popup.send('validate-current', objs); //maybe the current email is marked as read but still count is 20 (max value for non inbox labels)
           return; //Everything is clear
         }
         count = newCount;
@@ -331,9 +332,26 @@ var checkEmails = (function() {
             app.popup.attach();
           }
           if (config.notification.show) {
-            // this most likely is the account that user wants to reach!
-            const link = tmp[0].link.split('?')[0];
-            app.notify(report, '', open.bind(null, link));
+            app.notify(report, '', () => {
+              // use open to open the first link and use chrome.tabs.create for the rest
+              open(tmp[0].link);
+              tmp.slice(1).forEach(o => chrome.tabs.create({
+                url: o.link,
+                active: false
+              }));
+            }, [{
+              title: app.l10n('popup_read'),
+              callback: () => gmail.action({
+                links: tmp.map(o => o.link),
+                cmd: 'rd'
+              })
+            }, {
+              title: app.l10n('popup_archive'),
+              callback: () => gmail.action({
+                links: tmp.map(o => o.link),
+                cmd: 'rc_^i'
+              })
+            }]);
           }
           if (config.notification.sound.play) {
             play(tmp);

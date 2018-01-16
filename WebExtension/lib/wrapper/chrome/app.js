@@ -26,6 +26,15 @@ chrome.notifications.onClicked.addListener(function(id) {
     app.notify[id]();
   }
 });
+if (chrome.notifications.onButtonClicked) {
+  chrome.notifications.onButtonClicked.addListener((id, index) => {
+    chrome.notifications.clear(id, function() {});
+    userActions.forEach(c => c());
+    if (app.notify[id] && app.notify[id].buttons) {
+      app.notify[id].buttons[index].callback();
+    }
+  });
+}
 
 app.popup = {
   attach: () => chrome.browserAction.setPopup({
@@ -64,7 +73,7 @@ app.get = (url, headers = {}, data, timeout) => new Promise(resolve => {
 
 app.l10n = chrome.i18n.getMessage;
 
-app.notify = function(text, title, callback) {
+app.notify = function(text, title, callback, buttons = []) {
   title = title || app.l10n('gmail');
   if (config.notification.silent) {
     return;
@@ -90,14 +99,22 @@ app.notify = function(text, title, callback) {
       };
     }) : [],
     isClickable: true,
-    requireInteraction: true
+    requireInteraction: true,
+    buttons: buttons.map(b => ({
+      title: b.title,
+      iconUrl: b.iconUrl
+    }))
   };
   if (isFirefox) {
     delete options.requireInteraction;
+    delete options.buttons;
   }
 
   chrome.notifications.create(null, options, id => {
     app.notify[id] = callback;
+    if (callback) {
+      app.notify[id].buttons = buttons;
+    }
     window.setTimeout(id => {
       app.notify[id] = null;
       chrome.notifications.clear(id);
