@@ -177,3 +177,5 @@ chrome.storage.onChanged.addListener(prefs => {
     }
   });
 });
+
+document.getElementById('donation').href = chrome.runtime.getManifest().homepage_url + '?rd=donate';

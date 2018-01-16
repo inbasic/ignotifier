@@ -203,3 +203,9 @@ input:invalid {
   margin-left: 5px;
   width: 80px;
 }
+
+#donation {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}

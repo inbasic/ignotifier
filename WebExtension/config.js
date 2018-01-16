@@ -83,5 +83,5 @@ config.prefs = {
   'backgroundColor': '#6e6e6e',
   'express': false,
   // plug-ins
-  'plug-in/labels': false
+  'plug-in/labels': true
 };

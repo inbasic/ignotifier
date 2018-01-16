@@ -246,6 +246,8 @@ var checkEmails = (function() {
           return p + c.xml.fullcount;
         }, 0);
         //
+        cachedEmails = objs;
+        //
         if (!anyNewEmails && !forced && count === newCount) {
           app.popup.send('update-date', objs); //Updating the date of the panel
           app.popup.send('validate-current', objs); //maybe the current email is marked as read but still count is 20 (max value for non inbox labels)
@@ -253,7 +255,6 @@ var checkEmails = (function() {
         }
         count = newCount;
         //
-        cachedEmails = objs;
         contextmenu.fireContext();
         // Preparing the report
         tmp = [];
@@ -341,16 +342,18 @@ var checkEmails = (function() {
               }));
             }, [{
               title: app.l10n('popup_read'),
+              iconUrl: '/data/images/read.png',
               callback: () => gmail.action({
                 links: tmp.map(o => o.link),
                 cmd: 'rd'
-              })
+              }).catch(() => {}).then(() => window.setTimeout(() => repeater.reset(), 500))
             }, {
               title: app.l10n('popup_archive'),
+              iconUrl: '/data/images/archive.png',
               callback: () => gmail.action({
                 links: tmp.map(o => o.link),
                 cmd: 'rc_^i'
-              })
+              }).catch(() => {}).then(() => window.setTimeout(() => repeater.reset(), 500))
             }]);
           }
           if (config.notification.sound.play) {
@@ -460,7 +463,7 @@ app.on('load', () => {
       if (version.indexOf('b') !== -1) {  // beta versions
         return;
       }
-      if (pversion === '0.8.5' || pversion === '0.8.6' || pversion === '0.8.7' || pversion === '0.8.8') {
+      if (pversion === '0.8.9') {
         return;
       }
       chrome.tabs.create({
