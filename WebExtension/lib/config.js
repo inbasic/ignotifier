@@ -275,6 +275,9 @@ config.notification = {
       checked: val === false
     });
   },
+  get actions() {
+    return config.prefs.notificationActions;
+  }
 };
 
 config.labels = {

@@ -180,39 +180,62 @@ gmail.post = (url, params, threads = [], retry = true, express = false) => new P
   };
 }
 
-gmail.search = ({url, query}) => gmail.at.get(url).then(({at, ik}) => gmail.post(url, {
+gmail.search = ({url, query, num = 55}) => gmail.at.get(url).then(({at, ik}) => gmail.post(url, {
   ui:2,
   ik,
   at,
   view: 'tl',
   start: 0,
-  num: 55,
+  num,
   rt: 'c',
   q: query,
   qs: true,
   search: 'query'
 }).then(r => {
-  const sections = r.response.split('\n');
-  const jsons = sections.filter(s => s.startsWith('[["tb"')).shift();
-  if (jsons) {
-    const json = JSON.parse(jsons);
-    const root = json.filter(a => a[0] === 'tb').shift();
+  let count = 0;
+  let name = '';
+  if (r.status === 200) {
+    const sections = [].concat.apply([],
+      r.response.split('\n').filter(s => s.startsWith('[[')).map(JSON.parse)
+    );
+    sections.filter(a => a[0] === 'ti').forEach(a => {
+      count = a[2];
+    });
+    sections.filter(a => a[0] === 'mla').forEach(a => {
+      try {
+        const id = /\/u\/(\d+)/.exec(url)[1];
+        name = a[1][id][0];
+      }
+      catch (e) {}
+    });
+    let root = '';
+    sections.filter(a => a[0] === 'tb').forEach(a => root = a);
     if (root) {
-      return root[2].map(o => ({
-        thread: o[1],
-        labels: o[5],
-        date: o[16],
-        hdate: o[15],
-        from: o[28],
-        text: o[9],
-        html: o[10]
-      }));
-    }
-    else {
-      throw new Error('Cannot parse search result/2');
+      const rtn = {
+        name,
+        'logged-in': true,
+        responseURL: r.responseURL,
+        entries: root[2].map(o => ({
+          thread: o[1],
+          labels: o[5],
+          date: o[16],
+          hdate: o[15],
+          from: o[28],
+          text: o[9],
+          html: o[10]
+        }))
+      };
+      rtn.count = count || rtn.entries.length;
+      return rtn;
     }
   }
-  else {
-    throw new Error('Cannot parse search result/1');
-  }
+  // throw new Error('Cannot parse search result/1');
+  // In case search results is empty!
+  return {
+    'logged-in': r.status === 200,
+    name,
+    responseURL: r.responseURL,
+    entries: [],
+    count
+  };
 }));

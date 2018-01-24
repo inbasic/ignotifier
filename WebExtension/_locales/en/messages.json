@@ -290,6 +290,9 @@
   "options_notifications_38": {
     "message": "Faster actions (mark as read, delete, ...) (Consider actions to be resolved when headers are received)"
   },
+  "options_notifications_39": {
+    "message": "Allow \"mark as read\" and \"archive\" from notifications (Chrome only)"
+  },
   "options_tab": {
     "message": "Tab Opening:"
   },

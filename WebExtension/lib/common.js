@@ -443,7 +443,7 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
     return true;
   }
   else if (method === 'gmail.search') {
-    gmail.search(request).then(r => response(r)).catch(() => response());
+    gmail.search(request).then(r => response(r.entries)).catch(() => response());
     return true;
   }
 });
@@ -463,7 +463,7 @@ app.on('load', () => {
       if (version.indexOf('b') !== -1) {  // beta versions
         return;
       }
-      if (pversion === '0.8.9') {
+      if (pversion === '0.8.9' || pversion === '0.9.0') {
         return;
       }
       chrome.tabs.create({

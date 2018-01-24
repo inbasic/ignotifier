@@ -19,7 +19,7 @@ config.map = {
     'relatedToCurrent', 'currentTab', 'background', 'useBlankTabs',
     'newWindow', 'keyUp', 'render', 'doReadOnArchive', 'inboxRedirection',
     'alphabetic', 'onGmailNotification', 'minimal', 'welcome', 'badge',
-    'plug-in/labels', 'express'
+    'plug-in/labels', 'express', 'notificationActions'
   ]
 };
 
@@ -82,6 +82,7 @@ config.prefs = {
   'badge': true,
   'backgroundColor': '#6e6e6e',
   'express': false,
+  'notificationActions': true,
   // plug-ins
   'plug-in/labels': true
 };

@@ -109,6 +109,9 @@ app.notify = function(text, title, callback, buttons = []) {
     delete options.requireInteraction;
     delete options.buttons;
   }
+  if (config.notification.actions === false) {
+    delete options.buttons;
+  }
 
   chrome.notifications.create(null, options, id => {
     app.notify[id] = callback;
@@ -154,7 +157,7 @@ app.sound = (function() {
   let id;
   chrome.webRequest.onCompleted.addListener(d => {
     if (d.frameId) {
-      if (d.type === 'main_frame' || d.url.indexOf('act=') !== -1) {
+      if (d.type === 'main_frame' || d.url.indexOf('&act=') !== -1) {
         window.clearTimeout(id);
         id = window.setTimeout(() => {
           app.emit('update');
