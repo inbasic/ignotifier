@@ -93,6 +93,11 @@ gmail.render = (() => {
         const table = document.createElement('table');
         table.classList.add('root');
         table.appendChild(body);
+
+        [...table.querySelectorAll('a')].forEach(a => {
+          a.dataset.href = a.href;
+          a.removeAttribute('href');
+        });
         return table;
       }
       else {

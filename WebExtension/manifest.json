@@ -32,5 +32,11 @@
     "16": "data/icons/red/16.png",
     "48": "data/icons/red/48.png",
     "128": "data/icons/red/128.png"
+  },
+  "applications": {
+    "gecko": {
+      "id": "jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack",
+      "strict_min_version": "52.0"
+    }
   }
 }

@@ -8,7 +8,8 @@
     e.stopPropagation();
     const target = e.target;
 
-    const link = (target.closest('a') && target.closest('a').href) || target.src || target.href;
+    const a = target.closest('a') || target;
+    const link = a.dataset.href || a.href || a.src || target.src || target.href;
 
     if (link) {
       chrome.runtime.sendMessage({
@@ -22,11 +23,13 @@
           altKey: e.altKey,
           metaKey: e.metaKey
         }
-      }, () => window.close());
+      }, () => e.button === 0 ? window.close() : null);
     }
   }
   window.addEventListener('click', opener);
-  qs('iframe').contentDocument.addEventListener('click', opener);
+  qs('iframe').addEventListener('load', () => {
+    qs('iframe').contentDocument.addEventListener('mousedown', opener);
+  });
 }
 
 {

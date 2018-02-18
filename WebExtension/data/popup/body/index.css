@@ -11,6 +11,7 @@ body, td {
 a {
   color: #1155CC;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .root {
