@@ -16,7 +16,7 @@ api.emit = function(name, data) {
   (api.callbacks[name] || []).forEach(c => c(data));
 };
 chrome.storage.local.get({
-  'plug-in/labels': false
+  'plug-in/labels': true
 }, prefs => {
   if (prefs['plug-in/labels']) {
     document.body.appendChild(Object.assign(document.createElement('script'), {
