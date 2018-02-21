@@ -2,6 +2,7 @@
 'use strict';
 
 var isFirefox = navigator.userAgent.indexOf('Firefox') !== -1;
+var isOpera = navigator.userAgent.indexOf('OPR') !== -1;
 
 var EventEmitter = function() {
   this.callbacks = {};
@@ -83,11 +84,15 @@ app.notify = function(text, title, callback, buttons = []) {
     isArray = false;
     text = text[0];
   }
+  if (isOpera && isArray) {
+    isArray = false;
+    text = text.join('\n');
+  }
 
   const options = {
     type: isArray ? 'list' : 'basic',
     iconUrl: '/data/icons/notification/48.png',
-    title: title,
+    title,
     message: isArray ? '' : text,
     priority: 2,
     eventTime: Date.now() + 30000,
@@ -107,6 +112,9 @@ app.notify = function(text, title, callback, buttons = []) {
   };
   if (isFirefox) {
     delete options.requireInteraction;
+    delete options.buttons;
+  }
+  if (isOpera) {
     delete options.buttons;
   }
   if (config.notification.actions === false) {
