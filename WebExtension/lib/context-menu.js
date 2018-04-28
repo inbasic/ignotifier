@@ -82,7 +82,7 @@ var contextmenu = {};
       actions.reset();
     }
     else if (method === 'label_12') {
-      open('http://add0n.com/gmail-notifier.html?type=context');
+      open(chrome.runtime.getManifest().homepage_url);
     }
   });
 

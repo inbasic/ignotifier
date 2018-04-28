@@ -5,13 +5,20 @@ var timer = document.getElementById('timer');
 var a = document.getElementById('a');
 var id;
 
-id = window.setInterval(() => {
-  count -= 1;
-  timer.textContent = '(' + count + ')';
-  if (count === 0) {
-    a.click();
-  }
-}, 1000);
+var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+
+if (isChrome) {
+  id = window.setInterval(() => {
+    count -= 1;
+    timer.textContent = '(' + count + ')';
+    if (count === 0) {
+      a.click();
+    }
+  }, 1000);
+}
+else {
+  window.location.replace(chrome.runtime.getURL('/data/options/index.html'));
+}
 
 a.addEventListener('click', e => {
   e.preventDefault();
