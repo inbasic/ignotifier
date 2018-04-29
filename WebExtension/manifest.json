@@ -3,7 +3,7 @@
   "short_name": "ignotifier",
   "description": "__MSG_description__",
   "author": "InBasic",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "manifest_version": 2,
   "default_locale": "en",
   "permissions": [
@@ -20,7 +20,8 @@
   "browser_action": {
     "default_icon": {
       "16": "data/icons/blue/16.png",
-      "19": "data/icons/blue/16.png",
+      "18": "data/icons/blue/18.png",
+      "19": "data/icons/blue/19.png",
       "32": "data/icons/blue/32.png"
     }
   },
@@ -34,9 +35,11 @@
   "homepage_url": "http://add0n.com/gmail-notifier.html",
   "icons": {
     "16": "data/icons/red/16.png",
+    "18": "data/icons/red/18.png",
     "19": "data/icons/red/19.png",
     "32": "data/icons/red/32.png",
     "48": "data/icons/red/48.png",
+    "64": "data/icons/red/64.png",
     "128": "data/icons/red/128.png"
   },
   "applications": {

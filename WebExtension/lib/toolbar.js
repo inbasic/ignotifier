@@ -61,6 +61,7 @@ Object.defineProperty(toolbar, 'color', {
         chrome.browserAction.setIcon({
           path: {
             '16': '/data/icons/' + clr + '/16.png',
+            '18': '/data/icons/' + clr + '/18.png',
             '19': '/data/icons/' + clr + '/19.png',
             '32': '/data/icons/' + clr + '/32.png'
           }

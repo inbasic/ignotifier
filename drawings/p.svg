@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   viewBox="0 0 184.252 184.252"
+   id="svg15"
+   height="184.252"
+   width="184.252"
+   version="1.1">
+  <metadata
+     id="metadata21">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs19" />
+  <g
+     id="Layer1000">
+    <path
+       id="path2"
+       style="fill:#37bf01;fill-rule:evenodd"
+       d="M 54.7064,99.5145 3.6507,30.9634 H 26.3764 V 7.9948 h 57.2998 v 22.9686 h 22.0858 z" />
+    <defs
+       id="defs10">
+      <linearGradient
+         id="grad1">
+        <stop
+           id="stop4"
+           stop-opacity="1.0000"
+           stop-color="#bff900"
+           offset="0%" />
+        <stop
+           id="stop6"
+           stop-opacity="1.0000"
+           stop-color="#1eb508"
+           offset="100%" />
+      </linearGradient>
+      <linearGradient
+         gradientUnits="objectBoundingBox"
+         y2="1"
+         x2="0"
+         y1="0"
+         x1="0"
+         id="grad2"
+         xlink:href="#grad1" />
+    </defs>
+    <path
+       id="path12"
+       style="fill:url(#grad2)"
+       d="M 37.8479,42.44 H 26.5416 L 54.7064,80.2256 82.8709,42.44 H 72.1233 V 19.4896 H 37.8479 Z" />
+  </g>
+</svg>

@@ -78,7 +78,7 @@ config.prefs = {
   'onGmailNotification': true,
   'threatAsNew': 10, // minutes
   'minimal': true,
-  'welcome': false,
+  'welcome': true,
   'badge': true,
   'backgroundColor': '#6e6e6e',
   'express': false,
