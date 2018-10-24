@@ -398,6 +398,7 @@ app.on('load', () => {
 
 // updates
 app.on('update', () => repeater && repeater.reset());
+app.on('update', () => console.log('updating'));
 // messaging
 chrome.runtime.onMessage.addListener((request, sender, response) => {
   const method = request.method;

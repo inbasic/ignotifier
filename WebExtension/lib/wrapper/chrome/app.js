@@ -164,8 +164,12 @@ app.sound = (function() {
 {
   let id;
   chrome.webRequest.onCompleted.addListener(d => {
-    if (d.frameId) {
-      if (d.type === 'main_frame' || d.url.indexOf('&act=') !== -1) {
+    if (d.tabId) {
+      if (
+        d.type === 'main_frame' ||
+        d.url.indexOf('&act=') !== -1 ||
+        (d.url.indexOf('/sync/u/') !== -1 && d.url.indexOf('/i/s') !== -1)
+      ) {
         window.clearTimeout(id);
         id = window.setTimeout(() => {
           app.emit('update');
@@ -173,7 +177,10 @@ app.sound = (function() {
       }
     }
   },
-    {urls: ['https://mail.google.com/mail/u*']},
+    {urls: [
+      '*://mail.google.com/mail/u*',
+      '*://mail.google.com/sync/u*'
+    ]},
     []
   );
 }
