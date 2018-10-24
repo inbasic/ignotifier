@@ -1,4 +1,4 @@
-/* globals app, config, timer, checkEmails, server, contextmenu, toolbar, gmail */
+/* globals app, config, timer, server, contextmenu, toolbar, gmail */
 'use strict';
 
 var repeater; // main repeater
@@ -461,10 +461,7 @@ app.on('load', () => {
     const pversion = prefs.version;
     const p = Boolean(pversion);
     chrome.storage.local.set({version}, () => {
-      if (version.indexOf('b') !== -1) {  // beta versions
-        return;
-      }
-      if (pversion === '0.8.9' || pversion === '0.9.0') {
+      if (version.indexOf('b') !== -1) { // beta versions
         return;
       }
       chrome.tabs.create({
