@@ -4,14 +4,14 @@
 // Link opener for html
 {
   function opener(e) {
-    e.preventDefault();
-    e.stopPropagation();
     const target = e.target;
 
     const a = target.closest('a') || target;
     const link = a.dataset.href || a.href || a.src || target.src || target.href;
 
     if (link) {
+      e.preventDefault();
+      e.stopPropagation();
       chrome.runtime.sendMessage({
         method: 'open',
         url: {

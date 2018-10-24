@@ -479,7 +479,7 @@ chrome.runtime.onMessage.addListener(request => {
     update();
   }
   else if (request.method === 'update-date') {
-    //This function is called on every server response.
+    // This function is called on every server response.
     if (!selected.entry) {
       return;
     }
@@ -491,7 +491,7 @@ chrome.runtime.onMessage.addListener(request => {
 qs('iframe').addEventListener('load', () => chrome.runtime.getBackgroundPage(b => {
   objs = b.checkEmails.getCached();
   if (objs && objs.length) {
-    //Selected account
+    // Selected account
     const unreadEntries = objs.map(obj => obj.xml.entries
       .filter(e => obj.newIDs.indexOf(e.id) !== -1))
       .reduce((p, c) => p.concat(c), []);
