@@ -14,13 +14,10 @@
       <div type="description" data-l10n-id="options_inshort"></div>
     </div>
     <div hbox flex="1" pack="center" align="center">
-
-        <a id=donation><button class="active" data-l10n-id="options_donation"></button></a>
-
+      <a id=donation><input type="button" data-l10n-id="options_donation" data-l10n-value="value"/></a>
     </div>
     <div>
       <ul>
-
         <li><a target="_blank" href="https://addons.mozilla.org/firefox/addon/gmail-notifier-restartless/"><img src="/data/icons/browsers/firefox.png"></img></a></li>
         <li><a target="_blank" href="https://chrome.google.com/webstore/detail/gmail-notifier/dcjichoefijpinlfnjghokpkojhlhkgl"><img src="/data/icons/browsers/chrome.png"></img></a></li>
         <li><a target="_blank" href="https://addons.opera.com/extensions/details/gmail-notifier/"><img src="/data/icons/browsers/opera.png"></img></a></li>
@@ -60,7 +57,14 @@
           <input type="text" id="feeds_0" placeholder="e.g.: inbox, important"/>
         </div>
         <p class="note" data-l10n-id="options_gmail_2"></p>
-        <p class="note" data-l10n-id="options_gmail_9"></p>
+        <p class="note">
+          <span data-l10n-id="options_gmail_15"></span>
+          <pre style="font-size: 90%; color: #8a8989; white-space: pre-line;">
+            inbox, important, all, unread
+            ^sq_ig_i_personal (Inbox Primary), ^sq_ig_i_social (Inbox Social), ^sq_ig_i_promo (Inbox Promotions), ^sq_ig_i_notification (Inbox Updates), ^sq_ig_i_group (Inbox Forums)
+            ^smartlabel_personal, ^smartlabel_newsletter, ^smartlabel_notification, ^smartlabel_group
+          </pre>
+        </p>
         <div align="center">
           <div data-l10n-id="options_gmail_3"></div>
           <input type="text" id="feeds_1" placeholder="e.g.: inbox, important"/>

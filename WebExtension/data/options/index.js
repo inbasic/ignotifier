@@ -69,7 +69,7 @@ document.addEventListener('change', e => {
       }).filter(s => s).join(', ');
     }
     else if (key === 'notificationTruncate') {
-      if (value % 2) { //odd number
+      if (value % 2) { // odd number
         value += 1;
         target.value = value;
       }

@@ -46,7 +46,7 @@ var contextmenu = {};
     parentId: ids.disable,
     id,
     title: l10n(id),
-    contexts: ['browser_action'],
+    contexts: ['browser_action']
   }));
 
   chrome.contextMenus.onClicked.addListener(info => {

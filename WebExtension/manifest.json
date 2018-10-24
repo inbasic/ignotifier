@@ -29,8 +29,9 @@
     "page": "lib/wrapper/chrome/background.html"
   },
   "options_ui": {
-    "page": "data/options/redirect.html",
-    "chrome_style": true
+    "page": "data/options/index.html",
+    "chrome_style": false,
+    "open_in_tab": true
   },
   "homepage_url": "http://add0n.com/gmail-notifier.html",
   "icons": {
