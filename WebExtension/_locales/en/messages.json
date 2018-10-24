@@ -347,6 +347,9 @@
   "options_toolbar_3": {
     "message": "Open Gmail account if only one account is logged-in"
   },
+  "options_toolbar_18": {
+    "message": "Open Gmail account (forced)"
+  },
   "options_toolbar_4": {
     "message": "Toolbar panel mode"
   },

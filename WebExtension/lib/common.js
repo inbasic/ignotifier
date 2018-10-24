@@ -16,7 +16,47 @@ var actions = {
       .setTimeout(() => config.notification.silent = false, time * 1000);
   },
   reset: () => repeater.reset(true),
-  onCommand: link => open(link || config.email.url)
+  onCommand: link => {
+    if (link) {
+      open(link);
+    }
+    try {
+      const objs = checkEmails.getCached();
+      if (objs && objs.length) {
+        // Selected account
+        const unreadEntries = objs.map(obj => obj.xml.entries
+          .filter(e => obj.newIDs.indexOf(e.id) !== -1))
+          .reduce((p, c) => p.concat(c), []);
+        // selecting the correct account
+        if (unreadEntries.length) {
+          const newestEntry = unreadEntries.sort((p, c) => {
+            const d1 = new Date(p.modified);
+            const d2 = new Date(c.modified);
+            return d1 < d2;
+          })[0];
+          if (newestEntry) {
+            return open(newestEntry.link);
+          }
+          else {
+            const lastAccount = localStorage.getItem('last-account');
+            if (lastAccount) {
+              const account = objs.filter(o => {
+                // same format as accountSelector.gen()
+                const label = o.xml.title + (o.xml.label ? ' [' + o.xml.label + ']' : '');
+                return label === lastAccount;
+              }).shift();
+              if (account) {
+                return open(account.xml.entries[0].link);
+              }
+            }
+          }
+        }
+        return open(objs[0].xml.entries[0].link);
+      }
+    }
+    catch (e) {}
+    return open(config.email.url);
+  }
 };
 
 function play(arr = []) {
@@ -296,8 +336,14 @@ var checkEmails = (function() {
               (c.xml.label ? ' [' + c.xml.label + ']' : '') +
               ' (' + c.xml.fullcount + ')\n';
           }, '').replace(/\n$/, '');
-        const singleAccount = config.email.openInboxOnOne === 1 &&
-          objs.map(o => o.xml.rootLink).filter((s, i, l) => l.indexOf(s) === i).length === 1;
+        let singleAccount = false;
+        if (config.email.openInboxOnOne === 1) {
+          singleAccount = objs.map(o => o.xml.rootLink).filter((s, i, l) => l.indexOf(s) === i).length === 1;
+        }
+        else if (config.email.openInboxOnOne === 2) {
+          singleAccount = true;
+        }
+
         if (!forced && !anyNewEmails) {
           if (newCount) {
             toolbar.icon = 'red';

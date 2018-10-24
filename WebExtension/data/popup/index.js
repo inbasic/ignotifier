@@ -4,7 +4,6 @@
 var objs;
 var contentCache = [];
 var selected = {};
-var isPrivate = false;
 var api = {
   callbacks: {}
 };
@@ -29,7 +28,7 @@ var notify = msg => chrome.notifications.create(null, {
   type: 'basic',
   iconUrl: '/data/icons/notification/48.png',
   title: chrome.i18n.getMessage('gmail'),
-  message: msg.message || msg,
+  message: msg.message || msg
 });
 
 var qs = function(q, m) {
@@ -53,7 +52,7 @@ var qs = function(q, m) {
     'read': 'footer div[name="read"]',
     'read-all': 'footer div[name="read-all"]',
     'email-container': 'header div[name="email-container"]',
-    'iframe': '#content iframe',
+    'iframe': '#content iframe'
   };
   q = reserved[q] || q;
   qs.cache = qs.cache || [];
@@ -223,11 +222,10 @@ var update = (() => {
       body.title = selected.entry.title;
       body.titleLink = messageID ? base + '/?shva=1#inbox/' + messageID : selected.entry.link;
       body.name = selected.entry.author_name;
-      //body.nameLink = base + "?view=cm&fs=1&tf=1&to=" + selected.entry.author_email;
+      // body.nameLink = base + "?view=cm&fs=1&tf=1&to=" + selected.entry.author_email;
       body.nameLink = 'mailto:' + selected.entry.author_email + '?subject=Re: ' + selected.entry.title;
       body.email = '<' + selected.entry.author_email + '>';
       updateContent();
-      isPrivate = selected.parent.isPrivate;
     }
     if (doNumber) {
       old.count = selected.parent.xml.fullcount;
@@ -249,7 +247,7 @@ var update = (() => {
   };
 })();
 
-/** Listeners **/
+/* Listeners */
 var Listen = function(query, on, callback, pointer) {
   const elem = qs(query);
   elem.addEventListener(on, function(e) {
@@ -449,14 +447,14 @@ const resize = () => {
     }
     const normal = {
       width: 500,
-      height: 240,
+      height: 240
     };
     Object.assign(document.body.style, {
       width: (expanded ? prefs.fullWidth : normal.width) + 'px',
       height: (expanded ? prefs.fullHeight - 20 : normal.height) + 'px'
     });
   });
-  //Close account selection menu if it is open
+  // Close account selection menu if it is open
   qs('accounts').style.display = 'none';
 };
 resize();

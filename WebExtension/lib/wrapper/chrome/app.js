@@ -173,7 +173,7 @@ app.sound = (function() {
         window.clearTimeout(id);
         id = window.setTimeout(() => {
           app.emit('update');
-        }, 100);
+        }, 1000);
       }
     }
   },
