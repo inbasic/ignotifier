@@ -51,6 +51,7 @@ function play(arr = []) {
 
 function open(url, inBackground, refresh) {
   url = url.replace('@private', ''); // some urls might end with "@private" for private mode
+
   function parseUri(str) {
     const uri = new URL(str);
     if (uri.hostname.startsWith('mail.google')) {
@@ -71,6 +72,10 @@ function open(url, inBackground, refresh) {
     chrome.tabs.query(options, tabs => resolve(tabs));
   })).then(tabs => {
     const parse2 = parseUri(url);
+    // support for basic HTML
+    if (parse2.messageId && config.email.basic) {
+      url = `${parse2.origin}${parse2.pathname}h/?&th=${parse2.messageId}&v=c`;
+    }
 
     for (let i = 0; i < tabs.length; i++) {
       const tab = tabs[i];
@@ -249,9 +254,9 @@ var checkEmails = (function() {
         cachedEmails = objs;
         //
         if (!anyNewEmails && !forced && count === newCount) {
-          app.popup.send('update-date', objs); //Updating the date of the panel
-          app.popup.send('validate-current', objs); //maybe the current email is marked as read but still count is 20 (max value for non inbox labels)
-          return; //Everything is clear
+          app.popup.send('update-date', objs); // Updating the date of the panel
+          app.popup.send('validate-current', objs); // maybe the current email is marked as read but still count is 20 (max value for non inbox labels)
+          return; // Everything is clear
         }
         count = newCount;
         //
@@ -393,17 +398,17 @@ chrome.browserAction.onClicked.addListener(() => actions.onCommand());
 // start up
 app.on('load', () => {
   // add a repeater to check all accounts
-  repeater = new timer.repeater(
+  repeater = new timer.Repeater(
     (config.email.check.first ? config.email.check.first : 5) * 1000,
     config.email.check.period * 1000
   );
 
   repeater.on(checkEmails.execute);
-  if (config.email.check.first === 0) {  // manual mode
+  if (config.email.check.first === 0) { // manual mode
     repeater.stop();
   }
   // periodic reset
-  resetTimer = new timer.repeater(
+  resetTimer = new timer.Repeater(
     config.email.check.resetPeriod * 1000 * 60,
     config.email.check.resetPeriod * 1000 * 60
   );

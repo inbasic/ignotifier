@@ -17,7 +17,7 @@ var timer = {};
  *    }
  *  });
  **/
-timer.repeater = function() {
+timer.Repeater = function() {
   let id, callback;
   let intervals = [].slice.call(arguments, 0);
   function stop() {

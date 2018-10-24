@@ -332,6 +332,9 @@
   "options_tab_9": {
     "message": "When unchecked, Gmail Notifier checks either active window or all open windows for open instance of Gmail and switch to the tab when tab opening is requested."
   },
+  "options_tab_10": {
+    "message": "Open emails in basic HTML mode"
+  },
   "options_toolbar": {
     "message": "Toolbar:"
   },

@@ -19,7 +19,7 @@ config.map = {
     'relatedToCurrent', 'currentTab', 'background', 'useBlankTabs',
     'newWindow', 'keyUp', 'render', 'doReadOnArchive', 'inboxRedirection',
     'alphabetic', 'onGmailNotification', 'minimal', 'welcome', 'badge',
-    'plug-in/labels', 'express',
+    'plug-in/labels', 'express', 'basic.html',
     'notification.buttons.markasread', 'notification.buttons.archive', 'notification.buttons.trash'
   ]
 };
@@ -86,6 +86,7 @@ config.prefs = {
   'notification.buttons.markasread': true,
   'notification.buttons.archive': true,
   'notification.buttons.trash': false,
+  'basic.html': false,
   // plug-ins
   'plug-in/labels': true
 };

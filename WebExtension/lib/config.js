@@ -21,6 +21,9 @@ chrome.storage.onChanged.addListener(prefs => {
 
 config.email = {
   url: 'https://mail.google.com/mail/u/0',
+  get basic() {
+    return config.prefs['basic.html'];
+  },
   compose: 'https://mail.google.com/mail/?ui=2&view=cm',
   get feeds_0() {
     return config.prefs['feeds_0'];
