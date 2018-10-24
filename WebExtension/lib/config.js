@@ -75,10 +75,10 @@ config.email = {
     }
     return merged;
   },
-  get timeout () {
+  get timeout() {
     return config.prefs.timeout;
   },
-  get maxReport () { //Maximum number of simultaneous reports from a single account
+  get maxReport() { // Maximum number of simultaneous reports from a single account
     return config.prefs.maxReport;
   },
   get threatAsNew() { // in minutes
@@ -245,8 +245,16 @@ config.notification = {
       checked: val === false
     });
   },
-  get actions() {
-    return config.prefs.notificationActions;
+  buttons: {
+    get markasread() {
+      return config.prefs['notification.buttons.markasread'];
+    },
+    get trash() {
+      return config.prefs['notification.buttons.trash'];
+    },
+    get archive() {
+      return config.prefs['notification.buttons.archive'];
+    }
   }
 };
 
@@ -315,5 +323,5 @@ config.tabs = {
 config['plug-ins'] = {
   get labels() {
     return config.prefs['plug-in/labels'];
-  },
+  }
 };

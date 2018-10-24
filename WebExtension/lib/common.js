@@ -225,11 +225,11 @@ var checkEmails = (function() {
           app.popup.detach();
           return;
         }
-        //Removing not logged-in accounts
+        // Removing not logged-in accounts
         objs = objs.filter(function(o) {
           return o.network && !o.notAuthorized && o.xml && o.xml.entries;
         });
-        //Sorting accounts
+        // Sorting accounts
         objs.sort(function(a, b) {
           var var1 = config.email.alphabetic ? a.xml.title : a.xml.link;
           var var2 = config.email.alphabetic ? b.xml.title : b.xml.link;
@@ -333,14 +333,7 @@ var checkEmails = (function() {
             app.popup.attach();
           }
           if (config.notification.show) {
-            app.notify(report, '', () => {
-              // use open to open the first link and use chrome.tabs.create for the rest
-              open(tmp[0].link);
-              tmp.slice(1).forEach(o => chrome.tabs.create({
-                url: o.link,
-                active: false
-              }));
-            }, [{
+            const buttons = [{
               title: app.l10n('popup_read'),
               iconUrl: '/data/images/read.png',
               callback: () => gmail.action({
@@ -354,7 +347,31 @@ var checkEmails = (function() {
                 links: tmp.map(o => o.link),
                 cmd: 'rc_^i'
               }).catch(() => {}).then(() => window.setTimeout(() => repeater.reset(), 500))
-            }]);
+            }, {
+              title: app.l10n('popup_trash'),
+              iconUrl: '/data/images/trash.png',
+              callback: () => gmail.action({
+                links: tmp.map(o => o.link),
+                cmd: 'tr'
+              }).catch(() => {}).then(() => window.setTimeout(() => repeater.reset(), 500))
+            }].filter((o, i) => {
+              if (
+                (i === 0 && config.notification.buttons.markasread) ||
+                (i === 1 && config.notification.buttons.archive) ||
+                (i === 2 && config.notification.buttons.trash)
+              ) {
+                return true;
+              }
+              return false;
+            }).slice(0, 2);
+            app.notify(report, '', () => {
+              // use open to open the first link and use chrome.tabs.create for the rest
+              open(tmp[0].link);
+              tmp.slice(1).forEach(o => chrome.tabs.create({
+                url: o.link,
+                active: false
+              }));
+            }, buttons);
           }
           if (config.notification.sound.play) {
             play(tmp);

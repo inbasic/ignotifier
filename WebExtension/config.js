@@ -19,7 +19,8 @@ config.map = {
     'relatedToCurrent', 'currentTab', 'background', 'useBlankTabs',
     'newWindow', 'keyUp', 'render', 'doReadOnArchive', 'inboxRedirection',
     'alphabetic', 'onGmailNotification', 'minimal', 'welcome', 'badge',
-    'plug-in/labels', 'express', 'notificationActions'
+    'plug-in/labels', 'express',
+    'notification.buttons.markasread', 'notification.buttons.archive', 'notification.buttons.trash'
   ]
 };
 
@@ -66,7 +67,7 @@ config.prefs = {
   'useBlankTabs': false,
   'newWindow': false,
   'oldFashion': 0,
-  'size':0,
+  'size': 0,
   'fullWidth': 750,
   'fullHeight': 600,
   'keyUp': false,
@@ -82,7 +83,9 @@ config.prefs = {
   'badge': true,
   'backgroundColor': '#6e6e6e',
   'express': false,
-  'notificationActions': true,
+  'notification.buttons.markasread': true,
+  'notification.buttons.archive': true,
+  'notification.buttons.trash': false,
   // plug-ins
   'plug-in/labels': true
 };

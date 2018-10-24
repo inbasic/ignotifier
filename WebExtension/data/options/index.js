@@ -21,11 +21,16 @@ var notify = (notify => {
 
 function restore() {
   chrome.storage.local.get(config.prefs, prefs => Object.entries(prefs).forEach(([key, value]) => {
-    if (config.map.checkbox.indexOf(key) === -1) {
-      document.getElementById(key).value = value;
+    try {
+      if (config.map.checkbox.indexOf(key) === -1) {
+        document.getElementById(key).value = value;
+      }
+      else {
+        document.getElementById(key).checked = value;
+      }
     }
-    else {
-      document.getElementById(key).checked = value;
+    catch (e) {
+      console.error(e);
     }
   }));
 }
@@ -106,7 +111,7 @@ document.addEventListener('change', e => {
       }
       return;
     }
-
+console.log(key, value);
     chrome.storage.local.set({
       [key]: value
     });
