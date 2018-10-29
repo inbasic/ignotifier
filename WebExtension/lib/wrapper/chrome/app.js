@@ -168,18 +168,18 @@ app.sound = (function() {
       if (
         d.type === 'main_frame' ||
         d.url.indexOf('&act=') !== -1 ||
-        (d.url.indexOf('/sync/u/') !== -1 && d.url.indexOf('/i/s') !== -1)
+        (d.url.indexOf('/sync/u/') !== -1 && d.method === 'POST')
       ) {
         window.clearTimeout(id);
         id = window.setTimeout(() => {
           app.emit('update');
-        }, 1000);
+        }, 2000);
       }
     }
   },
     {urls: [
       '*://mail.google.com/mail/u*',
-      '*://mail.google.com/sync/u*'
+      '*://mail.google.com/sync/u/*/i/s*'
     ]},
     []
   );

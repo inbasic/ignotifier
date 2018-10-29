@@ -3,7 +3,7 @@
   "short_name": "ignotifier",
   "description": "__MSG_description__",
   "author": "InBasic",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "manifest_version": 2,
   "default_locale": "en",
   "permissions": [

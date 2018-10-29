@@ -24,9 +24,7 @@ var actions = {
       const objs = checkEmails.getCached();
       if (objs && objs.length) {
         // Selected account
-        const unreadEntries = objs.map(obj => obj.xml.entries
-          .filter(e => obj.newIDs.indexOf(e.id) !== -1))
-          .reduce((p, c) => p.concat(c), []);
+        const unreadEntries = [].concat([], ...objs.map(obj => obj.xml.entries));
         // selecting the correct account
         if (unreadEntries.length) {
           const newestEntry = unreadEntries.sort((p, c) => {
@@ -36,19 +34,6 @@ var actions = {
           })[0];
           if (newestEntry) {
             return open(newestEntry.link);
-          }
-          else {
-            const lastAccount = localStorage.getItem('last-account');
-            if (lastAccount) {
-              const account = objs.filter(o => {
-                // same format as accountSelector.gen()
-                const label = o.xml.title + (o.xml.label ? ' [' + o.xml.label + ']' : '');
-                return label === lastAccount;
-              }).shift();
-              if (account) {
-                return open(account.xml.entries[0].link);
-              }
-            }
           }
         }
         return open(objs[0].xml.entries[0].link);
@@ -95,8 +80,12 @@ function open(url, inBackground, refresh) {
   function parseUri(str) {
     const uri = new URL(str);
     if (uri.hostname.startsWith('mail.google')) {
-      uri.messageId = (/message_id=([^&]*)|#[^/]*\/([^&]*)/.exec(uri.href) || [])[1] || uri.hash.split('/')[1];
-      uri.label = (/#([^/]*)/.exec(str) || [])[1];
+      uri.messageId = (/message_id=([^&]*)|#[^/]*\/([^&]*)/.exec(uri.href) || [])[1] || uri.hash.split('/').pop();
+      {
+        const a = uri.hash.substr(1).replace('label/', '').split('/');
+        a.pop();
+        uri.label = a.length ? a.join('/') : '';
+      }
     }
     return uri;
   }
@@ -114,7 +103,10 @@ function open(url, inBackground, refresh) {
     const parse2 = parseUri(url);
     // support for basic HTML
     if (parse2.messageId && config.email.basic) {
-      url = `${parse2.origin}${parse2.pathname}h/?&th=${parse2.messageId}&v=c`;
+      url = `${parse2.origin}${parse2.pathname}/h/?&th=${parse2.messageId}&v=c`.replace('//h', '/h');
+      if (parse2.label) {
+        url += '&s=l&l=' + parse2.label;
+      }
     }
 
     for (let i = 0; i < tabs.length; i++) {
@@ -466,7 +458,6 @@ app.on('load', () => {
 
 // updates
 app.on('update', () => repeater && repeater.reset());
-app.on('update', () => console.log('updating'));
 // messaging
 chrome.runtime.onMessage.addListener((request, sender, response) => {
   const method = request.method;
@@ -512,7 +503,14 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
     return true;
   }
   else if (method === 'gmail.search') {
-    gmail.search(request).then(r => response(r.entries)).catch(() => response());
+    // to prevent errors due to disconnected port
+    const callback = a => {
+      try {
+        response(a);
+      }
+      catch (e) {}
+    };
+    gmail.search(request).then(r => callback(r.entries)).catch(() => callback());
     return true;
   }
 });

@@ -2,7 +2,7 @@
 
 var gmail = {};
 
-/*gmail.fetch = url => fetch(url, {
+/* gmail.fetch = url => fetch(url, {
   credentials: 'same-origin',
   mode: 'cors',
   headers:{
@@ -14,7 +14,7 @@ var gmail = {};
     return r;
   }
   throw Error('action -> fetch Error');
-});*/
+}); */
 gmail.fetch = url => new Promise((resolve, reject) => {
   const req = new XMLHttpRequest();
   req.onload = () => resolve({
@@ -81,7 +81,7 @@ gmail.get = {
   gmail.at.invalidate = url => delete token[gmail.get.base(url)];
 }
 
-gmail.formData = (obj) => {
+gmail.formData = obj => {
   const arr = [];
   Object.keys(obj).forEach(key => {
     if (!Array.isArray(obj[key])) {
@@ -181,7 +181,7 @@ gmail.post = (url, params, threads = [], retry = true, express = false) => new P
 }
 
 gmail.search = ({url, query, num = 55}) => gmail.at.get(url).then(({at, ik}) => gmail.post(url, {
-  ui:2,
+  ui: 2,
   ik,
   at,
   view: 'tl',
@@ -214,8 +214,8 @@ gmail.search = ({url, query, num = 55}) => gmail.at.get(url).then(({at, ik}) => 
       const rtn = {
         name,
         'logged-in': true,
-        responseURL: r.responseURL,
-        entries: root[2].map(o => ({
+        'responseURL': r.responseURL,
+        'entries': root[2].map(o => ({
           thread: o[1],
           labels: o[5],
           date: o[16],
@@ -234,8 +234,8 @@ gmail.search = ({url, query, num = 55}) => gmail.at.get(url).then(({at, ik}) => 
   return {
     'logged-in': r.status === 200,
     name,
-    responseURL: r.responseURL,
-    entries: [],
+    'responseURL': r.responseURL,
+    'entries': [],
     count
   };
 }));

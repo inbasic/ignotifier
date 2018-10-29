@@ -49,7 +49,7 @@ config.email = {
   get feeds() {
     var tmp = ['0', '1', '2', '3', '4', '5']
       .map(i => config.email['feeds_' + i])
-      .map((f, i) => f.split(', ').map(tag => tag ? (tag.startsWith('http:') ? tag : i + '/feed/atom/' + tag) : ''));
+      .map((f, i) => f.split(', ').map(tag => tag ? (tag.startsWith('http:') ? tag : i + '/feed/atom/' + encodeURIComponent(tag)) : ''));
     let merged = [];
     tmp.forEach(l => merged.push(...l));
     merged = merged
@@ -63,7 +63,7 @@ config.email = {
       ];
     }
     merged = merged
-      //only feeds without '/inbox' show the right full-count
+      // only feeds without '/inbox' show the right full-count
       .map(tag => tag.replace('/inbox', ''))
       .filter(f => f)
       .filter((feed, index, feeds) => feeds.indexOf(feed) === index)

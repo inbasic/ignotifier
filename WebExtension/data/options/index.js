@@ -111,7 +111,6 @@ document.addEventListener('change', e => {
       }
       return;
     }
-console.log(key, value);
     chrome.storage.local.set({
       [key]: value
     });
@@ -179,6 +178,9 @@ chrome.storage.onChanged.addListener(prefs => {
     }
     if (prefs.backgroundColor) {
       b.toolbar.color = prefs.backgroundColor.newValue;
+    }
+    if (prefs.oldFashion) {
+      b.actions.reset();
     }
   });
 });

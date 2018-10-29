@@ -71,6 +71,7 @@ a:focus {
 .btn[wait] {
   background-image: url("wait.gif");
   background-position: center center;
+  background-size: 18px;
 }
 
 header {
@@ -81,12 +82,13 @@ header {
 header div[name="email-container"] {
   flex: auto;
   -webkit-flex: auto;
-  background: url(icons.png) 5px 0 no-repeat, url(icons.png) right -22px no-repeat;
+  background: url('icons/list.png') 5px 1px no-repeat, url('icons/arrow_drop_down.png') right 1px no-repeat;
   padding: 0 15px 0 28px;
   opacity: 0.7;
   cursor: pointer;
   -moz-user-select: none;
   user-select: none;
+  background-size: 20px;
 }
 header div[name="email-container"]:hover {
   opacity: 0.9;
@@ -107,13 +109,13 @@ header div[name="nav"] div {
   height: 22px;
 }
 header div[name="nav"] div[name="previous"] {
-  background-image:  url(icons.png);
-  background-position: center -132px;
+  background-image:  url('icons/chevron_left.png');
+  background-size: 20px;
   margin-right: -1px;
 }
 header div[name="nav"] div[name="next"] {
-  background-image:  url(icons.png);
-  background-position: center -154px;
+  background-image:  url('icons/chevron_right.png');
+  background-size: 20px;
 }
 
 #content {
@@ -229,33 +231,33 @@ footer div {
   height: 22px;
   margin: 4px 3px;
   white-space: nowrap;
-  background-image:  url(icons.png);
+  background-size: 20px;
 }
 
 footer div[name="settings"] {
-background-position: center -264px;
+  background-image: url('icons/settings.png');
 }
 footer div[name="gmail"] {
-background-position: center -176px;
+  background-image: url('icons/inbox.png');
 }
 footer div[name="archive"] {
-  background-position: center -110px;
+  background-image: url('icons/archive.png');
 }
 footer div[name="spam"] {
-  background-position: center -88px;
+  background-image: url('icons/spam.png');
 }
 footer div[name="trash"] {
-  background-position: center -44px;
+  background-image: url('icons/delete.png');
 }
 footer div[name="refresh"] {
-  background-position: center -66px;
+  background-image: url('icons/refresh.png');
 }
 footer div[name="read"] {
   width: 90px;
   background-image: none;
 }
 footer div[name="read-all"] {
-  background-position: center -242px;
+  background-image: url('icons/check_all.png');
 }
 @media all and (max-width: 500px) {
   footer div[name="read-all"] {
@@ -294,9 +296,8 @@ footer div[name="read-all"] {
   background-color: #F5F5F5;
 }
 #accounts li.selected {
-  background-image:  url(icons.png);
-  background-position: 5px -198px;
-  background-repeat: no-repeat;
+  background: url('icons/check.png') center left 2px no-repeat;
+  background-size: 20px;
 }
 
 #expand {
@@ -305,8 +306,8 @@ footer div[name="read-all"] {
   left: 9px;
   width: 40px;
   height: 12px;
-  background-image:  url(icons.png);
-  background-position: center -225px;
+  background-image:  url('icons/arrow_drop_down.png');
+  background-size: 20px;
 }
 body[mode="expanded"] #expand {
   -moz-transform: scaleY(-1);

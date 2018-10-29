@@ -1,4 +1,3 @@
-/* globals qs, isPrivate */
 'use strict';
 
 // Link opener for html
@@ -15,7 +14,6 @@
       chrome.runtime.sendMessage({
         method: 'open',
         url: {
-          isPrivate,
           link,
           button: e.button,
           ctrlKey: e.ctrlKey,

@@ -220,7 +220,16 @@ var update = (() => {
       const messageID = gmail.get.id(selected.entry.link);
       stat.current = index + 1;
       body.title = selected.entry.title;
-      body.titleLink = messageID ? base + '/?shva=1#inbox/' + messageID : selected.entry.link;
+      if (messageID && selected.parent.xml.link.indexOf('#') === -1) {
+        body.titleLink = base + '/?shva=1#inbox/' + messageID;
+      }
+      else if (messageID) {
+        body.titleLink = selected.parent.xml.link + '/' + messageID;
+      }
+      else {
+        body.titleLink = selected.entry.link;
+      }
+
       body.name = selected.entry.author_name;
       // body.nameLink = base + "?view=cm&fs=1&tf=1&to=" + selected.entry.author_email;
       body.nameLink = 'mailto:' + selected.entry.author_email + '?subject=Re: ' + selected.entry.title;
