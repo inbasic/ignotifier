@@ -628,11 +628,11 @@
         "description": ""
     },
     "popup_open_settings": {
-        "message": "Einstellungen öffnen",
+        "message": "Open Settings",
         "description": ""
     },
     "popup_open_inbox": {
-        "message": "Posteingang öffnen",
+        "message": "Open Inbox",
         "description": ""
     },
     "popup_archive": {

@@ -628,11 +628,11 @@
         "description": ""
     },
     "popup_open_settings": {
-        "message": "打开设置",
+        "message": "Open Settings",
         "description": ""
     },
     "popup_open_inbox": {
-        "message": "打开收件箱",
+        "message": "Open Inbox",
         "description": ""
     },
     "popup_archive": {

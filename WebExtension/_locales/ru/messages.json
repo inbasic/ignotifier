@@ -24,7 +24,7 @@
         "description": ""
     },
     "msg_1": {
-        "message": "Вкладка уже открыта. Нажмите на кнопку на панели инструментов чтобы открыть Gmail в новой вкладке или перейти на уже открытую вкладку Gmail.",
+        "message": "Вкладка уже открыта. Нажмите на кнопку на панели инструментов, чтобы открыть Gmail в новой вкладке или перейти на уже открытую вкладку Gmail.",
         "description": ""
     },
     "msg_2": {
@@ -200,7 +200,7 @@
         "description": ""
     },
     "options_gmail_15": {
-        "message": "Some popular labels:",
+        "message": "Популярные ярлыки:",
         "description": ""
     },
     "options_gmail_10": {
@@ -248,7 +248,7 @@
         "description": ""
     },
     "options_notifications_6": {
-        "message": "Обрезать текст уведомления длиннее чем",
+        "message": "Обрезать текст уведомления длиннее, чем",
         "description": ""
     },
     "options_notifications_7": {
@@ -292,7 +292,7 @@
         "description": ""
     },
     "options_notifications_17": {
-        "message": "Опопещения из Checker Plus",
+        "message": "Оповещения из Checker Plus",
         "description": ""
     },
     "options_notifications_18": {
@@ -380,19 +380,19 @@
         "description": ""
     },
     "options_notifications_40": {
-        "message": "Allow quick actions from notification box (maximum two actions) (Chrome only)",
+        "message": "Разрешить быстрые действия в окне уведомления (не более двух действий) (только в Chrome)",
         "description": ""
     },
     "options_notifications_41": {
-        "message": "Mark as Read",
+        "message": "Прочтено",
         "description": ""
     },
     "options_notifications_42": {
-        "message": "Archive",
+        "message": "Архивировать",
         "description": ""
     },
     "options_notifications_43": {
-        "message": "Trash",
+        "message": "Удалить",
         "description": ""
     },
     "options_tab": {
@@ -432,11 +432,11 @@
         "description": ""
     },
     "options_tab_9": {
-        "message": "Если активировано, аддон проверяет на наличие открытого уже Gmail и переключает фокус на него.",
+        "message": "Если активировано, Gmail Notifier не проверяет наличие уже открытого окна Gmail и не переключает фокус на него.",
         "description": ""
     },
     "options_tab_10": {
-        "message": "Open emails in basic HTML mode",
+        "message": "Открывать письма в базовом HTML-режиме",
         "description": ""
     },
     "options_toolbar": {
@@ -456,7 +456,7 @@
         "description": ""
     },
     "options_toolbar_18": {
-        "message": "Open Gmail account (forced)",
+        "message": "Открыть аккаунт Gmail (принудительно)",
         "description": ""
     },
     "options_toolbar_4": {
@@ -628,7 +628,7 @@
         "description": ""
     },
     "popup_open_settings": {
-        "message": "Настройки",
+        "message": "Открыть настройки",
         "description": ""
     },
     "popup_open_inbox": {

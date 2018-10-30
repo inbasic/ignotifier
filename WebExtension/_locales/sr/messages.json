@@ -628,11 +628,11 @@
         "description": ""
     },
     "popup_open_settings": {
-        "message": "Подешавања",
+        "message": "Open Settings",
         "description": ""
     },
     "popup_open_inbox": {
-        "message": "Отвори Примљене",
+        "message": "Open Inbox",
         "description": ""
     },
     "popup_archive": {
