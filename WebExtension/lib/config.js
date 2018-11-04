@@ -319,6 +319,9 @@ config.tabs = {
         return 1;
       }
       return 0;
+    },
+    get smart() {
+      return config.prefs['smartOpen'];
     }
   }
 };

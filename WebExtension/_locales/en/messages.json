@@ -335,6 +335,9 @@
   "options_tab_10": {
     "message": "Open emails in basic HTML mode"
   },
+  "options_tab_11": {
+    "message": "Open the newest unread email instead of opening the INBOX folder"
+  },
   "options_toolbar": {
     "message": "Toolbar:"
   },

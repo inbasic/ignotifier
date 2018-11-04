@@ -20,26 +20,28 @@ var actions = {
     if (link) {
       open(link);
     }
-    try {
-      const objs = checkEmails.getCached();
-      if (objs && objs.length) {
-        // Selected account
-        const unreadEntries = [].concat([], ...objs.map(obj => obj.xml.entries));
-        // selecting the correct account
-        if (unreadEntries.length) {
-          const newestEntry = unreadEntries.sort((p, c) => {
-            const d1 = new Date(p.modified);
-            const d2 = new Date(c.modified);
-            return d1 < d2;
-          })[0];
-          if (newestEntry) {
-            return open(newestEntry.link);
+    else if (config.tabs.open.smart) {
+      try {
+        const objs = checkEmails.getCached();
+        if (objs && objs.length) {
+          // Selected account
+          const unreadEntries = [].concat([], ...objs.map(obj => obj.xml.entries));
+          // selecting the correct account
+          if (unreadEntries.length) {
+            const newestEntry = unreadEntries.sort((p, c) => {
+              const d1 = new Date(p.modified);
+              const d2 = new Date(c.modified);
+              return d1 < d2;
+            })[0];
+            if (newestEntry) {
+              return open(newestEntry.link);
+            }
           }
+          return open(objs[0].xml.entries[0].link);
         }
-        return open(objs[0].xml.entries[0].link);
       }
+      catch (e) {}
     }
-    catch (e) {}
     return open(config.email.url);
   }
 };
@@ -136,7 +138,10 @@ function open(url, inBackground, refresh) {
         !/to=/.test(url) &&
         !/view=cm/.test(url)
       ) {
-        const reload = parse2.messageId && tab.url.indexOf(parse2.messageId) === -1 || refresh;
+        const reload = refresh ||
+          (parse2.messageId && tab.url.indexOf(parse2.messageId) === -1) ||
+          (parse1.messageId && !parse2.messageId); // when opening INBOX when a thread page is open
+
         if (tab.active && !reload) {
           if (config.tabs.NotifyGmailIsOpen) {
             app.notify(app.l10n('msg_1'));
