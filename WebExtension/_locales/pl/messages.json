@@ -200,7 +200,7 @@
         "description": ""
     },
     "options_gmail_15": {
-        "message": "Some popular labels:",
+        "message": "Kilka popularnych etykiet:",
         "description": ""
     },
     "options_gmail_10": {
@@ -380,19 +380,19 @@
         "description": ""
     },
     "options_notifications_40": {
-        "message": "Allow quick actions from notification box (maximum two actions) (Chrome only)",
+        "message": "Zezwól na szybkie akcje z okna powiadomień (maksymalnie dwie akcje) (tylko dla Chrome)",
         "description": ""
     },
     "options_notifications_41": {
-        "message": "Mark as Read",
+        "message": "Oznacz jako przeczytane",
         "description": ""
     },
     "options_notifications_42": {
-        "message": "Archive",
+        "message": "Archiwizuj",
         "description": ""
     },
     "options_notifications_43": {
-        "message": "Trash",
+        "message": "Usuń",
         "description": ""
     },
     "options_tab": {
@@ -436,7 +436,11 @@
         "description": ""
     },
     "options_tab_10": {
-        "message": "Open emails in basic HTML mode",
+        "message": "Otwórz wiadomości w trybie podstawowego HTML",
+        "description": ""
+    },
+    "options_tab_11": {
+        "message": "Otwórz najnowszą nieprzeczytaną wiadomość zamiast folderu Odebrane",
         "description": ""
     },
     "options_toolbar": {
@@ -456,7 +460,7 @@
         "description": ""
     },
     "options_toolbar_18": {
-        "message": "Open Gmail account (forced)",
+        "message": "Otwórz konto Gmail (wymuś)",
         "description": ""
     },
     "options_toolbar_4": {
@@ -628,11 +632,11 @@
         "description": ""
     },
     "popup_open_settings": {
-        "message": "Open Settings",
+        "message": "Otwórz ustawienia",
         "description": ""
     },
     "popup_open_inbox": {
-        "message": "Open Inbox",
+        "message": "Otwórz skrzynkę",
         "description": ""
     },
     "popup_archive": {

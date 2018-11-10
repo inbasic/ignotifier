@@ -439,6 +439,10 @@
         "message": "Levelek megnyitása alap HTML módban",
         "description": ""
     },
+    "options_tab_11": {
+        "message": "Open the newest unread email instead of opening the INBOX folder",
+        "description": ""
+    },
     "options_toolbar": {
         "message": "Eszköztár:",
         "description": ""

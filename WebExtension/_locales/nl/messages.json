@@ -439,6 +439,10 @@
         "message": "E-mails opmaken in basis-HTML",
         "description": ""
     },
+    "options_tab_11": {
+        "message": "Open de nieuwste ongelezen e-mail in plaats van Postvak IN",
+        "description": ""
+    },
     "options_toolbar": {
         "message": "Werkbalk:",
         "description": ""

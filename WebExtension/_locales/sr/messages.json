@@ -200,7 +200,7 @@
         "description": ""
     },
     "options_gmail_15": {
-        "message": "Some popular labels:",
+        "message": "Неке популарне ознаке:",
         "description": ""
     },
     "options_gmail_10": {
@@ -380,19 +380,19 @@
         "description": ""
     },
     "options_notifications_40": {
-        "message": "Allow quick actions from notification box (maximum two actions) (Chrome only)",
+        "message": "Дозволи брзе радње из поља обавештења (највише две радње) (само Chrome)",
         "description": ""
     },
     "options_notifications_41": {
-        "message": "Mark as Read",
+        "message": "Означи као прочитано",
         "description": ""
     },
     "options_notifications_42": {
-        "message": "Archive",
+        "message": "Архивирај",
         "description": ""
     },
     "options_notifications_43": {
-        "message": "Trash",
+        "message": "Избриши",
         "description": ""
     },
     "options_tab": {
@@ -436,7 +436,11 @@
         "description": ""
     },
     "options_tab_10": {
-        "message": "Open emails in basic HTML mode",
+        "message": "Отвори пошту у основном HTML режиму",
+        "description": ""
+    },
+    "options_tab_11": {
+        "message": "Open the newest unread email instead of opening the INBOX folder",
         "description": ""
     },
     "options_toolbar": {
@@ -456,7 +460,7 @@
         "description": ""
     },
     "options_toolbar_18": {
-        "message": "Open Gmail account (forced)",
+        "message": "Отвори Gmail налог (принудно)",
         "description": ""
     },
     "options_toolbar_4": {
@@ -628,11 +632,11 @@
         "description": ""
     },
     "popup_open_settings": {
-        "message": "Open Settings",
+        "message": "Отвори подешавања",
         "description": ""
     },
     "popup_open_inbox": {
-        "message": "Open Inbox",
+        "message": "Отвори пријемно сандуче",
         "description": ""
     },
     "popup_archive": {

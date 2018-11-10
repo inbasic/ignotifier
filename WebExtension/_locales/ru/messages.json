@@ -439,6 +439,10 @@
         "message": "Открывать письма в базовом HTML-режиме",
         "description": ""
     },
+    "options_tab_11": {
+        "message": "Open the newest unread email instead of opening the INBOX folder",
+        "description": ""
+    },
     "options_toolbar": {
         "message": "Окно предварительного просмотра:",
         "description": ""
