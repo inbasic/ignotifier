@@ -253,8 +253,7 @@ footer div[name="refresh"] {
   background-image: url('icons/refresh.png');
 }
 footer div[name="read"] {
-  width: 90px;
-  background-image: none;
+  background-image: url('icons/check.png');
 }
 footer div[name="read-all"] {
   background-image: url('icons/check_all.png');
