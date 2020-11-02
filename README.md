@@ -3,7 +3,8 @@
 ### Description
 [Gmail Notifier](http://add0n.com/gmail-notifier.html) is a multi-account notifier for Google mail (without storing passwords locally)
 
-![116888](https://cloud.githubusercontent.com/assets/351062/19102298/0a93ce12-8adc-11e6-9a35-b4e183de6c73.png)
+### YouTube Preview
+[![YouTube Preview](https://img.youtube.com/vi/5Z2huN_GNkA/0.jpg)](https://www.youtube.com/watch?v=5Z2huN_GNkA)
 
 ### General information
 To compile ignotifier project you need to have these softwares and libraries available:
