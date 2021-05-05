@@ -3,7 +3,7 @@
   "short_name": "ignotifier",
   "description": "__MSG_description__",
   "author": "InBasic",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "manifest_version": 2,
   "default_locale": "en",
   "permissions": [
@@ -43,11 +43,5 @@
     "48": "data/icons/red/48.png",
     "64": "data/icons/red/64.png",
     "128": "data/icons/red/128.png"
-  },
-  "applications": {
-    "gecko": {
-      "id": "jid0-GjwrPchS3Ugt7xydvqVK4DQk8Ls@jetpack",
-      "strict_min_version": "52.0"
-    }
   }
 }

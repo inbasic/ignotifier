@@ -1,0 +1,79 @@
+:root {
+  --white: #fff;
+  --gray: #f5f5f5;
+  --blue: #4083f2;
+  --label-clr: #fff;
+  --label-bg: var(--blue);
+  --attch-bg: #f5f5f5;
+}
+body {
+  font-size: 13px;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  display: grid;
+  grid-template-rows: min-content min-content min-content min-content 1fr 42px;
+  grid-template-columns: min-content 1fr;
+  grid-gap: 5px 10px;
+  margin: 0;
+  height: 100vh;
+  align-items: center;
+  padding: 0 5px;
+}
+#content {
+  grid-column: 1/3;
+  border: none;
+  width: 100%;
+  height: 100%;
+}
+#more {
+  display: flex;
+  align-items: center;
+  grid-column: 1/3;
+}
+#subject {
+  flex: 1;
+  font-size: 110%;
+}
+#subject,
+#from,
+#to {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.label {
+  color: var(--label-clr);
+  background-color: var(--label-bg);
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
+  font-size: 80%;
+}
+.label:not(:last-child) {
+  margin-right: 2px;
+}
+.label input[type=button] {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin-left: 5px;
+  padding: 0 5px;
+  opacity: 0.54;
+}
+.label input[type=button]:hover:not(:disabled) {
+  opacity: 1;
+}
+.label input[type=button]:disabled {
+  cursor: not-allowed;
+}
+#attachments {
+  display: flex;
+}
+
+.attachment {
+  color: var(--attch-clr);
+  background-color: var(--attch-bg);
+  display: flex;
+  align-items: center;
+  padding: 2px 5px;
+  cursor: pointer;
+}

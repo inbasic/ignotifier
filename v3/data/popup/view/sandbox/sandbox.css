@@ -1,0 +1,16 @@
+:root {
+  --dark-gray: #a0a0a0;
+}
+body,
+pre {
+  font-size: 13px;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+body:empty::after {
+  content: 'nothing to show!';
+  font-style: italic;
+  color: var(--dark-gray);
+}
+pre {
+  white-space: break-spaces;
+}

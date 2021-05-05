@@ -520,32 +520,35 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
   }
 });
 
-// FAQs & Feedback & init
+// init
 app.on('load', () => {
   const prefs = config.prefs;
   // init;
   toolbar.color = prefs.backgroundColor;
-  //
-  const version = chrome.runtime.getManifest().version;
-
-  if (prefs.version ? (prefs.welcome && prefs.version !== version) : true) {
-    const pversion = prefs.version;
-    const p = Boolean(pversion);
-    chrome.storage.local.set({version}, () => {
-      if (version.indexOf('b') !== -1) { // beta versions
-        return;
-      }
-      chrome.tabs.create({
-        url: chrome.runtime.getManifest().homepage_url + '?version=' + version +
-          '&type=' + (p ? ('upgrade&p=' + pversion) : 'install'),
-        active: p === false
-      });
-    });
-  }
 });
+
 {
-  const {name, version} = chrome.runtime.getManifest();
-  chrome.runtime.setUninstallURL(
-    chrome.runtime.getManifest().homepage_url + '?rd=feedback&name=' + name + '&version=' + version
-  );
+  const {onInstalled, setUninstallURL, getManifest} = chrome.runtime;
+  const {name, version} = getManifest();
+  const page = getManifest().homepage_url;
+  onInstalled.addListener(({reason, previousVersion}) => {
+    chrome.storage.local.get({
+      'faqs': true,
+      'last-update': 0
+    }, prefs => {
+      if (reason === 'install' || (prefs.faqs && reason === 'update')) {
+        const doUpdate = (Date.now() - prefs['last-update']) / 1000 / 60 / 60 / 24 > 45;
+        if (doUpdate && previousVersion !== version) {
+          chrome.tabs.create({
+            url: page + '?version=' + version +
+              (previousVersion ? '&p=' + previousVersion : '') +
+              '&type=' + reason,
+            active: reason === 'install'
+          });
+          chrome.storage.local.set({'last-update': Date.now()});
+        }
+      }
+    });
+  });
+  setUninstallURL(page + '?rd=feedback&name=' + encodeURIComponent(name) + '&version=' + version);
 }

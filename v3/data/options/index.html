@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Options Page :: Gmail™ Notifier (Dev Edition)</title>
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+</head>
+<body>
+  <div class="two">
+    <h1 data-i18n="op_popup" class="fill"></h1>
+    <span data-i18n="op_opening_mode"></span>
+    <select id="opening-mode">
+      <option data-i18n="op_opening_mode_tab" value="tab"></option>
+      <option data-i18n="op_opening_mode_popup" value="popup"></option>
+    </select>
+    <span data-i18n="op_default_page"></span>
+    <input type="text" id="default-page">
+    <span></span>
+    <span class="note" data-i18n="op_default_page_desc"></span>
+    <h1 data-i18n="op_internals" class="fill"></h1>
+    <span data-i18n="op_default_engine"></span>
+    <select id="default-engine">
+      <option data-i18n="op_default_engine_rss" value="rss"></option>
+      <option data-i18n="op_default_engine_api" value="api" disabled></option>
+      <option data-i18n="op_default_engine_native" value="native" disabled></option>
+    </select>
+    <span data-i18n="op_api_client"></span>
+    <input type="text" id="api-client-id" placeholder="[user-client-id].apps.googleusercontent.com">
+    <h1 data-i18n="op_badge" class="fill"></h1>
+    <span data-i18n="op_badge_text_format"></span>
+    <textarea rows="6" id="badge-text-format"></textarea>
+    <span></span>
+    <div class="note">
+      <span data-i18n="op_badge_text_format_desc"></span>
+      <code>{EMAIL}</code>,
+      <code>{QUERY}</code>,
+      <code>{COUNT}</code>,
+      <code>{SNIPPET}</code>,
+      <code>{DATE}</code>,
+      <code>{EMAIL}</code>
+    </div>
+    <span data-i18n="op_ignored_users"></span>
+    <textarea rows="2" id="ignored-users"></textarea>
+    <span></span>
+    <span class="note" data-i18n="op_ignored_users_desc"></span>
+    <h1 data-i18n="op_email" class="fill"></h1>
+    <span data-i18n="op_mark_as_read"></span>
+    <input type="checkbox" id="popup-mark-read-on-view">
+    <span></span>
+    <span class="note" data-i18n="op_mark_as_read_desc"></span>
+    <span data-i18n="op_csp"></span>
+    <input type="text" id="popup-csp">
+    <span></span>
+    <span class="note" data-i18n="op_csp_desc"></span>
+  </div>
+  <div>
+    <h1 data-i18n="op_notification"></h1>
+    <div class="two">
+      <span data-i18n="op_badge_period"></span>
+      <input type="number" id="badge-period">
+    </div>
+    <form id="add-notification">
+      <div>
+        <input type="text" name="user" data-i18n="op_notification_email" data-i18n-value="placeholder" required>
+        <input type="text" name="query" data-i18n="op_notification_query" data-i18n-value="placeholder" required>
+        <input type="checkbox" name="sound" data-i18n-title="op_notification_sound" checked="true">
+        <input type="checkbox" name="desktop" data-i18n-title="op_notification_desktop" checked="true">
+        <input type="number" name="source"  data-i18n-title="op_notification_source_title" data-i18n="op_notification_source" data-i18n-value="placeholder" required min="1">
+      </div>
+      <div>
+        <input type="button" id="remove-sound" data-i18n="op_notification_remove_sound" data-i18n-value="value">
+        <label class="button" id="add-custom-sound">
+          <span data-i18n="op_notification_file"></span>
+          <input type="file" name="file" data-i18n="op_notification_file" accept="audio/">
+        </label>
+        <input type="submit" data-i18n="op_notification_submit" data-i18n-value="value">
+      </div>
+    </form>
+    <div id="notifications">
+      <div>
+        <span data-i18n="op_n_email"></span>
+        <span data-i18n="op_n_query"></span>
+        <span data-i18n="op_n_sound"></span>
+        <span data-i18n="op_n_desktop"></span>
+        <span data-i18n="op_n_source"></span>
+        <span>-</span>
+      </div>
+      <template>
+        <div class="entry">
+          <span data-id="user"></span>
+          <span data-id="query"></span>
+          <span data-id="sound"></span>
+          <span data-id="desktop"></span>
+          <span data-id="source"></span>
+          <input type="button" data-i18n="op_n_remove" data-i18n-value="value" data-command="remove">
+        </div>
+      </template>
+    </div>
+  </div>
+  <p id="tools">
+    <input type="button" id="native" data-i18n="op_native" data-i18n-value="value">
+    <input type="button" id="reset" data-i18n="op_reset" data-i18n-value="value">
+    <input type="button" id="support" data-i18n="op_support" data-i18n-value="value">
+    <input type="button" id="save" data-i18n="op_save" data-i18n-value="value">
+    <span id="toast"></span>
+  </p>
+  <script type="text/javascript" src="/configs.js"></script>
+  <script type="text/javascript" src="/core.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+{
+  "description": {
+    "message": "Multiple label and account notifier for Google Mail (Gmail), and more!"
+  },
+  "bg_no_message": {
+    "message": "No Unread Messages"
+  },
+  "bg_no_message_logged_in": {
+    "message": "Logged-in Accounts:"
+  },
+  "bg_no_message_logged_out": {
+    "message": "Logged-out Accounts:"
+  },
+  "bg_unexpected_error": {
+    "message": "Unexpected Error:"
+  },
+  "bg_check_new_emails": {
+    "message": "Checking for new emails. Please wait..."
+  },
+  "pp_mark_all_as_read": {
+    "message": "Mark all messages for this query as read"
+  },
+  "pp_mark_as_read": {
+    "message": "Mark as read (Shift + KeyI)"
+  },
+  "pp_refresh": {
+    "message": "Refresh this query"
+  },
+  "pp_report": {
+    "message": "Report spam (!)"
+  },
+  "pp_delete": {
+    "message": "Delete (#)"
+  },
+  "pp_archive": {
+    "message": "Archive (KeyE)"
+  },
+  "pp_inbox": {
+    "message": "Open Inbox"
+  },
+  "pp_options": {
+    "message": "Open options page"
+  },
+  "pp_search": {
+    "message": "Type a query and hit the Enter key (e.g. is:unread label:inbox)"
+  },
+  "pp_notification": {
+    "message": "Add or remove notifications for this query"
+  },
+  "pp_previous": {
+    "message": "Move to the previous message (KeyJ)"
+  },
+  "pp_next": {
+    "message": "Move to the next message (KeyK)"
+  },
+  "pp_expand": {
+    "message": "Toggle between collapsed and expanded modes"
+  },
+  "pp_no_user": {
+    "message": "{EMAIL} user is not logged-in or its account cannot be accessed."
+  },
+  "pp_of": {
+    "message": "of"
+  },
+  "pp_waiting": {
+    "message": "Waiting for accounts..."
+  },
+  "pp_empty_view": {
+    "message": "..."
+  },
+  "pp_empty_entries": {
+    "message": "Empty List"
+  },
+  "pp_next_thread": {
+    "message": "Next Thread"
+  },
+  "pp_view": {
+    "message": "Toggle between single or four grid views"
+  },
+  "op_opening_mode": {
+    "message": "Open the interface in"
+  },
+  "op_opening_mode_tab": {
+    "message": "Browser Tab"
+  },
+  "op_opening_mode_popup": {
+    "message": "Browser Popup"
+  },
+  "op_default_page": {
+    "message": "Default page"
+  },
+  "op_default_page_desc": {
+    "message": "Click on the action button opens this page when there are no unread emails"
+  },
+  "op_default_engine": {
+    "message": "Default engine to fetch emails"
+  },
+  "op_default_engine_rss": {
+    "message": "RSS (recommended)"
+  },
+  "op_default_engine_api": {
+    "message": "Gmail API (experimental)"
+  },
+  "op_default_engine_native": {
+    "message": "Native (notmuch) (experimental)"
+  },
+  "op_badge_text_format": {
+    "message": "Badge text format"
+  },
+  "op_badge_text_format_desc": {
+    "message": "Available keywords:"
+  },
+  "op_ignored_users": {
+    "message": "Ignored users:"
+  },
+  "op_ignored_users_desc": {
+    "message": "Comma-separated list of logged-in email addresses to ignore when updating badge"
+  },
+  "op_popup": {
+    "message": "Popup Interface"
+  },
+  "op_internals": {
+    "message": "Engine"
+  },
+  "op_badge": {
+    "message": "Badge"
+  },
+  "op_email": {
+    "message": "Email Reading"
+  },
+  "op_mark_as_read": {
+    "message": "Mark as read"
+  },
+  "op_mark_as_read_desc": {
+    "message": "Automatically mark the email as read when viewing it"
+  },
+  "op_csp": {
+    "message": "Content security policy"
+  },
+  "op_csp_desc": {
+    "message": "Use this content security policy for viewing emails. For instance to prevent the viewer from loading any remote resources use \"default-src 'none'; style-src 'unsafe-inline';\" (without quotes), or to allow all the remote resources, empty the box"
+  },
+  "op_notification": {
+    "message": "Notification"
+  },
+  "op_notification_email": {
+    "message": "e.g. me@gmail.com"
+  },
+  "op_notification_query": {
+    "message": "e.g. label:INBOX is:unread"
+  },
+  "op_notification_sound": {
+    "message": "Whether to play a sound notification when you got a new email or not"
+  },
+  "op_notification_desktop": {
+    "message": "Whether to show a desktop notification when you got a new email or not"
+  },
+  "op_notification_source_title": {
+    "message": "A number that represents the sound's source. Use 0, 1, 2, or 3 for the default sounds"
+  },
+  "op_notification_source": {
+    "message": "e.g. 1"
+  },
+  "op_notification_file": {
+    "message": "Store Custom Sound"
+  },
+  "op_notification_submit": {
+    "message": "Add Rule"
+  },
+  "op_n_email": {
+    "message": "Email Address"
+  },
+  "op_n_query": {
+    "message": "Query"
+  },
+  "op_n_sound": {
+    "message": "Play Sound"
+  },
+  "op_n_desktop": {
+    "message": "Show Notification"
+  },
+  "op_n_source": {
+    "message": "Sound Source ID"
+  },
+  "op_n_remove": {
+    "message": "Remove Rule"
+  },
+  "op_msg_large_file": {
+    "message": "This file is to big! Please reduce the filesize and retry."
+  },
+  "op_msg_sound_id": {
+    "message": "Use '%%' as the souce id of this sound"
+  },
+  "op_msg_saved": {
+    "message": "Options Saved"
+  },
+  "op_msg_reset": {
+    "message": "Double-click to reset!"
+  },
+  "op_notification_remove_sound": {
+    "message": "Remove Custom Sound"
+  },
+  "op_reset": {
+    "message": "Factory Reset"
+  },
+  "op_support": {
+    "message": "Support Development"
+  },
+  "op_save": {
+    "message": "Save Options"
+  },
+  "op_badge_period": {
+    "message": "Period (in minutes)"
+  },
+  "op_api_client": {
+    "message": "Gmail API server"
+  },
+  "op_native": {
+    "message": "Connect to \"notmuch\""
+  }
+}

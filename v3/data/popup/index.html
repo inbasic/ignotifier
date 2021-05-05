@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gmail Notifier</title>
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body class="collapsed single">
+  <template id="t-entry">
+    <li>
+      <label>
+        <input type="checkbox">
+        <div data-id="star"></div>
+        <div data-id="sender"></div>
+        <div data-id="tags"></div>
+        <div data-id="snippet"></div>
+        <div data-id="date">DATE</div>
+      </label>
+    </li>
+  </template>
+
+  <section id="header">
+    <input type="button" value="" id="previous" data-i18n-title="pp_previous">
+    <input type="button" value="" id="next" data-i18n-title="pp_next">
+    <select id="user"></select>
+    <input type="search" id="search" data-i18n="pp_search" data-i18n-value="placeholder" list="history">
+    <datalist id="history"></datalist>
+    <input type="button" value="" id="sound" data-i18n-title="pp_notification" disabled>
+    <div><span id="current">-</span> <span data-i18n="pp_of"></span> <span id="total">-</span></div>
+    <input type="button" value="" id="view" data-i18n-title="pp_view">
+  </section>
+  <section id="body">
+    <ul id="entries" data-i18n="pp_empty_entries" data-i18n-value="data-message"></ul>
+    <div id="content" data-i18n="pp_empty_view" data-i18n-value="data-message"></div>
+    <input type="button" value="" id="expand" data-i18n-title="pp_expand">
+  </section>
+  <section id="options-view">
+    options!
+  </section>
+  <section id="footer">
+    <input type="button" value="" id="options" data-i18n-title="pp_options">
+    <input type="button" value="" id="inbox" data-i18n-title="pp_inbox">
+    <input type="button" value="" id="archive" data-i18n-title="pp_archive" disabled>
+    <input type="button" value="" id="delete" data-i18n-title="pp_delete" disabled>
+    <input type="button" value="" id="report" data-i18n-title="pp_report" disabled>
+    <input type="button" value="" id="refresh" data-i18n-title="pp_refresh">
+    <input type="button" value="Mark as Read" id="mark-as-read" data-i18n-title="pp_mark_as_read" disabled>
+    <input type="button" value="" id="mark-all-as-read" data-i18n-title="pp_mark_all_as_read" disabled>
+  </section>
+
+  <script type="text/javascript" src="/core.js"></script>
+  <script type="text/javascript" src="/configs.js"></script>
+  <script type="text/javascript" src="api.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+  <script type="text/javascript" src="externals/moment/moment.js"></script>
+  <script type="text/javascript" src="commands.js"></script>
+</body>
+</html>

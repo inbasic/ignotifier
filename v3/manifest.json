@@ -1,0 +1,49 @@
+{
+  "manifest_version": 2,
+  "version": "1.0.0",
+  "name": "Gmail™ Notifier (Developer Edition)",
+  "description": "__MSG_description__",
+  "default_locale": "en",
+  "homepage_url": "http://add0n.com/gmail-notifier.html",
+  "permissions": [
+    "notifications",
+    "storage",
+    "alarms",
+    "identity",
+    "idle",
+    "https://mail.google.com/",
+    "contextMenus"
+  ],
+  "optional_permissions": [
+    "nativeMessaging",
+    "downloads"
+  ],
+  "icons": {
+    "16": "data/icons/colors/red/16.png",
+    "32": "data/icons/colors/red/32.png",
+    "48": "data/icons/colors/red/48.png",
+    "64": "data/icons/colors/red/64.png",
+    "128": "data/icons/colors/red/128.png"
+  },
+  "browser_action": {},
+  "background": {
+    "persistent": false,
+    "scripts": [
+      "core.js",
+      "accounts.js",
+      "configs.js",
+      "background.js",
+      "badge.js"
+    ]
+  },
+  "content_scripts": [{
+    "matches": ["https://mail.google.com/mail/u/*"],
+    "js": ["data/inject/watch.js"],
+    "run_at": "document_start"
+  }],
+  "options_ui": {
+    "page": "data/options/index.html",
+    "chrome_style": false,
+    "open_in_tab": true
+  }
+}
