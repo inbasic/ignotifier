@@ -82,13 +82,19 @@ core.alarms = {
 };
 
 core.notify = {
-  create({message}) {
-    chrome.notifications.create({
+  create(name, o) {
+    chrome.notifications.create(name, {
       type: 'basic',
       iconUrl: '/data/icons/colors/red/48.png',
       title: chrome.runtime.getManifest().name,
-      message
+      ...o
     });
+  },
+  fired(c) {
+    chrome.notifications.onClicked.addListener(c);
+  },
+  buttons(c) {
+    chrome.notifications.onButtonClicked.addListener(c);
   }
 };
 

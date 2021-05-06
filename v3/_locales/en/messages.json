@@ -17,6 +17,21 @@
   "bg_check_new_emails": {
     "message": "Checking for new emails. Please wait..."
   },
+  "bg_no_mark_as_read": {
+    "message": "Mark as Read"
+  },
+  "bg_no_report": {
+    "message": "Report Spam"
+  },
+  "bg_no_archive": {
+    "message": "Archive"
+  },
+  "bg_no_delete": {
+    "message": "Delete"
+  },
+  "bg_no_add_star": {
+    "message": "Add Star"
+  },
   "pp_mark_all_as_read": {
     "message": "Mark all messages for this query as read"
   },

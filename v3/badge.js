@@ -2,34 +2,50 @@
 
 const notify = () => core.storage.read({
   'notification': CONFIGS['notification'],
-  'notification-counts': CONFIGS['notification-counts']
+  'notification-counts': CONFIGS['notification-counts'],
+  'popup-switch-on-new': CONFIGS['popup-switch-on-new']
 }).then(prefs => {
   for (const [user, o] of Object.entries(users)) {
     for (const [query, e] of Object.entries(o.queries || {})) {
       const old = prefs['notification-counts'][user]?.[query]?.count;
       const count = e.resultSizeEstimate;
+      prefs['notification-counts'][user] = prefs['notification-counts'][user] || {};
+      prefs['notification-counts'][user][query] = {
+        count,
+        date: Date.now()
+      };
+      // save
+      core.storage.write(prefs);
+
       if (isNaN(old) === false && count > old) {
-        prefs['notification-counts'][user] = prefs['notification-counts'][user] || {};
-        prefs['notification-counts'][user][query] = {
-          count,
-          date: Date.now()
-        };
         core.log('count mismatch', user, query, 'old', old, 'new', count);
         if (count > old) {
+          const threads = e.threads.slice(0, count - old);
+          // notify
           const o = prefs.notification[user]?.[query];
           if (o) {
             if (o.sound) {
               notify.sound(o);
             }
             if (o.desktop) {
-              notify.desktop(user, query, count);
+              notify.desktop(user, query, count, threads);
             }
           }
           else {
             notify.sound({
               source: 0
             });
-            notify.desktop(user, query, count);
+            notify.desktop(user, query, count, threads);
+          }
+          // adjust popup view
+          if (prefs['popup-switch-on-new']) {
+            core.storage.write({
+              'popup-account': {
+                user,
+                query,
+                threads: threads[0].id
+              }
+            });
           }
         }
       }
@@ -50,14 +66,66 @@ notify.sound = ({source}) => core.storage.read({
   audio.volume = prefs['sound-volume'];
   audio.play();
 });
-notify.desktop = (user, query, count) => core.storage.read({
-  'notification-text-format': CONFIGS['notification-text-format']
-}).then(prefs => core.notify.create({
-  message: prefs['notification-text-format']
-    .replace('{USER}', user)
-    .replace('{QUERY}', query)
-    .replace('{COUNT}', count)
-}));
+notify.desktop = (user, query, count, threads) => core.storage.read({
+  'notification-delay': CONFIGS['notification-delay'], // ms
+  'notification-type': CONFIGS['notification-type'],
+  'notification-text-format-combined': CONFIGS['notification-text-format-combined'],
+  'notification-text-format-each': CONFIGS['notification-text-format-each'],
+  'notification-buttons': CONFIGS['notification-buttons']
+}).then(async prefs => {
+  if (prefs['notification-type'] === 'combined') {
+    core.notify.create(JSON.stringify([threads[0].id, user]), {
+      message: prefs['notification-text-format-combined']
+        .replace('{USER}', user)
+        .replace('{QUERY}', query)
+        .replace('{COUNT}', count)
+        .replace('{SNIPPET}', '...')
+    });
+  }
+  else {
+    for (const thread of threads) {
+      const buttons = prefs['notification-buttons'].map(command => ({
+        'mark-as-read': core.i18n.get('bg_no_mark_as_read'),
+        'report': core.i18n.get('bg_no_report'),
+        'archive': core.i18n.get('bg_no_archive'),
+        'delete': core.i18n.get('bg_no_delete'),
+        'add-star': core.i18n.get('bg_no_add_star')
+      }[command])).map(title => ({title}));
+
+      core.notify.create(JSON.stringify([thread.id, user, prefs['notification-buttons']]), {
+        message: prefs['notification-text-format-each']
+          .replace('{USER}', user)
+          .replace('{QUERY}', query)
+          .replace('{COUNT}', count)
+          .replace('{SNIPPET}', thread.snippet),
+        buttons
+      });
+      await new Promise(resolve => setTimeout(resolve, prefs['notification-delay']));
+    }
+  }
+});
+core.notify.fired(str => {
+  try {
+    const [id, user] = JSON.parse(str);
+    core.page.open({
+      url: users[user].href
+    });
+  }
+  catch (e) {
+    console.warn(e);
+  }
+});
+core.notify.buttons((str, n) => {
+  try {
+    const [id, user, commands] = JSON.parse(str);
+    const command = commands[n];
+    users[user].engine.action([{id}], command)
+      .catch(e => console.warn('cannot perform action', e, command, user));
+  }
+  catch (e) {
+    console.warn(e);
+  }
+});
 
 const badge = window.badge = async reason => {
   core.log('badge is called', reason);

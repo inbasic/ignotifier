@@ -17,12 +17,19 @@ Last checked: {DATE}`, // valid keywords: "{EMAIL}", "{QUERY}", "{COUNT}", "{SNI
   'popup-switch-to-unread-user': true, // try to find a logged-in user with unread emails
   'popup-switch-to-unread-query': true, // try to find a query for the current user with unread emails
   'popup-mark-read-on-view': false,
+  'popup-switch-on-new': true, // switch to a user with unread emails
   /* notification */
   'queries': {}, // {me@gmail.com: ['label:inbox is:unread', ...]}
   'default-queries': ['label:INBOX is:unread'], // if an email does not have a query, use this. use "IGNORE" to bypass
   'notification': {}, // {me@gmail.com: {'query': {sound: true, desktop: true, source: 0}}}
   'ignored-users': [],
-  'notification-text-format': `{USER} {QUERY} ({COUNT})`,
+  'notification-delay': 500, // delay between multiple notifications in ms
+  'notification-buttons': ['mark-as-read', 'archive'],
+  'notification-type': 'each',
+  'notification-text-format-combined': `{USER} {QUERY} ({COUNT})`, // valid keywords: "{USER}", "{QUERY}", "{COUNT}", "{SNIPPET}"
+  'notification-text-format-each': `{USER}
+
+{SNIPPET}`, // valid keywords: "{USER}", "{QUERY}", "{COUNT}", "{SNIPPET}"
   'sound-volume': 0.8,
   'api-client-id': '' // [user-client-id].apps.googleusercontent.com
 };
@@ -32,7 +39,7 @@ Object.assign(window.CONFIGS, {
   'popup-collapsed-message': 'snippet', // snippet or complete
   'popup-view': 'grid', // single, grid
   'grid-view': '12', // 11, 12, 1_1, 1_2
-  'popup-account': {}, // {email, query}
+  'popup-account': {}, // {user, query}
   'popup-mode': 'expanded', // collapsed or expanded
   'notification-counts': {}, // {email: {query: count}}
   'custom-sounds': {} // {'hash': {binary: '', id}}

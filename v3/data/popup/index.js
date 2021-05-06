@@ -269,4 +269,5 @@ core.runtime.message(request => {
   if (request.method === 'close-popup' && args.get('mode') === 'popup') {
     window.close();
   }
-})
+});
+
