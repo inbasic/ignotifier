@@ -271,7 +271,7 @@ api.navigate = direction => {
         scrollIntoView(input.closest('li'));
       }
       else {
-        api.update.buttons(e);
+        api.update.buttons();
       }
     },
     remove(li) {
@@ -290,8 +290,10 @@ api.update = {
       total: lis.length
     };
 
-    const li = api.dom.entry(true)?.closest('li');
+    const input = api.dom.entry(true);
+    const li = input?.closest('li');
     r.current = li ? lis.indexOf(li) : -1;
+    r.read = input?.dataset.read === 'true';
 
     return r;
   }
@@ -307,7 +309,7 @@ api.update = {
 }
 /* update current */
 api.update.buttons = () => {
-  const {current, total} = api.update.stat();
+  const {current, total, read} = api.update.stat();
   document.getElementById('current').textContent = current === -1 ? 0 : (current + 1);
 
   document.getElementById('previous').disabled = current === -1 ? true : (current === 0);
@@ -322,4 +324,7 @@ api.update.buttons = () => {
   document.getElementById('mark-all-as-read').disabled = current === -1;
 
   document.getElementById('inbox').disabled = !active.users[active.user].href;
+
+  document.getElementById('mark-as-read').value = core.i18n.get(read ? 'pp_mark_as_unread' : 'pp_mark_as_read');
+  document.getElementById('mark-as-read').dataset.command = read ? 'mark-as-unread' : 'mark-as-read';
 };

@@ -36,7 +36,13 @@
     "message": "Mark all messages for this query as read"
   },
   "pp_mark_as_read": {
-    "message": "Mark as read (Shift + KeyI)"
+    "message": "Mark as Read"
+  },
+  "pp_mark_as_unread": {
+    "message": "Mark as Unread"
+  },
+  "pp_mark_as_read_title": {
+    "message": "Mark as read (Shift + KeyI), or Mark as unread (Shift + KeyU)"
   },
   "pp_refresh": {
     "message": "Refresh this query"

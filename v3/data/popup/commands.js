@@ -37,13 +37,29 @@ const command = async (e, name, isTrusted = false) => {
           document.getElementById('next').click();
         }
       }
-      else if (act === 'update') { // only move to next on a user action
+      else if (act === 'update') {
+        const ni = api.dom.entry(true);
+
         es.map(({li}) => li.querySelector('input')).forEach(input => {
-          input.dataset.read = true;
-          // remove label
-          const n = input.thread.messages.labelIds.indexOf('UNREAD');
-          if (n !== -1) {
-            input.thread.messages.labelIds.splice(n, 1);
+          if (name === 'mark-as-unread') {
+            input.dataset.read = false;
+            // remove label
+            const n = input.thread.messages.labelIds.indexOf('UNREAD');
+            if (n === -1) {
+              input.thread.messages.labelIds.push('UNREAD');
+            }
+          }
+          else {
+            input.dataset.read = true;
+            // remove label
+            const n = input.thread.messages.labelIds.indexOf('UNREAD');
+            if (n !== -1) {
+              input.thread.messages.labelIds.splice(n, 1);
+            }
+          }
+          // if navigation to next failed, update button states
+          if (ni === input) {
+            api.update.buttons();
           }
         });
       }
@@ -61,6 +77,7 @@ const command = async (e, name, isTrusted = false) => {
 };
 command.map = {
   'mark-as-read': ['post', 'next', 'update'],
+  'mark-as-unread': ['post', 'next', 'update'],
   'mark-all-as-read': ['post', 'next', 'update'],
   'archive': ['post', 'next', 'remove'],
   'delete': ['post', 'next', 'remove'],
@@ -73,7 +90,7 @@ document.getElementById('options').onclick = () => core.page.options();
 document.getElementById('archive').onclick = e => command(e, 'archive', true);
 document.getElementById('delete').onclick = e => command(e, 'delete', true);
 document.getElementById('report').onclick = e => command(e, 'report', true);
-document.getElementById('mark-as-read').onclick = e => command(e, 'mark-as-read', true);
+document.getElementById('mark-as-read').onclick = e => command(e, e.target.dataset.command, true);
 document.getElementById('mark-all-as-read').onclick = async e => {
   const threads = api.dom.entries().map(e => e.thread);
   if (threads.length) {
@@ -114,7 +131,16 @@ document.getElementById('refresh').onclick = async e => {
       document.getElementById('archive').click();
     }
     else if (e.code === 'KeyI' && e.shiftKey) {
-      document.getElementById('mark-as-read').click();
+      const input = document.getElementById('mark-as-read');
+      if (input.dataset.command === 'mark-as-read') {
+        input.click();
+      }
+    }
+    else if (e.code === 'KeyU' && e.shiftKey) {
+      const input = document.getElementById('mark-as-read');
+      if (input.dataset.command === 'mark-as-unread') {
+        input.click();
+      }
     }
     else if (e.key === '#') {
       document.getElementById('delete').click();
