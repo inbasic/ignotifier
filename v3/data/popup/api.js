@@ -212,10 +212,12 @@ api.navigate = direction => {
     clear() {
       entries.textContent = '';
       document.getElementById('total').textContent = '-';
+      document.title = active.user + '- Gmail Notifier';
     },
     async build(threads = [], e) {
       api.entries.clear();
       document.getElementById('total').textContent = threads.length;
+      document.title = active.user + ` (${threads.length}) - Gmail Notifier`;
 
       const prefs = await core.storage.read({
         'popup-account': CONFIGS['popup-account']
@@ -274,7 +276,9 @@ api.navigate = direction => {
     },
     remove(li) {
       li.remove();
-      document.getElementById('total').textContent = api.dom.entries().length;
+      const total = api.dom.entries().length;
+      document.getElementById('total').textContent = total;
+      document.title = active.user + ` (${total}) - Gmail Notifier`;
     }
   };
 }
