@@ -271,3 +271,7 @@ core.runtime.message(request => {
   }
 });
 
+// single view
+core.runtime.connect({
+  name: 'popup'
+});

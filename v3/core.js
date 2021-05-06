@@ -44,6 +44,14 @@ core.page = {
   },
   options() {
     chrome.runtime.openOptionsPage();
+  },
+  focus(tab) {
+    chrome.tabs.update(tab.id, {
+      active: true
+    });
+    chrome.windows.update(tab.windowId, {
+      focused: true
+    });
   }
 };
 
@@ -69,6 +77,12 @@ core.runtime = {
   },
   reload() {
     chrome.runtime.reload();
+  },
+  connect(prps) {
+    chrome.runtime.connect(prps);
+  },
+  port(c) {
+    chrome.runtime.onConnect.addListener(c);
   }
 };
 
@@ -118,3 +132,12 @@ core.download = options => new Promise((resolve, reject) => {
     }
   });
 });
+
+core.context = {
+  create(props) {
+    chrome.contextMenus.create(props);
+  },
+  fired(c) {
+    chrome.contextMenus.onClicked.addListener(c);
+  }
+}

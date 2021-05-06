@@ -1,5 +1,13 @@
 /* global core, accounts, CONFIGS, badge */
 
+const ports = new Set();
+core.runtime.port(port => {
+  ports.add(port);
+  port.onDisconnect.addListener(() => {
+    ports.delete(port);
+  });
+});
+
 const service = {
   users: () => accounts['is-logged-in']().then(async connected => {
     if (connected) {
@@ -85,12 +93,12 @@ ready.busy = false;
 /* context menu */
 {
   const once = () => {
-    chrome.contextMenus.create({
+    core.context.create({
       id: 'refresh-badge',
       title: 'Refresh Badge',
       contexts: ['browser_action']
     });
-    chrome.contextMenus.create({
+    core.context.create({
       id: 'restart',
       title: 'Restart Extension',
       contexts: ['browser_action']
@@ -99,7 +107,7 @@ ready.busy = false;
   chrome.runtime.onInstalled.addListener(once);
   chrome.runtime.onStartup.addListener(once);
 }
-chrome.contextMenus.onClicked.addListener(info => {
+core.context.fired(info => {
   if (info.menuItemId === 'refresh-badge') {
     core.action.set('blue', '...', core.i18n.get('bg_check_new_emails'));
     users = {};
@@ -117,10 +125,24 @@ core.action.click(async tab => {
   const prefs = await core.storage.read({
     'default-page': CONFIGS['default-page']
   });
-  core.page.open({
-    index: tab.index + 1,
-    url: isNaN(badge) || badge === '' ? prefs['default-page'] : 'data/popup/index.html'
-  });
+  if (isNaN(badge) || badge === '') {
+    core.page.open({
+      index: tab.index + 1,
+      url: prefs['default-page']
+    });
+  }
+  else {
+    if (ports.size) {
+      const {tab} = ports.values().next().value.sender;
+      core.page.focus(tab);
+    }
+    else {
+      core.page.open({
+        index: tab.index + 1,
+        url: 'data/popup/index.html'
+      });
+    }
+  }
 });
 
 /* runtime */
