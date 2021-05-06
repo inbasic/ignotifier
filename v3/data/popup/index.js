@@ -13,6 +13,11 @@
   e.title = core.i18n.get(e.dataset.i18nTitle);
 });
 
+window.HIDDENS = ['starred', 'spam', 'trash', 'important', 'unread', 'new', 'flagged', 'inbox'];
+window.DISABLED = [
+  'SENT', 'CATEGORY_PERSONAL', 'CATEGORY_SOCIAL', 'CATEGORY_PROMOTIONS', 'CATEGORY_UPDATES', 'CATEGORY_FORUMS'
+];
+
 /* args */
 const args = new URLSearchParams(location.search);
 if (args.get('mode') === 'popup') {

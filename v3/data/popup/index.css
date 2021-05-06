@@ -2,6 +2,7 @@
   --white: #fff;
   --gray: #f5f5f5;
   --dark-gray: #a0a0a0;
+  --darker-gray: #717171;
   --blue: #4083f2;
   --loader: #55a3f4;
 }
@@ -228,6 +229,7 @@ body.single #entries {
 #entries li input {
   display: none;
 }
+#entries li div[data-id="date"],
 #entries li div[data-id="tags"],
 #entries li div[data-id="sender"],
 #entries li div[data-id="snippet"] {
@@ -261,13 +263,23 @@ body.single #entries {
   background-image: url(icons/star_true.png);
 }
 #entries li div[data-id="date"] {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  height: 100%;
-  align-content: center;
   padding-right: 5px;
   white-space: nowrap;
+  text-align: right;
+}
+#entries li div[data-id="tags"] .tag {
+  background-color: var(--gray);
+  color: var(--darker-gray);
+  margin-right: 2px;
+  font-weight: normal;
+  font-size: 80%;
+  padding: 2px 5px;
+}
+#entries li div[data-id="tags"]:not(:empty) + div[data-id="snippet"] {
+  padding-left: 5px;
+}
+body.popup[data-view="12"] #entries li div[data-id="tags"] {
+  width: 0;
 }
 #entries li input:checked ~ div {
   font-weight: bold;

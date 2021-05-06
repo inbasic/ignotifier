@@ -1,8 +1,3 @@
-const HIDDENS = ['starred', 'spam', 'trash', 'important', 'unread', 'new', 'flagged', 'inbox'];
-const DISABLED = [
-  'SENT', 'CATEGORY_PERSONAL', 'CATEGORY_SOCIAL', 'CATEGORY_PROMOTIONS', 'CATEGORY_UPDATES', 'CATEGORY_FORUMS'
-];
-
 const decode = function(input) {
   let a;
   try {
@@ -29,11 +24,11 @@ window.onmessage = e => {
     /* labels */
     const t = document.getElementById('label');
     for (const label of (message.labelIds || message.tags)) {
-      if (HIDDENS.some(a => label.toLowerCase() === a)) {
+      if (parent.HIDDENS.some(a => label.toLowerCase() === a)) {
         continue;
       }
       const clone = document.importNode(t.content, true);
-      clone.querySelector('input').disabled = DISABLED.some(a => label === a);
+      clone.querySelector('input').disabled = parent.DISABLED.some(a => label === a);
       clone.querySelector('span').textContent = label;
       clone.querySelector('input').onclick = e => {
         top.post({

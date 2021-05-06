@@ -251,6 +251,16 @@ api.navigate = direction => {
         clone.querySelector('[data-id=snippet]').title =
         clone.querySelector('[data-id=snippet]').textContent = thread.snippet || '';
 
+        for (const name of thread.messages.labelIds) {
+          if ([...window.HIDDENS, ...window.DISABLED].some(s => s === name.toLowerCase())) {
+            continue;
+          }
+          const span = document.createElement('span');
+          span.classList.add('tag');
+          span.textContent = name;
+          clone.querySelector('[data-id=tags]').appendChild(span);
+        }
+
         entries.appendChild(clone);
       }
       let ids = [];
