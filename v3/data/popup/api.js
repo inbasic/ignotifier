@@ -90,7 +90,9 @@ api.navigate = direction => {
           iframe.onload = () => {
             // resize observer
             const resizeObserver = new ResizeObserver(() => {
-              iframe.style.height = iframe.contentDocument.documentElement.scrollHeight + 'px';
+              if (iframe.contentDocument) {
+                iframe.style.height = iframe.contentDocument.documentElement.scrollHeight + 'px';
+              }
             });
             resizeObserver.observe(iframe.contentDocument.documentElement);
             // show message
@@ -172,7 +174,6 @@ api.navigate = direction => {
       });
 
       const queries = active.users[active.user]?.queries || {};
-      console.log(queries);
       for (const query of Object.keys(queries)) {
         const option = document.createElement('option');
         option.textContent = option.value = query;

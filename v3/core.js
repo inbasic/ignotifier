@@ -1,3 +1,5 @@
+const isFirefox = /Firefox/.test(navigator.userAgent) || typeof InstallTrigger !== 'undefined';
+
 const core = {};
 core.storage = {
   read(prefs) {
@@ -35,6 +37,11 @@ core.action = {
   },
   click(c) {
     chrome.browserAction.onClicked.addListener(c);
+  },
+  color(color) {
+    chrome.browserAction.setBadgeBackgroundColor({
+      color
+    });
   }
 };
 
@@ -73,7 +80,7 @@ core.runtime = {
     return new Promise(resolve => chrome.runtime.getBackgroundPage(resolve));
   },
   post(o) {
-    chrome.runtime.sendMessage(o);
+    chrome.runtime.sendMessage(o, () => chrome.runtime.lastError);
   },
   reload() {
     chrome.runtime.reload();
@@ -97,6 +104,9 @@ core.alarms = {
 
 core.notify = {
   create(name, o) {
+    if (isFirefox) {
+      delete o.buttons;
+    }
     chrome.notifications.create(name, {
       type: 'basic',
       iconUrl: '/data/icons/colors/red/48.png',
@@ -140,4 +150,4 @@ core.context = {
   fired(c) {
     chrome.contextMenus.onClicked.addListener(c);
   }
-}
+};

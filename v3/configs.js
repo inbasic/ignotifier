@@ -11,6 +11,7 @@ window.CONFIGS = {
 Last checked: {DATE}`, // valid keywords: "{EMAIL}", "{QUERY}", "{COUNT}", "{SNIPPET}", "{DATE}"
   'badge-delay': 10, // minutes
   'badge-period': 10, // minutes
+  'badge-color': '#666',
   'idle-detection': 5, // minutes
   /* popup */
   'popup-csp': `default-src 'none'; style-src 'unsafe-inline';`,

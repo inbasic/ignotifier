@@ -14,9 +14,6 @@ const notify = () => core.storage.read({
         count,
         date: Date.now()
       };
-      // save
-      core.storage.write(prefs);
-
       if (isNaN(old) === false && count > old) {
         core.log('count mismatch', user, query, 'old', old, 'new', count);
         if (count > old) {
@@ -51,7 +48,10 @@ const notify = () => core.storage.read({
       }
     }
   }
-  core.storage.write(prefs);
+  // save
+  core.storage.write({
+    'notification-counts': prefs['notification-counts']
+  });
 });
 notify.sound = ({source}) => core.storage.read({
   'custom-sounds': CONFIGS['custom-sounds'],
@@ -128,6 +128,13 @@ core.notify.buttons((str, n) => {
 });
 
 const badge = window.badge = async reason => {
+  const now = Date.now();
+  if (now - badge.date < 500) {
+    core.log('Badge is called too soon. Ignoring this request', reason);
+    return Promise.resolve();
+  }
+  badge.date = now;
+
   core.log('badge is called', reason);
   try {
     await ready();
@@ -155,8 +162,7 @@ const badge = window.badge = async reason => {
       })));
     }));
     core.runtime.post({
-      method: 'users-updated',
-      users
+      method: 'users-updated'
     });
     const count = Object.values(users).map(o => o.queries).map(qs => Object.values(qs)).flat()
       .reduce((p, c) => p + c.resultSizeEstimate, 0);
@@ -210,18 +216,23 @@ const badge = window.badge = async reason => {
     core.action.set('blue', 'E', core.i18n.get('bg_unexpected_error') + ': ' + e.message);
   }
 };
+
 core.runtime.start(() => {
   core.action.set('blue', '...', core.i18n.get('bg_check_new_emails'));
   badge('first-run');
   core.storage.read({
     'badge-period': CONFIGS['badge-period'], // minutes
     'badge-delay': CONFIGS['badge-delay'], // minutes
+    'badge-color': CONFIGS['badge-color'],
     'idle-detection': CONFIGS['idle-detection'] // minutes
   }).then(prefs => {
+    core.action.color(prefs['badge-color']);
+
     core.alarms.create('badge', {
       when: Date.now() + prefs['badge-delay'] * 60 * 1000,
       periodInMinutes: prefs['badge-period']
     });
+
     core.idle.set(prefs['idle-detection'] * 60);
   });
 });
@@ -239,6 +250,7 @@ core.storage.changed(ps => {
     ps['badge-text-format'] || ps['queries'] || ps['default-queries'] || ps['notification'] ||
     ps['ignored-users'] || ps['opening-mode'] || ps['api-client-id']
   ) {
+    console.log(ps.notification.newValue, ps.notification.oldValue);
     badge('prefs-changed');
   }
 });

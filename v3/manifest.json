@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "name": "Gmail™ Notifier (Developer Edition)",
   "description": "__MSG_description__",
   "default_locale": "en",
@@ -12,6 +12,7 @@
     "identity",
     "idle",
     "https://mail.google.com/",
+    "https://accounts.google.com/",
     "contextMenus"
   ],
   "optional_permissions": [
