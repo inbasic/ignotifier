@@ -70,11 +70,21 @@ input[type=button].loading {
   background-color: var(--gray);
 }
 #header {
-  grid-template-columns: 42px 42px 1fr 2fr 42px min-content 42px;
+  grid-template-columns: 42px 42px 1fr 2fr 16px 42px min-content 42px;
 }
 #footer {
   grid-template-columns: repeat(6, 42px) 1fr 42px;
 }
+#history {
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background: url(icons/down.svg) center center no-repeat;
+  background-size: 10px;
+  text-indent: 100px;
+  border: none;
+}
+
 #archive {
   background-image: url(icons/archive.png);
 }
@@ -111,7 +121,6 @@ body.single #view {
 }
 #sound {
   background-image: url(icons/sound.svg);
-  margin-left: -5px;
   opacity: 1;
   filter: saturate(0);
 }

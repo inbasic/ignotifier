@@ -172,9 +172,10 @@ api.navigate = direction => {
       });
 
       const queries = active.users[active.user]?.queries || {};
+      console.log(queries);
       for (const query of Object.keys(queries)) {
         const option = document.createElement('option');
-        option.value = query;
+        option.textContent = option.value = query;
         history.appendChild(option);
       }
       if (prefs['popup-account'].user === active.user) {

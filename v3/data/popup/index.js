@@ -108,11 +108,11 @@ document.getElementById('search').addEventListener('search', () => {
 });
 document.getElementById('user').addEventListener('change', () => api.query.build());
 
-/* searching from datalist */
-document.getElementById('search').addEventListener('keyup', e => {
-  if (!e.key) { // keyup is from datalist
-    e.target.dispatchEvent(new Event('search'));
-  }
+/* search from history */
+document.getElementById('history').addEventListener('change', e => {
+  const s = document.getElementById('search');
+  s.value = e.target.value;
+  s.dispatchEvent(new Event('search'));
 });
 /* searching */
 document.getElementById('search').addEventListener('search', async e => {
@@ -175,7 +175,7 @@ document.getElementById('search').addEventListener('search', async e => {
 /* toggle notifications */
 document.getElementById('sound').addEventListener('click', async e => {
   e.target.classList.toggle('active');
-  let queries = await api.users.queries();
+  const queries = await api.users.queries();
   if (e.target.classList.contains('active')) {
     queries.push(active.query);
   }
@@ -184,11 +184,6 @@ document.getElementById('sound').addEventListener('click', async e => {
     if (n !== -1) {
       queries.splice(n, 1);
     }
-  }
-  queries = queries.filter(s => s !== 'IGNORE');
-  // user wants to ignore this account
-  if (queries.length === 0) {
-    queries.push('IGNORE');
   }
 
   const prefs = await core.storage.read({

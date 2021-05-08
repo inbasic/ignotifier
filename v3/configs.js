@@ -20,7 +20,7 @@ Last checked: {DATE}`, // valid keywords: "{EMAIL}", "{QUERY}", "{COUNT}", "{SNI
   'popup-switch-on-new': true, // switch to a user with unread emails
   /* notification */
   'queries': {}, // {me@gmail.com: ['label:inbox is:unread', ...]}
-  'default-queries': ['label:INBOX is:unread'], // if an email does not have a query, use this. use "IGNORE" to bypass
+  'default-queries': ['label:INBOX is:unread'], // if an email does not have a query, use this
   'notification': {}, // {me@gmail.com: {'query': {sound: true, desktop: true, source: 0}}}
   'ignored-users': [],
   'notification-delay': 500, // delay between multiple notifications in ms

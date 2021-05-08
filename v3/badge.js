@@ -141,7 +141,11 @@ const badge = window.badge = async reason => {
     await Promise.all(Object.values(users).map(async user => {
       user.queries = user.queries || {};
 
-      const queries = (prefs.queries[user.email] || prefs['default-queries']).filter(s => s !== 'IGNORE');
+      const queries = (prefs.queries[user.email] || prefs['default-queries']);
+      if (queries.length === 0) {
+        queries.push(...prefs['default-queries']);
+      }
+
       return Promise.all(queries.map(query => user.engine.threads(query, false).then(o => {
         user.queries[query] = o;
       }).catch(e => {
