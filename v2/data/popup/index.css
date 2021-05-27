@@ -1,18 +1,16 @@
 html,body {
   margin: 0;
   background-color: #fff;
-  color: #222222;
+  color: #222;
 }
 body {
   display: flex;
-  display: -webkit-flex;
   flex-direction: column;
-  -webkit-flex-direction: column;
   overflow: hidden;
-  font: 12.8px arial,sans-serif;
-  border: 1px solid #DCDCDC;
+  font: 12.8px arial, sans-serif;
+  border: 1px solid #dcdcdc;
   border-radius: 2px;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   margin: 5px;
 }
 a,
@@ -26,15 +24,11 @@ a:focus {
 
 .vcenter {
   display: flex;
-  display: -webkit-flex;
   align-items: center;
-  -webkit-align-items: center;
 }
 .hcenter {
   display: flex;
-  display: -webkit-flex;
   justify-content: center;
-  -webkit-justify-content: center;
 }
 .ellipsis {
   overflow: hidden;
@@ -57,16 +51,16 @@ a:focus {
 .btn:hover {
   color: #191919;
   border-color: #c6c6c6;
-  opacity: .9;
+  opacity: 0.9;
 }
 .btn:active {
-  border: 1px solid #4D90FE;
+  border: 1px solid #4d90fe;
 }
 .btn[disabled],
 .btn[disabled]:hover {
   border: 1px solid rgba(0, 0, 0, 0.1);
   cursor: default;
-  opacity: .4;
+  opacity: 0.4;
 }
 .btn[wait] {
   background-image: url("wait.gif");
@@ -81,7 +75,6 @@ header {
 }
 header div[name="email-container"] {
   flex: auto;
-  -webkit-flex: auto;
   background: url('icons/list.png') 5px 1px no-repeat, url('icons/arrow_drop_down.png') right 1px no-repeat;
   padding: 0 15px 0 28px;
   opacity: 0.7;
@@ -96,12 +89,11 @@ header div[name="email-container"]:hover {
 header div[name="stat"] {
   min-width: 50px;
   text-align: center;
-  border-left: 1px solid #DCDCDC;
+  border-left: 1px solid #dcdcdc;
   padding-left: 5px;
 }
 header div[name="nav"] {
   display: flex;
-  display: -webkit-flex;
   min-width: 86px;
 }
 header div[name="nav"] div {
@@ -109,25 +101,22 @@ header div[name="nav"] div {
   height: 22px;
 }
 header div[name="nav"] div[name="previous"] {
-  background-image:  url('icons/chevron_left.png');
+  background-image: url('icons/chevron_left.png');
   background-size: 20px;
   margin-right: -1px;
 }
 header div[name="nav"] div[name="next"] {
-  background-image:  url('icons/chevron_right.png');
+  background-image: url('icons/chevron_right.png');
   background-size: 20px;
 }
 
 #content {
   display: flex;
-  display: -webkit-flex;
   flex-direction: column;
-  -webkit-flex-direction: column;
   flex: auto;
-  -webkit-flex: auto;
-  background-color: #FFF;
-  border-top: 1px solid #DCDCDC;
-  border-bottom: 1px solid #DCDCDC;
+  background-color: #fff;
+  border-top: 1px solid #dcdcdc;
+  border-bottom: 1px solid #dcdcdc;
   padding: 0 5px;
 }
 #content[loading] {
@@ -135,7 +124,7 @@ header div[name="nav"] div[name="next"] {
 }
 #content div[name="title"] {
   font-size: 150%;
-  border-bottom: 1px solid #DCDCDC;
+  border-bottom: 1px solid #dcdcdc;
   height: 35px;
 }
 #content div[name="title"] #title {
@@ -164,7 +153,7 @@ body[data-star=false] #content div[name="title"] #star {
   padding: 0 5px;
 }
 #content div[name=labels] .label {
-  font: 11px arial,sans-serif;
+  font: 11px arial, sans-serif;
   background-color: rgb(221, 221, 221);
   color: rgb(102, 102, 102);
   margin-right: 5px;
@@ -188,9 +177,7 @@ body[data-labels=true] #content div[name=labels] {
 
 #content div[name="info"] {
   display: flex;
-  display: -webkit-flex;
   flex-direction: row;
-  -webkit-flex-direction: row;
   padding-top: 5px;
 }
 #content div[name="info"] div[name="sender"] {
@@ -200,7 +187,6 @@ body[data-labels=true] #content div[name=labels] {
 }
 #content div[name="info"] div[name="email"] {
   flex: auto;
-  -webkit-flex: auto;
   color: #727272;
 }
 #content div[name="info"] div[name="date"] {
@@ -209,20 +195,19 @@ body[data-labels=true] #content div[name=labels] {
 }
 #content div[name="body"] {
   flex: auto;
-  -webkit-flex: auto;
+  flex-direction: column;
 }
-#content div[name="body"]>iframe {
+#content div[name="body"] > iframe {
   border-width: 0;
   width: 100%;
   height: 50px;
   padding-top: 8px;
 }
-@media all and (min-height: 300px) {
-  #content div[name="body"]>iframe {
-    height: calc(100% - 145px);
-    width: calc(100% - 24px);
-    position: absolute;
-  }
+
+body[mode="expanded"] #content div[name="body"] > iframe {
+  height: calc(100% - 145px);
+  width: calc(100% - 24px);
+  position: absolute;
 }
 
 footer div {
@@ -271,7 +256,7 @@ footer div[name="read-all"] {
   top: 40px;
   left: 9px;
   color: #000 !important; /* KDE dark theme issue */
-  background-color: #FFF;
+  background-color: #fff;
   min-width: 250px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 2px;
@@ -285,7 +270,7 @@ footer div[name="read-all"] {
 #accounts li {
   padding: 4px 8px 4px 28px;
   display: block;
-  border-bottom: 1px solid #F5F5F5;
+  border-bottom: 1px solid #f5f5f5;
   cursor: pointer;
   max-width: 500px;
 }
@@ -293,7 +278,7 @@ footer div[name="read-all"] {
   border-bottom: none;
 }
 #accounts li:hover {
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
 }
 #accounts li.selected {
   background: url('icons/check.png') center left 2px no-repeat;
@@ -306,12 +291,11 @@ footer div[name="read-all"] {
   left: 9px;
   width: 40px;
   height: 12px;
-  background-image:  url('icons/arrow_drop_down.png');
+  background-image: url('icons/arrow_drop_down.png');
   background-size: 20px;
 }
 body[mode="expanded"] #expand {
   -moz-transform: scaleY(-1);
-  -webkit-transform: scaleY(-1);
   transform: scaleY(-1);
 }
 /* tooltip */
@@ -319,7 +303,7 @@ body[mode="expanded"] #expand {
   position: relative;
   z-index: 99;
 }
-.tooltip:hover:before {
+.tooltip:hover::before {
   position: absolute;
   left: 38%;
   bottom: 24px;
@@ -329,7 +313,7 @@ body[mode="expanded"] #expand {
   border-top: 6px solid rgba(0, 0, 0, 0.8);
   z-index: 99;
 }
-.tooltip:hover:after {
+.tooltip:hover::after {
   position: absolute;
   bottom: 30px;
   left: 50%;
@@ -337,7 +321,7 @@ body[mode="expanded"] #expand {
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 1px;
   text-align: center;
-  color: #FFFFFF;
+  color: #fff;
   font-weight: normal;
   content: attr(title);
   padding: 5px 10px;

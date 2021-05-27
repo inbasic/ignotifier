@@ -6,12 +6,6 @@ gmail.fetch = url => new Promise((resolve, reject) => {
   chrome.storage.local.get({
     inboxRedirection: true
   }, prefs => {
-    if (prefs.inboxRedirection) {
-      url = url.replace('?', '?ibxr=0&');
-      if (url.indexOf('ibxr=0') === -1) {
-        url += '?ibxr=0';
-      }
-    }
     const req = new XMLHttpRequest();
     req.onload = () => resolve({
       text: () => req.response
@@ -67,12 +61,12 @@ gmail.body = (contents => (link, mode) => {
   }
   return gmail.staticID(url)
     .then(ik => gmail.fetch(url + '?ui=2&ik=' + ik + '&view=pt&dsqt=1&search=all&msg=' + thread)
-    .then(r => r.text())
-    .then(content => {
-      const body = gmail.render[mode ? 'getHTMLText' : 'getPlainText'](content, url, link);
-      contents[link] = body;
-      return body;
-    }));
+      .then(r => r.text())
+      .then(content => {
+        const body = gmail.render[mode ? 'getHTMLText' : 'getPlainText'](content, url, link);
+        contents[link] = body;
+        return body;
+      }));
 })({});
 
 gmail.render = (() => {

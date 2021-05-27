@@ -320,21 +320,21 @@ var action = (cmd, links = selected.entry.link, callback = () => {}) => {
     else {
       let obj;
       switch (cmd) {
-        case 'rd':
-          obj = qs('read');
-          break;
-        case 'rd-all':
-          obj = qs('read-all');
-          break;
-        case 'tr':
-          obj = qs('trash');
-          break;
-        case 'rc_^i':
-          obj = qs('archive');
-          break;
-        case 'sp':
-          obj = qs('spam');
-          break;
+      case 'rd':
+        obj = qs('read');
+        break;
+      case 'rd-all':
+        obj = qs('read-all');
+        break;
+      case 'tr':
+        obj = qs('trash');
+        break;
+      case 'rc_^i':
+        obj = qs('archive');
+        break;
+      case 'sp':
+        obj = qs('spam');
+        break;
       }
       if (obj) {
         obj.removeAttribute('wait');

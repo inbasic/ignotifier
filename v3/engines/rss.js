@@ -45,7 +45,7 @@ class Engine {
     this.user.id = user.id;
     this.base = href.replace(/\/u\/\d+/, '/u/' + user.id);
 
-    const doc = await this.get(this.base, 'doc');
+    const doc = await this.get(this.base + '?v%3Dlui', 'doc');
     try {
       const email = doc.querySelector('.gb4').textContent;
       this.user.id = 0;
@@ -110,12 +110,24 @@ class Engine {
   async at() {
     const doc = await this.get(this.base);
     const e = doc.querySelector('a[href*="at="]');
+    const input = doc.querySelector('[name="at"]'); // do you really want to use this view
+
     if (e) {
       const args = new URLSearchParams(e.href.split('?')[1]);
       const at = args.get('at');
       if (!at) {
         throw Error('cannot extract "at" from the base page');
       }
+      return at;
+    }
+    // allow access to the HTML version
+    else if (input) {
+      const body = new URLSearchParams();
+      body.append('at', input.value);
+      await fetch(this.base.split('?')[0] + '?a=uia', {
+        method: 'POST',
+        body
+      });
       return at;
     }
     else {

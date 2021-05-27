@@ -2,19 +2,6 @@
 
 var gmail = {};
 
-/* gmail.fetch = url => fetch(url, {
-  credentials: 'same-origin',
-  mode: 'cors',
-  headers:{
-    'Access-Control-Allow-Origin': '*'
-  }
-}).then(r => {
-  console.log(url, r);
-  if (r.ok) {
-    return r;
-  }
-  throw Error('action -> fetch Error');
-}); */
 gmail.fetch = url => new Promise((resolve, reject) => {
   const req = new XMLHttpRequest();
   req.onload = () => resolve({
@@ -48,33 +35,51 @@ gmail.get = {
       return Promise.resolve(token[url]);
     }
     return new Promise((resolve, reject) => {
-      chrome.storage.local.get({
-        inboxRedirection: true
-      }, prefs => {
-        if (prefs.inboxRedirection) {
-          url += '/?ibxr=0';
+      const blind = 'https://mail.google.com/mail/?ui=html&zy=h';
+      fetch(blind).then(r => r.url).then(href => {
+        if (href.indexOf('/u/') === -1) {
+          return reject(Error('cannot find basic HTML view from the blind URL'));
         }
-        gmail.fetch(url).then(r => r.text()).then(content => {
-          let at = /GM_ACTION_TOKEN="([^"]*)"/.exec(content || '');
-          if (!at || at.length === 0) {
-            at = /at=([^"&]*)&/.exec(content || '');
-          }
-          const ik = /var GLOBALS=\[(?:([^,]*),){10}/.exec(content || '');
-          token[url] = {
-            at: at && at.length ? at[1] : '',
-            ik: ik && ik.length ? ik[1].replace(/["']/g, '') : ''
-          };
+        const id = url.split('/u/')[1].split('/')[0];
+        const base = href.replace(/\/u\/\d+/, '/u/' + id);
 
-          if (token[url].at === '') {
-            throw new Error('action -> Cannot resolve GM_ACTION_TOKEN');
-          }
-          // in simple HTLM mode it is not available
-          if (token[url].ik === '') {
-//            throw new Error('action -> Cannot resolve GLOBALS');
-          }
+        gmail.fetch(base).then(r => r.text()).then(content => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(content, 'text/html');
 
-          return token[url];
-        }).then(resolve, reject);
+          const e = doc.querySelector('a[href*="at="]');
+          const input = doc.querySelector('[name="at"]'); // do you really want to use this view
+          if (e) {
+            const args = new URLSearchParams(e.href.split('?')[1]);
+            const at = args.get('at');
+            if (!at) {
+              reject(Error('cannot extract "at" from the base page'));
+            }
+            token[url] = {
+              at,
+              base
+            };
+            resolve(token[url]);
+          }
+          else if (input) {
+            // allow access
+            const body = new URLSearchParams();
+            body.append('at', input.value);
+            fetch(base.split('?')[0] + '?a=uia', {
+              method: 'POST',
+              body
+            });
+
+            token[url] = {
+              at: input.value,
+              base
+            };
+            resolve(token[url]);
+          }
+          else {
+            reject(Error('cannot get "at" from the base page'));
+          }
+        });
       });
     });
   };
@@ -88,9 +93,6 @@ gmail.formData = obj => {
       obj[key] = [obj[key]];
     }
     obj[key].forEach(v => {
-/*      if (key === 'q') {
-        v = v.replace(/\s/, '+');
-      }*/
       arr.push(`${key}=${encodeURIComponent(v)}`);
     });
   });
@@ -103,7 +105,7 @@ gmail.post = (url, params, threads = [], retry = true, express = false) => new P
     inboxRedirection: true,
     express: false
   }, prefs => {
-    url = (gmail.get.base(url) + (prefs.inboxRedirection ? '/?ibxr=0&' : '/?') + gmail.formData(params));
+    url = (gmail.get.base(url) + '/?' + gmail.formData(params));
     req.open('POST', url);
     req.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
     req.onreadystatechange = () => {
@@ -115,7 +117,6 @@ gmail.post = (url, params, threads = [], retry = true, express = false) => new P
     req.onload = () => {
       if (req.status === 302 && retry === true) {
         gmail.at.invalidate(url);
-        console.log('retrying');
         gmail.post(url, params, threads, retry = false).then(resolve, reject);
       }
       else if (req.status === 404) {
@@ -130,112 +131,148 @@ gmail.post = (url, params, threads = [], retry = true, express = false) => new P
   });
 });
 
-{
-  function sendCmd(url, at, ik, threads, act) {
-    if (act === 'rc_^i') {
-      // mark as read on archive
-      chrome.storage.local.get({
-        doReadOnArchive: false
-      }, prefs => {
-        if (prefs.doReadOnArchive === true || prefs.doReadOnArchive === 'true') {
-          gmail.post(url, {
-            ui: 2,
-            ik,
-            at,
-            act: 'rd'
-          }, threads);
+
+gmail.action = ({links, cmd}) => {
+  links = typeof links === 'string' ? [links] : links;
+  const url = /[^?]*/.exec(links[0])[0];
+
+  return gmail.at.get(url).then(obj => {
+    const threads = links.map(link => gmail.get.id(link) || '').map(t => t);
+
+    if (threads.length) {
+      const shortcuts = {
+        'rd': { // mark as read
+          'tact': 'rd',
+          'nvp_tbu_go': 'Go'
+        },
+        'rd-all': { // mark all as read
+          'tact': 'rd',
+          'nvp_tbu_go': 'Go'
+        },
+        'rc_^i': { // archive
+          'tact': 'arch',
+          'nvp_tbu_go': 'Go'
+        },
+        'rc_Inbox': { // archive
+          'tact': 'arch',
+          'nvp_tbu_go': 'Go'
+        },
+        'tr': { // trash
+          'tact': '',
+          'nvp_a_tr': 'Delete'
+        },
+        'move-to-inbox': {
+          'tact': '',
+          'nvp_a_ib': 'Move to Inbox'
+        },
+        'sp': { // report spam
+          'tact': '',
+          'nvp_a_sp': 'Report Spam'
+        },
+        'rc_Spam': { // report spam
+          'tact': '',
+          'nvp_a_sp': 'Report Spam'
+        },
+        'st': { // add-star
+          'tact': 'st',
+          'nvp_tbu_go': 'Go',
+          'bact': ''
+        },
+        'xst': { // remove star
+          'tact': 'xst',
+          'nvp_tbu_go': 'Go',
+          'bact': ''
         }
+      };
+      const command = shortcuts[cmd];
+      const body = new URLSearchParams();
+      body.append('at', obj.at);
+      for (const [key, value] of Object.entries(command)) {
+        body.append(key, value);
+      }
+      for (const thread of threads) {
+        body.append('t', thread);
+      }
+      body.append('bact', '');
+
+      if (cmd === 'rc_^i') {
+        chrome.storage.local.get({
+          doReadOnArchive: false
+        }, prefs => {
+          if (prefs.doReadOnArchive === true || prefs.doReadOnArchive === 'true') {
+            gmail.action({
+              links,
+              cmd: 'rd'
+            });
+          }
+        });
+      }
+
+      return fetch(obj.base.split('?')['0'] + '?&s=a', {
+        method: 'POST',
+        body
       });
     }
-    return gmail.post(url, {
-      ui: 2,
-      ik,
-      at,
-      act
-    }, threads, true, true);
-  }
+    return Promise.reject(Error('action -> Error at resolving thread.'));
+  });
+};
 
-  gmail.action = ({links, cmd}) => {
-    if (cmd === 'rc_Inbox') {
-      // remove label Inbox
-      cmd = 'rc_^i';
-    }
-    else if (cmd === 'rc_Spam') {
-      cmd = 'us';
-    }
-    else if (cmd === 'rd-all') {
-      cmd = 'rd';
-    }
-    links = typeof links === 'string' ? [links] : links;
-    const url = /[^?]*/.exec(links[0])[0];
+gmail.search = async ({url, query}) => {
+  const obj = await gmail.at.get(url);
+  if (obj.at) {
+    const body = new URLSearchParams();
+    body.append('s', 'q');
+    body.append('q', query);
+    body.append('nvp_site_mail', 'Search Mail');
+    body.append('at', obj.at);
 
-    return gmail.at.get(url).then(obj => {
-      const threads = links.map(link => gmail.get.id(link) || '').map(t => t);
+    const r = await fetch(obj.base.split('?')[0] + '?s=q&q=' + encodeURIComponent(query) + '&nvp_site_mail=Search%20Mail');
+    const content = await r.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content, 'text/html');
 
-      if (threads.length) {
-        return sendCmd(url, obj.at, obj.ik, threads, cmd);
+    const as = [...doc.querySelectorAll('a[href*="&th="]')];
+
+    const entries = as.map(a => {
+      const ts = a.querySelector('.ts');
+      const es = ts.children.length === 3 ? ts.children : ts.childNodes;
+      if (es.length < 3) {
+        throw Error('Cannot extract "labels", "title", and "snippet" from the element');
       }
-      return Promise.reject(Error('action -> Error at resolving thread.'));
-    });
-  };
-}
+      const snippet = ts.querySelector('.ts > font:last-child');
 
-gmail.search = ({url, query, num = 55}) => gmail.at.get(url).then(({at, ik}) => gmail.post(url, {
-  ui: 2,
-  ik,
-  at,
-  view: 'tl',
-  start: 0,
-  num,
-  rt: 'c',
-  q: query,
-  qs: true,
-  search: 'query'
-}).then(r => {
-  let count = 0;
-  let name = '';
-  if (r.status === 200) {
-    const sections = [].concat.apply([],
-      r.response.split('\n').filter(s => s.startsWith('[[')).map(JSON.parse)
-    );
-    sections.filter(a => a[0] === 'ti').forEach(a => {
-      count = a[2];
-    });
-    sections.filter(a => a[0] === 'mla').forEach(a => {
-      try {
-        const id = /\/u\/(\d+)/.exec(url)[1];
-        name = a[1][id][0];
+      const entry = {};
+      entry.thread = a.href.split('th=')[1].split('&')[0];
+      entry.labels = [...es[0].textContent.split(/\s*,\s*/)].filter(a => a);
+      if (a.closest('tr').querySelector('img[alt=Starred]')) {
+        entry.labels.push('STARRED');
       }
-      catch (e) {}
+      entry.date = ts.closest('td').nextElementSibling.textContent;
+      entry.from = ts.closest('td').previousElementSibling.textContent.replace(/\s+\(\d+\)$/, '');
+      entry.text = snippet ? snippet.textContent.replace(/^ - /, '') : '';
+
+
+      return entry;
     });
-    let root = '';
-    sections.filter(a => a[0] === 'tb').forEach(a => root = a);
-    if (root) {
-      const rtn = {
-        name,
-        'logged-in': true,
-        'responseURL': r.responseURL,
-        'entries': root[2].map(o => ({
-          thread: o[1],
-          labels: o[5],
-          date: o[16],
-          hdate: o[15],
-          from: o[28],
-          text: o[9],
-          html: o[10]
-        }))
-      };
-      rtn.count = count || rtn.entries.length;
-      return rtn;
+
+    let count = 0;
+    if (as.length) {
+      const t = doc.querySelector('form[name=f] td[align="right"] b:last-of-type');
+      if (!t) {
+        throw Error('Cannot detect count');
+      }
+      count = Number(t.textContent);
     }
+
+    return {
+      'count': count || entries.length,
+      'name': 'NA',
+      'logged-in': true,
+      'responseURL': r.responseURL,
+      entries
+    };
   }
-  // throw new Error('Cannot parse search result/1');
-  // In case search results is empty!
-  return {
-    'logged-in': r.status === 200,
-    name,
-    'responseURL': r.responseURL,
-    'entries': [],
-    count
-  };
-}));
+  else {
+    throw new Error('Cannot parse search result/1');
+  }
+};
