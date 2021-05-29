@@ -455,7 +455,7 @@ const resize = () => {
       updateContent();
     }
     const normal = {
-      width: 500,
+      width: 550,
       height: 240
     };
     Object.assign(document.body.style, {
