@@ -184,7 +184,11 @@ gmail.action = ({links, cmd}) => {
           'bact': ''
         }
       };
-      const command = shortcuts[cmd];
+      const command = shortcuts[cmd] || {
+        'tact': cmd,
+        'nvp_tbu_go': 'Go',
+        'bact': ''
+      };
       const body = new URLSearchParams();
       body.append('at', obj.at);
       for (const [key, value] of Object.entries(command)) {

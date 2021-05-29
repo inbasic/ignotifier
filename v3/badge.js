@@ -250,7 +250,6 @@ core.storage.changed(ps => {
     ps['badge-text-format'] || ps['queries'] || ps['default-queries'] || ps['notification'] ||
     ps['ignored-users'] || ps['opening-mode'] || ps['api-client-id']
   ) {
-    console.log(ps.notification.newValue, ps.notification.oldValue);
     badge('prefs-changed');
   }
 });

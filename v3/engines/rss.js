@@ -37,7 +37,15 @@ class Engine {
       }
     });
   }
-  async introduce(user) {
+  async bypass(at) {
+    const body = new URLSearchParams();
+    body.append('at', at);
+    await fetch(this.base.split('?')[0] + '?a=uia', {
+      method: 'POST',
+      body
+    });
+  }
+  async introduce(user, step = 0) {
     const href = await fetch(config.blind).then(r => r.url);
     if (href.indexOf('/u/') === -1) {
       throw Error('cannot find basic HTML view from the blind URL');
@@ -45,7 +53,13 @@ class Engine {
     this.user.id = user.id;
     this.base = href.replace(/\/u\/\d+/, '/u/' + user.id);
 
-    const doc = await this.get(this.base + '?v%3Dlui', 'doc');
+    const doc = await this.get(this.base, 'doc');
+    const input = doc.querySelector('[name="at"]'); // do you really want to use this view
+    if (input && step === 0) {
+      await this.bypass(input.value);
+      return this.introduce(user, step += 1);
+    }
+
     try {
       const email = doc.querySelector('.gb4').textContent;
       this.user.id = 0;
@@ -122,13 +136,8 @@ class Engine {
     }
     // allow access to the HTML version
     else if (input) {
-      const body = new URLSearchParams();
-      body.append('at', input.value);
-      await fetch(this.base.split('?')[0] + '?a=uia', {
-        method: 'POST',
-        body
-      });
-      return at;
+      this.bypass(input.value);
+      return input.value;
     }
     else {
       throw Error('cannot get "at" from the base page');

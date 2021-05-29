@@ -50,7 +50,7 @@ app.popup = {
       popup: ''
     });
   },
-  send: (id, data) => chrome.runtime.sendMessage({method: id, data: data})
+  send: (id, data) => chrome.runtime.sendMessage({method: id, data: data}, () => chrome.runtime.lastError)
 };
 
 app.get = (url, headers = {}, data, timeout) => new Promise(resolve => {

@@ -158,7 +158,6 @@ document.getElementById('search').addEventListener('search', async e => {
 /* save session */
 {
   const save = () => {
-    console.log('saving', document.readyState);
     core.storage.write({
       'popup-account': {
         user: active.user,

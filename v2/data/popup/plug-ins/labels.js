@@ -17,6 +17,7 @@
       document.body.dataset.star = 'hide';
     }
   }
+  const hiddens = ['STARRED', 'Inbox', 'INBOX'];
   function labels(url) {
     const id = gmail.get.id(url);
     const o = response.filter(o => o.thread === id).shift();
@@ -24,7 +25,7 @@
       const parent = document.getElementById('labels');
       const t = document.getElementById('label-template');
       parent.textContent = '';
-      o.labels.map(s => s === '^i' ? 'Inbox' : s).filter(s => s.startsWith('^') === false && s !== 'STARRED').forEach(label => {
+      o.labels.map(s => s === '^i' ? 'Inbox' : s).filter(s => s.startsWith('^') === false && hiddens.indexOf(s) === -1).forEach(label => {
         const clone = document.importNode(t.content, true);
         clone.querySelector('span').textContent = label;
         clone.querySelector('div').dataset.value = label;
@@ -65,7 +66,7 @@
     }
     else {
       if (inprogress === q) {
-        console.log('update is rejected; duplicated');
+        console.warn('update is rejected; duplicated');
       }
       else {
         inprogress = q;

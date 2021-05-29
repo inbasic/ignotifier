@@ -232,7 +232,6 @@ class Engine {
     if (name === 'remove-star') {
       removeLabelIds.push('flagged');
     }
-    console.log(addLabelIds, removeLabelIds);
 
     const r = await this.exec('tag ' + [
       ...addLabelIds.map(s => '+' + s),

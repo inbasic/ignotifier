@@ -102,6 +102,8 @@ function open(url, inBackground, refresh) {
     }
     chrome.tabs.query(options, tabs => resolve(tabs));
   })).then(tabs => {
+    tabs = tabs.filter(t => t.url);
+
     const parse2 = parseUri(url);
     // support for basic HTML
     if (parse2.messageId && config.email.basic) {
@@ -516,7 +518,6 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
       catch (e) {}
     };
 
-    gmail.search(request).then(r => console.log(r)).catch(e => console.log(e));
     gmail.search(request).then(r => callback(r.entries)).catch(() => callback());
     return true;
   }

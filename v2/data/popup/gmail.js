@@ -3,17 +3,13 @@
 var gmail = {};
 
 gmail.fetch = url => new Promise((resolve, reject) => {
-  chrome.storage.local.get({
-    inboxRedirection: true
-  }, prefs => {
-    const req = new XMLHttpRequest();
-    req.onload = () => resolve({
-      text: () => req.response
-    });
-    req.onerror = () => reject(new Error('action -> fetch Error'));
-    req.open('GET', url);
-    req.send();
+  const req = new XMLHttpRequest();
+  req.onload = () => resolve({
+    text: () => req.response
   });
+  req.onerror = () => reject(new Error('action -> fetch Error'));
+  req.open('GET', url);
+  req.send();
 });
 
 gmail.get = {
@@ -56,17 +52,26 @@ gmail.body = (contents => (link, mode) => {
   const url = gmail.get.base(link);
   const thread = gmail.get.id(link);
 
+  const rand = Math.random().toString(36).substr(2).padStart(13, '0');
+  const oLink = url + `/h/${rand}/?th=${thread}&v=pt`;
+
   if (!thread) {
     return Promise.reject(Error('body -> Error at resolving thread. Please switch back to the summary mode.'));
   }
-  return gmail.staticID(url)
-    .then(ik => gmail.fetch(url + '?ui=2&ik=' + ik + '&view=pt&dsqt=1&search=all&msg=' + thread)
-      .then(r => r.text())
-      .then(content => {
-        const body = gmail.render[mode ? 'getHTMLText' : 'getPlainText'](content, url, link);
-        contents[link] = body;
-        return body;
-      }));
+  return fetch(oLink).then(r => {
+    if (r.ok) {
+      return r.text();
+    }
+    throw Error('cannot use oLink to generate print view');
+  }).catch(e => {
+    console.erro(e);
+    return gmail.staticID(url)
+      .then(ik => gmail.fetch(url + '?ui=2&ik=' + ik + '&view=pt&dsqt=1&search=all&msg=' + thread).then(r => r.text()));
+  }).then(content => {
+    const body = gmail.render[mode ? 'getHTMLText' : 'getPlainText'](content, url, link);
+    contents[link] = body;
+    return body;
+  });
 })({});
 
 gmail.render = (() => {
