@@ -244,11 +244,6 @@ footer div[name="read"] {
 footer div[name="read-all"] {
   background-image: url('icons/check_all.png');
 }
-@media all and (max-width: 500px) {
-  footer div[name="read-all"] {
-    display: none;
-  }
-}
 
 #accounts {
   display: none;
