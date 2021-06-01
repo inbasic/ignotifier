@@ -64,7 +64,7 @@ gmail.body = (contents => (link, mode) => {
     }
     throw Error('cannot use oLink to generate print view');
   }).catch(e => {
-    console.erro(e);
+    console.error(e);
     return gmail.staticID(url)
       .then(ik => gmail.fetch(url + '?ui=2&ik=' + ik + '&view=pt&dsqt=1&search=all&msg=' + thread).then(r => r.text()));
   }).then(content => {
