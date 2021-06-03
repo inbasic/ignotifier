@@ -199,9 +199,9 @@ gmail.action = ({links, cmd}) => {
       }
       body.append('bact', '');
 
-      if (cmd === 'rc_^i') {
+      if (cmd === 'rc_^i' || cmd === 'rc_Inbox') {
         chrome.storage.local.get({
-          doReadOnArchive: false
+          doReadOnArchive: true
         }, prefs => {
           if (prefs.doReadOnArchive === true || prefs.doReadOnArchive === 'true') {
             gmail.action({
