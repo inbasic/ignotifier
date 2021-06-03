@@ -58,7 +58,9 @@ gmail.body = (contents => (link, mode) => {
   if (!thread) {
     return Promise.reject(Error('body -> Error at resolving thread. Please switch back to the summary mode.'));
   }
-  return fetch(oLink).then(r => {
+  return fetch(oLink, {
+    credentials: 'include'
+  }).then(r => {
     if (r.ok) {
       return r.text();
     }

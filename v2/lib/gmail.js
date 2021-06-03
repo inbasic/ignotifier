@@ -36,7 +36,9 @@ gmail.get = {
     }
     return new Promise((resolve, reject) => {
       const blind = 'https://mail.google.com/mail/?ui=html&zy=h';
-      fetch(blind).then(r => r.url).then(href => {
+      fetch(blind, {
+        credentials: 'include'
+      }).then(r => r.url).then(href => {
         if (href.indexOf('/u/') === -1) {
           return reject(Error('cannot find basic HTML view from the blind URL'));
         }
@@ -67,7 +69,8 @@ gmail.get = {
             body.append('at', input.value);
             fetch(base.split('?')[0] + '?a=uia', {
               method: 'POST',
-              body
+              body,
+              credentials: 'include'
             });
 
             token[url] = {
@@ -214,7 +217,8 @@ gmail.action = ({links, cmd}) => {
 
       return fetch(obj.base.split('?')['0'] + '?&s=a', {
         method: 'POST',
-        body
+        body,
+        credentials: 'include'
       });
     }
     return Promise.reject(Error('action -> Error at resolving thread.'));
@@ -230,7 +234,9 @@ gmail.search = async ({url, query}) => {
     body.append('nvp_site_mail', 'Search Mail');
     body.append('at', obj.at);
 
-    const r = await fetch(obj.base.split('?')[0] + '?s=q&q=' + encodeURIComponent(query) + '&nvp_site_mail=Search%20Mail');
+    const r = await fetch(obj.base.split('?')[0] + '?s=q&q=' + encodeURIComponent(query) + '&nvp_site_mail=Search%20Mail', {
+      credentials: 'include'
+    });
     const content = await r.text();
     const parser = new DOMParser();
     const doc = parser.parseFromString(content, 'text/html');
