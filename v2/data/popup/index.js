@@ -467,11 +467,11 @@ const resize = () => {
   qs('accounts').style.display = 'none';
 };
 resize();
-// chrome.storage.onChanged.addListener(prefs => {
-//   if (prefs.size || prefs.fullWidth || prefs.fullHeight) {
-//     resize();
-//   }
-// });
+chrome.storage.onChanged.addListener(prefs => {
+  if (prefs.size || prefs.fullWidth || prefs.fullHeight) {
+    resize();
+  }
+});
 
 // communication
 chrome.runtime.onMessage.addListener(request => {

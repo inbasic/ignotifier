@@ -32,7 +32,6 @@ gmail.get = {
   gmail.at.get = url => {
     url = gmail.get.base(url);
     if (token[url]) {
-      console.log('FF', token);
       // invalidate after 10 minutes
       if (Date.now() - token[url].date < 10 * 60 * 1000) {
         return Promise.resolve(token[url]);
