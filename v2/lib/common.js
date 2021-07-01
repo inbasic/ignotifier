@@ -496,13 +496,8 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
     play(null);
   }
   else if (method === 'gmail.action') {
-    gmail.action(request).then(e => {
-      try {
-        response(e);
-      }
-      catch (e) {
-        window.setTimeout(() => repeater.reset(), 500);
-      }
+    gmail.action(request).then(() => {
+      response();
     }).catch(e => {
       app.notify(e.message);
       response(e);

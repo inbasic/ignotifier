@@ -24,15 +24,15 @@ chrome.storage.local.get({
   }
 });
 
-var notify = msg => chrome.notifications.create(null, {
+const notify = msg => chrome.notifications.create(null, {
   type: 'basic',
   iconUrl: '/data/icons/notification/48.png',
   title: chrome.i18n.getMessage('gmail'),
   message: msg.message || msg
 });
 
-var qs = function(q, m) {
-  var reserved = {
+const qs = function(q, m) {
+  const reserved = {
     'stats': 'header div[name="stat"] b',
     'accounts': '#accounts',
     'content': '#content',
@@ -60,7 +60,7 @@ var qs = function(q, m) {
   return qs.cache[q];
 };
 
-var html = (() => {
+const html = (() => {
   // List of all used elements
   const li = document.createElement('li');
 
@@ -73,17 +73,17 @@ var html = (() => {
   return function(tag, txt) {
     var tmp;
     switch (tag) {
-      case 'li':
-        tmp = li.cloneNode(false);
-        break;
-      default:
-        tmp = document.createElement(tag);
+    case 'li':
+      tmp = li.cloneNode(false);
+      break;
+    default:
+      tmp = document.createElement(tag);
     }
     return addContent(tmp, txt);
   };
 })();
 /** objects **/
-var accountSelector = (() => {
+const accountSelector = (() => {
   const tmp = qs('email-container');
   return {
     get text() {
@@ -96,7 +96,7 @@ var accountSelector = (() => {
     gen: xml => xml.title + (xml.label ? ' [' + xml.label + ']' : '')
   };
 })();
-var stat = (() => {
+const stat = (() => {
   const list = qs('stats', true);
   return {
     get current() {
@@ -113,11 +113,11 @@ var stat = (() => {
     }
   };
 })();
-var body = (function() {
-  var date = qs('date');
-  var email = qs('email');
-  var name = qs('sender');
-  var title = qs('title');
+const body = (function() {
+  const date = qs('date');
+  const email = qs('email');
+  const name = qs('sender');
+  const title = qs('title');
   return {
     get date() {
       return date.textContent;
@@ -152,7 +152,7 @@ var body = (function() {
 })();
 
 /** Update UI if necessary **/
-var update = (() => {
+const update = (() => {
   const old = {
     link: null,
     id: null,
@@ -257,7 +257,7 @@ var update = (() => {
 })();
 
 /* Listeners */
-var Listen = function(query, on, callback, pointer) {
+const Listen = function(query, on, callback, pointer) {
   const elem = qs(query);
   elem.addEventListener(on, function(e) {
     if (elem.getAttribute('disabled') === 'true') {
@@ -306,12 +306,12 @@ new Listen('accounts', 'click', ({target}) => {
 new Listen('next', 'click', () => update(false, true));
 new Listen('previous', 'click', () => update(true, false));
 
-var action = (cmd, links = selected.entry.link, callback = () => {}) => {
+const action = (cmd, links = selected.entry.link, callback = () => {}) => {
   chrome.runtime.sendMessage({
     method: 'gmail.action',
     cmd,
     links
-  }, e => {
+  }, () => {
     callback();
     if (cmd === 'rd') {
       qs('read').textContent = locale.get('popup_read');
@@ -467,11 +467,11 @@ const resize = () => {
   qs('accounts').style.display = 'none';
 };
 resize();
-chrome.storage.onChanged.addListener(prefs => {
-  if (prefs.size || prefs.fullWidth || prefs.fullHeight) {
-    resize();
-  }
-});
+// chrome.storage.onChanged.addListener(prefs => {
+//   if (prefs.size || prefs.fullWidth || prefs.fullHeight) {
+//     resize();
+//   }
+// });
 
 // communication
 chrome.runtime.onMessage.addListener(request => {

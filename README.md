@@ -1,30 +1,23 @@
-## [Gmail Notifier](http://add0n.com/gmail-notifier.html) multi-browser extension (ignotifier)
+## [Gmail Notifier](https://add0n.com/gmail-notifier.html) browser extension (ignotifier)
 
 ### Description
-[Gmail Notifier](http://add0n.com/gmail-notifier.html) is a multi-account notifier for Google mail (without storing passwords locally)
+[Gmail Notifier](https://add0n.com/gmail-notifier.html) is a multi-account notifier for Google mail (without storing passwords locally)
 
-![116888](https://cloud.githubusercontent.com/assets/351062/19102298/0a93ce12-8adc-11e6-9a35-b4e183de6c73.png)
+### YouTube Preview
+[![YouTube Preview](https://img.youtube.com/vi/5Z2huN_GNkA/0.jpg)](https://www.youtube.com/watch?v=5Z2huN_GNkA)
 
-### General information
-To compile ignotifier project you need to have these softwares and libraries available:
+### Listings (v3)
 
- * [nodejs](http://nodejs.org/)
- * [Mozilla JPM](https://developer.mozilla.org/en-US/Add-ons/SDK/Tools/jpm)
- * [Gulp.JS](http://gulpjs.com/)
+ * [Chrome Webstore](https://chrome.google.com/webstore/detail/gmail-notifier-developer/inglgcknnendooehdkhplbmhhbfkngmg)
+ * [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/gmail-notifier-dev-edition/)
+ * [Edge Addons](https://microsoftedge.microsoft.com/addons/detail/jhgfdokolagmnmjggpipkdefblhlhaap)
 
-### Folders description
-* compile: nodejs locale converter
-* preview: screenshots
-* src: ignotifier source code
+### Listings (v2)
 
-### How to compile ignotifier
-1. Open a new terminal in the root dir (directory contains src, preview, template, and compile folders)
-2. Run `npm install` to acquire the necessary nodejs packages
-3. Run `gulp firefox` or  `gulp chrome` to compile ignotifier in Firefox or Chrome browsers
-   * After running `gulp firefox`, project gets compiled for Firefox browser. Compiled files will be located on `builds/unpacked/firefox` folder. An executable XPI will be placed in `builds/packed/firefox.xpi`
-    * After running `gulp chrome`, project gets compiled for Chrome/Opera browser. Compiled files will be located on `builds/unpacked/chrome` folder. A zipped archive will be placed in `builds/packed/chrome.zip`
-    * For `gulp firefox` to auto install the extension on your Firefox browser, you need to have [Extension Auto-Installer](https://addons.mozilla.org/en-US/firefox/addon/autoinstaller/) installed in your Firefox.
-    * For `gulp chrome` to auto install the extension on your Chrome browser, you will need to modify [Line 65 of `gulp.js`](https://github.com/inbasic/ignotifier/blob/master/gulpfile.js#L65) to your Chrome executable (the current path is for Mac OS).
+ * [Chrome Webstore](https://chrome.google.com/webstore/detail/gmail-notifier/dcjichoefijpinlfnjghokpkojhlhkgl)
+ * [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/gmail-notifier-restartless/)
+ * [Edge Addons](https://microsoftedge.microsoft.com/addons/detail/cmhmeappbhdaifkknkhdnmogalbnhloa)
+ * [Opera Addons](https://addons.opera.com/extensions/details/gmail-notifier/)
 
 ### How to translate ignotifier
 * To translate ignotifier into your language head to [transifex.com](https://www.transifex.com/projects/p/gmail-notifier-addon) page.

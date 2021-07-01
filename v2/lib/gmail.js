@@ -32,7 +32,11 @@ gmail.get = {
   gmail.at.get = url => {
     url = gmail.get.base(url);
     if (token[url]) {
-      return Promise.resolve(token[url]);
+      console.log('FF', token);
+      // invalidate after 10 minutes
+      if (Date.now() - token[url].date < 10 * 60 * 1000) {
+        return Promise.resolve(token[url]);
+      }
     }
     return new Promise((resolve, reject) => {
       const blind = 'https://mail.google.com/mail/?ui=html&zy=h';
@@ -59,7 +63,8 @@ gmail.get = {
             }
             token[url] = {
               at,
-              base
+              base,
+              date: Date.now()
             };
             resolve(token[url]);
           }
@@ -75,7 +80,8 @@ gmail.get = {
 
             token[url] = {
               at: input.value,
-              base
+              base,
+              date: Date.now()
             };
             resolve(token[url]);
           }
