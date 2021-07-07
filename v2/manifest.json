@@ -1,9 +1,8 @@
 {
   "name": "Notifier for Gmail™",
-  "short_name": "ignotifier",
   "description": "__MSG_description__",
   "author": "InBasic",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "manifest_version": 2,
   "default_locale": "en",
   "permissions": [

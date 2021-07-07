@@ -4,43 +4,43 @@
         "description": ""
     },
     "tooltip_1": {
-        "message": "Linksklik: Gmail of het e-mailvoorbeeldpaneel openen",
+        "message": "Linksklikken: Gmail of het e-mailvoorvertoningspaneel openen",
         "description": ""
     },
     "tooltip_2": {
-        "message": "Middelklik (of Ctrl+Links): Alle accounts verversen",
+        "message": "Middelklikken (of Ctrl+pijltje naar links): alle accounts verversen",
         "description": ""
     },
     "tooltip_3": {
-        "message": "Rechtsklik: Accountselectie",
+        "message": "Rechtsklikken: accountselectie",
         "description": ""
     },
     "description": {
-        "message": "Labels- en accountsmelder voor Google Mail (Gmail)",
+        "message": "Label- en accountmelder voor Google Mail (Gmail)",
         "description": ""
     },
     "log_in_to_your_account": {
-        "message": "Log alstublieft in op uw Gmail-account",
+        "message": "Log in op uw Gmail-account",
         "description": ""
     },
     "msg_1": {
-        "message": "Tabblad is al geopend. Klik op de werkbalkknop om Gmail in een nieuw tabblad te openen of om naar een bestaand Gmail-tabblad over te schakelen.",
+        "message": "Het tabblad is al geopend. Klik op de werkbalkknop om Gmail op een nieuw tabblad te openen of naar een geopend Gmail-tabblad te gaan.",
         "description": ""
     },
     "msg_2": {
-        "message": "Link is gekopieerd naar het klembord.",
+        "message": "De link is gekopieerd naar het klembord.",
         "description": ""
     },
     "msg_3": {
-        "message": "Geselecteerde tekst is gekopieerd naar het klembord.",
+        "message": "De selectie is gekopieerd naar het klembord.",
         "description": ""
     },
     "msg_4": {
-        "message": "Let op: om de melder correct te laten werken moet u ingelogd zijn op uw Google-account.",
+        "message": "Let op: om de melder naar behoren te laten werken dient u ingelogd te zijn op uw Google-account.",
         "description": ""
     },
     "msg_5": {
-        "message": "Selecteer een audiobestand",
+        "message": "Kies een audiobestand",
         "description": ""
     },
     "label_1": {
@@ -56,27 +56,27 @@
         "description": ""
     },
     "label_4": {
-        "message": "Voor 5 minuten",
+        "message": "5 minuten",
         "description": ""
     },
     "label_5": {
-        "message": "Voor 15 minuten",
+        "message": "15 minuten",
         "description": ""
     },
     "label_6": {
-        "message": "Voor 30 minuten",
+        "message": "30 minuten",
         "description": ""
     },
     "label_7": {
-        "message": "Voor 1 uur",
+        "message": "1 uur",
         "description": ""
     },
     "label_8": {
-        "message": "Voor 2 uur",
+        "message": "2 uur",
         "description": ""
     },
     "label_9": {
-        "message": "Voor 5 uur",
+        "message": "5 uur",
         "description": ""
     },
     "label_13": {
@@ -84,15 +84,15 @@
         "description": ""
     },
     "label_10": {
-        "message": "Meldingen inschakelen (sessie)",
+        "message": "Meldingen tonen (sessie)",
         "description": ""
     },
     "label_11": {
-        "message": "Een e-mail opstellen",
+        "message": "E-mail opstellen",
         "description": ""
     },
     "label_12": {
-        "message": "Veel gestelde vragen (FAQ) openen",
+        "message": "Veelgestelde vragen (FAQ) openen",
         "description": ""
     },
     "label_14": {
@@ -108,19 +108,19 @@
         "description": ""
     },
     "log_into_your_account": {
-        "message": "Log alstublieft in op uw account",
+        "message": "Log in op uw account",
         "description": ""
     },
     "notification": {
-        "message": "Van: [author_email][break]Titel: [title][break]Samenvatting: [summary]",
+        "message": "Van: [author_email][break]Onderwerp: [title][break]Samenvatting: [summary]",
         "description": ""
     },
     "options_title": {
-        "message": "Voorkeuren - Gmail™-melder",
+        "message": "Instellingen - Gmail™-melder",
         "description": ""
     },
     "options_inshort": {
-        "message": "Labels- en accountsmelder voor Google Mail (Gmail)",
+        "message": "Label- en accountmelder voor Google Mail (Gmail)",
         "description": ""
     },
     "options_donation": {
@@ -136,7 +136,7 @@
         "description": ""
     },
     "options_timings_l2": {
-        "message": "Minimale tijdsduur is 10 seconden.",
+        "message": "De minimale tijdsduur is 10 seconden.",
         "description": ""
     },
     "options_timings_l3": {
@@ -144,15 +144,15 @@
         "description": ""
     },
     "options_timings_l4": {
-        "message": "Stel de waarde op nul in voor niet-periodieke herinneringen.",
+        "message": "Stel de waarde in op nul voor geen herinneringen te tonen.",
         "description": ""
     },
     "options_timings_l5": {
-        "message": "Minimale tijdsduur is 5 minuten.",
+        "message": "De minimale tijdsduur is 5 minuten.",
         "description": ""
     },
     "options_timings_l6": {
-        "message": "Een waarde hoger dan nul zorgt voor constante bureaubladmeldingen en waarschuwingsgeluiden (vergelijkbaar met het arriveren van een Nieuwe e-mail) wanneer u ongelezen e-mail(s) hebt.",
+        "message": "Een waarde hoger dan nul zorgt voor constante meldingen en waarschuwingsgeluiden (vergelijkbaar met het arriveren van een nieuwe e-mail) als u ongelezen e-mail(s) hebt.",
         "description": ""
     },
     "options_timings_l7": {
@@ -160,7 +160,7 @@
         "description": ""
     },
     "options_timings_l8": {
-        "message": "Stel de waarde op nul in om geen e-mailcontrole uit te voeren zolang er nog geen handmatige verversing is uitgevoerd [Niet beschikbaar in Safari].",
+        "message": "Stel de waarde op nul in om geen e-mailcontrole uit te voeren zolang er nog geen handmatige verversing is uitgevoerd [niet beschikbaar in Safari].",
         "description": ""
     },
     "options_gmail": {
@@ -172,7 +172,7 @@
         "description": ""
     },
     "options_gmail_2": {
-        "message": "Labels scheiden d.m.v. \",\" (komma).",
+        "message": "Scheid labels met “,” (komma's).",
         "description": ""
     },
     "options_gmail_3": {
@@ -196,7 +196,7 @@
         "description": ""
     },
     "options_gmail_8": {
-        "message": "Bericht als gelezen markeren na archiveren",
+        "message": "Berichten als gelezen markeren na archiveren",
         "description": ""
     },
     "options_gmail_15": {
@@ -204,7 +204,7 @@
         "description": ""
     },
     "options_gmail_10": {
-        "message": "Meldingen ontvangen voor de volgende labels en accounts:",
+        "message": "Meldingen tonen voor de volgende labels en accounts:",
         "description": ""
     },
     "options_gmail_11": {
@@ -212,15 +212,15 @@
         "description": ""
     },
     "options_gmail_12": {
-        "message": "Scheidt feeds met het kommateken (\",\"). Voorbeeldfeed: https://mail.google.com/mail/u/0/feed/atom/inbox",
+        "message": "Scheid feeds met komma's (“,”). Voorbeeldfeed: https://mail.google.com/mail/u/0/feed/atom/inbox",
         "description": ""
     },
     "options_gmail_13": {
-        "message": "Let op: het maximaal aantal voor labels, m.u.v. \"Postvak IN\", is 20 (Google's feeds geven alleen de 20 nieuwste labels door)",
+        "message": "Let op: het maximumaantal labels, m.u.v. ‘inbox’, is 20 (Google's feeds geven alleen de 20 nieuwste labels door)",
         "description": ""
     },
     "options_gmail_14": {
-        "message": "Tip: als de melder meer dan 5 accounts in de gaten moet houden, voeg dan de feed-URL's toe aan het \"Aangepaste feeds\"-veld. Voorbeeld: om account 6 en 7 in de gaten te houden, voeg toe: https://mail.google.com/mail/u/6/feed/atom/inbox, https://mail.google.com/mail/u/7/feed/atom/inbox",
+        "message": "Tip: als de melder meer dan 5 accounts in de gaten moet houden, voeg dan de feed-url's toe aan het ‘Aangepaste feeds’-veld. Voorbeeld: om account 6 en 7 in de gaten te houden, voeg toe: https://mail.google.com/mail/u/6/feed/atom/inbox, https://mail.google.com/mail/u/7/feed/atom/inbox",
         "description": ""
     },
     "options_notifications": {
@@ -228,15 +228,15 @@
         "description": ""
     },
     "options_notifications_1": {
-        "message": "Bureaubladmelding weergeven bij nieuwe e-mails",
+        "message": "Bureaubladmeldingen tonen bij nieuwe e-mails",
         "description": ""
     },
     "options_notifications_2": {
-        "message": "Bureaubladmelding weergeven voor de duur van (in seconden):",
+        "message": "Bureaubladmeldingen tonen voor de duur van (in seconden):",
         "description": ""
     },
     "options_notifications_3": {
-        "message": "Deze instellingen werkt mogelijk niet, afhankelijk van het door u gebruikte besturingssysteem.",
+        "message": "Deze instelling werkt mogelijk niet op alle besturingssystemen.",
         "description": ""
     },
     "options_notifications_4": {
@@ -244,19 +244,19 @@
         "description": ""
     },
     "options_notifications_5": {
-        "message": "Beschikbare variabelen",
+        "message": "Beschikbare variabelen:",
         "description": ""
     },
     "options_notifications_6": {
-        "message": "Meldingen afbreken die langer zijn dan",
+        "message": "Meldingen inkorten die langer zijn dan",
         "description": ""
     },
     "options_notifications_7": {
-        "message": "tekens voor [title] en [summary]-velden",
+        "message": "tekens voor [title]- en [summary]-velden",
         "description": ""
     },
     "options_notifications_8": {
-        "message": "Om te afbreking te voorkomen, vul hier een groot getal in.",
+        "message": "Voer hier een groot getal in om inkorting te voorkomen.",
         "description": ""
     },
     "options_notifications_9": {
@@ -264,31 +264,31 @@
         "description": ""
     },
     "options_notifications_10": {
-        "message": "Opmerking voor Mac-gebruikers: sinds Firefox 28.0 worden alle bureaubladmeldingen afgehandeld middels het Mac Berichtencentrum welke een extra meldingsgeluid afspeelt. U moet ofwel deze optie uitschakelen ofwel de corresponderende optie in het Mac Berichtencentrm.",
+        "message": "Opmerking voor Mac-gebruikers: sinds Firefox 28.0 worden alle bureaubladmeldingen afgehandeld middels het macOS-berichtencentrum, welke een extra meldingsgeluid afspeelt. U moet ofwel deze optie uitschakelen ofwel de corresponderende optie in het macOS-berichtencentrum.",
         "description": ""
     },
     "options_notifications_11": {
-        "message": "\"Windows-taakbalkmelding\" of \"Mac OS X-dockmelding\" weergeven",
+        "message": "‘Windows-taakbalkmeldingen’/‘macOS-dockmeldingen’ tonen",
         "description": ""
     },
     "options_notifications_12": {
-        "message": "Taakbalkmeldingen worden momenteel niet ondersteund op Linux-besturingssystemen.",
+        "message": "Taakbalkmeldingen worden momenteel niet ondersteund op Linux-systemen.",
         "description": ""
     },
     "options_notifications_13": {
-        "message": "Werkbalkpaneel openen bij klikken op taakbalkmeldingspictogram (alleen op Windows - beta)",
+        "message": "Werkbalkpaneel openen na klikken op taakbalkmeldingspictogram (alleen Windows - bèta)",
         "description": ""
     },
     "options_notifications_14": {
-        "message": "Deze optie is zeer experimenteel en kan mogelijk instabiliteit veroorzaken in Firefox. [Herstart vereist].",
+        "message": "Deze optie is zeer experimenteel en kan mogelijk instabiliteit veroorzaken in Firefox. [herstart vereist]",
         "description": ""
     },
     "options_notifications_15": {
-        "message": "Standaard meldingsgeluid is",
+        "message": "Het standaard meldingsgeluid is",
         "description": ""
     },
     "options_notifications_16": {
-        "message": "Standaardwaarschuwing van Gmail-melder",
+        "message": "Standaardgeluid van Gmail-melder",
         "description": ""
     },
     "options_notifications_17": {
@@ -304,39 +304,39 @@
         "description": ""
     },
     "options_notifications_20": {
-        "message": "Eigen gekozen geluid",
+        "message": "Eigen geluid",
         "description": ""
     },
     "options_notifications_21": {
-        "message": "Eigen gekozen meldingsgeluid is",
+        "message": "Het eigen gekozen meldingsgeluid is",
         "description": ""
     },
     "options_notifications_22": {
-        "message": "Als uw browser geen aangepast meldingsgeluid afspeelt, probeer dan om het te converteren naar plat WAV-formaat middels een online converteerapplicatie.",
+        "message": "Als uw browser geen eigen meldingsgeluid afspeelt, probeer dan het bestand te converteren naar onbewerkt wav-formaat middels een online-converteerprogramma.",
         "description": ""
     },
     "options_notifications_35": {
-        "message": "Om een nieuw aangepast geluid te selecteren moet u eerst een ingebouwd geluid selecteren en deze wijzigen naar een aangepast geluid",
+        "message": "Om een nieuw aangepast geluid te gebruiken, dient u eerst een ingebouwd geluid te kiezen en deze te wijzigen naar een eigen geluid",
         "description": ""
     },
     "options_notifications_23": {
-        "message": "Volume van het meldingsgeluid is",
+        "message": "Het volume van het meldingsgeluid is",
         "description": ""
     },
     "options_notifications_24": {
-        "message": "Volumeniveau is een getal tussen de 0 en 100 waar 100 het hoogste volumeniveau is (standaard).",
+        "message": "Het volumeniveau is een getal tussen de 0 en 100 waar 100 het hoogste volumeniveau is (standaard).",
         "description": ""
     },
     "options_notifications_25": {
-        "message": "Waarschijnlijk werken de standaardmeldingsgeluiden niet goed in Safari. Als dit het geval is moet u een eigen geluidsbestand instellen.",
+        "message": "Waarschijnlijk werken de standaard meldingsgeluiden niet goed in Safari. Als dit het geval is, moet u een eigen geluidsbestand kiezen.",
         "description": ""
     },
     "options_notifications_26": {
-        "message": "Systeemvakmelding altijd weergeven (wordt alleen ondersteund op Windows)",
+        "message": "Altijd systeemvakmeldingen tonen (alleen Windows)",
         "description": ""
     },
     "options_notifications_27": {
-        "message": "Er zal een systeemvakmelding worden weergegeven zelfs als er geen ongelezen bericht is.",
+        "message": "Er wordt een systeemvakmelding getoond, zelfs als er geen ongelezen bericht is.",
         "description": ""
     },
     "options_notifications_28": {
@@ -348,11 +348,11 @@
         "description": ""
     },
     "options_notifications_30": {
-        "message": "Alle bureaubladmeldingen samenvoegen in één melding",
+        "message": "Alle bureaubladmeldingen samenvoegen tot één melding",
         "description": ""
     },
     "options_notifications_31": {
-        "message": "Aangepaste geluidsmelding",
+        "message": "Eigen geluidsmelding",
         "description": ""
     },
     "options_notifications_32": {
@@ -360,19 +360,19 @@
         "description": ""
     },
     "options_notifications_33": {
-        "message": "e-mail-titel bevat",
+        "message": "e-mailonderwerp bevat",
         "description": ""
     },
     "options_notifications_34": {
-        "message": "e-mail-samenvatting bevat",
+        "message": "e-mailsamenvatting bevat",
         "description": ""
     },
     "options_notifications_36": {
-        "message": "Gmail vragen om doorverwijzing naar 'inbox.google.com' te voorkomen",
+        "message": "Gmail vragen om doorverwijzing naar ‘inbox.google.com’ te voorkomen",
         "description": ""
     },
     "options_notifications_37": {
-        "message": "Badge-aantal weergeven",
+        "message": "Aantal e-mails op pictogram tonen",
         "description": ""
     },
     "options_notifications_38": {
@@ -380,7 +380,7 @@
         "description": ""
     },
     "options_notifications_40": {
-        "message": "Snelle acties toestand vanuit meldingsgebied (maximaal twee acties - alleen Chrome)",
+        "message": "Snelle acties toestaan vanuit meldingsgebied (maximaal twee acties - alleen Chrome)",
         "description": ""
     },
     "options_notifications_41": {
@@ -392,7 +392,7 @@
         "description": ""
     },
     "options_notifications_43": {
-        "message": "Prullenbak",
+        "message": "Verpl. nr. prullenbak",
         "description": ""
     },
     "options_tab": {
@@ -400,11 +400,11 @@
         "description": ""
     },
     "options_tab_1": {
-        "message": "Alleen op het actieve venster zoeken naar een openstaand Gmail-account",
+        "message": "Alleen op het actieve venster zoeken naar een geopend Gmail-account",
         "description": ""
     },
     "options_tab_2": {
-        "message": "Niet in andere browservensters zoeken naar openstaande Gmail-accounts. Als Gmail niet is geopend in het actieve venster, wordt een nieuw tabblad geopend.",
+        "message": "Niet in andere browservensters zoeken naar geopende Gmail-accounts. Als Gmail niet is geopend in het actieve venster, wordt een nieuw tabblad geopend.",
         "description": ""
     },
     "options_tab_3": {
@@ -416,15 +416,15 @@
         "description": ""
     },
     "options_tab_5": {
-        "message": "Gmail-account openen op een achtergrondtabblad",
+        "message": "Gmail-account openen op achtergrondtabblad",
         "description": ""
     },
     "options_tab_6": {
-        "message": "Gmail-account openen in een nieuw venster",
+        "message": "Gmail-account openen in nieuw venster",
         "description": ""
     },
     "options_tab_7": {
-        "message": "Altijd lege tabbladen gebruiken in plaats een nieuw tabblad te openen wanneer een tabblad is geactiveerd",
+        "message": "Altijd blanco tabbladen gebruiken in plaats van een nieuw tabblad te openen als een tabblad is geactiveerd",
         "description": ""
     },
     "options_tab_8": {
@@ -432,15 +432,15 @@
         "description": ""
     },
     "options_tab_9": {
-        "message": "Als dit niet is aangevinkt zal Gmail Notifier óf het actieve venster controleren óf alle geopende vensters of Gmail al geopend is. Daarna zal naar het actieve tabblad worden overgeschakeld als dat is aangevraagd.",
+        "message": "Als dit niet is aangevinkt, dan zal Gmail-melder óf binnen het actieve venster óf binnen alle geopende vensters controleren of Gmail al geopend is. Daarna zal naar het actieve tabblad worden overgeschakeld (indien gewenst).",
         "description": ""
     },
     "options_tab_10": {
-        "message": "E-mails opmaken in basis-HTML",
+        "message": "E-mails opmaken met html",
         "description": ""
     },
     "options_tab_11": {
-        "message": "Open de nieuwste ongelezen e-mail in plaats van Postvak IN",
+        "message": "Open de nieuwste ongelezen e-mail in plaats van de inbox-map",
         "description": ""
     },
     "options_toolbar": {
@@ -452,11 +452,11 @@
         "description": ""
     },
     "options_toolbar_2": {
-        "message": "Altijd e-mail-voorbeeldpaneel openen",
+        "message": "E-mailvoorvertoningspaneel openen",
         "description": ""
     },
     "options_toolbar_3": {
-        "message": "Gmail-account openen wanneer er slechts één account is ingelogd",
+        "message": "Gmail-account openen als er slechts één account is ingelogd",
         "description": ""
     },
     "options_toolbar_18": {
@@ -464,47 +464,47 @@
         "description": ""
     },
     "options_toolbar_4": {
-        "message": "Werkbalkpaneel-modus",
+        "message": "Werkbalkpaneelmodus",
         "description": ""
     },
     "options_toolbar_5": {
-        "message": "Samenvatting weergeven",
+        "message": "Samenvatting tonen",
         "description": ""
     },
     "options_toolbar_6": {
-        "message": "Volledige inhoud weergeven",
+        "message": "Volledige inhoud tonen",
         "description": ""
     },
     "options_toolbar_7": {
-        "message": "Breedte van werkbalkpaneel in volledige-inhoudsweergave is (in pixels):",
+        "message": "De breedte van het werkbalkpaneel in de volledige weergavemodus is (in pixels):",
         "description": ""
     },
     "options_toolbar_8": {
-        "message": "Minimale breedte is 500px.",
+        "message": "De minimale breedte is 500px.",
         "description": ""
     },
     "options_toolbar_9": {
-        "message": "Werkbalkpaneel-hoogte in de volledige-inhoudsweergave is (in pixels):",
+        "message": "De hoogte van het werkbalkpaneel in de volledige weergavemodus is (in pixels):",
         "description": ""
     },
     "options_toolbar_10": {
-        "message": "Minimale hoogte is 500px.",
+        "message": "De minimale hoogte is 500px.",
         "description": ""
     },
     "options_toolbar_11": {
-        "message": "Toetsenbordsneltoetsen ondersteunen op het werkbalkpaneel",
+        "message": "Sneltoetsen ondersteunen op het werkbalkpaneel",
         "description": ""
     },
     "options_toolbar_12": {
-        "message": "!: Rapporteren als spam, #:Verplaatsen naar prullenbak, e:Archiveren, Shift + i: Markeren als ongelezen.",
+        "message": "!: Melden als spam, #:Verplaatsen naar prullenbak, e:Archiveren, Shift + i: Markeren als ongelezen.",
         "description": ""
     },
     "options_toolbar_13": {
-        "message": "E-mails opmaken in HTML in volledige-inhoudsmodus",
+        "message": "E-mails opmaken met html in volledige weergavemodus",
         "description": ""
     },
     "options_toolbar_14": {
-        "message": "Schakel deze optie uit als u platte tekst-opmaak prefereert in volledige-inhoudsmodus.",
+        "message": "Schakel deze optie uit als u voorkeur geeft aan plattetekstopmaak  in de volledige weergavemodus.",
         "description": ""
     },
     "options_toolbar_15": {
@@ -512,15 +512,15 @@
         "description": ""
     },
     "options_toolbar_16": {
-        "message": "Alle accounts verversen",
+        "message": "Alle accounts te verversen",
         "description": ""
     },
     "options_toolbar_17": {
-        "message": "Primair Gmail-account openen",
+        "message": "Het primaire Gmail-account te openen",
         "description": ""
     },
     "options_misc": {
-        "message": "Diversen:",
+        "message": "Overig:",
         "description": ""
     },
     "options_misc_1": {
@@ -528,31 +528,31 @@
         "description": ""
     },
     "options_misc_2": {
-        "message": "De standaardsortering is sorteren op datum ingelogd.",
+        "message": "De standaardsortering is sorteren op datum van inloggen.",
         "description": ""
     },
     "options_misc_3": {
-        "message": "Kleurenpatroon van werkbalk is",
+        "message": "Het kleurenpatroon van de werkbalk is",
         "description": ""
     },
     "options_misc_4": {
-        "message": "Grijze kleur voor \"Geen ongelezen berichten\" en blauwe kleur voor \"Niet verbonden\"",
+        "message": "Grijze kleur bij ‘Geen ongelezen berichten’ en blauwe kleur bij ‘Niet verbonden’",
         "description": ""
     },
     "options_misc_5": {
-        "message": "Blauwe kleur voor \"Geen ongelezen berichten en grijze kleur voor \"Niet verbonden\"",
+        "message": "Blauwe kleur bij ‘Geen ongelezen berichten’ en grijze kleur bij ‘Niet verbonden’",
         "description": ""
     },
     "options_misc_9": {
-        "message": "Rode kleur voor \"Geen ongelezen berichten\" en grijze kleur voor \"Niet verbonden\"",
+        "message": "Rode kleur bij ‘Geen ongelezen berichten’ en grijze kleur bij ‘Niet verbonden’",
         "description": ""
     },
     "options_misc_6": {
-        "message": "Bureaubladmeldingen weergeven als waarschuwing wanneer Gmail al geopend is op het actieve tabblad",
+        "message": "Bureaubladmelding tonen als Gmail al geopend is op het actieve tabblad",
         "description": ""
     },
     "options_misc_7": {
-        "message": "Welkomstpagina weergeven na update",
+        "message": "Welkomstpagina tonen na updates",
         "description": ""
     },
     "options_misc_8": {
@@ -560,11 +560,11 @@
         "description": ""
     },
     "options_misc_10": {
-        "message": "Alleen bureaublad- en geluidsmeldingen weergeven wanneer een e-mail binnen is ontvangen in minder dan (in minuten):",
+        "message": "Alleen bureaublad- en geluidsmeldingen ontvangen als een e-mail ontvangen is in minder dan (in minuten):",
         "description": ""
     },
     "options_misc_11": {
-        "message": "Door deze instelling op nul te zetten ontvangt geen bureaublad- of geluidsmeldingen; u krijgt echter nog wél de indicator op de knop.",
+        "message": "Door deze instelling op nul te zetten ontvangt geen bureaublad- of geluidsmeldingen - u ziet echter nog wél de indicator op de knop.",
         "description": ""
     },
     "options_misc_12": {
@@ -572,15 +572,15 @@
         "description": ""
     },
     "options_misc_13": {
-        "message": "Standaard weergeeft de melder inloggegevens op de tooltip van de werkbalkknop. Door deze optie uit te vinden zal de tekst op de standaardwaarde blijven.",
+        "message": "Standaard toont de melder inloggegevens op de hulpballon van de werkbalkknop. Door deze instelling uit te schakelen blijft de tekst op de standaardwaarde.",
         "description": ""
     },
     "options_misc_14": {
-        "message": "Geen exact badgenummer weergeven wanneer het aantal ongelezen e-mails hoger is dan 999",
+        "message": "Geen exact embleemgetal tonen als het aantal ongelezen e-mails meer is dan 999",
         "description": ""
     },
     "options_misc_15": {
-        "message": "Veelgestelde vragen-pagina openen bij updates",
+        "message": "Veelgestelde vragen-pagina openen na updates",
         "description": ""
     },
     "options_plugins": {
@@ -592,7 +592,7 @@
         "description": ""
     },
     "options_plugins_2": {
-        "message": "Deze plug-in toont de sterknop en de onderwerplabels in de pop-up (alleen in de uitgeklapte modus).",
+        "message": "Deze plug-in toont de sterknop en onderwerplabels in de pop-up (alleen in de uitgeklapte modus).",
         "description": ""
     },
     "options_px": {
@@ -600,7 +600,7 @@
         "description": ""
     },
     "options_empty": {
-        "message": "niet opgegeven",
+        "message": "niet-opgegeven",
         "description": ""
     },
     "options_button_test": {
@@ -620,11 +620,11 @@
         "description": ""
     },
     "popup_wait": {
-        "message": "Wachten...",
+        "message": "Even geduld…",
         "description": ""
     },
     "popup_date_format": {
-        "message": "%mm %dd, %yy",
+        "message": "%dd %mm %yy",
         "description": ""
     },
     "popup_no_subject": {
@@ -636,7 +636,7 @@
         "description": ""
     },
     "popup_open_inbox": {
-        "message": "Postvak IN openen",
+        "message": "Inbox openen",
         "description": ""
     },
     "popup_archive": {
@@ -656,11 +656,11 @@
         "description": ""
     },
     "popup_read": {
-        "message": "Als gelezen markeren",
+        "message": "Markeren als gelezen",
         "description": ""
     },
     "popup_read_all": {
-        "message": "Alles als gelezen markeren",
+        "message": "Alles markeren als gelezen",
         "description": ""
     },
     "popup_msg_1": {
@@ -680,7 +680,7 @@
         "description": ""
     },
     "popup_msg_5": {
-        "message": "uren geleden",
+        "message": "uur geleden",
         "description": ""
     },
     "popup_msg_6": {
@@ -692,7 +692,7 @@
         "description": ""
     },
     "popup_msg_8_format": {
-        "message": "%d we(e)k(en) geleden",
+        "message": "%d week/weken geleden",
         "description": ""
     },
     "popup_msg_9_format": {
@@ -748,11 +748,11 @@
         "description": ""
     },
     "settings_open_title": {
-        "message": "Open de opties-pagina (instellingen)",
+        "message": "Open de instellingenpagina",
         "description": ""
     },
     "settings_open_label": {
-        "message": "Opties openen",
+        "message": "Instellingen openen",
         "description": ""
     },
     "gmail": {

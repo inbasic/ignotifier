@@ -1,0 +1,242 @@
+{
+  "description": {
+    "message": "Label- en accountmelder voor Google Mail (Gmail)"
+  },
+  "bg_no_message": {
+    "message": "Geen ongelezen berichten"
+  },
+  "bg_no_message_logged_in": {
+    "message": "Ingelogde accounts:"
+  },
+  "bg_no_message_logged_out": {
+    "message": "Uitgelogde accounts:"
+  },
+  "bg_unexpected_error": {
+    "message": "Onverwachte fout:"
+  },
+  "bg_check_new_emails": {
+    "message": "Bezig met controleren op nieuwe e-mails…"
+  },
+  "bg_no_mark_as_read": {
+    "message": "Markeren als gelezen"
+  },
+  "bg_no_report": {
+    "message": "Melden als spam"
+  },
+  "bg_no_archive": {
+    "message": "Archiveren"
+  },
+  "bg_no_delete": {
+    "message": "Verwijderen"
+  },
+  "bg_no_add_star": {
+    "message": "Markeren als favoriet"
+  },
+  "pp_mark_all_as_read": {
+    "message": "Alle berichten hierbinnen markeren als gelezen"
+  },
+  "pp_mark_as_read": {
+    "message": "Markeren als gelezen"
+  },
+  "pp_mark_as_unread": {
+    "message": "Markeren als ongelezen"
+  },
+  "pp_mark_as_read_title": {
+    "message": "Markeren als gelezen (Shift + KeyI) of Markeren als ongelezen Shift + KeyU)"
+  },
+  "pp_refresh": {
+    "message": "Herladen"
+  },
+  "pp_report": {
+    "message": "Melden als spam (!)"
+  },
+  "pp_delete": {
+    "message": "Verwijderen (#)"
+  },
+  "pp_archive": {
+    "message": "Archiveren (KeyE)"
+  },
+  "pp_inbox": {
+    "message": "Inbox openen"
+  },
+  "pp_options": {
+    "message": "Instellingen openen"
+  },
+  "pp_search": {
+    "message": "Typ een zoekopdracht en druk op enter (bijv. is:unread label:inbox)"
+  },
+  "pp_notification": {
+    "message": "Voeg een melding toe binnen de huidige selectie of verwijder deze. Elk e-mailadres dient minimaal één melding te hebben, anders wordt de standaardmelding gebruikt. Gebruik de negeerlijst in de instellingen om e-mailadressen te negeren."
+  },
+  "pp_previous": {
+    "message": "Ga naar vorig bericht (KeyJ)"
+  },
+  "pp_next": {
+    "message": "Ga naar volgend bericht (KeyK)"
+  },
+  "pp_expand": {
+    "message": "Schakel tussen in- en uitgeklapte modus"
+  },
+  "pp_no_user": {
+    "message": "(EMAIL} is niet ingelogd of er is geen toegang tot het account."
+  },
+  "pp_of": {
+    "message": "van"
+  },
+  "pp_waiting": {
+    "message": "Bezig met wachten op accounts…"
+  },
+  "pp_empty_view": {
+    "message": "…"
+  },
+  "pp_empty_entries": {
+    "message": "Blanco lijst"
+  },
+  "pp_next_thread": {
+    "message": "Volgend gesprek"
+  },
+  "pp_view": {
+    "message": "Schakel tussen de één- en viertegelweergave"
+  },
+  "op_opening_mode": {
+    "message": "Open Gmail-melder op/in een"
+  },
+  "op_opening_mode_tab": {
+    "message": "browsertabblad"
+  },
+  "op_opening_mode_popup": {
+    "message": "browserpop-up"
+  },
+  "op_default_page": {
+    "message": "Standaardpagina"
+  },
+  "op_default_page_desc": {
+    "message": "Klik op de actieknop om deze pagina te openen als er geen ongelezen e-mails zijn"
+  },
+  "op_default_engine": {
+    "message": "Standaardmethode om e-mails op te halen"
+  },
+  "op_default_engine_rss": {
+    "message": "RSS (aanbevolen)"
+  },
+  "op_default_engine_api": {
+    "message": "Gmail-api (experimenteel)"
+  },
+  "op_default_engine_native": {
+    "message": "Ingebouwd (notmuch) (experimenteel)"
+  },
+  "op_badge_text_format": {
+    "message": "Tekstopmaak van teller"
+  },
+  "op_badge_text_format_desc": {
+    "message": "Beschikbare trefwoorden:"
+  },
+  "op_ignored_users": {
+    "message": "Genegeerde gebruikers:"
+  },
+  "op_ignored_users_desc": {
+    "message": "Een kommagescheiden lijst met ingelogde e-mailadressen die moeten worden genegeerd tijdens het bijwerken van de teller"
+  },
+  "op_popup": {
+    "message": "Pop-upvormgeving"
+  },
+  "op_internals": {
+    "message": "Methode"
+  },
+  "op_badge": {
+    "message": "Teller"
+  },
+  "op_email": {
+    "message": "Lezen"
+  },
+  "op_mark_as_read": {
+    "message": "Markeren als gelezen"
+  },
+  "op_mark_as_read_desc": {
+    "message": "E-mail automatisch markeren als gelezen na openen"
+  },
+  "op_csp": {
+    "message": "Inhoudsbeveiliging"
+  },
+  "op_csp_desc": {
+    "message": "Pas deze beveiliging toe bij het bekijken van e-mails, bijv. om te voorkomen dat externe inhoud wordt geladen. Hiervoor kun je \"default-src 'none'; style-src 'unsafe-inline';\" (zonder dubbele de aanhalingstekens) gebruiken. Laat leeg om alles toe te staan."
+  },
+  "op_notification": {
+    "message": "Melding"
+  },
+  "op_notification_email": {
+    "message": "bijv. ik@gmail.com"
+  },
+  "op_notification_query": {
+    "message": "bijv. label:INBOX is:unread"
+  },
+  "op_notification_sound": {
+    "message": "Of er een geluid moet worden afgespeeld bij het ontvangen van een nieuwe e-mail"
+  },
+  "op_notification_desktop": {
+    "message": "Of er een geluid moet worden getoond bij het ontvangen van een nieuwe e-mail"
+  },
+  "op_notification_source_title": {
+    "message": "Het getal dat de bron aanduidt. Gebruik 0, 1, 2 of 3 om de standaardgeluiden af te spelen."
+  },
+  "op_notification_source": {
+    "message": "bijv. 1"
+  },
+  "op_notification_file": {
+    "message": "Eigen geluid bewaren"
+  },
+  "op_notification_submit": {
+    "message": "Regel toevoegen"
+  },
+  "op_n_email": {
+    "message": "E-mailadres"
+  },
+  "op_n_query": {
+    "message": "Opvraging"
+  },
+  "op_n_sound": {
+    "message": "Geluid afspelen"
+  },
+  "op_n_desktop": {
+    "message": "Melding tonen"
+  },
+  "op_n_source": {
+    "message": "Geluidsbron-id"
+  },
+  "op_n_remove": {
+    "message": "Regel verwijderen"
+  },
+  "op_msg_large_file": {
+    "message": "Dit bestand is te groot! Verlaag de bestandsgrootte en probeer het opnieuw."
+  },
+  "op_msg_sound_id": {
+    "message": "‘%’ gebruiken als bron-id van dit geluid"
+  },
+  "op_msg_saved": {
+    "message": "De instellingen zijn opgeslagen"
+  },
+  "op_msg_reset": {
+    "message": "Dubbelklik om te herstellen"
+  },
+  "op_notification_remove_sound": {
+    "message": "Eigen geluid verwijderen"
+  },
+  "op_reset": {
+    "message": "Standaardwaarden"
+  },
+  "op_support": {
+    "message": "Ondersteun de ontwikkeling"
+  },
+  "op_save": {
+    "message": "Instellingen opslaan"
+  },
+  "op_badge_period": {
+    "message": "Duur (in minuten)"
+  },
+  "op_api_client": {
+    "message": "Gmail-api-server"
+  },
+  "op_native": {
+    "message": "Verbinden met ‘notmuch’"
+  }
+}
