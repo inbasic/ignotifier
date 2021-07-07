@@ -233,6 +233,13 @@ class Engine {
     }
 
     const body = doc.querySelector('.maincontent > table:last-child tr:last-child div');
+    // prevent redirects
+    for (const a of [...body.querySelectorAll('a[href^="https://www.google.com/url?q="]')]) {
+      const href = a.href;
+      const args = new URLSearchParams(href.split('?')[1]);
+      a.setAttribute('href', args.get('q'));
+    }
+
     return {
       href,
       messages: [{

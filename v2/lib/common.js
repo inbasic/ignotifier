@@ -77,6 +77,9 @@ function play(arr = []) {
 }
 
 function open(url, inBackground, refresh) {
+  // console.log(new Error().stack);
+  // console.log(url, inBackground, refresh);
+
   url = url.replace('@private', ''); // some urls might end with "@private" for private mode
 
   function parseUri(str) {

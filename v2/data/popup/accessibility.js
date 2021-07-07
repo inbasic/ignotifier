@@ -2,11 +2,16 @@
 
 // Link opener for html
 {
-  function opener(e) {
+  const opener = e => {
     const target = e.target;
 
     const a = target.closest('a') || target;
-    const link = a.dataset.href || a.href || a.src || target.src || target.href;
+    let link = a.dataset.href || a.href || a.src || target.src || target.href;
+
+    if (link && link.startsWith('https://www.google.com/url?q=')) {
+      const args = new URLSearchParams(link.split('?')[1]);
+      link = args.get('q');
+    }
 
     if (link) {
       e.preventDefault();
