@@ -63,6 +63,8 @@ const service = {
     }
     else {
       core.log('either there is no INTERNET connection or the user is not logged-in');
+
+      return [];
     }
   })
 };
@@ -81,7 +83,9 @@ const ready = () => {
             users[user.email] = user;
           }
           ready.cache.forEach(o => o.resolve());
-        }).catch(e => ready.cache.forEach(o => o.reject(e)));
+        }).catch(e => {
+          ready.cache.forEach(o => o.reject(e));
+        });
       }
     });
   }
@@ -209,6 +213,7 @@ chrome.runtime.onMessage.addListener((request, sender, resposne) => {
   else if (request.method === 'hard-refresh') {
     users = {};
     ready.busy = false;
+
     core.action.set('blue', '...', core.i18n.get('bg_check_new_emails'));
     ready().then(() => badge('hard-refresh')).then(resposne);
 
@@ -220,7 +225,17 @@ chrome.runtime.onMessage.addListener((request, sender, resposne) => {
     return run(users[request.user].engine.attachment(request.message, request.part));
   }
   else if (request.method === 'soft-refresh') {
-    badge('soft-refresh');
+    // if users is empty but we got "soft-refresh", it means the users list is not ready
+    if (Object.keys(users).length) {
+      badge('soft-refresh');
+    }
+    else {
+      users = {};
+      ready.busy = false;
+
+      core.action.set('blue', '...', core.i18n.get('bg_check_new_emails'));
+      ready().then(() => badge('hard-refresh')).then(resposne);
+    }
   }
 });
 

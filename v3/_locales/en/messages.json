@@ -5,6 +5,9 @@
   "bg_no_message": {
     "message": "No Unread Messages"
   },
+  "bg_sign_out": {
+    "message": "You are signed out!"
+  },
   "bg_no_message_logged_in": {
     "message": "Logged-in Accounts:"
   },

@@ -1,4 +1,4 @@
-/* global core, api, command, CONFIGS */
+/* global core, api, command, CONFIGS, isFirefox */
 
 /* localization */
 [...document.querySelectorAll('[data-i18n]')].forEach(e => {
@@ -105,6 +105,11 @@ document.getElementById('entries').addEventListener('change', e => {
 });
 document.getElementById('search').addEventListener('search', () => {
   api.update.notification();
+});
+document.getElementById('search').addEventListener('keypress', e => {
+  if (e.key === 'Enter' && isFirefox) {
+    e.target.dispatchEvent(new Event('search'));
+  }
 });
 document.getElementById('user').addEventListener('change', () => api.query.build());
 

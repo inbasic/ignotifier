@@ -121,6 +121,8 @@ document.getElementById('refresh').onclick = async e => {
     if (e.target === s) {
       return;
     }
+    const meta = e.ctrlKey || e.metaKey;
+
     if (e.code === 'KeyJ') {
       document.getElementById('previous').click();
     }
@@ -147,6 +149,10 @@ document.getElementById('refresh').onclick = async e => {
     }
     else if (e.key === '!') {
       document.getElementById('report').click();
+    }
+    else if (e.code === 'KeyF' && meta) {
+      document.getElementById('search').focus();
+      e.preventDefault();
     }
   });
 }

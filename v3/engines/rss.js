@@ -164,11 +164,26 @@ class Engine {
     const as = [...doc.querySelectorAll('a[href*="&th="]')];
     let resultSizeEstimate = 0;
     if (as.length) {
-      const t = doc.querySelector('form[name=f] td[align="right"] b:last-of-type');
-      if (!t) {
-        throw Error('Cannot detect resultSizeEstimate');
+      // Gmail does not return the exact number. Try to get it from the interface
+      if (query === 'label:INBOX is:unread') {
+        const a = doc.querySelector('a[href="?&"]');
+        if (a) {
+          const m = /\d+/.exec(a.textContent.replace(/[,.]/g, ''));
+          if (m && isNaN(m[0]) === false) {
+            resultSizeEstimate = Number(m[0]);
+          }
+        }
       }
-      resultSizeEstimate = Number(t.textContent);
+      if (resultSizeEstimate === 0) {
+        const t = doc.querySelector('form[name=f] td[align="right"] b:last-of-type');
+        if (!t) {
+          throw Error('Cannot detect resultSizeEstimate');
+        }
+        const n = Number(t.textContent.replace(/[,.]/g, '')); // 3,650 -> 3650
+        if (isNaN(n) === false) {
+          resultSizeEstimate = n;
+        }
+      }
     }
 
     const threads = as.map(a => {

@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "version": "1.0.7",
+  "version": "2.0.8",
   "name": "Gmail™ Notifier (Developer Edition)",
   "description": "__MSG_description__",
   "default_locale": "en",
@@ -24,7 +24,9 @@
     "32": "data/icons/colors/red/32.png",
     "48": "data/icons/colors/red/48.png",
     "64": "data/icons/colors/red/64.png",
-    "128": "data/icons/colors/red/128.png"
+    "128": "data/icons/colors/red/128.png",
+    "256": "data/icons/colors/red/256.png",
+    "512": "data/icons/colors/red/512.png"
   },
   "browser_action": {},
   "background": {

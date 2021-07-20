@@ -16,9 +16,11 @@ const accounts = {
       for (let m = 0; m < 3; m += 1) {
         const parser = new DOMParser();
         const doc = parser.parseFromString(bodies[m], 'text/xml');
-        // const href = doc.querySelector('link').getAttribute('href');
-        const email = doc.querySelector('title').textContent.split(' for ')[1];
-        if (emails.indexOf(email) === -1) {
+
+        const o = doc.querySelector('title');
+        const email = o?.textContent.split(' for ')[1];
+
+        if (o && emails.indexOf(email) === -1) {
           emails.push(email);
           db.push({
             href: hrefs[m].split('/feed/')[0],
@@ -43,7 +45,6 @@ const accounts = {
               native: true
             });
           }
-
           return r;
         }
       }
@@ -52,7 +53,7 @@ const accounts = {
   },
   'is-logged-in'() {
     return Promise.all([
-      fetch('https://mail.google.com/mail/?ui=html&zy=h').then(r => r.ok),
+      fetch('https://mail.google.com/mail/?ui=html&zy=h').then(r => r.ok && r.url.indexOf('accounts.google') === -1),
       import('./engines/native.js').then(o => {
         const Engine = o.default;
         const engine = new Engine();

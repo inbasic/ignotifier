@@ -71,7 +71,8 @@ notify.desktop = (user, query, count, threads) => core.storage.read({
   'notification-type': CONFIGS['notification-type'],
   'notification-text-format-combined': CONFIGS['notification-text-format-combined'],
   'notification-text-format-each': CONFIGS['notification-text-format-each'],
-  'notification-buttons': CONFIGS['notification-buttons']
+  'notification-buttons': CONFIGS['notification-buttons'],
+  'notification-max-per-account': CONFIGS['notification-max-per-account']
 }).then(async prefs => {
   if (prefs['notification-type'] === 'combined') {
     core.notify.create(JSON.stringify([threads[0].id, user]), {
@@ -83,7 +84,7 @@ notify.desktop = (user, query, count, threads) => core.storage.read({
     });
   }
   else {
-    for (const thread of threads) {
+    for (const thread of threads.slice(0, prefs['notification-max-per-account'])) {
       const buttons = prefs['notification-buttons'].map(command => ({
         'mark-as-read': core.i18n.get('bg_no_mark_as_read'),
         'report': core.i18n.get('bg_no_report'),
@@ -176,7 +177,7 @@ const badge = window.badge = async reason => {
       if (Object.values(users).length === 0) {
         color = 'blue';
       }
-      let msg = core.i18n.get('bg_no_message') + '\n\n' +
+      let msg = color === 'blue' ? core.i18n.get('bg_sign_out') : core.i18n.get('bg_no_message') + '\n\n' +
         core.i18n.get('bg_no_message_logged_in') + ': ' +
         Object.keys(users).filter(u => brokens.indexOf(u) === -1).join(', ');
       if (brokens.length) {
@@ -207,7 +208,11 @@ const badge = window.badge = async reason => {
           }));
         }
       }
-      core.action.set(brokens.length ? 'blue' : 'red', count, msg.join('\n\n'));
+      core.action.set(
+        brokens.length ? 'blue' : 'red',
+        count > 999 ? (count / 1000).toFixed() + 'k' : count,
+        msg.join('\n\n')
+      );
     }
     notify();
   }
@@ -244,10 +249,15 @@ core.alarms.fired(alarm => {
 window.addEventListener('online', () => badge('online'));
 core.idle.fired(name => name === 'active' && badge('idle'));
 
-/* storage calls */
+/*
+  storage calls
+
+  ignore: ps['queries'] since it is fired by hard-refresh
+
+*/
 core.storage.changed(ps => {
   if (
-    ps['badge-text-format'] || ps['queries'] || ps['default-queries'] || ps['notification'] ||
+    ps['badge-text-format'] || ps['default-queries'] || ps['notification'] ||
     ps['ignored-users'] || ps['opening-mode'] || ps['api-client-id']
   ) {
     badge('prefs-changed');

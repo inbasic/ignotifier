@@ -174,16 +174,17 @@ api.navigate = direction => {
       });
 
       const queries = active.users[active.user]?.queries || {};
+      console.log(queries);
       for (const query of Object.keys(queries)) {
         const option = document.createElement('option');
         option.textContent = option.value = query;
         history.appendChild(option);
       }
       if (prefs['popup-account'].user === active.user) {
-        e.value = prefs['popup-account'].query;
+        history.value = e.value = prefs['popup-account'].query;
       }
       if (e.value === '') {
-        e.value = prefs['default-queries'][0];
+        history.value = e.value = prefs['default-queries'][0];
       }
       // what is the active query does not have emails
       if (prefs['popup-switch-to-unread-query']) {
@@ -191,7 +192,7 @@ api.navigate = direction => {
         if (queries[active.query] && !queries[active.query]?.resultSizeEstimate) {
           for (const [query, o] of Object.entries(queries)) {
             if (o.resultSizeEstimate) {
-              e.value = query;
+              history.value = e.value = query;
               break;
             }
           }
