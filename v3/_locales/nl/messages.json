@@ -5,6 +5,9 @@
   "bg_no_message": {
     "message": "Geen ongelezen berichten"
   },
+  "bg_sign_out": {
+    "message": "Je bent uitgelogd!"
+  },
   "bg_no_message_logged_in": {
     "message": "Ingelogde accounts:"
   },

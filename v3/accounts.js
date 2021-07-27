@@ -54,7 +54,7 @@ const accounts = {
   'is-logged-in'() {
     return Promise.all([
       fetch('https://mail.google.com/mail/?ui=html&zy=h').then(r => r.ok && r.url.indexOf('accounts.google') === -1),
-      import('./engines/native.js').then(o => {
+      import('./engines/native/core.js').then(o => {
         const Engine = o.default;
         const engine = new Engine();
 

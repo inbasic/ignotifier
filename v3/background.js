@@ -1,5 +1,7 @@
 /* global core, accounts, CONFIGS, badge */
 
+navigator.serviceWorker.register('sw.js');
+
 const ports = new Set();
 core.runtime.port(port => {
   ports.add(port);
@@ -31,11 +33,18 @@ const service = {
         if (user.native) {
           name = 'native';
         }
-        const {
-          default: Engine
-        } = name === 'api' ? await import('./engines/api.js') : (
-          name === 'native' ? await import('./engines/native.js') : await import('./engines/rss.js')
-        );
+        let o;
+        if (name === 'api') {
+          o = await import('./engines/api/core.js');
+        }
+        else if (name === 'native') {
+          o = await import('./engines/native/core.js');
+        }
+        else {
+          o = await import('./engines/rss/core.js');
+        }
+        const Engine = o.default;
+
         core.log('user', user.email, 'uses', name, 'engine');
 
         user.engine = new Engine();
