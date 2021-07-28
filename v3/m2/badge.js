@@ -273,4 +273,15 @@ core.storage.changed(ps => {
   ) {
     badge('prefs-changed');
   }
+  if (ps['badge-period'] || ps['badge-delay']) {
+    core.storage.read({
+      'badge-period': CONFIGS['badge-period'], // minutes
+      'badge-delay': CONFIGS['badge-delay'] // minutes
+    }).then(prefs => {
+      core.alarms.create('badge', {
+        when: Date.now() + prefs['badge-delay'] * 60 * 1000,
+        periodInMinutes: prefs['badge-period']
+      });
+    });
+  }
 });
