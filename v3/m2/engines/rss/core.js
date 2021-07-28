@@ -1,14 +1,15 @@
-const config = {
-  blind: ' https://mail.google.com/mail/?ui=html&zy=h'
-};
+/* global query */
 
-class Engine {
+class RSSEngine {
   constructor(cnfg = {}) {
     this.TYPE = 'RSS';
     this.user = {
       queries: {}
     };
-    Object.assign(config, cnfg);
+    this.config = Object.assign({
+      blind: ' https://mail.google.com/mail/?ui=html&zy=h',
+      timeout: 30 * 60 * 1000
+    }, cnfg);
   }
   update() {
     return Promise.resolve();
@@ -16,26 +17,33 @@ class Engine {
   authorize() {
     return Promise.reject(Error('User need to login using Gmail interface'));
   }
-  get(path, type = 'doc', properties = {}) {
+  async get(path, properties = {}, skip = false) {
     const href = path.startsWith('http') ? path : this.base + path;
-    return fetch(href, properties).then(async r => {
-      if (r.ok) {
-        if (type === '') {
-          return;
-        }
-        const content = await r.text();
-        if (type === 'doc') {
-          const parser = new DOMParser();
-          return parser.parseFromString(content, 'text/html');
-        }
-        else {
-          return content;
-        }
+
+    const request = new Request(href, properties);
+    const cache = await caches.open('rss-v1');
+    const now = Date.now();
+    let response = await caches.match(request);
+    if (response) {
+      const date = (new Date(response.headers.get('date'))).getTime();
+      if (now - date < this.config.timeout) {
+        console.log('cached', href);
+        return await response.text();
       }
-      else {
-        throw Error('Request rejected');
+    }
+    console.log('new request', href);
+    response = await fetch(request);
+    if (response.ok) {
+      // caching
+      if (request.method === 'GET') {
+        cache.put(request, response.clone());
       }
-    });
+      if (skip) {
+        return;
+      }
+      return await response.text();
+    }
+    throw Error('Request rejected');
   }
   async bypass(at) {
     const body = new URLSearchParams();
@@ -46,35 +54,52 @@ class Engine {
     });
   }
   async introduce(user, step = 0) {
-    const href = await fetch(config.blind).then(r => r.url);
+    const href = await fetch(this.config.blind).then(r => r.url);
     if (href.indexOf('/u/') === -1) {
       throw Error('cannot find basic HTML view from the blind URL');
     }
     this.user.id = user.id;
     this.base = href.replace(/\/u\/\d+/, '/u/' + user.id);
 
-    const doc = await this.get(this.base, 'doc');
-    const input = doc.querySelector('[name="at"]'); // do you really want to use this view
+    const content = await this.get(this.base);
+
+    // do you really want to use this view
+    const input = await query(content, { // doc.querySelector('[name="at"]');
+      match(node) {
+        return node?.attributes.NAME === 'at';
+      }
+    });
+
     if (input && step === 0) {
       await this.bypass(input.value);
       return this.introduce(user, step += 1);
     }
 
     try {
-      const email = doc.querySelector('.gb4').textContent;
+      const email = await query(content, {
+        match(node) {
+          return node?.attributes?.CLASS?.indexOf('gb4') !== -1;
+        }
+      }).text;
       this.user.id = 0;
       this.user.email = email;
       return email;
     }
     catch (e) {
+      console.warn(e);
       throw Error('Cannot extract email from interface');
     }
   }
   async labels() {
     const labels = [];
-    const doc = await this.get(this.base);
+    const content = await this.get(this.base);
     // system
-    const a = doc.querySelector('[href="?&"]');
+    const a = await query(content, { // [href="?&"]
+      name: 'A',
+      match(node) {
+        return node?.attributes?.HREF === '?&';
+      }
+    });
     if (a) {
       const table = a.closest('table');
       [...table.querySelectorAll('a[href]')].forEach(e => {
@@ -98,9 +123,13 @@ class Engine {
       throw Error('Cannot find "INBOX" link');
     }
     // user
-    const b = doc.querySelector('[href="?&v=prl"]'); // edit labels
+    const b = await query(content, { // doc.querySelector('[href="?&v=prl"]'); // edit labels
+      match(node) {
+        return node?.attributes?.HREF.indexOf('?&v=prl') !== -1;
+      }
+    });
     if (b) {
-      const table = b.closest('table');
+      const table = b.closest('TABLE');
       [...table.querySelectorAll('a[href]')].forEach(e => {
         const href = e.getAttribute('href');
         if (href === '?&v=prl') { // edit labels
@@ -122,32 +151,41 @@ class Engine {
     return labels;
   }
   async at() {
-    const doc = await this.get(this.base);
-    const e = doc.querySelector('a[href*="at="]');
-    const input = doc.querySelector('[name="at"]'); // do you really want to use this view
+    const content = await this.get(this.base);
+    const e = await query(content, { // doc.querySelector('a[href*="at="]');
+      name: 'A',
+      match(node) {
+        return node?.attributes?.HREF.indexOf('at=') !== -1;
+      }
+    });
 
     if (e) {
-      const args = new URLSearchParams(e.href.split('?')[1]);
+      const args = new URLSearchParams(e.attributes.HREF.split('?')[1]);
       const at = args.get('at');
       if (!at) {
         throw Error('cannot extract "at" from the base page');
       }
       return at;
     }
+
+    const input = await query(content, { // doc.querySelector('[name="at"]'); // do you really want to use this view
+      match(node) {
+        return node?.attributes?.NAME === 'at';
+      }
+    });
+
     // allow access to the HTML version
-    else if (input) {
+    if (input) {
       this.bypass(input.value);
       return input.value;
     }
-    else {
-      throw Error('cannot get "at" from the base page');
-    }
+    throw Error('cannot get "at" from the base page');
   }
-  async threads(query, cache = true) {
+  async threads(q, cache = true) {
     const at = await this.at();
     const body = new URLSearchParams();
     body.append('s', 'q');
-    body.append('q', query);
+    body.append('q', q);
     body.append('nvp_site_mail', 'Search Mail');
     body.append('at', at);
 
@@ -156,30 +194,52 @@ class Engine {
       headers['cache-control'] = 'no-cache';
     }
 
-    const doc = await this.get(this.base.split('?')[0] + '?s=q&q=' + encodeURIComponent(query) + '&nvp_site_mail=Search%20Mail', 'doc', {
+    const content = await this.get(this.base.split('?')[0] + '?s=q&q=' + encodeURIComponent(q) + '&nvp_site_mail=Search%20Mail', {
       method: 'POST',
       body,
       headers
     });
-    const as = [...doc.querySelectorAll('a[href*="&th="]')];
+    const as = await query(content, { // [...doc.querySelectorAll('a[href*="&th="]')];
+      name: 'A',
+      match(node) {
+        return node?.attributes?.HREF.indexOf('&th=') !== -1;
+      }
+    }, false);
     let resultSizeEstimate = 0;
     if (as.length) {
       // Gmail does not return the exact number. Try to get it from the interface
-      if (query === 'label:INBOX is:unread') {
-        const a = doc.querySelector('a[href="?&"]');
+      if (q === 'label:INBOX is:unread') {
+        const a = await query(content, { // doc.querySelector('a[href="?&"]');
+          name: 'A',
+          match(node) {
+            return node?.attributes?.HREF === '?&';
+          }
+        });
         if (a) {
-          const m = /\d+/.exec(a.textContent.replace(/[,.]/g, ''));
+          const m = /\d+/.exec(a.text.replace(/[,.]/g, ''));
           if (m && isNaN(m[0]) === false) {
             resultSizeEstimate = Number(m[0]);
           }
         }
       }
       if (resultSizeEstimate === 0) {
-        const t = doc.querySelector('form[name=f] td[align="right"] b:last-of-type');
+        // doc.querySelector('form[name=f] td[align="right"] b:last-of-type');
+        const t = (await query(content, {
+          name: 'FORM',
+          match(node) {
+            return node?.attributes.NAME === 'f';
+          }
+        }))?.child({
+          name: 'TD',
+          match(n) {
+            return n?.attributes.ALIGN === 'right';
+          }
+        })?.child({name: 'B'}, true);
+
         if (!t) {
           throw Error('Cannot detect resultSizeEstimate');
         }
-        const n = Number(t.textContent.replace(/[,.]/g, '')); // 3,650 -> 3650
+        const n = Number(t.text.replace(/[,.]/g, '')); // 3,650 -> 3650
         if (isNaN(n) === false) {
           resultSizeEstimate = n;
         }
@@ -188,42 +248,66 @@ class Engine {
 
     const threads = as.map(a => {
       const thread = {};
-      const ts = a.querySelector('.ts');
-      const es = ts.children.length === 3 ? ts.children : ts.childNodes;
-      if (es.length < 3) {
-        throw Error('Cannot extract "labels", "title", and "snippet" from the element');
-      }
-      const snippet = ts.querySelector('.ts > font:last-child');
-      thread.snippet = snippet ? snippet.textContent.replace(/^ - /, '') : '';
+      const tr = a.closest('TR');
 
-      const subject = ts.querySelector('b') || es[1];
+      // const es = ts.children.length === 3 ? ts.children : ts.childNodes;
+      // if (es.length < 3) {
+      //   throw Error('Cannot extract "labels", "title", and "snippet" from the element');
+      // }
+      const snippet = a.child({name: 'FONT'}, true); // ts.querySelector('font:last-child');
 
-      thread.href = a.href;
-      thread.id = a.href.split('th=')[1].split('&')[0];
+      thread.snippet = snippet ? snippet.text.replace(/^ - /, '') : '';
+
+      const ts = a.child({
+        match(n) {
+          return n?.attributes?.CLASS?.indexOf('ts') !== -1;
+        }
+      });
+      const subject = ts.children[1].name === 'B' ? ts.children[1] : ts;
+
+      thread.href = a.attributes.HREF;
+      thread.id = a.attributes.HREF.split('th=')[1].split('&')[0];
+
+      const date = tr.child({name: 'TD'}, true);
+      const labels = a.child({
+        name: 'FONT',
+        match(n) {
+          return n?.attributes.SIZE === '1';
+        }
+      })?.child({name: 'FONT'});
+      const from = tr.children[1].child({name: 'B'}) || tr.children[1];
 
       thread.messages = {
-        labelIds: [...es[0].textContent.split(/\s*,\s*/)].filter(a => a),
-        date: ts.closest('td').nextElementSibling.textContent,
+        labelIds: labels?.text?.split(/\s*,\s*/).filter(a => a) || [],
+        date: date.text || date.children[0].text,
+        // date: 'FFF', // ts.closest('td').nextElementSibling.textContent
         payload: {
           mimeType: 'multipart/alternative',
           headers: [{
             name: 'Subject',
-            value: subject.nodeValue || subject.textContent
+            value: subject.text
           }, {
             name: 'From',
-            value: ts.closest('td').previousElementSibling.textContent.replace(/\s+\(\d+\)$/, '')
+            value: from.text.replace(/\s+\(\d+\)$/, '')
+            // value: 'FRRRRR' // ts.closest('td').previousElementSibling.textContent.replace(/\s+\(\d+\)$/, '')
           }]
         }
       };
-      if (subject.nodeType !== Element.TEXT_NODE) {
+      if (subject.name === 'B') {
         thread.messages.labelIds.push('UNREAD');
       }
-      if (a.closest('tr').querySelector('img[alt=Starred]')) {
+      const img = tr.child({ // querySelector('img[alt=Starred]')
+        name: 'INPUT',
+        match(n) {
+          return n?.attributes?.NAME === 't';
+        }
+      })?.child({name: 'IMG'});
+      if (img && img?.attributes?.SRC?.indexOf('star') !== -1) {
         thread.messages.labelIds.push('STARRED');
       }
-
       return thread;
     });
+
 
     this.user.queries[query] = threads;
 
@@ -234,7 +318,7 @@ class Engine {
   }
   async thread(o) {
     const href = o.href.replace('&v=c', '&v=pt');
-    const doc = await this.get(href);
+    const content = await this.get(href);
 
     let labelIds = o.messages.labelIds;
     // try to update labels since "o" might be outdated
@@ -246,14 +330,12 @@ class Engine {
         }
       }
     }
-
-    const body = doc.querySelector('.maincontent > table:last-child tr:last-child div');
-    // prevent redirects
-    for (const a of [...body.querySelectorAll('a[href^="https://www.google.com/url?q="]')]) {
-      const href = a.href;
-      const args = new URLSearchParams(href.split('?')[1]);
-      a.setAttribute('href', args.get('q'));
-    }
+    const to = (await query(content, {
+      name: 'FONT',
+      match(n) {
+        return n?.attributes?.CLASS?.indexOf('recipient') !== -1;
+      }
+    }))?.child({name: 'DIV'})?.text.replace('To: ', '') || 'NA';
 
     return {
       href,
@@ -265,24 +347,25 @@ class Engine {
           parts: [{
             mimeType: 'text/plain',
             body: {
-              content: body.innerText.trim()
+              'raw-html': content
             }
           }, {
             mimeType: 'text/html',
             body: {
-              content: body.innerHTML
+              'raw-html': content
             }
           }],
           headers: [{
             name: 'To',
-            value: doc.querySelector('.recipient')?.textContent.replace('To: ', '')
+            value: to
           }, ...o.messages.payload.headers]
         },
         snippet: o.snippet
       }]
     };
   }
-  async action(threads, name) {
+  async action(threads, name, user, query) {
+    console.log(user, query);
     const shortcuts = {
       'mark-as-unread': {
         'tact': 'ur',
@@ -331,10 +414,10 @@ class Engine {
       body.append('t', thread.id);
     }
     body.append('bact', '');
-    await this.get(this.base.split('?')['0'] + '?&s=a', '', {
+    await this.get(this.base.split('?')['0'] + '?&s=a', {
       method: 'POST',
       body
-    });
+    }, true);
     await this.update();
   }
   async modify({message, addLabelIds = [], removeLabelIds = []}) {
@@ -351,12 +434,10 @@ class Engine {
     body.append('nvp_tbu_go', 'Go');
     body.append('t', message.id);
     body.append('bact', '');
-    await this.get(this.base.split('?')['0'] + '?&s=a', '', {
+    await this.get(this.base.split('?')['0'] + '?&s=a', {
       method: 'POST',
       body
-    });
+    }, true);
     await this.update();
   }
 }
-
-export default Engine;

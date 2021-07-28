@@ -1,19 +1,17 @@
 /* global core */
 
-const config = {
-  id: 'com.add0n.node',
-  path: '/usr/local/bin/notmuch',
-  wsl: 'C:\\\\Windows\\\\System32\\\\wsl.exe',
-  thread: {
-    limit: 100
-  }
-};
-
-class Engine {
+class NativeEngine {
   constructor(cnfg = {}) {
     this.TYPE = 'NATIVE';
     this.user = {};
-    Object.assign(config, cnfg);
+    this.config = Object.assign({
+      id: 'com.add0n.node',
+      path: '/usr/local/bin/notmuch',
+      wsl: 'C:\\\\Windows\\\\System32\\\\wsl.exe',
+      thread: {
+        limit: 100
+      }
+    }, cnfg);
   }
   authorize() {
     return new Promise((resolve, reject) => chrome.permissions.contains({
@@ -29,9 +27,9 @@ class Engine {
   }
   exec(command, permissions = ['child_process', 'os']) {
     return new Promise((resolve, reject) => {
-      chrome.runtime.sendNativeMessage(config.id, {
+      chrome.runtime.sendNativeMessage(this.config.id, {
         permissions,
-        args: [config.path, config.wsl, command],
+        args: [this.config.path, this.config.wsl, command],
         script: String.raw`
           const callback = (error, stdout, stderr) => {
             push({
@@ -68,7 +66,7 @@ class Engine {
   spawn(commands, each = 'JSON.parse(stdout).forEach(push);', data = 'data => stdout += data', permissions = ['child_process', 'os']) {
     return new ReadableStream({
       start(controller) {
-        const ch = chrome.runtime.connectNative(config.id);
+        const ch = chrome.runtime.connectNative(this.config.id);
 
         ch.onDisconnect.addListener(() => controller.error(Error('channel is broken')));
         ch.onMessage.addListener(r => {
@@ -90,7 +88,7 @@ class Engine {
         });
         ch.postMessage({
           permissions,
-          args: [config.path, config.wsl, commands],
+          args: [this.config.path, this.config.wsl, commands],
           script: String.raw`
             const [command, query, limit, offset, output] = args;
             let notmuch;
@@ -138,7 +136,7 @@ class Engine {
   }
   async threads(query) {
     const resultSizeEstimate = parseInt((await this.exec('count ' + query)).stdout);
-    const readable = this.spawn(['search', '--limit=' + config.thread.limit, '--offset=0', '--format=json', '--output=summary', query]);
+    const readable = this.spawn(['search', '--limit=' + this.config.thread.limit, '--offset=0', '--format=json', '--output=summary', query]);
 
     return new Promise((resolve, reject) => {
       const threads = [];
@@ -281,5 +279,3 @@ class Engine {
     return r;
   }
 }
-
-export default Engine;

@@ -1,16 +1,14 @@
 /* global core, CONFIGS */
 
-const config = {
-  'base': 'https://www.googleapis.com/gmail/v1/',
-  'auth': 'https://accounts.google.com/o/oauth2/auth',
-  'scopes': ['https://www.googleapis.com/auth/gmail.modify'].join(', ')
-};
-
-class Engine {
+class APIEngine {
   constructor(cnfg = {}) {
     this.TYPE = 'API';
     this.user = {};
-    Object.assign(config, cnfg);
+    this.config = Object.assign({
+      'base': 'https://www.googleapis.com/gmail/v1/',
+      'auth': 'https://accounts.google.com/o/oauth2/auth',
+      'scopes': ['https://www.googleapis.com/auth/gmail.modify'].join(', ')
+    }, cnfg);
   }
   async authorize(cache = true, interactive = true) {
     const prefs = await core.storage.read({
@@ -22,9 +20,9 @@ class Engine {
     }
 
     const r = new Promise((resolve, reject) => {
-      const url = config.auth +
+      const url = this.config.auth +
         '?response_type=token&client_id=' + prefs['api-client'] +
-        '&scope=' + config.scopes +
+        '&scope=' + this.config.scopes +
         '&redirect_uri=' + chrome.identity.getRedirectURL('oauth2');
 
       const next = () => chrome.identity.launchWebAuthFlow({
@@ -62,7 +60,7 @@ class Engine {
       });
       options.headers['Authorization'] = type + ' ' + token;
     }
-    return fetch(config.base + path, options);
+    return fetch(this.config.base + path, options);
   }
   async introduce(user) {
     const profile = await this.fetch(`users/${user.email}/profile`).then(r => r.json());
@@ -196,5 +194,3 @@ class Engine {
     return r;
   }
 }
-
-export default Engine;

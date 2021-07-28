@@ -1,6 +1,81 @@
-/* global core, accounts, CONFIGS, badge */
+/* global core, accounts, CONFIGS, badge, APIEngine, RSSEngine, NativeEngine, sax */
 
-navigator.serviceWorker.register('sw.js');
+const query = (code, query, stop = true) => {
+  return new Promise((resolve, reject) => {
+    const results = [];
+    let tree;
+
+    const validate = () => {
+      if ((query.name ? query.name === tree.name : true) && (query.match ? query.match(tree) : true)) {
+        results.push(tree);
+        if (stop) {
+          resolve(tree);
+          throw Error('done');
+        }
+      }
+    };
+
+    class Node {
+      constructor(name, attributes) {
+        this.name = name;
+        this.attributes = attributes;
+        this.children = [];
+      }
+      closest(name) {
+        let p = this.parent;
+        while (p && p.name !== name) {
+          p = p.parent;
+        }
+        return p;
+      }
+      child(query, reverse = false) {
+        const once = node => {
+          if (node.children) {
+            for (const n of (reverse ? [...node.children].reverse() : node.children)) {
+              if ((query.name ? query.name === n.name : true) && (query.match ? query.match(n) : true)) {
+                return n;
+              }
+              const r = once(n);
+              if (r) {
+                return r;
+              }
+            }
+          }
+        };
+        return once(this);
+      }
+    }
+
+    const parser = sax.parser(false);
+    parser.onopentag = function(node) {
+      const child = new Node(node.name, node.attributes);
+
+      if (!tree) {
+        tree = child;
+      }
+      else {
+        child.parent = tree;
+        tree.children.push(child);
+        tree = child;
+      }
+    };
+
+    parser.onclosetag = function(name) {
+      validate();
+      if (name === tree.name) {
+        if (tree.parent) {
+          tree = tree.parent;
+        }
+      }
+    };
+    parser.ontext = text => tree.text = text;
+    parser.onend = () => {
+      resolve(results);
+    };
+    parser.onerror = e => reject(e);
+    parser.write(code).end();
+  });
+};
 
 const ports = new Set();
 core.runtime.port(port => {
@@ -33,17 +108,7 @@ const service = {
         if (user.native) {
           name = 'native';
         }
-        let o;
-        if (name === 'api') {
-          o = await import('./engines/api/core.js');
-        }
-        else if (name === 'native') {
-          o = await import('./engines/native/core.js');
-        }
-        else {
-          o = await import('./engines/rss/core.js');
-        }
-        const Engine = o.default;
+        const Engine = name === 'api' ? APIEngine : (name === 'native' ? NativeEngine : RSSEngine);
 
         core.log('user', user.email, 'uses', name, 'engine');
 
@@ -122,7 +187,7 @@ ready.busy = false;
 }
 core.context.fired(info => {
   if (info.menuItemId === 'refresh-badge') {
-    core.action.set('blue', '...', core.i18n.get('bg_check_new_emails'));
+    core.action.set('blue', '...', 'bg_check_new_emails');
     users = {};
     ready.busy = false;
     ready().then(() => badge('popup-load'));
@@ -207,13 +272,13 @@ chrome.runtime.onMessage.addListener((request, sender, resposne) => {
     return run(users[request.user].engine.thread(request.thread));
   }
   else if (request.method === 'read-messages') {
-    core.log('read-a-thread', 'called');
+    core.log('read-messages', 'called');
 
     return run(users[request.user].engine.messages(request.thread));
   }
   else if (request.method === 'run-a-command') {
     core.log('run-a-command', 'called');
-    return run(users[request.user].engine.action(request.threads, request.name));
+    return run(users[request.user].engine.action(request.threads, request.name, request.user, request.query));
   }
   else if (request.method === 'modify-a-message') {
     core.log('modify-a-message', 'called');
@@ -223,7 +288,7 @@ chrome.runtime.onMessage.addListener((request, sender, resposne) => {
     users = {};
     ready.busy = false;
 
-    core.action.set('blue', '...', core.i18n.get('bg_check_new_emails'));
+    core.action.set('blue', '...', 'bg_check_new_emails');
     ready().then(() => badge('hard-refresh')).then(resposne);
 
     return true;
@@ -242,8 +307,24 @@ chrome.runtime.onMessage.addListener((request, sender, resposne) => {
       users = {};
       ready.busy = false;
 
-      core.action.set('blue', '...', core.i18n.get('bg_check_new_emails'));
+      core.action.set('blue', '...', 'bg_check_new_emails');
       ready().then(() => badge('hard-refresh')).then(resposne);
+    }
+  }
+});
+
+/* caches clean up */
+caches.keys().then(async names => {
+  const now = Date.now();
+  for (const name of names) {
+    const cache = await caches.open(name);
+    for (const request of await cache.keys()) {
+      const response = await caches.match(request);
+      const date = (new Date(response.headers.get('date'))).getTime();
+      if (now - date < 30 * 60 * 1000) {
+        cache.delete(request);
+        core.log('clearing cache for ', request.url);
+      }
     }
   }
 });

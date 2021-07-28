@@ -1,4 +1,4 @@
-/* global core, CONFIGS */
+/* global core, CONFIGS, NativeEngine, query */
 const accounts = {
   number: 0,
   local: '',
@@ -14,11 +14,12 @@ const accounts = {
       const bodies = await Promise.all(hrefs.map(h => fetch(h).then(r => r.text())));
       const emails = [];
       for (let m = 0; m < 3; m += 1) {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(bodies[m], 'text/xml');
-
-        const o = doc.querySelector('title');
-        const email = o?.textContent.split(' for ')[1];
+        const o = await query(bodies[m], {
+          match(node) {
+            return node.name === 'TITLE';
+          }
+        });
+        const email = o?.text.split(' for ')[1];
 
         if (o && emails.indexOf(email) === -1) {
           emails.push(email);
@@ -54,15 +55,14 @@ const accounts = {
   'is-logged-in'() {
     return Promise.all([
       fetch('https://mail.google.com/mail/?ui=html&zy=h').then(r => r.ok && r.url.indexOf('accounts.google') === -1),
-      import('./engines/native/core.js').then(o => {
-        const Engine = o.default;
-        const engine = new Engine();
+      (() => {
+        const engine = new NativeEngine();
 
         return engine.authorize().then(() => engine.introduce()).then(user => {
           accounts.local = user;
           return Boolean(user);
         }).catch(() => false);
-      })
+      })()
     ]).then(([remote, local]) => {
       return remote || local;
     });

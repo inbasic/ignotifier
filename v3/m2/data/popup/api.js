@@ -174,7 +174,6 @@ api.navigate = direction => {
       });
 
       const queries = active.users[active.user]?.queries || {};
-      console.log(queries);
       for (const query of Object.keys(queries)) {
         const option = document.createElement('option');
         option.textContent = option.value = query;

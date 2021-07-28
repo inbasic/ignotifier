@@ -1,5 +1,14 @@
 const isFirefox = /Firefox/.test(navigator.userAgent) || typeof InstallTrigger !== 'undefined';
 
+const translate = async id => {
+  const lang = navigator.language.split('-')[0];
+  translate.objects = translate.objects || await Promise.all([
+    fetch('_locales/' + lang + '/messages.json').then(r => r.json()).catch(() => ({})),
+    fetch('_locales/en/messages.json').then(r => r.json())
+  ]);
+  return translate.objects[0][id]?.message || translate.objects[1][id]?.message || id;
+};
+
 const core = {};
 core.storage = {
   read(prefs) {
@@ -15,31 +24,31 @@ core.storage = {
 core.log = (...args) => console.log((new Date()).toLocaleTimeString(), ...args);
 
 core.action = {
-  set(color, badge, title) {
-    chrome.browserAction.setIcon({
+  set(color, badge, id, extra = '') {
+    (chrome.browserAction || chrome.action).setIcon({
       path: {
         '16': 'data/icons/colors/' + color + '/16.png',
         '32': 'data/icons/colors/' + color + '/32.png'
       }
     });
-    chrome.browserAction.setBadgeText({
+    (chrome.browserAction || chrome.action).setBadgeText({
       text: badge + ''
     });
-    chrome.browserAction.setTitle({
-      title
-    });
+    translate(id).then(title => (chrome.browserAction || chrome.action).setTitle({
+      title: title + extra
+    }));
   },
   badge() {
-    return new Promise(resolve => chrome.browserAction.getBadgeText({}, resolve));
+    return new Promise(resolve => (chrome.browserAction || chrome.action).getBadgeText({}, resolve));
   },
   popup(popup) {
-    chrome.browserAction.setPopup({popup});
+    (chrome.browserAction || chrome.action).setPopup({popup});
   },
   click(c) {
-    chrome.browserAction.onClicked.addListener(c);
+    (chrome.browserAction || chrome.action).onClicked.addListener(c);
   },
   color(color) {
-    chrome.browserAction.setBadgeBackgroundColor({
+    (chrome.browserAction || chrome.action).setBadgeBackgroundColor({
       color
     });
   }
@@ -65,6 +74,9 @@ core.page = {
 core.i18n = {
   get(id) {
     return chrome.i18n.getMessage(id);
+  },
+  translate(id) {
+    return translate(id);
   }
 };
 
@@ -75,9 +87,6 @@ core.runtime = {
   },
   message(c) {
     chrome.runtime.onMessage.addListener(c);
-  },
-  bg() {
-    return new Promise(resolve => chrome.runtime.getBackgroundPage(resolve));
   },
   post(o) {
     chrome.runtime.sendMessage(o, () => chrome.runtime.lastError);
@@ -145,6 +154,9 @@ core.download = options => new Promise((resolve, reject) => {
 
 core.context = {
   create(props) {
+    if (typeof window === 'undefined') {
+      props.contexts = props.contexts.map(s => s === 'browser_action' ? 'action' : s);
+    }
     chrome.contextMenus.create(props);
   },
   fired(c) {

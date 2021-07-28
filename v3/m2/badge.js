@@ -85,13 +85,16 @@ notify.desktop = (user, query, count, threads) => core.storage.read({
   }
   else {
     for (const thread of threads.slice(0, prefs['notification-max-per-account'])) {
+      const map = {};
+      map['mark-as-read'] = await core.i18n.translate('bg_no_mark_as_read');
+      map['report'] = await core.i18n.translate('bg_no_report');
+      map['archive'] = await core.i18n.translate('bg_no_archive');
+      map['delete'] = await core.i18n.translate('bg_no_delete');
+      map['add-star'] = await core.i18n.translate('bg_no_add_star');
+
       const buttons = prefs['notification-buttons'].map(command => ({
-        'mark-as-read': core.i18n.get('bg_no_mark_as_read'),
-        'report': core.i18n.get('bg_no_report'),
-        'archive': core.i18n.get('bg_no_archive'),
-        'delete': core.i18n.get('bg_no_delete'),
-        'add-star': core.i18n.get('bg_no_add_star')
-      }[command])).map(title => ({title}));
+        title: map[command]
+      }));
 
       core.notify.create(JSON.stringify([thread.id, user, prefs['notification-buttons']]), {
         message: prefs['notification-text-format-each']
@@ -128,7 +131,7 @@ core.notify.buttons((str, n) => {
   }
 });
 
-const badge = window.badge = async reason => {
+const badge = async reason => {
   const now = Date.now();
   if (now - badge.date < 500) {
     core.log('Badge is called too soon. Ignoring this request', reason);
@@ -159,6 +162,7 @@ const badge = window.badge = async reason => {
       }).catch(e => {
         brokens.push(user.email);
         user.queries = {};
+        console.warn(e);
         core.log(user.email, 'is logged-out', e.message);
       })));
     }));
@@ -177,13 +181,17 @@ const badge = window.badge = async reason => {
       if (Object.values(users).length === 0) {
         color = 'blue';
       }
-      let msg = color === 'blue' ? core.i18n.get('bg_sign_out') : core.i18n.get('bg_no_message') + '\n\n' +
-        core.i18n.get('bg_no_message_logged_in') + ': ' +
+
+      let msg = color === 'blue' ?
+        await core.i18n.translate('bg_sign_out') :
+        await core.i18n.translate('bg_no_message') + '\n\n' +
+        await core.i18n.translate('bg_no_message_logged_in') + ': ' +
         Object.keys(users).filter(u => brokens.indexOf(u) === -1).join(', ');
+
       if (brokens.length) {
-        msg += '\n\n' + core.i18n.get('bg_no_message_logged_out') + ': ' + brokens.join(', ');
+        msg += '\n\n' + await core.i18n.translate('bg_no_message_logged_out') + ': ' + brokens.join(', ');
       }
-      core.action.set(color, '', msg);
+      core.action.set(color, '', '', msg);
 
       core.runtime.post({
         method: 'close-popup'
@@ -211,6 +219,7 @@ const badge = window.badge = async reason => {
       core.action.set(
         brokens.length ? 'blue' : 'red',
         count > 999 ? (count / 1000).toFixed() + 'k' : count,
+        '',
         msg.join('\n\n')
       );
     }
@@ -218,12 +227,12 @@ const badge = window.badge = async reason => {
   }
   catch (e) {
     console.warn('Unexpected Error', e);
-    core.action.set('blue', 'E', core.i18n.get('bg_unexpected_error') + ': ' + e.message);
+    core.action.set('blue', 'E', 'bg_unexpected_error', ': ' + e.message);
   }
 };
 
 core.runtime.start(() => {
-  core.action.set('blue', '...', core.i18n.get('bg_check_new_emails'));
+  core.action.set('blue', '...', 'bg_check_new_emails');
   badge('first-run');
   core.storage.read({
     'badge-period': CONFIGS['badge-period'], // minutes
@@ -246,7 +255,9 @@ core.alarms.fired(alarm => {
     badge('alarm');
   }
 });
-window.addEventListener('online', () => badge('online'));
+if (typeof window !== 'undefined') {
+  window.addEventListener('online', () => badge('online'));
+}
 core.idle.fired(name => name === 'active' && badge('idle'));
 
 /*

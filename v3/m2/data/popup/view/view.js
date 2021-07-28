@@ -131,11 +131,26 @@ window.onmessage = e => {
       f.contentDocument.head.appendChild(meta);
     }
     if (content) {
+      if (content['raw-html']) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(content['raw-html'], 'text/html');
+        const body = doc.querySelector('.maincontent > table:last-child tr:last-child div');
+
+        // prevent redirects
+        for (const a of [...body.querySelectorAll('a[href^="https://www.google.com/url?q="]')]) {
+          const href = a.href;
+          const args = new URLSearchParams(href.split('?')[1]);
+          a.setAttribute('href', args.get('q'));
+        }
+        content.content = body.innerHTML;
+      }
+
       const body = content.content || decode(content.data || '');
       f.contentDocument.body.textContent = '';
       if (mime === 'text/html') {
         const parser = new DOMParser();
         const doc = parser.parseFromString(body, 'text/html');
+        console.log(doc, body);
         const e = doc.querySelector('body');
         f.contentDocument.body.appendChild(e);
       }

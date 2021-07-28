@@ -1,4 +1,4 @@
-window.CONFIGS = {
+const CONFIGS = {
   'opening-mode': 'popup', // tab, popup
   'default-page': 'https://mail.google.com/mail/u/0/#inbox',
   /* engine */
@@ -37,7 +37,7 @@ Last checked: {DATE}`, // valid keywords: "{EMAIL}", "{QUERY}", "{COUNT}", "{SNI
 };
 
 // preferences with no direct interaction
-Object.assign(window.CONFIGS, {
+Object.assign(CONFIGS, {
   'popup-collapsed-message': 'snippet', // snippet or complete
   'popup-view': 'grid', // single, grid
   'grid-view': '12', // 11, 12, 1_1, 1_2
