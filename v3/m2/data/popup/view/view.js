@@ -150,7 +150,6 @@ window.onmessage = e => {
       if (mime === 'text/html') {
         const parser = new DOMParser();
         const doc = parser.parseFromString(body, 'text/html');
-        console.log(doc, body);
         const e = doc.querySelector('body');
         f.contentDocument.body.appendChild(e);
       }

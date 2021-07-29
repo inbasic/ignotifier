@@ -21,7 +21,7 @@ core.storage = {
     chrome.storage.onChanged.addListener(c);
   }
 };
-core.log = (...args) => console.log((new Date()).toLocaleTimeString(), ...args);
+core.log = (...args) => console.log(new Date().toISOString().substr(11), ...args);
 
 core.action = {
   set(color, badge, id, extra = '') {

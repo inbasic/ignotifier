@@ -1,18 +1,25 @@
-/* global query */
+/* global query, core */
 
 class RSSEngine {
   constructor(cnfg = {}) {
     this.TYPE = 'RSS';
+    this.CACHE = 'rss-v1';
     this.user = {
       queries: {}
     };
     this.config = Object.assign({
-      blind: ' https://mail.google.com/mail/?ui=html&zy=h',
+      blind: 'https://mail.google.com/mail/?ui=html&zy=h',
       timeout: 30 * 60 * 1000
     }, cnfg);
   }
   update() {
     return Promise.resolve();
+  }
+  async clean() {
+    const cache = await caches.open(this.CACHE);
+    for (const request of await cache.keys()) {
+      await cache.delete(request);
+    }
   }
   authorize() {
     return Promise.reject(Error('User need to login using Gmail interface'));
@@ -21,27 +28,33 @@ class RSSEngine {
     const href = path.startsWith('http') ? path : this.base + path;
 
     const request = new Request(href, properties);
-    const cache = await caches.open('rss-v1');
+    const cache = await caches.open(this.CACHE);
     const now = Date.now();
     let response = await caches.match(request);
     if (response) {
       const date = (new Date(response.headers.get('date'))).getTime();
       if (now - date < this.config.timeout) {
-        console.log('cached', href);
+        if (skip) {
+          return response;
+        }
         return await response.text();
       }
     }
-    console.log('new request', href);
+    core.log(request.method, href);
     response = await fetch(request);
-    if (response.ok) {
+    console.log(response);
+    if (response.ok && response.url.indexOf('accounts.google') === -1) {
       // caching
       if (request.method === 'GET') {
         cache.put(request, response.clone());
       }
       if (skip) {
-        return;
+        return response;
       }
       return await response.text();
+    }
+    else {
+      this.clean();
     }
     throw Error('Request rejected');
   }
@@ -54,7 +67,7 @@ class RSSEngine {
     });
   }
   async introduce(user, step = 0) {
-    const href = await fetch(this.config.blind).then(r => r.url);
+    const href = await this.get(this.config.blind, {}, true).then(r => r.url);
     if (href.indexOf('/u/') === -1) {
       throw Error('cannot find basic HTML view from the blind URL');
     }
@@ -365,7 +378,6 @@ class RSSEngine {
     };
   }
   async action(threads, name, user, query) {
-    console.log(user, query);
     const shortcuts = {
       'mark-as-unread': {
         'tact': 'ur',

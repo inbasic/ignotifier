@@ -21,14 +21,18 @@
   </template>
 
   <section id="header">
-    <input type="button" id="previous" data-i18n-title="pp_previous">
-    <input type="button" id="next" data-i18n-title="pp_next">
-    <select id="user"></select>
-    <input type="search" id="search" data-i18n="pp_search" data-i18n-value="placeholder">
-    <select id="history"></select>
-    <input type="button" id="sound" data-i18n-title="pp_notification" disabled>
-    <div><span id="current">-</span> <span data-i18n="pp_of"></span> <span id="total">-</span></div>
-    <input type="button" id="view" data-i18n-title="pp_view">
+    <div>
+      <input type="button" id="previous" data-i18n-title="pp_previous">
+      <input type="button" id="next" data-i18n-title="pp_next">
+      <select id="user"></select>
+    </div>
+    <div>
+      <input type="search" id="search" data-i18n="pp_search" data-i18n-value="placeholder">
+      <select id="history"></select>
+      <input type="button" id="sound" data-i18n-title="pp_notification" disabled>
+      <div><span id="current">-</span> <span data-i18n="pp_of"></span> <span id="total">-</span></div>
+      <input type="button" id="view" data-i18n-title="pp_view">
+    </div>
   </section>
   <section id="body">
     <ul id="entries" data-i18n="pp_empty_entries" data-i18n-value="data-message"></ul>

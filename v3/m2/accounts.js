@@ -1,4 +1,4 @@
-/* global core, CONFIGS, NativeEngine, query */
+/* global core, CONFIGS, NativeEngine, query, clean */
 const accounts = {
   number: 0,
   local: '',
@@ -21,7 +21,7 @@ const accounts = {
         });
         const email = o?.text.split(' for ')[1];
 
-        if (o && emails.indexOf(email) === -1) {
+        if (o && email && emails.indexOf(email) === -1) {
           emails.push(email);
           db.push({
             href: hrefs[m].split('/feed/')[0],
@@ -52,18 +52,43 @@ const accounts = {
     }
     throw Error('maximum reached');
   },
-  'is-logged-in'() {
-    return Promise.all([
-      fetch('https://mail.google.com/mail/?ui=html&zy=h').then(r => r.ok && r.url.indexOf('accounts.google') === -1),
-      (() => {
-        const engine = new NativeEngine();
+  'is-logged-in'(forced = false) {
+    // Google
+    const g = async () => {
+      const now = Date.now();
+      if (forced === false) {
+        const prefs = await core.storage.read({
+          'last-check': 0
+        });
+        if (now - prefs['last-check'] < 60 * 60 * 1000) {
+          return true;
+        }
+      }
+      const r = await fetch('https://mail.google.com/mail/?ui=html&zy=h');
+      const b = r.ok && r.url.indexOf('accounts.google') === -1;
+      core.storage.write({
+        'last-check': b ? now : 0
+      });
+      if (!b) { // make sure all caches are cleared
+        clean(true);
+      }
+      return b;
+    };
+    // notmuch
+    const n = async () => {
+      const engine = new NativeEngine();
+      try {
+        await engine.authorize();
+        const user = await engine.introduce();
+        accounts.local = user;
+        return Boolean(user);
+      }
+      catch (e) {
+        return false;
+      }
+    };
 
-        return engine.authorize().then(() => engine.introduce()).then(user => {
-          accounts.local = user;
-          return Boolean(user);
-        }).catch(() => false);
-      })()
-    ]).then(([remote, local]) => {
+    return Promise.all([g(), n()]).then(([remote, local]) => {
       return remote || local;
     });
   }

@@ -64,16 +64,27 @@ input[type=button].loading {
 #header,
 #footer {
   display: grid;
-  grid-gap: 5px;
-  white-space: nowrap;
-  align-items: center;
   background-color: var(--gray);
 }
 #header {
-  grid-template-columns: 42px 42px 1fr 2fr 16px 42px min-content 42px;
+  grid-template-columns: 1fr 2fr;
+}
+#header > div {
+  display: grid;
+  grid-gap: 5px;
+  white-space: nowrap;
+  align-items: center;
+}
+#header > div:first-child {
+  grid-template-columns: 42px 42px 1fr;
+}
+#header > div:last-child {
+  margin-left: 5px;
+  grid-template-columns: 2fr 16px 42px min-content 42px;
 }
 #footer {
   grid-template-columns: repeat(6, 42px) 1fr 42px;
+  align-items: center;
 }
 #history {
   outline: none;

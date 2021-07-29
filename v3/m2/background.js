@@ -87,11 +87,21 @@ core.runtime.port(port => {
 
 const service = {
   users: () => accounts['is-logged-in']().then(async connected => {
+    const no = () => {
+      core.log('either there is no INTERNET connection or the user is not logged-in');
+      return [];
+    };
+
     if (connected) {
       core.log('connection to "Gmail" or "notmuch" is verified');
       const users = await accounts.check();
       core.log('logged-in users', ...users.map(u => u.email));
       if (users.length === 0) {
+        connected = await accounts['is-logged-in'](true);
+        if (connected === false) {
+          return no();
+        }
+
         core.log('Cannot fetch user list although the user is logged-in');
         users.push({
           email: 'me',
@@ -136,9 +146,7 @@ const service = {
       return users.filter(u => u.disconnected !== true);
     }
     else {
-      core.log('either there is no INTERNET connection or the user is not logged-in');
-
-      return [];
+      return no();
     }
   })
 };
@@ -177,6 +185,11 @@ ready.busy = false;
       contexts: ['browser_action']
     });
     core.context.create({
+      id: 'clean',
+      title: 'Clear Network Caches',
+      contexts: ['browser_action']
+    });
+    core.context.create({
       id: 'restart',
       title: 'Restart Extension',
       contexts: ['browser_action']
@@ -185,8 +198,13 @@ ready.busy = false;
   chrome.runtime.onInstalled.addListener(once);
   chrome.runtime.onStartup.addListener(once);
 }
-core.context.fired(info => {
-  if (info.menuItemId === 'refresh-badge') {
+core.context.fired(async info => {
+  if (info.method === 'clean') {
+    await clean(true);
+  }
+
+  //
+  if (info.menuItemId === 'refresh-badge' || info.menuItemId === 'clean') {
     core.action.set('blue', '...', 'bg_check_new_emails');
     users = {};
     ready.busy = false;
@@ -299,35 +317,39 @@ chrome.runtime.onMessage.addListener((request, sender, resposne) => {
     return run(users[request.user].engine.attachment(request.message, request.part));
   }
   else if (request.method === 'soft-refresh') {
-    // if users is empty but we got "soft-refresh", it means the users list is not ready
-    if (Object.keys(users).length) {
-      badge('soft-refresh');
-    }
-    else {
-      users = {};
-      ready.busy = false;
+    setTimeout(() => {
+      // if users is empty but we got "soft-refresh", it means the users list is not ready
+      if (Object.keys(users).length) {
+        badge('soft-refresh');
+      }
+      else {
+        users = {};
+        ready.busy = false;
 
-      core.action.set('blue', '...', 'bg_check_new_emails');
-      ready().then(() => badge('hard-refresh')).then(resposne);
-    }
+        core.action.set('blue', '...', 'bg_check_new_emails');
+        ready().then(() => badge('hard-refresh')).then(resposne);
+      }
+    }, request.delay || 0);
   }
 });
 
 /* caches clean up */
-caches.keys().then(async names => {
+// delete all cached resource with age more than an hour
+const clean = (forced = false) => caches.keys().then(async names => {
   const now = Date.now();
   for (const name of names) {
     const cache = await caches.open(name);
     for (const request of await cache.keys()) {
       const response = await caches.match(request);
       const date = (new Date(response.headers.get('date'))).getTime();
-      if (now - date < 30 * 60 * 1000) {
-        cache.delete(request);
+      if (now - date > 60 * 60 * 1000 || forced) {
+        await cache.delete(request);
         core.log('clearing cache for ', request.url);
       }
     }
   }
 });
+clean();
 
 /* FAQs & Feedback */
 {

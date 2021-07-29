@@ -1,7 +1,8 @@
 :root {
   --white: #fff;
   --gray: #f5f5f5;
-  --dark-gray: #d6d6d6;
+  --dark-gray: #a0a0a0;
+  --red: #fee;
   --blue: #dfeaff;
 }
 
@@ -66,7 +67,7 @@ input[type=number]:focus {
 h1 {
   font-size: 100%;
   text-align: center;
-  background: var(--dark-gray);
+  background: var(--red);
   padding: 10px;
 }
 

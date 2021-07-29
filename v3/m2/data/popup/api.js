@@ -89,11 +89,17 @@ api.navigate = direction => {
           const index = n;
           iframe.onload = () => {
             // resize observer
-            const resizeObserver = new ResizeObserver(() => {
-              if (iframe.contentDocument) {
-                iframe.style.height = iframe.contentDocument.documentElement.scrollHeight + 'px';
-              }
-            });
+            const resize = () => {
+              const d = () => {
+                console.log('ddd');
+                if (iframe.contentDocument) {
+                  iframe.style.height = iframe.contentDocument.documentElement.scrollHeight + 'px';
+                }
+              };
+              clearTimeout(resize.id);
+              resize.id = setTimeout(d, 200);
+            };
+            const resizeObserver = new ResizeObserver(resize);
             resizeObserver.observe(iframe.contentDocument.documentElement);
             // show message
             iframe.contentWindow.postMessage({

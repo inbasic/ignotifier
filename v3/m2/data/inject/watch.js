@@ -35,3 +35,8 @@ script.textContent = `{
 }`;
 document.documentElement.appendChild(script);
 script.remove();
+
+window.addEventListener('beforeunload', () => chrome.runtime.sendMessage({
+  method: 'soft-refresh',
+  delay: 1000
+}));
