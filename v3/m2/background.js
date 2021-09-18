@@ -94,7 +94,7 @@ const service = {
 
     if (connected) {
       core.log('connection to "Gmail" or "notmuch" is verified');
-      const users = await accounts.check();
+      const users = (await accounts.check()) || {};
       core.log('logged-in users', ...users.map(u => u.email));
       if (users.length === 0) {
         connected = await accounts['is-logged-in'](true);

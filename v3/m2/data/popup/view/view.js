@@ -134,9 +134,14 @@ window.onmessage = e => {
       if (content['raw-html']) {
         const parser = new DOMParser();
         const doc = parser.parseFromString(content['raw-html'], 'text/html');
-        const body = doc.querySelector('.maincontent > table:last-child tr:last-child div');
+        const bodies = doc.querySelectorAll('.maincontent > table tr:last-child td > div');
 
-        content.content = body.innerHTML;
+        content.content = '';
+        for (const body of [...bodies].reverse()) {
+          console.log(body.innerHTML);
+          content.content += body.innerHTML + '<hr>';
+        }
+        console.log(content);
       }
 
       const body = content.content || decode(content.data || '');
@@ -152,6 +157,18 @@ window.onmessage = e => {
         pre.textContent = body;
         f.contentDocument.body.appendChild(pre);
       }
+      const style = document.createElement('style');
+      style.textContent = `
+        body > hr {
+          border: none;
+          border-bottom: solid 4px whitesmoke;
+        }
+        body > hr:last-child {
+          display: none;
+        }
+      `;
+      f.contentDocument.head.appendChild(style);
+
       // prevent redirects
       for (const a of [...f.contentDocument.body.querySelectorAll('a[href^="https://www.google.com/url?"]')]) {
         const href = a.href;

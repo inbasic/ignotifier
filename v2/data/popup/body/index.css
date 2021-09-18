@@ -4,14 +4,22 @@ body {
 table {
   color: inherit;
 }
-body, td {
-  font-family: arial,sans-serif;
+body,
+td {
+  font-family: arial, sans-serif;
   font-size: 12px;
 }
 a {
-  color: #1155CC;
+  color: #15c;
   text-decoration: none;
   cursor: pointer;
+}
+body > hr {
+  border: none;
+  border-bottom: solid 4px whitesmoke;
+}
+body > hr:last-child {
+  display: none;
 }
 
 .root {
