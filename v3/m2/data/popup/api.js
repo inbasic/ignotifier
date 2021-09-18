@@ -91,7 +91,6 @@ api.navigate = direction => {
             // resize observer
             const resize = () => {
               const d = () => {
-                console.log('ddd');
                 if (iframe.contentDocument) {
                   iframe.style.height = iframe.contentDocument.documentElement.scrollHeight + 'px';
                 }

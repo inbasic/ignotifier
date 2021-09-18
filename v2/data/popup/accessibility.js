@@ -1,3 +1,4 @@
+/* global qs */
 'use strict';
 
 // Link opener for html
@@ -9,8 +10,8 @@
     let link = a.dataset.href || a.href || a.src || target.src || target.href;
 
     if (link && link.startsWith('https://www.google.com/url?q=')) {
-      const args = new URLSearchParams(link.split('?')[1]);
-      link = args.get('q');
+      const args = new URLSearchParams(link.substr(27));
+      link = args.get('q') || link;
     }
 
     if (link) {
@@ -28,7 +29,7 @@
         }
       }, () => e.button === 0 ? window.close() : null);
     }
-  }
+  };
   window.addEventListener('click', opener);
   qs('iframe').addEventListener('load', () => {
     qs('iframe').contentDocument.addEventListener('mousedown', opener);

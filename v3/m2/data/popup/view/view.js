@@ -136,12 +136,6 @@ window.onmessage = e => {
         const doc = parser.parseFromString(content['raw-html'], 'text/html');
         const body = doc.querySelector('.maincontent > table:last-child tr:last-child div');
 
-        // prevent redirects
-        for (const a of [...body.querySelectorAll('a[href^="https://www.google.com/url?q="]')]) {
-          const href = a.href;
-          const args = new URLSearchParams(href.split('?')[1]);
-          a.setAttribute('href', args.get('q'));
-        }
         content.content = body.innerHTML;
       }
 
@@ -158,6 +152,16 @@ window.onmessage = e => {
         pre.textContent = body;
         f.contentDocument.body.appendChild(pre);
       }
+      // prevent redirects
+      for (const a of [...f.contentDocument.body.querySelectorAll('a[href^="https://www.google.com/url?"]')]) {
+        const href = a.href;
+        const args = new URLSearchParams(a.href.substr(27));
+        if (args.has('q')) {
+          const link = args.get('q');
+          a.setAttribute('href', link || href);
+        }
+      }
+
       // resize observer
       const resizeObserver = new ResizeObserver(() => {
         f.style.height = f.contentDocument.documentElement.offsetHeight + 'px';

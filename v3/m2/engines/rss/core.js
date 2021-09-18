@@ -42,7 +42,6 @@ class RSSEngine {
     }
     core.log(request.method, href);
     response = await fetch(request);
-    console.log(response);
     if (response.ok && response.url.indexOf('accounts.google') === -1) {
       // caching
       if (request.method === 'GET') {
@@ -72,7 +71,7 @@ class RSSEngine {
       throw Error('cannot find basic HTML view from the blind URL');
     }
     this.user.id = user.id;
-    this.base = href.replace(/\/u\/\d+/, '/u/' + user.id);
+    this.base = href.replace(/\/u\/\d+/, '/u/' + user.id).split('?')[0];
 
     const content = await this.get(this.base);
 
@@ -165,15 +164,14 @@ class RSSEngine {
   }
   async at() {
     const content = await this.get(this.base);
-    const e = await query(content, { // doc.querySelector('a[href*="at="]');
+    const e1 = await query(content, { // doc.querySelector('a[href*="at="]');
       name: 'A',
       match(node) {
         return node?.attributes?.HREF.indexOf('at=') !== -1;
       }
     });
-
-    if (e) {
-      const args = new URLSearchParams(e.attributes.HREF.split('?')[1]);
+    if (e1 && e1.attributes) {
+      const args = new URLSearchParams(e1.attributes.HREF.split('?')[1]);
       const at = args.get('at');
       if (!at) {
         throw Error('cannot extract "at" from the base page');
@@ -188,9 +186,9 @@ class RSSEngine {
     });
 
     // allow access to the HTML version
-    if (input) {
-      this.bypass(input.value);
-      return input.value;
+    if (input && input.attributes) {
+      await this.bypass(input.attributes.VALUE);
+      return input.attributes.VALUE;
     }
     throw Error('cannot get "at" from the base page');
   }

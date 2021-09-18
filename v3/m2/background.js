@@ -208,7 +208,9 @@ core.context.fired(async info => {
     core.action.set('blue', '...', 'bg_check_new_emails');
     users = {};
     ready.busy = false;
-    ready().then(() => badge('popup-load'));
+    ready().then(() => badge('popup-load')).catch(e => {
+      core.action.set('blue', 'E', e.message);
+    });
   }
   else if (info.menuItemId == 'restart') {
     core.runtime.reload();
