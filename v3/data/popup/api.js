@@ -326,6 +326,7 @@ api.update = {
     const queries = await api.users.queries();
 
     sound.classList[queries.indexOf(active.query) === -1 ? 'remove' : 'add']('active');
+    sound.classList[active.query.includes('[silent]') ? 'add' : 'remove']('silent');
   };
 }
 /* update current */

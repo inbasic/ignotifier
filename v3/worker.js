@@ -34,8 +34,14 @@ const service = {
         if (user.native) {
           name = 'native';
         }
-        const Engine = name === 'api' ? APIEngine : (name === 'native' ? NativeEngine : RSSEngine);
-
+        const OEngine = name === 'api' ? APIEngine : (name === 'native' ? NativeEngine : RSSEngine);
+        class Engine extends OEngine {
+          threads(query) {
+            // remove interface commands from the query
+            query = query.replace(/^\[[^\s]+\]\s*/, '');
+            return super.threads(query);
+          }
+        }
         core.log('user', user.email, 'uses', name, 'engine');
 
         user.engine = new Engine();
@@ -136,8 +142,28 @@ core.context.fired(async info => {
 /* action */
 core.action.click(async tab => {
   const prefs = await core.storage.read({
-    'default-page': CONFIGS['default-page']
+    'default-page': CONFIGS['default-page'],
+    'opening-mode': CONFIGS['opening-mode']
   });
+  if (prefs['opening-mode'] === 'tab') {
+    const badge = await core.action.badge();
+    if (isNaN(badge) === false) {
+      core.runtime.post({
+        method: 'interface-echo'
+      }, r => {
+        chrome.runtime.lastError;
+        if (r !== true) {
+          core.page.open({
+            index: tab.index + 1,
+            url: 'data/popup/index.html?mode=tab'
+          });
+        }
+      });
+      return;
+    }
+  }
+
+
   // do we have an open email
   core.page.find({
     url: 'https://mail.google.com/*'
@@ -243,6 +269,9 @@ chrome.runtime.onMessage.addListener((request, sender, resposne) => {
         ready().then(() => badge('hard-refresh')).then(resposne);
       }
     }, request.delay || 0);
+  }
+  else if (request.method === 'focus-interface') {
+    core.page.focus(sender.tab, sender.tab.active);
   }
 });
 

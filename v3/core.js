@@ -94,8 +94,10 @@ core.runtime = {
   message(c) {
     chrome.runtime.onMessage.addListener(c);
   },
-  post(o) {
-    chrome.runtime.sendMessage(o, () => chrome.runtime.lastError);
+  post(o, c = () => {
+    chrome.runtime.lastError;
+  }) {
+    chrome.runtime.sendMessage(o, c);
   },
   reload() {
     chrome.runtime.reload();

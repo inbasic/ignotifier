@@ -158,6 +158,9 @@ const badge = async reason => {
       }
 
       return Promise.all(queries.map(query => user.engine.threads(query, false).then(o => {
+        if (query.includes('[silent]')) {
+          o.silent = true;
+        }
         user.queries[query] = o;
       }).catch(e => {
         brokens.push(user.email);
@@ -170,7 +173,7 @@ const badge = async reason => {
       method: 'users-updated'
     });
     const count = Object.values(users).map(o => o.queries).map(qs => Object.values(qs)).flat()
-      .reduce((p, c) => p + c.resultSizeEstimate, 0);
+      .reduce((p, c) => p + (c.silent ? 0 : c.resultSizeEstimate), 0);
     core.log('badge is resolved', count);
 
     core.action.popup(count !== 0 && prefs['opening-mode'] === 'popup' ? 'data/popup/index.html?mode=popup' : '');

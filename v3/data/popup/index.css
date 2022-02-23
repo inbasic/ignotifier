@@ -138,6 +138,9 @@ body.single #view {
 #sound.active {
   filter: saturate(1);
 }
+#sound.silent {
+  background-image: url('icons/silent.svg');
+}
 
 #body {
   position: relative;

@@ -35,11 +35,12 @@
       "core.js",
       "accounts.js",
       "configs.js",
-      "sax.js",
+      "utils/sax.js",
+      "utils/query.js",
       "engines/rss/core.js",
       "engines/api/core.js",
       "engines/native/core.js",
-      "background.js",
+      "worker.js",
       "badge.js"
     ]
   },

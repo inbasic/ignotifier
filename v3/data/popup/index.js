@@ -34,7 +34,7 @@ const active = {
 };
 
 const post = window.post = request => new Promise(resolve => {
-  chrome.runtime.sendMessage(Object.assign({}, request, {
+  core.runtime.post(Object.assign({}, request, {
     user: active.user,
     query: active.query
   }), resolve);
@@ -269,8 +269,14 @@ document.getElementById('view').onclick = async () => {
 })();
 
 
-core.runtime.message(request => {
+core.runtime.message((request, sender, response) => {
   if (request.method === 'close-popup' && args.get('mode') === 'popup') {
     window.close();
+  }
+  else if (request.method === 'interface-echo') {
+    response(true);
+    core.runtime.post({
+      method: 'focus-interface'
+    });
   }
 });

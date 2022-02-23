@@ -72,6 +72,7 @@ body {
 }
 #attachments {
   display: flex;
+  flex-flow: wrap;
   gap: 5px;
 }
 
