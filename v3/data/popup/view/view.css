@@ -29,10 +29,14 @@ body {
   display: flex;
   align-items: center;
   grid-column: 1/3;
+  gap: 5px;
 }
 #subject {
   flex: 1;
-  font-size: 110%;
+  font-size: 22px;
+  text-decoration: none;
+  color: inherit;
+  font-weight: normal;
 }
 #subject,
 #from,
@@ -68,6 +72,7 @@ body {
 }
 #attachments {
   display: flex;
+  gap: 5px;
 }
 
 .attachment {
@@ -78,4 +83,3 @@ body {
   padding: 2px 5px;
   cursor: pointer;
 }
-

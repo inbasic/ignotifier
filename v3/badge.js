@@ -110,7 +110,7 @@ notify.desktop = (user, query, count, threads) => core.storage.read({
 });
 core.notify.fired(str => {
   try {
-    const [id, user] = JSON.parse(str);
+    const [, user] = JSON.parse(str);
     core.page.open({
       url: users[user].href
     });

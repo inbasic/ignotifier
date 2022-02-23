@@ -75,6 +75,7 @@ api.navigate = direction => {
           method: 'read-a-thread',
           thread
         });
+
         const prefs = await core.storage.read({
           'popup-csp': CONFIGS['popup-csp'],
           'popup-collapsed-message': CONFIGS['popup-collapsed-message']
@@ -102,12 +103,14 @@ api.navigate = direction => {
             resizeObserver.observe(iframe.contentDocument.documentElement);
             // show message
             iframe.contentWindow.postMessage({
-              mode: document.body.classList.contains('collapsed') ? 'collapsed' : 'expanded',
-              com: prefs['popup-collapsed-message'],
-              method: 'show-message',
+              'mode': document.body.classList.contains('collapsed') ? 'collapsed' : 'expanded',
+              'com': prefs['popup-collapsed-message'],
+              'method': 'show-message',
+              'csp': prefs['popup-csp'],
+              'user-href': thread['user-href'],
+              'base': thread.base,
               message,
-              index,
-              csp: prefs['popup-csp']
+              index
             }, '*');
           };
           content.appendChild(iframe);
@@ -241,7 +244,8 @@ api.navigate = direction => {
         input.dataset.thread = thread.id;
 
         input.dataset.read = thread.messages.labelIds.indexOf('UNREAD') === -1;
-        input.dataset.star = thread.messages.labelIds.indexOf('STARRED') !== -1;
+        input.dataset.star = thread.messages.labelIds.includes('STARRED');
+        console.log(thread.messages);
 
         if (thread.messages.date) {
           clone.querySelector('[data-id=date]').textContent = thread.messages.date;

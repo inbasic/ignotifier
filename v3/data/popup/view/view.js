@@ -12,7 +12,10 @@ const decode = function(input) {
 
 window.onmessage = e => {
   const request = e.data;
+
   if (request.method === 'show-message') {
+    document.querySelector('base').href = request.base;
+
     const message = request.message;
     const more = document.getElementById('more');
     /* subject */
@@ -20,6 +23,7 @@ window.onmessage = e => {
     if (subject) {
       const e = document.getElementById('subject');
       e.title = e.textContent = subject;
+      e.href = request['user-href'];
     }
     /* labels */
     const t = document.getElementById('label');
@@ -85,7 +89,7 @@ window.onmessage = e => {
     else if (message.payload.parts) {
       const parts = [];
       const next = o => {
-        if (o.mimeType.startsWith('multipart/')) {
+        if (o.mimeType && o.mimeType.startsWith('multipart/')) {
           o.parts.forEach(next);
         }
         else {
@@ -138,10 +142,8 @@ window.onmessage = e => {
 
         content.content = '';
         for (const body of [...bodies].reverse()) {
-          console.log(body.innerHTML);
           content.content += body.innerHTML + '<hr>';
         }
-        console.log(content);
       }
 
       const body = content.content || decode(content.data || '');
@@ -197,10 +199,13 @@ window.onmessage = e => {
       attachments.forEach(part => {
         const clone = document.importNode(a.content, true);
 
-        clone.querySelector('span').onclick = () => chrome.permissions.request({
+        clone.querySelector('span').onclick = e => chrome.permissions.request({
           permissions: ['downloads']
         }, granted => {
           if (granted) {
+            const name = e.target.textContent;
+            e.target.textContent = 'Downloading...';
+            setTimeout(() => e.target.textContent = name, 1000);
             top.post({
               method: 'download-an-attachment',
               message,

@@ -1,89 +1,4 @@
-/* global core, accounts, CONFIGS, badge, APIEngine, RSSEngine, NativeEngine, sax */
-
-const query = (code, query, stop = true) => {
-  return new Promise((resolve, reject) => {
-    const results = [];
-    let tree;
-
-    const validate = () => {
-      if ((query.name ? query.name === tree.name : true) && (query.match ? query.match(tree) : true)) {
-        results.push(tree);
-        if (stop) {
-          resolve(tree);
-          throw Error('done');
-        }
-      }
-    };
-
-    class Node {
-      constructor(name, attributes) {
-        this.name = name;
-        this.attributes = attributes;
-        this.children = [];
-      }
-      closest(name) {
-        let p = this.parent;
-        while (p && p.name !== name) {
-          p = p.parent;
-        }
-        return p;
-      }
-      child(query, reverse = false) {
-        const once = node => {
-          if (node.children) {
-            for (const n of (reverse ? [...node.children].reverse() : node.children)) {
-              if ((query.name ? query.name === n.name : true) && (query.match ? query.match(n) : true)) {
-                return n;
-              }
-              const r = once(n);
-              if (r) {
-                return r;
-              }
-            }
-          }
-        };
-        return once(this);
-      }
-    }
-
-    const parser = sax.parser(false);
-    parser.onopentag = function(node) {
-      const child = new Node(node.name, node.attributes);
-
-      if (!tree) {
-        tree = child;
-      }
-      else {
-        child.parent = tree;
-        tree.children.push(child);
-        tree = child;
-      }
-    };
-
-    parser.onclosetag = function(name) {
-      validate();
-      if (name === tree.name) {
-        if (tree.parent) {
-          tree = tree.parent;
-        }
-      }
-    };
-    parser.ontext = text => tree.text = text;
-    parser.onend = () => {
-      resolve(results);
-    };
-    parser.onerror = e => reject(e);
-    parser.write(code).end();
-  });
-};
-
-const ports = new Set();
-core.runtime.port(port => {
-  ports.add(port);
-  port.onDisconnect.addListener(() => {
-    ports.delete(port);
-  });
-});
+/* global core, accounts, CONFIGS, badge, APIEngine, RSSEngine, NativeEngine */
 
 const service = {
   users: () => accounts['is-logged-in']().then(async connected => {
@@ -95,6 +10,7 @@ const service = {
     if (connected) {
       core.log('connection to "Gmail" or "notmuch" is verified');
       const users = (await accounts.check()) || {};
+
       core.log('logged-in users', ...users.map(u => u.email));
       if (users.length === 0) {
         connected = await accounts['is-logged-in'](true);
@@ -219,28 +135,23 @@ core.context.fired(async info => {
 
 /* action */
 core.action.click(async tab => {
-  const badge = await core.action.badge();
   const prefs = await core.storage.read({
     'default-page': CONFIGS['default-page']
   });
-  if (isNaN(badge) || badge === '') {
-    core.page.open({
-      index: tab.index + 1,
-      url: prefs['default-page']
-    });
-  }
-  else {
-    if (ports.size) {
-      const {tab} = ports.values().next().value.sender;
-      core.page.focus(tab);
+  // do we have an open email
+  core.page.find({
+    url: 'https://mail.google.com/*'
+  }).then(tbs => {
+    if (tbs.length) {
+      core.page.focus(tbs[0], tbs[0].active);
     }
     else {
       core.page.open({
         index: tab.index + 1,
-        url: 'data/popup/index.html'
+        url: prefs['default-page']
       });
     }
-  }
+  });
 });
 
 /* runtime */

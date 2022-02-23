@@ -13,7 +13,7 @@
   e.title = core.i18n.get(e.dataset.i18nTitle);
 });
 
-window.HIDDENS = ['starred', 'spam', 'trash', 'important', 'unread', 'new', 'flagged', 'inbox'];
+window.HIDDENS = ['starred', 'spam', 'trash', 'important', 'unread', 'new', 'flagged', 'inbox', 'attachment'];
 window.DISABLED = [
   'SENT', 'CATEGORY_PERSONAL', 'CATEGORY_SOCIAL', 'CATEGORY_PROMOTIONS', 'CATEGORY_UPDATES', 'CATEGORY_FORUMS'
 ];
@@ -273,9 +273,4 @@ core.runtime.message(request => {
   if (request.method === 'close-popup' && args.get('mode') === 'popup') {
     window.close();
   }
-});
-
-// single view
-core.runtime.connect({
-  name: 'popup'
 });

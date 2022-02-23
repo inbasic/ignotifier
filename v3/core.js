@@ -58,16 +58,22 @@ core.page = {
   open(props) {
     return new Promise(resolve => chrome.tabs.create(props, resolve));
   },
+  find(props) {
+    return new Promise(resolve => chrome.tabs.query(props, resolve));
+  },
   options() {
     chrome.runtime.openOptionsPage();
   },
-  focus(tab) {
+  focus(tab, refresh = false) {
     chrome.tabs.update(tab.id, {
       active: true
     });
     chrome.windows.update(tab.windowId, {
       focused: true
     });
+    if (refresh) {
+      chrome.tabs.reload(tab.id);
+    }
   }
 };
 

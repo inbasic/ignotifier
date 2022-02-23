@@ -64,9 +64,10 @@ class NativeEngine {
     });
   }
   spawn(commands, each = 'JSON.parse(stdout).forEach(push);', data = 'data => stdout += data', permissions = ['child_process', 'os']) {
+    const {id, path, wsl} = this.config;
     return new ReadableStream({
       start(controller) {
-        const ch = chrome.runtime.connectNative(this.config.id);
+        const ch = chrome.runtime.connectNative(id);
 
         ch.onDisconnect.addListener(() => controller.error(Error('channel is broken')));
         ch.onMessage.addListener(r => {
@@ -88,7 +89,7 @@ class NativeEngine {
         });
         ch.postMessage({
           permissions,
-          args: [this.config.path, this.config.wsl, commands],
+          args: [path, wsl, commands],
           script: String.raw`
             const [command, query, limit, offset, output] = args;
             let notmuch;
@@ -128,13 +129,16 @@ class NativeEngine {
     if (r && r.stdout) {
       this.user.name = r.stdout.trim();
 
-      return this.user.name;
+      return this.user.name || 'unknown';
     }
     else {
       throw Error(r?.stderr || 'cannot detect any user! is "notmuch" installed on this system');
     }
   }
   async threads(query) {
+    // convert Gmail's query to notmuch
+    query = query.replaceAll('label:', 'tag:');
+
     const resultSizeEstimate = parseInt((await this.exec('count ' + query)).stdout);
     const readable = this.spawn(['search', '--limit=' + this.config.thread.limit, '--offset=0', '--format=json', '--output=summary', query]);
 

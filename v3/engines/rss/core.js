@@ -267,7 +267,7 @@ class RSSEngine {
       // }
       const snippet = a.child({name: 'FONT'}, true); // ts.querySelector('font:last-child');
 
-      thread.snippet = snippet ? snippet.text.replace(/^ - /, '') : '';
+      thread.snippet = snippet && snippet.text ? snippet.text.replace(/^ - /, '') : '';
 
       const ts = a.child({
         match(n) {
@@ -277,7 +277,11 @@ class RSSEngine {
       const subject = ts.children[1].name === 'B' ? ts.children[1] : ts;
 
       thread.href = a.attributes.HREF;
+
       thread.id = a.attributes.HREF.split('th=')[1].split('&')[0];
+
+      thread['user-href'] = `https://mail.google.com/mail/u/${this.user.id}/?shva=1#all/${thread.id}`;
+      thread.base = this.base;
 
       const date = tr.child({name: 'TD'}, true);
       const labels = a.child({
@@ -348,6 +352,48 @@ class RSSEngine {
       }
     }))?.child({name: 'DIV'})?.text.replace('To: ', '') || 'NA';
 
+    // parts
+    const parts = [{
+      mimeType: 'text/plain',
+      body: {
+        'raw-html': content
+      }
+    }, {
+      mimeType: 'text/html',
+      body: {
+        'raw-html': content
+      }
+    }];
+
+    // find attachments
+    const att = (await query(content, {
+      name: 'TABLE',
+      match(n) {
+        return n?.attributes?.CLASS && n?.attributes?.CLASS?.indexOf('att') !== -1;
+      }
+    }));
+    if (att && att.child) {
+      for (const e of att.child({name: 'TABLE'}, false, false)) {
+        const a = e.child({
+          name: 'A'
+        });
+        const b = e.child({
+          name: 'B'
+        });
+        if (b.text) {
+          const href = a.attributes.HREF.startsWith('http') ? a.attributes.HREF : this.base + a.attributes.HREF;
+
+          parts.push({
+            'href': href,
+            'content-disposition': 'attachment',
+            'content-length': b.parent.text,
+            'content-type': 'application/octet-stream',
+            'filename': b.text
+          });
+        }
+      }
+    }
+
     return {
       href,
       messages: [{
@@ -355,17 +401,7 @@ class RSSEngine {
         labelIds,
         payload: {
           mimeType: 'multipart/alternative',
-          parts: [{
-            mimeType: 'text/plain',
-            body: {
-              'raw-html': content
-            }
-          }, {
-            mimeType: 'text/html',
-            body: {
-              'raw-html': content
-            }
-          }],
+          parts,
           headers: [{
             name: 'To',
             value: to
@@ -449,5 +485,11 @@ class RSSEngine {
       body
     }, true);
     await this.update();
+  }
+  async attachment(message, part) {
+    return core.download({
+      filename: part.filename || 'unknown',
+      url: part.href
+    });
   }
 }

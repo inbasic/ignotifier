@@ -1,6 +1,6 @@
 {
-  "manifest_version": 3,
-  "version": "3.0.0",
+  "manifest_version": 2,
+  "version": "2.1.0",
   "name": "Gmail™ Notifier (Developer Edition)",
   "description": "__MSG_description__",
   "default_locale": "en",
@@ -11,15 +11,13 @@
     "alarms",
     "identity",
     "idle",
+    "https://mail.google.com/",
+    "https://accounts.google.com/",
     "contextMenus"
   ],
   "optional_permissions": [
     "nativeMessaging",
     "downloads"
-  ],
-  "host_permissions": [
-    "https://mail.google.com/",
-    "https://accounts.google.com/"
   ],
   "icons": {
     "16": "data/icons/colors/red/16.png",
@@ -30,9 +28,20 @@
     "256": "data/icons/colors/red/256.png",
     "512": "data/icons/colors/red/512.png"
   },
-  "action": {},
+  "browser_action": {},
   "background": {
-    "service_worker": "worker.js"
+    "persistent": false,
+    "scripts": [
+      "core.js",
+      "accounts.js",
+      "configs.js",
+      "sax.js",
+      "engines/rss/core.js",
+      "engines/api/core.js",
+      "engines/native/core.js",
+      "background.js",
+      "badge.js"
+    ]
   },
   "content_scripts": [{
     "matches": ["https://mail.google.com/mail/u/*"],
@@ -41,6 +50,7 @@
   }],
   "options_ui": {
     "page": "data/options/index.html",
+    "chrome_style": false,
     "open_in_tab": true
   }
 }

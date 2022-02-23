@@ -80,7 +80,6 @@ gmail.render = (() => {
   const getLastMessage = content => {
     const html = new DOMParser().parseFromString(content, 'text/html');
     const message = html.documentElement.getElementsByClassName('message');
-    console.log(message);
     try {
       const f = document.createDocumentFragment();
       for (let n = message.length - 1; n >= 0; n -= 1) {
