@@ -123,7 +123,27 @@ document.getElementById('refresh').onclick = async e => {
     }
     const meta = e.ctrlKey || e.metaKey;
 
-    if (e.code === 'KeyJ') {
+    if (e.code === 'KeyK' && e.shiftKey) {
+      const user = document.getElementById('user');
+      user.selectedIndex = (user.childElementCount + user.selectedIndex - 1) % user.childElementCount;
+      user.dispatchEvent(new Event('change'));
+    }
+    else if (e.code === 'KeyJ' && e.shiftKey) {
+      const history = document.getElementById('history');
+      history.selectedIndex = (history.selectedIndex + 1) % history.childElementCount;
+      history.dispatchEvent(new Event('change'));
+    }
+    else if (e.code === 'KeyK' && meta) {
+      const history = document.getElementById('history');
+      history.selectedIndex = (history.childElementCount + history.selectedIndex - 1) % history.childElementCount;
+      history.dispatchEvent(new Event('change'));
+    }
+    else if (e.code === 'KeyJ' && meta) {
+      const user = document.getElementById('user');
+      user.selectedIndex = (user.selectedIndex + 1) % user.childElementCount;
+      user.dispatchEvent(new Event('change'));
+    }
+    else if (e.code === 'KeyJ') {
       document.getElementById('previous').click();
     }
     else if (e.code === 'KeyK') {
@@ -152,6 +172,14 @@ document.getElementById('refresh').onclick = async e => {
     }
     else if (e.code === 'KeyF' && meta) {
       document.getElementById('search').focus();
+      e.preventDefault();
+    }
+    else if (e.code === 'KeyA' && meta) {
+      document.getElementById('sound').click();
+      e.preventDefault();
+    }
+    else if (e.code === 'KeyV' && meta) {
+      document.getElementById('view').click();
       e.preventDefault();
     }
   });

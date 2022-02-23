@@ -245,7 +245,6 @@ api.navigate = direction => {
 
         input.dataset.read = thread.messages.labelIds.indexOf('UNREAD') === -1;
         input.dataset.star = thread.messages.labelIds.includes('STARRED');
-        console.log(thread.messages);
 
         if (thread.messages.date) {
           clone.querySelector('[data-id=date]').textContent = thread.messages.date;

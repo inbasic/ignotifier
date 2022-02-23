@@ -69,13 +69,19 @@
     "message": "Type a query and hit the Enter key (e.g. is:unread label:inbox)"
   },
   "pp_notification": {
-    "message": "Add or remove notification for the current query and remember this query when the interface is open. Each email address needs to have at least one active notification query, or the default query is used. To ignore an email address from getting notification alerts, use the ignore list from the options page. To prevent a query from contributing to the badge counter, prepend it with the \"[silent]\" keyword."
+    "message": "Add or remove notification for the current query and remember this query when the interface is open. Each email address needs to have at least one active notification query, or the default query is used. To ignore an email address from getting notification alerts, use the ignore list from the options page. To prevent a query from contributing to the badge counter, prepend it with the \"[silent]\" keyword (Meta + KeyA)."
   },
   "pp_previous": {
     "message": "Move to the previous message (KeyJ)"
   },
   "pp_next": {
     "message": "Move to the next message (KeyK)"
+  },
+  "pp_account_selector": {
+    "message": "Select previous account (Shift + KeyJ) and select next account (Shift + KeyK)"
+  },
+  "pp_query_selector": {
+    "message": "Select previous query (Meta + KeyJ) and select next query (Meta + KeyK)"
   },
   "pp_expand": {
     "message": "Toggle between collapsed and expanded modes"
@@ -99,7 +105,7 @@
     "message": "Next Thread"
   },
   "pp_view": {
-    "message": "Toggle between single or four grid views"
+    "message": "Toggle between single or four grid views (Meta + KeyV)"
   },
   "op_opening_mode": {
     "message": "Open the interface in"
