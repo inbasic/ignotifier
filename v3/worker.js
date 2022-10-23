@@ -41,11 +41,13 @@ const service = {
             query = query.replace(/^\[[^\s]+\]\s*/, '');
             return super.threads(query);
           }
+          update() {
+            badge('engine-internal-request');
+          }
         }
         core.log('user', user.email, 'uses', name, 'engine');
 
         user.engine = new Engine();
-        user.engine.update = () => badge('engine-internal-request');
         if (name === 'api') {
           try {
             try {

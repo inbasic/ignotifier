@@ -13,6 +13,9 @@ class NativeEngine {
       }
     }, cnfg);
   }
+  update() {
+    return Promise.resolve();
+  }
   authorize() {
     return new Promise((resolve, reject) => chrome.permissions.contains({
       permissions: ['nativeMessaging']
@@ -43,14 +46,6 @@ class NativeEngine {
           const cmd = require('os').platform() === 'win32' ?
             require('child_process').exec(args[1] + ' ' + args[0] + ' ' + args[2], callback) :
             require('child_process').exec(args[0] + ' ' + args[2], callback);
-
-          cmd.stdout.on('data', stdout => push({
-            stdout
-          }));
-          cmd.stderr.on('data', stderr => push({
-            stderr
-          }));
-          cmd.stdin.end();
         `
       }, r => {
         const lastError = chrome.runtime.lastError;
@@ -84,7 +79,7 @@ class NativeEngine {
           else if ('code' in r) {
             ch.disconnect();
             console.warn(r);
-            controller.error(Error(r.error || 'code is not zero'));
+            controller.error(Error(r.error || r.stderr || 'code is not zero'));
           }
         });
         ch.postMessage({
@@ -240,6 +235,9 @@ class NativeEngine {
       ...removeLabelIds.map(s => '-' + s)
     ].join(' ') + ' ' + threads.map(th => 'thread:' + th.id).join(' '));
 
+    await this.exec('new');
+    await this.update();
+
     return [r];
   }
   async attachment(message, part) {
@@ -279,6 +277,9 @@ class NativeEngine {
       ...addLabelIds.map(s => '+' + s),
       ...removeLabelIds.map(s => '-' + s)
     ].join(' ') + ' ' + 'id:' + message.id);
+
+    await this.exec('new');
+    await this.update();
 
     return r;
   }

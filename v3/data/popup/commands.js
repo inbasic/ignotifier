@@ -152,6 +152,9 @@ document.getElementById('refresh').onclick = async e => {
     else if (e.code === 'KeyE') {
       document.getElementById('archive').click();
     }
+    else if (e.code === 'KeyR') {
+      document.getElementById('refresh').click();
+    }
     else if (e.code === 'KeyI' && e.shiftKey) {
       const input = document.getElementById('mark-as-read');
       if (input.dataset.command === 'mark-as-read') {
@@ -175,6 +178,10 @@ document.getElementById('refresh').onclick = async e => {
       e.preventDefault();
     }
     else if (e.code === 'KeyA' && meta) {
+      api.dom.entries().forEach(o => o.checked = e.shiftKey ? false : true);
+      e.preventDefault();
+    }
+    else if (e.code === 'KeyA' && e.shiftKey) {
       document.getElementById('sound').click();
       e.preventDefault();
     }

@@ -17,6 +17,7 @@ body {
   height: 100vh;
   align-items: center;
   padding: 0 5px;
+  overflow-y: hidden;
 }
 
 #content {

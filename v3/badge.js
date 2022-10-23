@@ -14,7 +14,7 @@ const notify = () => core.storage.read({
         count,
         date: Date.now()
       };
-      if (isNaN(old) === false && count > old) {
+      if (isNaN(old) === false && count > old && e.silent !== true) {
         core.log('count mismatch', user, query, 'old', old, 'new', count);
         if (count > old) {
           const threads = e.threads.slice(0, count - old);
@@ -134,10 +134,19 @@ core.notify.buttons((str, n) => {
 const badge = async reason => {
   const now = Date.now();
   if (now - badge.date < 500) {
-    core.log('Badge is called too soon. Ignoring this request', reason);
-    return Promise.resolve();
+    if (badge.busy) {
+      console.log('BUSY!');
+      return new Promise((resolve, reject) => {
+        badge.caches.push({resolve, reject});
+      });
+    }
+    else {
+      core.log('Badge is called too soon. Ignoring this request', reason);
+      return Promise.resolve();
+    }
   }
   badge.date = now;
+  badge.busy = true;
 
   core.log('badge is called', reason);
   try {
@@ -227,12 +236,21 @@ const badge = async reason => {
       );
     }
     notify();
+    for (const {resolve} of badge.caches) {
+      resolve();
+    }
   }
   catch (e) {
     console.warn('Unexpected Error', e);
     core.action.set('blue', 'E', 'bg_unexpected_error', ': ' + e.message);
+    for (const {reject} of badge.caches) {
+      reject(e);
+    }
   }
+  badge.busy = false;
+  badge.caches = [];
 };
+badge.caches = [];
 
 core.runtime.start(() => {
   core.action.set('blue', '...', 'bg_check_new_emails');

@@ -131,7 +131,7 @@ document.getElementById('search').addEventListener('search', async e => {
   api.entries.clear();
   api.view.clear();
   if (q) {
-    const query = active.users[active.user]?.queries[q] || await post({
+    const query = active.users?.[active.user]?.queries[q] || await post({
       method: 'search-for-emails'
     });
     if (query.threads) {

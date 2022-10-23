@@ -48,7 +48,7 @@
     "message": "Mark as read (Shift + KeyI), or Mark as unread (Shift + KeyU)"
   },
   "pp_refresh": {
-    "message": "Refresh this query"
+    "message": "Refresh this query (KeyR)"
   },
   "pp_report": {
     "message": "Report spam (!)"
@@ -69,7 +69,7 @@
     "message": "Type a query and hit the Enter key (e.g. is:unread label:inbox)"
   },
   "pp_notification": {
-    "message": "Add or remove notification for the current query and remember this query when the interface is open. Each email address needs to have at least one active notification query, or the default query is used. To ignore an email address from getting notification alerts, use the ignore list from the options page. To prevent a query from contributing to the badge counter, prepend it with the \"[silent]\" keyword (Meta + KeyA)."
+    "message": "Add or remove notification for the current query and remember this query when the interface is open. Each email address needs to have at least one active notification query, or the default query is used. To ignore an email address from getting notification alerts, use the ignore list from the options page. To prevent a query from contributing to the badge counter, prepend it with the \"[silent]\" keyword (Shift + KeyA)."
   },
   "pp_previous": {
     "message": "Move to the previous message (KeyJ)"
@@ -144,7 +144,7 @@
     "message": "Ignored users:"
   },
   "op_ignored_users_desc": {
-    "message": "Comma-separated list of logged-in email addresses to ignore when updating badge"
+    "message": "Comma-separated list of logged-in email addresses to ignore when updating badge. Instead to ignore a query prepend the query with the \"[silent]\" keyword."
   },
   "op_popup": {
     "message": "Popup Interface"

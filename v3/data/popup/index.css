@@ -162,6 +162,9 @@ body[data-view="1_1"] #body {
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr;
 }
+body[data-view="1_1"].single #body {
+  grid-template-rows: 1fr;
+}
 
 body.single #body {
   grid-template-columns: 1fr;
@@ -245,6 +248,7 @@ body.single #entries {
   overflow: hidden;
   margin: 10px 5px;
   display: contents;
+  font-weight: bold;
 }
 #entries li label {
   display: contents;
@@ -274,7 +278,7 @@ body.single #entries {
 }
 #entries li div[data-id="sender"]:empty + div {
   padding-left: 10px;
-  grid-column: 1/3;
+  grid-column: 2/4;
 }
 #entries li div[data-id="star"] {
   height: 100%;
@@ -305,11 +309,10 @@ body.popup[data-view="12"] #entries li div[data-id="tags"] {
   width: 0;
 }
 #entries li input:checked ~ div {
-  font-weight: bold;
   color: var(--blue) !important;
 }
-#entries li input[data-read="true"] ~ div[data-id="snippet"] {
-  text-decoration: line-through;
+#entries li input[data-read="true"] ~ div {
+  font-weight: normal;
 }
 #entries li:nth-child(even) div {
   background-color: var(--gray);

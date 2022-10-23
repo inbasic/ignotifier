@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 /* globals app, config, timer, server, contextmenu, toolbar, gmail */
 'use strict';
 
@@ -311,7 +313,10 @@ var checkEmails = (function() {
               return anyNewEmails ? o.newIDs.indexOf(e.id) !== -1 : o.xml.fullcount !== 0;
             })
             .splice(0, config.email.maxReport)
-            .forEach(e => tmp.push(e));
+            .forEach(e => {
+              e.parent = o;
+              tmp.push(e);
+            });
         });
         function shorten(str) {
           if (str.length < config.email.truncate) {
@@ -417,11 +422,35 @@ var checkEmails = (function() {
               }
               return false;
             }).slice(0, 2);
+
+            // convert links
+            const links = [];
+
+            for (const o of tmp) {
+              try {
+                const base = gmail.get.base(o.link);
+                const messageID = gmail.get.id(o.link);
+
+                if (messageID && o.parent.xml.link.indexOf('#') === -1) {
+                  links.push(base + '/?shva=1#inbox/' + messageID);
+                }
+                else if (messageID) {
+                  links.push(o.parent.xml.link + '/' + messageID);
+                }
+                else {
+                  links.push(o.link);
+                }
+              }
+              catch (e) {
+                links.push(o.link);
+              }
+            }
+
             app.notify(report, '', () => {
               // use open to open the first link and use chrome.tabs.create for the rest
-              open(tmp[0].link);
-              tmp.slice(1).forEach(o => chrome.tabs.create({
-                url: o.link,
+              open(links[0]);
+              links.slice(1).forEach(url => chrome.tabs.create({
+                url,
                 active: false
               }));
             }, buttons);
