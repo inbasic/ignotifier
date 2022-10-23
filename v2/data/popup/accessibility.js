@@ -10,7 +10,7 @@
     let link = a.dataset.href || a.href || a.src || target.src || target.href;
 
     if (link && link.startsWith('https://www.google.com/url?q=')) {
-      const args = new URLSearchParams(link.substr(27));
+      const args = (new URL(link)).searchParams;
       link = args.get('q') || link;
     }
 
