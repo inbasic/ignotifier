@@ -84,7 +84,7 @@
         "description": ""
     },
     "label_10": {
-        "message": "启用通知 (会话)",
+        "message": "启用通知（本次会话期间）",
         "description": ""
     },
     "label_11": {
@@ -124,7 +124,7 @@
         "description": ""
     },
     "options_donation": {
-        "message": "支持开发工作",
+        "message": "支持软件开发",
         "description": ""
     },
     "options_timings": {
@@ -200,7 +200,7 @@
         "description": ""
     },
     "options_gmail_15": {
-        "message": "流行的标签：",
+        "message": "常用的标签：",
         "description": ""
     },
     "options_gmail_10": {
@@ -216,7 +216,7 @@
         "description": ""
     },
     "options_gmail_13": {
-        "message": "注意：除“inbox”外，所有标签最大数量为 20（Google Feed 只提供最新的 20 项）",
+        "message": "注意：除收件箱（inbox）外，所有标签的最大数量为 20（Google 提供的收取点仅提供最新的 20 项）",
         "description": ""
     },
     "options_gmail_14": {
@@ -372,11 +372,11 @@
         "description": ""
     },
     "options_notifications_37": {
-        "message": "显示徽章数字",
+        "message": "显示徽标数字",
         "description": ""
     },
     "options_notifications_38": {
-        "message": "快速操作（标记已读、删除、……）（考虑看到标题时可能执行的操作）",
+        "message": "快捷动作（标为已读、删除等）（看到标题后可能执行的操作）",
         "description": ""
     },
     "options_notifications_40": {
@@ -392,7 +392,7 @@
         "description": ""
     },
     "options_notifications_43": {
-        "message": "移到废件箱",
+        "message": "移入垃圾箱",
         "description": ""
     },
     "options_tab": {
@@ -436,7 +436,11 @@
         "description": ""
     },
     "options_tab_10": {
-        "message": "在基本 HTML 模式中打开电子邮件",
+        "message": "用基本 HTML 模式打开邮件",
+        "description": ""
+    },
+    "options_tab_11": {
+        "message": "直接打开最新的未读邮件，代替收件箱文件夹",
         "description": ""
     },
     "options_toolbar": {
@@ -456,7 +460,7 @@
         "description": ""
     },
     "options_toolbar_18": {
-        "message": "打开 Gmail 帐户（强制）",
+        "message": "强制打开 Gmail 账户",
         "description": ""
     },
     "options_toolbar_4": {
@@ -576,7 +580,7 @@
         "description": ""
     },
     "options_misc_15": {
-        "message": "更新后打开常见问题页面",
+        "message": "更新时打开常见问题页面",
         "description": ""
     },
     "options_plugins": {
@@ -584,7 +588,7 @@
         "description": ""
     },
     "options_plugins_1": {
-        "message": "Gmail 标签和星标按钮（实验性）",
+        "message": "Gmail 标签及星标按钮（实验性）",
         "description": ""
     },
     "options_plugins_2": {
@@ -604,7 +608,7 @@
         "description": ""
     },
     "options_button_reset": {
-        "message": "重置设置",
+        "message": "重置首选项",
         "description": ""
     },
     "popup_settings": {
@@ -628,11 +632,11 @@
         "description": ""
     },
     "popup_open_settings": {
-        "message": "Open Settings",
+        "message": "打开设置",
         "description": ""
     },
     "popup_open_inbox": {
-        "message": "Open Inbox",
+        "message": "打开收件箱",
         "description": ""
     },
     "popup_archive": {

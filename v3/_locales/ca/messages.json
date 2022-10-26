@@ -1,0 +1,251 @@
+{
+  "description": {
+    "message": "Notificador d'etiquetes i comptes múltiples per a Google Mail (Gmail), i més!"
+  },
+  "bg_no_message": {
+    "message": "No hi ha missatges sense llegir"
+  },
+  "bg_sign_out": {
+    "message": "T'has desconnectat!"
+  },
+  "bg_no_message_logged_in": {
+    "message": "Comptes connectats:"
+  },
+  "bg_no_message_logged_out": {
+    "message": "Comptes desconnectats:"
+  },
+  "bg_unexpected_error": {
+    "message": "Error inesperat:"
+  },
+  "bg_check_new_emails": {
+    "message": "Comprovant nous correus electrònics. Si us plau, espera..."
+  },
+  "bg_no_mark_as_read": {
+    "message": "Marca com a llegit"
+  },
+  "bg_no_report": {
+    "message": "Marca com a brossa"
+  },
+  "bg_no_archive": {
+    "message": "Arxiva"
+  },
+  "bg_no_delete": {
+    "message": "Esborra"
+  },
+  "bg_no_add_star": {
+    "message": "Afegeix una estrella"
+  },
+  "pp_mark_all_as_read": {
+    "message": "Marca tots els missatges d'aquesta cerca com a llegits"
+  },
+  "pp_mark_as_read": {
+    "message": "Marca com a llegit"
+  },
+  "pp_mark_as_unread": {
+    "message": "Marca com a no llegit"
+  },
+  "pp_mark_as_read_title": {
+    "message": "Marca com a llegit (Maj + Tecla I) o marca com a no llegit (Maj + Tecla U)"
+  },
+  "pp_refresh": {
+    "message": "Refresh this query (KeyR)"
+  },
+  "pp_report": {
+    "message": "Marca com a brossa (!)"
+  },
+  "pp_delete": {
+    "message": "Esborra (#)"
+  },
+  "pp_archive": {
+    "message": "Arxiva (Tecla E)"
+  },
+  "pp_inbox": {
+    "message": "Obre la safata d'entrada"
+  },
+  "pp_options": {
+    "message": "Obre la pàgina d'opcions"
+  },
+  "pp_search": {
+    "message": "Fes una cerca i prem la tecla d'Intro (per exemple, is:unread label:inbox)"
+  },
+  "pp_notification": {
+    "message": "Add or remove notification for the current query and remember this query when the interface is open. Each email address needs to have at least one active notification query, or the default query is used. To ignore an email address from getting notification alerts, use the ignore list from the options page. To prevent a query from contributing to the badge counter, prepend it with the \"[silent]\" keyword (Shift + KeyA)."
+  },
+  "pp_previous": {
+    "message": "Torna al missatge anterior (Tecla J)"
+  },
+  "pp_next": {
+    "message": "Ves al missatge següent (Tecla K)"
+  },
+  "pp_account_selector": {
+    "message": "Selecciona el compte anterior (Maj + Tecla J) i selecciona el compte següent (Maj + Tecla K)"
+  },
+  "pp_query_selector": {
+    "message": "Selecciona la cerca anterior (Meta + Tecla J) i selecciona la cerca següent (Meta + Tecla K)"
+  },
+  "pp_expand": {
+    "message": "Canvia entre els modes col·lapsat i expandit"
+  },
+  "pp_no_user": {
+    "message": "L'usuari [EMAIL] no està connectat o no es pot accedir al seu compte."
+  },
+  "pp_of": {
+    "message": "de"
+  },
+  "pp_waiting": {
+    "message": "Esperant els comptes..."
+  },
+  "pp_empty_view": {
+    "message": "..."
+  },
+  "pp_empty_entries": {
+    "message": "Llista buida"
+  },
+  "pp_next_thread": {
+    "message": "Fil següent"
+  },
+  "pp_view": {
+    "message": "Canvia entre les vistes senzilla o quadrícula (Meta + Tecla V)"
+  },
+  "op_opening_mode": {
+    "message": "Obre la interfície a"
+  },
+  "op_opening_mode_tab": {
+    "message": "Pestanya del navegador"
+  },
+  "op_opening_mode_popup": {
+    "message": "Finestra emergent del navegador"
+  },
+  "op_default_page": {
+    "message": "Pàgina per defecte"
+  },
+  "op_default_page_desc": {
+    "message": "Fer clic al botó d'acció obre aquesta pàgina quan no hi ha correus electrònics sense llegir"
+  },
+  "op_default_engine": {
+    "message": "Motor per defecte per rebre correus electrònics"
+  },
+  "op_default_engine_rss": {
+    "message": "RSS (recomanat)"
+  },
+  "op_default_engine_api": {
+    "message": "API de Gmail (experimental)"
+  },
+  "op_default_engine_native": {
+    "message": "Natiu (notmuch) (experimental)"
+  },
+  "op_badge_text_format": {
+    "message": "Format de text de la insígnia"
+  },
+  "op_badge_text_format_desc": {
+    "message": "Paraules clau disponibles:"
+  },
+  "op_ignored_users": {
+    "message": "Usuaris ignorats:"
+  },
+  "op_ignored_users_desc": {
+    "message": "Comma-separated list of logged-in email addresses to ignore when updating badge. Instead to ignore a query prepend the query with the \"[silent]\" keyword."
+  },
+  "op_popup": {
+    "message": "Interfície de la finestra emergent"
+  },
+  "op_internals": {
+    "message": "Motor"
+  },
+  "op_badge": {
+    "message": "Insígnia"
+  },
+  "op_email": {
+    "message": "Llegint correus electrònics"
+  },
+  "op_mark_as_read": {
+    "message": "Marca com a llegit"
+  },
+  "op_mark_as_read_desc": {
+    "message": "Marca automàticament el correu electrònic com a llegit en visualitzar-lo"
+  },
+  "op_csp": {
+    "message": "Política de seguretat del contingut"
+  },
+  "op_csp_desc": {
+    "message": "Utilitza aquesta política de seguretat de contingut per visualitzar correus electrònics. Per exemple, per evitar que el visualitzador carregui recursos remots, utilitza \"default-src 'none'; style-src 'unsafe-line';\" (sense cometes); o per permetre tots els recursos remots, buida el camp."
+  },
+  "op_notification": {
+    "message": "Notificació"
+  },
+  "op_notification_email": {
+    "message": "Per exemple: jo@gmail.com"
+  },
+  "op_notification_query": {
+    "message": "Per exemple: label:INBOX is:unread"
+  },
+  "op_notification_sound": {
+    "message": "Reprodueix o no un so de notificació en rebre un nou correu electrònic"
+  },
+  "op_notification_desktop": {
+    "message": "Mostra o no una notificació d'escriptori en rebre un nou correu electrònic"
+  },
+  "op_notification_source_title": {
+    "message": "Un número que representa la font de so. Utilitza 0, 1, 2 o 3 per als sons per defecte"
+  },
+  "op_notification_source": {
+    "message": "Per exemple: 1"
+  },
+  "op_notification_file": {
+    "message": "Desa un so personalitzat"
+  },
+  "op_notification_submit": {
+    "message": "Afegeix una regla"
+  },
+  "op_n_email": {
+    "message": "Adreça de correu electrònic"
+  },
+  "op_n_query": {
+    "message": "Cerca"
+  },
+  "op_n_sound": {
+    "message": "Reprodueix un so"
+  },
+  "op_n_desktop": {
+    "message": "Mostra una notificació"
+  },
+  "op_n_source": {
+    "message": "Identificador de la font de so"
+  },
+  "op_n_remove": {
+    "message": "Elimina una regla"
+  },
+  "op_msg_large_file": {
+    "message": "Aquest fitxer és massa gran! Si us plau, redueix-ne la mida i torna-ho a intentar."
+  },
+  "op_msg_sound_id": {
+    "message": "Utilitza '%%' com a identificador de la font d'aquest so"
+  },
+  "op_msg_saved": {
+    "message": "Opcions desades"
+  },
+  "op_msg_reset": {
+    "message": "Fes doble clic per reiniciar!"
+  },
+  "op_notification_remove_sound": {
+    "message": "Elimina un so personalitzat"
+  },
+  "op_reset": {
+    "message": "Restaura les opcions de fàbrica"
+  },
+  "op_support": {
+    "message": "Dóna suport al desenvolupament"
+  },
+  "op_save": {
+    "message": "Desa les opcions"
+  },
+  "op_badge_period": {
+    "message": "Període (en minuts)"
+  },
+  "op_api_client": {
+    "message": "Servidor d'API de Gmail"
+  },
+  "op_native": {
+    "message": "Connecta a \"notmuch\""
+  }
+}

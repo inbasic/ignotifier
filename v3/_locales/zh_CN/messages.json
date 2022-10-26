@@ -1,0 +1,251 @@
+{
+  "description": {
+    "message": "适用于 Google 邮箱（Gmail）的通知程序，支持多组标签或账户等功能。"
+  },
+  "bg_no_message": {
+    "message": "没有未读邮件"
+  },
+  "bg_sign_out": {
+    "message": "您已退出登录"
+  },
+  "bg_no_message_logged_in": {
+    "message": "已登录的账户："
+  },
+  "bg_no_message_logged_out": {
+    "message": "账号已退出登录："
+  },
+  "bg_unexpected_error": {
+    "message": "意外错误："
+  },
+  "bg_check_new_emails": {
+    "message": "正在查收新邮件，请稍候..."
+  },
+  "bg_no_mark_as_read": {
+    "message": "标为已读"
+  },
+  "bg_no_report": {
+    "message": "举报垃圾邮件"
+  },
+  "bg_no_archive": {
+    "message": "归档"
+  },
+  "bg_no_delete": {
+    "message": "删除"
+  },
+  "bg_no_add_star": {
+    "message": "加星标"
+  },
+  "pp_mark_all_as_read": {
+    "message": "标记本次查询中的所有邮件为已读"
+  },
+  "pp_mark_as_read": {
+    "message": "标为已读"
+  },
+  "pp_mark_as_unread": {
+    "message": "标为未读"
+  },
+  "pp_mark_as_read_title": {
+    "message": "标为已读（Shift + I 键）或标为未读（Shift + U 键）"
+  },
+  "pp_refresh": {
+    "message": "Refresh this query (KeyR)"
+  },
+  "pp_report": {
+    "message": "举报垃圾邮件 (!)"
+  },
+  "pp_delete": {
+    "message": "删除 (#)"
+  },
+  "pp_archive": {
+    "message": "归档（E 键）"
+  },
+  "pp_inbox": {
+    "message": "打开收件箱"
+  },
+  "pp_options": {
+    "message": "打开选项页面"
+  },
+  "pp_search": {
+    "message": "Type a query and hit the Enter key (e.g. is:unread label:inbox)"
+  },
+  "pp_notification": {
+    "message": "Add or remove notification for the current query and remember this query when the interface is open. Each email address needs to have at least one active notification query, or the default query is used. To ignore an email address from getting notification alerts, use the ignore list from the options page. To prevent a query from contributing to the badge counter, prepend it with the \"[silent]\" keyword (Shift + KeyA)."
+  },
+  "pp_previous": {
+    "message": "移动到上一邮件（J 键）"
+  },
+  "pp_next": {
+    "message": "移动到下一邮件（K 键）"
+  },
+  "pp_account_selector": {
+    "message": "选择上一个账户（Shift + J 键）和选择下一个账户（Shift + K 键）"
+  },
+  "pp_query_selector": {
+    "message": "选择上一个查询（Meta + J 键）和选择下一个查询（Meta + K 键）"
+  },
+  "pp_expand": {
+    "message": "切换折叠/展开模式"
+  },
+  "pp_no_user": {
+    "message": "{EMAIL} 账户未登录或者访问受限。"
+  },
+  "pp_of": {
+    "message": "/"
+  },
+  "pp_waiting": {
+    "message": "正在等待账户..."
+  },
+  "pp_empty_view": {
+    "message": "..."
+  },
+  "pp_empty_entries": {
+    "message": "空列表"
+  },
+  "pp_next_thread": {
+    "message": "下一主题"
+  },
+  "pp_view": {
+    "message": "切换单/四网格视图（Meta + V 键）"
+  },
+  "op_opening_mode": {
+    "message": "打开界面于"
+  },
+  "op_opening_mode_tab": {
+    "message": "浏览器标签页"
+  },
+  "op_opening_mode_popup": {
+    "message": "浏览器弹出面板"
+  },
+  "op_default_page": {
+    "message": "默认页面"
+  },
+  "op_default_page_desc": {
+    "message": "没有未读邮件时点击按钮打开此页面"
+  },
+  "op_default_engine": {
+    "message": "获取电子邮件的默认引擎"
+  },
+  "op_default_engine_rss": {
+    "message": "RSS（推荐）"
+  },
+  "op_default_engine_api": {
+    "message": "Gmail API（实验性）"
+  },
+  "op_default_engine_native": {
+    "message": "原生（notmuch；实验性）"
+  },
+  "op_badge_text_format": {
+    "message": "徽标文本格式"
+  },
+  "op_badge_text_format_desc": {
+    "message": "可用关键词："
+  },
+  "op_ignored_users": {
+    "message": "忽略的用户："
+  },
+  "op_ignored_users_desc": {
+    "message": "Comma-separated list of logged-in email addresses to ignore when updating badge. Instead to ignore a query prepend the query with the \"[silent]\" keyword."
+  },
+  "op_popup": {
+    "message": "弹出面板界面"
+  },
+  "op_internals": {
+    "message": "引擎"
+  },
+  "op_badge": {
+    "message": "徽标"
+  },
+  "op_email": {
+    "message": "邮件阅读"
+  },
+  "op_mark_as_read": {
+    "message": "标为已读"
+  },
+  "op_mark_as_read_desc": {
+    "message": "查阅时自动标记邮件为已读"
+  },
+  "op_csp": {
+    "message": "内容安全策略"
+  },
+  "op_csp_desc": {
+    "message": "Use this content security policy for viewing emails. For instance to prevent the viewer from loading any remote resources use \"default-src 'none'; style-src 'unsafe-inline';\" (without quotes), or to allow all the remote resources, empty the box"
+  },
+  "op_notification": {
+    "message": "通知"
+  },
+  "op_notification_email": {
+    "message": "例如 me@gmail.com"
+  },
+  "op_notification_query": {
+    "message": "例如 label:INBOX is:unread"
+  },
+  "op_notification_sound": {
+    "message": "Whether to play a sound notification when you got a new email or not"
+  },
+  "op_notification_desktop": {
+    "message": "Whether to show a desktop notification when you got a new email or not"
+  },
+  "op_notification_source_title": {
+    "message": "A number that represents the sound's source. Use 0, 1, 2, or 3 for the default sounds"
+  },
+  "op_notification_source": {
+    "message": "例如 1"
+  },
+  "op_notification_file": {
+    "message": "保存自定义音效"
+  },
+  "op_notification_submit": {
+    "message": "添加规则"
+  },
+  "op_n_email": {
+    "message": "电子邮件地址"
+  },
+  "op_n_query": {
+    "message": "查询"
+  },
+  "op_n_sound": {
+    "message": "播放音效"
+  },
+  "op_n_desktop": {
+    "message": "显示通知"
+  },
+  "op_n_source": {
+    "message": "音效来源 ID"
+  },
+  "op_n_remove": {
+    "message": "移除规则"
+  },
+  "op_msg_large_file": {
+    "message": "This file is to big! Please reduce the filesize and retry."
+  },
+  "op_msg_sound_id": {
+    "message": "使用 '%%' 作为此声音的来源 ID"
+  },
+  "op_msg_saved": {
+    "message": "选项已保存"
+  },
+  "op_msg_reset": {
+    "message": "双击来重置！"
+  },
+  "op_notification_remove_sound": {
+    "message": "移除自定义音效"
+  },
+  "op_reset": {
+    "message": "恢复出厂设置"
+  },
+  "op_support": {
+    "message": "支持软件开发"
+  },
+  "op_save": {
+    "message": "保存选项"
+  },
+  "op_badge_period": {
+    "message": "周期（分钟）"
+  },
+  "op_api_client": {
+    "message": "Gmail API 服务器"
+  },
+  "op_native": {
+    "message": "连接到 \"notmuch\""
+  }
+}

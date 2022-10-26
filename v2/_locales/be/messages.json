@@ -1,0 +1,762 @@
+{
+    "toolbar_label": {
+        "message": "Notifier for Gmail™",
+        "description": ""
+    },
+    "tooltip_1": {
+        "message": "Левая кнопка мышы: Адкрыць Gmail або панэль перадпрагляду",
+        "description": ""
+    },
+    "tooltip_2": {
+        "message": "Сярэдняя кнопка мышы (або Ctrl+Left): Абнавіць усе ўліковыя запісы",
+        "description": ""
+    },
+    "tooltip_3": {
+        "message": "Правая кнопка мышы: Выбар уліковага запісу",
+        "description": ""
+    },
+    "description": {
+        "message": "Апавяшчэнні для некалькіх ярлыкоў і ўліковых запісаў Google Mail (Gmail)",
+        "description": ""
+    },
+    "log_in_to_your_account": {
+        "message": "Увайдзіце ў свой уліковы запіс Gmail",
+        "description": ""
+    },
+    "msg_1": {
+        "message": "Укладка ўжо адкрыта. Націсніце на кнопку ў панэлі інструментаў, каб адкрыць Gmail у новай укладцы або пераключыцца на існуючую ўкладку Gmail.",
+        "description": ""
+    },
+    "msg_2": {
+        "message": "Спасылка скапіявана ў буфер абмену.",
+        "description": ""
+    },
+    "msg_3": {
+        "message": "Вылучаны тэкст скапіяваны ў буфер абмену.",
+        "description": ""
+    },
+    "msg_4": {
+        "message": "Заўвага: Для правільнай працы Notifier вам трэба ўвайсці ў свой уліковы запіс Google.",
+        "description": ""
+    },
+    "msg_5": {
+        "message": "Выберыце аўдыя файл",
+        "description": ""
+    },
+    "label_1": {
+        "message": "Абнавіць",
+        "description": ""
+    },
+    "label_2": {
+        "message": "Налады",
+        "description": ""
+    },
+    "label_3": {
+        "message": "Адключыць усе апавяшчэнні",
+        "description": ""
+    },
+    "label_4": {
+        "message": "На 5 хвілін",
+        "description": ""
+    },
+    "label_5": {
+        "message": "На 15 хвілін",
+        "description": ""
+    },
+    "label_6": {
+        "message": "На 30 хвілін",
+        "description": ""
+    },
+    "label_7": {
+        "message": "На 1 гадзіну",
+        "description": ""
+    },
+    "label_8": {
+        "message": "На 2 гадзіны",
+        "description": ""
+    },
+    "label_9": {
+        "message": "На 5 гадзін",
+        "description": ""
+    },
+    "label_13": {
+        "message": "На карыстальніцкі перыяд",
+        "description": ""
+    },
+    "label_10": {
+        "message": "Уключыць апавяшчэнні (сесія)",
+        "description": ""
+    },
+    "label_11": {
+        "message": "Стварыць ліст",
+        "description": ""
+    },
+    "label_12": {
+        "message": "Адкрыць ЧаПы",
+        "description": ""
+    },
+    "label_14": {
+        "message": "Уліковыя запісы, пад якімі выкананы ўваход",
+        "description": ""
+    },
+    "unknown": {
+        "message": "невядомы",
+        "description": ""
+    },
+    "and": {
+        "message": "і",
+        "description": ""
+    },
+    "log_into_your_account": {
+        "message": "Увайдзіце ў свой уліковы запіс",
+        "description": ""
+    },
+    "notification": {
+        "message": "Ад: [author_email][break]Загаловак: [title][break]Зводка: [summary]",
+        "description": ""
+    },
+    "options_title": {
+        "message": "Параметры - Gmail™ Notifier",
+        "description": ""
+    },
+    "options_inshort": {
+        "message": "Апавяшчэнні для некалькіх ярлыкоў і ўліковых запісаў Google Mail (Gmail).",
+        "description": ""
+    },
+    "options_donation": {
+        "message": "Падтрымаць распрацоўку",
+        "description": ""
+    },
+    "options_timings": {
+        "message": "Час:",
+        "description": ""
+    },
+    "options_timings_l1": {
+        "message": "Правяраць на новыя лісты кожныя (у секундах):",
+        "description": ""
+    },
+    "options_timings_l2": {
+        "message": "Мінімальны перыяд 10 секунд.",
+        "description": ""
+    },
+    "options_timings_l3": {
+        "message": "Нагадваць пра непрачытаныя лісты кожныя (у хвілінах):",
+        "description": ""
+    },
+    "options_timings_l4": {
+        "message": "Задайце нулявое значэнне, каб апавяшчаць неперыядычна.",
+        "description": ""
+    },
+    "options_timings_l5": {
+        "message": "Мінімальны перыяд 5 хвілін.",
+        "description": ""
+    },
+    "options_timings_l6": {
+        "message": "Пры ненулявым значэнні і апавяшчэнні працоўнага стала, і гукавыя абвесткі (як і пры атрыманні новых лістоў) будуць з'яўляцца заўсёды, пакуль ў вас ёсць непрачытаная пошта.",
+        "description": ""
+    },
+    "options_timings_l7": {
+        "message": "Не правяраць пошту пры запуску на працягу (у секундах):",
+        "description": ""
+    },
+    "options_timings_l8": {
+        "message": "Задайце нулявое значэнне, каб не правяраць пошту да першага ручнога абнаўлення [Недаступна ў Safari]",
+        "description": ""
+    },
+    "options_gmail": {
+        "message": "Gmail:",
+        "description": ""
+    },
+    "options_gmail_1": {
+        "message": "Асноўны ўліковы запіс (/mail/u/0/)",
+        "description": ""
+    },
+    "options_gmail_2": {
+        "message": "Раздзяляйце ярлыкі з дапамогай \",\" (коскі).",
+        "description": ""
+    },
+    "options_gmail_3": {
+        "message": "Другі ўліковы запіс (/mail/u/1/)",
+        "description": ""
+    },
+    "options_gmail_4": {
+        "message": "Трэці ўліковы запіс (/mail/u/2/)",
+        "description": ""
+    },
+    "options_gmail_5": {
+        "message": "Чацвёрты ўліковы запіс (/mail/u/3/)",
+        "description": ""
+    },
+    "options_gmail_6": {
+        "message": "Пяты ўліковы запіс (/mail/u/4/)",
+        "description": ""
+    },
+    "options_gmail_7": {
+        "message": "Шосты ўліковы запіс (/mail/u/5/)",
+        "description": ""
+    },
+    "options_gmail_8": {
+        "message": "Пазначаць паведамленне прачытаным пры архіваванні",
+        "description": ""
+    },
+    "options_gmail_15": {
+        "message": "Папулярныя ярлыкі:",
+        "description": ""
+    },
+    "options_gmail_10": {
+        "message": "Атрымліваць апавяшчэнні для наступных ярлыкоў і ўліковых запісаў:",
+        "description": ""
+    },
+    "options_gmail_11": {
+        "message": "Карыстальніцкія каналы:",
+        "description": ""
+    },
+    "options_gmail_12": {
+        "message": "Раздзяляйце каналы з дапамогай \",\" (коскі). Прыклад канала: https://mail.google.com/mail/u/0/feed/atom/inbox",
+        "description": ""
+    },
+    "options_gmail_13": {
+        "message": "Заўвага: максімальная колькасць ярлыкоў, акрамя \"inbox\", - 20 (каналы Google выдаюць толькі 20 найноўшых запісаў)",
+        "description": ""
+    },
+    "options_gmail_14": {
+        "message": "Заўвага: каб Notifier слухаў больш за 5 уліковых запісаў, дадайце URL-адрасы каналаў у поле \"Карыстальніцкія каналы\". Напрыклад, каб слухаць 6-ы і 7-ы ўліковыя запісы, дадайце:  https://mail.google.com/mail/u/6/feed/atom/inbox,  https://mail.google.com/mail/u/7/feed/atom/inbox",
+        "description": ""
+    },
+    "options_notifications": {
+        "message": "Апавяшчэнні:",
+        "description": ""
+    },
+    "options_notifications_1": {
+        "message": "Паказваць апавяшчэнне на працоўным стале для новых лістоў",
+        "description": ""
+    },
+    "options_notifications_2": {
+        "message": "Паказваць апавяшчэнне на працоўным стале на працягу (у секундах):",
+        "description": ""
+    },
+    "options_notifications_3": {
+        "message": "Гэты параметр можа не працаваць у вашай АС.",
+        "description": ""
+    },
+    "options_notifications_4": {
+        "message": "Фармат апавяшчэнняў",
+        "description": ""
+    },
+    "options_notifications_5": {
+        "message": "Даступныя пераменныя:",
+        "description": ""
+    },
+    "options_notifications_6": {
+        "message": "Абразаць апавяшчэнні, даўжэйшыя за",
+        "description": ""
+    },
+    "options_notifications_7": {
+        "message": "сімвалы для палёў [title] і [summary].",
+        "description": ""
+    },
+    "options_notifications_8": {
+        "message": "Увядзіце тут вялікую лічбу, каб тэкст абразаўся без шматкроп'я.",
+        "description": ""
+    },
+    "options_notifications_9": {
+        "message": "Прайграваць гукавую абвестку пры атрыманні новых паведамленняў",
+        "description": ""
+    },
+    "options_notifications_10": {
+        "message": "Заўвага для карытальнікаў Mac. У Firefox, пачынаючы ад версіі 28.0, усе апавяшчэнні працоўнага стала апрацоўваюцца Цэнтрам апавяшчэнняў Mac, што прыводзіць да дадатковай гукавой абвесткі. Вам трэба адключыць або гэта гукавое апавяшчэнне, або тое, што стварае Цэнтр апавяшчэнняў.",
+        "description": ""
+    },
+    "options_notifications_11": {
+        "message": "Паказваць \"Апавяшчэнне панэлі заданняў у Windows\" або \"Апавяшчэнне док-панэлі ў Mac OS\"",
+        "description": ""
+    },
+    "options_notifications_12": {
+        "message": "Апавяшчэнні панэлі заданняў на дадзены момант не падтрымліваюцца ў АС Linux.",
+        "description": ""
+    },
+    "options_notifications_13": {
+        "message": "Адкрываць панэль перадпрагляду пры націсканні на значок апавяшчэння панэлі заданняў (толькі Windows, бэта)",
+        "description": ""
+    },
+    "options_notifications_14": {
+        "message": "Гэта эксперыментальная функцыя, яна можа прывесці да нестабільнай працы Firefox. [Патрабуецца перазапуск].",
+        "description": ""
+    },
+    "options_notifications_15": {
+        "message": "Прадвызначаны гук апавяшчэння",
+        "description": ""
+    },
+    "options_notifications_16": {
+        "message": "Прадвызначаная абвестка Gmail Notifier",
+        "description": ""
+    },
+    "options_notifications_17": {
+        "message": "Званочак з Checker Plus",
+        "description": ""
+    },
+    "options_notifications_18": {
+        "message": "\"Дзінь\" з Checker Plus",
+        "description": ""
+    },
+    "options_notifications_19": {
+        "message": "Абвестка пошты з Windows",
+        "description": ""
+    },
+    "options_notifications_20": {
+        "message": "Карыстальніцкі гук",
+        "description": ""
+    },
+    "options_notifications_21": {
+        "message": "Карыстальніцкі гук апавяшчэння",
+        "description": ""
+    },
+    "options_notifications_22": {
+        "message": "Калі ваш браўзер не прайграе карыстальніцкі гук апавяшчэнне, паспрабуйце ператварыць яго ў фармат WAV з дапамогай анлайн інструментаў.",
+        "description": ""
+    },
+    "options_notifications_35": {
+        "message": "Каб выбраць новы гук, спачатку выберыце ўбудаваны гук, а потым змяніце параметр на карыстальніцкі",
+        "description": ""
+    },
+    "options_notifications_23": {
+        "message": "Гучнасць гукавога апавяшчэння",
+        "description": ""
+    },
+    "options_notifications_24": {
+        "message": "Узровень гучнасці - гэта лічба ад 0 да 100, дзе 100 - наймацнейшая гучнасць (прадвазначана).",
+        "description": ""
+    },
+    "options_notifications_25": {
+        "message": "У Safari прадвызначаныя гукі апавяшчэнняў хутчэй за ўсё не прайграюцца належным чынам, таму выкарыстоўвайце свой гукавы файл для апавяшчэнняў.",
+        "description": ""
+    },
+    "options_notifications_26": {
+        "message": "Заўсёды паказваць апавяшчэнне панэлі заданняў (толькі Windows)",
+        "description": ""
+    },
+    "options_notifications_27": {
+        "message": "Апавяшчэнне панэлі заданняў будзе паказвацца нават пры адсутнасці непрачытаных паведамленняў.",
+        "description": ""
+    },
+    "options_notifications_28": {
+        "message": "Адключыць усе апавяшчэнні на перыяд (у хвілінах):",
+        "description": ""
+    },
+    "options_notifications_29": {
+        "message": "Гэты параметр адпавядае пункту меню правай кнопкі мышы на кнопцы ў панэлі інструментаў -> адключыць усе апавяшчэнні -> карыстальніцкі перыяд.",
+        "description": ""
+    },
+    "options_notifications_30": {
+        "message": "Аб'ядноўваць усе адначасовыя апавяшчэнні працоўнага стала ў адно",
+        "description": ""
+    },
+    "options_notifications_31": {
+        "message": "Карыстальніцкае гукавое апавяшчэнне",
+        "description": ""
+    },
+    "options_notifications_32": {
+        "message": "імя або адрас змяшчае",
+        "description": ""
+    },
+    "options_notifications_33": {
+        "message": "загаловак ліста ўтрымлівае",
+        "description": ""
+    },
+    "options_notifications_34": {
+        "message": "зводка ліста змяшчае",
+        "description": ""
+    },
+    "options_notifications_36": {
+        "message": "Папрасіць Gmail не перанакіроўваць на 'inbox.google.com'",
+        "description": ""
+    },
+    "options_notifications_37": {
+        "message": "Паказваць нумар у значку",
+        "description": ""
+    },
+    "options_notifications_38": {
+        "message": "Хуткія дзеянні (пазначыць прачынатым, выдаліць, ...) (Дзеянні, якія трэба выканаць пры атрыманні загалоўкаў)",
+        "description": ""
+    },
+    "options_notifications_40": {
+        "message": "Дазволіць хуткія дзеянні з акна апавяшчэння (не больш за два дзеянні) (толькі Chrome)",
+        "description": ""
+    },
+    "options_notifications_41": {
+        "message": "У прачытанае",
+        "description": ""
+    },
+    "options_notifications_42": {
+        "message": "Архіў",
+        "description": ""
+    },
+    "options_notifications_43": {
+        "message": "У сметніцу",
+        "description": ""
+    },
+    "options_tab": {
+        "message": "Адкрыццё ўкладкі:",
+        "description": ""
+    },
+    "options_tab_1": {
+        "message": "Шукаць адкрытую ўкладку Gmail толькі ў актыўным акне",
+        "description": ""
+    },
+    "options_tab_2": {
+        "message": "Не шукаць адкрытую ўкладку Gmail у іншых вокнах браўзера. Калі Gmail не адкрыты ў актыўным акне, адкрываць новую ўкладку.",
+        "description": ""
+    },
+    "options_tab_3": {
+        "message": "Адкрываць уліковы запіс Gmail побач з актыўнай укладкай",
+        "description": ""
+    },
+    "options_tab_4": {
+        "message": "Адкрываць уліковы запіс Gmail у актыўнай укладцы",
+        "description": ""
+    },
+    "options_tab_5": {
+        "message": "Адкрываць уліковы запіс Gmail у фонавай укладцы",
+        "description": ""
+    },
+    "options_tab_6": {
+        "message": "Адкрываць уліковы запіс Gmail у новым акне",
+        "description": ""
+    },
+    "options_tab_7": {
+        "message": "Заўсёды выкарыстоўваць пустыя ўкладкі замест таго, каб адкрываць новыя, калі уключана адкрыванне ўкладкі.",
+        "description": ""
+    },
+    "options_tab_8": {
+        "message": "Ігнараваць адкрытыя ўкладкі Gmail",
+        "description": ""
+    },
+    "options_tab_9": {
+        "message": "Калі пазнака знята, Gmail Notifier шукае адкрытыя экземпляры Gmail або ў актыўным акне, або ва ўсіх адкрытых вокнах і пераключаецца на ўкладку з ім, калі атрымлівае запыт адкрыць укладку.",
+        "description": ""
+    },
+    "options_tab_10": {
+        "message": "Адкрываць лісты ў рэжыме простага HTML",
+        "description": ""
+    },
+    "options_tab_11": {
+        "message": "Адкрываць апошні непрачытаны ліст замест папкі \"Уваходныя\"",
+        "description": ""
+    },
+    "options_toolbar": {
+        "message": "Панэль інструментаў:",
+        "description": ""
+    },
+    "options_toolbar_1": {
+        "message": "Паводзіны кнопкі ў панэлі інструментаў",
+        "description": ""
+    },
+    "options_toolbar_2": {
+        "message": "Заўсёды адкрываць панэль перадпрагляду",
+        "description": ""
+    },
+    "options_toolbar_3": {
+        "message": "Адкрываць Gmail, калі выкананы ўваход толькі ў адзін уліковы запіс",
+        "description": ""
+    },
+    "options_toolbar_18": {
+        "message": "Адкрыць уліковы запіс Gmail (прымусова)",
+        "description": ""
+    },
+    "options_toolbar_4": {
+        "message": "Рэжым панэлі перадпрагляду",
+        "description": ""
+    },
+    "options_toolbar_5": {
+        "message": "Паказваць толькі зводку",
+        "description": ""
+    },
+    "options_toolbar_6": {
+        "message": "Паказваць усё змесціва",
+        "description": ""
+    },
+    "options_toolbar_7": {
+        "message": "Шырыня панэлі перадпрагляду ў рэжыме прагляду ўсяго змесціва (у пікселах):",
+        "description": ""
+    },
+    "options_toolbar_8": {
+        "message": "Мінімальная шырыня 500 пкс.",
+        "description": ""
+    },
+    "options_toolbar_9": {
+        "message": "Вышыня панэлі перадпрагляду ў рэжыме прагляду ўсяго змесціва (у пікселах):",
+        "description": ""
+    },
+    "options_toolbar_10": {
+        "message": "Мінімальная вышыня 500 пкс.",
+        "description": ""
+    },
+    "options_toolbar_11": {
+        "message": "Падтрымліваць спалучэнні клавіш клавіятуры ў панэлі перадпрагляду",
+        "description": ""
+    },
+    "options_toolbar_12": {
+        "message": "!: У спам, #: У сметніцу, e: У архіў, Shift + i: У прачытанае.",
+        "description": ""
+    },
+    "options_toolbar_13": {
+        "message": "Апрацоўваць лісты як HTML у рэжыме прагляду ўсяго змесціва",
+        "description": ""
+    },
+    "options_toolbar_14": {
+        "message": "Здыміце пазнаку, калі жадаеце апрацоўваць лісты ў рэжыме поўнага прагляду як звычайны тэкст.",
+        "description": ""
+    },
+    "options_toolbar_15": {
+        "message": "Націсканне сярэдній кнопкай мышы па кнопцы ў панэлі інструментаў",
+        "description": ""
+    },
+    "options_toolbar_16": {
+        "message": "Абнавіць усе ўліковыя запісы",
+        "description": ""
+    },
+    "options_toolbar_17": {
+        "message": "Адкрыць асноўны ўліковы запіс Gmail",
+        "description": ""
+    },
+    "options_misc": {
+        "message": "Рознае:",
+        "description": ""
+    },
+    "options_misc_1": {
+        "message": "Сартаваць уліковыя запісы ў алфавітным парадку",
+        "description": ""
+    },
+    "options_misc_2": {
+        "message": "Прадвызначаны парадак - па чарзе ўваходу ва ўліковы запіс.",
+        "description": ""
+    },
+    "options_misc_3": {
+        "message": "Колеры значка ў панэлі інструментаў",
+        "description": ""
+    },
+    "options_misc_4": {
+        "message": "Шэры - \"Няма непрачытаных\" , сіні - \"Адключаны\"",
+        "description": ""
+    },
+    "options_misc_5": {
+        "message": "Сіні - \"Няма непрачытаных\" , шэры - \"Адключаны\"",
+        "description": ""
+    },
+    "options_misc_9": {
+        "message": "Чырвоны - \"Няма непрачытаных\" , шэры - \"Адключаны\"",
+        "description": ""
+    },
+    "options_misc_6": {
+        "message": "Паказаць апавяшчэнне на працоўным стале, каб папярэдзіць, што Gmail ужо адкрыты ў актыўнай укладцы",
+        "description": ""
+    },
+    "options_misc_7": {
+        "message": "Паказваць прывітальную старонку пасля абнаўлення",
+        "description": ""
+    },
+    "options_misc_8": {
+        "message": "Скінуць усе налады да завадскіх",
+        "description": ""
+    },
+    "options_misc_10": {
+        "message": "Запускаць гукавыя апавяшчэнні і апавяшчэнні на працоўным стале, толькі калі ліст прыйшоў менш чым за (у хвілінах):",
+        "description": ""
+    },
+    "options_misc_11": {
+        "message": "Пры заданні нулявога значэння вы не будзеце атрымліваць апавяшчэнні працоўнага стала і гукавыя апавяшчэнні, але значок апавяшчэння вы па ранейшаму будзеце бачыць.",
+        "description": ""
+    },
+    "options_misc_12": {
+        "message": "Не ўключаць звесткі аб уліковым запісе ў тэкст усплывальнай падказкі",
+        "description": ""
+    },
+    "options_misc_13": {
+        "message": "Прадвызначана Notifier абнаўляе ўсплывальную падказку кнопкі інфармацыяй аб уліковым запісе. Пры знятай пазнацы тэкст усплывальнай падказкі застаецца прадвызначаным.",
+        "description": ""
+    },
+    "options_misc_14": {
+        "message": "Не паказваць дакладную лічбу ў значку, калі непрачытаных лістоў больш за 999",
+        "description": ""
+    },
+    "options_misc_15": {
+        "message": "Адкрываць ЧаПы пасля абнаўлення",
+        "description": ""
+    },
+    "options_plugins": {
+        "message": "Плагіны:",
+        "description": ""
+    },
+    "options_plugins_1": {
+        "message": "Кнопка зоркі і ярлыкі Gmail (эксперыментальнае)",
+        "description": ""
+    },
+    "options_plugins_2": {
+        "message": "Гэты плагін паказвае кнопку зоркі і ярлыкі размоў у панэлі перадпрагляду (толькі ў разгорнутым рэжыме)",
+        "description": ""
+    },
+    "options_px": {
+        "message": "пкс",
+        "description": ""
+    },
+    "options_empty": {
+        "message": "не вызначана",
+        "description": ""
+    },
+    "options_button_test": {
+        "message": "Прайграць",
+        "description": ""
+    },
+    "options_button_reset": {
+        "message": "Скінуць параметры",
+        "description": ""
+    },
+    "popup_settings": {
+        "message": "налады",
+        "description": ""
+    },
+    "popup_of": {
+        "message": "з",
+        "description": ""
+    },
+    "popup_wait": {
+        "message": "Пачакайце...",
+        "description": ""
+    },
+    "popup_date_format": {
+        "message": "%mm %dd, %yy",
+        "description": ""
+    },
+    "popup_no_subject": {
+        "message": "(без тэмы)",
+        "description": ""
+    },
+    "popup_open_settings": {
+        "message": "Адкрыць налады",
+        "description": ""
+    },
+    "popup_open_inbox": {
+        "message": "Адкрыць Уваходныя",
+        "description": ""
+    },
+    "popup_archive": {
+        "message": "У архіў",
+        "description": ""
+    },
+    "popup_spam": {
+        "message": "У спам",
+        "description": ""
+    },
+    "popup_trash": {
+        "message": "У сметніцу",
+        "description": ""
+    },
+    "popup_refresh": {
+        "message": "Абнавіць",
+        "description": ""
+    },
+    "popup_read": {
+        "message": "У прачытанае",
+        "description": ""
+    },
+    "popup_read_all": {
+        "message": "Усё ў прачытанае",
+        "description": ""
+    },
+    "popup_msg_1": {
+        "message": "толькі што",
+        "description": ""
+    },
+    "popup_msg_2": {
+        "message": "1 хвіліну таму",
+        "description": ""
+    },
+    "popup_msg_3_format": {
+        "message": "%d хв. таму",
+        "description": ""
+    },
+    "popup_msg_4": {
+        "message": "1 гадзіну таму",
+        "description": ""
+    },
+    "popup_msg_5": {
+        "message": "гадзін(ы) таму",
+        "description": ""
+    },
+    "popup_msg_6": {
+        "message": "Учора",
+        "description": ""
+    },
+    "popup_msg_7_format": {
+        "message": "%d дзён таму",
+        "description": ""
+    },
+    "popup_msg_8_format": {
+        "message": "%d тыдн. таму",
+        "description": ""
+    },
+    "popup_msg_9_format": {
+        "message": "%d мес. таму",
+        "description": ""
+    },
+    "popup_msg_10": {
+        "message": "Студзень",
+        "description": ""
+    },
+    "popup_msg_11": {
+        "message": "Люты",
+        "description": ""
+    },
+    "popup_msg_12": {
+        "message": "Сакавік",
+        "description": ""
+    },
+    "popup_msg_13": {
+        "message": "Красавік",
+        "description": ""
+    },
+    "popup_msg_14": {
+        "message": "Травень",
+        "description": ""
+    },
+    "popup_msg_15": {
+        "message": "Чэрвень",
+        "description": ""
+    },
+    "popup_msg_16": {
+        "message": "Ліпень",
+        "description": ""
+    },
+    "popup_msg_17": {
+        "message": "Жнівень",
+        "description": ""
+    },
+    "popup_msg_18": {
+        "message": "Верасень",
+        "description": ""
+    },
+    "popup_msg_19": {
+        "message": "Кастрычнік",
+        "description": ""
+    },
+    "popup_msg_20": {
+        "message": "Лістапад",
+        "description": ""
+    },
+    "popup_msg_21": {
+        "message": "Снежань",
+        "description": ""
+    },
+    "settings_open_title": {
+        "message": "Адкрыць старонку параметраў (налад)",
+        "description": ""
+    },
+    "settings_open_label": {
+        "message": "Адкрыць параметры",
+        "description": ""
+    },
+    "gmail": {
+        "message": "Notifier for Gmail™",
+        "description": ""
+    }
+}

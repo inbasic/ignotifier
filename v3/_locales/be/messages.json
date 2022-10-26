@@ -1,0 +1,251 @@
+{
+  "description": {
+    "message": "Апавяшчэнні для некалькіх ярлыкоў і ўліковых запісаў Google Mail (Gmail) і шмат чаго іншага!"
+  },
+  "bg_no_message": {
+    "message": "Няма непрачытаных паведамленняў"
+  },
+  "bg_sign_out": {
+    "message": "Вы не ўвайшлі!"
+  },
+  "bg_no_message_logged_in": {
+    "message": "Уліковыя запісы, пад якімі выкананы ўваход:"
+  },
+  "bg_no_message_logged_out": {
+    "message": "Уліковыя запісы, пад якімі не выкананы ўваход:"
+  },
+  "bg_unexpected_error": {
+    "message": "Нечаканая памылка:"
+  },
+  "bg_check_new_emails": {
+    "message": "Правяраем на новыя паведамленні. Пачакайце..."
+  },
+  "bg_no_mark_as_read": {
+    "message": "У прачытанае"
+  },
+  "bg_no_report": {
+    "message": "У спам"
+  },
+  "bg_no_archive": {
+    "message": "У архіў"
+  },
+  "bg_no_delete": {
+    "message": "Выдаліць"
+  },
+  "bg_no_add_star": {
+    "message": "Дадаць зорку"
+  },
+  "pp_mark_all_as_read": {
+    "message": "Пазначыць усе паведамленні з гэтага запыту як прачытаныя"
+  },
+  "pp_mark_as_read": {
+    "message": "У прачытанае"
+  },
+  "pp_mark_as_unread": {
+    "message": "Пазначыць як непрачытанае"
+  },
+  "pp_mark_as_read_title": {
+    "message": "Пазначыць прачытаным (Shift + KeyI) або пазначыць непрачытаным (Shift + KeyU)"
+  },
+  "pp_refresh": {
+    "message": "Refresh this query (KeyR)"
+  },
+  "pp_report": {
+    "message": "У спам (!)"
+  },
+  "pp_delete": {
+    "message": "Выдаліць (#)"
+  },
+  "pp_archive": {
+    "message": "У архіў (KeyE)"
+  },
+  "pp_inbox": {
+    "message": "Адкрыць Уваходныя"
+  },
+  "pp_options": {
+    "message": "Адкрыць старонку параметраў"
+  },
+  "pp_search": {
+    "message": "Увядзіце запыт і націсніце Enter (напр. is:unread label:inbox)"
+  },
+  "pp_notification": {
+    "message": "Add or remove notification for the current query and remember this query when the interface is open. Each email address needs to have at least one active notification query, or the default query is used. To ignore an email address from getting notification alerts, use the ignore list from the options page. To prevent a query from contributing to the badge counter, prepend it with the \"[silent]\" keyword (Shift + KeyA)."
+  },
+  "pp_previous": {
+    "message": "Да папярэдняга паведамлення (KeyJ)"
+  },
+  "pp_next": {
+    "message": "Да наступнага паведамлення (KeyK)"
+  },
+  "pp_account_selector": {
+    "message": "Выбраць папярэдні ўліковы запіс (Shift + KeyJ) і выбраць наступны ўліковы запіс (Shift + KeyK)"
+  },
+  "pp_query_selector": {
+    "message": "Выбраць папярэдні запыт (Meta + KeyJ) і выбраць наступны запыт (Meta + KeyK)"
+  },
+  "pp_expand": {
+    "message": "Пераключэнне паміж згорнутым і разгорнутым рэжымам"
+  },
+  "pp_no_user": {
+    "message": "Карытсальнік {EMAIL} не ўвайшоў або гэты ўліковы запіс недаступны."
+  },
+  "pp_of": {
+    "message": "з"
+  },
+  "pp_waiting": {
+    "message": "Чакаем уліковыя запісы..."
+  },
+  "pp_empty_view": {
+    "message": "..."
+  },
+  "pp_empty_entries": {
+    "message": "Пусты спіс"
+  },
+  "pp_next_thread": {
+    "message": "Наступная гутарка"
+  },
+  "pp_view": {
+    "message": "Пераключыць від паміж адзіночным і сеткай з чатырох (Meta + KeyV)"
+  },
+  "op_opening_mode": {
+    "message": "Адкрываць інтэрфейс у"
+  },
+  "op_opening_mode_tab": {
+    "message": "Укладка браўзера"
+  },
+  "op_opening_mode_popup": {
+    "message": "Усплывальнае акно браўзера"
+  },
+  "op_default_page": {
+    "message": "Прадвызначаная старонка"
+  },
+  "op_default_page_desc": {
+    "message": "Націсканне на кнопку адкрывае гэту старонку, калі няма непрачытаных лістоў"
+  },
+  "op_default_engine": {
+    "message": "Прадвызначаная сістэма атрымання пошты"
+  },
+  "op_default_engine_rss": {
+    "message": "RSS (рэкамендаваная)"
+  },
+  "op_default_engine_api": {
+    "message": "Gmail API (эксперыментальная)"
+  },
+  "op_default_engine_native": {
+    "message": "Уласная (notmuch) (эксперыментальная)"
+  },
+  "op_badge_text_format": {
+    "message": "Фармат тэксту значка"
+  },
+  "op_badge_text_format_desc": {
+    "message": "Даступныя ключавыя словы:"
+  },
+  "op_ignored_users": {
+    "message": "Карыстальнікі, якія ігнаруюцца:"
+  },
+  "op_ignored_users_desc": {
+    "message": "Comma-separated list of logged-in email addresses to ignore when updating badge. Instead to ignore a query prepend the query with the \"[silent]\" keyword."
+  },
+  "op_popup": {
+    "message": "Інтэрфейс перадпрагляду"
+  },
+  "op_internals": {
+    "message": "Сістэма"
+  },
+  "op_badge": {
+    "message": "Значок"
+  },
+  "op_email": {
+    "message": "Чытанне пошты"
+  },
+  "op_mark_as_read": {
+    "message": "У прачытанае"
+  },
+  "op_mark_as_read_desc": {
+    "message": "Аўтаматычна пазначаць ліст як прачытаны пасля яго прагляду"
+  },
+  "op_csp": {
+    "message": "Палітыка бяспекі змесціва"
+  },
+  "op_csp_desc": {
+    "message": "Выкарыстоўваць гэту палітыку бяспекі змесціва пры праглядзе пошты. Напрыклад, каб прадухіліць загрузку аддаленых рэсурсаў, напішыце \"default-src 'none'; style-src 'unsafe-inline';\" (без двукоссяў), або, каб дазволіць аддаленыя рэсурcы, ачысціце поле"
+  },
+  "op_notification": {
+    "message": "Апавяшчэнне"
+  },
+  "op_notification_email": {
+    "message": "напр. me@gmail.com"
+  },
+  "op_notification_query": {
+    "message": "напр. label:INBOX is:unread"
+  },
+  "op_notification_sound": {
+    "message": "Ці пайграваць гукавое апавяшчэнне пры атрыманні новага паведамлення"
+  },
+  "op_notification_desktop": {
+    "message": "Ці паказваць апавяшчэнне на працоўным стале для новых лістоў"
+  },
+  "op_notification_source_title": {
+    "message": "Нумар, каторы прадстаўляе крыніцу гуку. Выкарыстоўвайце 0, 1, 2 або 3 для прадвызначаных гукаў"
+  },
+  "op_notification_source": {
+    "message": "напр. 1"
+  },
+  "op_notification_file": {
+    "message": "Захоўваць карыстальніцкі гук"
+  },
+  "op_notification_submit": {
+    "message": "Дадаць правіла"
+  },
+  "op_n_email": {
+    "message": "Адрас электроннай пошты"
+  },
+  "op_n_query": {
+    "message": "Запыт"
+  },
+  "op_n_sound": {
+    "message": "Прайграць гук"
+  },
+  "op_n_desktop": {
+    "message": "Паказаць апавяшчэнне"
+  },
+  "op_n_source": {
+    "message": "ID крыніцы гуку"
+  },
+  "op_n_remove": {
+    "message": "Выдаліць правіла"
+  },
+  "op_msg_large_file": {
+    "message": "Гэты файл занадта вялікі! Зменшыце памер файла і паўтарыце спробу."
+  },
+  "op_msg_sound_id": {
+    "message": "Выкарыстоўвайце '%%' як ID крыніцы гэтага гуку"
+  },
+  "op_msg_saved": {
+    "message": "Параметры захаваны"
+  },
+  "op_msg_reset": {
+    "message": "Націсніце двойчы, каб скінуць!"
+  },
+  "op_notification_remove_sound": {
+    "message": "Выдаліць карыстальніцкі гук"
+  },
+  "op_reset": {
+    "message": "Скінуць налады да завадскіх"
+  },
+  "op_support": {
+    "message": "Падтрымаць распрацоўку"
+  },
+  "op_save": {
+    "message": "Захаваць параметры"
+  },
+  "op_badge_period": {
+    "message": "Перыяд (у хвілінах):"
+  },
+  "op_api_client": {
+    "message": "Сервер Gmail API"
+  },
+  "op_native": {
+    "message": "Злучыцца з \"notmuch\""
+  }
+}

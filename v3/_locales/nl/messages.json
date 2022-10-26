@@ -48,7 +48,7 @@
     "message": "Markeren als gelezen (Shift + KeyI) of Markeren als ongelezen Shift + KeyU)"
   },
   "pp_refresh": {
-    "message": "Herladen"
+    "message": "Herladen (R)"
   },
   "pp_report": {
     "message": "Melden als spam (!)"
@@ -69,13 +69,19 @@
     "message": "Typ een zoekopdracht en druk op enter (bijv. is:unread label:inbox)"
   },
   "pp_notification": {
-    "message": "Voeg een melding toe binnen de huidige selectie of verwijder deze. Elk e-mailadres dient minimaal één melding te hebben, anders wordt de standaardmelding gebruikt. Gebruik de negeerlijst in de instellingen om e-mailadressen te negeren."
+    "message": "Voeg meldingen toe aan de huidige opvraging of verwijder ze, en onthoud deze opvraging zolang het venster getoond wordt. Elk e-mailadres dient minimaal één actieve meldingenreeks te hebben, anders worden de standaardinstellingen gebruikt. Een e-mailadres negeren kan middels de negeerlijst in de instellingen. Om ook de teller niet te gebruiken, kan de opvraging worden voorzien van \"[silent]\" trefwoord (Super + KeyA)."
   },
   "pp_previous": {
     "message": "Ga naar vorig bericht (KeyJ)"
   },
   "pp_next": {
     "message": "Ga naar volgend bericht (KeyK)"
+  },
+  "pp_account_selector": {
+    "message": "Ga naar vorig account (Shift + KeyJ) en ga naar volgend account (Shift + KeyK)"
+  },
+  "pp_query_selector": {
+    "message": "Ga naar vorige opvraging (Shift + KeyJ) en ga naar volgende opvraging (Shift + KeyK)"
   },
   "pp_expand": {
     "message": "Schakel tussen in- en uitgeklapte modus"
@@ -99,7 +105,7 @@
     "message": "Volgend gesprek"
   },
   "pp_view": {
-    "message": "Schakel tussen de één- en viertegelweergave"
+    "message": "Schakel tussen de één- en viertegelweergave (Super + KeyV)"
   },
   "op_opening_mode": {
     "message": "Open Gmail-melder op/in een"
@@ -138,7 +144,7 @@
     "message": "Genegeerde gebruikers:"
   },
   "op_ignored_users_desc": {
-    "message": "Een kommagescheiden lijst met ingelogde e-mailadressen die moeten worden genegeerd tijdens het bijwerken van de teller"
+    "message": "Een kommagescheiden lijst met ingelogde e-mailadressen die dienen te worden genegeerd door het meldingspictogram. Voorzien van \"[silent]\" trefwoord (Super + KeyA) om een opvraging te negeren."
   },
   "op_popup": {
     "message": "Pop-upvormgeving"
