@@ -1,0 +1,47 @@
+{
+  "name": "Notifier for Gmail™",
+  "description": "__MSG_description__",
+  "author": "InBasic",
+  "version": "1.1.0",
+  "minimum_chrome_version": "117",
+  "manifest_version": 3,
+  "default_locale": "en",
+  "permissions": [
+    "notifications",
+    "contextMenus",
+    "webRequest",
+    "storage",
+    "alarms",
+    "idle",
+    "offscreen"
+  ],
+  "host_permissions": [
+    "*://mail.google.com/mail/",
+    "*://mail.google.com/sync/"
+  ],
+  "action": {
+    "default_icon": {
+      "16": "/data/icons/blue/16.png",
+      "18": "/data/icons/blue/18.png",
+      "19": "/data/icons/blue/19.png",
+      "32": "/data/icons/blue/32.png"
+    }
+  },
+  "background": {
+    "service_worker": "worker.js"
+  },
+  "options_ui": {
+    "page": "/data/options/index.html",
+    "open_in_tab": true
+  },
+  "homepage_url": "http://add0n.com/gmail-notifier.html",
+  "icons": {
+    "16": "/data/icons/red/16.png",
+    "18": "/data/icons/red/18.png",
+    "19": "/data/icons/red/19.png",
+    "32": "/data/icons/red/32.png",
+    "48": "/data/icons/red/48.png",
+    "64": "/data/icons/red/64.png",
+    "128": "/data/icons/red/128.png"
+  }
+}

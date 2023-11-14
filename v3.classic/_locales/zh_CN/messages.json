@@ -1,0 +1,762 @@
+{
+    "toolbar_label": {
+        "message": "Notifier for Gmail™",
+        "description": ""
+    },
+    "tooltip_1": {
+        "message": "左键单击：打开 Gmail 或邮件预览面板",
+        "description": ""
+    },
+    "tooltip_2": {
+        "message": "中键 (或 Ctrl+左键) 单击：刷新所有帐户",
+        "description": ""
+    },
+    "tooltip_3": {
+        "message": "右键单击：选择帐户",
+        "description": ""
+    },
+    "description": {
+        "message": "支持多个标签和帐户的通知工具，适用于 Google Mail (Gmail)",
+        "description": ""
+    },
+    "log_in_to_your_account": {
+        "message": "请登录您的 Gmail 帐户",
+        "description": ""
+    },
+    "msg_1": {
+        "message": "标签页已经打开。点击工具栏上的按钮在新标签页中打开 Gmail，或者切换到现有的 Gmail 标签页。",
+        "description": ""
+    },
+    "msg_2": {
+        "message": "链接已复制到剪贴板。",
+        "description": ""
+    },
+    "msg_3": {
+        "message": "选定文本已复制到剪贴板。",
+        "description": ""
+    },
+    "msg_4": {
+        "message": "注意：为了通知能正常工作，您需要先登录到您的 Google 帐户。",
+        "description": ""
+    },
+    "msg_5": {
+        "message": "选择一个声音文件",
+        "description": ""
+    },
+    "label_1": {
+        "message": "刷新",
+        "description": ""
+    },
+    "label_2": {
+        "message": "设置",
+        "description": ""
+    },
+    "label_3": {
+        "message": "禁用所有通知",
+        "description": ""
+    },
+    "label_4": {
+        "message": "禁用 5 分钟",
+        "description": ""
+    },
+    "label_5": {
+        "message": "禁用 15 分钟",
+        "description": ""
+    },
+    "label_6": {
+        "message": "禁用 30 分钟",
+        "description": ""
+    },
+    "label_7": {
+        "message": "禁用 1 小时",
+        "description": ""
+    },
+    "label_8": {
+        "message": "禁用 2 小时",
+        "description": ""
+    },
+    "label_9": {
+        "message": "禁用 5 小时",
+        "description": ""
+    },
+    "label_13": {
+        "message": "自定义时间长度",
+        "description": ""
+    },
+    "label_10": {
+        "message": "启用通知（本次会话期间）",
+        "description": ""
+    },
+    "label_11": {
+        "message": "撰写邮件",
+        "description": ""
+    },
+    "label_12": {
+        "message": "打开常见问题",
+        "description": ""
+    },
+    "label_14": {
+        "message": "已登录帐户",
+        "description": ""
+    },
+    "unknown": {
+        "message": "未知",
+        "description": ""
+    },
+    "and": {
+        "message": "及",
+        "description": ""
+    },
+    "log_into_your_account": {
+        "message": "请登录您的帐户",
+        "description": ""
+    },
+    "notification": {
+        "message": "来自: [author_email][break]标题: [title][break]摘要: [summary]",
+        "description": ""
+    },
+    "options_title": {
+        "message": "选项 - Gmail™ Notifier",
+        "description": ""
+    },
+    "options_inshort": {
+        "message": "支持多个标签和帐户的通知工具，适用于 Google Mail (Gmail)。",
+        "description": ""
+    },
+    "options_donation": {
+        "message": "支持软件开发",
+        "description": ""
+    },
+    "options_timings": {
+        "message": "时间：",
+        "description": ""
+    },
+    "options_timings_l1": {
+        "message": "检查新邮件，每隔（秒）：",
+        "description": ""
+    },
+    "options_timings_l2": {
+        "message": "最小周期为 10 秒。",
+        "description": ""
+    },
+    "options_timings_l3": {
+        "message": "提醒有未读邮件，每隔（分钟）：",
+        "description": ""
+    },
+    "options_timings_l4": {
+        "message": "设置值为 0 可禁用定期提醒。",
+        "description": ""
+    },
+    "options_timings_l5": {
+        "message": "最小周期为 5 分钟。",
+        "description": ""
+    },
+    "options_timings_l6": {
+        "message": "非零的值将反复触发桌面通知和提醒声音（类似有新邮件到达），如果您有未读的邮件。",
+        "description": ""
+    },
+    "options_timings_l7": {
+        "message": "不检查新邮件，在刚启动的（秒）：",
+        "description": ""
+    },
+    "options_timings_l8": {
+        "message": "设置值为 0 将禁用邮件检查，除非手动刷新 [Safari 上不可用]。",
+        "description": ""
+    },
+    "options_gmail": {
+        "message": "Gmail：",
+        "description": ""
+    },
+    "options_gmail_1": {
+        "message": "主帐户 (/mail/u/0/)",
+        "description": ""
+    },
+    "options_gmail_2": {
+        "message": "用 \",\" (半角逗号) 分隔。",
+        "description": ""
+    },
+    "options_gmail_3": {
+        "message": "第二帐户 (/mail/u/1/)",
+        "description": ""
+    },
+    "options_gmail_4": {
+        "message": "第三帐户 (/mail/u/2/)",
+        "description": ""
+    },
+    "options_gmail_5": {
+        "message": "第四帐户 (/mail/u/3/)",
+        "description": ""
+    },
+    "options_gmail_6": {
+        "message": "第五帐户 (/mail/u/4/)",
+        "description": ""
+    },
+    "options_gmail_7": {
+        "message": "第六帐户 (/mail/u/5/)",
+        "description": ""
+    },
+    "options_gmail_8": {
+        "message": "归档时标记邮件为已读",
+        "description": ""
+    },
+    "options_gmail_15": {
+        "message": "常用的标签：",
+        "description": ""
+    },
+    "options_gmail_10": {
+        "message": "接收下列标签和帐户的通知：",
+        "description": ""
+    },
+    "options_gmail_11": {
+        "message": "自定义收取点：",
+        "description": ""
+    },
+    "options_gmail_12": {
+        "message": "用 \",\" (半角逗号) 分隔收取点。收取点样例: https://mail.google.com/mail/u/0/feed/atom/inbox",
+        "description": ""
+    },
+    "options_gmail_13": {
+        "message": "注意：除收件箱（inbox）外，所有标签的最大数量为 20（Google 提供的收取点仅提供最新的 20 项）",
+        "description": ""
+    },
+    "options_gmail_14": {
+        "message": "注意：要使 Notifier 监测超过5个帐户，请将收取点网址添加到“自定义收取点”栏。形式例如:  https://mail.google.com/mail/u/6/feed/atom/inbox,  https://mail.google.com/mail/u/7/feed/atom/inbox",
+        "description": ""
+    },
+    "options_notifications": {
+        "message": "通知：",
+        "description": ""
+    },
+    "options_notifications_1": {
+        "message": "为新邮件显示桌面通知",
+        "description": ""
+    },
+    "options_notifications_2": {
+        "message": "显示桌面通知（秒）：",
+        "description": ""
+    },
+    "options_notifications_3": {
+        "message": "此选项在您的操作系统上可能无法正常工作。",
+        "description": ""
+    },
+    "options_notifications_4": {
+        "message": "通知格式",
+        "description": ""
+    },
+    "options_notifications_5": {
+        "message": "可用变量:",
+        "description": ""
+    },
+    "options_notifications_6": {
+        "message": "截断通知中超过",
+        "description": ""
+    },
+    "options_notifications_7": {
+        "message": "字符的标题和摘要。",
+        "description": ""
+    },
+    "options_notifications_8": {
+        "message": "要想没有截断和省略号，在这里使用较大的数值。",
+        "description": ""
+    },
+    "options_notifications_9": {
+        "message": "为新邮件播放声音提醒",
+        "description": ""
+    },
+    "options_notifications_10": {
+        "message": "Mac 用户请注意：从 Firefox 28.0 开始，所有桌面通知都经由 Mac 通知中心处理，包括触发一个额外的声音提醒。您需要取消这里的声音或者“通知中心”中的声音。",
+        "description": ""
+    },
+    "options_notifications_11": {
+        "message": "显示“Windows 任务栏通知”或者“Mac OS Dock 通知”",
+        "description": ""
+    },
+    "options_notifications_12": {
+        "message": "任务栏通知目前不支持 Linux 操作系统。",
+        "description": ""
+    },
+    "options_notifications_13": {
+        "message": "在点击任务栏通知图标时打开工具栏面板（仅 Windows，测试版）",
+        "description": ""
+    },
+    "options_notifications_14": {
+        "message": "此功能是实验性的，并可能导致您的 Firefox 浏览器不稳定 [需要重启]。",
+        "description": ""
+    },
+    "options_notifications_15": {
+        "message": "默认声音是",
+        "description": ""
+    },
+    "options_notifications_16": {
+        "message": "Gmail Notifier 默认声音",
+        "description": ""
+    },
+    "options_notifications_17": {
+        "message": "Checker Plus 钟声",
+        "description": ""
+    },
+    "options_notifications_18": {
+        "message": "Checker Plus 铃声",
+        "description": ""
+    },
+    "options_notifications_19": {
+        "message": "Windows 邮件提醒",
+        "description": ""
+    },
+    "options_notifications_20": {
+        "message": "用户定义声音",
+        "description": ""
+    },
+    "options_notifications_21": {
+        "message": "用户定义声音为",
+        "description": ""
+    },
+    "options_notifications_22": {
+        "message": "如果您的浏览器不能播放自定义的声音，请尝试用在线转换工具将它转换为纯 WAV 格式。",
+        "description": ""
+    },
+    "options_notifications_35": {
+        "message": "要选择一个新的自定义声音，选择一个内置声音，然后再更改此选项为自定义声音",
+        "description": ""
+    },
+    "options_notifications_23": {
+        "message": "声音提醒的音量为",
+        "description": ""
+    },
+    "options_notifications_24": {
+        "message": "音量是 0 至 100 之间的一个数字，100 是最高音量（默认值）。",
+        "description": ""
+    },
+    "options_notifications_25": {
+        "message": "在 Safari 下很可能默认的通知声音不能正常播放，如果您使用了一个自定义文件作为通知声音。",
+        "description": ""
+    },
+    "options_notifications_26": {
+        "message": "始终显示托盘通知 (仅 Windows)",
+        "description": ""
+    },
+    "options_notifications_27": {
+        "message": "托盘通知图标将始终显示，即使没有未读邮件。",
+        "description": ""
+    },
+    "options_notifications_28": {
+        "message": "指定时间内禁止所有通知 (分钟):",
+        "description": ""
+    },
+    "options_notifications_29": {
+        "message": "此选项有关工具栏按钮的右键菜单 -> 禁止所有通知 -> 自定义时间长度。",
+        "description": ""
+    },
+    "options_notifications_30": {
+        "message": "整合所有连续的桌面通知为单条通知",
+        "description": ""
+    },
+    "options_notifications_31": {
+        "message": "自定义声音通知",
+        "description": ""
+    },
+    "options_notifications_32": {
+        "message": "名称或电子邮件包含",
+        "description": ""
+    },
+    "options_notifications_33": {
+        "message": "邮件标题包含",
+        "description": ""
+    },
+    "options_notifications_34": {
+        "message": "邮件摘要包含",
+        "description": ""
+    },
+    "options_notifications_36": {
+        "message": "要求 Gmail 避免重定向到 'inbox.google.com'",
+        "description": ""
+    },
+    "options_notifications_37": {
+        "message": "显示徽标数字",
+        "description": ""
+    },
+    "options_notifications_38": {
+        "message": "快捷动作（标为已读、删除等）（看到标题后可能执行的操作）",
+        "description": ""
+    },
+    "options_notifications_40": {
+        "message": "允许从通知框执行快速操作（最多两项操作）（仅支持 Chrome）",
+        "description": ""
+    },
+    "options_notifications_41": {
+        "message": "标为已读",
+        "description": ""
+    },
+    "options_notifications_42": {
+        "message": "归档",
+        "description": ""
+    },
+    "options_notifications_43": {
+        "message": "移入垃圾箱",
+        "description": ""
+    },
+    "options_tab": {
+        "message": "打开标签页：",
+        "description": ""
+    },
+    "options_tab_1": {
+        "message": "只在活动窗口中搜索已打开的 Gmail 帐户",
+        "description": ""
+    },
+    "options_tab_2": {
+        "message": "不搜索其他浏览器窗口有无打开的 Gmail 帐户。如果活动窗口中没有已打开的 Gmail，打开一个新标签页。",
+        "description": ""
+    },
+    "options_tab_3": {
+        "message": "在当前标签页后面打开新的 Gmail 帐户",
+        "description": ""
+    },
+    "options_tab_4": {
+        "message": "在当前标签页打开 Gmail 帐户",
+        "description": ""
+    },
+    "options_tab_5": {
+        "message": "在后台标签页打开 Gmail 帐户",
+        "description": ""
+    },
+    "options_tab_6": {
+        "message": "在新窗口打开 Gmail 帐户",
+        "description": ""
+    },
+    "options_tab_7": {
+        "message": "始终使用空白标签页而不是打开一个新标签页",
+        "description": ""
+    },
+    "options_tab_8": {
+        "message": "忽略已打开的 Gmail 标签页",
+        "description": ""
+    },
+    "options_tab_9": {
+        "message": "在未选中时，Gmail Notifier 会检查是否已有活动窗口包含已打开的 Gmail，并在必要时切换到已打开的标签页。",
+        "description": ""
+    },
+    "options_tab_10": {
+        "message": "用基本 HTML 模式打开邮件",
+        "description": ""
+    },
+    "options_tab_11": {
+        "message": "直接打开最新的未读邮件，代替收件箱文件夹",
+        "description": ""
+    },
+    "options_toolbar": {
+        "message": "工具栏：",
+        "description": ""
+    },
+    "options_toolbar_1": {
+        "message": "工具栏按钮行为",
+        "description": ""
+    },
+    "options_toolbar_2": {
+        "message": "总是打开邮件预览面板",
+        "description": ""
+    },
+    "options_toolbar_3": {
+        "message": "打开 Gmail 帐户，如果只登录了一个帐户",
+        "description": ""
+    },
+    "options_toolbar_18": {
+        "message": "强制打开 Gmail 账户",
+        "description": ""
+    },
+    "options_toolbar_4": {
+        "message": "工具栏面板模式",
+        "description": ""
+    },
+    "options_toolbar_5": {
+        "message": "只显示摘要",
+        "description": ""
+    },
+    "options_toolbar_6": {
+        "message": "显示完整内容",
+        "description": ""
+    },
+    "options_toolbar_7": {
+        "message": "完整内容模式下的工具栏面板宽度为（像素）：",
+        "description": ""
+    },
+    "options_toolbar_8": {
+        "message": "最小宽度为 500px。",
+        "description": ""
+    },
+    "options_toolbar_9": {
+        "message": "完整内容模式下的工具栏面板高度为（像素）：",
+        "description": ""
+    },
+    "options_toolbar_10": {
+        "message": "最小高度为 500px。",
+        "description": ""
+    },
+    "options_toolbar_11": {
+        "message": "工具栏面板上支持键盘快捷键",
+        "description": ""
+    },
+    "options_toolbar_12": {
+        "message": "!: 报告为垃圾邮件, #: 删除, e: 归档, Shift + i: 标记为已读。",
+        "description": ""
+    },
+    "options_toolbar_13": {
+        "message": "在完整内容模式下，呈现邮件为 HTML 形式",
+        "description": ""
+    },
+    "options_toolbar_14": {
+        "message": "如果您偏好在完整内容模式下只呈现文本形式，取消此框。",
+        "description": ""
+    },
+    "options_toolbar_15": {
+        "message": "中键单击工具栏按钮",
+        "description": ""
+    },
+    "options_toolbar_16": {
+        "message": "刷新所有帐户",
+        "description": ""
+    },
+    "options_toolbar_17": {
+        "message": "打开主要的 Gmail 帐户",
+        "description": ""
+    },
+    "options_misc": {
+        "message": "杂项：",
+        "description": ""
+    },
+    "options_misc_1": {
+        "message": "按字母排序帐户",
+        "description": ""
+    },
+    "options_misc_2": {
+        "message": "默认顺序是登录顺序。",
+        "description": ""
+    },
+    "options_misc_3": {
+        "message": "工具栏颜色模式",
+        "description": ""
+    },
+    "options_misc_4": {
+        "message": "灰色表示“无未读邮件”，蓝色表示“已断开”",
+        "description": ""
+    },
+    "options_misc_5": {
+        "message": "蓝色表示“无未读邮件”，灰色表示“已断开”",
+        "description": ""
+    },
+    "options_misc_9": {
+        "message": "红色表示“无未读邮件”，灰色表示“已断开”",
+        "description": ""
+    },
+    "options_misc_6": {
+        "message": "显示桌面通知以警告 Gmail 已在活动标签页打开",
+        "description": ""
+    },
+    "options_misc_7": {
+        "message": "升级后显示欢迎页面",
+        "description": ""
+    },
+    "options_misc_8": {
+        "message": "重置所有设置到出厂设置",
+        "description": ""
+    },
+    "options_misc_10": {
+        "message": "仅在邮件抵达未超过x分钟时发出桌面和声音通知：",
+        "description": ""
+    },
+    "options_misc_11": {
+        "message": "如果将此选项设置为 0，您将不再收到桌面和声音通知，但仍可收到网址栏徽章通知。",
+        "description": ""
+    },
+    "options_misc_12": {
+        "message": "不在工具提示中包含登录信息",
+        "description": ""
+    },
+    "options_misc_13": {
+        "message": "默认情况下，本扩展的工具栏按钮的工具提示带有登录信息。取消此选项时，工具提示文本将恢复默认值。",
+        "description": ""
+    },
+    "options_misc_14": {
+        "message": "未读邮件超过 999 封时，不在徽章上显示确切数字",
+        "description": ""
+    },
+    "options_misc_15": {
+        "message": "更新时打开常见问题页面",
+        "description": ""
+    },
+    "options_plugins": {
+        "message": "插件：",
+        "description": ""
+    },
+    "options_plugins_1": {
+        "message": "Gmail 标签及星标按钮（实验性）",
+        "description": ""
+    },
+    "options_plugins_2": {
+        "message": "此插件在弹出窗口中显示星标按钮和主题的标签（仅限扩展模式）。",
+        "description": ""
+    },
+    "options_px": {
+        "message": "像素",
+        "description": ""
+    },
+    "options_empty": {
+        "message": "未定义",
+        "description": ""
+    },
+    "options_button_test": {
+        "message": "播放",
+        "description": ""
+    },
+    "options_button_reset": {
+        "message": "重置首选项",
+        "description": ""
+    },
+    "popup_settings": {
+        "message": "设置",
+        "description": ""
+    },
+    "popup_of": {
+        "message": "/",
+        "description": ""
+    },
+    "popup_wait": {
+        "message": "等待...",
+        "description": ""
+    },
+    "popup_date_format": {
+        "message": "%yy-%mm-%dd",
+        "description": ""
+    },
+    "popup_no_subject": {
+        "message": "(无主题)",
+        "description": ""
+    },
+    "popup_open_settings": {
+        "message": "打开设置",
+        "description": ""
+    },
+    "popup_open_inbox": {
+        "message": "打开收件箱",
+        "description": ""
+    },
+    "popup_archive": {
+        "message": "归档",
+        "description": ""
+    },
+    "popup_spam": {
+        "message": "垃圾",
+        "description": ""
+    },
+    "popup_trash": {
+        "message": "删除",
+        "description": ""
+    },
+    "popup_refresh": {
+        "message": "刷新",
+        "description": ""
+    },
+    "popup_read": {
+        "message": "标为已读",
+        "description": ""
+    },
+    "popup_read_all": {
+        "message": "全部标为已读",
+        "description": ""
+    },
+    "popup_msg_1": {
+        "message": "刚刚",
+        "description": ""
+    },
+    "popup_msg_2": {
+        "message": "1 分钟前",
+        "description": ""
+    },
+    "popup_msg_3_format": {
+        "message": "%d 分钟前",
+        "description": ""
+    },
+    "popup_msg_4": {
+        "message": "1 小时前",
+        "description": ""
+    },
+    "popup_msg_5": {
+        "message": "小时前",
+        "description": ""
+    },
+    "popup_msg_6": {
+        "message": "昨天",
+        "description": ""
+    },
+    "popup_msg_7_format": {
+        "message": "%d 天前",
+        "description": ""
+    },
+    "popup_msg_8_format": {
+        "message": "%d 周前",
+        "description": ""
+    },
+    "popup_msg_9_format": {
+        "message": "%d 个月前",
+        "description": ""
+    },
+    "popup_msg_10": {
+        "message": "1月",
+        "description": ""
+    },
+    "popup_msg_11": {
+        "message": "2月",
+        "description": ""
+    },
+    "popup_msg_12": {
+        "message": "3月",
+        "description": ""
+    },
+    "popup_msg_13": {
+        "message": "4月",
+        "description": ""
+    },
+    "popup_msg_14": {
+        "message": "5月",
+        "description": ""
+    },
+    "popup_msg_15": {
+        "message": "6月",
+        "description": ""
+    },
+    "popup_msg_16": {
+        "message": "7月",
+        "description": ""
+    },
+    "popup_msg_17": {
+        "message": "8月",
+        "description": ""
+    },
+    "popup_msg_18": {
+        "message": "9月",
+        "description": ""
+    },
+    "popup_msg_19": {
+        "message": "10月",
+        "description": ""
+    },
+    "popup_msg_20": {
+        "message": "11月",
+        "description": ""
+    },
+    "popup_msg_21": {
+        "message": "12月",
+        "description": ""
+    },
+    "settings_open_title": {
+        "message": "打开选项（设置）页面",
+        "description": ""
+    },
+    "settings_open_label": {
+        "message": "打开选项",
+        "description": ""
+    },
+    "gmail": {
+        "message": "Notifier for Gmail™",
+        "description": ""
+    }
+}

@@ -1,0 +1,271 @@
+body {
+  margin: 0;
+}
+body,
+table {
+  font-size: 14px;
+  color: #222;
+  font-family: arial, sans-serif;
+}
+select,
+button,
+input[type=submit],
+input[type=button] {
+  height: 28px;
+  color: #444;
+  background-image: linear-gradient(rgb(237, 237, 237), rgb(237, 237, 237) 38%, rgb(222, 222, 222));
+  box-shadow: rgba(0, 0, 0, 0.08) 0 1px 0, rgba(255, 255, 255, 0.75) 0 1px 2px inset;
+  text-shadow: rgb(240, 240, 240) 0 1px 0;
+}
+select,
+button,
+textarea,
+input {
+  border: solid 1px rgba(0, 0, 0, 0.25);
+}
+select,
+input {
+  background-color: #fff;
+}
+select {
+  justify-self: end;
+  max-width: 60vw;
+}
+
+label > input {
+  vertical-align: middle;
+}
+input[type=number],
+input[type=text] {
+  height: 24px;
+  outline: none;
+  padding-inline: 5px;
+}
+input[type=number]:focus,
+input[type=text]:focus {
+  background-color: #defff8;
+}
+
+p {
+  margin: 0 0 10px 0;
+  font-size: 110%;
+}
+label {
+  align-items: center;
+  display: flex;
+}
+#content {
+  margin: auto;
+  max-width: 800px;
+}
+.fixed {
+  width: 100px;
+  background: #f1f1f1;
+  padding: 10px;
+}
+
+@media screen and (max-width: 600px) {
+  .fixed {
+    display: none;
+  }
+}
+
+.browse input {
+  display: none !important;
+}
+
+#content > div:not(:last-child) {
+  border-bottom: solid 1px #e5e5e5;
+  padding: 10px 0;
+}
+#content > div:last-child {
+  padding-top: 10px;
+}
+.content {
+  width: 100%;
+  padding-inline: 10px;
+}
+.content > * {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+#header {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #f1f1f1;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: min-content 1fr min-content 48px;
+}
+#header > div > span {
+  padding-left: 105px;
+}
+#header > div:nth-child(1) > span:nth-child(1) {
+  font-size: 140%;
+}
+
+#header [type=icon] {
+  width: 90px;
+  background-image: url(../icons/options/64.png);
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+}
+#header [type=title],
+#header [type=description] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+#header [type=title] {
+  font-size: 150%;
+  line-height: 150%;
+}
+#header [type=description] {
+  color: #707070 !important;
+}
+#header ul {
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+}
+#donation input[type=button] {
+  background-image: none;
+  text-shadow: none;
+  box-shadow: none;
+  background-color: #f07600;
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: 0;
+  cursor: pointer;
+  outline: medium none;
+  text-align: center;
+  vertical-align: middle !important;
+  padding: 5px 10px;
+  height: revert;
+}
+
+input:invalid {
+  border-color: red;
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
+#notify {
+  width: min(80%, 400px);
+  height: 100px;
+  background-color: #fff;
+  padding: 10px;
+  font-size: 12px;
+}
+#notify[open] {
+  display: grid;
+  grid-template-rows: 1fr min-content;
+}
+#notify input {
+  width: 80px;
+  margin-left: 5px;
+}
+#notify::backdrop {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+#donation {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+
+.browser img {
+  width: 16px;
+}
+.note {
+  color: #707070;
+  padding: 0;
+  font-size: 90%;
+}
+.browse {
+  display: none;
+  font-weight: bold;
+  padding: 0 5px;
+  cursor: pointer;
+}
+.fm {
+  display: grid;
+  grid-template-columns: 1fr 100px;
+  grid-gap: 5px;
+  align-items: center;
+}
+.mf {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  grid-gap: 5px;
+  align-items: center;
+}
+.mf > :first-child {
+  width: max-content;
+}
+
+@media screen and (max-width: 600px) {
+  .mf {
+    grid-template-columns: 1fr;
+  }
+  .mf > :first-child {
+    width: unset;
+  }
+  .mf input {
+    justify-self: end;
+  }
+}
+
+.tds {
+  display: grid;
+  grid-template-columns: min-content 1fr min-content;
+  grid-gap: 5px;
+  align-items: center;
+}
+.fes {
+  display: grid;
+  grid-template-columns: min-content min-content 1fr min-content;
+  grid-gap: 5px;
+  align-items: center;
+}
+.fes > :first-child {
+  width: max-content;
+}
+
+@media screen and (max-width: 800px) {
+  .fes {
+    grid-template-columns: 1fr 1fr;
+  }
+  .fes select {
+    width: 100%;
+  }
+}
+
+.frt {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-self: end;
+}
+
+[hbox] {
+  display: flex;
+  flex-direction: row;
+}
+[vbox] {
+  display: flex;
+  flex-direction: column;
+}
+[pack=center] {
+  justify-content: center;
+}
+[align=center] {
+  align-items: center;
+}
+[pack=end] {
+  justify-content: flex-end;
+}
+[align=end] {
+  align-items: flex-end;
+}

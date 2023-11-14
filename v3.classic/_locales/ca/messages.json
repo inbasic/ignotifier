@@ -1,0 +1,762 @@
+{
+    "toolbar_label": {
+        "message": "Notificador per a Gmail™",
+        "description": ""
+    },
+    "tooltip_1": {
+        "message": "Clic esquerre: Obre Gmail o el tauler de previsualització del correu",
+        "description": ""
+    },
+    "tooltip_2": {
+        "message": "Clic del mig (o Control+Clic esquerre): Actualitza tots els comptes",
+        "description": ""
+    },
+    "tooltip_3": {
+        "message": "Clic dret: seleccions de compte",
+        "description": ""
+    },
+    "description": {
+        "message": "Notificador d'etiquetes i comptes múltiples per a Google Mail (Gmail)",
+        "description": ""
+    },
+    "log_in_to_your_account": {
+        "message": "Si us plau, accedeix al teu compte de Gmail",
+        "description": ""
+    },
+    "msg_1": {
+        "message": "La pestanya ja s'ha obert. Fes clic al botó de la barra d'eines per obrir Gmail en una nova pestanya o selecciona una pestanya de Gmail existent.",
+        "description": ""
+    },
+    "msg_2": {
+        "message": "S'ha copiat l'enllaç al porta-retalls.",
+        "description": ""
+    },
+    "msg_3": {
+        "message": "S'ha copiat el text seleccionat al porta-retalls.",
+        "description": ""
+    },
+    "msg_4": {
+        "message": "Nota: per tal que el notificador funcioni correctament, cal estar connectat al compte de Google.",
+        "description": ""
+    },
+    "msg_5": {
+        "message": "Selecciona un fitxer de so",
+        "description": ""
+    },
+    "label_1": {
+        "message": "Actualitza",
+        "description": ""
+    },
+    "label_2": {
+        "message": "Opcions",
+        "description": ""
+    },
+    "label_3": {
+        "message": "Deshabilitar totes les notificacions",
+        "description": ""
+    },
+    "label_4": {
+        "message": "Durant 5 minuts",
+        "description": ""
+    },
+    "label_5": {
+        "message": "Durant 15 minuts",
+        "description": ""
+    },
+    "label_6": {
+        "message": "Durant 30 minuts",
+        "description": ""
+    },
+    "label_7": {
+        "message": "Durant 1 hora",
+        "description": ""
+    },
+    "label_8": {
+        "message": "Durant 2 hores",
+        "description": ""
+    },
+    "label_9": {
+        "message": "Durant 5 hores",
+        "description": ""
+    },
+    "label_13": {
+        "message": "Durant un període de temps personalitzat",
+        "description": ""
+    },
+    "label_10": {
+        "message": "Habilitar notificacions (sessió)",
+        "description": ""
+    },
+    "label_11": {
+        "message": "Redacta un correu electrònic",
+        "description": ""
+    },
+    "label_12": {
+        "message": "Obrir PMFs",
+        "description": ""
+    },
+    "label_14": {
+        "message": "Comptes connectats",
+        "description": ""
+    },
+    "unknown": {
+        "message": "desconegut",
+        "description": ""
+    },
+    "and": {
+        "message": "i",
+        "description": ""
+    },
+    "log_into_your_account": {
+        "message": "Si us plau, connecta't al compte",
+        "description": ""
+    },
+    "notification": {
+        "message": "De: [author_email][break]Títol: [title][break]Contingut: [summary]",
+        "description": ""
+    },
+    "options_title": {
+        "message": "Opcions - Gmail™ Notifier",
+        "description": ""
+    },
+    "options_inshort": {
+        "message": "Notificador d'etiquetes i comptes múltiples per a Google Mail (Gmail).",
+        "description": ""
+    },
+    "options_donation": {
+        "message": "Dona suport al desenvolupament",
+        "description": ""
+    },
+    "options_timings": {
+        "message": "Temporitzadors:",
+        "description": ""
+    },
+    "options_timings_l1": {
+        "message": "Comprova nous correus electrònics cada (en segons):",
+        "description": ""
+    },
+    "options_timings_l2": {
+        "message": "El període mínim són 10 segons.",
+        "description": ""
+    },
+    "options_timings_l3": {
+        "message": "Recorda tots els correus electrònics sense llegir cada (en minuts):",
+        "description": ""
+    },
+    "options_timings_l4": {
+        "message": "Estableix el valor a zero per a recordatoris no periòdics.",
+        "description": ""
+    },
+    "options_timings_l5": {
+        "message": "El període mínim són 5 minuts.",
+        "description": ""
+    },
+    "options_timings_l6": {
+        "message": "Els valors diferents de zero dispararan notificacions d'escriptori i alertes sonores (semblants a l'arribada d'un nou correu electrònic) eternament si té correus electrònics sense llegir.",
+        "description": ""
+    },
+    "options_timings_l7": {
+        "message": "No comprovar nous correus electrònics en obrir durant (en segons):",
+        "description": ""
+    },
+    "options_timings_l8": {
+        "message": "Estableix el valor a zero per no comprovar els correus electrònics fins a la primera actualització manual (No disponible a Safari].",
+        "description": ""
+    },
+    "options_gmail": {
+        "message": "Gmail:",
+        "description": ""
+    },
+    "options_gmail_1": {
+        "message": "Compte principal (/mail/u/0/)",
+        "description": ""
+    },
+    "options_gmail_2": {
+        "message": "Separa les etiquetes amb \",\" (coma).",
+        "description": ""
+    },
+    "options_gmail_3": {
+        "message": "Compte secundari (/mail/u/1)",
+        "description": ""
+    },
+    "options_gmail_4": {
+        "message": "Compte terciari (/mail/u/2/)",
+        "description": ""
+    },
+    "options_gmail_5": {
+        "message": "Compte quaternari (/mail/u/3/)",
+        "description": ""
+    },
+    "options_gmail_6": {
+        "message": "Compte quinari (/mail/u/4/)",
+        "description": ""
+    },
+    "options_gmail_7": {
+        "message": "Compte senari (/mail/u/5/)",
+        "description": ""
+    },
+    "options_gmail_8": {
+        "message": "Marca el missatge com a llegit en el moment d'arxivar-lo",
+        "description": ""
+    },
+    "options_gmail_15": {
+        "message": "Algunes etiquetes populars:",
+        "description": ""
+    },
+    "options_gmail_10": {
+        "message": "Rebre notificacions per a les següents etiquetes i comptes:",
+        "description": ""
+    },
+    "options_gmail_11": {
+        "message": "Canals personalitzats",
+        "description": ""
+    },
+    "options_gmail_12": {
+        "message": "Separa els canals amb \",\" (coma). Canal d'exemple: https://mail.google.com/mail/u/0/feed/atom/inbox",
+        "description": ""
+    },
+    "options_gmail_13": {
+        "message": "Nota: el número màxim per a totes les etiquetes excepte \"safata d'entrada\" és 20 (Google només dona la informació per a les 20 entrades més recents)",
+        "description": ""
+    },
+    "options_gmail_14": {
+        "message": "Nota: per tal que el Notificador comprovi més de 5 comptes, afegeix-ne les adreces al camp \"Canals personalitzats\". Per exemple, per comprovar els comptes sisè i setè, afegeix: https://mail.google.com/mail/u/6/feed/atom/inbox, https://mail.google.com/mail/u/7/feed/atom/inbox",
+        "description": ""
+    },
+    "options_notifications": {
+        "message": "Notificacions:",
+        "description": ""
+    },
+    "options_notifications_1": {
+        "message": "Mostra notificacions d'escriptori per a nous correus electrònics",
+        "description": ""
+    },
+    "options_notifications_2": {
+        "message": "Mostra notificacions d'escriptori durant (en segons):",
+        "description": ""
+    },
+    "options_notifications_3": {
+        "message": "Aquesta opció podria no funcionar segons el sistema operatiu.",
+        "description": ""
+    },
+    "options_notifications_4": {
+        "message": "Format de la notificació",
+        "description": ""
+    },
+    "options_notifications_5": {
+        "message": "Variables disponibles:",
+        "description": ""
+    },
+    "options_notifications_6": {
+        "message": "Talla les notificacions més llargues de",
+        "description": ""
+    },
+    "options_notifications_7": {
+        "message": "caràcters per als camps [title] i [summary].",
+        "description": ""
+    },
+    "options_notifications_8": {
+        "message": "Per no tenir truncament de l'el·lipsi, utilitza un número gran.",
+        "description": ""
+    },
+    "options_notifications_9": {
+        "message": "Reprodueix el so d'alerta per a nous correus electrònics",
+        "description": ""
+    },
+    "options_notifications_10": {
+        "message": "Nota per a usuaris de Mac. Des de Firefox 28.0, totes les notificacions d'escriptori es gestionen des del Centre de Notificacions de Mac, el qual genera un so d'alerta addicional. Cal desactivar aquesta notificació sonora o bé la generada pel Centre de Notificacions.",
+        "description": ""
+    },
+    "options_notifications_11": {
+        "message": "Mostra \"Notificació a la barra de Windows\" o \"Notificació a la barra de Mac OS\"",
+        "description": ""
+    },
+    "options_notifications_12": {
+        "message": "Les notificacions a la barra de tasques no estan suportades en sistemes operatius Linux actualment.",
+        "description": ""
+    },
+    "options_notifications_13": {
+        "message": "Obre el tauler d'eines en fer clic a la icona de notificació de la barra de tasques (només a Windows, beta)",
+        "description": ""
+    },
+    "options_notifications_14": {
+        "message": "Aquesta funcionalitat és altament experimental i pot fer que el navegador Firefox esdevingui inestable. [Cal reiniciar].",
+        "description": ""
+    },
+    "options_notifications_15": {
+        "message": "El so de notificació per defecte és",
+        "description": ""
+    },
+    "options_notifications_16": {
+        "message": "Alerta per defecte de Gmail Notifier",
+        "description": ""
+    },
+    "options_notifications_17": {
+        "message": "Campana d'alerta de Checker Plus",
+        "description": ""
+    },
+    "options_notifications_18": {
+        "message": "So d'alerta de Checker Plus",
+        "description": ""
+    },
+    "options_notifications_19": {
+        "message": "Alerta de correu electrònic de Windows",
+        "description": ""
+    },
+    "options_notifications_20": {
+        "message": "So definit per l'usuari",
+        "description": ""
+    },
+    "options_notifications_21": {
+        "message": "El so de notificació definit per l'usuari és",
+        "description": ""
+    },
+    "options_notifications_22": {
+        "message": "Si el navegador no reprodueix el so de notificació personalitzat, intenta convertir-lo a format WAV senzill utilitzant una eina de conversió en línia.",
+        "description": ""
+    },
+    "options_notifications_35": {
+        "message": "Per seleccionar un nou so personalitzat, primer selecciona un so predefinit i després canvia l'opció a so personalitzat",
+        "description": ""
+    },
+    "options_notifications_23": {
+        "message": "El volum de la notificació sonar és",
+        "description": ""
+    },
+    "options_notifications_24": {
+        "message": "El volum és un número entre 0 i 100, on 100 és el volum més alt (per defecte).",
+        "description": ""
+    },
+    "options_notifications_25": {
+        "message": "A Safari, el més probable és que les notificacions sonores per defecte no es reprodueixin. Si és el cas, utilitza un fitxer de so personalitzat.",
+        "description": ""
+    },
+    "options_notifications_26": {
+        "message": "Sempre mostra la notificació de safata (només Windows)",
+        "description": ""
+    },
+    "options_notifications_27": {
+        "message": "Les notificacions de safata es mostraran encara que no hi hagi missatges sense llegir.",
+        "description": ""
+    },
+    "options_notifications_28": {
+        "message": "Deshabilitar totes les notificacions durant un període de temps personalitzat (en minuts):",
+        "description": ""
+    },
+    "options_notifications_29": {
+        "message": "Aquesta opció està relacionada amb el menú de clic dret al botó de la barra d'eines -> deshabilitar totes les notificacions -> període de temps personalitzat.",
+        "description": ""
+    },
+    "options_notifications_30": {
+        "message": "Combina totes les notificacions d'escriptori simultànies en una única notificació",
+        "description": ""
+    },
+    "options_notifications_31": {
+        "message": "Notificació sonora personalitzada",
+        "description": ""
+    },
+    "options_notifications_32": {
+        "message": "el nom o l'adreça de correu contenen",
+        "description": ""
+    },
+    "options_notifications_33": {
+        "message": "el títol conté",
+        "description": ""
+    },
+    "options_notifications_34": {
+        "message": "el missatge conté",
+        "description": ""
+    },
+    "options_notifications_36": {
+        "message": "Demana a Gmail evitar la redirecció a 'inbox.google.com'",
+        "description": ""
+    },
+    "options_notifications_37": {
+        "message": "Mostra la insígnia amb el número",
+        "description": ""
+    },
+    "options_notifications_38": {
+        "message": "Les accions més ràpides (marcar com a llegit, esborrar, ...) (Considera que les accions es faran en rebre les capçaleres)",
+        "description": ""
+    },
+    "options_notifications_40": {
+        "message": "Permetre accions ràpides des de l'àrea de notificació (màxim dues accions) (només Chrome)",
+        "description": ""
+    },
+    "options_notifications_41": {
+        "message": "Marca com a llegit",
+        "description": ""
+    },
+    "options_notifications_42": {
+        "message": "Arxiva",
+        "description": ""
+    },
+    "options_notifications_43": {
+        "message": "Paperera",
+        "description": ""
+    },
+    "options_tab": {
+        "message": "Obertura de pestanya:",
+        "description": ""
+    },
+    "options_tab_1": {
+        "message": "Cerca comptes de Gmail oberts només a la finestra activa",
+        "description": ""
+    },
+    "options_tab_2": {
+        "message": "No cerquis comptes de Gmail oberts en altres finestres del navegador. Si Gmail no està obert a la finestra activa, obre una nova pestanya.",
+        "description": ""
+    },
+    "options_tab_3": {
+        "message": "Obre un nou compte de Gmail després de la pestanya activa",
+        "description": ""
+    },
+    "options_tab_4": {
+        "message": "Obre el compte de Gmail a la pestanya activa",
+        "description": ""
+    },
+    "options_tab_5": {
+        "message": "Obre el compte de Gmail en una pestanya a part",
+        "description": ""
+    },
+    "options_tab_6": {
+        "message": "Obre el compte de Gmail en una nova finestra",
+        "description": ""
+    },
+    "options_tab_7": {
+        "message": "Utilitza sempre pestanyes en blanc enlloc d'obrir una nova pestanya quan s'activi l'opció d'obrir en una pestanya",
+        "description": ""
+    },
+    "options_tab_8": {
+        "message": "Ignora les pestanyes obertes amb Gmail",
+        "description": ""
+    },
+    "options_tab_9": {
+        "message": "Si està desmarcat, Gmail Notifier comprova si hi ha Gmail obert a qualsevol finestra oberta i activarà la pestsanya si s'ha sol·licitat obrir-ne.",
+        "description": ""
+    },
+    "options_tab_10": {
+        "message": "Obre correus electrònics en mode HTML bàsic",
+        "description": ""
+    },
+    "options_tab_11": {
+        "message": "Obre el correu electrònic sense llegir més recent enlloc d'obrir la safata d'entrada",
+        "description": ""
+    },
+    "options_toolbar": {
+        "message": "Barra d'eines:",
+        "description": ""
+    },
+    "options_toolbar_1": {
+        "message": "Comportament del botó de la barra d'eines",
+        "description": ""
+    },
+    "options_toolbar_2": {
+        "message": "Obre sempre el tauler de previsualització",
+        "description": ""
+    },
+    "options_toolbar_3": {
+        "message": "Obre el compte de Gmail si només s'ha connectat un compte",
+        "description": ""
+    },
+    "options_toolbar_18": {
+        "message": "Obre el compte de Gmail (forçat)",
+        "description": ""
+    },
+    "options_toolbar_4": {
+        "message": "Mode del tauler d'eines",
+        "description": ""
+    },
+    "options_toolbar_5": {
+        "message": "Mostra només el missatge",
+        "description": ""
+    },
+    "options_toolbar_6": {
+        "message": "Mostra tot el contingut",
+        "description": ""
+    },
+    "options_toolbar_7": {
+        "message": "L'amplada del tauler d'eines amb tot el contingut és (en píxels):",
+        "description": ""
+    },
+    "options_toolbar_8": {
+        "message": "L'amplada mínima és de 500px.",
+        "description": ""
+    },
+    "options_toolbar_9": {
+        "message": "L'alçada del tauler d'eines amb tot el contingut és (en píxels):",
+        "description": ""
+    },
+    "options_toolbar_10": {
+        "message": "L'alçada mínima és de 500px.",
+        "description": ""
+    },
+    "options_toolbar_11": {
+        "message": "Permet dreceres de teclat al tauler d'eines",
+        "description": ""
+    },
+    "options_toolbar_12": {
+        "message": "!: Marca com a brossa, #: Paperera, e: Arxiva, Majúscules + i: Marca com a llegit.",
+        "description": ""
+    },
+    "options_toolbar_13": {
+        "message": "Mostra els correus electrònics com a HTML en mode de contingut sencer",
+        "description": ""
+    },
+    "options_toolbar_14": {
+        "message": "Desmarca aquesta opció per mostrar el contingut sencer només amb text.",
+        "description": ""
+    },
+    "options_toolbar_15": {
+        "message": "Clic del mig al botó de la barra d'eines per a",
+        "description": ""
+    },
+    "options_toolbar_16": {
+        "message": "Actualitza tots els comptes",
+        "description": ""
+    },
+    "options_toolbar_17": {
+        "message": "Obre el compte de Gmail principal",
+        "description": ""
+    },
+    "options_misc": {
+        "message": "Diversos:",
+        "description": ""
+    },
+    "options_misc_1": {
+        "message": "Ordena els comptes alfabèticament",
+        "description": ""
+    },
+    "options_misc_2": {
+        "message": "El tipus d'ordre per defecte és l'ordre de connexió.",
+        "description": ""
+    },
+    "options_misc_3": {
+        "message": "El patró de color de la barra d'eines és",
+        "description": ""
+    },
+    "options_misc_4": {
+        "message": "Color gris per a \"No hi ha missatges sense llegir\" i color blau per a \"Desconnectat\"",
+        "description": ""
+    },
+    "options_misc_5": {
+        "message": "Color blau per a \"No hi ha missatges sense llegir\" i color gris per a \"Desconnectat\"",
+        "description": ""
+    },
+    "options_misc_9": {
+        "message": "Color vermell per a \"No hi ha missatges sense llegir\" i color gris per a \"Desconnectat\"",
+        "description": ""
+    },
+    "options_misc_6": {
+        "message": "Mostra notificacions d'escriptori per avisar que Gmail ja està obert a la pestanya activa",
+        "description": ""
+    },
+    "options_misc_7": {
+        "message": "Mostra la pàgina de benvinguda en actualitzar",
+        "description": ""
+    },
+    "options_misc_8": {
+        "message": "Restableix les opcions de fàbrica",
+        "description": ""
+    },
+    "options_misc_10": {
+        "message": "Només dispara notificacions d'escriptori i sonores quan un correu electrònic hagi arribat fa menys de (en minuts):",
+        "description": ""
+    },
+    "options_misc_11": {
+        "message": "Establint aquesta opció a zero no es generarà cap notificació d'escriptori o sonora. Malgrat tot, sí apareixerà la insígnia.",
+        "description": ""
+    },
+    "options_misc_12": {
+        "message": "No incloure informació d'accés al text de l'indicador de funció",
+        "description": ""
+    },
+    "options_misc_13": {
+        "message": "Per defecte, el notificador actualitza el text de l'indicador de funció amb informació d'accés. Desmarcant aquesta opció, el text mantindrà el valor per defecte.",
+        "description": ""
+    },
+    "options_misc_14": {
+        "message": "No mostrar a la insígnia el número exacte de correus electrònics sense llegir si és més gran que 999",
+        "description": ""
+    },
+    "options_misc_15": {
+        "message": "Obre la pàgina de PMFs després d'actualitzar",
+        "description": ""
+    },
+    "options_plugins": {
+        "message": "Extensions:",
+        "description": ""
+    },
+    "options_plugins_1": {
+        "message": "Etiquetes i botó estrella de Gmail (experimental)",
+        "description": ""
+    },
+    "options_plugins_2": {
+        "message": "Aquesta extensió mostra el botó estrella, així com les etiquets del fil a la finestra emergent (només en mode estès).",
+        "description": ""
+    },
+    "options_px": {
+        "message": "px",
+        "description": ""
+    },
+    "options_empty": {
+        "message": "no definit",
+        "description": ""
+    },
+    "options_button_test": {
+        "message": "Reprodueix",
+        "description": ""
+    },
+    "options_button_reset": {
+        "message": "Restableix les opcions",
+        "description": ""
+    },
+    "popup_settings": {
+        "message": "opcions",
+        "description": ""
+    },
+    "popup_of": {
+        "message": "de",
+        "description": ""
+    },
+    "popup_wait": {
+        "message": "Espera...",
+        "description": ""
+    },
+    "popup_date_format": {
+        "message": "%mm %dd, %yy",
+        "description": ""
+    },
+    "popup_no_subject": {
+        "message": "(sense títol)",
+        "description": ""
+    },
+    "popup_open_settings": {
+        "message": "Obre les opcions",
+        "description": ""
+    },
+    "popup_open_inbox": {
+        "message": "Obre la safata d'entrada",
+        "description": ""
+    },
+    "popup_archive": {
+        "message": "Arxiva",
+        "description": ""
+    },
+    "popup_spam": {
+        "message": "Brossa",
+        "description": ""
+    },
+    "popup_trash": {
+        "message": "Paperera",
+        "description": ""
+    },
+    "popup_refresh": {
+        "message": "Actualitza",
+        "description": ""
+    },
+    "popup_read": {
+        "message": "Marca com a llegit",
+        "description": ""
+    },
+    "popup_read_all": {
+        "message": "Marca'ls tots com a no llegits",
+        "description": ""
+    },
+    "popup_msg_1": {
+        "message": "ara mateix",
+        "description": ""
+    },
+    "popup_msg_2": {
+        "message": "Fa 1 minut",
+        "description": ""
+    },
+    "popup_msg_3_format": {
+        "message": "Fa %d minuts",
+        "description": ""
+    },
+    "popup_msg_4": {
+        "message": "Fa 1 hora",
+        "description": ""
+    },
+    "popup_msg_5": {
+        "message": "hores",
+        "description": ""
+    },
+    "popup_msg_6": {
+        "message": "Ahir",
+        "description": ""
+    },
+    "popup_msg_7_format": {
+        "message": "Fa %d dies",
+        "description": ""
+    },
+    "popup_msg_8_format": {
+        "message": "Fa %d setmanes",
+        "description": ""
+    },
+    "popup_msg_9_format": {
+        "message": "Fa %d mesos",
+        "description": ""
+    },
+    "popup_msg_10": {
+        "message": "Gener",
+        "description": ""
+    },
+    "popup_msg_11": {
+        "message": "Febrer",
+        "description": ""
+    },
+    "popup_msg_12": {
+        "message": "Març",
+        "description": ""
+    },
+    "popup_msg_13": {
+        "message": "Abril",
+        "description": ""
+    },
+    "popup_msg_14": {
+        "message": "Maig",
+        "description": ""
+    },
+    "popup_msg_15": {
+        "message": "Juny",
+        "description": ""
+    },
+    "popup_msg_16": {
+        "message": "Juliol",
+        "description": ""
+    },
+    "popup_msg_17": {
+        "message": "Agost",
+        "description": ""
+    },
+    "popup_msg_18": {
+        "message": "Setembre",
+        "description": ""
+    },
+    "popup_msg_19": {
+        "message": "Octubre",
+        "description": ""
+    },
+    "popup_msg_20": {
+        "message": "Novembre",
+        "description": ""
+    },
+    "popup_msg_21": {
+        "message": "Desembre",
+        "description": ""
+    },
+    "settings_open_title": {
+        "message": "Obre la pàgina d'opcions",
+        "description": ""
+    },
+    "settings_open_label": {
+        "message": "Obre les opcions",
+        "description": ""
+    },
+    "gmail": {
+        "message": "Notificador per a Gmail™",
+        "description": ""
+    }
+}

@@ -1,0 +1,762 @@
+{
+    "toolbar_label": {
+        "message": "Обавештења за Gmail™",
+        "description": ""
+    },
+    "tooltip_1": {
+        "message": "Леви клик: Отвори Gmail или панел прегледа поште",
+        "description": ""
+    },
+    "tooltip_2": {
+        "message": "Средњи (или Ctrl+Леви) клик: Освежи све налоге",
+        "description": ""
+    },
+    "tooltip_3": {
+        "message": "Десни клик: Избор налога",
+        "description": ""
+    },
+    "description": {
+        "message": "Обавештења за више Google Mail (Gmail) налога",
+        "description": ""
+    },
+    "log_in_to_your_account": {
+        "message": "Пријавите се својим Gmail налогом",
+        "description": ""
+    },
+    "msg_1": {
+        "message": "Картица је већ отворена. Кликните на дугме на алатној траци да отворите Gmail у новој картици или да се пребаците на постојећу Gmail картицу.",
+        "description": ""
+    },
+    "msg_2": {
+        "message": "Линк је копиран у клипборд.",
+        "description": ""
+    },
+    "msg_3": {
+        "message": "Одабрани текст је копиран у клипборд.",
+        "description": ""
+    },
+    "msg_4": {
+        "message": "Напомена: Да би обавештења радила исправно, морате бити пријављени на свој Google налог.",
+        "description": ""
+    },
+    "msg_5": {
+        "message": "Изаберите датотеку звучног обавештења",
+        "description": ""
+    },
+    "label_1": {
+        "message": "Освежи",
+        "description": ""
+    },
+    "label_2": {
+        "message": "Подешавања",
+        "description": ""
+    },
+    "label_3": {
+        "message": "Онемогући сва обавештења",
+        "description": ""
+    },
+    "label_4": {
+        "message": "На 5 минута",
+        "description": ""
+    },
+    "label_5": {
+        "message": "На 15 минута",
+        "description": ""
+    },
+    "label_6": {
+        "message": "На 30 минута",
+        "description": ""
+    },
+    "label_7": {
+        "message": "На 1 сат",
+        "description": ""
+    },
+    "label_8": {
+        "message": "На 2 сата",
+        "description": ""
+    },
+    "label_9": {
+        "message": "На 5 сати",
+        "description": ""
+    },
+    "label_13": {
+        "message": "У прилагођеном временском периоду",
+        "description": ""
+    },
+    "label_10": {
+        "message": "Омогући обавештења (сесија)",
+        "description": ""
+    },
+    "label_11": {
+        "message": "Напиши нову поруку",
+        "description": ""
+    },
+    "label_12": {
+        "message": "Отвори FAQ",
+        "description": ""
+    },
+    "label_14": {
+        "message": "Пријављени налози",
+        "description": ""
+    },
+    "unknown": {
+        "message": "непознат",
+        "description": ""
+    },
+    "and": {
+        "message": "и",
+        "description": ""
+    },
+    "log_into_your_account": {
+        "message": "Пријавите се својим Gmail налогом",
+        "description": ""
+    },
+    "notification": {
+        "message": "Од: [author_email][break]Наслов: [title][break]Кратак преглед: [summary]",
+        "description": ""
+    },
+    "options_title": {
+        "message": "Gmail™ Notifier - Опције",
+        "description": ""
+    },
+    "options_inshort": {
+        "message": "Обавештења за више Google Mail (Gmail) налога.",
+        "description": ""
+    },
+    "options_donation": {
+        "message": "Подржи развој",
+        "description": ""
+    },
+    "options_timings": {
+        "message": "Подешавања времена",
+        "description": ""
+    },
+    "options_timings_l1": {
+        "message": "Провери нову пошту сваких (у секундама):",
+        "description": ""
+    },
+    "options_timings_l2": {
+        "message": "Минимални период је 10 секунди.",
+        "description": ""
+    },
+    "options_timings_l3": {
+        "message": "Подсети на сву непрочитану пошту сваких (у минутима):",
+        "description": ""
+    },
+    "options_timings_l4": {
+        "message": "Постави вредност на нула за искључивање подсетника.",
+        "description": ""
+    },
+    "options_timings_l5": {
+        "message": "Минимални период је 5 минута.",
+        "description": ""
+    },
+    "options_timings_l6": {
+        "message": "Све вредности осим нуле покрећу десктоп обавештење и звучни сигнал (као када пристигне нова пошта) у задатим временским периодима ако имате непрочитану пошту.",
+        "description": ""
+    },
+    "options_timings_l7": {
+        "message": "Не проверавај нову пошту при покретању у року од (у секундама):",
+        "description": ""
+    },
+    "options_timings_l8": {
+        "message": "Постави вредност на нула за непроверавање поште до првог ручног ажурирања [није доступно у Safari прегледачу].",
+        "description": ""
+    },
+    "options_gmail": {
+        "message": "Gmail:",
+        "description": ""
+    },
+    "options_gmail_1": {
+        "message": "Основни налог (/mail/u/0/)",
+        "description": ""
+    },
+    "options_gmail_2": {
+        "message": "Одвојити ознаке \",\" (зарезом).",
+        "description": ""
+    },
+    "options_gmail_3": {
+        "message": "Други налог (/mail/u/1/)",
+        "description": ""
+    },
+    "options_gmail_4": {
+        "message": "Трећи налог (/mail/u/2/)",
+        "description": ""
+    },
+    "options_gmail_5": {
+        "message": "Четврти налог (/mail/u/3/)",
+        "description": ""
+    },
+    "options_gmail_6": {
+        "message": "Пети налог (/mail/u/4/)",
+        "description": ""
+    },
+    "options_gmail_7": {
+        "message": "Шести налог (/mail/u/5/)",
+        "description": ""
+    },
+    "options_gmail_8": {
+        "message": "Означи поруке као прочитане при архивирању",
+        "description": ""
+    },
+    "options_gmail_15": {
+        "message": "Неке популарне ознаке:",
+        "description": ""
+    },
+    "options_gmail_10": {
+        "message": "Примај обавештења за следеће ознаке и налоге:",
+        "description": ""
+    },
+    "options_gmail_11": {
+        "message": "Прилагођени канали:",
+        "description": ""
+    },
+    "options_gmail_12": {
+        "message": "Одвојити канале \",\" (зарезом). Пример канала: https://mail.google.com/mail/u/0/feed/atom/inbox",
+        "description": ""
+    },
+    "options_gmail_13": {
+        "message": "Напомена: максимални број за све ознаке осим за \"inbox\" је 20 (Google канали подржавају само 20 најновијих ставки)",
+        "description": ""
+    },
+    "options_gmail_14": {
+        "message": "Напомена: да би Notifier пратио више од 5 налога, додајте адресе канала у поље \"Прилагођени канали\". На пример, за праћење 6. и 7. налога додајте: https://mail.google.com/mail/u/6/feed/atom/inbox, https://mail.google.com/mail/u/7/feed/atom/inbox",
+        "description": ""
+    },
+    "options_notifications": {
+        "message": "Обавештења:",
+        "description": ""
+    },
+    "options_notifications_1": {
+        "message": "Прикажи десктоп обавештења о новој пошти",
+        "description": ""
+    },
+    "options_notifications_2": {
+        "message": "Прикажи десктоп обавештења у трајању од (у секундама):",
+        "description": ""
+    },
+    "options_notifications_3": {
+        "message": "Ова опција можда неће радити на Вашем оперативном систему.",
+        "description": ""
+    },
+    "options_notifications_4": {
+        "message": "Формат обавештења",
+        "description": ""
+    },
+    "options_notifications_5": {
+        "message": "Доступне варијабле:",
+        "description": ""
+    },
+    "options_notifications_6": {
+        "message": "Скрати обавештења дужа од",
+        "description": ""
+    },
+    "options_notifications_7": {
+        "message": "карактера у пољима [title] и [summary].",
+        "description": ""
+    },
+    "options_notifications_8": {
+        "message": "Да би се избегло сечење поруке, употребите велики број.",
+        "description": ""
+    },
+    "options_notifications_9": {
+        "message": "Пусти звучно обавештење о новој пошти",
+        "description": ""
+    },
+    "options_notifications_10": {
+        "message": "Савет за кориснике Mac система. Од Firefox 28.0 верзије, свим десктоп обавештењима управља Mac Notification Center који емитује додатни звучни сигнал. Потребно је да одчекирате ово звучно обавештење или оно које је генерисано од стране Notification Center Mac система.",
+        "description": ""
+    },
+    "options_notifications_11": {
+        "message": "Прикажи \"Windows обавештења на траци задатака\" или \"Mac OS Dock обавештења\"",
+        "description": ""
+    },
+    "options_notifications_12": {
+        "message": "Обавештења на траци задатака нису подржана у Linux систему.",
+        "description": ""
+    },
+    "options_notifications_13": {
+        "message": "Отвори панел прегледа поште када кликнем на иконицу обавештења на траци задатака (само Windows, бета)",
+        "description": ""
+    },
+    "options_notifications_14": {
+        "message": "Ово је експериментална функција и може изазвати нестабилност Firefox прегледача. [Неопходно је поновно покретање].",
+        "description": ""
+    },
+    "options_notifications_15": {
+        "message": "Подразумевано звучно обавештење је",
+        "description": ""
+    },
+    "options_notifications_16": {
+        "message": "Gmail Notifier подразумевани звук",
+        "description": ""
+    },
+    "options_notifications_17": {
+        "message": "Checker Plus bell",
+        "description": ""
+    },
+    "options_notifications_18": {
+        "message": "Checker Plus ding",
+        "description": ""
+    },
+    "options_notifications_19": {
+        "message": "Windows email звук",
+        "description": ""
+    },
+    "options_notifications_20": {
+        "message": "Кориснички дефинисани звук",
+        "description": ""
+    },
+    "options_notifications_21": {
+        "message": "Кориснички дефинисани звук обавештења је",
+        "description": ""
+    },
+    "options_notifications_22": {
+        "message": "Ако ваш прегледач не емитује прилагођени звук обавештења, покушајте да га конвертујете у WAV формат користећи алат за конвертовање на мрежи.",
+        "description": ""
+    },
+    "options_notifications_35": {
+        "message": "За избор новог прилагођеног звука, изаберите прво уграђени звук а затим промените опцију на прилагођени звук",
+        "description": ""
+    },
+    "options_notifications_23": {
+        "message": "Јачина звука обавештења",
+        "description": ""
+    },
+    "options_notifications_24": {
+        "message": "Јачина је број од 0 до 100 при чему је 100 најгласније (подразумевано).",
+        "description": ""
+    },
+    "options_notifications_25": {
+        "message": "У Ѕafari прегледачу највероватније се подразумевани звук обавештења неће емитовати исправно, у том случају употребите прилагођени звук за обавештење.",
+        "description": ""
+    },
+    "options_notifications_26": {
+        "message": "Увек прикажи иконицу обавештења у системској траци (само Windows)",
+        "description": ""
+    },
+    "options_notifications_27": {
+        "message": "Иконица обавештења у системској траци ће бити приказана чак и ако нема непрочитаних порука.",
+        "description": ""
+    },
+    "options_notifications_28": {
+        "message": "Онемогући сва обавештења у прилагођеном временском периоду (у минутима)",
+        "description": ""
+    },
+    "options_notifications_29": {
+        "message": "Ова опција се односи на мени на десном клику на дугмету на алатној траци  -> онемогући сва обавештења -> прилагођени временски период",
+        "description": ""
+    },
+    "options_notifications_30": {
+        "message": "Споји сва истовремена десктоп обавештења у једно обавештење",
+        "description": ""
+    },
+    "options_notifications_31": {
+        "message": "Прилагођени звук обавештења",
+        "description": ""
+    },
+    "options_notifications_32": {
+        "message": "име или е-пошта садржи",
+        "description": ""
+    },
+    "options_notifications_33": {
+        "message": "наслов е-поште садржи",
+        "description": ""
+    },
+    "options_notifications_34": {
+        "message": "кратак преглед е-поште садржи",
+        "description": ""
+    },
+    "options_notifications_36": {
+        "message": "Захтевај да Gmail спречи преусмеравање на 'inbox.google.com'",
+        "description": ""
+    },
+    "options_notifications_37": {
+        "message": "Прикажи бројчану ознаку",
+        "description": ""
+    },
+    "options_notifications_38": {
+        "message": "Брже радње (означи као прочитано, избриши...) (Размотрите радње које треба решити када се примају заглавља",
+        "description": ""
+    },
+    "options_notifications_40": {
+        "message": "Дозволи брзе радње из поља обавештења (највише две радње) (само Chrome)",
+        "description": ""
+    },
+    "options_notifications_41": {
+        "message": "Означи као прочитано",
+        "description": ""
+    },
+    "options_notifications_42": {
+        "message": "Архивирај",
+        "description": ""
+    },
+    "options_notifications_43": {
+        "message": "Избриши",
+        "description": ""
+    },
+    "options_tab": {
+        "message": "Отварање картица:",
+        "description": ""
+    },
+    "options_tab_1": {
+        "message": "Потражи отворени Gmail налог само у активном прозору",
+        "description": ""
+    },
+    "options_tab_2": {
+        "message": "Не тражи у другим прозорима прегледача отворене Gmail налоге. Ако Gmail није отворен у активном прозору, отвориће се у новој картици.",
+        "description": ""
+    },
+    "options_tab_3": {
+        "message": "Отвори нови Gmail налог поред активне картице",
+        "description": ""
+    },
+    "options_tab_4": {
+        "message": "Отвори Gmail налог у активној картици",
+        "description": ""
+    },
+    "options_tab_5": {
+        "message": "Отвори Gmail налог у позадинској картици",
+        "description": ""
+    },
+    "options_tab_6": {
+        "message": "Отвори Gmail налог у новом прозору",
+        "description": ""
+    },
+    "options_tab_7": {
+        "message": "Увек употреби празну картицу уместо отварања нове картице (када је отварање у картици активирано)",
+        "description": ""
+    },
+    "options_tab_8": {
+        "message": "Занемари отворене Gmail картице",
+        "description": ""
+    },
+    "options_tab_9": {
+        "message": "Када је одчекирано, Gmail Notifier проверава у активном или свим отвореним прозорима да ли има отворених Gmail инстанци и пребацује на картицу када је отварање картице захтевано.",
+        "description": ""
+    },
+    "options_tab_10": {
+        "message": "Отвори пошту у основном HTML режиму",
+        "description": ""
+    },
+    "options_tab_11": {
+        "message": "Open the newest unread email instead of opening the INBOX folder",
+        "description": ""
+    },
+    "options_toolbar": {
+        "message": "Алатна трака:",
+        "description": ""
+    },
+    "options_toolbar_1": {
+        "message": "Понашање дугмета на алатној картици",
+        "description": ""
+    },
+    "options_toolbar_2": {
+        "message": "Увек отвори панел прегледа поште",
+        "description": ""
+    },
+    "options_toolbar_3": {
+        "message": "Отвори Gmail налог ако је само један налог пријављен",
+        "description": ""
+    },
+    "options_toolbar_18": {
+        "message": "Отвори Gmail налог (принудно)",
+        "description": ""
+    },
+    "options_toolbar_4": {
+        "message": "Режим приказа панела",
+        "description": ""
+    },
+    "options_toolbar_5": {
+        "message": "Прикажи кратак преглед",
+        "description": ""
+    },
+    "options_toolbar_6": {
+        "message": "Прикажи пун садржај",
+        "description": ""
+    },
+    "options_toolbar_7": {
+        "message": "Ширина панела у режиму приказа пуног садржаја (у пикселима):",
+        "description": ""
+    },
+    "options_toolbar_8": {
+        "message": "Минимална ширина је 500 пиксела.",
+        "description": ""
+    },
+    "options_toolbar_9": {
+        "message": "Висина панела у режиму приказа пуног садржаја (у пикселима):",
+        "description": ""
+    },
+    "options_toolbar_10": {
+        "message": "Минимална висина је 500 пиксела.",
+        "description": ""
+    },
+    "options_toolbar_11": {
+        "message": "Омогући тастерске пречице у панелу",
+        "description": ""
+    },
+    "options_toolbar_12": {
+        "message": "!: Пријави непожељну поруку, #: Отпад, e: Архивирај, Shift + i: Означи као прочитано.",
+        "description": ""
+    },
+    "options_toolbar_13": {
+        "message": "Прикажи пошту као HTML у режиму приказа пуног садржаја",
+        "description": ""
+    },
+    "options_toolbar_14": {
+        "message": "Одчекирајте ако више волите приказ само текста у режиму приказа пуног садржаја.",
+        "description": ""
+    },
+    "options_toolbar_15": {
+        "message": "Средњи клик на дугме на алатној траци",
+        "description": ""
+    },
+    "options_toolbar_16": {
+        "message": "Освежава све налоге",
+        "description": ""
+    },
+    "options_toolbar_17": {
+        "message": "Отвара основни Gmail налог",
+        "description": ""
+    },
+    "options_misc": {
+        "message": "Остало:",
+        "description": ""
+    },
+    "options_misc_1": {
+        "message": "Поређај налоге по алфабету",
+        "description": ""
+    },
+    "options_misc_2": {
+        "message": "Подразумевани редослед је по времену пријављивања.",
+        "description": ""
+    },
+    "options_misc_3": {
+        "message": "Боја иконице на алатној траци",
+        "description": ""
+    },
+    "options_misc_4": {
+        "message": "Сива боја за \"Нема непрочитаних\" и плава за \"Неповезан\"",
+        "description": ""
+    },
+    "options_misc_5": {
+        "message": "Плава боја за \"Нема непрочитаних\" и сива за \"Неповезан\"",
+        "description": ""
+    },
+    "options_misc_9": {
+        "message": "Црвена боја за \"Нема непрочитаних\" и сива за \"Неповезан\"",
+        "description": ""
+    },
+    "options_misc_6": {
+        "message": "Прикажи десктоп обавештење као упозорење да је Gmail већ отворен у активној картици",
+        "description": ""
+    },
+    "options_misc_7": {
+        "message": "Прикажи страницу добродошлице при надоградњи",
+        "description": ""
+    },
+    "options_misc_8": {
+        "message": "Врати сва подешавања на фабричка",
+        "description": ""
+    },
+    "options_misc_10": {
+        "message": "Покрени десктоп и звучна обавештења само за пошту пристиглу у последњих (у минутима): ",
+        "description": ""
+    },
+    "options_misc_11": {
+        "message": "Постављајући ову вредност на нула, нећете примати ни десктоп ни звучна обавештења; ипак, обавештење у виду ознаке на иконици ће бити приказано.",
+        "description": ""
+    },
+    "options_misc_12": {
+        "message": "Не обухватај детаље о пријављивању у опису алатке",
+        "description": ""
+    },
+    "options_misc_13": {
+        "message": "Подразумевано, у опису алатке на дугмету на алатној траци се приказују информације о пријављивању. Одчекирањем ове опције, опис алатке остаје на подразумеваној вредности.",
+        "description": ""
+    },
+    "options_misc_14": {
+        "message": "Не приказуј тачан број непрочитаних порука на иконици ако је већи од 999",
+        "description": ""
+    },
+    "options_misc_15": {
+        "message": "Отвори најчешће постављана питања након ажурирања",
+        "description": ""
+    },
+    "options_plugins": {
+        "message": "Додатне компоненте:",
+        "description": ""
+    },
+    "options_plugins_1": {
+        "message": "Gmail ознаке и дугме звезда (експериментално)",
+        "description": ""
+    },
+    "options_plugins_2": {
+        "message": "Ова додатна компонента приказује дугме звезда као и ознаке тема у искачућем прозору (само режим приказа пуног садржаја).",
+        "description": ""
+    },
+    "options_px": {
+        "message": "px",
+        "description": ""
+    },
+    "options_empty": {
+        "message": "недефинисано",
+        "description": ""
+    },
+    "options_button_test": {
+        "message": "Репродукуј",
+        "description": ""
+    },
+    "options_button_reset": {
+        "message": "Поништи подешавања",
+        "description": ""
+    },
+    "popup_settings": {
+        "message": "подешавања",
+        "description": ""
+    },
+    "popup_of": {
+        "message": "од",
+        "description": ""
+    },
+    "popup_wait": {
+        "message": "Сачекај...",
+        "description": ""
+    },
+    "popup_date_format": {
+        "message": "%dd. %mm %yy.",
+        "description": ""
+    },
+    "popup_no_subject": {
+        "message": "(без наслова)",
+        "description": ""
+    },
+    "popup_open_settings": {
+        "message": "Отвори подешавања",
+        "description": ""
+    },
+    "popup_open_inbox": {
+        "message": "Отвори пријемно сандуче",
+        "description": ""
+    },
+    "popup_archive": {
+        "message": "Архивирај",
+        "description": ""
+    },
+    "popup_spam": {
+        "message": "Пријави непожељну поруку",
+        "description": ""
+    },
+    "popup_trash": {
+        "message": "Избриши",
+        "description": ""
+    },
+    "popup_refresh": {
+        "message": "Освежи",
+        "description": ""
+    },
+    "popup_read": {
+        "message": "Озн. као прочитано",
+        "description": ""
+    },
+    "popup_read_all": {
+        "message": "Означи све као прочитано",
+        "description": ""
+    },
+    "popup_msg_1": {
+        "message": "управо сада",
+        "description": ""
+    },
+    "popup_msg_2": {
+        "message": "пре 1 минут",
+        "description": ""
+    },
+    "popup_msg_3_format": {
+        "message": "пре %d минута",
+        "description": ""
+    },
+    "popup_msg_4": {
+        "message": "пре 1 сат",
+        "description": ""
+    },
+    "popup_msg_5": {
+        "message": "сата/и раније",
+        "description": ""
+    },
+    "popup_msg_6": {
+        "message": "јуче",
+        "description": ""
+    },
+    "popup_msg_7_format": {
+        "message": "пре %d дана",
+        "description": ""
+    },
+    "popup_msg_8_format": {
+        "message": "пре %d седмице/а",
+        "description": ""
+    },
+    "popup_msg_9_format": {
+        "message": "пре %d месеца",
+        "description": ""
+    },
+    "popup_msg_10": {
+        "message": "јануар",
+        "description": ""
+    },
+    "popup_msg_11": {
+        "message": "фебруар",
+        "description": ""
+    },
+    "popup_msg_12": {
+        "message": "март",
+        "description": ""
+    },
+    "popup_msg_13": {
+        "message": "април",
+        "description": ""
+    },
+    "popup_msg_14": {
+        "message": "мај",
+        "description": ""
+    },
+    "popup_msg_15": {
+        "message": "јун",
+        "description": ""
+    },
+    "popup_msg_16": {
+        "message": "јул",
+        "description": ""
+    },
+    "popup_msg_17": {
+        "message": "август",
+        "description": ""
+    },
+    "popup_msg_18": {
+        "message": "септембар",
+        "description": ""
+    },
+    "popup_msg_19": {
+        "message": "октобар",
+        "description": ""
+    },
+    "popup_msg_20": {
+        "message": "новембар",
+        "description": ""
+    },
+    "popup_msg_21": {
+        "message": "децембар",
+        "description": ""
+    },
+    "settings_open_title": {
+        "message": "Отвори страницу опција (подешавања)",
+        "description": ""
+    },
+    "settings_open_label": {
+        "message": "Отвори опције",
+        "description": ""
+    },
+    "gmail": {
+        "message": "Обавештења за Gmail™",
+        "description": ""
+    }
+}

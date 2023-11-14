@@ -1,0 +1,758 @@
+{
+    "toolbar_label": {
+        "message": "Notifier for Gmail™",
+        "description": ""
+    },
+    "tooltip_1": {
+        "message": "Left click: Open Gmail or mail preview panel",
+        "description": ""
+    },
+    "tooltip_2": {
+        "message": "Middle (or Ctrl+Left) click: Refresh all accounts",
+        "description": ""
+    },
+    "tooltip_3": {
+        "message": "Right click: Account selections",
+        "description": ""
+    },
+    "description": {
+        "message": "Multiple label and account notifier for Google Mail (Gmail)",
+        "description": ""
+    },
+    "log_in_to_your_account": {
+        "message": "Please sign-in to your Gmail account",
+        "description": ""
+    },
+    "msg_1": {
+        "message": "Tab is already open. Click on the toolbar button to open Gmail in a new tab, or to switch to an existing Gmail tab.",
+        "description": ""
+    },
+    "msg_2": {
+        "message": "الرابط نُسخ إلي الحافظة.",
+        "description": ""
+    },
+    "msg_3": {
+        "message": "النص المحدد نُسخ إلي الحافظة.",
+        "description": ""
+    },
+    "msg_4": {
+        "message": "Note: For the notifier to work properly, you need to be logged-in into your Google account.",
+        "description": ""
+    },
+    "msg_5": {
+        "message": "Select an audio sound file",
+        "description": ""
+    },
+    "label_1": {
+        "message": "تحديث",
+        "description": ""
+    },
+    "label_2": {
+        "message": "الإعدادات",
+        "description": ""
+    },
+    "label_3": {
+        "message": "عدل كل الإشعارات",
+        "description": ""
+    },
+    "label_4": {
+        "message": "لـ5 دقائق",
+        "description": ""
+    },
+    "label_5": {
+        "message": "لـ 15 دقيقة",
+        "description": ""
+    },
+    "label_6": {
+        "message": "لـ 30 دقيقية",
+        "description": ""
+    },
+    "label_7": {
+        "message": "لـ 1 ساعة",
+        "description": ""
+    },
+    "label_8": {
+        "message": "لـ 2 ساعة",
+        "description": ""
+    },
+    "label_9": {
+        "message": "لـ 5 ساعات",
+        "description": ""
+    },
+    "label_13": {
+        "message": "For a custom time period",
+        "description": ""
+    },
+    "label_10": {
+        "message": "Enable notifications (session)",
+        "description": ""
+    },
+    "label_11": {
+        "message": "إنشاء إيميل",
+        "description": ""
+    },
+    "label_12": {
+        "message": "Open FAQs",
+        "description": ""
+    },
+    "label_14": {
+        "message": "Logged-in accounts",
+        "description": ""
+    },
+    "unknown": {
+        "message": "unknown",
+        "description": ""
+    },
+    "and": {
+        "message": "and",
+        "description": ""
+    },
+    "log_into_your_account": {
+        "message": "Please log into your account",
+        "description": ""
+    },
+    "notification": {
+        "message": "From: [author_email][break]Title: [title][break]Summary: [summary]",
+        "description": ""
+    },
+    "options_title": {
+        "message": "إعدادات أشعارات جوجل ميل ",
+        "description": ""
+    },
+    "options_inshort": {
+        "message": "Multiple label and account notifier for Google Mail (Gmail).",
+        "description": ""
+    },
+    "options_donation": {
+        "message": "Support Development",
+        "description": ""
+    },
+    "options_timings": {
+        "message": "Timings:",
+        "description": ""
+    },
+    "options_timings_l1": {
+        "message": "Check for new emails every (in seconds):",
+        "description": ""
+    },
+    "options_timings_l2": {
+        "message": "Minimum period is 10 seconds.",
+        "description": ""
+    },
+    "options_timings_l3": {
+        "message": "Remind for all unread emails every (in minutes):",
+        "description": ""
+    },
+    "options_timings_l4": {
+        "message": "Set the value to zero for none-periodic reminders.",
+        "description": ""
+    },
+    "options_timings_l5": {
+        "message": "Minimum period is 5 minutes.",
+        "description": ""
+    },
+    "options_timings_l6": {
+        "message": "Non-zero value fires both desktop notification and alert sound (similar to new email arrival) eternally if you have unread email(s).",
+        "description": ""
+    },
+    "options_timings_l7": {
+        "message": "Do not check for new emails on startup for (in seconds):",
+        "description": ""
+    },
+    "options_timings_l8": {
+        "message": "Set the value to zero for no email check until the first manual refresh [Not available on Safari].",
+        "description": ""
+    },
+    "options_gmail": {
+        "message": "Gmail:",
+        "description": ""
+    },
+    "options_gmail_1": {
+        "message": "Primary account (/mail/u/0/)",
+        "description": ""
+    },
+    "options_gmail_2": {
+        "message": "Separate labels by \",\" (Comma).",
+        "description": ""
+    },
+    "options_gmail_3": {
+        "message": "Secondary account (/mail/u/1/)",
+        "description": ""
+    },
+    "options_gmail_4": {
+        "message": "Tertiary account (/mail/u/2/)",
+        "description": ""
+    },
+    "options_gmail_5": {
+        "message": "Quaternary account (/mail/u/3/)",
+        "description": ""
+    },
+    "options_gmail_6": {
+        "message": "Quinary account (/mail/u/4/)",
+        "description": ""
+    },
+    "options_gmail_7": {
+        "message": "Senary account (/mail/u/5/)",
+        "description": ""
+    },
+    "options_gmail_8": {
+        "message": "Mark message as read when archiving it",
+        "description": ""
+    },
+    "options_gmail_15": {
+        "message": "Some popular labels:",
+        "description": ""
+    },
+    "options_gmail_10": {
+        "message": "Receive notifications for the following labels and accounts:",
+        "description": ""
+    },
+    "options_gmail_11": {
+        "message": "Custom feeds:",
+        "description": ""
+    },
+    "options_gmail_12": {
+        "message": "Separate feeds by \",\" (Comma). Sample feed: https://mail.google.com/mail/u/0/feed/atom/inbox",
+        "description": ""
+    },
+    "options_gmail_13": {
+        "message": "Note: maximum number for all labels except \"inbox\" is 20 (Google feeds only supply the 20 newest entries)",
+        "description": ""
+    },
+    "options_gmail_14": {
+        "message": "Note: for the Notifier to listen for more than 5 accounts, add feeds URLs to the \"Custom feeds\" field. For instance to listen to the 6 and 7th accounts add:  https://mail.google.com/mail/u/6/feed/atom/inbox,  https://mail.google.com/mail/u/7/feed/atom/inbox",
+        "description": ""
+    },
+    "options_notifications": {
+        "message": "Notifications:",
+        "description": ""
+    },
+    "options_notifications_1": {
+        "message": "Display desktop notification for new emails",
+        "description": ""
+    },
+    "options_notifications_2": {
+        "message": "Show desktop notification for (in seconds):",
+        "description": ""
+    },
+    "options_notifications_3": {
+        "message": "This option may not work based on your OS.",
+        "description": ""
+    },
+    "options_notifications_4": {
+        "message": "Notification format",
+        "description": ""
+    },
+    "options_notifications_5": {
+        "message": "Available variables:",
+        "description": ""
+    },
+    "options_notifications_6": {
+        "message": "Truncate notifications longer than",
+        "description": ""
+    },
+    "options_notifications_7": {
+        "message": "characters for [title] and [summary] fields.",
+        "description": ""
+    },
+    "options_notifications_8": {
+        "message": "To have no ellipsis truncation, use a big number here.",
+        "description": ""
+    },
+    "options_notifications_9": {
+        "message": "Play alert sound for new emails",
+        "description": ""
+    },
+    "options_notifications_10": {
+        "message": "Note for Mac users. From Firefox 28.0, all desktop notifications are handled by Mac Notification Center which causes an extra sound alert. You need to either uncheck this sound notification or the one that is generated by the Notification Center.",
+        "description": ""
+    },
+    "options_notifications_11": {
+        "message": "Display \"Windows taskbar notification\" or \"Mac OS Dock notification\"",
+        "description": ""
+    },
+    "options_notifications_12": {
+        "message": "Taskbar notifications are not supported on Linux OS at the moment.",
+        "description": ""
+    },
+    "options_notifications_13": {
+        "message": "Open toolbar panel when click on the taskbar notification icon (Windows only, beta)",
+        "description": ""
+    },
+    "options_notifications_14": {
+        "message": "This feature is highly experimental and might make your Firefox browser unstable. [Restart required].",
+        "description": ""
+    },
+    "options_notifications_15": {
+        "message": "Default sound notification is",
+        "description": ""
+    },
+    "options_notifications_16": {
+        "message": "Gmail Notifier default alert",
+        "description": ""
+    },
+    "options_notifications_17": {
+        "message": "Checker Plus bell alert",
+        "description": ""
+    },
+    "options_notifications_18": {
+        "message": "Checker Plus ding alert",
+        "description": ""
+    },
+    "options_notifications_19": {
+        "message": "Windows email alert",
+        "description": ""
+    },
+    "options_notifications_20": {
+        "message": "User defined sound",
+        "description": ""
+    },
+    "options_notifications_21": {
+        "message": "User defined notification sound is",
+        "description": ""
+    },
+    "options_notifications_22": {
+        "message": "If your browser is not playing the custom notification sound, try to convert it into a plain WAV format using an online conversion tool.",
+        "description": ""
+    },
+    "options_notifications_35": {
+        "message": "To select a new custom sound, select a built-in sound first and then change the option to custom sound",
+        "description": ""
+    },
+    "options_notifications_23": {
+        "message": "Volume of the sound notification is",
+        "description": ""
+    },
+    "options_notifications_24": {
+        "message": "Volume is a number between 0 to 100 where 100 is the highest volume (default).",
+        "description": ""
+    },
+    "options_notifications_25": {
+        "message": "In safari most likely the default sound notifications are not playing properly, if so use a custom sound file as your notification.",
+        "description": ""
+    },
+    "options_notifications_26": {
+        "message": "Always show tray notification (Windows only)",
+        "description": ""
+    },
+    "options_notifications_27": {
+        "message": "Tray notification will be shown even if there is no unread message.",
+        "description": ""
+    },
+    "options_notifications_28": {
+        "message": "Disable all notifications for a custom time period (in minutes):",
+        "description": ""
+    },
+    "options_notifications_29": {
+        "message": "This option is related to the right click menu on the toolbar button -> disable all notifications -> custom time period.",
+        "description": ""
+    },
+    "options_notifications_30": {
+        "message": "Combine all concurrent desktop notifications into a single notification",
+        "description": ""
+    },
+    "options_notifications_31": {
+        "message": "Custom sound notification",
+        "description": ""
+    },
+    "options_notifications_32": {
+        "message": "name or email contains",
+        "description": ""
+    },
+    "options_notifications_33": {
+        "message": "email title contains",
+        "description": ""
+    },
+    "options_notifications_34": {
+        "message": "email summary contains",
+        "description": ""
+    },
+    "options_notifications_36": {
+        "message": "Ask Gmail to prevent 'inbox.google.com' redirection",
+        "description": ""
+    },
+    "options_notifications_37": {
+        "message": "Display Badge number",
+        "description": ""
+    },
+    "options_notifications_38": {
+        "message": "Faster actions (mark as read, delete, ...) (Consider actions to be resolved when headers are received)",
+        "description": ""
+    },
+    "options_notifications_40": {
+        "message": "Allow quick actions from notification box (maximum two actions) (Chrome only)",
+        "description": ""
+    },
+    "options_notifications_41": {
+        "message": "Mark as Read",
+        "description": ""
+    },
+    "options_notifications_42": {
+        "message": "Archive",
+        "description": ""
+    },
+    "options_notifications_43": {
+        "message": "Trash",
+        "description": ""
+    },
+    "options_tab": {
+        "message": "Tab Opening:",
+        "description": ""
+    },
+    "options_tab_1": {
+        "message": "Search for an open Gmail account only on the active window",
+        "description": ""
+    },
+    "options_tab_2": {
+        "message": "Do not search other browser windows for open Gmail accounts. If Gmail is not open in the active window, open a new tab.",
+        "description": ""
+    },
+    "options_tab_3": {
+        "message": "Open new Gmail account next to the active tab",
+        "description": ""
+    },
+    "options_tab_4": {
+        "message": "Open Gmail account in the active tab",
+        "description": ""
+    },
+    "options_tab_5": {
+        "message": "Open Gmail account in a background tab",
+        "description": ""
+    },
+    "options_tab_6": {
+        "message": "Open Gmail account in a new window",
+        "description": ""
+    },
+    "options_tab_7": {
+        "message": "Always use blank tabs instead of opening a new tab when open in tab is activated",
+        "description": ""
+    },
+    "options_tab_8": {
+        "message": "Ignore opened Gmail tabs",
+        "description": ""
+    },
+    "options_tab_9": {
+        "message": "When unchecked, Gmail Notifier checks either active window or all open windows for open instance of Gmail and switch to the tab when tab opening is requested.",
+        "description": ""
+    },
+    "options_tab_10": {
+        "message": "Open emails in basic HTML mode",
+        "description": ""
+    },
+    "options_toolbar": {
+        "message": "Toolbar:",
+        "description": ""
+    },
+    "options_toolbar_1": {
+        "message": "Toolbar button behaviour",
+        "description": ""
+    },
+    "options_toolbar_2": {
+        "message": "Always open email preview panel",
+        "description": ""
+    },
+    "options_toolbar_3": {
+        "message": "Open Gmail account if only one account is logged-in",
+        "description": ""
+    },
+    "options_toolbar_18": {
+        "message": "Open Gmail account (forced)",
+        "description": ""
+    },
+    "options_toolbar_4": {
+        "message": "Toolbar panel mode",
+        "description": ""
+    },
+    "options_toolbar_5": {
+        "message": "Show summary only",
+        "description": ""
+    },
+    "options_toolbar_6": {
+        "message": "Show full content",
+        "description": ""
+    },
+    "options_toolbar_7": {
+        "message": "Toolbar panel width in the full-content view mode is (in pixels):",
+        "description": ""
+    },
+    "options_toolbar_8": {
+        "message": "Minimum width is 500px.",
+        "description": ""
+    },
+    "options_toolbar_9": {
+        "message": "Toolbar panel height in the full-content view mode is (in pixels):",
+        "description": ""
+    },
+    "options_toolbar_10": {
+        "message": "Minimum height is 500px.",
+        "description": ""
+    },
+    "options_toolbar_11": {
+        "message": "Support keyboard shortcuts on the toolbar panel",
+        "description": ""
+    },
+    "options_toolbar_12": {
+        "message": "!: Report as spam, #: Trash, e: Archive, Shift + i: Mark as read.",
+        "description": ""
+    },
+    "options_toolbar_13": {
+        "message": "Render emails as HTML in full-content mode",
+        "description": ""
+    },
+    "options_toolbar_14": {
+        "message": "If you prefer text-only rendering in the full-content mode, uncheck the box.",
+        "description": ""
+    },
+    "options_toolbar_15": {
+        "message": "Middle-click on the toolbar button to",
+        "description": ""
+    },
+    "options_toolbar_16": {
+        "message": "Refresh all accounts",
+        "description": ""
+    },
+    "options_toolbar_17": {
+        "message": "Open primary Gmail account",
+        "description": ""
+    },
+    "options_misc": {
+        "message": "Miscellaneous:",
+        "description": ""
+    },
+    "options_misc_1": {
+        "message": "Sort accounts alphabetically",
+        "description": ""
+    },
+    "options_misc_2": {
+        "message": "The default order type is logged-in order.",
+        "description": ""
+    },
+    "options_misc_3": {
+        "message": "Toolbar color pattern is",
+        "description": ""
+    },
+    "options_misc_4": {
+        "message": "Gray color for \"No Unread\" and blue color for \"Disconnected\"",
+        "description": ""
+    },
+    "options_misc_5": {
+        "message": "Blue color for \"No Unread\" and gray color for \"Disconnected\"",
+        "description": ""
+    },
+    "options_misc_9": {
+        "message": "Red color for \"No Unread\" and gray color for \"Disconnected\"",
+        "description": ""
+    },
+    "options_misc_6": {
+        "message": "Show desktop notification to warn that Gmail is already opened in the active tab",
+        "description": ""
+    },
+    "options_misc_7": {
+        "message": "Show welcome page on upgrade",
+        "description": ""
+    },
+    "options_misc_8": {
+        "message": "Reset all settings back to factory",
+        "description": ""
+    },
+    "options_misc_10": {
+        "message": "Only fire desktop and sound notifications when email has arrived in less than (in minutes): ",
+        "description": ""
+    },
+    "options_misc_11": {
+        "message": "By setting this preference to zero, you will receive neither desktop nor sound notifications; however, you will still get badge notification.",
+        "description": ""
+    },
+    "options_misc_12": {
+        "message": "Do not include login details in the tooltip text",
+        "description": ""
+    },
+    "options_misc_13": {
+        "message": "By default, the notifier updates tooltip text of the toolbar button with login info. By unchecking this option, the tooltip text remains the default value.",
+        "description": ""
+    },
+    "options_misc_14": {
+        "message": "Do not show the exact badge number when the number of unread emails is greater than 999",
+        "description": ""
+    },
+    "options_misc_15": {
+        "message": "Open FAQs page on updates",
+        "description": ""
+    },
+    "options_plugins": {
+        "message": "Plug-ins:",
+        "description": ""
+    },
+    "options_plugins_1": {
+        "message": "Gmail labels and star button (experimental)",
+        "description": ""
+    },
+    "options_plugins_2": {
+        "message": "This plugin displays the star button as well as thread's labels in the popup (expanded mode only).",
+        "description": ""
+    },
+    "options_px": {
+        "message": "px",
+        "description": ""
+    },
+    "options_empty": {
+        "message": "not defined",
+        "description": ""
+    },
+    "options_button_test": {
+        "message": "Play",
+        "description": ""
+    },
+    "options_button_reset": {
+        "message": "Reset Preferences",
+        "description": ""
+    },
+    "popup_settings": {
+        "message": "settings",
+        "description": ""
+    },
+    "popup_of": {
+        "message": "of",
+        "description": ""
+    },
+    "popup_wait": {
+        "message": "Wait...",
+        "description": ""
+    },
+    "popup_date_format": {
+        "message": "%mm %dd, %yy",
+        "description": ""
+    },
+    "popup_no_subject": {
+        "message": "(no subject)",
+        "description": ""
+    },
+    "popup_open_settings": {
+        "message": "Open settings",
+        "description": ""
+    },
+    "popup_open_inbox": {
+        "message": "Open inbox",
+        "description": ""
+    },
+    "popup_archive": {
+        "message": "Archive",
+        "description": ""
+    },
+    "popup_spam": {
+        "message": "Spam",
+        "description": ""
+    },
+    "popup_trash": {
+        "message": "Trash",
+        "description": ""
+    },
+    "popup_refresh": {
+        "message": "Refresh",
+        "description": ""
+    },
+    "popup_read": {
+        "message": "Mark as Read",
+        "description": ""
+    },
+    "popup_read_all": {
+        "message": "Mark all as read",
+        "description": ""
+    },
+    "popup_msg_1": {
+        "message": "just now",
+        "description": ""
+    },
+    "popup_msg_2": {
+        "message": "1 minute ago",
+        "description": ""
+    },
+    "popup_msg_3_format": {
+        "message": "%d minutes ago",
+        "description": ""
+    },
+    "popup_msg_4": {
+        "message": "1 hour ago",
+        "description": ""
+    },
+    "popup_msg_5": {
+        "message": "hours ago",
+        "description": ""
+    },
+    "popup_msg_6": {
+        "message": "Yesterday",
+        "description": ""
+    },
+    "popup_msg_7_format": {
+        "message": "%d days ago",
+        "description": ""
+    },
+    "popup_msg_8_format": {
+        "message": "%d week(s) ago",
+        "description": ""
+    },
+    "popup_msg_9_format": {
+        "message": "%d month(s) ago",
+        "description": ""
+    },
+    "popup_msg_10": {
+        "message": "January",
+        "description": ""
+    },
+    "popup_msg_11": {
+        "message": "February",
+        "description": ""
+    },
+    "popup_msg_12": {
+        "message": "March",
+        "description": ""
+    },
+    "popup_msg_13": {
+        "message": "April",
+        "description": ""
+    },
+    "popup_msg_14": {
+        "message": "May",
+        "description": ""
+    },
+    "popup_msg_15": {
+        "message": "June",
+        "description": ""
+    },
+    "popup_msg_16": {
+        "message": "July",
+        "description": ""
+    },
+    "popup_msg_17": {
+        "message": "August",
+        "description": ""
+    },
+    "popup_msg_18": {
+        "message": "September",
+        "description": ""
+    },
+    "popup_msg_19": {
+        "message": "October",
+        "description": ""
+    },
+    "popup_msg_20": {
+        "message": "November",
+        "description": ""
+    },
+    "popup_msg_21": {
+        "message": "December",
+        "description": ""
+    },
+    "settings_open_title": {
+        "message": "Open options (settings) page",
+        "description": ""
+    },
+    "settings_open_label": {
+        "message": "Open Options",
+        "description": ""
+    },
+    "gmail": {
+        "message": "Notifier for Gmail™",
+        "description": ""
+    }
+}

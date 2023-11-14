@@ -1,0 +1,758 @@
+{
+    "toolbar_label": {
+        "message": "Notifier for Gmail™",
+        "description": ""
+    },
+    "tooltip_1": {
+        "message": "Click izquierdo: abrir Gmail o el panel de vista previa",
+        "description": ""
+    },
+    "tooltip_2": {
+        "message": "Click medio (o Ctrl+Click izquierdo): actualizar todas las cuentas",
+        "description": ""
+    },
+    "tooltip_3": {
+        "message": "Click derecho: selección de cuenta",
+        "description": ""
+    },
+    "description": {
+        "message": "Notificador para múltiples cuentas y etiquetas de Google Mail (Gmail)",
+        "description": ""
+    },
+    "log_in_to_your_account": {
+        "message": "Por favor, inicia sesión en tu cuenta de Gmail",
+        "description": ""
+    },
+    "msg_1": {
+        "message": "La pestaña ya está abierta. Haz click en el botón de la barra de herramientas para abrir Gmail en una nueva pestaña, o para cambiar a una pestaña de Gmail ya existente.",
+        "description": ""
+    },
+    "msg_2": {
+        "message": "El enlace se copió al portapapeles.",
+        "description": ""
+    },
+    "msg_3": {
+        "message": "El texto seleccionado se copió al portapapeles.",
+        "description": ""
+    },
+    "msg_4": {
+        "message": "Aviso: para que el notificador funcione correctamente, debes haber iniciado sesión en tu cuenta Google.",
+        "description": ""
+    },
+    "msg_5": {
+        "message": "Elige un archivo de sonido",
+        "description": ""
+    },
+    "label_1": {
+        "message": "Actualizar",
+        "description": ""
+    },
+    "label_2": {
+        "message": "Configuración",
+        "description": ""
+    },
+    "label_3": {
+        "message": "Desactivar todas las notificaciones",
+        "description": ""
+    },
+    "label_4": {
+        "message": "Durante 5 minutos",
+        "description": ""
+    },
+    "label_5": {
+        "message": "Durante 15 minutos",
+        "description": ""
+    },
+    "label_6": {
+        "message": "Durante 30 minutos",
+        "description": ""
+    },
+    "label_7": {
+        "message": "Durante 1 hora",
+        "description": ""
+    },
+    "label_8": {
+        "message": "Durante 2 horas",
+        "description": ""
+    },
+    "label_9": {
+        "message": "Durante 5 horas",
+        "description": ""
+    },
+    "label_13": {
+        "message": "Por un período de tiempo personalizado",
+        "description": ""
+    },
+    "label_10": {
+        "message": "Enable notifications (session)",
+        "description": ""
+    },
+    "label_11": {
+        "message": "Redactar un correo nuevo",
+        "description": ""
+    },
+    "label_12": {
+        "message": "Abrir FAQs",
+        "description": ""
+    },
+    "label_14": {
+        "message": "Cuentas que han iniciado sesión",
+        "description": ""
+    },
+    "unknown": {
+        "message": "desconocido",
+        "description": ""
+    },
+    "and": {
+        "message": "y",
+        "description": ""
+    },
+    "log_into_your_account": {
+        "message": "Por favor, inicia sesión en tu cuenta",
+        "description": ""
+    },
+    "notification": {
+        "message": "De: [author_email][break]Asunto: [title][break]Resumen: [summary]",
+        "description": ""
+    },
+    "options_title": {
+        "message": "Opciones - Gmail™ Notifier",
+        "description": ""
+    },
+    "options_inshort": {
+        "message": "Notificador para Google Mail (Gmail), con soporte de múltiples cuentas y etiquetas.",
+        "description": ""
+    },
+    "options_donation": {
+        "message": "Support Development",
+        "description": ""
+    },
+    "options_timings": {
+        "message": "Timings:",
+        "description": ""
+    },
+    "options_timings_l1": {
+        "message": "Verificar si hay correos nuevos cada (en segundos):",
+        "description": ""
+    },
+    "options_timings_l2": {
+        "message": "El período mínimo es 10 segundos",
+        "description": ""
+    },
+    "options_timings_l3": {
+        "message": "Recordarme que tengo mails sin leer cada (en minutos):",
+        "description": ""
+    },
+    "options_timings_l4": {
+        "message": "Pon el valor a cero para no recibir recordatorios periódicamente",
+        "description": ""
+    },
+    "options_timings_l5": {
+        "message": "El período mínimo es 5 minutos",
+        "description": ""
+    },
+    "options_timings_l6": {
+        "message": "Valores distintos de cero activan las notificaciones sonoras y de escritorio (como cuando llega correo nuevo) constantemente mientras tengas correo sin leer.",
+        "description": ""
+    },
+    "options_timings_l7": {
+        "message": "No verificar si hay correos nuevos al inicio durante (en segundos):",
+        "description": ""
+    },
+    "options_timings_l8": {
+        "message": "Configura este valor a cero para evitar chequear el e-mail hasta la primer actualización manual (No disponible en Safari).",
+        "description": ""
+    },
+    "options_gmail": {
+        "message": "Gmail:",
+        "description": ""
+    },
+    "options_gmail_1": {
+        "message": "Cuenta principal (/mail/u/0/)",
+        "description": ""
+    },
+    "options_gmail_2": {
+        "message": "Separa las etiquetas con \",\" (coma).",
+        "description": ""
+    },
+    "options_gmail_3": {
+        "message": "Cuenta secundaria (/mail/u/1/)",
+        "description": ""
+    },
+    "options_gmail_4": {
+        "message": "Tercera cuenta (/mail/u/2/)",
+        "description": ""
+    },
+    "options_gmail_5": {
+        "message": "Cuarta cuenta (/mail/u/3/)",
+        "description": ""
+    },
+    "options_gmail_6": {
+        "message": "Quinta cuenta ((/mail/u/4/)",
+        "description": ""
+    },
+    "options_gmail_7": {
+        "message": "Sexta cuenta ((/mail/u/5/)",
+        "description": ""
+    },
+    "options_gmail_8": {
+        "message": "Marcar mensaje como leído al archivarlo",
+        "description": ""
+    },
+    "options_gmail_15": {
+        "message": "Some popular labels:",
+        "description": ""
+    },
+    "options_gmail_10": {
+        "message": "Recibir notificaciones para las siguientes etiquetas y cuentas:",
+        "description": ""
+    },
+    "options_gmail_11": {
+        "message": "Feeds personalizados:",
+        "description": ""
+    },
+    "options_gmail_12": {
+        "message": "Separa los feeds con \",\" (coma). Feed de ejemplo: https://mail.google.com/mail/u/0/feed/atom/inbox",
+        "description": ""
+    },
+    "options_gmail_13": {
+        "message": "Note: maximum number for all labels except \"inbox\" is 20 (Google feeds only supply the 20 newest entries)",
+        "description": ""
+    },
+    "options_gmail_14": {
+        "message": "Note: for the Notifier to listen for more than 5 accounts, add feeds URLs to the \"Custom feeds\" field. For instance to listen to the 6 and 7th accounts add:  https://mail.google.com/mail/u/6/feed/atom/inbox,  https://mail.google.com/mail/u/7/feed/atom/inbox",
+        "description": ""
+    },
+    "options_notifications": {
+        "message": "Notificaciones:",
+        "description": ""
+    },
+    "options_notifications_1": {
+        "message": "Mostrar notificaciones de escritorio cuando haya correos nuevos",
+        "description": ""
+    },
+    "options_notifications_2": {
+        "message": "Mostrar notificaciones de escritorio durante (en segundos):",
+        "description": ""
+    },
+    "options_notifications_3": {
+        "message": "Esta opción podría no funcionar en tu sistema operativo.",
+        "description": ""
+    },
+    "options_notifications_4": {
+        "message": "Formato de notificaciones:",
+        "description": ""
+    },
+    "options_notifications_5": {
+        "message": "Variables disponibles:",
+        "description": ""
+    },
+    "options_notifications_6": {
+        "message": "Cortar notificaciones más largas que",
+        "description": ""
+    },
+    "options_notifications_7": {
+        "message": "caracteres para los campos [title] y [summary].",
+        "description": ""
+    },
+    "options_notifications_8": {
+        "message": "Para no cortar nada, usa un número grande aquí.",
+        "description": ""
+    },
+    "options_notifications_9": {
+        "message": "Reproducir sonido de aviso cuando haya correos nuevos",
+        "description": ""
+    },
+    "options_notifications_10": {
+        "message": "Aviso para usuarios de Mac. A partir de Firefox 28.0, todas las notificaciones de escritorio son controladas por el Centro de Notificaciones Mac, lo que causa un sonido de alerta extra. Es necesario desactivar esta notificación sonora, o bien la que es generada por el Centro de Notificaciones.",
+        "description": ""
+    },
+    "options_notifications_11": {
+        "message": "Mostrar notificación de la barra de tareas de Windows o del Dock de Mac OS",
+        "description": ""
+    },
+    "options_notifications_12": {
+        "message": "Las notificaciones en la barra de tareas no están soportadas de momento en sistemas operativos Linux.",
+        "description": ""
+    },
+    "options_notifications_13": {
+        "message": "Abrir panel de la barra de herramientas cuando clickeo en el ícono de notificación de la barra de tareas (sólo Windows, beta)",
+        "description": ""
+    },
+    "options_notifications_14": {
+        "message": "Esta característica es extremadamente experimental y puede volver tu navegador inestable. [Restart required].",
+        "description": ""
+    },
+    "options_notifications_15": {
+        "message": "El sonido de notificación por defecto es",
+        "description": ""
+    },
+    "options_notifications_16": {
+        "message": "Aviso por defecto de Gmail Notifier",
+        "description": ""
+    },
+    "options_notifications_17": {
+        "message": "Aviso \"bell\" de Checker Plus",
+        "description": ""
+    },
+    "options_notifications_18": {
+        "message": "Aviso \"ding\" de Checker Plus",
+        "description": ""
+    },
+    "options_notifications_19": {
+        "message": "Aviso de correo de Windows",
+        "description": ""
+    },
+    "options_notifications_20": {
+        "message": "Sonido definido por el usuario",
+        "description": ""
+    },
+    "options_notifications_21": {
+        "message": "El sonido definido por el usuario es",
+        "description": ""
+    },
+    "options_notifications_22": {
+        "message": "Si tu navegador no está reproduciendo el sonido de notificación personalizado, intenta convertirlo al formato WAV usando una herramienta de conversión online.",
+        "description": ""
+    },
+    "options_notifications_35": {
+        "message": "Para elegir un nuevo sonido personalizado, elige en primer lugar un sonido incluído y luego cambia la opción nuevamente a \"sonido personalizado\"",
+        "description": ""
+    },
+    "options_notifications_23": {
+        "message": "El volumen de las notificaciones sonoras es",
+        "description": ""
+    },
+    "options_notifications_24": {
+        "message": "\"Volumen\" es un número entre 0 y 100, donde 100 es el volumen más alto (por defecto).",
+        "description": ""
+    },
+    "options_notifications_25": {
+        "message": "En Safari, es muy probable que las notificaciones sonoras por defecto no se reproduzcan correctamente. En tal caso, usa un archivo de sonido personalizado.",
+        "description": ""
+    },
+    "options_notifications_26": {
+        "message": "Siempre mostrar notificación en la bandeja de sistema (sólo Windows)",
+        "description": ""
+    },
+    "options_notifications_27": {
+        "message": "La notificación en la bandeja del sistema será mostrada incluso si no hay mensajes sin leer.",
+        "description": ""
+    },
+    "options_notifications_28": {
+        "message": "Deshabilitar todas las notificaciones por un período de tiempo personalizado (en minutos):",
+        "description": ""
+    },
+    "options_notifications_29": {
+        "message": "Esta opción está relacionada con el menú que se muestra al hacer click derecho sobre el botón de la barra de herramientas (deshabilitar todas las notificaciones -> período de tiempo personalizado).",
+        "description": ""
+    },
+    "options_notifications_30": {
+        "message": "Combinar todas las notificaciones de escritorio en una única",
+        "description": ""
+    },
+    "options_notifications_31": {
+        "message": "Custom sound notification",
+        "description": ""
+    },
+    "options_notifications_32": {
+        "message": "name or email contains",
+        "description": ""
+    },
+    "options_notifications_33": {
+        "message": "El asunto del correo contiene",
+        "description": ""
+    },
+    "options_notifications_34": {
+        "message": "El resumen del correo contiene",
+        "description": ""
+    },
+    "options_notifications_36": {
+        "message": "Ask Gmail to prevent 'inbox.google.com' redirection",
+        "description": ""
+    },
+    "options_notifications_37": {
+        "message": "Display Badge number",
+        "description": ""
+    },
+    "options_notifications_38": {
+        "message": "Faster actions (mark as read, delete, ...) (Consider actions to be resolved when headers are received)",
+        "description": ""
+    },
+    "options_notifications_40": {
+        "message": "Allow quick actions from notification box (maximum two actions) (Chrome only)",
+        "description": ""
+    },
+    "options_notifications_41": {
+        "message": "Mark as Read",
+        "description": ""
+    },
+    "options_notifications_42": {
+        "message": "Archive",
+        "description": ""
+    },
+    "options_notifications_43": {
+        "message": "Trash",
+        "description": ""
+    },
+    "options_tab": {
+        "message": "Apertura de pestañas:",
+        "description": ""
+    },
+    "options_tab_1": {
+        "message": "Buscar una cuenta de Gmail abierta sólo en la ventana activa",
+        "description": ""
+    },
+    "options_tab_2": {
+        "message": "No buscar cuentas de Gmail abiertas en otras ventanas del navegador. Si Gmail no está abierto en la ventana activa, abrir una nueva pestaña.",
+        "description": ""
+    },
+    "options_tab_3": {
+        "message": "Abrir una nueva cuenta Gmail junto a la pestaña activa",
+        "description": ""
+    },
+    "options_tab_4": {
+        "message": "Abrir cuenta Gmail en la pestaña activa",
+        "description": ""
+    },
+    "options_tab_5": {
+        "message": "Abrir la cuenta Gmail en una pestaña inactiva",
+        "description": ""
+    },
+    "options_tab_6": {
+        "message": "Abrir cuenta Gmail en una nueva ventana",
+        "description": ""
+    },
+    "options_tab_7": {
+        "message": "Siempre usar pestañas vacías en lugar de abrir una nueva cuando \"abrir en pestaña\" esté activado",
+        "description": ""
+    },
+    "options_tab_8": {
+        "message": "Ignorar pestañas de Gmail abiertas",
+        "description": ""
+    },
+    "options_tab_9": {
+        "message": "Si está desactivado, Gmail Notifier chequea todas las ventanas activas por una pestaña de Gmail abierta y cambia a ella cuando se solicita abrir una pestaña nueva.",
+        "description": ""
+    },
+    "options_tab_10": {
+        "message": "Open emails in basic HTML mode",
+        "description": ""
+    },
+    "options_toolbar": {
+        "message": "Barra de herramientas:",
+        "description": ""
+    },
+    "options_toolbar_1": {
+        "message": "Comportamiento del botón de la barra de herramientas",
+        "description": ""
+    },
+    "options_toolbar_2": {
+        "message": "Siempre abrir el panel de vista previa de correo",
+        "description": ""
+    },
+    "options_toolbar_3": {
+        "message": "Abrir cuenta Gmail si sólo una cuenta ha iniciado sesión",
+        "description": ""
+    },
+    "options_toolbar_18": {
+        "message": "Open Gmail account (forced)",
+        "description": ""
+    },
+    "options_toolbar_4": {
+        "message": "Modo del panel de vista previa",
+        "description": ""
+    },
+    "options_toolbar_5": {
+        "message": "Mostrar sólo el resumen",
+        "description": ""
+    },
+    "options_toolbar_6": {
+        "message": "Mostrar contenido completo",
+        "description": ""
+    },
+    "options_toolbar_7": {
+        "message": "Ancho del panel de vista previa en modo de contenido completo (en pixels):",
+        "description": ""
+    },
+    "options_toolbar_8": {
+        "message": "El ancho mínimo es 500px.",
+        "description": ""
+    },
+    "options_toolbar_9": {
+        "message": "Alto del panel de vista previa en modo contenido completo (en pixels):",
+        "description": ""
+    },
+    "options_toolbar_10": {
+        "message": "El alto mínimo es 500px.",
+        "description": ""
+    },
+    "options_toolbar_11": {
+        "message": "Permitir atajos de teclado en el panel de vista previa",
+        "description": ""
+    },
+    "options_toolbar_12": {
+        "message": "!: Marcar como spam, #:Eliminar, e: Archivar, Shift + i: Marcar como leído",
+        "description": ""
+    },
+    "options_toolbar_13": {
+        "message": "Visualizar los mensajes como HTML en el modo contenido completo",
+        "description": ""
+    },
+    "options_toolbar_14": {
+        "message": "Si prefieres visualizar los mensajes como sólo texto, desactiva esta casilla.",
+        "description": ""
+    },
+    "options_toolbar_15": {
+        "message": "Click medio en el botón de la barra de herramientas para",
+        "description": ""
+    },
+    "options_toolbar_16": {
+        "message": "Actualizar todas las cuentas",
+        "description": ""
+    },
+    "options_toolbar_17": {
+        "message": "Abrir cuenta Gmail principal",
+        "description": ""
+    },
+    "options_misc": {
+        "message": "Otros:",
+        "description": ""
+    },
+    "options_misc_1": {
+        "message": "Ordenar cuentas alfabéticamente",
+        "description": ""
+    },
+    "options_misc_2": {
+        "message": "El orden por defecto es de acuerdo al momento de inicio de sesión.",
+        "description": ""
+    },
+    "options_misc_3": {
+        "message": "El esquema de colores de la barra de herramientas es:",
+        "description": ""
+    },
+    "options_misc_4": {
+        "message": "Gris para \"Sin mensajes por leer\" y azul para \"Desconectado\"",
+        "description": ""
+    },
+    "options_misc_5": {
+        "message": "Azul para \"Sin mensajes por leer\" y gris para \"Desconectado\"",
+        "description": ""
+    },
+    "options_misc_9": {
+        "message": "Rojo para \"Sin mensajes por leer\" y gris para \"Desconectado\"",
+        "description": ""
+    },
+    "options_misc_6": {
+        "message": "Mostrar notificación de escritorio para advertir que Gmail ya está abierto en la pestaña activa",
+        "description": ""
+    },
+    "options_misc_7": {
+        "message": "Mostrar página de bienvenida al actualizar versión",
+        "description": ""
+    },
+    "options_misc_8": {
+        "message": "Reestablecer toda la configuración",
+        "description": ""
+    },
+    "options_misc_10": {
+        "message": "Sólo activar notificaciones sonoras y de escritorio cuando haya llegado correo en menos de (en minutos):",
+        "description": ""
+    },
+    "options_misc_11": {
+        "message": "Poniendo este valor a cero, no recibirás notificaciones sonoras o de escritorio, sin embargo, todavía recibirás notificaciones en el ícono de la barra de herramientas.",
+        "description": ""
+    },
+    "options_misc_12": {
+        "message": "No incluir detalles de cuenta en el texto que se muestra al pasar el puntero sobre el ícono",
+        "description": ""
+    },
+    "options_misc_13": {
+        "message": "Por defecto, el texto que se muestra al pasar el puntero sobre el ícono se actualiza con la información de la cuenta. Desmarcando esta casilla, permanecerá sin cambios.",
+        "description": ""
+    },
+    "options_misc_14": {
+        "message": "No mostrar el número exacto de correos no leídos en el icono cuando este sea mayor que 999",
+        "description": ""
+    },
+    "options_misc_15": {
+        "message": "Open FAQs page on updates",
+        "description": ""
+    },
+    "options_plugins": {
+        "message": "Plug-ins:",
+        "description": ""
+    },
+    "options_plugins_1": {
+        "message": "Gmail labels and star button (experimental)",
+        "description": ""
+    },
+    "options_plugins_2": {
+        "message": "This plugin displays the star button as well as thread's labels in the popup (expanded mode only).",
+        "description": ""
+    },
+    "options_px": {
+        "message": "px",
+        "description": ""
+    },
+    "options_empty": {
+        "message": "sin definir",
+        "description": ""
+    },
+    "options_button_test": {
+        "message": "Play",
+        "description": ""
+    },
+    "options_button_reset": {
+        "message": "Reset Preferences",
+        "description": ""
+    },
+    "popup_settings": {
+        "message": "ajustes",
+        "description": ""
+    },
+    "popup_of": {
+        "message": "de",
+        "description": ""
+    },
+    "popup_wait": {
+        "message": "Espera...",
+        "description": ""
+    },
+    "popup_date_format": {
+        "message": "%dd %mm, %yy",
+        "description": ""
+    },
+    "popup_no_subject": {
+        "message": "(sin asunto)",
+        "description": ""
+    },
+    "popup_open_settings": {
+        "message": "Abrir configuración",
+        "description": ""
+    },
+    "popup_open_inbox": {
+        "message": "Abrir bandeja de entrada",
+        "description": ""
+    },
+    "popup_archive": {
+        "message": "Archivar",
+        "description": ""
+    },
+    "popup_spam": {
+        "message": "Spam",
+        "description": ""
+    },
+    "popup_trash": {
+        "message": "Eliminar",
+        "description": ""
+    },
+    "popup_refresh": {
+        "message": "Actualizar",
+        "description": ""
+    },
+    "popup_read": {
+        "message": "Marcar como leído",
+        "description": ""
+    },
+    "popup_read_all": {
+        "message": "Marcar todos como leídos",
+        "description": ""
+    },
+    "popup_msg_1": {
+        "message": "ahora",
+        "description": ""
+    },
+    "popup_msg_2": {
+        "message": "hace 1 minuto",
+        "description": ""
+    },
+    "popup_msg_3_format": {
+        "message": "hace %d minutos",
+        "description": ""
+    },
+    "popup_msg_4": {
+        "message": "hace 1 hora",
+        "description": ""
+    },
+    "popup_msg_5": {
+        "message": "hace algunas horas",
+        "description": ""
+    },
+    "popup_msg_6": {
+        "message": "Ayer",
+        "description": ""
+    },
+    "popup_msg_7_format": {
+        "message": "hace %d días",
+        "description": ""
+    },
+    "popup_msg_8_format": {
+        "message": "hace %d semana(s)",
+        "description": ""
+    },
+    "popup_msg_9_format": {
+        "message": "hace %d mes(es)",
+        "description": ""
+    },
+    "popup_msg_10": {
+        "message": "Enero",
+        "description": ""
+    },
+    "popup_msg_11": {
+        "message": "Febrero",
+        "description": ""
+    },
+    "popup_msg_12": {
+        "message": "Marzo",
+        "description": ""
+    },
+    "popup_msg_13": {
+        "message": "Abril",
+        "description": ""
+    },
+    "popup_msg_14": {
+        "message": "Mayo",
+        "description": ""
+    },
+    "popup_msg_15": {
+        "message": "Junio",
+        "description": ""
+    },
+    "popup_msg_16": {
+        "message": "Julio",
+        "description": ""
+    },
+    "popup_msg_17": {
+        "message": "Agosto",
+        "description": ""
+    },
+    "popup_msg_18": {
+        "message": "Septiembre",
+        "description": ""
+    },
+    "popup_msg_19": {
+        "message": "Octubre",
+        "description": ""
+    },
+    "popup_msg_20": {
+        "message": "Noviembre",
+        "description": ""
+    },
+    "popup_msg_21": {
+        "message": "Diciembre",
+        "description": ""
+    },
+    "settings_open_title": {
+        "message": "Abrir página de opciones (ajustes)",
+        "description": ""
+    },
+    "settings_open_label": {
+        "message": "Abrir opciones",
+        "description": ""
+    },
+    "gmail": {
+        "message": "Notifier for Gmail™",
+        "description": ""
+    }
+}

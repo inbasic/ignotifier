@@ -1,0 +1,29 @@
+body {
+  margin: 0;
+}
+table {
+  color: inherit;
+}
+body,
+td {
+  font-family: arial, sans-serif;
+  font-size: 12px;
+}
+a {
+  color: #15c;
+  text-decoration: none;
+  cursor: pointer;
+}
+body > hr {
+  border: none;
+  border-bottom: solid 4px whitesmoke;
+}
+body > hr:last-child {
+  display: none;
+}
+
+.root {
+  width: 100%;
+  border-collapse: collapse;
+  border: none;
+}

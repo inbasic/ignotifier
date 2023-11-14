@@ -1,0 +1,758 @@
+{
+    "toolbar_label": {
+        "message": "Notifier für Gmail™",
+        "description": ""
+    },
+    "tooltip_1": {
+        "message": "Linksklick: Öffne Gmail oder das Mail-Vorschau-Panel",
+        "description": ""
+    },
+    "tooltip_2": {
+        "message": "Mittel- (oder Strg+Links) Klick: Alle Konten aktualisieren",
+        "description": ""
+    },
+    "tooltip_3": {
+        "message": "Rechtsklick: Kontoauswahl",
+        "description": ""
+    },
+    "description": {
+        "message": "Mehrere Label- und Account-Benachrichtigungen für Google Mail (Gmail)",
+        "description": ""
+    },
+    "log_in_to_your_account": {
+        "message": "Bitte im Gmail-Konto anmelden",
+        "description": ""
+    },
+    "msg_1": {
+        "message": "Der Tab ist bereits geöffnet. Klicke auf die Schaltfläche in der Symbolleiste, um Gmail in einem neuen Tab zu öffnen oder zu einem vorhandenen Gmail-Tab zu wechseln.",
+        "description": ""
+    },
+    "msg_2": {
+        "message": "Der Link wird in die Zwischenablage kopiert.",
+        "description": ""
+    },
+    "msg_3": {
+        "message": "Der ausgewählte Text wird in die Zwischenablage kopiert.",
+        "description": ""
+    },
+    "msg_4": {
+        "message": "Hinweis: Damit der Notifier ordnungsgemäß funktioniert, muss man im Google-Konto angemeldet sein.",
+        "description": ""
+    },
+    "msg_5": {
+        "message": "Wähle eine Audiodatei aus.",
+        "description": ""
+    },
+    "label_1": {
+        "message": "Aktualisieren",
+        "description": ""
+    },
+    "label_2": {
+        "message": "Einstellungen",
+        "description": ""
+    },
+    "label_3": {
+        "message": "Alle Benachrichtigungen deaktivieren",
+        "description": ""
+    },
+    "label_4": {
+        "message": "Für 5 Minuten",
+        "description": ""
+    },
+    "label_5": {
+        "message": "Für 15 Minuten",
+        "description": ""
+    },
+    "label_6": {
+        "message": "Für 30 Minuten",
+        "description": ""
+    },
+    "label_7": {
+        "message": "Für 1 Stunde",
+        "description": ""
+    },
+    "label_8": {
+        "message": "Für 2 Stunden",
+        "description": ""
+    },
+    "label_9": {
+        "message": "Für 5 Stunden",
+        "description": ""
+    },
+    "label_13": {
+        "message": "Für einen benutzerdefinierten Zeitraum",
+        "description": ""
+    },
+    "label_10": {
+        "message": "Benachrichtigungen aktivieren (Sitzung)",
+        "description": ""
+    },
+    "label_11": {
+        "message": "E-Mail verfassen",
+        "description": ""
+    },
+    "label_12": {
+        "message": "FAQ's öffnen",
+        "description": ""
+    },
+    "label_14": {
+        "message": "Angemeldete Konten",
+        "description": ""
+    },
+    "unknown": {
+        "message": "unbekannt",
+        "description": ""
+    },
+    "and": {
+        "message": "und",
+        "description": ""
+    },
+    "log_into_your_account": {
+        "message": "Bitte im Account einloggen",
+        "description": ""
+    },
+    "notification": {
+        "message": "Von: [author_email][break]Titel: [title][break]Auszug: [summary]",
+        "description": ""
+    },
+    "options_title": {
+        "message": "Optionen - Gmail™ Notifier",
+        "description": ""
+    },
+    "options_inshort": {
+        "message": "Mehrere Label- und Account-Benachrichtigungen für Google Mail (Gmail).",
+        "description": ""
+    },
+    "options_donation": {
+        "message": "Entwicklung unterstützen",
+        "description": ""
+    },
+    "options_timings": {
+        "message": "Zeiten:",
+        "description": ""
+    },
+    "options_timings_l1": {
+        "message": "Überprüfe auf neuen E-Mails alle (in Sekunden):",
+        "description": ""
+    },
+    "options_timings_l2": {
+        "message": "Mindestdauer beträgt 10 Sekunden.",
+        "description": ""
+    },
+    "options_timings_l3": {
+        "message": "An ungelesene E-Mails erinnern alle (in Minuten):",
+        "description": ""
+    },
+    "options_timings_l4": {
+        "message": "Für nicht periodische Erinnerungen den Wert auf Null setzen.",
+        "description": ""
+    },
+    "options_timings_l5": {
+        "message": "Mindestdauer beträgt 5 Minuten.",
+        "description": ""
+    },
+    "options_timings_l6": {
+        "message": "Bei einem Wert ungleich Null werden sowohl Desktop-Benachrichtigungen als auch Alarme (ähnlich wie bei neuer E-Mail) dauerhaft ausgelöst, wenn man ungelesene E-Mails hat.",
+        "description": ""
+    },
+    "options_timings_l7": {
+        "message": "Beim Start nicht nach neuen E-Mails überprüfen für (in Sekunden):",
+        "description": ""
+    },
+    "options_timings_l8": {
+        "message": "Um keine E-Mail-Überprüfung bis zur ersten manuellen Aktualisierung zu starten, setze den Wert auf Null [Nicht verfügbar in Safari].",
+        "description": ""
+    },
+    "options_gmail": {
+        "message": "Gmail:",
+        "description": ""
+    },
+    "options_gmail_1": {
+        "message": "Hauptkonto (/mail/u/0/)",
+        "description": ""
+    },
+    "options_gmail_2": {
+        "message": "Trenne Labels durch \",\" (Komma).",
+        "description": ""
+    },
+    "options_gmail_3": {
+        "message": "Zweites Konto (/mail/u/1/)",
+        "description": ""
+    },
+    "options_gmail_4": {
+        "message": "Drittes Konto (/mail/u/2/)",
+        "description": ""
+    },
+    "options_gmail_5": {
+        "message": "Viertes Konto (/mail/u/3/)",
+        "description": ""
+    },
+    "options_gmail_6": {
+        "message": "Fünftes Konto (/mail/u/4/)",
+        "description": ""
+    },
+    "options_gmail_7": {
+        "message": "Sechstes Konto (/mail/u/5/)",
+        "description": ""
+    },
+    "options_gmail_8": {
+        "message": "Markiere Nachricht als gelesen, wenn sie archiviert wird.",
+        "description": ""
+    },
+    "options_gmail_15": {
+        "message": "Some popular labels:",
+        "description": ""
+    },
+    "options_gmail_10": {
+        "message": "Erhalte Benachrichtigungen für folgende Labels und Konten:",
+        "description": ""
+    },
+    "options_gmail_11": {
+        "message": "Benutzerdefinierte Feeds:",
+        "description": ""
+    },
+    "options_gmail_12": {
+        "message": "Trenne Feeds durch \",\" (Komma). Beispiel Feed: https://mail.google.com/mail/u/0/feed/atom/inbox",
+        "description": ""
+    },
+    "options_gmail_13": {
+        "message": "Hinweis: Maximale Anzahl für alle Labels außer \"Posteingang\" ist 20 (Google-Feeds liefern nur die 20 neuesten Einträge)",
+        "description": ""
+    },
+    "options_gmail_14": {
+        "message": "Hinweis: Damit der Notifier mehr als fünf Konten überwacht, füge dem Feld 'Benutzerdefinierte Feeds' Feed-URLs hinzu. Zum Beispiel um den 6. und 7. Account zu überwachen: https://mail.google.com/mail/u/6/feed/atom/inbox, https://mail.google.com/mail/u/7/feed/atom/inbox",
+        "description": ""
+    },
+    "options_notifications": {
+        "message": "Benachrichtigung:",
+        "description": ""
+    },
+    "options_notifications_1": {
+        "message": "Desktop-Benachrichtigung für neue E-Mails anzeigen",
+        "description": ""
+    },
+    "options_notifications_2": {
+        "message": "Desktop-Benachrichtigung anzeigen für (in Sekunden):",
+        "description": ""
+    },
+    "options_notifications_3": {
+        "message": "Diese Option funktioniert möglicherweise nicht basierend auf dem Betriebssystem.",
+        "description": ""
+    },
+    "options_notifications_4": {
+        "message": "Benachrichtigungsformat",
+        "description": ""
+    },
+    "options_notifications_5": {
+        "message": "Verfügbare Variablen:",
+        "description": ""
+    },
+    "options_notifications_6": {
+        "message": "Benachrichtigungen kürzen, wenn die Felder [Titel] und [Auszug] länger als",
+        "description": ""
+    },
+    "options_notifications_7": {
+        "message": "Zeichen sind.",
+        "description": ""
+    },
+    "options_notifications_8": {
+        "message": "Verwende hier eine große Zahl, um keine Ellipsenabkürzungen zu haben.",
+        "description": ""
+    },
+    "options_notifications_9": {
+        "message": "Alarmton für neue E-Mails abspielen",
+        "description": ""
+    },
+    "options_notifications_10": {
+        "message": "Hinweis für Mac-Benutzer. Ab Firefox 28.0 werden alle Desktop-Benachrichtigungen vom Mac Notification Center bearbeitet, das eine zusätzliche akustische Benachrichtigung auslöst. Man muss entweder die Benachrichtigungstöne oder die vom Benachrichtigungscenter generierte Benachrichtigung deaktivieren.",
+        "description": ""
+    },
+    "options_notifications_11": {
+        "message": "Anzeige \"Windows Taskleisten-Benachrichtigung\" oder \"Mac OS Dock-Benachrichtigung\"",
+        "description": ""
+    },
+    "options_notifications_12": {
+        "message": "Taskleisten-Benachrichtigungen werden derzeit nicht unter Linux unterstützt.",
+        "description": ""
+    },
+    "options_notifications_13": {
+        "message": "Öffne das Symbolleisten-Panel, wenn auf das Taskleisten-Benachrichtigungsicon geklickt wird (nur Windows, Beta).",
+        "description": ""
+    },
+    "options_notifications_14": {
+        "message": "Diese Funktion ist sehr experimentell und könnte den Firefox-Browser instabil machen. [Neustart erforderlich].",
+        "description": ""
+    },
+    "options_notifications_15": {
+        "message": "Standard-Benachrichtigungston ist",
+        "description": ""
+    },
+    "options_notifications_16": {
+        "message": "Gmail Notifier Standard-Alarm",
+        "description": ""
+    },
+    "options_notifications_17": {
+        "message": "Checker Plus Glocken-Alarm",
+        "description": ""
+    },
+    "options_notifications_18": {
+        "message": "Checker Plus Ding-Alarm",
+        "description": ""
+    },
+    "options_notifications_19": {
+        "message": "Windows E-Mail-Alarm",
+        "description": ""
+    },
+    "options_notifications_20": {
+        "message": "Benutzerdefinierter Ton",
+        "description": ""
+    },
+    "options_notifications_21": {
+        "message": "Benutzerdefinierter Benachrichtigungston ist",
+        "description": ""
+    },
+    "options_notifications_22": {
+        "message": "Wenn der Browser den benutzerdefinierten Benachrichtigungston nicht abspielt, versuche ihn mit einem Online-Konvertierungstool in ein einfaches WAV-Format zu konvertieren.",
+        "description": ""
+    },
+    "options_notifications_35": {
+        "message": "Um einen neuen benutzerdefinierten Ton auszuwählen, wähle zuerst einen integrierten Ton und dann die Option für einen benutzerdefinierten Ton.",
+        "description": ""
+    },
+    "options_notifications_23": {
+        "message": "Lautstärke vom Benachrichtigungston ist",
+        "description": ""
+    },
+    "options_notifications_24": {
+        "message": "Lautstärke ist eine Zahl zwischen 0 und 100, wobei 100 die höchste Lautstärke ist (Standard).",
+        "description": ""
+    },
+    "options_notifications_25": {
+        "message": "In Safari werden die Standard-Benachrichtigungstöne wahrscheinlich nicht richtig wiedergegeben. Wenn dies der Fall ist, verwende eine benutzerdefinierte Ton-Datei als Benachrichtigung.",
+        "description": ""
+    },
+    "options_notifications_26": {
+        "message": "Tray-Benachrichtigung immer anzeigen (nur Windows)",
+        "description": ""
+    },
+    "options_notifications_27": {
+        "message": "Tray-Benachrichtigung wird angezeigt, auch wenn keine ungelesene Nachricht vorhanden ist.",
+        "description": ""
+    },
+    "options_notifications_28": {
+        "message": "Deaktiviere alle Benachrichtigungen für einen benutzerdefinierten Zeitraum (in Minuten):",
+        "description": ""
+    },
+    "options_notifications_29": {
+        "message": "Diese Option bezieht sich auf das Rechtsklick-Menü der Schaltfläche auf der Symbolleiste -> Alle Benachrichtigungen deaktivieren -> Benutzerdefinierter Zeitraum.",
+        "description": ""
+    },
+    "options_notifications_30": {
+        "message": "Fasse alle gleichzeitigen Desktop-Benachrichtigungen in einer einzigen Benachrichtigung zusammen.",
+        "description": ""
+    },
+    "options_notifications_31": {
+        "message": "Benutzerdefinierter Benachrichtigungston",
+        "description": ""
+    },
+    "options_notifications_32": {
+        "message": "Name oder E-Mail enthält",
+        "description": ""
+    },
+    "options_notifications_33": {
+        "message": "E-Mail-Titel enthält",
+        "description": ""
+    },
+    "options_notifications_34": {
+        "message": "E-Mail-Auszug enthält",
+        "description": ""
+    },
+    "options_notifications_36": {
+        "message": "Bitte Gmail, die Weiterleitung von 'inbox.google.com' zu verhindern.",
+        "description": ""
+    },
+    "options_notifications_37": {
+        "message": "Plakettennummer anzeigen",
+        "description": ""
+    },
+    "options_notifications_38": {
+        "message": "Schnellere Aktionen (als gelesen markieren, löschen, ...) (Berücksichtige Aktionen, die beim Empfang von Kopfzeilen aufgelöst werden sollen)",
+        "description": ""
+    },
+    "options_notifications_40": {
+        "message": "Allow quick actions from notification box (maximum two actions) (Chrome only)",
+        "description": ""
+    },
+    "options_notifications_41": {
+        "message": "Mark as Read",
+        "description": ""
+    },
+    "options_notifications_42": {
+        "message": "Archive",
+        "description": ""
+    },
+    "options_notifications_43": {
+        "message": "Trash",
+        "description": ""
+    },
+    "options_tab": {
+        "message": "Tab Öffnen:",
+        "description": ""
+    },
+    "options_tab_1": {
+        "message": "Suche nach einem geöffneten Gmail-Konto nur im aktiven Fenster.",
+        "description": ""
+    },
+    "options_tab_2": {
+        "message": "Durchsuche keine anderen Browserfenster nach offenen Gmail-Konten. Wenn Gmail im aktiven Fenster nicht geöffnet ist, öffne einen neuen Tab.",
+        "description": ""
+    },
+    "options_tab_3": {
+        "message": "Öffne ein neues Gmail-Konto neben dem aktiven Tab.",
+        "description": ""
+    },
+    "options_tab_4": {
+        "message": "Öffne das Gmail-Konto im aktiven Tab.",
+        "description": ""
+    },
+    "options_tab_5": {
+        "message": "Öffne das Gmail-Konto in einem Hintergrund-Tab.",
+        "description": ""
+    },
+    "options_tab_6": {
+        "message": "Öffne das Gmail-Konto in einem neuen Fenster.",
+        "description": ""
+    },
+    "options_tab_7": {
+        "message": "Verwende immer leere Tabs, anstatt einen neuen Tab zu öffnen, wenn Öffnen im Tab aktiviert ist.",
+        "description": ""
+    },
+    "options_tab_8": {
+        "message": "Geöffnete Gmail-Tabs ignorieren",
+        "description": ""
+    },
+    "options_tab_9": {
+        "message": "Wenn diese Option deaktiviert ist, überprüft Gmail Notifier entweder das aktive Fenster oder alle geöffneten Fenster auf die geöffnete Gmail-Instanz und wechselt zum Tab, wenn die Tab-Öffnung angefordert wird.",
+        "description": ""
+    },
+    "options_tab_10": {
+        "message": "Open emails in basic HTML mode",
+        "description": ""
+    },
+    "options_toolbar": {
+        "message": "Symbolleiste:",
+        "description": ""
+    },
+    "options_toolbar_1": {
+        "message": "Verhalten der Symbolleistenschaltfläche",
+        "description": ""
+    },
+    "options_toolbar_2": {
+        "message": "Immer das E-Mail-Vorschaupanel öffnen.",
+        "description": ""
+    },
+    "options_toolbar_3": {
+        "message": "Öffne das Gmail-Konto, wenn nur ein Konto angemeldet ist.",
+        "description": ""
+    },
+    "options_toolbar_18": {
+        "message": "Open Gmail account (forced)",
+        "description": ""
+    },
+    "options_toolbar_4": {
+        "message": "Symbolleiste Panel-Modus",
+        "description": ""
+    },
+    "options_toolbar_5": {
+        "message": "Nur Auszug anzeigen",
+        "description": ""
+    },
+    "options_toolbar_6": {
+        "message": "Gesamten Inhalt anzeigen",
+        "description": ""
+    },
+    "options_toolbar_7": {
+        "message": "Breite des Symbolleisten-Panels im Modus 'Gesamten Inhalt anzeigen' ist (in Pixel):",
+        "description": ""
+    },
+    "options_toolbar_8": {
+        "message": "Minimale Breite ist 500px.",
+        "description": ""
+    },
+    "options_toolbar_9": {
+        "message": "Höhe des Symbolleisten-Panels im Modus 'Gesamten Inhalt anzeigen' ist (in Pixel):",
+        "description": ""
+    },
+    "options_toolbar_10": {
+        "message": "Mindesthöhe ist 500px.",
+        "description": ""
+    },
+    "options_toolbar_11": {
+        "message": "Tastaturkürzel auf dem Symbolleisten-Panel unterstützen",
+        "description": ""
+    },
+    "options_toolbar_12": {
+        "message": "!: Als Spam melden, #: Papierkorb, e: Archivieren, Umschalttaste + i: Als gelesen markieren.",
+        "description": ""
+    },
+    "options_toolbar_13": {
+        "message": "Im Modus 'Gesamten Inhalt anzeigen' E-Mails als HTML rendern.",
+        "description": ""
+    },
+    "options_toolbar_14": {
+        "message": "Wenn im Modus 'Gesamten Inhalt anzeigen' nur Text-Rendern bevorzugt wird, deaktiviere das Kontrollkästchen.",
+        "description": ""
+    },
+    "options_toolbar_15": {
+        "message": "Klicke mit der mittleren Maustaste auf die Schaltfläche in der Symbolleiste, um",
+        "description": ""
+    },
+    "options_toolbar_16": {
+        "message": "Alle Konten aktualisieren",
+        "description": ""
+    },
+    "options_toolbar_17": {
+        "message": "Öffne das Haput-Gmail-Konto",
+        "description": ""
+    },
+    "options_misc": {
+        "message": "Sonstiges:",
+        "description": ""
+    },
+    "options_misc_1": {
+        "message": "Konten alphabetisch sortieren",
+        "description": ""
+    },
+    "options_misc_2": {
+        "message": "Standart-Sortierung ist in Login-Reihenfolge.",
+        "description": ""
+    },
+    "options_misc_3": {
+        "message": "Symbolleiste Farbmuster ist",
+        "description": ""
+    },
+    "options_misc_4": {
+        "message": "Grau für \"keine Ungelesenen\" und Blau für \"Getrennt\"",
+        "description": ""
+    },
+    "options_misc_5": {
+        "message": "Blau für \"keine Ungelesenen\" und Grau für \"Getrennt\"",
+        "description": ""
+    },
+    "options_misc_9": {
+        "message": "Rot für \"keine Ungelesenen\" und Grau für \"Getrennt\"",
+        "description": ""
+    },
+    "options_misc_6": {
+        "message": "Zeige eine Desktopbenachrichtigung an, wenn Gmail bereits in einem anderen Tab geöffnet ist.",
+        "description": ""
+    },
+    "options_misc_7": {
+        "message": "Begrüßungsseite beim Upgrade anzeigen",
+        "description": ""
+    },
+    "options_misc_8": {
+        "message": "Alle Einstellungen auf Werkseinstellungen zurücksetzen",
+        "description": ""
+    },
+    "options_misc_10": {
+        "message": "Desktop- und Benachrichtigungstöne nur auslösen, wenn die E-Mail vor weniger als angekommen ist (in Minuten):",
+        "description": ""
+    },
+    "options_misc_11": {
+        "message": "Wenn man diese Einstellung auf Null setzt, erhält man weder Desktop- noch Benachrichtigungstöne. Man erhält jedoch immer noch eine Schaltflächen-Benachrichtigung.",
+        "description": ""
+    },
+    "options_misc_12": {
+        "message": "Füge keine Login-Daten in den Tooltip-Text ein!",
+        "description": ""
+    },
+    "options_misc_13": {
+        "message": "Standardmäßig aktualisiert der Notifier Tooltip-Text der Symbolleistenschaltfläche mit Anmeldeinformationen. Wenn diese Option deaktiviert ist, bleibt der Tooltip-Text der Standardwert.",
+        "description": ""
+    },
+    "options_misc_14": {
+        "message": "Zeige nicht die genaue Menge an, wenn die Anzahl der ungelesenen E-Mails größer als 999 ist.",
+        "description": ""
+    },
+    "options_misc_15": {
+        "message": "Öffne die FAQ-Seite nach Updates",
+        "description": ""
+    },
+    "options_plugins": {
+        "message": "Plug-ins:",
+        "description": ""
+    },
+    "options_plugins_1": {
+        "message": "Gmail-Labels und Sternschaltfläche (experimentell)",
+        "description": ""
+    },
+    "options_plugins_2": {
+        "message": "Dieses Plugin zeigt sowohl die Sternschaltfläche als auch die Thread-Labels im Popup an (nur erweiterter Modus).",
+        "description": ""
+    },
+    "options_px": {
+        "message": "px",
+        "description": ""
+    },
+    "options_empty": {
+        "message": "nicht definiert",
+        "description": ""
+    },
+    "options_button_test": {
+        "message": "abspielen",
+        "description": ""
+    },
+    "options_button_reset": {
+        "message": "Einstellungen zurücksetzen",
+        "description": ""
+    },
+    "popup_settings": {
+        "message": "Einstellungen",
+        "description": ""
+    },
+    "popup_of": {
+        "message": "von",
+        "description": ""
+    },
+    "popup_wait": {
+        "message": "Warte...",
+        "description": ""
+    },
+    "popup_date_format": {
+        "message": "%mm %dd, %yy",
+        "description": ""
+    },
+    "popup_no_subject": {
+        "message": "(kein Thema)",
+        "description": ""
+    },
+    "popup_open_settings": {
+        "message": "Open Settings",
+        "description": ""
+    },
+    "popup_open_inbox": {
+        "message": "Open Inbox",
+        "description": ""
+    },
+    "popup_archive": {
+        "message": "Archivieren",
+        "description": ""
+    },
+    "popup_spam": {
+        "message": "Spam",
+        "description": ""
+    },
+    "popup_trash": {
+        "message": "Papierkorb",
+        "description": ""
+    },
+    "popup_refresh": {
+        "message": "Aktualisieren",
+        "description": ""
+    },
+    "popup_read": {
+        "message": "Als gelesen markieren",
+        "description": ""
+    },
+    "popup_read_all": {
+        "message": "Alle als gelesen markieren",
+        "description": ""
+    },
+    "popup_msg_1": {
+        "message": "jetzt gerade",
+        "description": ""
+    },
+    "popup_msg_2": {
+        "message": "Vor 1 Minute",
+        "description": ""
+    },
+    "popup_msg_3_format": {
+        "message": "Vor %d Minuten",
+        "description": ""
+    },
+    "popup_msg_4": {
+        "message": "Vor 1 Stunde",
+        "description": ""
+    },
+    "popup_msg_5": {
+        "message": "Stunden her",
+        "description": ""
+    },
+    "popup_msg_6": {
+        "message": "Gestern",
+        "description": ""
+    },
+    "popup_msg_7_format": {
+        "message": "Vor %d Tagen",
+        "description": ""
+    },
+    "popup_msg_8_format": {
+        "message": "Vor %d Woche(n)",
+        "description": ""
+    },
+    "popup_msg_9_format": {
+        "message": "Vor %d Monat(en)",
+        "description": ""
+    },
+    "popup_msg_10": {
+        "message": "Januar",
+        "description": ""
+    },
+    "popup_msg_11": {
+        "message": "Februar",
+        "description": ""
+    },
+    "popup_msg_12": {
+        "message": "März",
+        "description": ""
+    },
+    "popup_msg_13": {
+        "message": "April",
+        "description": ""
+    },
+    "popup_msg_14": {
+        "message": "Mai",
+        "description": ""
+    },
+    "popup_msg_15": {
+        "message": "Juni",
+        "description": ""
+    },
+    "popup_msg_16": {
+        "message": "Juli",
+        "description": ""
+    },
+    "popup_msg_17": {
+        "message": "August",
+        "description": ""
+    },
+    "popup_msg_18": {
+        "message": "September",
+        "description": ""
+    },
+    "popup_msg_19": {
+        "message": "Oktober",
+        "description": ""
+    },
+    "popup_msg_20": {
+        "message": "November",
+        "description": ""
+    },
+    "popup_msg_21": {
+        "message": "Dezember",
+        "description": ""
+    },
+    "settings_open_title": {
+        "message": "Öffne die Seite Optionen (Einstellungen)",
+        "description": ""
+    },
+    "settings_open_label": {
+        "message": "Optionen öffnen",
+        "description": ""
+    },
+    "gmail": {
+        "message": "Notifier für Gmail™",
+        "description": ""
+    }
+}

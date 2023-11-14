@@ -1,0 +1,758 @@
+{
+    "toolbar_label": {
+        "message": "Notifier for Gmail™",
+        "description": ""
+    },
+    "tooltip_1": {
+        "message": "כפתור שמאלי: פתח Gmail או הצג תצוגה מקדימה",
+        "description": ""
+    },
+    "tooltip_2": {
+        "message": "כפתור אמצעי (או Ctrl+Left): עדכן את כל החשבונות",
+        "description": ""
+    },
+    "tooltip_3": {
+        "message": "כפתור ימני: בחירת חשבון",
+        "description": ""
+    },
+    "description": {
+        "message": "מתריע על הודעות חדשות בחשבון ה-Gmail בכמה חשבונות ותוויות",
+        "description": ""
+    },
+    "log_in_to_your_account": {
+        "message": "אנא התחבר לחשבון ה-Gmail שלך",
+        "description": ""
+    },
+    "msg_1": {
+        "message": "קיימת לשונית פתוחה עם Gmail. לחץ על האייקון של התוסף על מנת לפתוח לשונית חדשה או עבור ללשונית הקיימת.",
+        "description": ""
+    },
+    "msg_2": {
+        "message": "הקישור הועתק בהצלחה.",
+        "description": ""
+    },
+    "msg_3": {
+        "message": "הטקסט הנבחר הועתק בהצלחה.",
+        "description": ""
+    },
+    "msg_4": {
+        "message": "שים לב: על מנת שהתוסף יעבוד כצפוי עליך להתחבר לחשבון ה-Gmail שלך.",
+        "description": ""
+    },
+    "msg_5": {
+        "message": "בחר קובץ לצליל",
+        "description": ""
+    },
+    "label_1": {
+        "message": "רענן",
+        "description": ""
+    },
+    "label_2": {
+        "message": "מאפיינים",
+        "description": ""
+    },
+    "label_3": {
+        "message": "כבה את כל ההתראות",
+        "description": ""
+    },
+    "label_4": {
+        "message": "ל-5 דקות",
+        "description": ""
+    },
+    "label_5": {
+        "message": "ל-15 דקות",
+        "description": ""
+    },
+    "label_6": {
+        "message": "ל-30 דקות",
+        "description": ""
+    },
+    "label_7": {
+        "message": "לשעה",
+        "description": ""
+    },
+    "label_8": {
+        "message": "לשעתיים",
+        "description": ""
+    },
+    "label_9": {
+        "message": "ל-5 שעות",
+        "description": ""
+    },
+    "label_13": {
+        "message": "לתקופה",
+        "description": ""
+    },
+    "label_10": {
+        "message": "הפעל התראות (עבור הסשיין)",
+        "description": ""
+    },
+    "label_11": {
+        "message": "צור מייל חדש",
+        "description": ""
+    },
+    "label_12": {
+        "message": "פתח FAQ",
+        "description": ""
+    },
+    "label_14": {
+        "message": "חשבונות מחוברים",
+        "description": ""
+    },
+    "unknown": {
+        "message": "לא ידוע",
+        "description": ""
+    },
+    "and": {
+        "message": "וגם",
+        "description": ""
+    },
+    "log_into_your_account": {
+        "message": "אנא התחבר לחשבונך ב-Gmail",
+        "description": ""
+    },
+    "notification": {
+        "message": "התקבל מ: [שם הכותב][break]כותרת: [כותרת][break]תקציר: [תקציר]",
+        "description": ""
+    },
+    "options_title": {
+        "message": "אפשרויות - Gmail™ Notifier",
+        "description": ""
+    },
+    "options_inshort": {
+        "message": "מתריע על הודעות חדשות בחשבון ה-Gmail בכמה חשבונות ותוויות",
+        "description": ""
+    },
+    "options_donation": {
+        "message": "תמוך בפיתוח",
+        "description": ""
+    },
+    "options_timings": {
+        "message": "תזמונים:",
+        "description": ""
+    },
+    "options_timings_l1": {
+        "message": "בדוק עבור אמיילים חדשים כל (שניות):",
+        "description": ""
+    },
+    "options_timings_l2": {
+        "message": "זמן מינימלי הוא 10 שניות.",
+        "description": ""
+    },
+    "options_timings_l3": {
+        "message": "הזכר עבור כל הלא נקראו כל (בדק'):",
+        "description": ""
+    },
+    "options_timings_l4": {
+        "message": "קבע כ-0 עבור כיבוי התזכורת.",
+        "description": ""
+    },
+    "options_timings_l5": {
+        "message": "זמן מינימלי הוא 5 דקות.",
+        "description": ""
+    },
+    "options_timings_l6": {
+        "message": "ערך שונה מ-0 יגרום לשני צלילים, גם של בועית ההתראות וגם של התראות הדפדפן (בדומה לקבלת אימייל חדש) במידה ויש לך אימיילים שלא נקראו.",
+        "description": ""
+    },
+    "options_timings_l7": {
+        "message": "אל תבדוק בעלייה ראשונה עבור אימיילים חדשים למשך (שניות):",
+        "description": ""
+    },
+    "options_timings_l8": {
+        "message": "קבע כ-0 על מנת לא לבצע בדיקת אימיילים חדשה בעלייה כלל, עד הבדיקה הידנית (לא אפשרי בדפדפן Safari).",
+        "description": ""
+    },
+    "options_gmail": {
+        "message": "Gmail:",
+        "description": ""
+    },
+    "options_gmail_1": {
+        "message": "חשבון ראשון (/mail/u/0/)",
+        "description": ""
+    },
+    "options_gmail_2": {
+        "message": "הפרד תווית באמצעות \",\" (פסיק).",
+        "description": ""
+    },
+    "options_gmail_3": {
+        "message": "חשבון שני (/mail/u/1/)",
+        "description": ""
+    },
+    "options_gmail_4": {
+        "message": "חשבון שלישי (/mail/u/2/)",
+        "description": ""
+    },
+    "options_gmail_5": {
+        "message": "חשבון רביעי (/mail/u/3/)",
+        "description": ""
+    },
+    "options_gmail_6": {
+        "message": "חשבון חמישי (/mail/u/4/)",
+        "description": ""
+    },
+    "options_gmail_7": {
+        "message": "חשבון שישי (/mail/u/5/)",
+        "description": ""
+    },
+    "options_gmail_8": {
+        "message": "סמן הודעות כנקראו בעת העברה לארכיון",
+        "description": ""
+    },
+    "options_gmail_15": {
+        "message": "תוויות נפוצות:",
+        "description": ""
+    },
+    "options_gmail_10": {
+        "message": "הצ התרעות עבור התוויות הבאות:",
+        "description": ""
+    },
+    "options_gmail_11": {
+        "message": "מקור מותאם אישית:",
+        "description": ""
+    },
+    "options_gmail_12": {
+        "message": "הפרד מקורות ע\"י פסיק (,). לדוגמא: https://mail.google.com/mail/u/0/feed/atom/inbox",
+        "description": ""
+    },
+    "options_gmail_13": {
+        "message": "הערה: מספר התוויות המקסימלי (מלבד אינבוקס) הוא 20",
+        "description": ""
+    },
+    "options_gmail_14": {
+        "message": "הערה: בשביל שהתוסף יאזין ליותר מ-5 חשבונות, הוסף את כתובות ה-feed לשדה \"Custom Feeds\". לדוגמא על מנת להאזין לחשבונות ה-6 ו-7 תוסיף:\nhttps://mail.google.com/mail/u/6/feed/atom/inbox, https://mail.google.com/mail/u/7/feed/atom/inbox",
+        "description": ""
+    },
+    "options_notifications": {
+        "message": "התרעות:",
+        "description": ""
+    },
+    "options_notifications_1": {
+        "message": "הצג התרעות משולחן העבודה עבור מיילים חדשים",
+        "description": ""
+    },
+    "options_notifications_2": {
+        "message": "הצג התראות מערכת למשך (שניות):",
+        "description": ""
+    },
+    "options_notifications_3": {
+        "message": "ייתתכן ואפשרות זו לא תעבוד במערכת ההפעלה שלך.",
+        "description": ""
+    },
+    "options_notifications_4": {
+        "message": "מבנה ההתרעה",
+        "description": ""
+    },
+    "options_notifications_5": {
+        "message": "משתנים קיימים:",
+        "description": ""
+    },
+    "options_notifications_6": {
+        "message": "קצר התרעות הארוכות מ",
+        "description": ""
+    },
+    "options_notifications_7": {
+        "message": "תווים עבור שדות [כותרת] ו-[תקציר].",
+        "description": ""
+    },
+    "options_notifications_8": {
+        "message": "על מנת למנוע חיתוך השתמש במספר גדול.",
+        "description": ""
+    },
+    "options_notifications_9": {
+        "message": "השמע צליל התראה עבור אימיילים חדשים",
+        "description": ""
+    },
+    "options_notifications_10": {
+        "message": "שימו לב: עבור משתמשי Mac, החל מ-Firefox גרסה 28.0 כל התראות הבועית מנועלות ע\"י Mac Notification Center מה שגורם להשמעת צליל נוסף.\nעליך לבטל את אחד הצלילים.",
+        "description": ""
+    },
+    "options_notifications_11": {
+        "message": "הצג התראות בועית ב-וינדוס או ב-Mac.",
+        "description": ""
+    },
+    "options_notifications_12": {
+        "message": "בועית ההתראות אינה נתמכת במערכת ההפעלה Linux.",
+        "description": ""
+    },
+    "options_notifications_13": {
+        "message": "פתח את התצוגה המקדימה בעת לחיצה על בועית ההתראות (בוינדוס בלבד, בטא)",
+        "description": ""
+    },
+    "options_notifications_14": {
+        "message": "אפשרות זו נסיונית ויכולה לגרום לקריסת דפדפן Firefox. (מצריך הפעלה מחדש של הדפדפן).",
+        "description": ""
+    },
+    "options_notifications_15": {
+        "message": "צליל ברירת מחדל",
+        "description": ""
+    },
+    "options_notifications_16": {
+        "message": "צליל התראה ברירת מחדל",
+        "description": ""
+    },
+    "options_notifications_17": {
+        "message": "צליל Checker Plus bell",
+        "description": ""
+    },
+    "options_notifications_18": {
+        "message": "צליל Checker Plus ding ",
+        "description": ""
+    },
+    "options_notifications_19": {
+        "message": "בועית התראות אימייל",
+        "description": ""
+    },
+    "options_notifications_20": {
+        "message": "צליל מותאם אישית",
+        "description": ""
+    },
+    "options_notifications_21": {
+        "message": "צליל התראות מותאם אישית",
+        "description": ""
+    },
+    "options_notifications_22": {
+        "message": "אם הדפדפן אינו מנגן את צליל ההתראות, נסה להמיר אותו לקובץ WAV עם אחד מכלי ההמרה הזמינים ברשת.",
+        "description": ""
+    },
+    "options_notifications_35": {
+        "message": "לבחירת צליל אישי חדש, בחר תחילה בצליל המובנה ולאחר מכן שנה אותו לצליל אישי",
+        "description": ""
+    },
+    "options_notifications_23": {
+        "message": "עוצמת השמע של ההתראה הוא",
+        "description": ""
+    },
+    "options_notifications_24": {
+        "message": "עוצמת שמע הוא מספר בין 0 ל-100, כאשר 100 היא העוצמה המקסימלית (ברירת מחדל).",
+        "description": ""
+    },
+    "options_notifications_25": {
+        "message": "בסאפרי רוב הסיכויים שצליל ההתראות אינו עובד, אם זה המצב, השתמש בצליל אישי.",
+        "description": ""
+    },
+    "options_notifications_26": {
+        "message": "תמיד הצג התרעת בועית (עבור חלונות בלבד)",
+        "description": ""
+    },
+    "options_notifications_27": {
+        "message": "התרעות בועית יוצגו גם אם אין אימיילים שלא נקראו.",
+        "description": ""
+    },
+    "options_notifications_28": {
+        "message": "כבה את כל ההתראות למשך תקופה (בדק'):",
+        "description": ""
+    },
+    "options_notifications_29": {
+        "message": "אופציה זו שייכת לתפריט הכפתור הימני.",
+        "description": ""
+    },
+    "options_notifications_30": {
+        "message": "אחד את כל התראות המערכת להתראה אחת",
+        "description": ""
+    },
+    "options_notifications_31": {
+        "message": "צליל התראות אישי",
+        "description": ""
+    },
+    "options_notifications_32": {
+        "message": "שם או אימייל מכילים",
+        "description": ""
+    },
+    "options_notifications_33": {
+        "message": "נושא המייל מכיל",
+        "description": ""
+    },
+    "options_notifications_34": {
+        "message": "גוף המייל מכיל",
+        "description": ""
+    },
+    "options_notifications_36": {
+        "message": "בקש מג'ימייל למנוע מעבר ל- 'inbox.google.com'",
+        "description": ""
+    },
+    "options_notifications_37": {
+        "message": "הצג מספר",
+        "description": ""
+    },
+    "options_notifications_38": {
+        "message": "פעולות מהירות (סמן כנקרא, מחק, ...) נחשבים כבוצעות בקבלת ה-headers של הבקשה.",
+        "description": ""
+    },
+    "options_notifications_40": {
+        "message": "אפשר פעולות מהירות מתיבת הנוטיפיקציה (עד 2 פעולות)\n(כרום בלבד)",
+        "description": ""
+    },
+    "options_notifications_41": {
+        "message": "סמן כנקרא",
+        "description": ""
+    },
+    "options_notifications_42": {
+        "message": "ארכיון",
+        "description": ""
+    },
+    "options_notifications_43": {
+        "message": "אשפה",
+        "description": ""
+    },
+    "options_tab": {
+        "message": "פתיחת לשוניות:",
+        "description": ""
+    },
+    "options_tab_1": {
+        "message": "חפש עבור לשונית עם Gmail רק עבור החלון הפעיל",
+        "description": ""
+    },
+    "options_tab_2": {
+        "message": "אל תחפש בחלונות אחרים עבור לשונית Gmail. אם אין לשונית עם Gmail בחלון הנוכחי, פתח לשונית חדשה.",
+        "description": ""
+    },
+    "options_tab_3": {
+        "message": "פתח חשבון Gmail בסמוך ללשונית הפעילה",
+        "description": ""
+    },
+    "options_tab_4": {
+        "message": "פתח חשבון Gmail בלשונית קיימת",
+        "description": ""
+    },
+    "options_tab_5": {
+        "message": "פתח חשבון Gmail בלשונית נסתרת",
+        "description": ""
+    },
+    "options_tab_6": {
+        "message": "פתח חשבון Gmail בחלון חדש",
+        "description": ""
+    },
+    "options_tab_7": {
+        "message": "תמיד השתמש בטאב ריק במקום טאב חדש על מנת לפתוח",
+        "description": ""
+    },
+    "options_tab_8": {
+        "message": "התעלם מלשוניות ג'ימייל פתוחות",
+        "description": ""
+    },
+    "options_tab_9": {
+        "message": "כשלא מסומן, התוסף מחפש בחלון הנוכחי לשונית של ג'ימייל או פותח לשונית חדשה.",
+        "description": ""
+    },
+    "options_tab_10": {
+        "message": "פתח מיילים במוד HTML בסיסי",
+        "description": ""
+    },
+    "options_toolbar": {
+        "message": "סרגל הכלים:",
+        "description": ""
+    },
+    "options_toolbar_1": {
+        "message": "כפתור סרגל הכלים",
+        "description": ""
+    },
+    "options_toolbar_2": {
+        "message": "תפיד פתח את חלונית התצוגה",
+        "description": ""
+    },
+    "options_toolbar_3": {
+        "message": "פתח את Gmail רק במידה ומחוברים עם חשבון יחיד",
+        "description": ""
+    },
+    "options_toolbar_18": {
+        "message": "פתח את ג'ימייל",
+        "description": ""
+    },
+    "options_toolbar_4": {
+        "message": "מצב תצוגה מקדימה",
+        "description": ""
+    },
+    "options_toolbar_5": {
+        "message": "התג תקציר בלבד",
+        "description": ""
+    },
+    "options_toolbar_6": {
+        "message": "הצג את כל התוכן",
+        "description": ""
+    },
+    "options_toolbar_7": {
+        "message": "גובה חלונית תצוגה מקדימה במצב  מצומצם (פיקסלים):",
+        "description": ""
+    },
+    "options_toolbar_8": {
+        "message": "רוחב מינימלי הוא 500px.",
+        "description": ""
+    },
+    "options_toolbar_9": {
+        "message": "גובה חלונית תצוגה מקדימה במצב מלא (פיקסלים):",
+        "description": ""
+    },
+    "options_toolbar_10": {
+        "message": "גובה מינימלי הוא 500px.",
+        "description": ""
+    },
+    "options_toolbar_11": {
+        "message": "תמוך בקיצורי מקלדת בתוסף",
+        "description": ""
+    },
+    "options_toolbar_12": {
+        "message": "!: דווח כספם, #: השלך לאשפה, Shift+i: סמן כנקרא.",
+        "description": ""
+    },
+    "options_toolbar_13": {
+        "message": "הצג את כל תוכן המיילים בתצוגה מורחבת.",
+        "description": ""
+    },
+    "options_toolbar_14": {
+        "message": "אם אתה מעדיף תצוגת טקסט בלבד במצב תצוגה מקדימה מורחבת, בטל סימון.",
+        "description": ""
+    },
+    "options_toolbar_15": {
+        "message": "לחיצת כפתור האמצעי על האייקון בתפריט עבור",
+        "description": ""
+    },
+    "options_toolbar_16": {
+        "message": "רענן את כל החשבונות",
+        "description": ""
+    },
+    "options_toolbar_17": {
+        "message": "פתח את חשבון ה-Gmail הראשי",
+        "description": ""
+    },
+    "options_misc": {
+        "message": "שונות:",
+        "description": ""
+    },
+    "options_misc_1": {
+        "message": "מיין חשבונות לפי א-ב",
+        "description": ""
+    },
+    "options_misc_2": {
+        "message": "סדר הופעת",
+        "description": ""
+    },
+    "options_misc_3": {
+        "message": "צבע העיגול בתפריט",
+        "description": ""
+    },
+    "options_misc_4": {
+        "message": "אפור עבור ״לא נקראו״ וכחול עבור ״מנותק״",
+        "description": ""
+    },
+    "options_misc_5": {
+        "message": "כחול עבור ״לא נקראו״ ואפור עבור ״מנותק״",
+        "description": ""
+    },
+    "options_misc_9": {
+        "message": "צבע אדום ל-\"לא נקרא\" וצבע אפור ל-\"לא מחובר\"",
+        "description": ""
+    },
+    "options_misc_6": {
+        "message": "הצג התראות מערכת ההפעלה בכדי להזהיר שג'ימייל כבר פתוח בלשונית הנוכחית",
+        "description": ""
+    },
+    "options_misc_7": {
+        "message": "הצג הודעת פתיחה בעת עדכון התוסף",
+        "description": ""
+    },
+    "options_misc_8": {
+        "message": "אפס את כל ההגדרות",
+        "description": ""
+    },
+    "options_misc_10": {
+        "message": "התרע עבור מיילים חדשים אשר הגיעו בפחות מ (בדק'):",
+        "description": ""
+    },
+    "options_misc_11": {
+        "message": "ע\"י קביעת ערך זה ל-0, תמע קבלת התראות מערכת ההפעלה (כולל צליל), תקבל אך ורק התראות בדפדפן.",
+        "description": ""
+    },
+    "options_misc_12": {
+        "message": "אל תציג פרטי התחברות בפרטי הסבר הקצר",
+        "description": ""
+    },
+    "options_misc_13": {
+        "message": "כברירת מחדל, התוסף מעדכן את ההסבר הקצר עם פרטי ההתחברות. כשאופציה זו מכובה, ההסבר הקצר ישאר עם המידע הסטטי.",
+        "description": ""
+    },
+    "options_misc_14": {
+        "message": "אל תציג את מספר המיילים המדוייק כאשר מספר זה גדול מ-999",
+        "description": ""
+    },
+    "options_misc_15": {
+        "message": "פתח עמוד FAQ בעת עדכון",
+        "description": ""
+    },
+    "options_plugins": {
+        "message": "פלאגאינים:",
+        "description": ""
+    },
+    "options_plugins_1": {
+        "message": "התוויות של ג'ימייל וכפתור הכוכב (נסיוני)",
+        "description": ""
+    },
+    "options_plugins_2": {
+        "message": "פלאגאין זה מציג את כפתור הכוכב וכן את תוויות המייל (נסיוני)",
+        "description": ""
+    },
+    "options_px": {
+        "message": "px",
+        "description": ""
+    },
+    "options_empty": {
+        "message": "לא מוגדר",
+        "description": ""
+    },
+    "options_button_test": {
+        "message": "הפעל",
+        "description": ""
+    },
+    "options_button_reset": {
+        "message": "אפס מאפיינים",
+        "description": ""
+    },
+    "popup_settings": {
+        "message": "הגדרות",
+        "description": ""
+    },
+    "popup_of": {
+        "message": "של",
+        "description": ""
+    },
+    "popup_wait": {
+        "message": "המתן...",
+        "description": ""
+    },
+    "popup_date_format": {
+        "message": "%dd %mm, %yy",
+        "description": ""
+    },
+    "popup_no_subject": {
+        "message": "(אין נושא)",
+        "description": ""
+    },
+    "popup_open_settings": {
+        "message": "Open Settings",
+        "description": ""
+    },
+    "popup_open_inbox": {
+        "message": "Open Inbox",
+        "description": ""
+    },
+    "popup_archive": {
+        "message": "ארכיון",
+        "description": ""
+    },
+    "popup_spam": {
+        "message": "ספאם",
+        "description": ""
+    },
+    "popup_trash": {
+        "message": "מחק",
+        "description": ""
+    },
+    "popup_refresh": {
+        "message": "רענן",
+        "description": ""
+    },
+    "popup_read": {
+        "message": "סמן כנקרא",
+        "description": ""
+    },
+    "popup_read_all": {
+        "message": "סמן הכל כנקרא",
+        "description": ""
+    },
+    "popup_msg_1": {
+        "message": "עכשיו",
+        "description": ""
+    },
+    "popup_msg_2": {
+        "message": "לפני דקה",
+        "description": ""
+    },
+    "popup_msg_3_format": {
+        "message": "לפני %d דקות",
+        "description": ""
+    },
+    "popup_msg_4": {
+        "message": "לפני שעה",
+        "description": ""
+    },
+    "popup_msg_5": {
+        "message": "לפני שעות",
+        "description": ""
+    },
+    "popup_msg_6": {
+        "message": "אתמול",
+        "description": ""
+    },
+    "popup_msg_7_format": {
+        "message": "לפני %d ימים",
+        "description": ""
+    },
+    "popup_msg_8_format": {
+        "message": "לפני %d שבוע(ות)",
+        "description": ""
+    },
+    "popup_msg_9_format": {
+        "message": "לפני %d חודש(ים)",
+        "description": ""
+    },
+    "popup_msg_10": {
+        "message": "ינואר",
+        "description": ""
+    },
+    "popup_msg_11": {
+        "message": "פברואר",
+        "description": ""
+    },
+    "popup_msg_12": {
+        "message": "מרץ",
+        "description": ""
+    },
+    "popup_msg_13": {
+        "message": "אפריל",
+        "description": ""
+    },
+    "popup_msg_14": {
+        "message": "מאי",
+        "description": ""
+    },
+    "popup_msg_15": {
+        "message": "יוני",
+        "description": ""
+    },
+    "popup_msg_16": {
+        "message": "יולי",
+        "description": ""
+    },
+    "popup_msg_17": {
+        "message": "אוגוסט",
+        "description": ""
+    },
+    "popup_msg_18": {
+        "message": "ספטמבר",
+        "description": ""
+    },
+    "popup_msg_19": {
+        "message": "אוקטובר",
+        "description": ""
+    },
+    "popup_msg_20": {
+        "message": "נובמבר",
+        "description": ""
+    },
+    "popup_msg_21": {
+        "message": "דצמבר",
+        "description": ""
+    },
+    "settings_open_title": {
+        "message": "פתח עמוד אפשרויות",
+        "description": ""
+    },
+    "settings_open_label": {
+        "message": "פתח אפשרויות",
+        "description": ""
+    },
+    "gmail": {
+        "message": "Notifier for Gmail™",
+        "description": ""
+    }
+}

@@ -1,0 +1,758 @@
+{
+    "toolbar_label": {
+        "message": "Notifier for Gmail™",
+        "description": ""
+    },
+    "tooltip_1": {
+        "message": "Αριστερό κλικ: Ανοίξτε το Gmail ή το παράθυρο προεπισκόπησης αλληλογραφίας",
+        "description": ""
+    },
+    "tooltip_2": {
+        "message": "Μεσαίο (ή Ctrl + Left) κλικ: Ανανέωση όλων των λογαριασμών",
+        "description": ""
+    },
+    "tooltip_3": {
+        "message": "Δεξί κλικ: Επιλογές Λογαριασμού",
+        "description": ""
+    },
+    "description": {
+        "message": "Πολλαπλές ετικέτες και κοινοποίηση λογαριασμού για το Google Mail (Gmail)",
+        "description": ""
+    },
+    "log_in_to_your_account": {
+        "message": "Παρακαλούμε συνδεθείτε στον Gmail λογαριασμό σας ",
+        "description": ""
+    },
+    "msg_1": {
+        "message": "Η καρτέλα είναι ήδη ανοικτή. Κάντε κλικ στο κουμπί της γραμμής εργαλείων για να ανοίξετε το Gmail σε μια νέα καρτέλα, ή να μεταβείτε σε μια υπάρχουσα Gmail καρτέλα.",
+        "description": ""
+    },
+    "msg_2": {
+        "message": "Ο σύνδεσμος έχει αντιγραφεί στο πρόχειρο.",
+        "description": ""
+    },
+    "msg_3": {
+        "message": "Το επιλεγμένο κείμενο έχει αντιγράφει στο πρόχειρο.",
+        "description": ""
+    },
+    "msg_4": {
+        "message": "Σημείωση: Για να λειτουργήσει σωστά το notifier, θα πρέπει να είστε συνδεδεμένοι στον Google λογαριασμό σας.",
+        "description": ""
+    },
+    "msg_5": {
+        "message": "Επιλέξτε ένα αρχείο ήχου",
+        "description": ""
+    },
+    "label_1": {
+        "message": "Ανανέωση",
+        "description": ""
+    },
+    "label_2": {
+        "message": "Ρυθμίσεις",
+        "description": ""
+    },
+    "label_3": {
+        "message": "Απενεργοποίηση όλων των ειδοποιήσεων",
+        "description": ""
+    },
+    "label_4": {
+        "message": "Για 5 λεπτά",
+        "description": ""
+    },
+    "label_5": {
+        "message": "Για 15 λεπτά",
+        "description": ""
+    },
+    "label_6": {
+        "message": "Για 30 λεπτά",
+        "description": ""
+    },
+    "label_7": {
+        "message": "Για 1 ώρα",
+        "description": ""
+    },
+    "label_8": {
+        "message": "Για 2 ώρες",
+        "description": ""
+    },
+    "label_9": {
+        "message": "Για 5 ώρες",
+        "description": ""
+    },
+    "label_13": {
+        "message": "Για μια προσαρμοσμένη χρονική περίοδο",
+        "description": ""
+    },
+    "label_10": {
+        "message": "Enable notifications (session)",
+        "description": ""
+    },
+    "label_11": {
+        "message": "Συντάξτε ένα e-mail",
+        "description": ""
+    },
+    "label_12": {
+        "message": "Άνοιγμα Συχνών Ερωτήσεων",
+        "description": ""
+    },
+    "label_14": {
+        "message": "Σύνδεση στους λογαριασμούς",
+        "description": ""
+    },
+    "unknown": {
+        "message": "άγνωστο",
+        "description": ""
+    },
+    "and": {
+        "message": "και",
+        "description": ""
+    },
+    "log_into_your_account": {
+        "message": "Παρακαλούμε συνδεθείτε στον λογαριασμό σας ",
+        "description": ""
+    },
+    "notification": {
+        "message": "Από: [author_email] [break] Τίτλος: [τίτλος] [break] Περίληψη: [περίληψη]",
+        "description": ""
+    },
+    "options_title": {
+        "message": "Επιλογές - Gmail ™ Notifier",
+        "description": ""
+    },
+    "options_inshort": {
+        "message": "Πολλαπλές ετικέτες και λογαριασμοί κοινοποιών για το Google Mail (Gmail).",
+        "description": ""
+    },
+    "options_donation": {
+        "message": "Support Development",
+        "description": ""
+    },
+    "options_timings": {
+        "message": "Timings:",
+        "description": ""
+    },
+    "options_timings_l1": {
+        "message": "Έλεγχος για νέα e-mail κάθε (σε δευτερόλεπτα):",
+        "description": ""
+    },
+    "options_timings_l2": {
+        "message": "Ελάχιστο χρονικό διάστημα είναι 10 δευτερόλεπτα.",
+        "description": ""
+    },
+    "options_timings_l3": {
+        "message": "Υπενθύμιση για όλα τα μη αναγνωσμένα email κάθε (σε λεπτά):",
+        "description": ""
+    },
+    "options_timings_l4": {
+        "message": "Ρυθμίστε την τιμή στο μηδέν για μη-περιοδικές υπενθυμίσεις.",
+        "description": ""
+    },
+    "options_timings_l5": {
+        "message": "Ελάχιστη περίοδος είναι 5 λεπτά.",
+        "description": ""
+    },
+    "options_timings_l6": {
+        "message": "Πυρκαγιές με μη μηδενική τιμή, κοινοποίηση και ηχητική ειδοποίηση τόσο στην επιφάνεια εργασίας (παρόμοιο με νέα άφιξη email) για πάντα, αν έχετε μη αναγνωσμένα email(s).",
+        "description": ""
+    },
+    "options_timings_l7": {
+        "message": "Να μην γίνεται έλεγχος για νέα email κατά την εκκίνηση για (σε δευτερόλεπτα):",
+        "description": ""
+    },
+    "options_timings_l8": {
+        "message": "Ρυθμίστε την τιμή στο μηδέν για κανένα έλεγχο e-mail μέχρι την πρώτη χειροκίνητη ανανέωση [Δεν διατίθεται στο Safari].",
+        "description": ""
+    },
+    "options_gmail": {
+        "message": "Gmail:",
+        "description": ""
+    },
+    "options_gmail_1": {
+        "message": "Πρωτοβάθμιος λογαριασμός (/mail/u/0/)",
+        "description": ""
+    },
+    "options_gmail_2": {
+        "message": "Ξεχωριστές ετικέτες με \",\" (κόμμα).",
+        "description": ""
+    },
+    "options_gmail_3": {
+        "message": "Δευτερεύον λογαριασμός (/mail/u/1/)",
+        "description": ""
+    },
+    "options_gmail_4": {
+        "message": "Τριτοβάθμιος λογαριασμός (/mail/u/2/)",
+        "description": ""
+    },
+    "options_gmail_5": {
+        "message": "Τεταρτογενής λογαριασμός (/mail/u/3/)",
+        "description": ""
+    },
+    "options_gmail_6": {
+        "message": "Πενταδικός λογαριασμός (/mail/u/4/)",
+        "description": ""
+    },
+    "options_gmail_7": {
+        "message": "Σκηνικός λογαριασμός (/mail/u/5/)",
+        "description": ""
+    },
+    "options_gmail_8": {
+        "message": "Σήμανση ως αναγνωσμένο μήνυμα κατά την αρχειοθέτηση",
+        "description": ""
+    },
+    "options_gmail_15": {
+        "message": "Some popular labels:",
+        "description": ""
+    },
+    "options_gmail_10": {
+        "message": "Λάβετε ειδοποιήσεις για τις εξής ετικέτες και τους λογαριασμούς:",
+        "description": ""
+    },
+    "options_gmail_11": {
+        "message": "Προσαρμοσμένες τροφοδοσίες:",
+        "description": ""
+    },
+    "options_gmail_12": {
+        "message": "Ξεχωριστές τροφοδοσίες με \",\" (κόμμα). Δείγμα τροφοδοσίας: https://mail.google.com/mail/u/0/feed/atom/inbox",
+        "description": ""
+    },
+    "options_gmail_13": {
+        "message": "Note: maximum number for all labels except \"inbox\" is 20 (Google feeds only supply the 20 newest entries)",
+        "description": ""
+    },
+    "options_gmail_14": {
+        "message": "Note: for the Notifier to listen for more than 5 accounts, add feeds URLs to the \"Custom feeds\" field. For instance to listen to the 6 and 7th accounts add:  https://mail.google.com/mail/u/6/feed/atom/inbox,  https://mail.google.com/mail/u/7/feed/atom/inbox",
+        "description": ""
+    },
+    "options_notifications": {
+        "message": "Ειδοποιήσεις:",
+        "description": ""
+    },
+    "options_notifications_1": {
+        "message": "Κοινοποίηση επιφάνειας εργασίας οθόνης για νέα email",
+        "description": ""
+    },
+    "options_notifications_2": {
+        "message": "Εμφάνιση κοινοποίησης επιφάνειας εργασίας για (σε δευτερόλεπτα):",
+        "description": ""
+    },
+    "options_notifications_3": {
+        "message": "Η επιλογή αυτή δεν μπορεί να λειτουργήσει με βάση το λειτουργικό σας σύστημα.",
+        "description": ""
+    },
+    "options_notifications_4": {
+        "message": "Μορφή κοινοποίησης",
+        "description": ""
+    },
+    "options_notifications_5": {
+        "message": "Διαθέσιμες μεταβλητές:",
+        "description": ""
+    },
+    "options_notifications_6": {
+        "message": "Περικόψτε ειδοποιήσεις περισσότερο από",
+        "description": ""
+    },
+    "options_notifications_7": {
+        "message": "χαρακτήρες για [τίτλος] και [περίληψη] πεδία.",
+        "description": ""
+    },
+    "options_notifications_8": {
+        "message": "Για να μην έχουν καμία περικοπή τα αποσιωπητικά, χρησιμοποιήστε ένα μεγάλο αριθμό εδώ.",
+        "description": ""
+    },
+    "options_notifications_9": {
+        "message": "Αναπαραγωγή ήχου ειδοποίησης για νέα email",
+        "description": ""
+    },
+    "options_notifications_10": {
+        "message": "Σημείωση για τους χρήστες του Mac. Από το Firefox 28.0, όλες οι ειδοποιήσεις στην επιφάνεια εργασίας διεκπεραιώνονται από το Mac Κέντρο Ειδοποίησης που προκαλεί ένα επιπλέον ήχο ειδοποίησης. Θα πρέπει είτε να απενεργοποιήσετε αυτο τον ήχο ειδοποίησης ή αυτόν που παράγεται από το Κέντρο Ειδοποίησης.",
+        "description": ""
+    },
+    "options_notifications_11": {
+        "message": "Εμφανιση \"Ειδοποιήσεις της γραμμής εργασιών του Windows\" ή \"Mac OS Dock κοινοποίησης\"",
+        "description": ""
+    },
+    "options_notifications_12": {
+        "message": "Το Taskbar notifications δεν υποστηρίζεται απο το λειτουργικό σύστημα Linux αυτή τη στιγμή.",
+        "description": ""
+    },
+    "options_notifications_13": {
+        "message": "Ανοιγμα της γραμμής εργαλείων όταν κάνετε κλικ στο εικονίδιο ειδοποίησης στην γραμμή εργασιών (μόνο για Windows, beta)",
+        "description": ""
+    },
+    "options_notifications_14": {
+        "message": "Αυτό το χαρακτηριστικό είναι ιδιαίτερα πειραματικό και θα μπορούσε να κάνει τον Firefox browser ασταθή. [Επανεκκίνηση απαιτείται].",
+        "description": ""
+    },
+    "options_notifications_15": {
+        "message": "Ο προ επιλεγμένος ήχος ειδοποίησης είναι",
+        "description": ""
+    },
+    "options_notifications_16": {
+        "message": "Gmail Notifier προεπιλεγμένη ειδοποίηση",
+        "description": ""
+    },
+    "options_notifications_17": {
+        "message": "Checker Plus ειδοποίηση καμπάνας",
+        "description": ""
+    },
+    "options_notifications_18": {
+        "message": "Checker Plus Ειδοποίηση κωδώνισματος",
+        "description": ""
+    },
+    "options_notifications_19": {
+        "message": "Windows email ειδοποίηση",
+        "description": ""
+    },
+    "options_notifications_20": {
+        "message": "Ο ήχος ορίζεται από τον χρήστη ",
+        "description": ""
+    },
+    "options_notifications_21": {
+        "message": "Προσδιορισμενος ηχος απο τον χρηστη",
+        "description": ""
+    },
+    "options_notifications_22": {
+        "message": "Αν ο browser σας δεν παίζει το προεπιλεγμένο ήχο ειδοποίησης, προσπαθήστε να το μετατρέψετε σε μια απλή μορφή WAV χρησιμοποιώντας ένα online εργαλείο μετατροπής.",
+        "description": ""
+    },
+    "options_notifications_35": {
+        "message": "Για να επιλέξετε ένα νέο προσαρμοσμένο ήχο, επιλέξτε ένα ενσωματωμένο ήχο και στη συνέχεια αλλάξτε την επιλογή με τον προσαρμοσμένο ήχο",
+        "description": ""
+    },
+    "options_notifications_23": {
+        "message": "Ένταση ήχου κοινοποιήσεως ",
+        "description": ""
+    },
+    "options_notifications_24": {
+        "message": "Ένταση είναι ένας αριθμός μεταξύ 0 έως 100, όπου 100 είναι η υψηλότερη ένταση (προεπιλογή).",
+        "description": ""
+    },
+    "options_notifications_25": {
+        "message": "Στο  safari πιθανότατα οι προεπιλεγμένες ειδοποιήσεις ήχου να μην παίζουν σωστά, αν ναι, χρησιμοποιήστε ένα αρχείο ήχου ως κοινοποίηση.",
+        "description": ""
+    },
+    "options_notifications_26": {
+        "message": "Εμφανιση πάντα κοινοποίησης στον δίσκο (μόνο για Windows)",
+        "description": ""
+    },
+    "options_notifications_27": {
+        "message": "Κοινοποίηση στον δίσκος θα εμφανίζεται ακόμη και αν δεν υπάρχει μη αναγνωσμένο μήνυμα.",
+        "description": ""
+    },
+    "options_notifications_28": {
+        "message": "Απενεργοποίηση όλων των ειδοποιήσεων για μια προσαρμοσμένη χρονική περίοδο (σε λεπτά):",
+        "description": ""
+    },
+    "options_notifications_29": {
+        "message": "Αυτή η επιλογή σχετίζεται με το δεξί κλικ μενού στο κουμπί της γραμμής εργαλείων -> απενεργοποιήσετε όλες τις ειδοποιήσεις -> προσαρμοσμένης χρονικής περιόδου.",
+        "description": ""
+    },
+    "options_notifications_30": {
+        "message": "Συνδυάστε όλες τις ταυτόχρονες ειδοποιήσεις στην επιφάνεια εργασίας σε μια ενιαία κοινοποίηση",
+        "description": ""
+    },
+    "options_notifications_31": {
+        "message": "Custom sound notification",
+        "description": ""
+    },
+    "options_notifications_32": {
+        "message": "name or email contains",
+        "description": ""
+    },
+    "options_notifications_33": {
+        "message": "περιέχει τίτλο email",
+        "description": ""
+    },
+    "options_notifications_34": {
+        "message": "περιέχει περίληψη email",
+        "description": ""
+    },
+    "options_notifications_36": {
+        "message": "Ask Gmail to prevent 'inbox.google.com' redirection",
+        "description": ""
+    },
+    "options_notifications_37": {
+        "message": "Display Badge number",
+        "description": ""
+    },
+    "options_notifications_38": {
+        "message": "Faster actions (mark as read, delete, ...) (Consider actions to be resolved when headers are received)",
+        "description": ""
+    },
+    "options_notifications_40": {
+        "message": "Allow quick actions from notification box (maximum two actions) (Chrome only)",
+        "description": ""
+    },
+    "options_notifications_41": {
+        "message": "Mark as Read",
+        "description": ""
+    },
+    "options_notifications_42": {
+        "message": "Archive",
+        "description": ""
+    },
+    "options_notifications_43": {
+        "message": "Trash",
+        "description": ""
+    },
+    "options_tab": {
+        "message": "Άνοιγμα καρτέλας:",
+        "description": ""
+    },
+    "options_tab_1": {
+        "message": "Αναζήτηση για έναν ανοικτό λογαριασμό Gmail μόνο στο ενεργό παράθυρο",
+        "description": ""
+    },
+    "options_tab_2": {
+        "message": "Μην ψάξετε σε άλλα παράθυρα του προγράμματος περιήγησης για ανοικτούς λογαριασμούς Gmail. Εάν το Gmail δεν είναι ανοικτό στο ενεργό παράθυρο, ανοίξτε μια νέα καρτέλα.",
+        "description": ""
+    },
+    "options_tab_3": {
+        "message": "Άνοιγμα νέου λογαριασμού Gmail δίπλα στην ενεργή καρτέλα",
+        "description": ""
+    },
+    "options_tab_4": {
+        "message": "Άνοιγμα λογαριασμού Gmail στην ενεργή καρτέλα",
+        "description": ""
+    },
+    "options_tab_5": {
+        "message": "Άνοιγμα λογαριασμού Gmail σε μια καρτέλα στον φόντο",
+        "description": ""
+    },
+    "options_tab_6": {
+        "message": "Άνοιγμα λογαριασμού Gmail σε νέο παράθυρο",
+        "description": ""
+    },
+    "options_tab_7": {
+        "message": "Πάντα να χρησιμοποιείτε κενό καρτελών αντί να ανοίγει μια νέα καρτέλα, όταν είναι ανοικτή στην καρτέλα ενεργοποιείται",
+        "description": ""
+    },
+    "options_tab_8": {
+        "message": "Ignore opened Gmail tabs",
+        "description": ""
+    },
+    "options_tab_9": {
+        "message": "When unchecked, Gmail Notifier checks either active window or all open windows for open instance of Gmail and switch to the tab when tab opening is requested.",
+        "description": ""
+    },
+    "options_tab_10": {
+        "message": "Open emails in basic HTML mode",
+        "description": ""
+    },
+    "options_toolbar": {
+        "message": "Γραμμη Εργαλειων:",
+        "description": ""
+    },
+    "options_toolbar_1": {
+        "message": "Γραμμή εργαλείων συμπεριφορά κουμπιού",
+        "description": ""
+    },
+    "options_toolbar_2": {
+        "message": "Πάντα ανοικτό παράθυρο προεπισκόπησης email",
+        "description": ""
+    },
+    "options_toolbar_3": {
+        "message": "Άνοιγμα λογαριασμού Gmail αν μόνο ένας λογαριασμός είναι συνδεδεμένος ",
+        "description": ""
+    },
+    "options_toolbar_18": {
+        "message": "Open Gmail account (forced)",
+        "description": ""
+    },
+    "options_toolbar_4": {
+        "message": "Λειτουργία γραμμής εργαλείων",
+        "description": ""
+    },
+    "options_toolbar_5": {
+        "message": "Εμφάνιση μόνο συνοπτικά",
+        "description": ""
+    },
+    "options_toolbar_6": {
+        "message": "Εμφάνιση πλήρους περιεχομένου",
+        "description": ""
+    },
+    "options_toolbar_7": {
+        "message": "Πλάτος γραμμής εργαλείων του πίνακα σε κατάσταση πλήρους περιεχομένου (σε εικονοστοιχεία):",
+        "description": ""
+    },
+    "options_toolbar_8": {
+        "message": "Το ελάχιστο πλάτος είναι 500px.",
+        "description": ""
+    },
+    "options_toolbar_9": {
+        "message": "Το υψος της γραμμής εργαλείων σε κατάσταση πλήρους περιεχομένου είναι (σε εικονοστοιχεία):",
+        "description": ""
+    },
+    "options_toolbar_10": {
+        "message": "Το ελάχιστο ύψος είναι 500px.",
+        "description": ""
+    },
+    "options_toolbar_11": {
+        "message": "Συντομεύσεις πληκτρολογίου υποστήριξης στον πίνακα εργαλείων",
+        "description": ""
+    },
+    "options_toolbar_12": {
+        "message": "!: Αναφορά ως ανεπιθύμητο, #: Απορρίμματα, και: Αρχείο, Shift + I: Επισήμανση ως διαβάσμενο",
+        "description": ""
+    },
+    "options_toolbar_13": {
+        "message": "Απόδοση e-mail ως HTML σε λειτουργία πλήρους περιεχομένου",
+        "description": ""
+    },
+    "options_toolbar_14": {
+        "message": "Αν προτιμάτε μονο το κείμενο σε λειτουργία πλήρους περιεχομένου, αποεπιλέξτε το πλαίσιο.",
+        "description": ""
+    },
+    "options_toolbar_15": {
+        "message": "Μέσαιο κλικ στην μπάρα εργαλείων για",
+        "description": ""
+    },
+    "options_toolbar_16": {
+        "message": "Ανανέωση όλων των λογαριασμών",
+        "description": ""
+    },
+    "options_toolbar_17": {
+        "message": "Άνοιγμα του κύριου Gmail λογαριασμου",
+        "description": ""
+    },
+    "options_misc": {
+        "message": "Διάφορα:",
+        "description": ""
+    },
+    "options_misc_1": {
+        "message": "Ταξινόμηση λογαριασμών αλφαβητικά",
+        "description": ""
+    },
+    "options_misc_2": {
+        "message": "Ο τύπος προεπιλεγμένης σειράς που έχει συνδεθεί",
+        "description": ""
+    },
+    "options_misc_3": {
+        "message": "Το σχέδιο χρώματος γραμμής εργαλείων είναι",
+        "description": ""
+    },
+    "options_misc_4": {
+        "message": "Γκρι χρώμα για \"Μη Αναγνωσμένα\" και μπλε χρώμα για \"Αποσυνδεση\"",
+        "description": ""
+    },
+    "options_misc_5": {
+        "message": "Μπλε χρώμα για \"Μη Αναγνωσμένα\" και γκρι χρώμα για \"Αποσυνδεση\"",
+        "description": ""
+    },
+    "options_misc_9": {
+        "message": "Κόκκινο χρώμα για \"Μη Αναγνωσμένα\" και γκρι χρώμα για \"Ασύνδετα\"",
+        "description": ""
+    },
+    "options_misc_6": {
+        "message": "Show desktop notification to warn that Gmail is already opened in the active tab",
+        "description": ""
+    },
+    "options_misc_7": {
+        "message": "Εμφάνιση σελίδας υποδοχής για αναβάθμιση",
+        "description": ""
+    },
+    "options_misc_8": {
+        "message": "Επαναφορά όλων των ρυθμίσεων στις εργοστασιακές ρυθμίσεις",
+        "description": ""
+    },
+    "options_misc_10": {
+        "message": "Μόνο εμφάνιση στην επιφάνεια εργασίας και ηχητικές ειδοποιήσεις, όταν το ηλεκτρονικό ταχυδρομείου έχει φτάσει σε λιγότερο από (σε λεπτά):",
+        "description": ""
+    },
+    "options_misc_11": {
+        "message": "Θέτοντας αυτήν την προτίμηση στο μηδέν, δεν θα λάμβανετε ειδοποιήσεις  στην επιφάνεια εργασίας και ούτε ηχητικές ειδοποιήσεις. Ωστόσο, μπορείτε ακόμα να παίρνετε σήμα κοινοποιήσεων.",
+        "description": ""
+    },
+    "options_misc_12": {
+        "message": "Δεν περιλαμβάνονται στοιχεία σύνδεσης στο κείμενο επεξήγησης",
+        "description": ""
+    },
+    "options_misc_13": {
+        "message": "Από προεπιλογή, ο κοινοποιών ενημερώνει κείμενο επεξήγησης του κουμπιού γραμμής εργαλείων με πληροφορίες σύνδεσης. Με την απενεργοποίηση της επιλογής αυτής, στο κείμενο επεξήγησης παραμένει η προεπιλεγμένη τιμή.",
+        "description": ""
+    },
+    "options_misc_14": {
+        "message": "Να μην εμφανίζεται ο ακριβής αριθμός σημάτων όταν ο αριθμός των μη αναγνωσμένων μηνυμάτων ηλεκτρονικού ταχυδρομείου είναι μεγαλύτερος από 999",
+        "description": ""
+    },
+    "options_misc_15": {
+        "message": "Open FAQs page on updates",
+        "description": ""
+    },
+    "options_plugins": {
+        "message": "Plug-ins:",
+        "description": ""
+    },
+    "options_plugins_1": {
+        "message": "Gmail labels and star button (experimental)",
+        "description": ""
+    },
+    "options_plugins_2": {
+        "message": "This plugin displays the star button as well as thread's labels in the popup (expanded mode only).",
+        "description": ""
+    },
+    "options_px": {
+        "message": "px",
+        "description": ""
+    },
+    "options_empty": {
+        "message": "δεν ορίζεται",
+        "description": ""
+    },
+    "options_button_test": {
+        "message": "Play",
+        "description": ""
+    },
+    "options_button_reset": {
+        "message": "Reset Preferences",
+        "description": ""
+    },
+    "popup_settings": {
+        "message": "Ρυθμίσεις",
+        "description": ""
+    },
+    "popup_of": {
+        "message": "από",
+        "description": ""
+    },
+    "popup_wait": {
+        "message": "Περιμένετε...",
+        "description": ""
+    },
+    "popup_date_format": {
+        "message": "%mm %dd, %yy",
+        "description": ""
+    },
+    "popup_no_subject": {
+        "message": "(χωρίς θέμα)",
+        "description": ""
+    },
+    "popup_open_settings": {
+        "message": "Open Settings",
+        "description": ""
+    },
+    "popup_open_inbox": {
+        "message": "Open Inbox",
+        "description": ""
+    },
+    "popup_archive": {
+        "message": "Αρχείο",
+        "description": ""
+    },
+    "popup_spam": {
+        "message": "Spam",
+        "description": ""
+    },
+    "popup_trash": {
+        "message": "Σκουπίδια",
+        "description": ""
+    },
+    "popup_refresh": {
+        "message": "Ανανεώνω",
+        "description": ""
+    },
+    "popup_read": {
+        "message": "Σημείωσε ως Διαβασμένο",
+        "description": ""
+    },
+    "popup_read_all": {
+        "message": "Σημείωση όλων ως Αναγνωσμένα",
+        "description": ""
+    },
+    "popup_msg_1": {
+        "message": "μόλις τώρα",
+        "description": ""
+    },
+    "popup_msg_2": {
+        "message": "1 λεπτό πριν",
+        "description": ""
+    },
+    "popup_msg_3_format": {
+        "message": "%d λεπτά πριν",
+        "description": ""
+    },
+    "popup_msg_4": {
+        "message": "1 ώρα πριν",
+        "description": ""
+    },
+    "popup_msg_5": {
+        "message": "ώρες πριν",
+        "description": ""
+    },
+    "popup_msg_6": {
+        "message": "Εχθές",
+        "description": ""
+    },
+    "popup_msg_7_format": {
+        "message": "%d ημέρες πριν",
+        "description": ""
+    },
+    "popup_msg_8_format": {
+        "message": "%d εβδομάδα(ες) πριν",
+        "description": ""
+    },
+    "popup_msg_9_format": {
+        "message": "%d μήνα(ες) πρίν",
+        "description": ""
+    },
+    "popup_msg_10": {
+        "message": "Ιανουάριος",
+        "description": ""
+    },
+    "popup_msg_11": {
+        "message": "Φεβρουάριος",
+        "description": ""
+    },
+    "popup_msg_12": {
+        "message": "Μάρτιος",
+        "description": ""
+    },
+    "popup_msg_13": {
+        "message": "Απρίλιος",
+        "description": ""
+    },
+    "popup_msg_14": {
+        "message": "Μάιος",
+        "description": ""
+    },
+    "popup_msg_15": {
+        "message": "Ιούνιος",
+        "description": ""
+    },
+    "popup_msg_16": {
+        "message": "Ιούλιος",
+        "description": ""
+    },
+    "popup_msg_17": {
+        "message": "Αύγουστος",
+        "description": ""
+    },
+    "popup_msg_18": {
+        "message": "Σεπτέμβριος",
+        "description": ""
+    },
+    "popup_msg_19": {
+        "message": "Οκτώβριος",
+        "description": ""
+    },
+    "popup_msg_20": {
+        "message": "Νοέμβριος",
+        "description": ""
+    },
+    "popup_msg_21": {
+        "message": "Δεκέμβριος",
+        "description": ""
+    },
+    "settings_open_title": {
+        "message": "Ανοίξτε τις επιλογές (ρυθμίσεις) σελίδας",
+        "description": ""
+    },
+    "settings_open_label": {
+        "message": "Ανοίξτε τις Επιλογές",
+        "description": ""
+    },
+    "gmail": {
+        "message": "Notifier for Gmail™",
+        "description": ""
+    }
+}

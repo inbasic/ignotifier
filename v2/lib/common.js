@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-/* globals app, config, timer, server, contextmenu, toolbar, gmail */
+/* global app, config, timer, server, contextmenu, toolbar, gmail */
 'use strict';
 
 var repeater; // main repeater
@@ -49,6 +49,8 @@ var actions = {
 };
 
 function play(arr = []) {
+  console.log('PLAY', arr);
+
   const media = config.notification.sound.media;
   const filters = [0, 1, 2, 3, 4].map(index => ({
     filter: media['custom' + index].filter,
@@ -531,7 +533,8 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
     gmail.action(request).then(() => {
       response();
     }).catch(e => {
-      app.notify(e.message);
+
+      notify(e.message);
       response(e);
     });
     return true;

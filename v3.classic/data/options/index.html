@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-l10n-id="options_title"></title>
+  <link rel="icon" type="image/png" href="../icons/options/32.png">
+  <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+  <div id="header" hbox>
+    <div type="icon"></div>
+    <div flex="1" vbox pack="center" style="overflow: hidden; max-width: 400px">
+      <div type="title" data-l10n-id="options_title"></div>
+      <div type="description" data-l10n-id="options_inshort"></div>
+    </div>
+    <div hbox flex="1" pack="center" align="center">
+      <a id=donation><input type="button" data-l10n-id="options_donation" data-l10n-value="value"/></a>
+    </div>
+    <div class="browser">
+      <ul>
+        <li><a target="_blank" href="https://addons.mozilla.org/firefox/addon/gmail-notifier-restartless/"><img src="/data/icons/browsers/firefox.png"></img></a></li>
+        <li><a target="_blank" href="https://microsoftedge.microsoft.com/addons/detail/cmhmeappbhdaifkknkhdnmogalbnhloa"><img src="/data/icons/browsers/edge.png"></img></a></li>
+        <li><a target="_blank" href="https://chrome.google.com/webstore/detail/gmail-notifier/dcjichoefijpinlfnjghokpkojhlhkgl"><img src="/data/icons/browsers/chrome.png"></img></a></li>
+        <li><a target="_blank" href="https://addons.opera.com/extensions/details/gmail-notifier/"><img src="/data/icons/browsers/opera.png"></img></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="content" vbox>
+    <div hbox>
+      <div data-l10n-id="options_timings" class="fixed"></div>
+      <div vbox class="content">
+        <div class="fm">
+          <span data-l10n-id="options_timings_l1"></span>
+          <input id="period" type="number" min="10" required></input>
+        </div>
+        <p class="note" data-l10n-id="options_timings_l2"></p>
+        <div class="fm">
+          <span data-l10n-id="options_timings_l3"></span>
+          <input id="resetPeriod" type="number" min="0" required></input>
+        </div>
+        <p class="note" data-l10n-id="options_timings_l4"></p>
+        <p class="note" data-l10n-id="options_timings_l5"></p>
+        <p class="note" data-l10n-id="options_timings_l6"></p>
+        <div class="fm">
+          <span data-l10n-id="options_timings_l7"></span>
+          <input id="initialPeriod" type="number" min="0" required></input>
+        </div>
+        <p class="note" data-l10n-id="options_timings_l8"></p>
+      </div>
+    </div>
+    <div hbox>
+      <div data-l10n-id="options_gmail" class="fixed"></div>
+      <div flex="1" class="content">
+        <p data-l10n-id="options_gmail_10"></p>
+        <div class="mf">
+          <div data-l10n-id="options_gmail_1"></div>
+          <input type="text" id="feeds_0" placeholder="e.g.: inbox, important"/>
+          <div data-l10n-id="options_gmail_3"></div>
+          <input type="text" id="feeds_1" placeholder="e.g.: inbox, important"/>
+          <div data-l10n-id="options_gmail_4"></div>
+          <input type="text" id="feeds_2" placeholder="e.g.: inbox, important"/>
+          <div data-l10n-id="options_gmail_5"></div>
+          <input type="text" id="feeds_3" placeholder="e.g.: inbox, important"/>
+          <div data-l10n-id="options_gmail_6"></div>
+          <input type="text" id="feeds_4" placeholder="e.g.: inbox, important"/>
+          <div data-l10n-id="options_gmail_7"></div>
+          <input type="text" id="feeds_5" placeholder="e.g.: inbox, important"/>
+
+
+        </div>
+        <p class="note" data-l10n-id="options_gmail_2"></p>
+        <p class="note">
+          <span data-l10n-id="options_gmail_15"></span>
+          <pre style="font-size: 85%; color: #652e2e; white-space: pre-line; margin: 0">
+            inbox, important, all, unread
+            ^sq_ig_i_personal (Inbox Primary), ^sq_ig_i_social (Inbox Social), ^sq_ig_i_promo (Inbox Promotions), ^sq_ig_i_notification (Inbox Updates), ^sq_ig_i_group (Inbox Forums)
+            ^smartlabel_personal, ^smartlabel_newsletter, ^smartlabel_notification, ^smartlabel_group
+          </pre>
+        </p>
+        <div class="mf">
+          <div data-l10n-id="options_gmail_11"></div>
+          <input type="text" id="feeds_custom" placeholder="https://mail.google.com/mail/u/6/feed/atom/inbox"/>
+        </div>
+        <p class="note" data-l10n-id="options_gmail_12"></p>
+        <p class="note" data-l10n-id="options_gmail_13"></p>
+        <p class="note" data-l10n-id="options_gmail_14"></p>
+      </div>
+    </div>
+    <div hbox>
+      <div data-l10n-id="options_notifications" class="fixed"></div>
+      <div flex="1" class="content">
+        <label class="tds">
+          <input type="checkbox" id="badge">
+          <span data-l10n-id="options_notifications_37"></span>
+          <input type="color" id="backgroundColor">
+        </label>
+        <label class="mf">
+          <input type="checkbox" id="notification">
+          <span data-l10n-id="options_notifications_1"></span>
+        </label>
+        <div class="fm">
+          <span data-l10n-id="options_notifications_2"></span>
+          <input id="notificationTime" type="number" min="3" required></input>
+        </div>
+
+        <p class="note" data-l10n-id="options_notifications_3"></p>
+        <div class="mf">
+          <div data-l10n-id="options_notifications_4"></div>
+          <input type="text" id="notificationFormat" required/>
+        </div>
+        <p class="note"><span data-l10n-id="options_notifications_5"></span> [author_name], [author_email], [title] <span data-l10n-id="and"></span> [summary].</p>
+        <div align="center">
+          <span data-l10n-id="options_notifications_6"></span>
+          <input id="notificationTruncate" type="number" min="20" required></input>
+          <span data-l10n-id="options_notifications_7"></span>
+        </div>
+        <p class="note" data-l10n-id="options_notifications_8"></p>
+        <label class="mf">
+          <span data-l10n-id="options_notifications_40"></span>
+          <ul class="frt">
+            <li><label><input type="checkbox" id="notification.buttons.markasread"> <span data-l10n-id="options_notifications_41"></span></label></li>
+            <li><label><input type="checkbox" id="notification.buttons.archive"> <span data-l10n-id="options_notifications_42"></span></label></li>
+            <li><label><input type="checkbox" id="notification.buttons.trash"> <span data-l10n-id="options_notifications_43"></span></label></li>
+          </ul>
+        </label>
+        <label class="mf">
+          <input type="checkbox" id="alert">
+          <span data-l10n-id="options_notifications_9"></span>
+        </label>
+        <p class="note only-mac" data-l10n-id="options_notifications_10"></p>
+
+        <div class="tds">
+          <div data-l10n-id="options_notifications_15"></div>
+          <select id="notification.sound.media.default.type">
+            <option value="0" data-l10n-id="options_notifications_16"></option>
+            <option value="1" data-l10n-id="options_notifications_17"></option>
+            <option value="2" data-l10n-id="options_notifications_18"></option>
+            <option value="3" data-l10n-id="options_notifications_19"></option>
+            <option value="4" data-l10n-id="options_notifications_20"></option>
+          </select>
+          <label class="browse">Browse<input type="file" id="notification.sound.media.default.file"></input></label>
+          <input type="button" id="test-play" data-l10n-id="options_button_test" data-l10n-value="value">
+        </div>
+        <div class="fes">
+          <div data-l10n-id="options_notifications_31"></div>
+          <select id="notification.sound.media.custom0.selector">
+            <option value="0" data-l10n-id="options_notifications_32"></option>
+            <option value="1" data-l10n-id="options_notifications_33"></option>
+            <option value="2" data-l10n-id="options_notifications_34"></option>
+          </select>
+          <input type="text" id="notification.sound.media.custom0.filter">
+          <select id="notification.sound.media.custom0.type">
+            <option value="0" data-l10n-id="options_notifications_16"></option>
+            <option value="1" data-l10n-id="options_notifications_17"></option>
+            <option value="2" data-l10n-id="options_notifications_18"></option>
+            <option value="3" data-l10n-id="options_notifications_19"></option>
+            <option value="4" data-l10n-id="options_notifications_20"></option>
+          </select>
+          <label class="browse">Browse<input type="file" id="notification.sound.media.custom0.file"></input></label>
+        </div>
+        <div class="fes">
+          <div data-l10n-id="options_notifications_31"></div>
+          <select id="notification.sound.media.custom1.selector">
+            <option value="0" data-l10n-id="options_notifications_32"></option>
+            <option value="1" data-l10n-id="options_notifications_33"></option>
+            <option value="2" data-l10n-id="options_notifications_34"></option>
+          </select>
+          <input type="text" id="notification.sound.media.custom1.filter">
+          <select id="notification.sound.media.custom1.type">
+            <option value="0" data-l10n-id="options_notifications_16"></option>
+            <option value="1" data-l10n-id="options_notifications_17"></option>
+            <option value="2" data-l10n-id="options_notifications_18"></option>
+            <option value="3" data-l10n-id="options_notifications_19"></option>
+            <option value="4" data-l10n-id="options_notifications_20"></option>
+          </select>
+          <label class="browse">Browse<input type="file" id="notification.sound.media.custom1.file"></input></label>
+        </div>
+        <div class="fes">
+          <div data-l10n-id="options_notifications_31"></div>
+          <select id="notification.sound.media.custom2.selector">
+            <option value="0" data-l10n-id="options_notifications_32"></option>
+            <option value="1" data-l10n-id="options_notifications_33"></option>
+            <option value="2" data-l10n-id="options_notifications_34"></option>
+          </select>
+          <input type="text" id="notification.sound.media.custom2.filter">
+          <select id="notification.sound.media.custom2.type">
+            <option value="0" data-l10n-id="options_notifications_16"></option>
+            <option value="1" data-l10n-id="options_notifications_17"></option>
+            <option value="2" data-l10n-id="options_notifications_18"></option>
+            <option value="3" data-l10n-id="options_notifications_19"></option>
+            <option value="4" data-l10n-id="options_notifications_20"></option>
+          </select>
+          <label class="browse">Browse<input type="file" id="notification.sound.media.custom2.file"></input></label>
+        </div>
+        <div class="fes">
+          <div data-l10n-id="options_notifications_31"></div>
+          <select id="notification.sound.media.custom3.selector">
+            <option value="0" data-l10n-id="options_notifications_32"></option>
+            <option value="1" data-l10n-id="options_notifications_33"></option>
+            <option value="2" data-l10n-id="options_notifications_34"></option>
+          </select>
+          <input type="text" id="notification.sound.media.custom3.filter">
+          <select id="notification.sound.media.custom3.type">
+            <option value="0" data-l10n-id="options_notifications_16"></option>
+            <option value="1" data-l10n-id="options_notifications_17"></option>
+            <option value="2" data-l10n-id="options_notifications_18"></option>
+            <option value="3" data-l10n-id="options_notifications_19"></option>
+            <option value="4" data-l10n-id="options_notifications_20"></option>
+          </select>
+          <label class="browse">Browse<input type="file" id="notification.sound.media.custom3.file"></input></label>
+        </div>
+        <div class="fes">
+          <div data-l10n-id="options_notifications_31"></div>
+          <select id="notification.sound.media.custom4.selector">
+            <option value="0" data-l10n-id="options_notifications_32"></option>
+            <option value="1" data-l10n-id="options_notifications_33"></option>
+            <option value="2" data-l10n-id="options_notifications_34"></option>
+          </select>
+          <input type="text" id="notification.sound.media.custom4.filter">
+          <select id="notification.sound.media.custom4.type">
+            <option value="0" data-l10n-id="options_notifications_16"></option>
+            <option value="1" data-l10n-id="options_notifications_17"></option>
+            <option value="2" data-l10n-id="options_notifications_18"></option>
+            <option value="3" data-l10n-id="options_notifications_19"></option>
+            <option value="4" data-l10n-id="options_notifications_20"></option>
+          </select>
+          <label class="browse">Browse<input type="file" id="notification.sound.media.custom4.file"></input></label>
+        </div>
+
+        <p class="note only-safari" data-l10n-id="options_notifications_25"></p>
+
+        <p class="note" data-l10n-id="options_notifications_22"></p>
+        <p class="note" data-l10n-id="options_notifications_35"></p>
+        <div>
+
+        </div>
+        <div class="fm">
+          <span data-l10n-id="options_notifications_23"></span>
+          <input id="soundVolume" type="number" min="1" max="100" required></input>
+        </div>
+        <p class="note" data-l10n-id="options_notifications_24"></p>
+        <div class="fm">
+          <span data-l10n-id="options_notifications_28"></span>
+          <input id="silentTime" type="number" min="1" max="1000" required list="silentTimeList">
+          <datalist id="silentTimeList">
+            <option value="5">
+            <option value="10">
+            <option value="15">
+            <option value="30">
+            <option value="60">
+            <option value="120">
+            <option value="300">
+          </datalist>
+        </div>
+        <p class="note" data-l10n-id="options_notifications_29"></p>
+        <label class="mf">
+          <input type="checkbox" id="combined">
+          <span data-l10n-id="options_notifications_30"></span>
+        </label>
+      </div>
+    </div>
+    <div hbox>
+      <div data-l10n-id="options_tab" class="fixed"></div>
+      <div flex="1" class="content">
+        <label class="mf">
+          <input type="checkbox" id="searchMode">
+          <span data-l10n-id="options_tab_1"></span>
+        </label>
+        <p class="note" data-l10n-id="options_tab_2"></p>
+        <label class="mf">
+          <input type="checkbox" id="ignoreOpens">
+          <span data-l10n-id="options_tab_8"></span>
+        </label>
+        <p class="note" data-l10n-id="options_tab_9"></p>
+        <label class="mf">
+          <input type="checkbox" id="relatedToCurrent">
+          <span data-l10n-id="options_tab_3"></span>
+        </label>
+        <label class="mf">
+          <input type="checkbox" id="currentTab">
+          <span data-l10n-id="options_tab_4"></span>
+        </label>
+        <label class="mf">
+          <input type="checkbox" id="background">
+          <span data-l10n-id="options_tab_5"></span>
+        </label>
+        <label class="mf">
+          <input type="checkbox" id="useBlankTabs">
+          <span data-l10n-id="options_tab_7"></span>
+        </label>
+        <label class="mf">
+          <input type="checkbox" id="newWindow">
+          <span data-l10n-id="options_tab_6"></span>
+        </label>
+        <label class="mf">
+          <input type="checkbox" id="basic.html">
+          <span data-l10n-id="options_tab_10"></span>
+        </label>
+        <label class="mf">
+          <input type="checkbox" id="smartOpen">
+          <span data-l10n-id="options_tab_11"></span>
+        </label>
+      </div>
+    </div>
+    <div hbox>
+      <div data-l10n-id="options_toolbar" class="fixed"></div>
+      <div flex="1" class="content">
+        <div class="fm">
+            <div data-l10n-id="options_toolbar_1"></div>
+            <select id="oldFashion">
+              <option value="0" data-l10n-id="options_toolbar_2"></option>
+              <option value="1" data-l10n-id="options_toolbar_3"></option>
+              <option value="2" data-l10n-id="options_toolbar_18"></option>
+            </select>
+        </div>
+        <div class="fm">
+          <div data-l10n-id="options_toolbar_4"></div>
+          <select id="size">
+            <option value="0" data-l10n-id="options_toolbar_5"></option>
+            <option value="1" data-l10n-id="options_toolbar_6"></option>
+          </select>
+        </div>
+        <div class="fm">
+          <span data-l10n-id="options_toolbar_7"></span>
+          <input id="fullWidth" type="number" min="500" max="780" required></input>
+        </div>
+        <p class="note" data-l10n-id="options_toolbar_8"></p>
+        <div class="fm">
+          <span data-l10n-id="options_toolbar_9"></span>
+          <input id="fullHeight" type="number" min="500" max="600" required></input>
+        </div>
+        <p class="note" data-l10n-id="options_toolbar_10"></p>
+        <label class="mf">
+          <input type="checkbox" id="keyUp">
+          <span data-l10n-id="options_toolbar_11"></span>
+        </label>
+        <p class="note" data-l10n-id="options_toolbar_12"></p>
+        <label class="mf">
+          <input type="checkbox" id="render">
+          <span data-l10n-id="options_toolbar_13"></span>
+        </label>
+        <p class="note" data-l10n-id="options_toolbar_14"></p>
+      </div>
+    </div>
+    <div hbox>
+      <div data-l10n-id="options_misc" class="fixed"></div>
+      <div flex="1" class="content">
+        <label class="mf">
+          <input type="checkbox" id="doReadOnArchive"/>
+          <span data-l10n-id="options_gmail_8"></span>
+        </label>
+        <label class="mf">
+          <input type="checkbox" id="inboxRedirection"/>
+          <span data-l10n-id="options_notifications_36"></span>
+        </label>
+        <label class="mf">
+          <input type="checkbox" id="express"/>
+          <span data-l10n-id="options_notifications_38"></span>
+        </label>
+        <label class="mf">
+          <input type="checkbox" id="alphabetic">
+          <span data-l10n-id="options_misc_1"></span>
+        </label>
+        <p class="note" data-l10n-id="options_misc_2"></p>
+        <div class="mf">
+          <div data-l10n-id="options_misc_3"></div>
+          <select id="clrPattern">
+            <option value="0" data-l10n-id="options_misc_4"></option>
+            <option value="1" data-l10n-id="options_misc_5"></option>
+            <option value="2" data-l10n-id="options_misc_9"></option>
+          </select>
+        </div>
+        <label class="mf">
+           <input type="checkbox" id="onGmailNotification">
+           <span data-l10n-id="options_misc_6"></span>
+        </label>
+        <div align="center">
+          <span data-l10n-id="options_misc_10"></span>
+          <input id="threatAsNew" type="number" min="0"></input>
+        </div>
+        <p class="note" data-l10n-id="options_misc_11"></p>
+        <label class="mf">
+          <input type="checkbox" id="minimal">
+          <span data-l10n-id="options_misc_14"></span>
+        </label>
+        <label class="mf">
+          <input type="checkbox" id="welcome">
+          <span data-l10n-id="options_misc_15"></span>
+        </label>
+        <div class="mf">
+          <span data-l10n-id="options_misc_8"></span>
+          <input type="button" id="reset" data-l10n-id="options_button_reset" data-l10n-value="value">
+        </div>
+      </div>
+    </div>
+
+    <div hbox>
+      <div data-l10n-id="options_plugins" class="fixed"></div>
+      <div flex="1" class="content">
+        <label class="mf">
+          <input type="checkbox" id="plug-in/labels">
+          <span data-l10n-id="options_plugins_1"></span>
+        </label>
+        <p class="note" data-l10n-id="options_plugins_2"></p>
+      </div>
+    </div>
+  </div>
+
+  <dialog id="notify">
+    <div flex="1">This is message</div>
+    <div hbox pack=end>
+      <input type="button" data-cmd="no" value="No">
+      <input type="button" data-cmd="yes" value="Yes">
+    </div>
+  </div>
+
+  <script src="/data/locale.js"></script>
+  <script src="config.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>

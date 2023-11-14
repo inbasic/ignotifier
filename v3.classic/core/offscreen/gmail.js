@@ -1,6 +1,6 @@
 'use strict';
 
-var gmail = {};
+const gmail = {};
 
 gmail.fetch = url => new Promise((resolve, reject) => {
   const req = new XMLHttpRequest();
@@ -134,7 +134,7 @@ gmail.post = (url, params, threads = [], retry = true, express = false) => new P
         resolve(req);
       }
     };
-    req.onerror = () => reject('');
+    req.onerror = e => reject(e);
     req.send(threads.length ? 't=' + threads.join('&t=') : '');
   });
 });

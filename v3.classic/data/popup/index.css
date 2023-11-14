@@ -1,0 +1,325 @@
+html,body {
+  margin: 0;
+  background-color: #fff;
+  color: #222;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font: 12.8px arial, sans-serif;
+  border: 1px solid #dcdcdc;
+  border-radius: 2px;
+  background-color: #f5f5f5;
+  margin: 5px;
+}
+a,
+a:hover,
+a:active,
+a:focus {
+  outline: 0;
+  text-decoration: none;
+  color: #191919;
+}
+
+.vcenter {
+  display: flex;
+  align-items: center;
+}
+.hcenter {
+  display: flex;
+  justify-content: center;
+}
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.btn {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 12px;
+  border-radius: 2px;
+  opacity: 0.6;
+  -moz-user-select: none;
+  user-select: none;
+}
+.btn:hover {
+  color: #191919;
+  border-color: #c6c6c6;
+  opacity: 0.9;
+}
+.btn:active {
+  border: 1px solid #4d90fe;
+}
+.btn[disabled],
+.btn[disabled]:hover {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: default;
+  opacity: 0.4;
+}
+.btn[wait] {
+  background-image: url("wait.gif");
+  background-position: center center;
+  background-size: 18px;
+}
+
+header {
+  width: 100%;
+  height: 30px;
+  line-height: 22px;
+}
+header div[name="email-container"] {
+  flex: auto;
+  background: url('icons/list.png') 5px 1px no-repeat, url('icons/arrow_drop_down.png') right 1px no-repeat;
+  padding: 0 15px 0 28px;
+  opacity: 0.7;
+  cursor: pointer;
+  -moz-user-select: none;
+  user-select: none;
+  background-size: 20px;
+}
+header div[name="email-container"]:hover {
+  opacity: 0.9;
+}
+header div[name="stat"] {
+  min-width: 50px;
+  text-align: center;
+  border-left: 1px solid #dcdcdc;
+  padding-left: 5px;
+}
+header div[name="nav"] {
+  display: flex;
+  min-width: 86px;
+}
+header div[name="nav"] div {
+  width: 38px;
+  height: 22px;
+}
+header div[name="nav"] div[name="previous"] {
+  background-image: url('icons/chevron_left.png');
+  background-size: 20px;
+  margin-right: -1px;
+}
+header div[name="nav"] div[name="next"] {
+  background-image: url('icons/chevron_right.png');
+  background-size: 20px;
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  background-color: #fff;
+  border-top: 1px solid #dcdcdc;
+  border-bottom: 1px solid #dcdcdc;
+  padding: 0 5px;
+}
+#content[loading] {
+  background: #fff url(fetch.gif) no-repeat center center;
+}
+#content div[name="title"] {
+  font-size: 150%;
+  border-bottom: 1px solid #dcdcdc;
+  height: 35px;
+}
+#content div[name="title"] #title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#content div[name="title"] #star {
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  background-position: center;
+  cursor: pointer;
+}
+body[data-star=hide] #content div[name="title"] #star {
+  display: none;
+}
+body[data-star=true] #content div[name="title"] #star {
+  background-image: url('plug-ins/star.svg');
+}
+body[data-star=false] #content div[name="title"] #star {
+  background-image: url('plug-ins/no-star.svg');
+}
+#content div[name=labels] {
+  padding: 0 5px;
+}
+#content div[name=labels] .label {
+  font: 11px arial, sans-serif;
+  background-color: rgb(221, 221, 221);
+  color: rgb(102, 102, 102);
+  margin-right: 5px;
+  padding-left: 5px;
+}
+#content div[name=labels] .label [data-cmd="remove-label"] {
+  padding: 2px 4px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+#content div[name=labels] .label [data-cmd="remove-label"]:hover {
+  color: rgb(221, 221, 221);
+  background-color: rgb(102, 102, 102);
+}
+body[data-labels=false] #content div[name=labels] {
+  display: none;
+}
+body[data-labels=true] #content div[name=labels] {
+  height: 32px;
+}
+
+#content div[name="info"] {
+  display: flex;
+  flex-direction: row;
+  padding-top: 5px;
+}
+#content div[name="info"] div[name="sender"] {
+  min-width: 40px;
+  font-weight: bold;
+  padding: 0 3px 0 0;
+}
+#content div[name="info"] div[name="email"] {
+  flex: auto;
+  color: #727272;
+}
+#content div[name="info"] div[name="date"] {
+  min-width: 40px;
+  text-align: right;
+}
+#content div[name="body"] {
+  flex: auto;
+  flex-direction: column;
+}
+#content div[name="body"] > iframe {
+  border-width: 0;
+  width: 100%;
+  height: 50px;
+  padding-top: 8px;
+}
+
+body[mode="expanded"] #content div[name="body"] > iframe {
+  height: calc(100% - 145px);
+  width: calc(100% - 24px);
+  position: absolute;
+}
+
+footer div {
+  min-width: 32px;
+  padding: 0 5px;
+  height: 22px;
+  margin: 4px 3px;
+  white-space: nowrap;
+  background-size: 20px;
+}
+
+footer div[name="settings"] {
+  background-image: url('icons/settings.png');
+}
+footer div[name="gmail"] {
+  background-image: url('icons/inbox.png');
+}
+footer div[name="archive"] {
+  background-image: url('icons/archive.png');
+}
+footer div[name="spam"] {
+  background-image: url('icons/spam.png');
+}
+footer div[name="trash"] {
+  background-image: url('icons/delete.png');
+}
+footer div[name="refresh"] {
+  background-image: url('icons/refresh.png');
+}
+footer div[name="read"] {
+  width: 90px;
+  background-image: none;
+}
+footer div[name="read-all"] {
+  background-image: url('icons/check_all.png');
+}
+
+#accounts {
+  display: none;
+  position: absolute;
+  top: 40px;
+  left: 9px;
+  color: #000 !important; /* KDE dark theme issue */
+  background-color: #fff;
+  min-width: 250px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin: 0;
+  padding: 0;
+  -moz-user-select: none;
+  user-select: none;
+  z-index: 100;
+}
+#accounts li {
+  padding: 4px 8px 4px 28px;
+  display: block;
+  border-bottom: 1px solid #f5f5f5;
+  cursor: pointer;
+  max-width: 500px;
+}
+#accounts li:last-child {
+  border-bottom: none;
+}
+#accounts li:hover {
+  background-color: #f5f5f5;
+}
+#accounts li.selected {
+  background: url('icons/check.png') center left 2px no-repeat;
+  background-size: 20px;
+}
+
+#expand {
+  position: fixed;
+  bottom: 44px;
+  left: 9px;
+  width: 40px;
+  height: 12px;
+  background-image: url('icons/arrow_drop_down.png');
+  background-size: 20px;
+}
+body[mode="expanded"] #expand {
+  -moz-transform: scaleY(-1);
+  transform: scaleY(-1);
+}
+/* tooltip */
+.tooltip {
+  position: relative;
+  z-index: 99;
+}
+.tooltip:hover::before {
+  position: absolute;
+  left: 38%;
+  bottom: 24px;
+  content: "";
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid rgba(0, 0, 0, 0.8);
+  z-index: 99;
+}
+.tooltip:hover::after {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 1px;
+  text-align: center;
+  color: #fff;
+  font-weight: normal;
+  content: attr(title);
+  padding: 5px 10px;
+  z-index: 98;
+  white-space: nowrap;
+}
