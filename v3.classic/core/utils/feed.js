@@ -193,10 +193,10 @@ class Feed {
               }
               else if (c.name === 'AUTHOR') {
                 for (const nn of c.children) {
-                  if (c.name === 'NAME') {
+                  if (nn.name === 'NAME') {
                     o['author_name'] = nn.text;
                   }
-                  else if (c.name === 'EMAIL') {
+                  else if (nn.name === 'EMAIL') {
                     o['author_email'] = nn.text;
                   }
                 }

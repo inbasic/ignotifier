@@ -1,4 +1,4 @@
-/* global offscreen */
+/* global log, offscreen */
 
 const sound = {};
 
@@ -7,7 +7,7 @@ sound.play = (arr = []) => {
     silent: false
   }, prefs => {
     if (prefs.silent) {
-      console.log('play aborted', 'silent mode');
+      log('[play]', 'aborted', 'silent mode');
       return;
     }
     chrome.storage.local.get({

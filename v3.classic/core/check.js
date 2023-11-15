@@ -1,6 +1,7 @@
-/* global button, context, gmail, Feed, repeater, sound */
+/* global log, button, context, Feed, repeater, sound, offscreen, get */
 
 self.importScripts('/core/utils/feed.js');
+self.importScripts('/core/offscreen/gmail/get.js');
 
 {
   let color = 'blue';
@@ -16,7 +17,7 @@ self.importScripts('/core/utils/feed.js');
       'silent': false
     }, 'session');
     if (p2.silent) {
-      console.log('notification is silent', text, title);
+      log('[feed]', 'notification is silent', text, title);
       return;
     }
     const p1 = await read({
@@ -27,6 +28,12 @@ self.importScripts('/core/utils/feed.js');
       isArray = false;
       text = text[0];
     }
+    // Users on Mac OS X only see the first item.
+    if (isArray && navigator.platform.includes('Mac')) {
+      isArray = false;
+      text = text.join('\n\n');
+    }
+
     const when = Date.now() + p1.notificationTime * 1000;
     const options = {
       type: isArray ? 'list' : 'basic',
@@ -42,12 +49,12 @@ self.importScripts('/core/utils/feed.js');
           message: tmp[0].replace('From: ', '')
         };
       }) : [],
-      isClickable: click ? true : false,
       requireInteraction: click ? true : false,
       buttons: buttons.map(b => ({
         title: b.title,
         iconUrl: b.iconUrl
       }))
+
     };
     if (navigator.userAgent.includes('Firefox')) {
       delete options.requireInteraction;
@@ -57,17 +64,92 @@ self.importScripts('/core/utils/feed.js');
     //   delete options.buttons;
     // }
 
-    const id = JSON.stringify({
-      id: Math.random(),
-      buttons: (options.buttons || []).map(o => o.action),
-      click
+    const id = 'action.' + Math.random();
+    chrome.storage.session.set({
+      [id]: {
+        buttons: (buttons || []).map(o => o.action),
+        click
+      }
     });
-
     chrome.alarms.create('clear.notification.' + id, {
       when
     });
     chrome.notifications.create(id, options);
   };
+  notify.basic = message => chrome.notifications.create({
+    type: 'basic',
+    iconUrl: '/data/icons/notification/48.png',
+    title: chrome.i18n.getMessage('gmail'),
+    message: message || 'Unknown Error - 2'
+  });
+  chrome.notifications.onClicked.addListener(id => {
+    chrome.notifications.clear(id);
+    sound.stop();
+    if (id.startsWith('action.')) {
+      chrome.storage.session.get(id, prefs => {
+        chrome.storage.session.remove(id);
+        const {click} = prefs[id];
+        if (click.cmd === 'open') {
+          const {links} = click;
+          // use open to open the first link and use chrome.tabs.create for the rest
+          self.openLink(links[0]);
+          links.slice(1).forEach(url => chrome.tabs.create({
+            url,
+            active: false
+          }));
+        }
+        else {
+          console.error('No action', click);
+        }
+      });
+    }
+  });
+  chrome.alarms.onAlarm.addListener(o => {
+    if (o.name.startsWith('clear.notification.')) {
+      const id = o.name.slice(19);
+      chrome.notifications.clear(id);
+      chrome.storage.session.remove(id);
+    }
+  });
+  if (chrome.notifications.onButtonClicked) {
+    chrome.notifications.onButtonClicked.addListener((id, index) => {
+      sound.stop();
+
+      chrome.storage.session.get(id, prefs => {
+        chrome.storage.session.remove(id);
+        chrome.notifications.clear(id);
+
+        const request = prefs[id].buttons[index];
+        // links might be from different accounts
+        const bases = {};
+        for (const link of request.links) {
+          const base = get.base(link);
+          bases[base] = bases[base] || [];
+          bases[base].push(link);
+        }
+        const requests = Object.values(bases).map(links => ({
+          ...request,
+          links
+        }));
+        // dispatch
+        chrome.storage.local.get({
+          doReadOnArchive: true
+        }, prefs => {
+          requests.forEach(r => r.prefs = prefs);
+          Promise.all(requests.map(request => offscreen.command({
+            cmd: 'gmail.action',
+            request
+          }))).then(arr => {
+            const errors = arr.filter(o => o !== true);
+            if (errors.length) {
+              console.error(errors);
+              notify.basic(errors.map(e => e.message).join('\n\n'));
+            }
+          }).finally(() => repeater.reset('action.command', 500));
+        });
+      });
+    });
+  }
 
   const shorten = (str, truncate) => {
     if (str.length < truncate) {
@@ -185,23 +267,12 @@ self.importScripts('/core/utils/feed.js');
     const feeds = buildFeeds(prefs).map(feed => new Feed(feed, prefs.timeout, isPrivate));
     try {
       const responses = await Promise.all(feeds.map(s => s.execute(signal).catch(e => {
-        console.log('feed error', e);
+        log('[feed]', 'error', e);
       })));
       let objs = responses.filter(o => o);
 
-      console.log('feed results', forced, objs);
+      log('[feed]', 'forced', forced, 'objects', objs);
 
-      const tmp = objs
-        .map(o => (o.notAuthorized === true || o.network === false) ? null : (o.xml ? (o.xml.title + '/' + o.xml.label) : null))
-        .map((l, i, a) => !l ? false : a.indexOf(l) !== i);
-      tmp.forEach((v, i) => {
-        if (!v) {
-          return;
-        }
-        objs[i].notAuthorized = true;
-        objs[i].xml = null;
-        objs[i].newIDs = [];
-      });
       const isAuthorized = objs.some(c => !c.notAuthorized && c.network);
       if (!isAuthorized) {
         if (color !== 'blue') {
@@ -213,16 +284,16 @@ self.importScripts('/core/utils/feed.js');
             'cached-objects': []
           });
           self.checkEmails.cached.length = 0;
-          context.accounts();
+          context.accounts('logged.out');
         }
         if (forced) {
           self.openLink(prefs.url);
-          notify(chrome.i18n.getMessage('log_into_your_account'));
+          notify.basic(chrome.i18n.getMessage('log_into_your_account'));
         }
         button.label = chrome.i18n.getMessage('gmail');
         detach();
 
-        console.log('ignore checking', 'unauthorized');
+        log('[feed]', 'ignore checking', 'unauthorized');
         return;
       }
       // Removing not logged-in accounts
@@ -272,25 +343,40 @@ self.importScripts('/core/utils/feed.js');
             data: objs
           });
         });
+        // we could have a new account with no new emails
+        chrome.storage.session.get({
+          'accounts.keys': []
+        }, prefs => {
+          if (prefs['accounts.keys'].length !== objs.length) {
+            context.accounts('mismatch');
+          }
+        });
+
         return; // Everything is clear
       }
       //
       chrome.storage.session.set({count: newCount});
       //
-      context.accounts();
+      context.accounts('new.email');
       // Preparing the report
       const reportArray = [];
       for (const o of objs) {
         (o.xml && o.xml.entries ? o.xml.entries : []).filter(e => {
           if (anyNewEmails) {
-            return o.newIDs.includes(e.id) === false;
+            return o.newIDs.includes(e.id);
           }
           return o.xml.fullcount !== 0;
-        }).splice(0, prefs.maxReport).forEach(e => {
+        }).forEach(e => {
           e.parent = o;
           reportArray.push(e);
         });
       }
+      // keep recent ones
+      reportArray.sort((a, b) => {
+        return (new Date(b.modified)).getTime() - (new Date(a.modified)).getTime();
+      });
+      reportArray.splice(prefs.maxReport, reportArray.length);
+
       const format = chrome.i18n.getMessage('notification');
       let report = reportArray.map(e => format
         .replace('[author_name]', e.author_name)
@@ -354,6 +440,7 @@ self.importScripts('/core/utils/feed.js');
         else {
           attach();
         }
+
         if (prefs.notification) {
           const buttons = [];
           if (prefs['notification.buttons.markasread']) {
@@ -361,7 +448,7 @@ self.importScripts('/core/utils/feed.js');
               title: chrome.i18n.getMessage('popup_read'),
               iconUrl: '/data/images/read.png',
               action: {
-                links: tmp.map(o => o.link),
+                links: reportArray.map(o => o.link),
                 cmd: 'rd'
               }
             });
@@ -371,7 +458,7 @@ self.importScripts('/core/utils/feed.js');
               title: chrome.i18n.getMessage('popup_archive'),
               iconUrl: '/data/images/archive.png',
               action: {
-                links: tmp.map(o => o.link),
+                links: reportArray.map(o => o.link),
                 cmd: 'rc_^i'
               }
             });
@@ -381,7 +468,7 @@ self.importScripts('/core/utils/feed.js');
               title: chrome.i18n.getMessage('popup_trash'),
               iconUrl: '/data/images/trash.png',
               action: {
-                links: tmp.map(o => o.link),
+                links: reportArray.map(o => o.link),
                 cmd: 'tr'
               }
             });
@@ -389,10 +476,10 @@ self.importScripts('/core/utils/feed.js');
 
           // convert links
           const links = [];
-          for (const o of tmp) {
+          for (const o of reportArray) {
             try {
-              const base = gmail.get.base(o.link);
-              const messageID = gmail.get.id(o.link);
+              const base = get.base(o.link);
+              const messageID = get.id(o.link);
 
               if (messageID && o.parent.xml.link.indexOf('#') === -1) {
                 links.push(base + '/?shva=1#inbox/' + messageID);
@@ -408,13 +495,15 @@ self.importScripts('/core/utils/feed.js');
               links.push(o.link);
             }
           }
-
           notify(report, '', {
             cmd: 'open',
             links
           }, buttons.slice(0, 2));
         }
         if (prefs.alert) {
+          const tmp = objs
+            .map(o => (o.notAuthorized === true || o.network === false) ? null : (o.xml ? (o.xml.title + '/' + o.xml.label) : null))
+            .map((l, i, a) => !l ? false : a.indexOf(l) !== i);
           sound.play(tmp);
         }
         chrome.runtime.sendMessage({
@@ -429,39 +518,3 @@ self.importScripts('/core/utils/feed.js');
   };
 }
 
-chrome.notifications.onClicked.addListener(id => {
-  chrome.notifications.clear(id);
-  sound.stop();
-  if (id.startsWith('{')) {
-    const j = JSON.parse(id);
-    if (j.click && j.click.cmd === 'open') {
-      const {links} = j.click;
-      // use open to open the first link and use chrome.tabs.create for the rest
-      self.openLink(links[0]);
-      links.slice(1).forEach(url => chrome.tabs.create({
-        url,
-        active: false
-      }));
-    }
-  }
-});
-if (chrome.notifications.onButtonClicked) {
-  chrome.notifications.onButtonClicked.addListener((id, index) => {
-    sound.stop();
-
-    const j = JSON.parse(id);
-    const command = j.buttons[index];
-    gmail.action(command).catch(e => {
-      console.error(e);
-    }).finally(() => repeater.reset('action.command', 500));
-
-    chrome.notifications.clear(id);
-  });
-}
-
-chrome.alarms.onAlarm.addListener(o => {
-  if (o.name.startsWith('clear.notification.')) {
-    const id = o.name.slice(19);
-    chrome.notifications.clear(id);
-  }
-});

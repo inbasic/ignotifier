@@ -85,7 +85,7 @@ document.addEventListener('change', e => {
     else if (key.endsWith('.file')) {
       const file = target.files[0];
 
-      if (file.type.startsWith('audio/')) {
+      if (file.type.startsWith('audio/') || file.type.startsWith('video/')) {
         const reader = new FileReader();
         reader.onload = e => {
           chrome.storage.local.set({

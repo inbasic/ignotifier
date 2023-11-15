@@ -1,13 +1,14 @@
 /* global checkEmails, repeater, sound, offscreen */
 
-self.importScripts('core/open.js');
-self.importScripts('core/offscreen.js');
-self.importScripts('core/context.js');
-self.importScripts('core/button.js');
-self.importScripts('core/sound.js');
-self.importScripts('core/check.js');
-self.importScripts('core/repeater.js');
-self.importScripts('core/watch.js');
+self.importScripts('/core/utils/log.js');
+self.importScripts('/core/open.js');
+self.importScripts('/core/offscreen.js');
+self.importScripts('/core/context.js');
+self.importScripts('/core/button.js');
+self.importScripts('/core/sound.js');
+self.importScripts('/core/check.js');
+self.importScripts('/core/repeater.js');
+self.importScripts('/core/watch.js');
 
 const onClicked = link => {
   if (link) {
@@ -53,6 +54,7 @@ chrome.action.onClicked.addListener(() => onClicked());
 // messaging
 chrome.runtime.onMessage.addListener((request, sender, response) => {
   const method = request.method;
+
   if (method === 'update' && request.forced) {
     repeater.reset('popup.forced');
   }
@@ -81,23 +83,30 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
     sound.play(null);
   }
   else if (method === 'gmail.action') {
-    offscreen.command({
-      cmd: 'gmail.action',
-      request
-    }).then(e => {
-      if (e === true) {
-        response();
-      }
-      else {
-        console.error(e);
-        chrome.notifications.create({
-          type: 'basic',
-          title: chrome.i18n.getMessage('gmail'),
-          message: e.message
-        });
-        response(e);
-      }
-    }).finally(() => repeater.reset('popup.action', 500));
+    chrome.storage.local.get({
+      doReadOnArchive: true
+    }, prefs => {
+      request.prefs = prefs;
+      offscreen.command({
+        cmd: 'gmail.action',
+        request
+      }).then(e => {
+        if (e === true) {
+          response();
+        }
+        else {
+          console.error(e);
+          chrome.notifications.create({
+            type: 'basic',
+            iconUrl: '/data/icons/notification/48.png',
+            title: chrome.i18n.getMessage('gmail'),
+            message: e.message || 'Unknown Error - 1'
+          });
+          response(e);
+        }
+      }).finally(() => repeater.reset('popup.action', 500));
+    });
+
     return true;
   }
   else if (method === 'gmail.search') {
@@ -105,9 +114,13 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
       cmd: 'gmail.search',
       request
     }).then(r => {
-      if (r.message) {
+      if (!r) {
         response();
-        console.error(r.message);
+        console.error('Empty response from offscreen');
+      }
+      else if (r.message) {
+        response();
+        console.error(r);
       }
       else {
         response(r.entries);

@@ -13,8 +13,9 @@
   };
   const notify = message => chrome.notifications.create({
     type: 'basic',
+    iconUrl: '/data/icons/notification/48.png',
     title: chrome.i18n.getMessage('gmail'),
-    message
+    message: message || 'Unknown Error - 3'
   });
 
   self.openLink = (url, inBackground, refresh) => {

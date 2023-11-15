@@ -24,11 +24,11 @@ chrome.storage.local.get({
   }
 });
 
-const notify = msg => chrome.notifications.create(null, {
+const notify = msg => chrome.notifications.create({
   type: 'basic',
   iconUrl: '/data/icons/notification/48.png',
   title: chrome.i18n.getMessage('gmail'),
-  message: msg.message || msg
+  message: msg.message || msg || 'Unknown Error - 4'
 });
 
 const qs = function(q, m) {
@@ -307,7 +307,6 @@ new Listen('next', 'click', () => update(false, true));
 new Listen('previous', 'click', () => update(true, false));
 
 const action = (cmd, links = selected.entry.link, callback = () => {}) => {
-  console.log(cmd);
   chrome.runtime.sendMessage({
     method: 'gmail.action',
     cmd,

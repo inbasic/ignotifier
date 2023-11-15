@@ -1,4 +1,4 @@
-/* global checkEmails, repeater */
+/* global log, checkEmails, repeater */
 'use strict';
 
 chrome.runtime.onInstalled.addListener(() => {
@@ -47,7 +47,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
 /* public methods */
 self.context = {};
-self.context.accounts = async () => {
+self.context.accounts = async reason => {
   const accounts = new Map();
   for (const o of await checkEmails.getCached()) {
     const href = o.xml?.rootLink.replace(/\?.*/, '');
@@ -61,18 +61,17 @@ self.context.accounts = async () => {
     enabled: accounts.size !== 0
   });
   // create a unique key to determine whether context menu needs update or not
-  const keys = [...accounts.values()].map(o => 'ctx.' + o.title);
+  const keys = [...accounts.keys()];
 
   chrome.storage.session.get({
     'accounts.keys': []
   }, prefs => {
     // do we need to update
     if (prefs['accounts.keys'].join(',') === keys.join(',')) {
-      console.log('accounts menu is up to date');
+      log('[menu]', 'accounts menu is up to date');
       return;
     }
-
-    console.log('building accounts menu');
+    log('[menu]', `Reason: "${reason}"`, prefs['accounts.keys'], keys);
     chrome.storage.session.set({
       'accounts.keys': keys
     });
@@ -160,6 +159,13 @@ self.context.accounts = async () => {
 
     if (method.startsWith('http')) {
       self.openLink(method);
+    }
+    else if (method === 'root.ctx') {
+      chrome.storage.session.get({
+        'accounts.keys': []
+      }, prefs => {
+        self.openLink(prefs['accounts.keys'][0]);
+      });
     }
     else if (method === 'label_4') {
       silent(300);

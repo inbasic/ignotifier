@@ -249,6 +249,15 @@ input:invalid {
   justify-self: end;
 }
 
+.fnjh {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.fnjh > :first-child {
+  flex: 1;
+}
+
 [hbox] {
   display: flex;
   flex-direction: row;

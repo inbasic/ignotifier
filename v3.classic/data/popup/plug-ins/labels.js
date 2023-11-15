@@ -2,12 +2,14 @@
 'use strict';
 
 {
+  const hiddens = ['STARRED', 'Inbox', 'INBOX'];
+
   let response;
   let root;
   let query;
   let inprogress = '';
 
-  function star(url) {
+  const star = url => {
     const id = gmail.get.id(url);
     const o = response.filter(o => o.thread === id).shift();
     if (o) {
@@ -16,9 +18,9 @@
     else {
       document.body.dataset.star = 'hide';
     }
-  }
-  const hiddens = ['STARRED', 'Inbox', 'INBOX'];
-  function labels(url) {
+  };
+
+  const labels = url => {
     const id = gmail.get.id(url);
     const o = response.filter(o => o.thread === id).shift();
     if (o) {
@@ -37,7 +39,7 @@
     else {
       document.body.dataset.labels = false;
     }
-  }
+  };
 
   const update = (q = query, callback = () => {}) => chrome.runtime.sendMessage({
     method: 'gmail.search',
@@ -55,7 +57,7 @@
     }
   });
 
-  function fetch(url = selected.entry.link) {
+  const fetch = (url = selected.entry.link) => {
     document.body.dataset.labels = false;
     document.body.dataset.star = 'hide';
 
@@ -77,7 +79,7 @@
         });
       }
     }
-  }
+  };
 
   api.on('update-full-content', fetch);
 

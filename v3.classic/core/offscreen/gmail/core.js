@@ -1,3 +1,4 @@
+/* global get */
 'use strict';
 
 const gmail = {};
@@ -15,22 +16,11 @@ gmail.fetch = url => new Promise((resolve, reject) => {
 
 gmail.random = () => (Math.random().toString(36) + '00000000000000000').slice(2, 14);
 
-gmail.get = {
-  base: url => /[^?]*/.exec(url)[0].split('/h')[0].replace(/\/$/, ''),
-  id: url => {
-    const tmp = /message_id=([^&]*)/.exec(url);
-    if (tmp && tmp.length) {
-      return tmp[1];
-    }
-    return null;
-  }
-};
-
 {
   const token = {};
   gmail.at = {};
   gmail.at.get = url => {
-    url = gmail.get.base(url);
+    url = get.base(url);
     if (token[url]) {
       // invalidate after 10 minutes
       if (Date.now() - token[url].date < 10 * 60 * 1000) {
@@ -88,10 +78,10 @@ gmail.get = {
             reject(Error('cannot get "at" from the base page'));
           }
         });
-      });
+      }).catch(reject);
     });
   };
-  gmail.at.invalidate = url => delete token[gmail.get.base(url)];
+  gmail.at.invalidate = url => delete token[get.base(url)];
 }
 
 gmail.formData = obj => {
@@ -113,7 +103,7 @@ gmail.post = (url, params, threads = [], retry = true, express = false) => new P
     inboxRedirection: true,
     express: false
   }, prefs => {
-    url = (gmail.get.base(url) + '/?' + gmail.formData(params));
+    url = (get.base(url) + '/?' + gmail.formData(params));
     req.open('POST', url);
     req.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
     req.onreadystatechange = () => {
@@ -140,12 +130,12 @@ gmail.post = (url, params, threads = [], retry = true, express = false) => new P
 });
 
 
-gmail.action = ({links, cmd}) => {
+gmail.action = ({links, cmd, prefs}) => {
   links = typeof links === 'string' ? [links] : links;
   const url = /[^?]*/.exec(links[0])[0];
 
   return gmail.at.get(url).then(obj => {
-    const threads = links.map(link => gmail.get.id(link) || '').map(t => t);
+    const threads = links.map(link => get.id(link) || '').map(t => t);
 
     if (threads.length) {
       const shortcuts = {
@@ -198,6 +188,7 @@ gmail.action = ({links, cmd}) => {
         'nvp_tbu_go': 'Go',
         'bact': ''
       };
+
       const body = new URLSearchParams();
       body.append('at', obj.at);
       for (const [key, value] of Object.entries(command)) {
@@ -209,16 +200,12 @@ gmail.action = ({links, cmd}) => {
       body.append('bact', '');
 
       if (cmd === 'rc_^i' || cmd === 'rc_Inbox') {
-        chrome.storage.local.get({
-          doReadOnArchive: true
-        }, prefs => {
-          if (prefs.doReadOnArchive === true || prefs.doReadOnArchive === 'true') {
-            gmail.action({
-              links,
-              cmd: 'rd'
-            });
-          }
-        });
+        if (prefs.doReadOnArchive === true || prefs.doReadOnArchive === 'true') {
+          gmail.action({
+            links,
+            cmd: 'rd'
+          });
+        }
       }
 
       return fetch(obj.base.split('?')['0'] + '?&s=a', {

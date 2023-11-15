@@ -14,6 +14,7 @@ chrome.webRequest.onCompleted.addListener(d => {
 }, {
   urls: [
     '*://mail.google.com/mail/u*',
-    '*://mail.google.com/sync/u/*/i/s*'
+    '*://mail.google.com/sync/u/*/i/s*',
+    '*://mail.google.com/mail/logout*'
   ]},
 []);

@@ -1,26 +1,36 @@
-/* global checkEmails */
+/* global log, checkEmails */
 const repeater = {
   reason: ''
 };
 repeater.build = (type = 'normal', reason, delay) => chrome.storage.local.get({
   'period': 60, // seconds
   'initialPeriod': 3 // seconds
-}, prefs => {
+}, async prefs => {
   repeater.reason = reason;
 
-  let when = 0;
-  if (!isNaN(delay)) {
-    when = delay;
+  if (isNaN(delay)) {
+    if (type === 'normal') {
+      delay = (prefs.initialPeriod || 5) * 1000;
+    }
+    else if (type === 'fired') {
+      delay = prefs.period * 1000;
+    }
+    else {
+      delay = 100;
+    }
   }
-  else if (type === 'normal') {
-    when = (prefs.initialPeriod || 5) * 1000;
+
+  const when = Date.now() + delay;
+  // ignore
+  if (type !== 'fired') {
+    const next = await chrome.alarms.get('repeater');
+    if (next && (when - next.scheduledTime) > 0) {
+      return log('[repeater]', 'ignored', when - next.scheduledTime);
+    }
   }
-  else if (type === 'fired') {
-    when = prefs.period * 1000;
-  }
-  console.log(`Repeater Build`, `Reason: "${reason}"`, `Type: "${type}"`, `Delay: ${when}ms`);
+  log('[repeater]', `Reason: "${reason}"`, `Type: "${type}"`, `Delay: ${(delay / 1000).toFixed(2)}s`);
   chrome.alarms.create('repeater', {
-    when: Date.now() + when,
+    when,
     periodInMinutes: prefs.period / 60
   });
 });

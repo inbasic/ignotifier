@@ -1,3 +1,5 @@
+/* global log */
+
 const offscreen = {
   busy: false,
   cache: []
@@ -18,7 +20,7 @@ offscreen.command = async request => {
     documentUrls: [path]
   });
   if (existingContexts.length === 0) {
-    console.log('creating offscreen');
+    log('[offscreen]', 'creating...');
     await chrome.offscreen.createDocument({
       url: path,
       reasons: ['AUDIO_PLAYBACK', 'DOM_SCRAPING'],
@@ -42,6 +44,6 @@ offscreen.command = async request => {
 
 chrome.runtime.onMessage.addListener(request => {
   if (request.method === 'exit-offscreen') {
-    chrome.offscreen.closeDocument(() => console.log('offscreen', 'exit'));
+    chrome.offscreen.closeDocument(() => log('[offscreen]', 'exited'));
   }
 });
