@@ -1,7 +1,7 @@
-## [Gmail Notifier](https://add0n.com/gmail-notifier.html) browser extension (ignotifier)
+## [Gmail Notifier](https://webextension.org/listing/gmail-notifier.html) browser extension (ignotifier)
 
 ### Description
-[Gmail Notifier](https://add0n.com/gmail-notifier.html) is a multi-account notifier for Google mail (without storing passwords locally)
+[Gmail Notifier](https://webextension.org/listing/gmail-notifier.html) is a multi-account notifier for Google mail (without storing passwords locally)
 
 ### YouTube Preview
 [![YouTube Preview](https://img.youtube.com/vi/5Z2huN_GNkA/0.jpg)](https://www.youtube.com/watch?v=5Z2huN_GNkA)

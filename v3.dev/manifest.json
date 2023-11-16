@@ -4,7 +4,7 @@
   "name": "Gmail™ Notifier (Developer Edition)",
   "description": "__MSG_description__",
   "default_locale": "en",
-  "homepage_url": "https://add0n.com/gmail-notifier.html",
+  "homepage_url": "https://webextension.org/listing/gmail-notifier.html?from=dev",
   "permissions": [
     "notifications",
     "storage",
