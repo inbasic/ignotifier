@@ -76,7 +76,7 @@ self.context.accounts = async reason => {
       'accounts.keys': keys
     });
     // remove old context menu items
-    for (const key of keys) {
+    for (const key of prefs['accounts.keys']) {
       chrome.contextMenus.remove(key, () => chrome.runtime.lastError);
     }
     // add new items
@@ -140,14 +140,19 @@ self.context.accounts = async reason => {
   // reset silence menu on startup. The actual pref is false
   {
     const once = () => {
-      const next = () => chrome.contextMenus.update('silent.ctx', {
-        checked: true
-      }, () => {
-        const {lastError} = chrome.runtime;
-        if (lastError) {
-          setTimeout(next, 1000);
-        }
-      });
+      const next = () => {
+        chrome.storage.session.set({ // Firefox
+          silent: false
+        });
+        chrome.contextMenus.update('silent.ctx', {
+          checked: true
+        }, () => {
+          const {lastError} = chrome.runtime;
+          if (lastError) {
+            setTimeout(next, 1000);
+          }
+        });
+      };
       next();
     };
     chrome.runtime.onStartup.addListener(once);

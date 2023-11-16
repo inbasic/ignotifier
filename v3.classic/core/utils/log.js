@@ -1,18 +1,30 @@
 const log = (origin, ...args) => {
-  let color = 33;
+  const cc = [
+    '#ff0099',
+    '#ff9900',
+    '#c46dff',
+    '#0099ff',
+    '#66cc00',
+    '#00cc66'
+  ];
+
+  let n = 0;
   switch (origin) {
   case '[offscreen]':
-    color = 31;
-    break;
-  case '[repeater]':
-    color = 32;
-    break;
-  case '[feed]':
-    color = 35;
+    n = 1;
     break;
   case '[menu]':
-    color = 36;
+    n = 2;
+    break;
+  case '[feed]':
+    n = 3;
+    break;
+  case '[repeater]':
+    n = 4;
+    break;
+  case '[play]':
+    n = 5;
     break;
   }
-  console.info('\x1b[' + color + 'm%s\x1b[0m', origin, ...args);
+  console.info('%c' + origin, 'color:' + cc[n], ...args);
 };

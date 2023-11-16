@@ -3,7 +3,7 @@ const repeater = {
   reason: ''
 };
 repeater.build = (type = 'normal', reason, delay) => chrome.storage.local.get({
-  'period': 60, // seconds
+  'period': 120, // seconds
   'initialPeriod': 3 // seconds
 }, async prefs => {
   repeater.reason = reason;

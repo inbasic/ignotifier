@@ -32,14 +32,11 @@ const button = {
 }
 // button.icon
 {
-  let i = 0;
-  const t = [];
-  const clean = () => {
-    t.forEach(id => clearTimeout(id));
-    t.length = 0;
-  };
+  let id;
   Object.defineProperty(button, 'icon', {
     set(clr) {
+      clearTimeout(id);
+
       chrome.storage.local.get({
         'clrPattern': 0 // 0: normal color scheme, 1: reverse color scheme
       }, prefs => {
@@ -78,29 +75,31 @@ const button = {
           });
         }
 
-        clean();
         if (clr === 'load') {
-          t.push(setTimeout(() => {
-            set('load' + i);
-            i += 1;
-            i = i % 4;
-            button.icon = 'load';
-          }, 200));
+          const next = i => {
+            clearTimeout(id);
+            id = setTimeout(() => {
+              set('load' + i);
+              i += 1;
+              next(i % 4);
+            }, 200);
+          };
+          next(0);
         }
         else if (clr === 'new') {
-          t.push(setTimeout(() => {
-            set(i % 2 ? 'red' : 'new');
-            if (i < 7) {
-              i += 1;
-              button.icon = 'new';
-            }
-            else {
-              i = 0;
-            }
-          }, 300));
+          const next = i => {
+            clearTimeout(id);
+            id = setTimeout(() => {
+              set(i % 2 ? 'red' : 'new');
+              if (i < 7) {
+                i += 1;
+                next(i);
+              }
+            }, 300);
+          };
+          next(0);
         }
         else {
-          i = 0;
           set(clr);
         }
       });

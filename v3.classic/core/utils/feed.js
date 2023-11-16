@@ -71,7 +71,8 @@ class Feed {
     const href = this.#feed + '?rand=' + Math.round(Math.random() * 10000000);
     return fetch(href, {
       method: 'GET',
-      cache: 'no-store'
+      cache: 'no-store',
+      signal
     }).then(async r => {
       if (!r.ok) {
         clearTimeout(id);
@@ -110,6 +111,14 @@ class Feed {
           const two = tree.children.filter(o => o.name === 'ENTRY').length;
 
           return Math.max(one, two);
+        },
+        get id() {
+          for (const node of tree.children) {
+            if (node.name === 'TITLE') {
+              return node.text;
+            }
+          }
+          return false;
         },
         get title() {
           let title = '';

@@ -43,21 +43,9 @@ gmail.random = () => (Math.random().toString(36) + '00000000000000000').slice(2,
           const doc = parser.parseFromString(content, 'text/html');
 
           const e = doc.querySelector('a[href*="at="]');
-          const input = doc.querySelector('[name="at"]'); // do you really want to use this view
-          if (e) {
-            const args = new URLSearchParams(e.href.split('?')[1]);
-            const at = args.get('at');
-            if (!at) {
-              reject(Error('cannot extract "at" from the base page'));
-            }
-            token[url] = {
-              at,
-              base,
-              date: Date.now()
-            };
-            resolve(token[url]);
-          }
-          else if (input) {
+          const input = doc.querySelector('[name="at"]');
+          // bypass do you really want to use this view
+          if (input) {
             // allow access
             const body = new URLSearchParams();
             body.append('at', input.value);
@@ -69,6 +57,19 @@ gmail.random = () => (Math.random().toString(36) + '00000000000000000').slice(2,
 
             token[url] = {
               at: input.value,
+              base,
+              date: Date.now()
+            };
+            resolve(token[url]);
+          }
+          else if (e) {
+            const args = new URLSearchParams(e.href.split('?')[1]);
+            const at = args.get('at');
+            if (!at) {
+              reject(Error('cannot extract "at" from the base page'));
+            }
+            token[url] = {
+              at,
               base,
               date: Date.now()
             };

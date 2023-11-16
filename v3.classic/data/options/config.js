@@ -25,7 +25,7 @@ config.map = {
 };
 
 config.prefs = {
-  'period': 60, // seconds
+  'period': 120, // seconds
   'initialPeriod': 3, // seconds
   'resetPeriod': 0, // minutes
   'feeds_0': '',
@@ -36,7 +36,7 @@ config.prefs = {
   'feeds_5': '',
   'feeds_custom': '',
   'notification': true,
-  'notificationTime': 8, // seconds
+  'notificationTime': 30, // seconds
   'notificationFormat': chrome.i18n.getMessage('notification'),
   'notificationTruncate': 70,
   'alert': true,

@@ -14,15 +14,13 @@ offscreen.command = async request => {
   offscreen.busy = true;
 
   // do we have an active offscreen worker
-  const path = chrome.runtime.getURL('/core/offscreen/index.html');
   const existingContexts = await chrome.runtime.getContexts({
-    contextTypes: ['OFFSCREEN_DOCUMENT'],
-    documentUrls: [path]
+    contextTypes: ['OFFSCREEN_DOCUMENT']
   });
   if (existingContexts.length === 0) {
     log('[offscreen]', 'creating...');
     await chrome.offscreen.createDocument({
-      url: path,
+      url: '/core/offscreen/index.html',
       reasons: ['AUDIO_PLAYBACK', 'DOM_SCRAPING'],
       justification: 'parse a command or play alert'
     });
@@ -44,6 +42,8 @@ offscreen.command = async request => {
 
 chrome.runtime.onMessage.addListener(request => {
   if (request.method === 'exit-offscreen') {
-    chrome.offscreen.closeDocument(() => log('[offscreen]', 'exited'));
+    chrome.offscreen.closeDocument().then(() => {
+      log('[offscreen]', 'exited');
+    });
   }
 });

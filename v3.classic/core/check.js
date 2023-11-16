@@ -5,7 +5,6 @@ self.importScripts('/core/offscreen/gmail/get.js');
 
 {
   let color = 'blue';
-  const emails = [];
   const isPrivate = false;
 
   const read = (prefs, type = 'local') => new Promise(resolve => chrome.storage[type].get(prefs, resolve));
@@ -21,7 +20,7 @@ self.importScripts('/core/offscreen/gmail/get.js');
       return;
     }
     const p1 = await read({
-      'notificationTime': 8 // seconds
+      'notificationTime': 30 // seconds
     }, 'local');
     let isArray = Array.isArray(text);
     if (isArray && text.length === 1) {
@@ -238,8 +237,8 @@ self.importScripts('/core/offscreen/gmail/get.js');
       color = 'load';
     }
     // Cancel previous execution?
-    if (emails.length) {
-      emails.forEach(e => e.reject());
+    if (self.checkEmails.controller) {
+      self.checkEmails.controller.abort();
     }
     const prefs = await read({
       'url': 'https://mail.google.com/mail/u/0',
@@ -253,6 +252,7 @@ self.importScripts('/core/offscreen/gmail/get.js');
       'timeout': 9000,
       'alphabetic': false,
       'notificationTruncate': 70,
+      'combined': navigator.userAgent.includes('Firefox'),
       'maxReport': 3,
       'oldFashion': 0,
       'notification': true,
@@ -261,16 +261,36 @@ self.importScripts('/core/offscreen/gmail/get.js');
       'notification.buttons.trash': false,
       'alert': true
     });
-    const controller = new AbortController();
+    const controller = self.checkEmails.controller = new AbortController();
     const signal = controller.signal;
 
     const feeds = buildFeeds(prefs).map(feed => new Feed(feed, prefs.timeout, isPrivate));
+
     try {
       const responses = await Promise.all(feeds.map(s => s.execute(signal).catch(e => {
-        log('[feed]', 'error', e);
+        if (signal.aborted === false) {
+          log('[feed]', 'error', e);
+        }
       })));
-      let objs = responses.filter(o => o);
+      if (signal.aborted) {
+        return log('[feed]', 'skipped');
+      }
 
+      const objs = [];
+      const ids = new Set();
+      for (const r of responses) {
+        if (r && r.xml) {
+          // Removing not logged-in accounts
+          if (r.network && !r.notAuthorized && r.xml && r.xml.entries) {
+            // remove duplicated ids
+            if (ids.has(r.xml.id)) {
+              continue;
+            }
+            ids.add(r.xml.id);
+            objs.push(r);
+          }
+        }
+      }
       log('[feed]', 'forced', forced, 'objects', objs);
 
       const isAuthorized = objs.some(c => !c.notAuthorized && c.network);
@@ -283,7 +303,9 @@ self.importScripts('/core/offscreen/gmail/get.js');
           chrome.storage.session.set({
             'cached-objects': []
           });
-          self.checkEmails.cached.length = 0;
+          if (self.checkEmails.cached) {
+            self.checkEmails.cached.length = 0;
+          }
           context.accounts('logged.out');
         }
         if (forced) {
@@ -296,10 +318,6 @@ self.importScripts('/core/offscreen/gmail/get.js');
         log('[feed]', 'ignore checking', 'unauthorized');
         return;
       }
-      // Removing not logged-in accounts
-      objs = objs.filter(function(o) {
-        return o.network && !o.notAuthorized && o.xml && o.xml.entries;
-      });
       // Sorting accounts
       objs.sort((a, b) => {
         const var1 = prefs.alphabetic ? a.xml.title : a.xml.link;
@@ -384,7 +402,7 @@ self.importScripts('/core/offscreen/gmail/get.js');
         .replace('[summary]', shorten(e.summary, prefs.notificationTruncate))
         .replace('[title]', shorten(e.title, prefs.notificationTruncate))
         .replace(/\[break\]/g, '\n'));
-      if (navigator.userAgent.includes('Firefox')) {
+      if (prefs.combined) {
         report = [report.join('\n\n')];
       }
       // Preparing the tooltip
