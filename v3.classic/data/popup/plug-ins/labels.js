@@ -11,6 +11,7 @@
 
   const star = url => {
     const id = gmail.get.id(url);
+
     const o = response.filter(o => o.thread === id).shift();
     if (o) {
       document.body.dataset.star = o.labels.some(s => s === 'STARRED');
@@ -21,6 +22,7 @@
   };
 
   const labels = url => {
+    return;
     const id = gmail.get.id(url);
     const o = response.filter(o => o.thread === id).shift();
     if (o) {

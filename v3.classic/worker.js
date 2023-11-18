@@ -131,6 +131,12 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
   else if (method === 'stop-sound') {
     sound.stop();
   }
+  else if (method === 'get-at') {
+    chrome.cookies.get({name: 'GMAIL_AT', url: 'https://mail.google.com/mail/u/' + request.n}, o => {
+      response(o?.value);
+    });
+    return true;
+  }
 });
 
 /* FAQs & Feedback */

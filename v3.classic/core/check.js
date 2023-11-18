@@ -1,9 +1,20 @@
-/* global log, button, context, Feed, repeater, sound, offscreen, get */
+/* global log, button, context, Feed, repeater, sound, offscreen */
 
 self.importScripts('/core/utils/feed.js');
-self.importScripts('/core/offscreen/gmail/get.js');
 
 {
+  const helper = {
+    base(href) {
+      return /[^?]*/.exec(href)[0].split('/h')[0].replace(/\/$/, '');
+    },
+    thread(href) {
+      const m = href.match(/message_id=(?<thread>[^&]+)/);
+      if (m) {
+        return m.groups.thread;
+      }
+    }
+  };
+
   let color = 'blue';
   const isPrivate = false;
 
@@ -122,7 +133,7 @@ self.importScripts('/core/offscreen/gmail/get.js');
         // links might be from different accounts
         const bases = {};
         for (const link of request.links) {
-          const base = get.base(link);
+          const base = helper.base(link);
           bases[base] = bases[base] || [];
           bases[base].push(link);
         }
@@ -213,7 +224,9 @@ self.importScripts('/core/offscreen/gmail/get.js');
         'https://mail.google.com/mail/u/0/feed/atom',
         'https://mail.google.com/mail/u/1/feed/atom',
         'https://mail.google.com/mail/u/2/feed/atom',
-        'https://mail.google.com/mail/u/3/feed/atom'
+        'https://mail.google.com/mail/u/3/feed/atom',
+        'https://mail.google.com/mail/u/4/feed/atom',
+        'https://mail.google.com/mail/u/5/feed/atom'
       ];
     }
     return merged;
@@ -264,7 +277,16 @@ self.importScripts('/core/offscreen/gmail/get.js');
     const controller = self.checkEmails.controller = new AbortController();
     const signal = controller.signal;
 
-    const feeds = buildFeeds(prefs).map(feed => new Feed(feed, prefs.timeout, isPrivate));
+    const fdsr = buildFeeds(prefs); // requested feeds
+    const fdsp = []; // feeds that are logged in
+    // check if the feed is logged-in
+    for (const url of fdsr) {
+      const o = await chrome.cookies.get({name: 'GMAIL_AT', url});
+      if (o) {
+        fdsp.push(url);
+      }
+    }
+    const feeds = fdsp.map(feed => new Feed(feed, prefs.timeout, isPrivate));
 
     try {
       const responses = await Promise.all(feeds.map(s => s.execute(signal).catch(e => {
@@ -293,7 +315,7 @@ self.importScripts('/core/offscreen/gmail/get.js');
       }
       log('[feed]', 'forced', forced, 'objects', objs);
 
-      const isAuthorized = objs.some(c => !c.notAuthorized && c.network);
+      const isAuthorized = objs.length && objs.some(c => !c.notAuthorized && c.network);
       if (!isAuthorized) {
         if (color !== 'blue') {
           button.icon = 'blue';
@@ -496,20 +518,21 @@ self.importScripts('/core/offscreen/gmail/get.js');
           const links = [];
           for (const o of reportArray) {
             try {
-              const base = get.base(o.link);
-              const messageID = get.id(o.link);
+              const base = helper.base(o.link);
+              const thread = helper.thread(o.link);
 
-              if (messageID && o.parent.xml.link.indexOf('#') === -1) {
-                links.push(base + '/?shva=1#inbox/' + messageID);
+              if (thread && o.parent.xml.link.indexOf('#') === -1) {
+                links.push(base + '/?shva=1#inbox/' + thread);
               }
-              else if (messageID) {
-                links.push(o.parent.xml.link + '/' + messageID);
+              else if (thread) {
+                links.push(o.parent.xml.link + '/' + thread);
               }
               else {
                 links.push(o.link);
               }
             }
             catch (e) {
+              console.error(e);
               links.push(o.link);
             }
           }

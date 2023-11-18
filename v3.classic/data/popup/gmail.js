@@ -1,49 +1,19 @@
 'use strict';
 
-var gmail = {};
-
-gmail.fetch = url => new Promise((resolve, reject) => {
-  const req = new XMLHttpRequest();
-  req.onload = () => resolve({
-    text: () => req.response
-  });
-  req.onerror = () => reject(new Error('action -> fetch Error'));
-  req.open('GET', url);
-  req.send();
-});
-
-gmail.get = {
-  base: url => /[^?]*/.exec(url)[0],
-  id: url => {
-    const tmp = /message_id=([^&]*)/.exec(url);
-    if (tmp && tmp.length) {
-      return tmp[1];
+const gmail = {
+  get: {
+    base: url => /[^?]*/.exec(url)[0],
+    id: url => {
+      const tmp = /message_id=([^&]*)/.exec(url);
+      if (tmp && tmp.length) {
+        return tmp[1];
+      }
+      return null;
     }
-    return null;
   }
 };
 
-gmail.staticID = (iks => url => {
-  if (iks[url]) {
-    return Promise.resolve(iks[url]);
-  }
-  return gmail.fetch(url).then(r => r.text()).then(content => {
-    const tmp = /var GLOBALS=\[(?:([^,]*),){10}/.exec(content || '');
-    const ik = tmp && tmp.length > 1 ? tmp[1].replace(/["']/g, '') : null;
-    if (ik) {
-      iks[url] = ik;
-      return ik;
-    }
-    else {
-      throw Error(
-        'body -> getIK -> ' +
-        'Error at resolving user\'s static ID. Please switch back to the summary mode.'
-      );
-    }
-  });
-})({});
-
-gmail.body = (contents => (link, mode) => {
+gmail.body = (contents => async (link, mode) => {
   link = link.replace('http://', 'https://');
   if (contents[link]) {
     return Promise.resolve(contents[link]);
@@ -52,28 +22,22 @@ gmail.body = (contents => (link, mode) => {
   const url = gmail.get.base(link);
   const thread = gmail.get.id(link);
 
-  const rand = Math.random().toString(36).substr(2).padStart(13, '0');
-  const oLink = url + `/h/${rand}/?th=${thread}&v=pt`;
-
   if (!thread) {
     return Promise.reject(Error('body -> Error at resolving thread. Please switch back to the summary mode.'));
   }
-  return fetch(oLink, {
+
+  const href = url + '/?ui=2&view=pt&dsqt=1&search=all&msg=' + thread;
+  const r = await fetch(href, {
     credentials: 'include'
-  }).then(r => {
-    if (r.ok) {
-      return r.text();
-    }
-    throw Error('cannot use oLink to generate print view');
-  }).catch(e => {
-    console.error(e);
-    return gmail.staticID(url)
-      .then(ik => gmail.fetch(url + '?ui=2&ik=' + ik + '&view=pt&dsqt=1&search=all&msg=' + thread).then(r => r.text()));
-  }).then(content => {
-    const body = gmail.render[mode ? 'getHTMLText' : 'getPlainText'](content, url, link);
-    contents[link] = body;
-    return body;
   });
+
+  if (!r.ok) {
+    throw Error('body -> print');
+  }
+  const content = await r.text();
+  const body = gmail.render[mode ? 'getHTMLText' : 'getPlainText'](content, url, link);
+  contents[link] = body;
+  return body;
 })({});
 
 gmail.render = (() => {

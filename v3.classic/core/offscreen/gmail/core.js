@@ -1,275 +1,99 @@
-/* global get */
-'use strict';
-
 const gmail = {};
-
-gmail.fetch = url => new Promise((resolve, reject) => {
-  const req = new XMLHttpRequest();
-  req.onload = () => resolve({
-    text: () => req.response,
-    status: req.status
-  });
-  req.onerror = () => reject(new Error('action -> fetch Error'));
-  req.open('GET', url);
-  req.send();
-});
-
-gmail.random = () => (Math.random().toString(36) + '00000000000000000').slice(2, 14);
-
-{
-  const token = {};
-  gmail.at = {};
-  gmail.at.get = url => {
-    url = get.base(url);
-    if (token[url]) {
-      // invalidate after 10 minutes
-      if (Date.now() - token[url].date < 10 * 60 * 1000) {
-        return Promise.resolve(token[url]);
-      }
-    }
-    return new Promise((resolve, reject) => {
-      const blind = 'https://mail.google.com/mail/?ui=html&zy=h';
-      fetch(blind, {
-        credentials: 'include'
-      }).then(r => r.url).then(href => {
-        if (href.indexOf('/u/') === -1) {
-          return reject(Error('cannot find basic HTML view from the blind URL'));
-        }
-        const id = url.split('/u/')[1].split('/')[0];
-        const base = href.replace(/\/u\/\d+/, '/u/' + id);
-
-        gmail.fetch(base).then(r => r.text()).then(content => {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(content, 'text/html');
-
-          const e = doc.querySelector('a[href*="at="]');
-          const input = doc.querySelector('[name="at"]');
-          // bypass do you really want to use this view
-          if (input) {
-            // allow access
-            const body = new URLSearchParams();
-            body.append('at', input.value);
-            fetch(base.split('?')[0] + '?a=uia', {
-              method: 'POST',
-              body,
-              credentials: 'include'
-            });
-
-            token[url] = {
-              at: input.value,
-              base,
-              date: Date.now()
-            };
-            resolve(token[url]);
-          }
-          else if (e) {
-            const args = new URLSearchParams(e.href.split('?')[1]);
-            const at = args.get('at');
-            if (!at) {
-              reject(Error('cannot extract "at" from the base page'));
-            }
-            token[url] = {
-              at,
-              base,
-              date: Date.now()
-            };
-            resolve(token[url]);
-          }
-          else {
-            reject(Error('cannot get "at" from the base page'));
-          }
-        });
-      }).catch(reject);
-    });
-  };
-  gmail.at.invalidate = url => delete token[get.base(url)];
-}
-
-gmail.formData = obj => {
-  const arr = [];
-  Object.keys(obj).forEach(key => {
-    if (!Array.isArray(obj[key])) {
-      obj[key] = [obj[key]];
-    }
-    obj[key].forEach(v => {
-      arr.push(`${key}=${encodeURIComponent(v)}`);
-    });
-  });
-  return arr.join('&');
+const cache = {
+  iks: new Map()
 };
+gmail.page = n => {
+  if (cache.iks.has(n)) {
+    return Promise.resolve(cache.iks.get(n));
+  }
 
-gmail.post = (url, params, threads = [], retry = true, express = false) => new Promise((resolve, reject) => {
-  const req = new XMLHttpRequest();
-  chrome.storage.local.get({
-    inboxRedirection: true,
-    express: false
-  }, prefs => {
-    url = (get.base(url) + '/?' + gmail.formData(params));
-    req.open('POST', url);
-    req.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
-    req.onreadystatechange = () => {
-      // consider post as successful if req.readyState === HEADERS_RECEIVED
-      if (express && prefs.express && req.readyState === 2 && req.status === 200) {
-        resolve(req);
-      }
-    };
-    req.onload = () => {
-      if (req.status === 302 && retry === true) {
-        gmail.at.invalidate(url);
-        gmail.post(url, params, threads, retry = false).then(resolve, reject);
-      }
-      else if (req.status === 404) {
-        reject(new Error('Gmail is rejecting this action'));
-      }
-      else {
-        resolve(req);
-      }
-    };
-    req.onerror = e => reject(e);
-    req.send(threads.length ? 't=' + threads.join('&t=') : '');
-  });
-});
+  const page = localStorage.getItem('page-' + n) || `https://mail.google.com/mail/u/${n}/s/`;
 
-
-gmail.action = ({links, cmd, prefs}) => {
-  links = typeof links === 'string' ? [links] : links;
-  const url = /[^?]*/.exec(links[0])[0];
-
-  return gmail.at.get(url).then(obj => {
-    const threads = links.map(link => get.id(link) || '').map(t => t);
-
-    if (threads.length) {
-      const shortcuts = {
-        'rd': { // mark as read
-          'tact': 'rd',
-          'nvp_tbu_go': 'Go',
-          'redir': '?&'
-        },
-        'rd-all': { // mark all as read
-          'tact': 'rd',
-          'nvp_tbu_go': 'Go'
-        },
-        'rc_^i': { // archive
-          'tact': 'arch',
-          'nvp_tbu_go': 'Go'
-        },
-        'rc_Inbox': { // archive
-          'tact': 'arch',
-          'nvp_tbu_go': 'Go'
-        },
-        'tr': { // trash
-          'tact': '',
-          'nvp_a_tr': 'Delete'
-        },
-        'move-to-inbox': {
-          'tact': '',
-          'nvp_a_ib': 'Move to Inbox'
-        },
-        'sp': { // report spam
-          'tact': '',
-          'nvp_a_sp': 'Report Spam'
-        },
-        'rc_Spam': { // report spam
-          'tact': '',
-          'nvp_a_sp': 'Report Spam'
-        },
-        'st': { // add-star
-          'tact': 'st',
-          'nvp_tbu_go': 'Go',
-          'bact': ''
-        },
-        'xst': { // remove star
-          'tact': 'xst',
-          'nvp_tbu_go': 'Go',
-          'bact': ''
-        }
-      };
-      const command = shortcuts[cmd] || {
-        'tact': cmd,
-        'nvp_tbu_go': 'Go',
-        'bact': ''
-      };
-
-      const body = new URLSearchParams();
-      body.append('at', obj.at);
-      for (const [key, value] of Object.entries(command)) {
-        body.append(key, value);
-      }
-      for (const thread of threads) {
-        body.append('t', thread);
-      }
-      body.append('bact', '');
-
-      if (cmd === 'rc_^i' || cmd === 'rc_Inbox') {
-        if (prefs.doReadOnArchive === true || prefs.doReadOnArchive === 'true') {
-          gmail.action({
-            links,
-            cmd: 'rd'
-          });
-        }
-      }
-
-      return fetch(obj.base.split('?')['0'] + '?&s=a', {
-        method: 'POST',
-        body,
-        credentials: 'include'
-      });
-    }
-    return Promise.reject(Error('action -> Error at resolving thread.'));
-  });
-};
-
-gmail.search = async ({url, query}) => {
-  const obj = await gmail.at.get(url);
-  if (obj.at) {
-    const body = new URLSearchParams();
-    body.append('s', 'q');
-    body.append('q', query);
-    body.append('nvp_site_mail', 'Search Mail');
-    body.append('at', obj.at);
-
-    const r = await fetch(obj.base.split('?')[0] + '?s=q&q=' + encodeURIComponent(query) + '&nvp_site_mail=Search%20Mail', {
+  const next = async href => {
+    const r = await fetch(href, {
       credentials: 'include'
     });
+    if (r.ok) {
+      const content = await r.text();
+      const m = content.match(/ID_KEY\s*=\s*['"](?<ik>[^'"]*)['"]/);
+
+      if (m) {
+        cache.iks.set(n, m.groups);
+        return m.groups;
+      }
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(content, 'text/html');
+      const meta = doc.querySelector('meta[http-equiv="refresh"]');
+      if (meta) {
+        const url = meta.content.split('url=')[1];
+        if (url) {
+          const o = new URL(url, page);
+          localStorage.setItem('page-' + n, o.href);
+
+          return next(o.href);
+        }
+      }
+    }
+    throw Error('core.js -> id_key');
+  };
+
+  return next(page);
+};
+gmail.at = n => new Promise(resolve => chrome.runtime.sendMessage({
+  method: 'get-at',
+  n
+}, resolve));
+
+gmail.search = async ({url, query}) => {
+  const m = url.match(/u\/(?<n>\d+)/);
+  if (m) {
+    const {n} = m.groups;
+    const {ik} = await gmail.page(n);
+    if (!ik) {
+      throw Error('core.js -> ik');
+    }
+    const at = await gmail.at(n);
+    if (!at) {
+      throw Error('core.js -> at');
+    }
+    const body = new URLSearchParams();
+    body.append('s_jr', JSON.stringify([null, [
+      [null, null, null, null, null, null, [null, true, false]],
+      [null, [null, query, 0, null, 80, null, null, null, false, [], [], true]]
+    ], 2, null, null, null, ik]));
+
+    const r = await fetch(`https://mail.google.com/mail/u/${n}/s/?v=or&ik=${ik}&at=${at}&subui=chrome&hl=en&ts=` + Date.now(), {
+      method: 'POST',
+      credentials: 'include',
+      body
+    });
+    if (!r.ok) {
+      throw Error('core.js -> body: ' + r.status);
+    }
     const content = await r.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(content, 'text/html');
-
-    const as = [...doc.querySelectorAll('a[href*="&th="]')];
-
-    const entries = as.map(a => {
-      const ts = a.querySelector('.ts');
-      const es = ts.children.length === 3 ? ts.children : ts.childNodes;
-      if (es.length < 3) {
-        throw Error('Cannot extract "labels", "title", and "snippet" from the element');
-      }
-      const snippet = ts.querySelector('.ts > font:last-child');
-
+    const parts = content.split(/\d+&/);
+    const results = parts[2];
+    const j = JSON.parse(results);
+    const entries = j[1][0][2][5].map(a => {
       const entry = {};
-      entry.thread = a.href.split('th=')[1].split('&')[0];
-      entry.labels = [...es[0].textContent.split(/\s*,\s*/)].filter(a => a);
-      if (a.closest('tr').querySelector('img[alt=Starred]')) {
-        entry.labels.push('STARRED');
+      entry.subject = a[3];
+      entry.thread = a[11];
+      entry.labels = a[8] || [];
+      entry.date = a[7];
+      entry.from = a[5];
+      entry.text = a[4];
+
+      try {
+        if (a[10][2] === 1) {
+          entry.labels.push('STARRED');
+        }
       }
-      entry.date = ts.closest('td').nextElementSibling.textContent;
-      entry.from = ts.closest('td').previousElementSibling.textContent.replace(/\s+\(\d+\)$/, '');
-      entry.text = snippet ? snippet.textContent.replace(/^ - /, '') : '';
-
-
+      catch (e) {}
       return entry;
     });
 
-    let count = 0;
-    if (as.length) {
-      const t = doc.querySelector('form[name=f] td[align="right"] b:last-of-type');
-      if (!t) {
-        throw Error('Cannot detect count');
-      }
-      count = Number(t.textContent);
-    }
-
     return {
-      'count': count || entries.length,
+      'count': entries.length,
       'name': 'NA',
       'logged-in': true,
       'responseURL': r.responseURL,
@@ -277,6 +101,81 @@ gmail.search = async ({url, query}) => {
     };
   }
   else {
-    throw new Error('Cannot parse search result/1');
+    throw Error('core.js -> valid_m');
   }
+};
+
+gmail.action = async ({links, cmd, prefs}) => {
+  links = typeof links === 'string' ? [links] : links;
+
+  const a = links.map(link => {
+    const m = link.match(/u\/(?<n>\d+).*message_id=(?<thread>[^&]+)/);
+    if (m) {
+      return m.groups;
+    }
+  }).filter(o => o);
+  if (a.length) {
+    const at = await gmail.at(a[0].n);
+    if (!at) {
+      throw Error('core.js -> at');
+    }
+    const {ik} = await gmail.page(a[0].n);
+    if (!ik) {
+      throw Error('core.js -> ik');
+    }
+
+    const action = {
+      command: 'l:all',
+      labels: [],
+      ids: []
+    };
+
+    if (cmd === 'rd' || cmd === 'rd-all') { // mark as read
+      action.code = 3;
+    }
+    else if (cmd === 'rc_^i' || cmd === 'rc_Inbox') { // archive
+      action.code = 1;
+      if (prefs.doReadOnArchive === true || prefs.doReadOnArchive === 'true') {
+        gmail.action({
+          links,
+          cmd: 'rd',
+          prefs
+        });
+      }
+    }
+    else if (cmd === 'sp' || cmd === 'rc_Spam') { // report spam
+      action.code = 7;
+    }
+    else if (cmd === 'tr') { // trash
+      action.code = 9;
+    }
+    else if (cmd === 'st') { // star
+      action.code = 5;
+    }
+    else if (cmd === 'xst') { // remove star
+      action.code = 6;
+    }
+    else if (cmd.startsWith('rc_')) { // add or remove labels
+      // action.labels = cmd.slice(3);
+    }
+    if (!action.code) {
+      throw Error('core.js -> action_not_supported: ' + cmd);
+    }
+
+    const body = new FormData();
+    body.append('s_jr', JSON.stringify([null, [
+      ...a.map(o => [null, null, null, [
+        null, action.code, o.thread, (o.id || o.thread), action.command, [], action.labels, o.ids
+      ]]),
+      [null, null, null, null, null, null, [null, true, false]],
+      [null, null, null, null, null, null, [null, true, false]]
+    ], 2, null, null, null, ik]));
+
+    return fetch(`https://mail.google.com/mail/u/${a[0].n}/s/?v=or&ik=${ik}&at=${at}&subui=chrome&hl=en&ts=` + Date.now(), {
+      method: 'POST',
+      credentials: 'include',
+      body
+    });
+  }
+  throw Error('core.js -> no_links');
 };

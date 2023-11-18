@@ -20,12 +20,17 @@ repeater.build = (type = 'normal', reason, delay) => chrome.storage.local.get({
     }
   }
 
-  const when = Date.now() + delay;
+  const now = Date.now();
+  const when = now + delay;
   // ignore
   if (type !== 'fired') {
     const next = await chrome.alarms.get('repeater');
-    if (next && (when - next.scheduledTime) > 0) {
-      return log('[repeater]', 'ignored', when - next.scheduledTime);
+    if (next) {
+      if (next.scheduledTime > now) {
+        if ((when - next.scheduledTime) > 0) {
+          return log('[repeater]', 'ignored', when - next.scheduledTime);
+        }
+      }
     }
   }
   log('[repeater]', `Reason: "${reason}"`, `Type: "${type}"`, `Delay: ${(delay / 1000).toFixed(2)}s`);

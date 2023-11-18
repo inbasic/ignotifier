@@ -2,7 +2,7 @@
   "name": "Notifier for Gmail™",
   "description": "__MSG_description__",
   "author": "InBasic",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "minimum_chrome_version": "117",
   "manifest_version": 3,
   "default_locale": "en",
@@ -13,7 +13,8 @@
     "storage",
     "alarms",
     "idle",
-    "offscreen"
+    "offscreen",
+    "cookies"
   ],
   "host_permissions": [
     "*://mail.google.com/mail/",
