@@ -94,7 +94,7 @@ self.context.accounts = async reason => {
           id,
           parentId: 'root.ctx',
           contexts: ['action']
-        });
+        }, () => chrome.runtime.lastError);
       }
     }
   });

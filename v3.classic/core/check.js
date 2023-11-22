@@ -15,7 +15,6 @@ self.importScripts('/core/utils/feed.js');
     }
   };
 
-  let color = 'blue';
   const isPrivate = false;
 
   const read = (prefs, type = 'local') => new Promise(resolve => chrome.storage[type].get(prefs, resolve));
@@ -246,8 +245,6 @@ self.importScripts('/core/utils/feed.js');
     if (forced) {
       button.icon = 'load';
       button.badge = 0;
-
-      color = 'load';
     }
     // Cancel previous execution?
     if (self.checkEmails.controller) {
@@ -278,15 +275,8 @@ self.importScripts('/core/utils/feed.js');
     const signal = controller.signal;
 
     const fdsr = buildFeeds(prefs); // requested feeds
-    const fdsp = []; // feeds that are logged in
-    // check if the feed is logged-in
-    for (const url of fdsr) {
-      const o = await chrome.cookies.get({name: 'GMAIL_AT', url});
-      if (o) {
-        fdsp.push(url);
-      }
-    }
-    const feeds = fdsp.map(feed => new Feed(feed, prefs.timeout, isPrivate));
+    // do not reduce the feed list from cookies. It is not reliable
+    const feeds = fdsr.map(feed => new Feed(feed, prefs.timeout, isPrivate));
 
     try {
       const responses = await Promise.all(feeds.map(s => s.execute(signal).catch(e => {
@@ -315,12 +305,15 @@ self.importScripts('/core/utils/feed.js');
       }
       log('[feed]', 'forced', forced, 'objects', objs);
 
-      const isAuthorized = objs.length && objs.some(c => !c.notAuthorized && c.network);
+      const isAuthorized = objs.length !== 0 && objs.some(c => !c.notAuthorized && c.network);
+      const count = await new Promise(resolve => chrome.storage.session.get({
+        count: -1
+      }, prefs => resolve(prefs.count)));
+
       if (!isAuthorized) {
-        if (color !== 'blue') {
+        if (count !== -1) {
           button.icon = 'blue';
           button.badge = 0;
-          color = 'blue';
           chrome.storage.session.set({count: -1});
           chrome.storage.session.set({
             'cached-objects': []
@@ -357,10 +350,6 @@ self.importScripts('/core/utils/feed.js');
         'cached-objects': objs
       });
       self.checkEmails.cached = objs;
-
-      const count = await new Promise(resolve => chrome.storage.session.get({
-        count: -1
-      }, prefs => resolve(prefs.count)));
 
       // New total count number
       const anyNewEmails = objs.some(c => c.newIDs.length !== 0);
@@ -444,7 +433,7 @@ self.importScripts('/core/utils/feed.js');
         if (newCount) {
           button.icon = 'red';
           button.badge = newCount;
-          color = 'red';
+          chrome.storage.session.set({count: newCount});
 
           chrome.runtime.sendMessage({
             method: 'update',
@@ -460,20 +449,20 @@ self.importScripts('/core/utils/feed.js');
         else {
           button.icon = 'gray';
           button.badge = 0;
-          color = 'gray';
+          chrome.storage.session.set({count: 0});
           detach();
         }
       }
       else if (forced && !newCount) {
         button.icon = 'gray';
         button.badge = 0;
-        color = 'gray';
+        chrome.storage.session.set({count: 0});
         detach();
       }
       else {
         button.icon = 'new';
         button.badge = newCount;
-        color = 'new';
+        chrome.storage.session.set({count: newCount});
         if (singleAccount) {
           detach();
         }
