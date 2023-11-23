@@ -46,7 +46,7 @@ const once = () => {
   }, () => chrome.runtime.lastError);
 };
 chrome.runtime.onInstalled.addListener(once);
-chrome.runtime.onStartup.addListener(once);
+chrome.runtime.onStartup.addListener(once); // for Firefox
 
 /* public methods */
 self.context = {};
