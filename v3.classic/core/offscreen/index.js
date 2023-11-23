@@ -18,6 +18,7 @@ const play = request => {
   const audio = document.createElement('audio');
   audio.setAttribute('preload', 'auto');
   audio.setAttribute('autobuffer', 'true');
+  audio.setAttribute('autoplay', 'true');
   audio.onerror = audio.onended = () => {
     ids.delete(request.id);
     exit();

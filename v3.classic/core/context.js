@@ -1,25 +1,26 @@
 /* global log, checkEmails, repeater */
 'use strict';
 
-chrome.runtime.onInstalled.addListener(() => {
+// https://github.com/inbasic/ignotifier/issues/620
+const once = () => {
   chrome.contextMenus.create({
     id: 'root.ctx',
     title: chrome.i18n.getMessage('label_14'),
     contexts: ['action'],
     enabled: false
-  });
+  }, () => chrome.runtime.lastError);
   chrome.contextMenus.create({
     title: chrome.i18n.getMessage('label_3'),
     contexts: ['action'],
     id: 'disable.ctx'
-  });
+  }, () => chrome.runtime.lastError);
   for (const id of ['4', '5', '6', '7', '8', '9', '13']) {
     chrome.contextMenus.create({
       parentId: 'disable.ctx',
       id: 'label_' + id,
       title: chrome.i18n.getMessage('label_' + id),
       contexts: ['action']
-    });
+    }, () => chrome.runtime.lastError);
   }
   chrome.contextMenus.create({
     title: chrome.i18n.getMessage('label_10'),
@@ -27,23 +28,25 @@ chrome.runtime.onInstalled.addListener(() => {
     contexts: ['action'],
     id: 'silent.ctx',
     checked: false
-  });
+  }, () => chrome.runtime.lastError);
   chrome.contextMenus.create({
     title: chrome.i18n.getMessage('label_11'),
     contexts: ['action'],
     id: 'label_11'
-  });
+  }, () => chrome.runtime.lastError);
   chrome.contextMenus.create({
     title: chrome.i18n.getMessage('label_1'),
     contexts: ['action'],
     id: 'label_1'
-  });
+  }, () => chrome.runtime.lastError);
   chrome.contextMenus.create({
     title: chrome.i18n.getMessage('label_12'),
     contexts: ['action'],
     id: 'label_12'
-  });
-});
+  }, () => chrome.runtime.lastError);
+};
+chrome.runtime.onInstalled.addListener(once);
+chrome.runtime.onStartup.addListener(once);
 
 /* public methods */
 self.context = {};
