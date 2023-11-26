@@ -504,6 +504,7 @@ qs('iframe').onload = () => chrome.storage.session.get({
   'cached-objects': []
 }, prefs => {
   objs = prefs['cached-objects'];
+
   if (objs && objs.length) {
     // Selected account
     const unreadEntries = objs.map(obj => obj.xml.entries

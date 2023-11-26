@@ -22,13 +22,23 @@ const once = () => {
       contexts: ['action']
     }, () => chrome.runtime.lastError);
   }
+  // reset silence menu on startup. The actual pref is false
+  chrome.storage.session.set({ // Firefox
+    silent: false
+  });
   chrome.contextMenus.create({
     title: chrome.i18n.getMessage('label_10'),
     type: 'checkbox',
     contexts: ['action'],
     id: 'silent.ctx',
     checked: false
-  }, () => chrome.runtime.lastError);
+  }, () => {
+    if (chrome.runtime.lastError) {
+      chrome.contextMenus.update('silent.ctx', {
+        checked: true
+      }, () => chrome.runtime.lastError);
+    }
+  });
   chrome.contextMenus.create({
     title: chrome.i18n.getMessage('label_11'),
     contexts: ['action'],
@@ -140,27 +150,6 @@ self.context.accounts = async reason => {
       });
     }
   });
-  // reset silence menu on startup. The actual pref is false
-  {
-    const once = () => {
-      const next = () => {
-        chrome.storage.session.set({ // Firefox
-          silent: false
-        });
-        chrome.contextMenus.update('silent.ctx', {
-          checked: true
-        }, () => {
-          const {lastError} = chrome.runtime;
-          if (lastError) {
-            setTimeout(next, 1000);
-          }
-        });
-      };
-      next();
-    };
-    chrome.runtime.onStartup.addListener(once);
-    chrome.runtime.onInstalled.addListener(once);
-  }
 
   chrome.contextMenus.onClicked.addListener(info => {
     const method = info.menuItemId;

@@ -1,6 +1,7 @@
 const gmail = {};
 const cache = {
-  iks: new Map()
+  iks: new Map(),
+  ats: new Map()
 };
 gmail.page = n => {
   if (cache.iks.has(n)) {
@@ -39,10 +40,52 @@ gmail.page = n => {
 
   return next(page);
 };
-gmail.at = n => new Promise(resolve => chrome.runtime.sendMessage({
-  method: 'get-at',
-  n
-}, resolve));
+gmail.at = n => {
+  if (cache.ats.has(n)) {
+    return Promise.resolve(cache.ats.get(n));
+  }
+
+  return new Promise((resolve, reject) => chrome.runtime.sendMessage({
+    method: 'get-at',
+    n
+  }, at => {
+    if (at) {
+      cache.ats.set(n, at);
+      resolve(at);
+    }
+    // backup plan
+    else {
+      console.info('[core]', 'Using alternative method to get GAMIL_AT');
+
+      fetch(`https://mail.google.com/mail/u/${n}/h/`).then(r => {
+        if (r.ok) {
+          return r.text();
+        }
+        throw Error('core.js -> at -> ' + r.status);
+      }).then(content => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(content, 'text/html');
+
+        const e = doc.querySelector('a[href*="at="]');
+        const input = doc.querySelector('[name="at"]'); // do you really want to use this view
+
+        if (e) {
+          const args = new URLSearchParams(e.href.split('?')[1]);
+          if (args.has('at')) {
+            cache.ats.set(n, args.get('at'));
+            return resolve(args.get('at'));
+          }
+        }
+        if (input && input.value) {
+          cache.ats.set(n, input.value);
+          return resolve(input.value);
+        }
+        throw Error('core.js -> at (h)');
+      }).then(resolve, reject);
+    }
+  }));
+};
+
 
 gmail.search = async ({url, query}) => {
   const m = url.match(/u\/(?<n>\d+)/);
@@ -50,11 +93,11 @@ gmail.search = async ({url, query}) => {
     const {n} = m.groups;
     const {ik} = await gmail.page(n);
     if (!ik) {
-      throw Error('core.js -> ik');
+      throw Error('core.js -> ik -> empty');
     }
     const at = await gmail.at(n);
     if (!at) {
-      throw Error('core.js -> at');
+      throw Error('core.js -> at -> empty');
     }
     const body = new URLSearchParams();
     body.append('s_jr', JSON.stringify([null, [
@@ -62,7 +105,8 @@ gmail.search = async ({url, query}) => {
       [null, [null, query, 0, null, 80, null, null, null, false, [], [], true]]
     ], 2, null, null, null, ik]));
 
-    const r = await fetch(`https://mail.google.com/mail/u/${n}/s/?v=or&ik=${ik}&at=${at}&subui=chrome&hl=en&ts=` + Date.now(), {
+    const href = `https://mail.google.com/mail/u/${n}/s/?v=or&ik=${ik}&at=${at}&subui=chrome&hl=en&ts=` + Date.now();
+    const r = await fetch(href, {
       method: 'POST',
       credentials: 'include',
       body
@@ -171,7 +215,8 @@ gmail.action = async ({links, cmd, prefs}) => {
       [null, null, null, null, null, null, [null, true, false]]
     ], 2, null, null, null, ik]));
 
-    return fetch(`https://mail.google.com/mail/u/${a[0].n}/s/?v=or&ik=${ik}&at=${at}&subui=chrome&hl=en&ts=` + Date.now(), {
+    const href = `https://mail.google.com/mail/u/${a[0].n}/s/?v=or&ik=${ik}&at=${at}&subui=chrome&hl=en&ts=` + Date.now();
+    return fetch(href, {
       method: 'POST',
       credentials: 'include',
       body

@@ -245,6 +245,8 @@ self.importScripts('/core/utils/feed.js');
     if (forced) {
       button.icon = 'load';
       button.badge = 0;
+      // do not use -1; if the user is logged out, the loading need to be stopped
+      chrome.storage.session.set({count: 0});
     }
     // Cancel previous execution?
     if (self.checkEmails.controller) {
@@ -349,6 +351,7 @@ self.importScripts('/core/utils/feed.js');
       chrome.storage.session.set({
         'cached-objects': objs
       });
+
       self.checkEmails.cached = objs;
 
       // New total count number

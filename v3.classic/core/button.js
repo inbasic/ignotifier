@@ -76,13 +76,18 @@ const button = {
         }
 
         if (clr === 'load') {
-          const next = i => {
+          const next = (i, n = 0) => {
             clearTimeout(id);
-            id = setTimeout(() => {
-              set('load' + i);
-              i += 1;
-              next(i % 4);
-            }, 200);
+            if (n < 100) {
+              id = setTimeout(() => {
+                set('load' + i);
+                i += 1;
+                next(i % 4, n += 1);
+              }, 200);
+            }
+            else {
+              set('blue');
+            }
           };
           next(0);
         }
