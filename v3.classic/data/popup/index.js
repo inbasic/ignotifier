@@ -312,8 +312,6 @@ const action = (cmd, links = selected.entry.link, callback = () => {}) => {
     cmd,
     links
   }, () => {
-    console.log('gmail action done');
-
     callback();
     if (cmd === 'rd') {
       qs('read').textContent = locale.get('popup_read');

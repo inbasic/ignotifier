@@ -4,6 +4,12 @@ self.importScripts('/core/utils/feed.js');
 
 {
   const helper = {
+    id(href) {
+      const m = href.match(/u\/(?<n>\d+)/);
+      if (m) {
+        return Number(m.groups.n);
+      }
+    },
     base(href) {
       return /[^?]*/.exec(href)[0].split('/h')[0].replace(/\/$/, '');
     },
@@ -160,7 +166,7 @@ self.importScripts('/core/utils/feed.js');
     });
   }
 
-  const shorten = (str, truncate) => {
+  const shorten = (str = '', truncate) => {
     if (str.length < truncate) {
       return str;
     }
@@ -281,30 +287,42 @@ self.importScripts('/core/utils/feed.js');
     const feeds = fdsr.map(feed => new Feed(feed, prefs.timeout, isPrivate));
 
     try {
-      const responses = await Promise.all(feeds.map(s => s.execute(signal).catch(e => {
-        if (signal.aborted === false) {
-          log('[feed]', 'error', e);
-        }
-      })));
-      if (signal.aborted) {
-        return log('[feed]', 'skipped');
-      }
-
       const objs = [];
-      const ids = new Set();
-      for (const r of responses) {
-        if (r && r.xml) {
-          // Removing not logged-in accounts
-          if (r.network && !r.notAuthorized && r.xml && r.xml.entries) {
-            // remove duplicated ids
-            if (ids.has(r.xml.id)) {
-              continue;
+      let mn = -1; // keep track of the last logged-out account
+      const uids = new Set();
+      for (const feed of feeds) {
+        if (mn !== -1) {
+          if (helper.id(feed.href) >= mn) { // belongs to a logged-out account
+            continue;
+          }
+        }
+
+        const r = await feed.execute(signal, uid => { // do not check logged-out feeds
+          if (uid) {
+            if (uids.has(uid)) { // this is a logged-out account
+              const n = helper.id(feed.href);
+              mn = mn === -1 ? n : Math.min(mn, n);
+
+              return true;
             }
-            ids.add(r.xml.id);
+            uids.add(uid);
+          }
+        }).catch(e => signal.aborted === false && log('[feed]', 'error', e));
+        if (signal.aborted) {
+          return log('[feed]', 'skipped');
+        }
+        if (r.notAuthorized && mn === -1) {
+          mn = helper.id(feed.href);
+        }
+
+        if (r && r.xml) {
+          // only add logged-in accounts
+          if (r.network && !r.notAuthorized && r.xml && r.xml.entries) {
             objs.push(r);
           }
         }
       }
+
       log('[feed]', 'forced', forced, 'objects', objs);
 
       const isAuthorized = objs.length !== 0 && objs.some(c => !c.notAuthorized && c.network);

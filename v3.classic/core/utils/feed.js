@@ -44,20 +44,19 @@ const convert = code => {
 };
 
 class Feed {
-  #feed;
   #timeout;
   #isPrivate;
   constructor(feed, timeout, isPrivate) {
-    this.#feed = feed;
+    this.href = feed;
     this.#timeout = timeout;
     this.#isPrivate = isPrivate;
   }
-  execute(signal) {
+  execute(signal, duplicated = () => false) {
     const isPrivate = this.#isPrivate;
 
     // Sometimes id is wrong in the feed structure!
     const fixID = link => {
-      const id = /u\/\d+/.exec(this.#feed);
+      const id = /u\/\d+/.exec(this.href);
       if (id && id.length) {
         return link.replace(/u\/\d+/, id[0]);
       }
@@ -68,7 +67,7 @@ class Feed {
       signal: controller.signal
     });
     const id = setTimeout(() => controller.abort('TIMEOUT'), this.#timeout);
-    const href = this.#feed + '?rand=' + Math.round(Math.random() * 10000000);
+    const href = this.href + '?rand=' + Math.round(Math.random() * 10000000);
     return fetch(href, {
       method: 'GET',
       cache: 'no-store',
@@ -84,7 +83,7 @@ class Feed {
           newIDs: []
         };
       }
-      if (r.url.includes('/u/0/') && this.#feed.includes('/u/0/') === false) {
+      if (r.url.includes('/u/0/') && this.href.includes('/u/0/') === false) {
         clearTimeout(id);
         return {
           isPrivate,
@@ -97,6 +96,20 @@ class Feed {
 
       const content = await r.text();
       clearTimeout(id);
+      // global id
+      const uid = (content.split('<title>')[1] || '').split('</title>')[0];
+      if (uid) {
+        if (duplicated(uid)) {
+          return {
+            isPrivate,
+            network: r.status !== 0,
+            notAuthorized: true,
+            xml: null,
+            newIDs: []
+          };
+        }
+      }
+      //
       const tree = await convert(content);
 
       const xml = {
@@ -113,12 +126,7 @@ class Feed {
           return Math.max(one, two);
         },
         get id() {
-          for (const node of tree.children) {
-            if (node.name === 'TITLE') {
-              return node.text;
-            }
-          }
-          return false;
+          return uid;
         },
         get title() {
           let title = '';
@@ -239,12 +247,14 @@ class Feed {
               newIDs.push(id);
             }
           }
-          chrome.storage.local.set({
-            [key]: [
-              ...oldIDs,
-              ...newIDs
-            ]
-          });
+          if (newIDs.length) {
+            chrome.storage.local.set({
+              [key]: [
+                ...oldIDs,
+                ...newIDs
+              ]
+            });
+          }
           resolve({
             isPrivate,
             network: true,
