@@ -392,6 +392,7 @@ function updateContent() {
   const doSummary = () => {
     if (selected.entry) {
       qs('iframe').contentDocument.body.textContent = selected.entry.summary + ' ...';
+      qs('iframe').contentDocument.body.classList.add('summary');
     }
   };
 
@@ -410,6 +411,7 @@ function updateContent() {
         qs('iframe').contentDocument.querySelector('head base').href = link;
         qs('iframe').contentDocument.body.textContent = '';
         qs('iframe').contentDocument.body.appendChild(content);
+        qs('iframe').contentDocument.body.classList.remove('summary');
       }
     }
     else {
@@ -428,7 +430,16 @@ function updateContent() {
             qs('content').removeAttribute('loading');
           }
         }
-      }).catch(notify));
+      }).catch(e => {
+        // notify(e);
+        doSummary();
+        qs('iframe').contentDocument.body.textContent += `
+
+--
+
+Error fetching email content: ` + e.message;
+        qs('content').removeAttribute('loading');
+      }));
     }
   }
   else {

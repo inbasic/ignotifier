@@ -365,9 +365,18 @@ self.importScripts('/core/utils/feed.js');
         }
         return 0;
       });
-      // Update cache
+      // Update cache (only copy a minimal object)
       chrome.storage.session.set({
-        'cached-objects': objs
+        'cached-objects': objs.map(o => {
+          const xml = {
+            ...o.xml
+          };
+          delete xml.parent;
+          return {
+            newIDs: o.newIDs,
+            xml
+          };
+        })
       });
 
       self.checkEmails.cached = objs;

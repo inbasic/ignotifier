@@ -1,29 +1,40 @@
-body {
-  margin: 0;
-}
-table {
-  color: inherit;
-}
+/* from Gmail Print View */
 body,
 td {
-  font-family: arial, sans-serif;
-  font-size: 12px;
+  font-size: 13px;
 }
 a {
   color: #15c;
-  text-decoration: none;
   cursor: pointer;
 }
-body > hr {
-  border: none;
-  border-bottom: solid 4px whitesmoke;
+a:visited {
+  color: #61c;
 }
-body > hr:last-child {
-  display: none;
+img {
+  border: 0;
+}
+pre {
+  white-space: pre;
+  white-space: -moz-pre-wrap;
+  white-space: -o-pre-wrap;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-width: 800px;
+  overflow: auto;
 }
 
+/* custom CSS */
 .root {
   width: 100%;
   border-collapse: collapse;
   border: none;
+}
+body {
+  margin: 0;
+}
+body.summary {
+  white-space: pre-wrap;
+}
+table {
+  color: inherit;
 }

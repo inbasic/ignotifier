@@ -1,89 +1,101 @@
 'use strict';
 
-const gmail = {
-  get: {
-    base: url => /[^?]*/.exec(url)[0],
-    id: url => {
-      const tmp = /message_id=([^&]*)/.exec(url);
-      if (tmp && tmp.length) {
-        return tmp[1];
-      }
-      return null;
+const gmail = {};
+
+/* gmail.get */
+gmail.get = {
+  base: url => /[^?]*/.exec(url)[0],
+  id: url => {
+    const tmp = /message_id=([^&]*)/.exec(url);
+    if (tmp && tmp.length) {
+      return tmp[1];
     }
+    return null;
   }
 };
 
-gmail.body = (contents => async (link, mode) => {
-  link = link.replace('http://', 'https://');
-  if (contents[link]) {
-    return Promise.resolve(contents[link]);
-  }
+/* gmail.body */
+{
+  const cache = {};
 
-  const url = gmail.get.base(link);
-  const thread = gmail.get.id(link);
+  gmail.body = (link, mode) => {
+    link = link.replace('http://', 'https://');
 
-  if (!thread) {
-    return Promise.reject(Error('body -> Error at resolving thread. Please switch back to the summary mode.'));
-  }
-
-  const href = url + '/?ui=2&view=pt&dsqt=1&search=all&msg=' + thread;
-  const r = await fetch(href, {
-    credentials: 'include'
-  });
-
-  if (!r.ok) {
-    throw Error('body -> print');
-  }
-  const content = await r.text();
-  const body = gmail.render[mode ? 'getHTMLText' : 'getPlainText'](content, url, link);
-  contents[link] = body;
-  return body;
-})({});
-
-gmail.render = (() => {
-  const getLastMessage = content => {
-    const html = new DOMParser().parseFromString(content, 'text/html');
-    const message = html.documentElement.getElementsByClassName('message');
-    try {
-      const f = document.createDocumentFragment();
-      for (let n = message.length - 1; n >= 0; n -= 1) {
-        f.appendChild(message[n].children[0].children[2]);
-      }
-      return f;
+    if (cache[link]) {
+      return Promise.resolve(cache[link]);
     }
-    catch (e) {}
+
+    const url = gmail.get.base(link);
+    const thread = gmail.get.id(link);
+
+    if (!thread) {
+      return Promise.reject(Error('body -> Error at resolving thread. Please switch back to the summary mode.'));
+    }
+
+    const href = url + '/?ui=2&view=pt&dsqt=1&search=all&msg=' + thread;
+    return fetch(href, {
+      credentials: 'include'
+    }).then(r => {
+      if (!r.ok) {
+        throw Error('body -> print failed -> ' + r.status);
+      }
+      return r.text();
+    }).then(content => {
+      const body = gmail.render[mode ? 'getHTMLText' : 'getPlainText'](content, url, link);
+      cache[link] = body;
+      return body;
+    });
+  };
+}
+
+/* gmail.render */
+{
+  const getLastMessage = content => {
+    const doc = new DOMParser().parseFromString(content, 'text/html');
+
+    const m = doc.querySelectorAll('.message > tbody > tr > td:last-child');
+    if (m.length) {
+      const td = m[m.length - 1];
+      for (const a of td.querySelectorAll('a')) {
+        if (a.href) {
+          // prevent Google redirection
+          if (a.href.startsWith('https://www.google.com/url?q=')) {
+            try {
+              const args = (new URL(a.href)).searchParams;
+              a.href = args.get('q') || a.href;
+            }
+            catch (e) {}
+          }
+          a.target = '_blank';
+        }
+      }
+      return td;
+    }
     return '';
   };
-
-  return {
-    getHTMLText: content => {
-      const body = getLastMessage(content);
-      if (body) {
+  gmail.render = {
+    getHTMLText(content) {
+      const td = getLastMessage(content);
+      if (td) {
         const table = document.createElement('table');
         table.classList.add('root');
-        table.appendChild(body);
+        const tr = document.createElement('tr');
+        table.appendChild(tr);
+        tr.appendChild(td);
 
-        [...table.querySelectorAll('a')].forEach(a => {
-          a.dataset.href = a.href;
-          a.removeAttribute('href');
-        });
         return table;
       }
-      else {
-        return '';
-      }
+      return '';
     },
-    getPlainText: content => {
-      const body = getLastMessage(content);
-      if (body) {
+    getPlainText(content) {
+      const td = getLastMessage(content);
+      if (td) {
         const span = document.createElement('span');
         span.style['white-space'] = 'pre-line';
-        span.textContent = body.innerText;
+        span.textContent = td.innerText;
         return span;
       }
-      else {
-        return '';
-      }
+      return '';
     }
   };
-})();
+}

@@ -29,7 +29,7 @@ const play = request => {
   const {index, media, prefs} = request;
 
   const type = index === null ? media.default.type : media['custom' + index].type;
-  let path = '/data/sounds/' + type + '.wav';
+  let path = '/data/sounds/' + type + '.ogg';
   if (type === 4) {
     path = index === null ? media.default.file : media['custom' + index].file;
   }
