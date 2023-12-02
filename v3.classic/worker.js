@@ -80,7 +80,7 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
     }
   }
   else if (method === 'test-play') {
-    sound.play(null);
+    sound.play();
   }
   else if (method === 'gmail.action') {
     chrome.storage.local.get({

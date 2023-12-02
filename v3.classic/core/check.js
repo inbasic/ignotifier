@@ -561,13 +561,13 @@ self.importScripts('/core/utils/feed.js');
           }, buttons.slice(0, 2));
         }
         if (prefs.alert) {
-          const tmp = [];
+          const entries = [];
           for (const o of objs) {
             if (o.xml) {
-              tmp.push(...o.xml.entries);
+              entries.push(...o.xml.entries);
             }
           }
-          sound.play(tmp);
+          sound.play(entries);
         }
         chrome.runtime.sendMessage({
           method: 'update-reset',
