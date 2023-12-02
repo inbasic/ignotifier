@@ -277,7 +277,8 @@ self.importScripts('/core/utils/feed.js');
       'notification.buttons.markasread': true,
       'notification.buttons.archive': true,
       'notification.buttons.trash': false,
-      'alert': true
+      'alert': true,
+      'notificationFormat': chrome.i18n.getMessage('notification')
     });
     const controller = self.checkEmails.controller = new AbortController();
     const signal = controller.signal;
@@ -436,8 +437,7 @@ self.importScripts('/core/utils/feed.js');
       });
       reportArray.splice(prefs.maxReport, reportArray.length);
 
-      const format = chrome.i18n.getMessage('notification');
-      let report = reportArray.map(e => format
+      let report = reportArray.map(e => prefs.notificationFormat
         .replace('[author_name]', e.author_name)
         .replace('[author_email]', e.author_email)
         .replace('[summary]', shorten(e.summary, prefs.notificationTruncate))
