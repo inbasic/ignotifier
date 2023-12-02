@@ -2,7 +2,7 @@
 
 const sound = {};
 
-sound.play = (arr = []) => {
+sound.play = (entries = []) => {
   chrome.storage.session.get({
     silent: false
   }, prefs => {
@@ -139,27 +139,23 @@ sound.play = (arr = []) => {
         selector: media['custom' + index].selector,
         index
       })).filter(o => o.filter).filter(obj => {
+        const keyword = obj.filter.toLowerCase();
         if (obj.selector === 0) {
-          return arr.reduce(function(p, c) {
+          return entries.reduce((p, c) => {
             return p || (
-              c.author_email.toLowerCase().indexOf(obj.filter.toLowerCase()) !== -1 ||
-              c.author_name.toLowerCase().indexOf(obj.filter.toLowerCase()) !== -1
+              c.author_email.toLowerCase().includes(keyword) ||
+              c.author_name.toLowerCase().includes(keyword)
             );
           }, false);
         }
         if (obj.selector === 1) {
-          return arr.reduce(function(p, c) {
-            return p || c.title.toLowerCase().indexOf(obj.filter.toLowerCase()) !== -1;
-          }, false);
+          return entries.reduce((p, c) => p || c.title.toLowerCase().includes(keyword), false);
         }
         if (obj.selector === 2) {
-          return arr.reduce(function(p, c) {
-            return p || c.summary.toLowerCase().indexOf(obj.filter.toLowerCase()) !== -1;
-          }, false);
+          return entries.reduce((p, c) => p || c.summary.toLowerCase().includes(keyword), false);
         }
         return false;
       });
-
 
       offscreen.command({
         cmd: 'play',

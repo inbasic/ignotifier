@@ -407,12 +407,10 @@ function updateContent() {
     api.emit('update-full-content', link);
     if (content) {
       qs('content').removeAttribute('loading');
-      if (content) {
-        qs('iframe').contentDocument.querySelector('head base').href = link;
-        qs('iframe').contentDocument.body.textContent = '';
-        qs('iframe').contentDocument.body.appendChild(content);
-        qs('iframe').contentDocument.body.classList.remove('summary');
-      }
+      qs('iframe').contentDocument.querySelector('head base').href = link;
+      qs('iframe').contentDocument.body.textContent = '';
+      qs('iframe').contentDocument.body.appendChild(content);
+      qs('iframe').contentDocument.body.classList.remove('summary');
     }
     else {
       doSummary();
@@ -427,10 +425,11 @@ function updateContent() {
             updateContent();
           }
           else {
-            qs('content').removeAttribute('loading');
+            throw Error('empty body');
           }
         }
       }).catch(e => {
+        qs('content').removeAttribute('loading');
         // notify(e);
         doSummary();
         qs('iframe').contentDocument.body.textContent += `
@@ -438,7 +437,6 @@ function updateContent() {
 --
 
 Error fetching email content: ` + e.message;
-        qs('content').removeAttribute('loading');
       }));
     }
   }

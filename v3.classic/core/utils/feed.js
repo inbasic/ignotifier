@@ -221,6 +221,8 @@ class Feed {
             }
             o['author_name'] = o['author_name'] || chrome.i18n.getMessage('msg_1');
             o['author_email'] = o['author_email'] || '';
+            o.title = o.title || '';
+            o.summary = o.summary || '';
 
             return o;
           });

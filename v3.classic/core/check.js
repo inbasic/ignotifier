@@ -561,9 +561,12 @@ self.importScripts('/core/utils/feed.js');
           }, buttons.slice(0, 2));
         }
         if (prefs.alert) {
-          const tmp = objs
-            .map(o => (o.notAuthorized === true || o.network === false) ? null : (o.xml ? (o.xml.title + '/' + o.xml.label) : null))
-            .map((l, i, a) => !l ? false : a.indexOf(l) !== i);
+          const tmp = [];
+          for (const o of objs) {
+            if (o.xml) {
+              tmp.push(...o.xml.entries);
+            }
+          }
           sound.play(tmp);
         }
         chrome.runtime.sendMessage({
