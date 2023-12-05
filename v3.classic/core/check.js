@@ -312,7 +312,7 @@ self.importScripts('/core/utils/feed.js');
         if (signal.aborted) {
           return log('[feed]', 'skipped');
         }
-        if (r.notAuthorized && mn === -1) {
+        if (r && r.notAuthorized && mn === -1) {
           mn = helper.id(feed.href);
         }
 
