@@ -1,10 +1,5 @@
-// https://github.com/inbasic/ignotifier/issues/634
-onclick = e => {
-  // Only handle middle click
-  if (
-    (e.button === 0 && (e.ctrlKey || e.metaKey)) ||
-    (e.button === 1)
-  ) {
+{
+  const block = e => {
     const target = e.target;
 
     const a = target.closest('a') || target;
@@ -27,5 +22,9 @@ onclick = e => {
 
       return true;
     }
-  }
-};
+  };
+
+  // https://github.com/inbasic/ignotifier/issues/634
+  onclick = e => e.button === 0 && (e.ctrlKey || e.metaKey) && block(e);
+  onauxclick = e => e.button === 1 && block(e);
+}
