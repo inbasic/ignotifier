@@ -249,20 +249,23 @@ class Feed {
               newIDs.push(id);
             }
           }
-          if (newIDs.length) {
-            chrome.storage.local.set({
-              [key]: [
-                ...oldIDs,
-                ...newIDs
-              ]
-            });
-          }
           resolve({
             isPrivate,
             network: true,
             notAuthorized: xml.authorized === false,
             xml,
-            newIDs
+            newIDs,
+            // we postpone the save of new ids to make sure the request is not being aborted
+            commit() {
+              if (newIDs.length) {
+                chrome.storage.local.set({
+                  [key]: [
+                    ...oldIDs,
+                    ...newIDs
+                  ]
+                });
+              }
+            }
           });
         });
       });

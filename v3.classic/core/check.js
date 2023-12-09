@@ -381,6 +381,10 @@ self.importScripts('/core/utils/feed.js');
       });
 
       self.checkEmails.cached = objs;
+      // save new emails
+      for (const o of objs) {
+        o.commit();
+      }
 
       // New total count number
       const anyNewEmails = objs.some(c => c.newIDs.length !== 0);
@@ -561,10 +565,14 @@ self.importScripts('/core/utils/feed.js');
           }, buttons.slice(0, 2));
         }
         if (prefs.alert) {
-          const entries = [];
+          const entries = []; // new entries only
           for (const o of objs) {
-            if (o.xml) {
-              entries.push(...o.xml.entries);
+            if (o.xml && o.newIDs.length) {
+              for (const entry of o.xml.entries) {
+                if (o.newIDs.includes(entry.id)) {
+                  entries.push(entry);
+                }
+              }
             }
           }
           sound.play(entries);

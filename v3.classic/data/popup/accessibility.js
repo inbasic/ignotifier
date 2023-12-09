@@ -9,8 +9,6 @@
     const a = target.closest('a') || target;
     const link = a.dataset.href || a.href || a.src || target.src || target.href;
 
-    console.log(a);
-
     if (link) {
       e.preventDefault();
       e.stopPropagation();
