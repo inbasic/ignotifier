@@ -28,3 +28,9 @@
   onclick = e => e.button === 0 && (e.ctrlKey || e.metaKey) && block(e);
   onauxclick = e => e.button === 1 && block(e);
 }
+
+// Firefox
+// https://github.com/inbasic/ignotifier/issues/636#issuecomment-1866121899
+if (/Firefox/.test(navigator.userAgent)) {
+  addEventListener('click', top.opener);
+}

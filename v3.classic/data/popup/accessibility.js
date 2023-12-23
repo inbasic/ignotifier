@@ -2,31 +2,29 @@
 'use strict';
 
 // Link opener for html
-{
-  const opener = e => {
-    const target = e.target;
+const opener = self.opener = e => {
+  const target = e.target;
 
-    const a = target.closest('a') || target;
-    const link = a.dataset.href || a.href || a.src || target.src || target.href;
+  const a = target.closest('a') || target;
+  const link = a.dataset.href || a.href || a.src || target.src || target.href;
 
-    if (link) {
-      e.preventDefault();
-      e.stopPropagation();
-      chrome.runtime.sendMessage({
-        method: 'open',
-        url: {
-          link,
-          button: e.button,
-          ctrlKey: e.ctrlKey,
-          shiftKey: e.shiftKey,
-          altKey: e.altKey,
-          metaKey: e.metaKey
-        }
-      }, () => e.button === 0 ? window.close() : null);
-    }
-  };
-  addEventListener('click', opener);
-}
+  if (link) {
+    e.preventDefault();
+    e.stopPropagation();
+    chrome.runtime.sendMessage({
+      method: 'open',
+      url: {
+        link,
+        button: e.button,
+        ctrlKey: e.ctrlKey,
+        shiftKey: e.shiftKey,
+        altKey: e.altKey,
+        metaKey: e.metaKey
+      }
+    }, () => e.button === 0 ? window.close() : null);
+  }
+};
+addEventListener('click', opener);
 
 // Support Gmail's keyboard shortcuts on the panel
 {
