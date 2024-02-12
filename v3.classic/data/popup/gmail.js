@@ -66,7 +66,6 @@ gmail.get = {
             }
             catch (e) {}
           }
-          a.target = '_blank';
         }
       }
       return td;

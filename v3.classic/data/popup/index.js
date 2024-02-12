@@ -1,4 +1,4 @@
-/* globals gmail, locale, utils */
+/* global gmail, locale, utils */
 'use strict';
 
 var objs;
@@ -64,12 +64,12 @@ const html = (() => {
   // List of all used elements
   const li = document.createElement('li');
 
-  function addContent(elem, txt) {
+  const addContent = (elem, txt) => {
     if (txt) {
       elem.textContent = txt;
     }
     return elem;
-  }
+  };
   return function(tag, txt) {
     let tmp;
     switch (tag) {

@@ -366,18 +366,21 @@ self.importScripts('/core/utils/feed.js');
         }
         return 0;
       });
+      // simplified version of objs for storing and sending between contexts
+      const cachedObjs = objs.map(o => {
+        const xml = {
+          ...o.xml
+        };
+        delete xml.parent;
+        return {
+          newIDs: o.newIDs,
+          xml
+        };
+      });
+
       // Update cache (only copy a minimal object)
       chrome.storage.session.set({
-        'cached-objects': objs.map(o => {
-          const xml = {
-            ...o.xml
-          };
-          delete xml.parent;
-          return {
-            newIDs: o.newIDs,
-            xml
-          };
-        })
+        'cached-objects': cachedObjs
       });
 
       self.checkEmails.cached = objs;
@@ -392,11 +395,12 @@ self.importScripts('/core/utils/feed.js');
       for (const obj of objs) {
         newCount += obj.xml.fullcount;
       }
+
       if (!anyNewEmails && !forced && count === newCount) {
         // Updating panel if it is open
         chrome.runtime.sendMessage({
           method: 'update-date',
-          data: objs
+          data: cachedObjs
         }, () => {
           if (chrome.runtime.lastError) {
             return;
@@ -404,7 +408,7 @@ self.importScripts('/core/utils/feed.js');
           // maybe the current email is marked as read but still count is 20 (max value for non inbox labels)
           chrome.runtime.sendMessage({
             method: 'validate-current',
-            data: objs
+            data: cachedObjs
           });
         });
         // we could have a new account with no new emails
@@ -471,7 +475,7 @@ self.importScripts('/core/utils/feed.js');
 
           chrome.runtime.sendMessage({
             method: 'update',
-            data: objs
+            data: cachedObjs
           }, () => chrome.runtime.lastError);
           if (singleAccount) {
             detach();
@@ -579,7 +583,7 @@ self.importScripts('/core/utils/feed.js');
         }
         chrome.runtime.sendMessage({
           method: 'update-reset',
-          data: objs
+          data: cachedObjs
         }, () => chrome.runtime.lastError);
       }
     }

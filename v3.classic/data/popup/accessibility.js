@@ -27,32 +27,29 @@ const opener = self.opener = e => {
 addEventListener('click', opener);
 
 // Support Gmail's keyboard shortcuts on the panel
-{
-  const keyup = e => {
-    if (!keyup.doKeyUp) {
-      return;
-    }
+const keyup = self.keyup = e => {
+  if (!keyup.doKeyUp) {
+    return;
+  }
 
-    if (e.keyCode === 49 && e.shiftKey) {
-      qs('spam').click();
-    }
-    if (e.keyCode === 51 && e.shiftKey) {
-      qs('trash').click();
-    }
-    if (e.keyCode === 73 && e.shiftKey) {
-      qs('read').click();
-    }
-    if (e.keyCode === 69) {
-      qs('archive').click();
-    }
-  };
-  chrome.storage.local.get({
-    keyUp: false
-  }, prefs => keyup.doKeyUp = prefs.keyUp);
+  if (e.keyCode === 49 && e.shiftKey) {
+    qs('spam').click();
+  }
+  if (e.keyCode === 51 && e.shiftKey) {
+    qs('trash').click();
+  }
+  if (e.keyCode === 73 && e.shiftKey) {
+    qs('read').click();
+  }
+  if (e.keyCode === 69) {
+    qs('archive').click();
+  }
+};
+chrome.storage.local.get({
+  keyUp: false
+}, prefs => keyup.doKeyUp = prefs.keyUp);
 
-  addEventListener('keyup', keyup);
-  qs('iframe').contentDocument.addEventListener('keyup', keyup);
-}
+addEventListener('keyup', keyup);
 
 window.focus();
 

@@ -15,22 +15,29 @@
       }, tabs => {
         chrome.tabs.create({
           url,
-          active: false,
+          active: false, // allow the user to open multiple links
           index: tabs && tabs.length ? tabs[0].index + 1 : undefined
         });
       });
-
-      return true;
+      return false;
     }
+    return true;
   };
 
   // https://github.com/inbasic/ignotifier/issues/634
-  onclick = e => e.button === 0 && (e.ctrlKey || e.metaKey) && block(e);
-  onauxclick = e => e.button === 1 && block(e);
+  onclick = e => {
+    if (e.button === 0 && (e.ctrlKey || e.metaKey)) {
+      return block(e);
+    }
+    return true;
+  };
+  onauxclick = e => {
+    if (e.button === 1) {
+      return block(e);
+    }
+    return true;
+  };
 }
 
-// Firefox
-// https://github.com/inbasic/ignotifier/issues/636#issuecomment-1866121899
-if (/Firefox/.test(navigator.userAgent)) {
-  addEventListener('click', top.opener);
-}
+// Key binding
+addEventListener('keyup', top.keyup);
