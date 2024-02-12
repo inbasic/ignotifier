@@ -33,6 +33,7 @@ gmail.get = {
     }
 
     const href = url + '/?ui=2&view=pt&dsqt=1&search=all&msg=' + thread;
+
     return fetch(href, {
       credentials: 'include'
     }).then(r => {
