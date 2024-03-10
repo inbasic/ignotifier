@@ -1,3 +1,14 @@
+html {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+  background-color: #fff;
+  filter: invert(100%);
+}
+html.dark iframe {
+  filter: invert(100%);
+}
 html,body {
   margin: 0;
   background-color: #fff;
@@ -243,6 +254,9 @@ footer div[name="read"] {
 }
 footer div[name="read-all"] {
   background-image: url('icons/check_all.png');
+}
+footer div[name="toggle-dark"] {
+  background-image: url('icons/dark.png');
 }
 
 #accounts {

@@ -503,6 +503,9 @@
   "popup_read_all": {
     "message": "Mark all as read"
   },
+  "popup_toggle_dark": {
+    "message": "Toggle dark theme on and off"
+  },
   "popup_msg_1": {
     "message": "just now"
   },

@@ -1,4 +1,7 @@
-/* from Gmail Print View */
+body {
+  background-color: #fff;
+  color: #222;
+}
 body,
 td {
   font-size: 13px;
@@ -37,4 +40,23 @@ body.summary {
 }
 table {
   color: inherit;
+}
+
+
+html.dark {
+  background-color: #fff;
+  filter: hue-rotate(180deg) invert(100%);
+}
+html.dark em,
+html.dark img,
+html.dark svg,
+html.dark image,
+html.dark video,
+html.dark audio,
+html.dark embed,
+html.dark iframe,
+html.dark object,
+html.dark button,
+html.dark canvas {
+  filter: hue-rotate(180deg) invert(100%);
 }

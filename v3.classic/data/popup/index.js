@@ -46,6 +46,7 @@ const qs = function(q, m) {
     'archive': 'footer div[name="archive"]',
     'spam': 'footer div[name="spam"]',
     'settings': 'footer div[name="settings"]',
+    'toggle-dark': 'footer div[name="toggle-dark"]',
     'gmail': 'footer div[name="gmail"]',
     'trash': 'footer div[name="trash"]',
     'refresh': 'footer div[name="refresh"]',
@@ -387,6 +388,9 @@ new Listen('read-all', 'click', () => {
 new Listen('expand', 'click', () => chrome.storage.local.set({
   size: qs('body').getAttribute('mode') === 'expanded' ? 0 : 1
 }));
+new Listen('toggle-dark', 'click', () => chrome.storage.local.set({
+  dark: document.documentElement.classList.contains('dark') !== true
+}));
 
 function updateContent() {
   const doSummary = () => {
@@ -445,6 +449,31 @@ Error fetching email content: ` + e.message;
   }
 }
 
+// dark theme
+const scheme = {
+  dark() {
+    document.documentElement.classList.add('dark');
+    try {
+      qs('iframe').contentDocument.documentElement.classList.add('dark');
+    }
+    catch (e) {}
+  },
+  light() {
+    document.documentElement.classList.remove('dark');
+    qs('iframe').contentDocument.documentElement.classList.remove('dark');
+  }
+};
+qs('iframe').addEventListener('load', () => {
+  if (document.documentElement.classList.contains('dark')) {
+    qs('iframe').contentDocument.documentElement.classList.add('dark');
+  }
+}, {
+  once: true
+});
+chrome.storage.local.get({
+  dark: false
+}, prefs => prefs.dark && scheme.dark());
+
 // resize
 const resize = () => {
   chrome.storage.local.get({
@@ -479,6 +508,9 @@ resize();
 chrome.storage.onChanged.addListener(prefs => {
   if (prefs.size || prefs.fullWidth || prefs.fullHeight) {
     resize();
+  }
+  if (prefs.dark) {
+    scheme[prefs.dark.newValue ? 'dark' : 'light']();
   }
 });
 
