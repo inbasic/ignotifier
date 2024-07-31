@@ -76,7 +76,7 @@
         "description": ""
     },
     "options_tab_6": {
-        "message": "Ouvrir un compte Gmail™dans une nouvelle fenêtre",
+        "message": "Ouvrir un compte Gmail™ dans une nouvelle fenêtre",
         "description": ""
     },
     "options_notifications_25": {
@@ -144,7 +144,7 @@
         "description": ""
     },
     "tooltip_1": {
-        "message": "Clic gauche : Ouvrir Gmail™ou le panneau de prévisualisation d'e-mail",
+        "message": "Clic gauche : Ouvrir Gmail™ ou le panneau de prévisualisation d'e-mail",
         "description": ""
     },
     "notification": {
@@ -204,7 +204,7 @@
         "description": ""
     },
     "options_misc_6": {
-        "message": "Afficher une notification sur le bureau pour avertir que Gmail™est déjà ouvert dans l'onglet actif",
+        "message": "Afficher une notification sur le bureau pour avertir que Gmail™ est déjà ouvert dans l'onglet actif",
         "description": ""
     },
     "popup_read": {
@@ -232,7 +232,7 @@
         "description": ""
     },
     "options_tab_5": {
-        "message": "Ouvrir un compte Gmail™dans un onglet d'arrière-plan",
+        "message": "Ouvrir un compte Gmail™ dans un onglet d'arrière-plan",
         "description": ""
     },
     "label_7": {
@@ -612,7 +612,7 @@
         "description": ""
     },
     "options_tab_2": {
-        "message": "Ne pas chercher les comptes Gmail™ouverts dans les autres fenêtres du navigateur. Si Gmail™n'est pas ouvert dans la fenêtre active, ouvrir un nouvel onglet.",
+        "message": "Ne pas chercher les comptes Gmail™ ouverts dans les autres fenêtres du navigateur. Si Gmail™ n'est pas ouvert dans la fenêtre active, ouvrir un nouvel onglet.",
         "description": ""
     },
     "label_11": {
@@ -668,7 +668,7 @@
         "description": ""
     },
     "options_tab_4": {
-        "message": "Ouvrir un compte Gmail™dans l'onglet actif",
+        "message": "Ouvrir un compte Gmail™ dans l'onglet actif",
         "description": ""
     },
     "popup_msg_3_format": {
