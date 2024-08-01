@@ -16,11 +16,11 @@
         "description": ""
     },
     "options_notifications_30": {
-        "message": "Combine all concurrent desktop notifications into a single notification",
+        "message": "Combiner toutes les notifications de bureau simultanées en une seule notification",
         "description": ""
     },
     "settings_open_label": {
-        "message": "Open Options",
+        "message": "Ouvrir les options",
         "description": ""
     },
     "options_timings_l7": {
@@ -64,7 +64,7 @@
         "description": ""
     },
     "options_notifications_28": {
-        "message": "Disable all notifications for a custom time period (in minutes):",
+        "message": "Désactiver toutes les notifications pendant une période de temps personnalisée (en minutes) :",
         "description": ""
     },
     "options_timings_l4": {
@@ -72,11 +72,11 @@
         "description": ""
     },
     "options_notifications_32": {
-        "message": "name or email contains",
+        "message": "nom ou contenus d'e-mail",
         "description": ""
     },
     "options_tab_6": {
-        "message": "Ouvrir un compte Gmail dans une nouvelle fenêtre",
+        "message": "Ouvrir un compte Gmail™ dans une nouvelle fenêtre",
         "description": ""
     },
     "options_notifications_25": {
@@ -104,7 +104,7 @@
         "description": ""
     },
     "label_13": {
-        "message": "For a custom time period",
+        "message": "Pour une période de temps personnalisée",
         "description": ""
     },
     "options_empty": {
@@ -144,7 +144,7 @@
         "description": ""
     },
     "tooltip_1": {
-        "message": "Clic gauche : Ouvrir Gmail ou le panneau de prévisualisation d'e-mail",
+        "message": "Clic gauche : Ouvrir Gmail™ ou le panneau de prévisualisation d'e-mail",
         "description": ""
     },
     "notification": {
@@ -192,11 +192,11 @@
         "description": ""
     },
     "options_notifications_34": {
-        "message": "email summary contains",
+        "message": "sommaire de contenus d'e-mail",
         "description": ""
     },
     "label_14": {
-        "message": "Logged-in accounts",
+        "message": "Comptes connectés",
         "description": ""
     },
     "options_misc_13": {
@@ -204,7 +204,7 @@
         "description": ""
     },
     "options_misc_6": {
-        "message": "Show desktop notification to warn that Gmail is already opened in the active tab",
+        "message": "Afficher une notification sur le bureau pour avertir que Gmail™ est déjà ouvert dans l'onglet actif",
         "description": ""
     },
     "popup_read": {
@@ -216,7 +216,7 @@
         "description": ""
     },
     "settings_open_title": {
-        "message": "Open options (settings) page",
+        "message": "Ouvrir la page des options (paramètres)",
         "description": ""
     },
     "label_2": {
@@ -232,7 +232,7 @@
         "description": ""
     },
     "options_tab_5": {
-        "message": "Ouvrir un compte Gmail dans un onglet d'arrière-plan",
+        "message": "Ouvrir un compte Gmail™ dans un onglet d'arrière-plan",
         "description": ""
     },
     "label_7": {
@@ -248,7 +248,7 @@
         "description": ""
     },
     "options_title": {
-        "message": "Options - Gmail™ Notifier",
+        "message": "Options - Notifieur Gmail™",
         "description": ""
     },
     "popup_msg_13": {
@@ -268,11 +268,11 @@
         "description": ""
     },
     "options_tab_9": {
-        "message": "When unchecked, Gmail Notifier checks either active window or all open windows for open instance of Gmail and switch to the tab when tab opening is requested.",
+        "message": "Lorsque cette option est décochée, le notifieur Gmail™ vérifie soit la fenêtre active, soit toutes les fenêtres ouvertes pour l'instance ouverte de Gmail™ et passe à l'onglet suivant lorsque l'ouverture d'onglet est demandée.",
         "description": ""
     },
     "gmail": {
-        "message": "Gmail™ Notifier",
+        "message": "Notifieur Gmail™",
         "description": ""
     },
     "popup_msg_6": {
@@ -284,7 +284,7 @@
         "description": ""
     },
     "options_notifications_16": {
-        "message": "Alerte par défaut Gmail Notifier",
+        "message": "Alerte par défaut du Notifieur Gmail™",
         "description": ""
     },
     "options_misc_14": {
@@ -364,7 +364,7 @@
         "description": ""
     },
     "options_gmail": {
-        "message": "Gmail :",
+        "message": "Gmail™ :",
         "description": ""
     },
     "label_1": {
@@ -408,11 +408,11 @@
         "description": ""
     },
     "options_notifications_35": {
-        "message": "To select a new custom sound, select a built-in sound first and then change the option to custom sound",
+        "message": "Pour sélectionner un nouveau son personnalisé, sélectionnez d'abord un son intégré, puis modifiez l'option en son personnalisé",
         "description": ""
     },
     "msg_1": {
-        "message": "Un onglet est déjà ouvert. Cliquez sur le bouton de la barre d'outils pour ouvrir Gmail dans un nouvel onglet, ou pour basculer sur un onglet Gmail existant.",
+        "message": "Un onglet est déjà ouvert. Cliquez sur le bouton de la barre d'outils pour ouvrir Gmail™ dans un nouvel onglet, ou pour basculer sur un onglet Gmail™ existant.",
         "description": ""
     },
     "popup_refresh": {
@@ -432,11 +432,11 @@
         "description": ""
     },
     "options_notifications_33": {
-        "message": "email title contains",
+        "message": "titre des contenus d'e-mail",
         "description": ""
     },
     "tooltip_3": {
-        "message": "Clic droit : Sélections des comptes",
+        "message": "Clic droit : sélections des comptes",
         "description": ""
     },
     "popup_date_format": {
@@ -456,11 +456,11 @@
         "description": ""
     },
     "options_notifications_22": {
-        "message": "If your browser is not playing the custom notification sound, try to convert it into a plain WAV format using an online conversion tool.",
+        "message": "Si votre navigateur ne lit pas le son de notification personnalisé, essayez de le convertir en un format WAV simple à l'aide d'un outil de conversion en ligne.",
         "description": ""
     },
     "options_tab_1": {
-        "message": "Chercher un compte Gmail ouvert seulement dans la fenêtre active",
+        "message": "Chercher un compte Gmail™ ouvert seulement dans la fenêtre active",
         "description": ""
     },
     "popup_msg_7_format": {
@@ -476,7 +476,7 @@
         "description": ""
     },
     "toolbar_label": {
-        "message": "Gmail™ Notifier",
+        "message": "Notifieur Gmail™",
         "description": ""
     },
     "popup_msg_1": {
@@ -520,7 +520,7 @@
         "description": ""
     },
     "options_toolbar_3": {
-        "message": "Ouvrir un compte Gmail si un seul compte est connecté",
+        "message": "Ouvrir un compte Gmail™ si un seul compte est connecté",
         "description": ""
     },
     "options_gmail_7": {
@@ -544,15 +544,15 @@
         "description": ""
     },
     "tooltip_2": {
-        "message": "Clic milieu (ou Ctrl+clic gauche) : Rafraîchir tous les comptes",
+        "message": "Clic milieu (ou Ctrl+clic gauche) : rafraîchir tous les comptes",
         "description": ""
     },
     "options_notifications_29": {
-        "message": "This option is related to the right click menu on the toolbar button -> disable all notifications -> custom time period.",
+        "message": "Cette option est liée au menu contextuel sur le bouton de la barre d'outils -> désactiver toutes les notifications -> période de temps personnalisée.",
         "description": ""
     },
     "options_tab_3": {
-        "message": "Ouvrir un nouveau compte Gmail à côté de l'onglet actif",
+        "message": "Ouvrir un nouveau compte Gmail™ à côté de l'onglet actif",
         "description": ""
     },
     "options_gmail_8": {
@@ -572,7 +572,7 @@
         "description": ""
     },
     "options_tab_8": {
-        "message": "Ignore opened Gmail tabs",
+        "message": "Ignorer les onglets Gmail™ ouverts",
         "description": ""
     },
     "popup_no_subject": {
@@ -580,7 +580,7 @@
         "description": ""
     },
     "msg_5": {
-        "message": "Select an audio sound file",
+        "message": "Choisir un fichier son",
         "description": ""
     },
     "popup_msg_2": {
@@ -596,7 +596,7 @@
         "description": ""
     },
     "msg_4": {
-        "message": "Note : Pour que le notifieur fonctionne correctement, vous devez être connecté à votre compte Google.",
+        "message": "Note : pour que le notifieur fonctionne correctement, vous devez être connecté à votre compte Google.",
         "description": ""
     },
     "popup_msg_20": {
@@ -612,7 +612,7 @@
         "description": ""
     },
     "options_tab_2": {
-        "message": "Ne pas chercher les comptes Gmail ouverts dans les autres fenêtres du navigateur. Si Gmail n'est pas ouvert dans la fenêtre active, ouvrir un nouvel onglet.",
+        "message": "Ne pas chercher les comptes Gmail™ ouverts dans les autres fenêtres du navigateur. Si Gmail™ n'est pas ouvert dans la fenêtre active, ouvrir un nouvel onglet.",
         "description": ""
     },
     "label_11": {
@@ -624,7 +624,7 @@
         "description": ""
     },
     "options_notifications_31": {
-        "message": "Custom sound notification",
+        "message": "Son de notification personnalisé",
         "description": ""
     },
     "options_timings_l5": {
@@ -668,7 +668,7 @@
         "description": ""
     },
     "options_tab_4": {
-        "message": "Ouvrir un compte Gmail dans l'onglet actif",
+        "message": "Ouvrir un compte Gmail™ dans l'onglet actif",
         "description": ""
     },
     "popup_msg_3_format": {
@@ -676,7 +676,7 @@
         "description": ""
     },
     "label_12": {
-        "message": "Open FAQs",
+        "message": "Ouvrir la FAQs",
         "description": ""
     },
     "description": {
