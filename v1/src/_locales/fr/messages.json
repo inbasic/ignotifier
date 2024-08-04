@@ -1,6 +1,7 @@
 {
     "label_9": {
-        "message": "Pour 5 heures",
+        "message": "Pour 5 heures",ions_1
+        
         "description": ""
     },
     "options_notifications_19": {
@@ -320,7 +321,7 @@
         "description": ""
     },
     "options_notifications_15": {
-        "message": "Default sound notification is",
+        "message": "La notification sonore par défaut est",
         "description": ""
     },
     "options_notifications_21": {
@@ -380,7 +381,7 @@
         "description": ""
     },
     "options_notifications_10": {
-        "message": "Remarque : pour les utilisateurs de Mac. Depuis Firefox 28.0, toutes les notifications de bureau sont gérées par le \"Notification Center\" Mac qui provoque une alerte sonore supplémentaire. Vous devez désactiver soit cette notification sonore, soit celle générée par le \"Notification Center\".",
+        "message": "Remarque : pour les utilisateurs de Mac. Depuis Firefox 28.0, toutes les notifications de bureau sont gérées par le \" Centre de Notification\" Mac qui provoque une alerte sonore supplémentaire. Vous devez désactiver soit cette notification sonore, soit celle générée par le \"Centre de Notification\".",
         "description": ""
     },
     "options_misc_2": {
