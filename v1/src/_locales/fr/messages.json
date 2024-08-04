@@ -312,7 +312,7 @@
         "description": ""
     },
     "log_in_to_your_account": {
-        "message": "Veuillez vous connecter à votre compte Gmail",
+        "message": "Veuillez vous connecter à votre compte Gmail™",
         "description": ""
     },
     "popup_of": {
@@ -380,7 +380,7 @@
         "description": ""
     },
     "options_notifications_10": {
-        "message": "Note pour les utilisateurs de Mac. Depuis Firefox 28.0, toutes les notifications de bureau sont gérées par le \"Notification Center\" Mac qui provoque une alerte sonore supplémentaire. Vous devez désactiver soit cette notification sonore, soit celle générée par le \"Notification Center\".",
+        "message": "Remarque : pour les utilisateurs de Mac. Depuis Firefox 28.0, toutes les notifications de bureau sont gérées par le \"Notification Center\" Mac qui provoque une alerte sonore supplémentaire. Vous devez désactiver soit cette notification sonore, soit celle générée par le \"Notification Center\".",
         "description": ""
     },
     "options_misc_2": {
@@ -560,7 +560,7 @@
         "description": ""
     },
     "options_toolbar_17": {
-        "message": "Ouvrir le premier compte Gmail",
+        "message": "Ouvrir le premier compte Gmail™",
         "description": ""
     },
     "options_notifications_7": {
@@ -596,7 +596,7 @@
         "description": ""
     },
     "msg_4": {
-        "message": "Note : pour que le notifieur fonctionne correctement, vous devez être connecté à votre compte Google.",
+        "message": "Remarque : pour que le notifieur fonctionne correctement, vous devez être connecté à votre compte Google.",
         "description": ""
     },
     "popup_msg_20": {
@@ -660,7 +660,7 @@
         "description": ""
     },
     "options_inshort": {
-        "message": "Notifieur multi-comptes et multi-libellés pour Google Mail (Gmail).",
+        "message": "Notifieur multi-comptes et multi-libellés pour Google Mail (Gmail™).",
         "description": ""
     },
     "options_misc_12": {
@@ -676,11 +676,11 @@
         "description": ""
     },
     "label_12": {
-        "message": "Ouvrir la FAQs",
+        "message": "Ouvrir la FAQ",
         "description": ""
     },
     "description": {
-        "message": "Notifieur multi-comptes et multi-libellés pour Google Mail (Gmail)",
+        "message": "Notifieur multi-comptes et multi-libellés pour Google Mail (Gmail™)",
         "description": ""
     },
     "popup_spam": {
