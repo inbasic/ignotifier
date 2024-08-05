@@ -376,7 +376,7 @@
         "description": ""
     },
     "options_notifications_24": {
-        "message": "Le volume est un nombre entre 0 et 100 où 100 est le volume le plus fort (défaut).",
+        "message": "Le volume est un nombre entre 0 et 100 où 100 est le volume le plus fort (par défaut).",
         "description": ""
     },
     "options_notifications_10": {
@@ -492,7 +492,7 @@
         "description": ""
     },
     "options_gmail_12": {
-        "message": "Séparer les flux par \",\" (Virgule). Exemple de flux : https://mail.google.com/mail/u/0/feed/atom/inbox",
+        "message": "Séparer les flux par \",\" (virgule). Exemple de flux : https://mail.google.com/mail/u/0/feed/atom/inbox",
         "description": ""
     },
     "options_toolbar_12": {
@@ -636,7 +636,7 @@
         "description": ""
     },
     "options_gmail_2": {
-        "message": "Séparer les libellés par \",\" (Virgule).",
+        "message": "Séparer les libellés par \",\" (virgule).",
         "description": ""
     },
     "options_misc_4": {
