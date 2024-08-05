@@ -57,7 +57,9 @@ gmail.at = n => {
     else {
       console.info('[core]', 'Using alternative method to get GAMIL_AT');
 
-      fetch(`https://mail.google.com/mail/u/${n}/h/`).then(r => {
+      fetch(`https://mail.google.com/mail/u/${n}/h/`, {
+        credentials: 'include'
+      }).then(r => {
         if (r.ok) {
           return r.text();
         }
@@ -76,11 +78,11 @@ gmail.at = n => {
             return resolve(args.get('at'));
           }
         }
-        if (input && input.value) {
+        if (input && input.value && input.value !== 'null') {
           cache.ats.set(n, input.value);
           return resolve(input.value);
         }
-        throw Error('core.js -> at (h)');
+        throw Error('core.js -> at (h); Try to open Gmail in a browser tab to set the cookie');
       }).then(resolve, reject);
     }
   }));
@@ -160,6 +162,7 @@ gmail.action = async ({links, cmd, prefs}) => {
   }).filter(o => o);
   if (a.length) {
     const at = await gmail.at(a[0].n);
+
     if (!at) {
       throw Error('core.js -> at');
     }

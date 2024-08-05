@@ -405,8 +405,8 @@ function updateContent() {
   }
 
   const mode = qs('body').getAttribute('mode') === 'expanded' ? 1 : 0;
+  const link = selected.entry.link;
   if (mode === 1) {
-    const link = selected.entry.link;
     const content = contentCache[link];
     api.emit('update-full-content', link);
     if (content) {
@@ -445,6 +445,18 @@ Error fetching email content: ` + e.message;
     }
   }
   else {
+    // Use the print view to force Gmail setting "at" cookie if it is not available
+    const m = link.match(/u\/(?<n>\d+)/);
+    chrome.runtime.sendMessage({
+      method: 'get-at',
+      n: m.groups.n
+    }, at => {
+      if (!at) {
+        console.info('%c[popup]', 'color:#0099ff', 'Force print view...');
+        gmail.body(link, true);
+      }
+    });
+
     doSummary();
   }
 }

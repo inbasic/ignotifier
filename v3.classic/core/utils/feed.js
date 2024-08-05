@@ -1,5 +1,8 @@
 /* global sax */
-self.importScripts('/core/utils/sax.js');
+
+if (typeof importScripts !== 'undefined') {
+  self.importScripts('/core/utils/sax.js');
+}
 
 const convert = code => {
   return new Promise((resolve, reject) => {

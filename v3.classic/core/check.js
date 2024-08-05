@@ -1,6 +1,8 @@
 /* global log, button, context, Feed, repeater, sound, offscreen */
 
-self.importScripts('/core/utils/feed.js');
+if (typeof importScripts !== 'undefined') {
+  self.importScripts('/core/utils/feed.js');
+}
 
 {
   const helper = {

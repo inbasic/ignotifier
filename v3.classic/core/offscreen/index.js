@@ -3,7 +3,7 @@ const ids = new Set();
 
 const exit = () => {
   clearTimeout(exit.id);
-  console.info('exit request', ids.size);
+  console.info('%c[offscreen iframe]', 'color:#ff9900', 'exit request', ids.size);
   exit.id = setTimeout(() => {
     if (ids.size === 0) {
       chrome.runtime.sendMessage({
@@ -49,7 +49,7 @@ const stop = () => {
 
 chrome.runtime.onMessage.addListener(({request, method}, sender, response) => {
   if (method === 'offscreen') {
-    console.info('offscreen request', request);
+    console.info('%c[offscreen iframe]', 'color:#ff9900', 'request', request);
     clearTimeout(exit.id);
     const id = request.cmd + ';' + Math.random();
     request.id = id;

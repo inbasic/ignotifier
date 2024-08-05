@@ -1,14 +1,16 @@
 /* global checkEmails, repeater, sound, offscreen */
 
-self.importScripts('/core/utils/log.js');
-self.importScripts('/core/open.js');
-self.importScripts('/core/offscreen.js');
-self.importScripts('/core/context.js');
-self.importScripts('/core/button.js');
-self.importScripts('/core/sound.js');
-self.importScripts('/core/check.js');
-self.importScripts('/core/repeater.js');
-self.importScripts('/core/watch.js');
+if (typeof importScripts !== 'undefined') {
+  self.importScripts('/core/utils/log.js');
+  self.importScripts('/core/open.js');
+  self.importScripts('/core/offscreen.js');
+  self.importScripts('/core/context.js');
+  self.importScripts('/core/button.js');
+  self.importScripts('/core/sound.js');
+  self.importScripts('/core/check.js');
+  self.importScripts('/core/repeater.js');
+  self.importScripts('/core/watch.js');
+}
 
 const onClicked = link => {
   if (link) {
