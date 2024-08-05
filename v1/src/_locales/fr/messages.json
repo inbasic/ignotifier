@@ -268,7 +268,7 @@
         "description": ""
     },
     "options_tab_9": {
-        "message": "Lorsque cette option est décochée, le notifieur Gmail™ vérifie soit la fenêtre active, soit toutes les fenêtres ouvertes pour l'instance ouverte de Gmail™ et passe à l'onglet suivant lorsque l'ouverture d'onglet est demandée.",
+        "message": "Lorsque cette option est décochée, le notifieur Gmail™ vérifie la fenêtre active ou l'ensemble des fenêtres ouvertes pour l'instance en cours de Gmail™ et passe à l'onglet suivant lorsque l'ouverture d'onglet est demandée.",
         "description": ""
     },
     "gmail": {
@@ -376,11 +376,11 @@
         "description": ""
     },
     "options_notifications_24": {
-        "message": "Le volume est un nombre entre 0 et 100 où 100 est le volume le plus fort (défaut).",
+        "message": "Le volume est un nombre entre 0 et 100 où 100 est le volume le plus fort (par défaut).",
         "description": ""
     },
     "options_notifications_10": {
-        "message": "Remarque : pour les utilisateurs de Mac. Depuis Firefox 28.0, toutes les notifications de bureau sont gérées par le \" Centre de Notification\" Mac qui provoque une alerte sonore supplémentaire. Vous devez désactiver soit cette notification sonore, soit celle générée par le \"Centre de Notification\".",
+        "message": "Remarque : pour les utilisateurs de Mac. Depuis la version 28.0 de Firefox, toutes les notifications de bureau sont gérées par le \"Centre de Notifications\" Mac qui provoque une alerte sonore supplémentaire. Vous devez désactiver soit cette notification sonore, soit celle générée par le \"Centre de Notifications\".",
         "description": ""
     },
     "options_misc_2": {
@@ -636,7 +636,7 @@
         "description": ""
     },
     "options_gmail_2": {
-        "message": "Séparer les libellés par \",\" (Virgule).",
+        "message": "Séparer les libellés par \",\" (virgule).",
         "description": ""
     },
     "options_misc_4": {
