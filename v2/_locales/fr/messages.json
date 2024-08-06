@@ -36,7 +36,7 @@
         "description": ""
     },
     "msg_4": {
-        "message": "Note : Pour que le notifieur fonctionne correctement, vous devez être connecté à votre compte Google.",
+        "message": "Remarque : Pour que le notifieur fonctionne correctement, vous devez être connecté à votre compte Google.",
         "description": ""
     },
     "msg_5": {
@@ -112,7 +112,7 @@
         "description": ""
     },
     "notification": {
-        "message": "De : [author_email][break]Objet : [title][break]Résumé : [summary]",
+        "message": "De : [author_email][break] Objet : [title][break] Résumé : [summary]",
         "description": ""
     },
     "options_title": {
