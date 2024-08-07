@@ -148,7 +148,7 @@
         "description": ""
     },
     "notification": {
-        "message": "De : [author_email][break]Objet : [title][break]Résumé : [summary]",
+        "message": "De : [author_email][break] Objet : [title][break] Résumé : [summary]",
         "description": ""
     },
     "popup_trash": {
