@@ -1,4 +1,8 @@
 {
+    "gmail": {
+        "message": "Notifieur pour Gmail™",
+        "description": ""
+    },
     "toolbar_label": {
         "message": "Notifieur pour Gmail™",
         "description": ""
@@ -756,10 +760,6 @@
     },
     "settings_open_label": {
         "message": "Ouvrir les options",
-        "description": ""
-    },
-    "gmail": {
-        "message": "Notifieur pour Gmail™",
         "description": ""
     }
 }
