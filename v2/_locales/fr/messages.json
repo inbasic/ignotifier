@@ -200,7 +200,7 @@
         "description": ""
     },
     "options_gmail_8": {
-        "message": "Marquer le message en lu en l'archivant",
+        "message": "Marquer les messages comme lu en les archivant",
         "description": ""
     },
     "options_gmail_15": {
@@ -384,7 +384,7 @@
         "description": ""
     },
     "options_notifications_38": {
-        "message": "Actions plus rapides (marquer en lu, supprimer, ...) (Considérer les actions à résoudre lorsque les en-têtes sont reçus)",
+        "message": "Actions plus rapides (marquer comme lu, mettre à la corbeille, ...) (Considérer les actions à résoudre lorsque les en-têtes sont reçus)",
         "description": ""
     },
     "options_notifications_40": {
@@ -392,7 +392,7 @@
         "description": ""
     },
     "options_notifications_41": {
-        "message": "Marquer en lu",
+        "message": "Marquer comme lu",
         "description": ""
     },
     "options_notifications_42": {
@@ -400,7 +400,7 @@
         "description": ""
     },
     "options_notifications_43": {
-        "message": "Supprimer",
+        "message": "Mettre à la corbeille",
         "description": ""
     },
     "options_tab": {
@@ -503,7 +503,7 @@
         "description": ""
     },
     "options_toolbar_12": {
-        "message": "! : Signaler en spam, # : Mettre à la corbeille, e : Archiver, Shift + i : Marquer en lu.",
+        "message": "! : Signaler en spam, # : Mettre à la corbeille, e : Archiver, Shift + i : Marquer comme lu.",
         "description": ""
     },
     "options_toolbar_13": {
@@ -611,7 +611,7 @@
         "description": ""
     },
     "options_button_test": {
-        "message": "Jouer",
+        "message": "Jouer le son",
         "description": ""
     },
     "options_button_reset": {
@@ -619,7 +619,7 @@
         "description": ""
     },
     "popup_settings": {
-        "message": "paramètres",
+        "message": "Paramètres",
         "description": ""
     },
     "popup_of": {
@@ -651,11 +651,11 @@
         "description": ""
     },
     "popup_spam": {
-        "message": "Spam",
+        "message": "Signaler en spam",
         "description": ""
     },
     "popup_trash": {
-        "message": "Supprimer",
+        "message": "Mettre à la corbeille",
         "description": ""
     },
     "popup_refresh": {
@@ -663,11 +663,15 @@
         "description": ""
     },
     "popup_read": {
-        "message": "Marquer en lu",
+        "message": "Marquer comme lu",
         "description": ""
     },
     "popup_read_all": {
-        "message": "Tout marquer en lu",
+        "message": "Tout marquer comme lu",
+        "description": ""
+    },
+    "popup_toggle_dark": {
+        "message": "Basculer thème sombre ou clair"
         "description": ""
     },
     "popup_msg_1": {
