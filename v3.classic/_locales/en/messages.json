@@ -378,7 +378,7 @@
     "message": "Support keyboard shortcuts on the toolbar panel"
   },
   "options_toolbar_12": {
-    "message": "!: Report as spam, #: Trash, e: Archive, Shift + i: Mark as read."
+    "message": "Report as spam: < ! >, Trash: < # >, e: Archive: < e >, Mark as read: < Shift + i >."
   },
   "options_toolbar_13": {
     "message": "Render emails as HTML in full-content mode"
