@@ -1,4 +1,8 @@
 {
+    "gmail": {
+        "message": "Notifieur pour Gmail™",
+        "description": ""
+    },
     "toolbar_label": {
         "message": "Notifieur pour Gmail™",
         "description": ""
@@ -24,7 +28,7 @@
         "description": ""
     },
     "msg_1": {
-        "message": "Un onglet est déjà ouvert. Cliquez sur le bouton de la barre d'outils pour ouvrir Gmail™ dans un nouvel onglet, ou pour basculer sur un onglet Gmail™ existant.",
+        "message": "Un onglet est déjà ouvert. Cliquez sur le bouton de la barre d'outils pour ouvrir Gmail™ dans un nouvel onglet ou basculer sur un onglet Gmail™ existant.",
         "description": ""
     },
     "msg_2": {
@@ -104,7 +108,7 @@
         "description": ""
     },
     "and": {
-        "message": "et",
+        "message": " et ",
         "description": ""
     },
     "log_into_your_account": {
@@ -116,7 +120,7 @@
         "description": ""
     },
     "options_title": {
-        "message": "Options - Gmail™ Notifieur",
+        "message": "Options - Gmail™ Notifier",
         "description": ""
     },
     "options_inshort": {
@@ -128,7 +132,7 @@
         "description": ""
     },
     "options_timings": {
-        "message": "Temporisations :",
+        "message": "Temporisations ",
         "description": ""
     },
     "options_timings_l1": {
@@ -160,11 +164,11 @@
         "description": ""
     },
     "options_timings_l8": {
-        "message": "Positionner la valeur à zéro pour éviter le relevé d'e-mails jusqu'au premier rafraîchissement manuel [Non disponible sous Safari].",
+        "message": "Positionner la valeur à zéro pour éviter le relevé d'e-mails jusqu'au premier rafraîchissement manuel [Non disponible dans Safari].",
         "description": ""
     },
     "options_gmail": {
-        "message": "Gmail™ :",
+        "message": "Gmail™ ",
         "description": ""
     },
     "options_gmail_1": {
@@ -172,7 +176,7 @@
         "description": ""
     },
     "options_gmail_2": {
-        "message": "Séparer les libellés par \",\" (Virgule).",
+        "message": "Séparer les libellés par \",\" (virgule).",
         "description": ""
     },
     "options_gmail_3": {
@@ -196,7 +200,7 @@
         "description": ""
     },
     "options_gmail_8": {
-        "message": "Marquer le message comme lu en l'archivant",
+        "message": "Marquer les messages comme lu en les archivant",
         "description": ""
     },
     "options_gmail_15": {
@@ -212,7 +216,7 @@
         "description": ""
     },
     "options_gmail_12": {
-        "message": "Séparer les flux par \",\" (Virgule). Exemple de flux : https://mail.google.com/mail/u/0/feed/atom/inbox",
+        "message": "Séparer les flux par \",\" (virgule). Exemple de flux : https://mail.google.com/mail/u/0/feed/atom/inbox",
         "description": ""
     },
     "options_gmail_13": {
@@ -220,11 +224,11 @@
         "description": ""
     },
     "options_gmail_14": {
-        "message": "Remarque : pour que le notificateur écoute plus de 5 comptes, ajoutez les URL des flux au champ \"Flux personnalisés\". Par exemple, pour écouter les 6e et 7e comptes, ajoutez : https://mail.google.com/mail/u/6/feed/atom/inbox, https://mail.google.com/mail/u/7/feed/atom/inbox",
+        "message": "Remarque : pour que le notifieur écoute plus de 5 comptes, ajoutez les URL des flux au champ \"Flux personnalisés\". Par exemple, pour écouter les 6e et 7e comptes, ajoutez : https://mail.google.com/mail/u/6/feed/atom/inbox, https://mail.google.com/mail/u/7/feed/atom/inbox",
         "description": ""
     },
     "options_notifications": {
-        "message": "Notifications :",
+        "message": "Notifications ",
         "description": ""
     },
     "options_notifications_1": {
@@ -244,19 +248,19 @@
         "description": ""
     },
     "options_notifications_5": {
-        "message": "Variables disponibles :",
+        "message": "Variables disponibles : ",
         "description": ""
     },
     "options_notifications_6": {
-        "message": "Tronquer les notifications plus longues que",
+        "message": "Tronquer les notifications plus longues que ",
         "description": ""
     },
     "options_notifications_7": {
-        "message": "caractères pour les champs [objet] et [résumé].",
+        "message": " caractères pour les champs [objet] et [résumé].",
         "description": ""
     },
     "options_notifications_8": {
-        "message": "Pour ne pas tronquer avec des points de suspension, utiliser un nombre élevé.",
+        "message": "Pour ne pas tronquer avec des points de suspension, utilisez un nombre élevé.",
         "description": ""
     },
     "options_notifications_9": {
@@ -280,7 +284,7 @@
         "description": ""
     },
     "options_notifications_14": {
-        "message": "Cette fonctionnalité est hautement expérimentale et pourrait rendre instable votre navigateur Firefox. [Rédemarrage nécessaire].",
+        "message": "Cette fonctionnalité est hautement expérimentale et pourrait rendre instable votre navigateur Firefox. [Redémarrage nécessaire].",
         "description": ""
     },
     "options_notifications_15": {
@@ -328,7 +332,7 @@
         "description": ""
     },
     "options_notifications_25": {
-        "message": "Dans Safari, il est probable que les notfications sonores par défaut ne soient pas jouées correctement. Si c'est le cas, utilisez un fichier son personnel comme notification.",
+        "message": "Dans Safari, il est probable que les notifications sonores par défaut ne soient pas jouées correctement. Si c'est le cas, utilisez un fichier son personnel comme notification.",
         "description": ""
     },
     "options_notifications_26": {
@@ -356,15 +360,15 @@
         "description": ""
     },
     "options_notifications_32": {
-        "message": "nom ou contenus d'e-mail",
+        "message": "Nom ou contenus d'e-mail",
         "description": ""
     },
     "options_notifications_33": {
-        "message": "titre des contenus d'e-mail",
+        "message": "Titre des contenus d'e-mail",
         "description": ""
     },
     "options_notifications_34": {
-        "message": "sommaire de contenus d'e-mail",
+        "message": "Sommaire de contenus d'e-mail",
         "description": ""
     },
     "options_notifications_35": {
@@ -380,7 +384,7 @@
         "description": ""
     },
     "options_notifications_38": {
-        "message": "Actions plus rapides (marquer comme lu, supprimer, ...) (Considérer les actions à résoudre lorsque les en-têtes sont reçus)",
+        "message": "Actions plus rapides (marquer comme lu, mettre à la corbeille, ...) (Considérer les actions à résoudre lorsque les en-têtes sont reçus)",
         "description": ""
     },
     "options_notifications_40": {
@@ -392,15 +396,15 @@
         "description": ""
     },
     "options_notifications_42": {
-        "message": "Archive",
+        "message": "Archiver",
         "description": ""
     },
     "options_notifications_43": {
-        "message": "Corbeille",
+        "message": "Mettre à la corbeille",
         "description": ""
     },
     "options_tab": {
-        "message": "Ouverture d'onglet :",
+        "message": "Ouverture d'onglet ",
         "description": ""
     },
     "options_tab_1": {
@@ -436,15 +440,18 @@
         "description": ""
     },
     "options_tab_9": {
-        "message": "Lorsque cette option est décochée, le notifieur Gmail™ vérifie la fenêtre active ou l'ensemble des fenêtres ouvertes pour l'instance en cours de Gmail™ et passe à l'onglet suivant lorsque l'ouverture d'onglet est demandée.",
+        "message": "Lorsque cette option est décochée, Gmail™ Notifier vérifie la fenêtre active ou l'ensemble des fenêtres ouvertes pour l'instance en cours de Gmail™ et passe à l'onglet suivant lorsque l'ouverture d'onglet est demandée.",
         "description": ""
     },
     "options_tab_10": {
-        "message": "Ouvrir les emails en mode HTML basique",
+        "message": "Ouvrir les e-mails en mode HTML basique",
         "description": ""
     },
+    "options_tab_11": {
+        "message": "Ouvrir le dernier e-mail non lu au lieu d'ouvrir le dossier \"Boîte de Réception\""
+    },
     "options_toolbar": {
-        "message": "Barre d'outils :",
+        "message": "Barre d'outils ",
         "description": ""
     },
     "options_toolbar_1": {
@@ -460,7 +467,7 @@
         "description": ""
     },
     "options_toolbar_18": {
-        "message": "Ouvrir un compte Gmail™(mode forcé)",
+        "message": "Ouvrir un compte Gmail™ (mode forcé)",
         "description": ""
     },
     "options_toolbar_4": {
@@ -496,7 +503,7 @@
         "description": ""
     },
     "options_toolbar_12": {
-        "message": "! : Signaler comme spam, # : Mettre à la corbeille, e : Archiver, Shift + i : Marquer comme lu.",
+        "message": "! : Signaler en spam, # : Mettre à la corbeille, e : Archiver, Shift + i : Marquer comme lu.",
         "description": ""
     },
     "options_toolbar_13": {
@@ -520,7 +527,7 @@
         "description": ""
     },
     "options_misc": {
-        "message": "Divers :",
+        "message": "Divers ",
         "description": ""
     },
     "options_misc_1": {
@@ -532,19 +539,19 @@
         "description": ""
     },
     "options_misc_3": {
-        "message": "La légende de la barre d'outils est",
+        "message": "Couleur de l’icône de la barre d'outils :",
         "description": ""
     },
     "options_misc_4": {
-        "message": "Couleur gris pour \"Tous lus\" et couleur bleu pour \"Déconnecté\"",
+        "message": "Gris pour \"Tous lus\" et Bleu pour \"Déconnecté\"",
         "description": ""
     },
     "options_misc_5": {
-        "message": "Couleur bleu pour \"Tous lus\" et couleur gris pour \"Déconnecté\"",
+        "message": "Bleu pour \"Tous lus\" et Gris pour \"Déconnecté\"",
         "description": ""
     },
     "options_misc_9": {
-        "message": "Couleur rouge pour \"Tous lus\" et couleur gris pour \"Déconnecté\"",
+        "message": "Rouge pour \"Tous lus\" et Gris pour \"Déconnecté\"",
         "description": ""
     },
     "options_misc_6": {
@@ -584,7 +591,7 @@
         "description": ""
     },
     "options_plugins": {
-        "message": "Plug-ins :",
+        "message": "Plug-ins ",
         "description": ""
     },
     "options_plugins_1": {
@@ -604,15 +611,15 @@
         "description": ""
     },
     "options_button_test": {
-        "message": "Jouer",
+        "message": "Jouer le son",
         "description": ""
     },
     "options_button_reset": {
-        "message": "RàZ des préférences",
+        "message": "Remise à zéro des préférences",
         "description": ""
     },
     "popup_settings": {
-        "message": "paramètres",
+        "message": "Paramètres",
         "description": ""
     },
     "popup_of": {
@@ -640,15 +647,15 @@
         "description": ""
     },
     "popup_archive": {
-        "message": "Archive",
+        "message": "Archiver",
         "description": ""
     },
     "popup_spam": {
-        "message": "Spam",
+        "message": "Signaler en spam",
         "description": ""
     },
     "popup_trash": {
-        "message": "Corbeille",
+        "message": "Mettre à la corbeille",
         "description": ""
     },
     "popup_refresh": {
@@ -661,6 +668,10 @@
     },
     "popup_read_all": {
         "message": "Tout marquer comme lu",
+        "description": ""
+    },
+    "popup_toggle_dark": {
+        "message": "Basculer thème sombre ou clair"
         "description": ""
     },
     "popup_msg_1": {
@@ -753,10 +764,6 @@
     },
     "settings_open_label": {
         "message": "Ouvrir les options",
-        "description": ""
-    },
-    "gmail": {
-        "message": "Notifieur pour Gmail™",
         "description": ""
     }
 }
