@@ -63,9 +63,6 @@
   "label_9": {
     "message": "For 5 hours"
   },
-  "label_13": {
-    "message": "For a custom time period"
-  },
   "label_10": {
     "message": "Enable notifications"
   },
@@ -74,6 +71,9 @@
   },
   "label_12": {
     "message": "Open FAQs"
+  },
+  "label_13": {
+    "message": "For a custom time period"
   },
   "label_14": {
     "message": "Logged-in accounts"
@@ -215,19 +215,6 @@
   "options_notifications_15": {
     "message": "Default sound notification is"
   },
-  "options_notifications_31": {
-    "message": "Custom sound notification"
-  },
-  "options_notifications_32": {
-    "message": "name or email contains"
-  },
-  "options_notifications_33": {
-    "message": "email title contains"
-  },
-  "options_notifications_34": {
-    "message": "email summary contains"
-  },
-
   "options_notifications_16": {
     "message": "Gmail™ Notifier default alert"
   },
@@ -248,9 +235,6 @@
   },
   "options_notifications_22": {
     "message": "If your browser is not playing the custom notification sound, try to convert it into a plain WAV format using an online conversion tool."
-  },
-  "options_notifications_35": {
-    "message": "To select a new custom sound, select a built-in sound first and then change the option to custom sound"
   },
   "options_notifications_23": {
     "message": "Volume of the sound notification is"
@@ -275,6 +259,21 @@
   },
   "options_notifications_30": {
     "message": "Combine all concurrent desktop notifications into a single notification"
+  },
+  "options_notifications_31": {
+    "message": "Custom sound notification"
+  },
+  "options_notifications_32": {
+    "message": "name or email contains"
+  },
+  "options_notifications_33": {
+    "message": "email title contains"
+  },
+  "options_notifications_34": {
+    "message": "email summary contains"
+  },
+  "options_notifications_35": {
+    "message": "To select a new custom sound, select a built-in sound first and then change the option to custom sound"
   },
   "options_tab": {
     "message": "Tab Opening:"
@@ -343,7 +342,7 @@
     "message": "Support keyboard shortcuts on the toolbar panel"
   },
   "options_toolbar_12": {
-    "message": "!: Report as spam, #: Trash, e: Archive, Shift + i: Mark as read."
+    "message": "Report as spam: < ! >, Trash: < # >, e: Archive: < e >, Mark as read: < Shift + i >."
   },
   "options_toolbar_13": {
     "message": "Render emails as HTML in full-content mode"
@@ -378,9 +377,6 @@
   "options_misc_5": {
     "message": "Blue color for \"No Unread\" and gray color for \"Disconnected\""
   },
-  "options_misc_9": {
-    "message": "Red color for \"No Unread\" and gray color for \"Disconnected\""
-  },
   "options_misc_6": {
     "message": "Show desktop notification to warn that Gmail™ is already opened in the active tab"
   },
@@ -389,6 +385,9 @@
   },
   "options_misc_8": {
     "message": "Reset all settings back to factory"
+  },
+  "options_misc_9": {
+    "message": "Red color for \"No Unread\" and gray color for \"Disconnected\""
   },
   "options_misc_10": {
     "message": "Only fire desktop and sound notifications when email has arrived in less than (in minutes): "
