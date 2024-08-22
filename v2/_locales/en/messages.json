@@ -20,6 +20,9 @@
   "log_in_to_your_account": {
     "message": "Please sign-in to your Gmail™ account"
   },
+  "popup_toggle_dark": {
+    "message": "Toggle dark theme on and off"
+  },
   "msg_1": {
     "message": "Tab is already open. Click on the toolbar button to open Gmail™ in a new tab, or to switch to an existing Gmail™ tab."
   },
