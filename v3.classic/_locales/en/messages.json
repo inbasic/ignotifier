@@ -333,7 +333,7 @@
     "message": "Open emails in basic HTML mode"
   },
   "options_tab_11": {
-    "message": "Clicking on the title of an unread email opens Gmail™ to the email itself instead of opening to the "Inbox""
+    "message": "Clicking on the title of an unread email opens Gmail™ to the email itself instead of opening to the INBOX folder"
   },
   "options_toolbar": {
     "message": "Toolbar"
@@ -456,7 +456,7 @@
     "message": "not defined"
   },
   "options_button_test": {
-    "message": "Play sond ►"
+    "message": "Play sound ►"
   },
   "options_button_reset": {
     "message": "Reset Preferences"
