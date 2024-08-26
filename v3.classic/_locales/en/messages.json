@@ -90,7 +90,7 @@
     "message": "From: [author_email][break] Title: [title][break] Summary: [summary]"
   },
   "options_title": {
-    "message": "Options - Gmail™ Notifier"
+    "message": "Options Page - Gmail™ Notifier"
   },
   "options_inshort": {
     "message": "Multiple label and account notifier for Google Mail (Gmail™)."
