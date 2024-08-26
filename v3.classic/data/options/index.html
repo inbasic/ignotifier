@@ -15,13 +15,13 @@
       <div type="description" data-l10n-id="options_inshort"></div>
     </div>
     <div hbox flex="1" pack="center" align="center">
-      <a id=donation><input type="button" data-l10n-id="options_donation" data-l10n-value="value"/></a>
+      <a id=donation target="_blank"><input type="button" data-l10n-id="options_donation" data-l10n-value="value"/></a>
     </div>
     <div class="browser">
       <ul>
         <li><a target="_blank" href="https://addons.mozilla.org/firefox/addon/gmail-notifier-restartless/"><img src="/data/icons/browsers/firefox.png"></img></a></li>
         <li><a target="_blank" href="https://microsoftedge.microsoft.com/addons/detail/cmhmeappbhdaifkknkhdnmogalbnhloa"><img src="/data/icons/browsers/edge.png"></img></a></li>
-        <li><a target="_blank" href="https://chrome.google.com/webstore/detail/gmail-notifier/dcjichoefijpinlfnjghokpkojhlhkgl"><img src="/data/icons/browsers/chrome.png"></img></a></li>
+        <li><a target="_blank" href="https://chromewebstore.google.com/detail/notifier-for-gmail/dcjichoefijpinlfnjghokpkojhlhkgl"><img src="/data/icons/browsers/chrome.png"></img></a></li>
         <li><a target="_blank" href="https://addons.opera.com/extensions/details/gmail-notifier/"><img src="/data/icons/browsers/opera.png"></img></a></li>
       </ul>
     </div>
@@ -40,9 +40,11 @@
           <span data-l10n-id="options_timings_l3"></span>
           <input id="resetPeriod" type="number" min="0" required></input>
         </div>
-        <p class="note" data-l10n-id="options_timings_l4"></p>
-        <p class="note" data-l10n-id="options_timings_l5"></p>
-        <p class="note" data-l10n-id="options_timings_l6"></p>
+        <div class="note">
+          <span data-l10n-id="options_timings_l4"></span>
+          <span data-l10n-id="options_timings_l5"></span>
+          <span data-l10n-id="options_timings_l6"></span>
+        </div>
         <div class="fm">
           <span data-l10n-id="options_timings_l7"></span>
           <input id="initialPeriod" type="number" min="0" required></input>
@@ -70,22 +72,24 @@
 
 
         </div>
-        <p class="note" data-l10n-id="options_gmail_2"></p>
-        <p class="note">
+        <div class="note">
+          <span data-l10n-id="options_gmail_2"></span>
           <span data-l10n-id="options_gmail_15"></span>
           <pre style="font-size: 85%; color: #652e2e; white-space: pre-line; margin: 0">
             inbox, important, all, unread
             ^sq_ig_i_personal (Inbox Primary), ^sq_ig_i_social (Inbox Social), ^sq_ig_i_promo (Inbox Promotions), ^sq_ig_i_notification (Inbox Updates), ^sq_ig_i_group (Inbox Forums)
             ^smartlabel_personal, ^smartlabel_newsletter, ^smartlabel_notification, ^smartlabel_group
           </pre>
-        </p>
+        </div>
         <div class="mf">
           <div data-l10n-id="options_gmail_11"></div>
           <input type="text" id="feeds_custom" placeholder="https://mail.google.com/mail/u/6/feed/atom/inbox"/>
         </div>
-        <p class="note" data-l10n-id="options_gmail_12"></p>
-        <p class="note" data-l10n-id="options_gmail_13"></p>
-        <p class="note" data-l10n-id="options_gmail_14"></p>
+        <div class="note">
+          <span data-l10n-id="options_gmail_12"></span>
+          <span data-l10n-id="options_gmail_13"></span>
+          <span data-l10n-id="options_gmail_14"></span>
+        </div>
       </div>
     </div>
     <div hbox>
@@ -229,10 +233,11 @@
           <label class="browse">Browse<input type="file" id="notification.sound.media.custom4.file"></input></label>
         </div>
 
-        <p class="note only-safari" data-l10n-id="options_notifications_25"></p>
-
-        <p class="note" data-l10n-id="options_notifications_22"></p>
-        <p class="note" data-l10n-id="options_notifications_35"></p>
+        <div class="note">
+          <span class="only-safari" data-l10n-id="options_notifications_25"></span>
+          <span data-l10n-id="options_notifications_22"></span>
+          <span data-l10n-id="options_notifications_35"></span>
+        </div>
         <div>
 
         </div>

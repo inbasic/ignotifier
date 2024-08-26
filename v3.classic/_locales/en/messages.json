@@ -267,7 +267,7 @@
     "message": "Combine all concurrent desktop notifications into a single notification"
   },
   "options_notifications_31": {
-    "message": "Custom sound notification for:"
+    "message": "Custom sound notification for"
   },
   "options_notifications_32": {
     "message": "name or email contains"
@@ -375,7 +375,7 @@
     "message": "Support keyboard shortcuts on the toolbar panel"
   },
   "options_toolbar_12": {
-    "message": "Report as spam: < ! >, Trash: < # >, e: Archive: < e >, Mark as read: < Shift + i >."
+    "message": "Report as spam: <!>, Trash: <#>, e: Archive: <e>, Mark as read: <Shift + i>."
   },
   "options_toolbar_13": {
     "message": "Render emails as HTML in full-content mode"

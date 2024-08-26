@@ -56,12 +56,13 @@ label {
 }
 #content {
   margin: auto;
-  max-width: 800px;
+  max-width: 1200px;
 }
 .fixed {
-  width: 100px;
+  width: 18ch;
   background: #f1f1f1;
-  padding: 10px;
+  padding: 10px 0;
+  text-align: center;
 }
 
 @media screen and (max-width: 600px) {
@@ -75,7 +76,6 @@ label {
 }
 
 #content > div:not(:last-child) {
-  border-bottom: solid 1px #e5e5e5;
   padding: 10px 0;
 }
 #content > div:last-child {
@@ -179,9 +179,14 @@ input:invalid {
   width: 16px;
 }
 .note {
-  color: #707070;
-  padding: 0;
-  font-size: 90%;
+  font-size: unset;
+  background: #fff7ee;
+  padding: 10px;
+  line-height: 140%;
+  flex-direction: column;
+}
+.note span:not(:last-child) {
+  margin-bottom: 1ch;
 }
 .browse {
   display: none;
