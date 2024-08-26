@@ -315,10 +315,6 @@
         "message": "Si votre navigateur ne lit pas le son de notification personnalisé, essayez de le convertir en un format WAV simple à l'aide d'un outil de conversion en ligne.",
         "description": ""
     },
-    "options_notifications_35": {
-        "message": "Pour sélectionner un nouveau son personnalisé, sélectionnez d'abord un son intégré, puis modifiez l'option en son personnalisé",
-        "description": ""
-    },
     "options_notifications_23": {
         "message": "Le volume de la notification sonore est",
         "description": ""
