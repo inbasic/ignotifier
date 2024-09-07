@@ -327,7 +327,7 @@
     "message": "Ignore opened Gmail™ tabs"
   },
   "options_tab_9": {
-    "message": "When unchecked, Gmail™ Notifier checks either active window or all open windows for open instance of Gmail™ and switch to the tab when tab opening is requested."
+    "message": "When checked, \"explain here what Notifier does\". When unchecked, Gmail™ Notifier checks either active window or all open windows for open instance of Gmail™ and switch to the tab when tab opening is requested."
   },
   "options_tab_10": {
     "message": "Open emails in basic HTML mode"
@@ -375,7 +375,7 @@
     "message": "Support keyboard shortcuts on the toolbar panel"
   },
   "options_toolbar_12": {
-    "message": "Report as spam: <!>, Trash: <#>, e: Archive: <e>, Mark as read: <Shift + i>."
+    "message": "Report as spam: < ! >, Trash: < # >, Archive: < e >, Mark as read: < Shift + i >."
   },
   "options_toolbar_13": {
     "message": "Render emails as HTML in full-content mode"
