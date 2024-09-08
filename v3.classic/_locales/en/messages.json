@@ -327,7 +327,7 @@
     "message": "Ignore opened Gmail™ tabs"
   },
   "options_tab_9": {
-    "message": "When unchecked, Gmail™ Notifier checks either active window or all open windows for open instance of Gmail™ and switch to the tab when tab opening is requested."
+    "message": "When checked, the notifier open emails in new browser tabs. When unchecked, it will first search the active window for an existing Gmail™ tab and switch to it. If not found, it will search other open windows before opening a new tab."
   },
   "options_tab_10": {
     "message": "Open emails in basic HTML mode"

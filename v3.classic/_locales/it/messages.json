@@ -1,0 +1,575 @@
+{
+  "gmail": {
+    "message": "Notificatore per Gmail™"
+  },
+  "toolbar_label": {
+    "message": "Notificatore per Gmail™"
+  },
+  "tooltip_1": {
+    "message": "Clic sinistro: apri Gmail™ o il pannello di anteprima della posta"
+  },
+  "tooltip_2": {
+    "message": "Fare clic al centro (o Ctrl+Sinistra): Aggiorna tutti gli account"
+  },
+  "tooltip_3": {
+    "message": "Cliccare con il tasto destro del mouse: Selezioni account"
+  },
+  "description": {
+    "message": "Notificatore di più etichette e account per Google Mail (Gmail™)"
+  },
+  "log_in_to_your_account": {
+    "message": "Per favore accedi al tuo account"
+  },
+  "msg_1": {
+    "message": "La scheda è già aperta. Fare clic sul pulsante nella barra degli strumenti per aprire Gmail™ in una nuova scheda o per passare a una scheda Gmail™ esistente."
+  },
+  "msg_2": {
+    "message": "Il collegamento viene copiato negli appunti."
+  },
+  "msg_3": {
+    "message": "Il testo selezionato viene copiato negli appunti."
+  },
+  "msg_4": {
+    "message": "Nota: affinché il notificatore funzioni correttamente, è necessario aver effettuato l'accesso al proprio account Google."
+  },
+  "msg_5": {
+    "message": "Selezionare un file audio"
+  },
+  "label_1": {
+    "message": "Aggiorna"
+  },
+  "label_2": {
+    "message": "Impostazioni"
+  },
+  "label_3": {
+    "message": "Disabilita tutte le notifiche"
+  },
+  "label_4": {
+    "message": "Per 5 minuti"
+  },
+  "label_5": {
+    "message": "Per 15 minuti"
+  },
+  "label_6": {
+    "message": "Per 30 minuti"
+  },
+  "label_7": {
+    "message": "Per 1 ora"
+  },
+  "label_8": {
+    "message": "Per 2 ore"
+  },
+  "label_9": {
+    "message": "Per 5 ore"
+  },
+  "label_13": {
+    "message": "Per il periodo di tempo personalizzato"
+  },
+  "label_10": {
+    "message": "Abilita notifiche (sessione)"
+  },
+  "label_11": {
+    "message": "Comporre un'e-mail"
+  },
+  "label_12": {
+    "message": "Apri FAQ"
+  },
+  "label_14": {
+    "message": "Account collegati:"
+  },
+  "unknown": {
+    "message": "sconosciuto"
+  },
+  "and": {
+    "message": " e "
+  },
+  "log_into_your_account": {
+    "message": "Per favore accedi al tuo account"
+  },
+  "notification": {
+    "message": "Da: [author_email][break] Titolo: [title][break] Riepilogo: [summary]"
+  },
+  "options_title": {
+    "message": "Opzioni - Notificatore Gmail"
+  },
+  "options_inshort": {
+    "message": "Notificatore di più etichette e account per Google Mail (Gmail™)."
+  },
+  "options_donation": {
+    "message": "Supporto allo sviluppo"
+  },
+  "options_timings": {
+    "message": "Orari:"
+  },
+  "options_timings_l1": {
+    "message": "Controlla le nuove e-mail ogni (in secondi):"
+  },
+  "options_timings_l2": {
+    "message": "Il periodo minimo è di 10 secondi."
+  },
+  "options_timings_l3": {
+    "message": "Ricorda tutte le e-mail non lette ogni (in minuti):"
+  },
+  "options_timings_l4": {
+    "message": "Impostare il valore a zero per i promemoria non periodici."
+  },
+  "options_timings_l5": {
+    "message": "Il periodo minimo è di 5 minuti."
+  },
+  "options_timings_l6": {
+    "message": "Un valore diverso da zero attiva sia la notifica sul desktop che il suono di avviso (simile all'arrivo di una nuova e-mail) per sempre se ci sono e-mail non lette."
+  },
+  "options_timings_l7": {
+    "message": "Non verificare la presenza di nuove e-mail all'avvio per (in secondi):"
+  },
+  "options_timings_l8": {
+    "message": "Impostare il valore su zero per non controllare le e-mail fino al primo aggiornamento manuale [Non disponibile su Safari]."
+  },
+  "options_gmail": {
+    "message": "Gmail™:"
+  },
+  "options_gmail_1": {
+    "message": "Account primario (/mail/u/0/)"
+  },
+  "options_gmail_2": {
+    "message": "Separare le etichette con \",\" (virgola)."
+  },
+  "options_gmail_3": {
+    "message": "Account secondario (/mail/u/1/)"
+  },
+  "options_gmail_4": {
+    "message": "Terzo Account (/mail/u/2/)"
+  },
+  "options_gmail_5": {
+    "message": "Quarto Account (/mail/u3/)"
+  },
+  "options_gmail_6": {
+    "message": "Quinto Account (/mail/u4/)"
+  },
+  "options_gmail_7": {
+    "message": "Sesto Account (/mail/u5/)"
+  },
+  "options_gmail_8": {
+    "message": "Contrassegnare il messaggio come letto quando lo si archivia"
+  },
+  "options_gmail_15": {
+    "message": "Alcune etichette popolari:"
+  },
+  "options_gmail_10": {
+    "message": "Ricevere notifiche per le etichette e gli account seguenti:"
+  },
+  "options_gmail_11": {
+    "message": "Alimentazioni personalizzate:"
+  },
+  "options_gmail_12": {
+    "message": "Separare i feed con \",\" (virgola). Esempio di feed: https://mail.google.com/mail/u/0/feed/atom/inbox"
+  },
+  "options_gmail_13": {
+    "message": "Nota: il numero massimo per tutte le etichette, ad eccezione di \"inbox\", è 20 (i feed di Google forniscono solo le 20 voci più recenti)."
+  },
+  "options_gmail_14": {
+    "message": "Nota: per far sì che il notificatore ascolti più di 5 account, aggiungere gli URL dei feed al campo \"Feed personalizzati\". Ad esempio, per ascoltare il 6° e il 7° account aggiungere: https://mail.google.com/mail/u/6/feed/atom/inbox, https://mail.google.com/mail/u/7/feed/atom/inbox"
+  },
+  "options_notifications": {
+    "message": "Notifica"
+  },
+  "options_notifications_1": {
+    "message": "Visualizzare la notifica sul desktop per le nuove e-mail"
+  },
+  "options_notifications_2": {
+    "message": "Mostra la notifica sul desktop per (in secondi):"
+  },
+  "options_notifications_3": {
+    "message": "Questa opzione potrebbe non funzionare a seconda del sistema operativo in uso."
+  },
+  "options_notifications_4": {
+    "message": "Formato di notifica"
+  },
+  "options_notifications_5": {
+    "message": "Variabili disponibili:"
+  },
+  "options_notifications_6": {
+    "message": "Tronca le notifiche più lunghe di"
+  },
+  "options_notifications_7": {
+    "message": "caratteri per i campi [titolo] e [sommario]."
+  },
+  "options_notifications_8": {
+    "message": "Per evitare il troncamento dell'ellissi, utilizzare un numero grande."
+  },
+  "options_notifications_9": {
+    "message": "Riproduzione di un suono di avviso per le nuove e-mail"
+  },
+  "options_notifications_10": {
+    "message": "Nota per gli utenti Mac. A partire da Firefox 28.0, tutte le notifiche sul desktop sono gestite dal Centro notifiche del Mac, che provoca un avviso sonoro aggiuntivo. È necessario deselezionare questa notifica sonora o quella generata dal Centro notifiche."
+  },
+  "options_notifications_11": {
+    "message": "Visualizzare la \"notifica della barra delle applicazioni di Windows\" o la \"notifica del Dock di Mac OS\"."
+  },
+  "options_notifications_12": {
+    "message": "Le notifiche della barra delle applicazioni non sono attualmente supportate dal sistema operativo Linux."
+  },
+  "options_notifications_13": {
+    "message": "Apertura del pannello della barra degli strumenti quando si fa clic sull'icona di notifica della barra delle applicazioni (solo Windows, beta)"
+  },
+  "options_notifications_14": {
+    "message": "Questa funzione è altamente sperimentale e potrebbe rendere instabile il browser Firefox. [È necessario un riavvio.]"
+  },
+  "options_notifications_15": {
+    "message": "La notifica sonora predefinita è"
+  },
+  "options_notifications_16": {
+    "message": "Avviso predefinito di Gmail™ Notifier"
+  },
+  "options_notifications_17": {
+    "message": "Allarme campanello Checker Plus"
+  },
+  "options_notifications_18": {
+    "message": "Allarme ding Checker Plus"
+  },
+  "options_notifications_19": {
+    "message": "Avviso e-mail di Windows"
+  },
+  "options_notifications_20": {
+    "message": "Suono definito dall'utente"
+  },
+  "options_notifications_21": {
+    "message": "Il suono di notifica definito dall'utente è"
+  },
+  "options_notifications_22": {
+    "message": "Se il browser non riproduce il suono di notifica personalizzato, provate a convertirlo in un semplice formato WAV utilizzando uno strumento di conversione online."
+  },
+  "options_notifications_35": {
+    "message": "Per selezionare un nuovo suono personalizzato, selezionare prima un suono incorporato e poi cambiare l'opzione in suono personalizzato."
+  },
+  "options_notifications_23": {
+    "message": "Il volume della notifica sonora è"
+  },
+  "options_notifications_24": {
+    "message": "Il volume è un numero compreso tra 0 e 100, dove 100 è il volume più alto (impostazione predefinita)."
+  },
+  "options_notifications_25": {
+    "message": "In Safari è probabile che le notifiche sonore predefinite non vengano riprodotte correttamente; in tal caso, utilizzare un file audio personalizzato come notifica."
+  },
+  "options_notifications_26": {
+    "message": "Mostra sempre la notifica nella tray (solo per Windows)"
+  },
+  "options_notifications_27": {
+    "message": "La notifica del vassoio viene visualizzata anche se non ci sono messaggi non letti."
+  },
+  "options_notifications_28": {
+    "message": "Disattiva tutte le notifiche per un periodo di tempo personalizzato (in minuti):"
+  },
+  "options_notifications_29": {
+    "message": "Questa opzione è collegata al menu della barra degli strumenti con il tasto destro del mouse -> disattiva tutte le notifiche -> periodo di tempo personalizzato."
+  },
+  "options_notifications_30": {
+    "message": "Combinare tutte le notifiche concomitanti sul desktop in un'unica notifica"
+  },
+  "options_notifications_31": {
+    "message": "Notifica sonora personalizzata"
+  },
+  "options_notifications_32": {
+    "message": "nome o e-mail contiene"
+  },
+  "options_notifications_33": {
+    "message": "il titolo dell'e-mail contiene"
+  },
+  "options_notifications_34": {
+    "message": "il riepilogo dell'e-mail contiene"
+  },
+  "options_notifications_36": {
+    "message": "Chiedi a Gmail™ di impedire il reindirizzamento a \\\"inbox.google.com\\\""
+  },
+  "options_notifications_37": {
+    "message": "Mostra il numero di e-mail non lette sul badge (e scegli il colore del badge)"
+  },
+  "options_notifications_38": {
+    "message": "Azioni più rapide (segnare come letto, cancellare, ...) (Considerare le azioni da risolvere quando si ricevono le intestazioni)"
+  },
+  "options_notifications_40": {
+    "message": "Consentire azioni rapide dalla casella di notifica (massimo due azioni) (solo Chrome)"
+  },
+  "options_notifications_41": {
+    "message": "Segna come letto"
+  },
+  "options_notifications_42": {
+    "message": "Archivia"
+  },
+  "options_notifications_43": {
+    "message": "Cestina"
+  },
+  "options_tab": {
+    "message": "Apertura della scheda:"
+  },
+  "options_tab_1": {
+    "message": "Cerca un account Gmail™ aperto solo nella finestra attiva"
+  },
+  "options_tab_2": {
+    "message": "Non cercare account Gmail™ aperti in altre finestre del browser. Se Gmail™ non è aperto nella finestra attiva, apri una nuova scheda."
+  },
+  "options_tab_3": {
+    "message": "Apri un nuovo account Gmail™ accanto alla scheda attiva"
+  },
+  "options_tab_4": {
+    "message": "Apri un account Gmail™ nella scheda attiva"
+  },
+  "options_tab_5": {
+    "message": "Apri un account Gmail™ in una scheda in background"
+  },
+  "options_tab_6": {
+    "message": "Apri un account Gmail™ in una nuova finestra"
+  },
+  "options_tab_7": {
+    "message": "Utilizzare sempre le schede vuote invece di aprire una nuova scheda quando l'apertura in scheda è attivata"
+  },
+  "options_tab_8": {
+    "message": "Ignora le schede Gmail™ aperte"
+  },
+  "options_tab_9": {
+    "message": "Se selezionato, Gmail™ Notifier controlla la finestra attiva o tutte le finestre aperte per l'istanza aperta di Gmail™ e passa alla scheda quando viene richiesta l'apertura della scheda."
+  },
+  "options_tab_10": {
+    "message": "Aprire le e-mail in modalità HTML di base"
+  },
+  "options_tab_11": {
+    "message": "Aprire l'ultima email non letta invece di aprire la cartella INBOX"
+  },
+  "options_toolbar": {
+    "message": "Barra degli strumenti:"
+  },
+  "options_toolbar_1": {
+    "message": "Comportamento dei pulsanti della barra degli strumenti"
+  },
+  "options_toolbar_2": {
+    "message": "Pannello di anteprima delle e-mail sempre aperto"
+  },
+  "options_toolbar_3": {
+    "message": "Apri un account Gmail™ se è stato effettuato l'accesso solo a un account"
+  },
+  "options_toolbar_18": {
+    "message": "Apri un account Gmail™ (forzato)"
+  },
+  "options_toolbar_4": {
+    "message": "Modalità pannello della barra degli strumenti"
+  },
+  "options_toolbar_5": {
+    "message": "Mostra solo il riepilogo"
+  },
+  "options_toolbar_6": {
+    "message": "Mostra il contenuto completo"
+  },
+  "options_toolbar_7": {
+    "message": "La larghezza del pannello della barra degli strumenti nella modalità di visualizzazione a contenuto completo è (in pixel):"
+  },
+  "options_toolbar_8": {
+    "message": "La larghezza minima è di 500px."
+  },
+  "options_toolbar_9": {
+    "message": "L'altezza del pannello della barra degli strumenti nella modalità di visualizzazione a contenuto completo è (in pixel):"
+  },
+  "options_toolbar_10": {
+    "message": "L'altezza minima è di 500px."
+  },
+  "options_toolbar_11": {
+    "message": "Supporto delle scorciatoie da tastiera sul pannello della barra degli strumenti"
+  },
+  "options_toolbar_12": {
+    "message": "Segnala come spam: < ! >, Cestino: < # >, Archivia: < e >, Segna come letto: < Maiusc + i >,"
+  },
+  "options_toolbar_13": {
+    "message": "Rendering delle e-mail come HTML in modalità full-content"
+  },
+  "options_toolbar_14": {
+    "message": "Se si preferisce il rendering di solo testo nella modalità a contenuto completo, deselezionare la casella."
+  },
+  "options_toolbar_15": {
+    "message": "Fare clic con il tasto centrale del mouse sul pulsante della barra degli strumenti per"
+  },
+  "options_toolbar_16": {
+    "message": "Aggiornare tutti gli account"
+  },
+  "options_toolbar_17": {
+    "message": "Apri account Gmail™ principale"
+  },
+  "options_misc": {
+    "message": "Varie:"
+  },
+  "options_misc_1": {
+    "message": "Ordinare i conti in ordine alfabetico"
+  },
+  "options_misc_2": {
+    "message": "Il tipo di ordine predefinito è l'ordine registrato."
+  },
+  "options_misc_3": {
+    "message": "Il modello di colore della barra degli strumenti è"
+  },
+  "options_misc_4": {
+    "message": "Colore grigio per \"Non letto\" e colore blu per \"Disconnesso\"."
+  },
+  "options_misc_5": {
+    "message": "Colore blu per \"Non letto\" e colore grigio per \"Disconnesso\"."
+  },
+  "options_misc_9": {
+    "message": "Colore rosso per \"Non letto\" e grigio per \"Disconnesso\"."
+  },
+  "options_misc_6": {
+    "message": "Mostra notifica desktop per avvisare che Gmail™ è già aperto nella scheda attiva"
+  },
+  "options_misc_7": {
+    "message": "Mostra la pagina di benvenuto all'aggiornamento"
+  },
+  "options_misc_8": {
+    "message": "Ripristinare tutte le impostazioni di fabbrica"
+  },
+  "options_misc_10": {
+    "message": "Avviare le notifiche sul desktop e quelle sonore solo quando le e-mail sono arrivate in meno di (in minuti): "
+  },
+  "options_misc_11": {
+    "message": "Impostando questa preferenza su zero, non si riceveranno né le notifiche sul desktop né quelle sonore, ma si riceveranno comunque le notifiche dei badge."
+  },
+  "options_misc_12": {
+    "message": "Non includere i dati di accesso nel testo del tooltip"
+  },
+  "options_misc_13": {
+    "message": "Per impostazione predefinita, il notificatore aggiorna il testo della barra degli strumenti con le informazioni di accesso. Deselezionando questa opzione, il testo del tooltip rimane il valore predefinito."
+  },
+  "options_misc_14": {
+    "message": "Non mostrare il numero esatto di badge quando il numero di email non lette è superiore a 999"
+  },
+  "options_misc_15": {
+    "message": "Aprire la pagina delle FAQ sugli aggiornamenti"
+  },
+  "options_plugins": {
+    "message": "Plug-ins:"
+  },
+  "options_plugins_1": {
+    "message": "Etichette Gmail™ e pulsante a forma di stella (sperimentale)"
+  },
+  "options_plugins_2": {
+    "message": "Questo plugin visualizza il pulsante della stella e le etichette delle discussioni nel popup (solo in modalità estesa)."
+  },
+  "options_px": {
+    "message": "px"
+  },
+  "options_empty": {
+    "message": "non definito"
+  },
+  "options_button_test": {
+    "message": "Riproduzione del suono ►"
+  },
+  "options_button_reset": {
+    "message": "Reimpostare le preferenze"
+  },
+  "popup_settings": {
+    "message": "Impostazioni"
+  },
+  "popup_of": {
+    "message": "of"
+  },
+  "popup_wait": {
+    "message": "Attendere..."
+  },
+  "popup_date_format": {
+    "message": "%mm %dd, %yy"
+  },
+  "popup_no_subject": {
+    "message": "(senza soggetto)"
+  },
+  "popup_open_settings": {
+    "message": "Aprire impostazioni"
+  },
+  "popup_open_inbox": {
+    "message": "Aprire la posta in arrivo"
+  },
+  "popup_archive": {
+    "message": "Archivia"
+  },
+  "popup_spam": {
+    "message": "Spam"
+  },
+  "popup_trash": {
+    "message": "Cestina"
+  },
+  "popup_refresh": {
+    "message": "Aggiorna"
+  },
+  "popup_read": {
+    "message": "Segna come letto"
+  },
+  "popup_read_all": {
+    "message": "Segna tutte come letto"
+  },
+  "popup_toggle_dark": {
+    "message": "Attiva e disattiva il tema scuro"
+  },
+  "popup_msg_1": {
+    "message": "solo ora"
+  },
+  "popup_msg_2": {
+    "message": "1 minuto fa"
+  },
+  "popup_msg_3_format": {
+    "message": "%d minuti fa"
+  },
+  "popup_msg_4": {
+    "message": "1 ora fa"
+  },
+  "popup_msg_5": {
+    "message": "ore fa"
+  },
+  "popup_msg_6": {
+    "message": "Ieri"
+  },
+  "popup_msg_7_format": {
+    "message": "%d giorni fa"
+  },
+  "popup_msg_8_format": {
+    "message": "%d settimana/e fa"
+  },
+  "popup_msg_9_format": {
+    "message": "%d mese/i fa"
+  },
+  "popup_msg_10": {
+    "message": "Gennaio"
+  },
+  "popup_msg_11": {
+    "message": "Febbraio"
+  },
+  "popup_msg_12": {
+    "message": "Marzo"
+  },
+  "popup_msg_13": {
+    "message": "Aprile"
+  },
+  "popup_msg_14": {
+    "message": "Maggio"
+  },
+  "popup_msg_15": {
+    "message": "Giugno"
+  },
+  "popup_msg_16": {
+    "message": "Luglio"
+  },
+  "popup_msg_17": {
+    "message": "Agosto"
+  },
+  "popup_msg_18": {
+    "message": "Settembre"
+  },
+  "popup_msg_19": {
+    "message": "Ottobre"
+  },
+  "popup_msg_20": {
+    "message": "Novembre"
+  },
+  "popup_msg_21": {
+    "message": "Dicembre"
+  },
+  "settings_open_title": {
+    "message": "Aprire la pagina delle opzioni (impostazioni)"
+  },
+  "settings_open_label": {
+    "message": "Aprire opzioni"
+  }
+}
