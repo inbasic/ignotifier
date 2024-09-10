@@ -272,7 +272,7 @@
         "description": ""
     },
     "options_notifications_11": {
-        "message": "Afficher la notification dans la barre de tâches Windows ou dans le dock Mac OS",
+        "message": "Afficher la notification dans la barre de tâches Windows™ ou dans le dock Mac OS",
         "description": ""
     },
     "options_notifications_12": {
@@ -280,7 +280,7 @@
         "description": ""
     },
     "options_notifications_13": {
-        "message": "Ouvrir le panneau de la barre d'outils sur clic de l'icône de notification dans la barre de tâches (uniquement sous Windows, beta)",
+        "message": "Ouvrir le panneau de la barre d'outils sur clic de l'icône de notification dans la barre de tâches (uniquement sous Windows™, beta)",
         "description": ""
     },
     "options_notifications_14": {
@@ -304,7 +304,7 @@
         "description": ""
     },
     "options_notifications_19": {
-        "message": "Alerte e-mail Windows",
+        "message": "Alerte e-mail Windows™",
         "description": ""
     },
     "options_notifications_20": {
@@ -332,7 +332,7 @@
         "description": ""
     },
     "options_notifications_26": {
-        "message": "Toujours afficher la notification dans la zone de notification système (uniquement sous Windows)",
+        "message": "Toujours afficher la notification dans la zone de notification système (uniquement sous Windows™)",
         "description": ""
     },
     "options_notifications_27": {
