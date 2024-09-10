@@ -5,15 +5,6 @@
   "toolbar_label": {
     "message": "Notifier for Gmail™"
   },
-  "tooltip_1": {
-    "message": "Left click: Open Gmail™ or mail preview panel"
-  },
-  "tooltip_2": {
-    "message": "Middle (or Ctrl+Left) click: Refresh all accounts"
-  },
-  "tooltip_3": {
-    "message": "Right click: Account selections"
-  },
   "description": {
     "message": "Multiple label and account notifier for Google Mail (Gmail™)"
   },
