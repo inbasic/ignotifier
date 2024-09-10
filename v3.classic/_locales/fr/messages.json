@@ -327,7 +327,7 @@
     "message": "Ignorer les onglets Gmail™ ouverts"
   },
   "options_tab_9": {
-    "message": "Lorsque cette option est décochée, Gmail™ Notifier vérifie la fenêtre active ou l’ensemble des fenêtres ouvertes pour l’instance en cours de Gmail™ et passe à l’onglet suivant lorsque l’ouverture d’onglet est demandée."
+    "message": "Lorsque cette case est cochée, le notificateur ouvre les e-mails dans de nouveaux onglets du navigateur. Lorsque cette case n'est pas cochée, il recherchera d'abord dans la fenêtre active un onglet Gmail™ existant et y basculera. S'il n'est pas trouvé, il recherchera d'autres fenêtres ouvertes avant d'ouvrir un nouvel onglet."
   },
   "options_tab_10": {
     "message": "Ouvrir les e-mails en mode HTML basique"

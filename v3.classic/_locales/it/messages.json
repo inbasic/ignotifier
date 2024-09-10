@@ -327,7 +327,7 @@
     "message": "Ignora le schede Gmail™ aperte"
   },
   "options_tab_9": {
-    "message": "Se selezionato, Gmail™ Notifier controlla la finestra attiva o tutte le finestre aperte per l'istanza aperta di Gmail™ e passa alla scheda quando viene richiesta l'apertura della scheda."
+    "message": "Se selezionato, il notificatore apre le e-mail in nuove schede del browser. Quando questa casella è deselezionata, cercherà innanzitutto una scheda Gmail™ esistente nella finestra attiva e passerà ad essa. Se non viene trovata, cercherà altre finestre aperte prima di aprire una nuova scheda."
   },
   "options_tab_10": {
     "message": "Aprire le e-mail in modalità HTML di base"
