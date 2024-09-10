@@ -59,7 +59,7 @@ label {
   max-width: 1200px;
 }
 .fixed {
-  width: 18ch;
+  min-width: 18ch;
   background: #f1f1f1;
   padding: 10px 0;
   text-align: center;
@@ -145,6 +145,15 @@ label {
   height: revert;
 }
 
+@media screen and (max-width: 600px) {
+  #donation {
+    display: none;
+  }
+  [type="description"] {
+    display: none;
+  }
+}
+
 input:invalid {
   border-color: red;
   background-color: rgba(255, 0, 0, 0.2);
@@ -206,8 +215,26 @@ input:invalid {
   grid-gap: 5px;
   align-items: center;
 }
-.mf > :first-child {
-  width: max-content;
+.nwap {
+  white-space: nowrap;
+}
+.nf {
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  grid-gap: 5px;
+  align-items: center;
+}
+.nf li {
+  white-space: nowrap;
+}
+.gap {
+  gap: 5px;
+}
+.start {
+  text-align: start;
+}
+.wrap {
+  flex-wrap: wrap;
 }
 
 @media screen and (max-width: 600px) {
@@ -246,14 +273,12 @@ input:invalid {
     width: 100%;
   }
 }
-
 .frt {
   list-style: none;
   margin: 0;
   padding: 0;
   justify-self: end;
 }
-
 .fnjh {
   display: flex;
   align-items: center;
@@ -262,7 +287,6 @@ input:invalid {
 .fnjh > :first-child {
   flex: 1;
 }
-
 [hbox] {
   display: flex;
   flex-direction: row;
