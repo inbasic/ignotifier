@@ -204,13 +204,13 @@
     "message": "Nota per gli utenti Mac. A partire da Firefox 28.0, tutte le notifiche sul desktop sono gestite dal Centro notifiche del Mac, che provoca un avviso sonoro aggiuntivo. È necessario deselezionare questa notifica sonora o quella generata dal Centro notifiche."
   },
   "options_notifications_11": {
-    "message": "Visualizzare la \"notifica della barra delle applicazioni di Windows\" o la \"notifica del Dock di Mac OS\"."
+    "message": "Visualizzare la \"notifica della barra delle applicazioni di Windows™\" o la \"notifica del Dock di Mac OS\"."
   },
   "options_notifications_12": {
     "message": "Le notifiche della barra delle applicazioni non sono attualmente supportate dal sistema operativo Linux."
   },
   "options_notifications_13": {
-    "message": "Apertura del pannello della barra degli strumenti quando si fa clic sull'icona di notifica della barra delle applicazioni (solo Windows, beta)"
+    "message": "Apertura del pannello della barra degli strumenti quando si fa clic sull'icona di notifica della barra delle applicazioni (solo Windows™, beta)"
   },
   "options_notifications_14": {
     "message": "Questa funzione è altamente sperimentale e potrebbe rendere instabile il browser Firefox. [È necessario un riavvio.]"
@@ -228,7 +228,7 @@
     "message": "Allarme ding Checker Plus"
   },
   "options_notifications_19": {
-    "message": "Avviso e-mail di Windows"
+    "message": "Avviso e-mail di Windows™"
   },
   "options_notifications_20": {
     "message": "Suono definito dall'utente"
@@ -252,7 +252,7 @@
     "message": "In Safari è probabile che le notifiche sonore predefinite non vengano riprodotte correttamente; in tal caso, utilizzare un file audio personalizzato come notifica."
   },
   "options_notifications_26": {
-    "message": "Mostra sempre la notifica nella tray (solo per Windows)"
+    "message": "Mostra sempre la notifica nella tray (solo per Windows™)"
   },
   "options_notifications_27": {
     "message": "La notifica del vassoio viene visualizzata anche se non ci sono messaggi non letti."
