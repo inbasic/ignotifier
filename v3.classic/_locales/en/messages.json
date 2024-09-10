@@ -402,7 +402,7 @@
     "message": "The default order type is logged-in order."
   },
   "options_misc_3": {
-    "message": "Toolbar bouton color pattern:"
+    "message": "Toolbar button color pattern:"
   },
   "options_misc_4": {
     "message": "Gray color for \"No Unread\" and blue color for \"Disconnected\""
@@ -439,6 +439,18 @@
   },
   "options_misc_15": {
     "message": "Open FAQs page on updates"
+  },
+  "options_misc_16": {
+    "message": "Color theme of panel:"
+  },
+  "options_misc_17": {
+    "message": "Light theme"
+  },
+  "options_misc_18": {
+    "message": "Dark theme"
+  },
+  "options_misc_19": {
+    "message": "System theme"
   },
   "options_plugins": {
     "message": "Plug-ins"

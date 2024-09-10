@@ -88,6 +88,7 @@ config.prefs = {
   'notification.buttons.trash': false,
   'basic.html': false,
   'smartOpen': true,
+  'dark': false, // true, false, auto
   // plug-ins
   'plug-in/labels': true
 };

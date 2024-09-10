@@ -258,6 +258,9 @@ footer div[name="read-all"] {
 footer div[name="toggle-dark"] {
   background-image: url('icons/dark.png');
 }
+body[data-dark="auto"] footer div[name="toggle-dark"] {
+  display: none;
+}
 
 #accounts {
   display: none;

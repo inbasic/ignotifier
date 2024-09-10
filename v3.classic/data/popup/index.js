@@ -484,7 +484,32 @@ qs('iframe').addEventListener('load', () => {
 });
 chrome.storage.local.get({
   dark: false
-}, prefs => prefs.dark && scheme.dark());
+}, prefs => {
+  document.body.dataset.dark = prefs.dark;
+
+  if (prefs.dark === 'true' || prefs.dark === true) {
+    scheme.dark();
+  }
+  else if (prefs.dark === 'false' || prefs.dark === false) {
+    scheme.light();
+  }
+  else {
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (e.matches) {
+        scheme.dark();
+      }
+      else {
+        scheme.light();
+      }
+    });
+    if (matchMedia('(prefers-color-scheme: dark)').matches) {
+      scheme.dark();
+    }
+    else {
+      scheme.light();
+    }
+  }
+});
 
 // resize
 const resize = () => {
