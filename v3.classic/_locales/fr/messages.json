@@ -5,15 +5,6 @@
   "toolbar_label": {
     "message": "Notifieur pour Gmail™"
   },
-  "tooltip_1": {
-    "message": "Clic gauche : ouvrir Gmail™ ou le panneau de prévisualisation d’e-mail"
-  },
-  "tooltip_2": {
-    "message": "Clic milieu (ou Ctrl+clic gauche) : rafraîchir tous les comptes"
-  },
-  "tooltip_3": {
-    "message": "Clic droit : sélections des comptes"
-  },
   "description": {
     "message": "Notifieur multi-comptes et multi-libellés pour Google Mail (Gmail™)"
   },
@@ -440,6 +431,18 @@
   "options_misc_15": {
     "message": "Ouvrir la page FAQ sur les mises à jour"
   },
+  "options_misc_16": {
+    "message": "Thème de couleur du panneau :"
+  },
+  "options_misc_17": {
+    "message": "Thème clair"
+  },
+  "options_misc_18": {
+    "message": "Thème sombre"
+  },
+  "options_misc_19": {
+    "message": "Thème système"
+  },
   "options_plugins": {
     "message": "Plug-ins"
   },
@@ -471,7 +474,7 @@
     "message": "Patientez..."
   },
   "popup_date_format": {
-    "message": "%jj %mm %aa"
+    "message": "%mm %jj %aa"
   },
   "popup_no_subject": {
     "message": "(aucun objet)"
