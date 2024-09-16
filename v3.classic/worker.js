@@ -12,6 +12,13 @@ if (typeof importScripts !== 'undefined') {
   self.importScripts('/core/watch.js');
 }
 
+const toast = (message = 'Unknown Error') => chrome.notifications.create({
+  type: 'basic',
+  iconUrl: '/data/icons/notification/48.png',
+  title: chrome.i18n.getMessage('gmail'),
+  message
+}, id => setTimeout(chrome.notifications.clear, 5000, id));
+
 const onClicked = link => {
   if (link) {
     self.openLink(link);
@@ -82,7 +89,7 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
     }
   }
   else if (method === 'test-play') {
-    sound.play();
+    sound.play().catch(e => toast(e.message));
   }
   else if (method === 'gmail.action') {
     chrome.storage.local.get({
@@ -98,12 +105,7 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
         }
         else {
           console.error(e);
-          chrome.notifications.create({
-            type: 'basic',
-            iconUrl: '/data/icons/notification/48.png',
-            title: chrome.i18n.getMessage('gmail'),
-            message: e.message || 'Unknown Error - 1'
-          });
+          toast(e.message || 'Unknown Error - 1');
           response(e);
         }
       }).finally(() => repeater.reset('popup.action', 500));

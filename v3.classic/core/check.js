@@ -1,4 +1,4 @@
-/* global log, button, context, Feed, repeater, sound, offscreen */
+/* global log, button, context, Feed, repeater, sound, offscreen, toast */
 
 if (typeof importScripts !== 'undefined') {
   self.importScripts('/core/utils/feed.js');
@@ -93,12 +93,6 @@ if (typeof importScripts !== 'undefined') {
     });
     chrome.notifications.create(id, options);
   };
-  notify.basic = message => chrome.notifications.create({
-    type: 'basic',
-    iconUrl: '/data/icons/notification/48.png',
-    title: chrome.i18n.getMessage('gmail'),
-    message: message || 'Unknown Error - 2'
-  });
   chrome.notifications.onClicked.addListener(id => {
     chrome.notifications.clear(id);
     sound.stop();
@@ -160,7 +154,7 @@ if (typeof importScripts !== 'undefined') {
             const errors = arr.filter(o => o !== true);
             if (errors.length) {
               console.error(errors);
-              notify.basic(errors.map(e => e.message).join('\n\n'));
+              toast(errors.map(e => e.message).join('\n\n'));
             }
           }).finally(() => repeater.reset('action.command', 500));
         });
@@ -348,7 +342,7 @@ if (typeof importScripts !== 'undefined') {
         }
         if (forced) {
           self.openLink(prefs.url);
-          notify.basic(chrome.i18n.getMessage('log_into_your_account'));
+          toast(chrome.i18n.getMessage('log_into_your_account'));
         }
         button.label = chrome.i18n.getMessage('gmail');
         detach();
@@ -581,7 +575,7 @@ if (typeof importScripts !== 'undefined') {
               }
             }
           }
-          sound.play(entries);
+          sound.play(entries).catch(e => toast(e.message));
         }
         chrome.runtime.sendMessage({
           method: 'update-reset',

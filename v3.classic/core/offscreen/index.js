@@ -13,13 +13,13 @@ const exit = () => {
   }, 60000);
 };
 
-const play = request => {
+const play = request => new Promise((resolve, reject) => {
   stop();
   const audio = document.createElement('audio');
   audio.setAttribute('preload', 'auto');
   audio.setAttribute('autobuffer', 'true');
   audio.setAttribute('autoplay', 'true');
-  audio.onerror = audio.onended = () => {
+  audio.onended = audio.onerror = e => {
     ids.delete(request.id);
     exit();
   };
@@ -29,14 +29,14 @@ const play = request => {
   const {index, media, prefs} = request;
 
   const type = index === null ? media.default.type : media['custom' + index].type;
-  let path = '/data/sounds/' + type + '.ogg';
+  let path = '/data/sounds/' + type + '.mp4';
   if (type === 4) {
     path = index === null ? media.default.file : media['custom' + index].file;
   }
   audio.src = path;
   audio.volume = prefs.soundVolume / 100;
-  audio.play();
-};
+  audio.play().then(() => resolve(true), e => reject(e));
+});
 
 const stop = () => {
   for (const e of document.querySelectorAll('audio')) {
@@ -56,8 +56,11 @@ chrome.runtime.onMessage.addListener(({request, method}, sender, response) => {
     ids.add(id);
 
     if (request.cmd === 'play') {
-      play(request);
-      response(true);
+      play(request).then(() => response(true), e => response({
+        error: e.message
+      }));
+
+      return true;
     }
     else if (request.cmd === 'stop') {
       stop(request);

@@ -2,7 +2,7 @@
 
 const sound = {};
 
-sound.play = (entries = []) => {
+sound.play = (entries = [], error = () => {}) => new Promise((resolve, reject) => {
   chrome.storage.session.get({
     silent: false
   }, prefs => {
@@ -165,10 +165,17 @@ sound.play = (entries = []) => {
           alert: prefs.alert,
           soundVolume: prefs.soundVolume
         }
+      }).then(b => {
+        if (b !== true && 'error' in b) {
+          reject(Error(b.error));
+        }
+        else {
+          resolve();
+        }
       });
     });
   });
-};
+});
 
 sound.stop = () => offscreen.command({
   cmd: 'stop'

@@ -1,3 +1,5 @@
+/* global toast */
+
 {
   const parseUri = str => {
     const uri = new URL(str);
@@ -11,12 +13,6 @@
     }
     return uri;
   };
-  const notify = message => chrome.notifications.create({
-    type: 'basic',
-    iconUrl: '/data/icons/notification/48.png',
-    title: chrome.i18n.getMessage('gmail'),
-    message: message || 'Unknown Error - 3'
-  });
 
   self.openLink = (url, inBackground, refresh) => {
     url = url.replace('@private', ''); // some urls might end with "@private" for private mode
@@ -54,7 +50,7 @@
         const tab = tabs[i];
         if (tab.url === url) {
           if (prefs.onGmailNotification && tab.active) {
-            notify(chrome.i18n.getMessage('msg_1'));
+            toast(chrome.i18n.getMessage('msg_1'));
           }
           const options = {
             active: true
@@ -83,7 +79,7 @@
 
           if (tab.active && !reload) {
             if (prefs.onGmailNotification) {
-              notify(chrome.i18n.getMessage('msg_1'));
+              toast(chrome.i18n.getMessage('msg_1'));
             }
           }
           const options = {
