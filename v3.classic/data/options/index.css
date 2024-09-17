@@ -56,12 +56,13 @@ label {
 }
 #content {
   margin: auto;
-  max-width: 800px;
+  max-width: 1200px;
 }
 .fixed {
-  width: 100px;
+  min-width: 18ch;
   background: #f1f1f1;
-  padding: 10px;
+  padding: 10px 0;
+  text-align: center;
 }
 
 @media screen and (max-width: 600px) {
@@ -75,7 +76,6 @@ label {
 }
 
 #content > div:not(:last-child) {
-  border-bottom: solid 1px #e5e5e5;
   padding: 10px 0;
 }
 #content > div:last-child {
@@ -145,6 +145,15 @@ label {
   height: revert;
 }
 
+@media screen and (max-width: 600px) {
+  #donation {
+    display: none;
+  }
+  [type="description"] {
+    display: none;
+  }
+}
+
 input:invalid {
   border-color: red;
   background-color: rgba(255, 0, 0, 0.2);
@@ -179,9 +188,14 @@ input:invalid {
   width: 16px;
 }
 .note {
-  color: #707070;
-  padding: 0;
-  font-size: 90%;
+  font-size: 85%;
+  background: #fff7ee;
+  padding: 10px;
+  line-height: 140%;
+  flex-direction: column;
+}
+.note span:not(:last-child) {
+  margin-bottom: 1ch;
 }
 .browse {
   display: none;
@@ -201,8 +215,26 @@ input:invalid {
   grid-gap: 5px;
   align-items: center;
 }
-.mf > :first-child {
-  width: max-content;
+.nwap {
+  white-space: nowrap;
+}
+.nf {
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  grid-gap: 5px;
+  align-items: center;
+}
+.nf li {
+  white-space: nowrap;
+}
+.gap {
+  gap: 5px;
+}
+.start {
+  text-align: start;
+}
+.wrap {
+  flex-wrap: wrap;
 }
 
 @media screen and (max-width: 600px) {
@@ -241,14 +273,12 @@ input:invalid {
     width: 100%;
   }
 }
-
 .frt {
   list-style: none;
   margin: 0;
   padding: 0;
   justify-self: end;
 }
-
 .fnjh {
   display: flex;
   align-items: center;
@@ -257,7 +287,6 @@ input:invalid {
 .fnjh > :first-child {
   flex: 1;
 }
-
 [hbox] {
   display: flex;
   flex-direction: row;
