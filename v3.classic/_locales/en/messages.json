@@ -507,7 +507,7 @@
     "message": "Toggle dark theme on and off"
   },
   "popup_expand": {
-    "message": "Expand <==> Reduce"
+    "message": ""Toggle expanded view on and off""
   },
   "popup_previous": {
     "message": "Previous email"
