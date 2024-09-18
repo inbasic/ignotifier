@@ -250,7 +250,7 @@ footer div[name="refresh"] {
 }
 footer div[name="read"] {
   width: 90px;
-  background-image: url('icons/read.png');
+  background-image: none;
 }
 footer div[name="read-all"] {
   background-image: url('icons/check_all.png');
@@ -301,8 +301,8 @@ body[data-dark="auto"] footer div[name="toggle-dark"] {
   position: fixed;
   bottom: 44px;
   left: 9px;
-  width: 20px;
-  height: 24px;
+  width: 40px;
+  height: 12px;
   background-image: url('icons/arrow_drop_down.png');
   background-size: 20px;
 }
