@@ -108,7 +108,7 @@
     "message": "La période minimum est de 5 minutes."
   },
   "options_timings_l6": {
-    "message": "Une valeur non nulle déclenche une notification sur le bureau et une alerte sonore (similaire à l’arrivée d’un nouvel e-mail) et ce, de façon perpétuelle, si vous avez un ou plusieurs e-mails non lus."
+    "message": "Une valeur non nulle déclenche une notification sur le bureau et une alerte sonore (similaire à l’arrivée d’un nouvel e-mail) et ce, de façon perpétuelle si vous avez un ou plusieurs e-mails non lus."
   },
   "options_timings_l7": {
     "message": "Ne pas relever les nouveaux e-mails au démarrage avant (en secondes) :"
