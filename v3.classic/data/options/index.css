@@ -188,7 +188,7 @@ input:invalid {
   width: 16px;
 }
 .note {
-  font-size: 85%;
+  font-size: unset;
   background: #fff7ee;
   padding: 10px;
   line-height: 140%;
