@@ -505,7 +505,8 @@
   },
   "popup_msg_1": {
     "message": "just now"
-  },  "popup_msg_2": {
+  },
+  "popup_msg_2": {
     "message": "1 minute ago"
   },
   "popup_msg_3_format": {
