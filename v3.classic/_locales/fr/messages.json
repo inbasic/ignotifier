@@ -1,9 +1,9 @@
 {
   "gmail": {
-    "message": "Notifieur Gmail™"
+    "message": "Notifieur pour Gmail™"
   },
   "toolbar_label": {
-    "message": "Notifieur Gmail™"
+    "message": "Notifieur pour Gmail™"
   },
   "description": {
     "message": "Notifieur multi-comptes et multi-libellés pour Google Mail (Gmail™)"
@@ -108,7 +108,7 @@
     "message": "La période minimum est de 5 minutes."
   },
   "options_timings_l6": {
-    "message": "Une valeur non nulle déclenche une notification sur le bureau et une alerte sonore (similaire à l’arrivée d’un nouvel e-mail) de façon perpétuelle, si vous avez un ou plusieurs e-mails non lus."
+    "message": "Une valeur non nulle déclenche une notification sur le bureau et une alerte sonore (similaire à l’arrivée d’un nouvel e-mail) et ce, de façon perpétuelle, si vous avez un ou plusieurs e-mails non lus."
   },
   "options_timings_l7": {
     "message": "Ne pas relever les nouveaux e-mails au démarrage avant (en secondes) :"
@@ -156,7 +156,7 @@
     "message": "Séparer les flux par des \",\" (virgules). Exemple de flux : https://mail.google.com/mail/u/0/feed/atom/inbox"
   },
   "options_gmail_13": {
-    "message": "Remarque : le nombre maximal pour tous les libellés sauf «Boîte de réception» est de 20 (les flux Google ne fournissent que les 20 entrées les plus récentes)."
+    "message": "Remarque : le nombre maximal pour tous les libellés sauf «Boîte de réception» est de 20 (les flux Google ne fournissent que les 20 entrées les plus récentes)"
   },
   "options_gmail_14": {
     "message": "Remarque : pour que le notifieur écoute plus de 5 comptes, ajoutez les URL des flux au champ «Flux personnalisés». Par exemple, pour écouter les 6e et 7e comptes, ajoutez : https://mail.google.com/mail/u/6/feed/atom/inbox, https://mail.google.com/mail/u/7/feed/atom/inbox"
@@ -174,16 +174,16 @@
     "message": "Cette option peut ne pas fonctionner sur votre système d’exploitation."
   },
   "options_notifications_4": {
-    "message": "Format de notification :"
+    "message": "Format de notification"
   },
   "options_notifications_5": {
     "message": "Variables disponibles :"
   },
   "options_notifications_6": {
-    "message": "Tronquer les notifications plus longues que"
+    "message": "Tronquer les notifications plus longues que "
   },
   "options_notifications_7": {
-    "message": "caractères pour les champs [objet] et [résumé]."
+    "message": " caractères pour les champs [objet] et [résumé]."
   },
   "options_notifications_8": {
     "message": "Pour ne pas tronquer avec des points de suspension, utiliser un nombre élevé."
@@ -207,7 +207,7 @@
     "message": "Cette fonctionnalité est hautement expérimentale et pourrait rendre instable votre navigateur Firefox. [Redémarrage nécessaire]."
   },
   "options_notifications_15": {
-    "message": "Notification sonore par défaut :"
+    "message": "La Notification sonore par défaut :"
   },
   "options_notifications_16": {
     "message": "Alerte par défaut de Gmail™ Notifier"
@@ -276,10 +276,10 @@
     "message": "Afficher le nombre d’e-mail non lus sur le badge (et choisir la couleur du badge)"
   },
   "options_notifications_38": {
-    "message": "Pour Chrome uniquement : autoriser les actions plus rapides (marquer comme lu, supprimer, ...) (Considérer les actions à résoudre lorsque les en-têtes sont reçus)"
+    "message": "Actions plus rapides (marquer comme lu, supprimer, ...) (Considérer les actions à résoudre lorsque les en-têtes sont reçus)"
   },
   "options_notifications_40": {
-    "message": "Pour Chrome uniquement et si les actions rapides sont autorisées pour la boîte de notification (choisir 2 actions au maximum) :"
+    "message": "Autoriser les actions rapides depuis la boîte de notification (deux actions maximum, pour Chrome uniquement)"
   },
   "options_notifications_41": {
     "message": "Marquer comme lu"
@@ -330,7 +330,7 @@
     "message": "Barre d’outils"
   },
   "options_toolbar_1": {
-    "message": "Comportement du bouton de la barre d’outils :"
+    "message": "Comportement du bouton de la barre d’outils"
   },
   "options_toolbar_2": {
     "message": "Toujours ouvrir le panneau de prévisualisation d’e-mail"
@@ -342,7 +342,7 @@
     "message": "Ouvrir le compte Gmail™ (mode forcé)"
   },
   "options_toolbar_4": {
-    "message": "Mode d’affichage du panneau de la barre d’outils :"
+    "message": "Mode du panneau de la barre d’outils"
   },
   "options_toolbar_5": {
     "message": "Afficher le résumé uniquement"
@@ -357,19 +357,19 @@
     "message": "La largeur minimale est de 500 pixels."
   },
   "options_toolbar_9": {
-    "message": "Hauteur du panneau de la barre d’outils dans le mode «contenu total» (en pixels) :"
+    "message": "La Hauteur du panneau de la barre d’outils dans le mode «contenu total» (en pixels) :"
   },
   "options_toolbar_10": {
     "message": "La hauteur minimale est de 500 pixels."
   },
   "options_toolbar_11": {
-    "message": "Supporter les raccourcis clavier dans le panneau de la barre d’outils"
+    "message": "Support des raccourcis clavier dans le panneau de la barre d’outils"
   },
   "options_toolbar_12": {
     "message": "Signaler comme spam : < ! >, Supprimer : < # >, Archiver  : < e >, Marquer comme lu : < Shift + i >."
   },
   "options_toolbar_13": {
-    "message": "Afficher les e-mails en rendu HTML dans le mode «contenu total»"
+    "message": "Rendu des e-mails en HTML dans le mode «contenu total»"
   },
   "options_toolbar_14": {
     "message": "Si vous préférez le rendu «texte uniquement» dans le mode «contenu total», décochez cette case."
@@ -393,16 +393,16 @@
     "message": "Le type de tri par défaut respecte l’ordre de connexions."
   },
   "options_misc_3": {
-    "message": "Légende des couleurs du bouton de la barre d’outils :"
+    "message": "Légende de couleur du bouton de la barre d’outils :"
   },
   "options_misc_4": {
-    "message": "Gris pour «Tous lus» et Bleu pour «Déconnecté»"
+    "message": "gris pour «Tous lus» et bleu pour «Déconnecté»"
   },
   "options_misc_5": {
-    "message": "Bleu pour «Tous lus» et Gris pour «Déconnecté»"
+    "message": "bleu pour «Tous lus» et gris pour «Déconnecté»"
   },
   "options_misc_9": {
-    "message": "Rouge pour «Tous lus» et Gris pour «Déconnecté»"
+    "message": "rouge pour «Tous lus» et gris pour «Déconnecté»"
   },
   "options_misc_6": {
     "message": "Afficher une notification sur le bureau pour avertir que Gmail™ est déjà ouvert dans l’onglet actif"
@@ -411,13 +411,13 @@
     "message": "Afficher la page de bienvenue après une mise à jour"
   },
   "options_misc_8": {
-    "message": "Réinitialiser tous les paramètres à leurs valeurs par défaut"
+    "message": "Réinitialiser tous les paramètres aux valeurs par défaut"
   },
   "options_misc_10": {
-    "message": "Ne déclencher les notifications de bureau et  les notifications sonores que lorsqu’un e-mail est arrivé depuis moins de (en minutes) : "
+    "message": "Déclencher uniquement les notifications sonores et de bureau quand un e-mail est arrivé depuis moins de (en minutes) :"
   },
   "options_misc_11": {
-    "message": "En positionnant cette préférence à zéro, vous ne recevrez ni notifications de bureau ni notifications sonores ;          malgré tout, la notification de badge continuera de se mettre à jour."
+    "message": "En positionnant cette préférence à zéro, vous ne recevrez ni notifications de bureau ni notifications sonores ; néanmoins, vous recevrez toujours la notification de badge."
   },
   "options_misc_12": {
     "message": "Ne pas inclure de détails d’identifiant dans la bulle textuelle"
@@ -432,7 +432,7 @@
     "message": "Ouvrir la page FAQ sur les mises à jour"
   },
   "options_misc_16": {
-    "message": "Thème de couleur par défaut du panneau :"
+    "message": "Thème de couleur du panneau :"
   },
   "options_misc_17": {
     "message": "Thème clair"
@@ -462,7 +462,7 @@
     "message": "Jouer le son ►"
   },
   "options_button_reset": {
-    "message": "    <=    Remise à zéro des préférences    =>    "
+    "message": "Remise à zéro des préférences"
   },
   "popup_settings": {
     "message": "Paramètres"
@@ -504,16 +504,7 @@
     "message": "Tout marquer comme lu"
   },
   "popup_toggle_dark": {
-    "message": "Thème sombre <==> Thème clair"
-  },
-  "popup_expand": {
-    "message": "Agrandir <==> Réduire"
-  },
-  "popup_previous": {
-    "message": "E-mail précédent"
-  },
-  "popup_next": {
-    "message": "E-mail suivant"
+    "message": "Thème sombre <=> Thème clair"
   },
   "popup_msg_1": {
     "message": "à l’instant"
