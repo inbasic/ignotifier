@@ -5,20 +5,11 @@
   "toolbar_label": {
     "message": "Notifier for Gmail™"
   },
-  "tooltip_1": {
-    "message": "Left click: Open Gmail™ or mail preview panel"
-  },
-  "tooltip_2": {
-    "message": "Middle (or Ctrl+Left) click: Refresh all accounts"
-  },
-  "tooltip_3": {
-    "message": "Right click: Account selections"
-  },
   "description": {
     "message": "Multiple label and account notifier for Google Mail (Gmail)"
   },
   "log_in_to_your_account": {
-    "message": "Please sign-in to your account"
+    "message": "Please sign-in to your Gmail™ account"
   },
   "msg_1": {
     "message": "Tab is already open. Click on the toolbar button to open Gmail™ in a new tab, or to switch to an existing Gmail™ tab."
@@ -303,7 +294,7 @@
     "message": "Tab Opening"
   },
   "options_tab_1": {
-    "message": "Search for an open Gmail™ account only on the active window"
+    "message": "Search for an open Gmail™ account, only on the active window"
   },
   "options_tab_2": {
     "message": "Do not search other browser windows for open Gmail™ accounts. If Gmail™ is not open in the active window, open a new tab."
@@ -327,7 +318,7 @@
     "message": "Ignore opened Gmail™ tabs"
   },
   "options_tab_9": {
-    "message": "When unchecked, Gmail™ Notifier checks either active window or all open windows for open instance of Gmail™ and switch to the tab when tab opening is requested."
+    "message": "When checked, the notifier open emails in new browser tabs. When unchecked, it will first search the active window for an existing Gmail™ tab and switch to it. If not found, it will search other open windows before opening a new tab."
   },
   "options_tab_10": {
     "message": "Open emails in basic HTML mode"
