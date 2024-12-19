@@ -287,6 +287,10 @@ input:invalid {
 .fnjh > :first-child {
   flex: 1;
 }
+.cover {
+  width: 100%;
+  box-sizing: border-box;
+}
 [hbox] {
   display: flex;
   flex-direction: row;

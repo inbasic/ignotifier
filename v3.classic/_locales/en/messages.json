@@ -452,6 +452,18 @@
   "options_plugins_2": {
     "message": "This plugin displays the star button as well as thread's labels in the popup (expanded mode only)."
   },
+  "options_styling": {
+    "message": "Styling"
+  },
+  "options_styling_0": {
+    "message": "Scale email view by (0.5-4)"
+  },
+  "options_styling_1": {
+    "message": "Custom CSS rules for top panel"
+  },
+  "options_styling_2": {
+    "message": "Custom CSS rules for email view"
+  },
   "options_px": {
     "message": "px"
   },

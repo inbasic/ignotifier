@@ -41,3 +41,11 @@
 
 // Key binding
 addEventListener('keyup', top.keyup);
+
+// styling
+// styling
+chrome.storage.local.get({
+  'styling_body': ''
+}, prefs => {
+  document.getElementById('styling_body').textContent = prefs['styling_body'];
+});

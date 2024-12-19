@@ -24,6 +24,16 @@ chrome.storage.local.get({
   }
 });
 
+// styling
+chrome.storage.local.get({
+  'styling_top': '',
+  'scale': 1
+}, prefs => {
+  document.getElementById('styling_top').textContent = prefs['styling_top'];
+  qs('iframe').style.setProperty('--scale', prefs.scale);
+});
+
+// eslint-disable-next-line no-unused-vars
 const notify = msg => chrome.notifications.create({
   type: 'basic',
   iconUrl: '/data/icons/notification/48.png',

@@ -43,10 +43,15 @@ table {
   color: inherit;
 }
 
-
+html {
+  color-scheme: light;
+  scrollbar-color: #626262 #fff;
+}
 html.dark {
   background-color: #fff;
   filter: hue-rotate(180deg) invert(100%);
+  color-scheme: dark;
+  scrollbar-color: #9d9d9d #000;
 }
 html.dark em,
 html.dark img,

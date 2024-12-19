@@ -209,16 +209,14 @@ body[data-labels=true] #content div[name=labels] {
   flex-direction: column;
 }
 #content div[name="body"] > iframe {
-  border-width: 0;
-  width: 100%;
-  height: 50px;
-  padding-top: 8px;
-}
+  --scale: 1.0;
 
-body[mode="expanded"] #content div[name="body"] > iframe {
-  height: calc(100% - 145px);
-  width: calc(100% - 24px);
-  position: absolute;
+  border-width: 0;
+  box-sizing: border-box;
+  scale: var(--scale);
+  transform-origin: top left;
+  width: calc(100% / var(--scale));
+  height: calc(100% / var(--scale));
 }
 
 footer div {

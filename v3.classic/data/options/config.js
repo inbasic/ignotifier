@@ -12,7 +12,7 @@ config.map = {
     'notification.sound.media.custom2.selector', 'notification.sound.media.custom3.selector',
     'notification.sound.media.custom4.selector',
     'soundVolume', 'silentTime', 'oldFashion', 'size', 'fullWidth', 'fullHeight',
-    'clrPattern', 'threatAsNew'
+    'clrPattern', 'threatAsNew', 'scale'
   ],
   checkbox: [
     'notification', 'alert', 'combined', 'searchMode', 'ignoreOpens',
@@ -90,5 +90,9 @@ config.prefs = {
   'smartOpen': true,
   'dark': false, // true, false, auto
   // plug-ins
-  'plug-in/labels': true
+  'plug-in/labels': true,
+  // styling
+  'scale': 1,
+  'styling_top': 'ddd',
+  'styling_body': 'mmm'
 };
