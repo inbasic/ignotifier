@@ -77,6 +77,11 @@ gmail.get = {
     getHTMLText(content) {
       const td = getLastMessage(content);
       if (td) {
+        // remove extra padding
+        for (const table of td.querySelectorAll('table[cellpadding="12"]')) {
+          table.removeAttribute('cellpadding');
+        }
+        //
         const table = document.createElement('table');
         table.classList.add('root');
         const tr = document.createElement('tr');

@@ -1,0 +1,590 @@
+{
+  "gmail": {
+    "message": "Notifier for Gmail™"
+  },
+  "toolbar_label": {
+    "message": "Notifier for Gmail™"
+  },
+  "description": {
+    "message": "Googleメール (Gmail™) の複数のラベルとアカウント通知機能"
+  },
+  "log_in_to_your_account": {
+    "message": "Gmail™アカウントにログインして下さい"
+  },
+  "msg_1": {
+    "message": "タブはすでに開いています。ツールバー ボタンをクリックして、Gmail™ を新しいタブで開くか、既存の Gmail™ タブに切り替えてください。"
+  },
+  "msg_2": {
+    "message": "リンクがクリップボードにコピーされます。"
+  },
+  "msg_3": {
+    "message": "選択したテキストがクリップボードにコピーされます。"
+  },
+  "msg_4": {
+    "message": "通知機能が正しく動作するには、Google アカウントにログインする必要があります。"
+  },
+  "msg_5": {
+    "message": "音声ファイルを選択"
+  },
+  "label_1": {
+    "message": "更新"
+  },
+  "label_2": {
+    "message": "設定"
+  },
+  "label_3": {
+    "message": "すべての通知を無効にする"
+  },
+  "label_4": {
+    "message": "5分間"
+  },
+  "label_5": {
+    "message": "15分間"
+  },
+  "label_6": {
+    "message": "30分間"
+  },
+  "label_7": {
+    "message": "1時間"
+  },
+  "label_8": {
+    "message": "2時間"
+  },
+  "label_9": {
+    "message": "5時間"
+  },
+  "label_13": {
+    "message": "カスタム期間"
+  },
+  "label_10": {
+    "message": "通知を有効にする（セッション）"
+  },
+  "label_11": {
+    "message": "メールを作成する"
+  },
+  "label_12": {
+    "message": "よくある質問"
+  },
+  "label_14": {
+    "message": "ログインしたアカウント"
+  },
+  "unknown": {
+    "message": "不明"
+  },
+  "and": {
+    "message": "と"
+  },
+  "log_into_your_account": {
+    "message": "アカウントにログインしてください"
+  },
+  "notification": {
+    "message": "From: [author_email][break] 件名: [title][break] Summary: [summary]"
+  },
+  "options_title": {
+    "message": "オプション ページ - Gmail™ Notifier"
+  },
+  "options_inshort": {
+    "message": "Google メール (Gmail™) 用の複数のラベルとアカウント通知機能。"
+  },
+  "options_donation": {
+    "message": "開発サポート$"
+  },
+  "options_timings": {
+    "message": "タイミング"
+  },
+  "options_timings_l1": {
+    "message": "新しいメールを確認する間隔 (秒単位):"
+  },
+  "options_timings_l2": {
+    "message": "最小期間は10秒です。"
+  },
+  "options_timings_l3": {
+    "message": "すべての未読メールを次の間隔で通知します (分単位):"
+  },
+  "options_timings_l4": {
+    "message": "定期的でないリマインダーの場合は値を 0 に設定します"
+  },
+  "options_timings_l5": {
+    "message": "最短期間は5分です。"
+  },
+  "options_timings_l6": {
+    "message": "値がゼロ以外の場合、未読メールがある場合、デスクトップ通知と警告音（新しいメールの到着に類似）の両方が永続的に鳴り続けます。"
+  },
+  "options_timings_l7": {
+    "message": "起動時に新しいメールをチェックしない時間（秒数）:"
+  },
+  "options_timings_l8": {
+    "message": "最初の手動更新までメールをチェックしない場合は、値を 0 に設定します [Safari では使用できません]。"
+  },
+  "options_gmail": {
+    "message": "Gmail™"
+  },
+  "options_gmail_1": {
+    "message": "プライマリ アカウント (/mail/u/0/)"
+  },
+  "options_gmail_2": {
+    "message": "ラベルは「,」(カンマ)で区切ります。"
+  },
+  "options_gmail_3": {
+    "message": "第2アカウント (/mail/u/1/)"
+  },
+  "options_gmail_4": {
+    "message": "第3アカウント (/mail/u/2/)"
+  },
+  "options_gmail_5": {
+    "message": "第4アカウント (/mail/u/3/)"
+  },
+  "options_gmail_6": {
+    "message": "第5アカウント (/mail/u/4/)"
+  },
+  "options_gmail_7": {
+    "message": "第6アカウント (/mail/u/5/)"
+  },
+  "options_gmail_8": {
+    "message": "メッセージをアーカイブするときに既読にする"
+  },
+  "options_gmail_15": {
+    "message": "人気のあるラベル:"
+  },
+  "options_gmail_10": {
+    "message": "次のラベルとアカウントの通知を受信します:"
+  },
+  "options_gmail_11": {
+    "message": "カスタムフィード:"
+  },
+  "options_gmail_12": {
+    "message": "フィードは「,」（カンマ）で区切ります。サンプル フィード: https://mail.google.com/mail/u/0/feed/atom/inbox"
+  },
+  "options_gmail_13": {
+    "message": "注: 「受信トレイ」を除くすべてのラベルの最大数は 20 です (Google フィードは最新の 20 件のエントリのみを提供します)"
+  },
+  "options_gmail_14": {
+    "message": "注: 通知機能が 5 つ以上のアカウントをリッスンするには、「カスタム フィード」フィールドにフィード URL を追加します。たとえば、6 番目と 7 番目のアカウントをリッスンするには、https://mail.google.com/mail/u/6/feed/atom/inbox、https://mail.google.com/mail/u/7/feed/atom/inbox を追加します。"
+  },
+  "options_notifications": {
+    "message": "通知"
+  },
+  "options_notifications_1": {
+    "message": "新しいメールのデスクトップ通知を表示する"
+  },
+  "options_notifications_2": {
+    "message": "デスクトップ通知を表示する時間 (秒):"
+  },
+  "options_notifications_3": {
+    "message": "このオプションは、OS によっては機能しない場合があります。"
+  },
+  "options_notifications_4": {
+    "message": "通知フォーマット"
+  },
+  "options_notifications_5": {
+    "message": "利用可能な変数:"
+  },
+  "options_notifications_6": {
+    "message": "通知を切り捨てる長さ"
+  },
+  "options_notifications_7": {
+    "message": "[件名] および [summary] フィールドの文字。"
+  },
+  "options_notifications_8": {
+    "message": "省略記号を切り捨てないようにするには、ここで大きな数値を使用します。"
+  },
+  "options_notifications_9": {
+    "message": "新着メールの通知音を鳴らす"
+  },
+  "options_notifications_10": {
+    "message": "Mac ユーザーへの注意: Firefox バージョン 28.0 以降、すべてのデスクトップ通知は Mac 通知センターによって処理され、追加のサウンド アラートが発生します。このサウンド通知または通知センターによって生成されるサウンド通知のいずれかのチェックを外す必要があります。"
+  },
+  "options_notifications_11": {
+    "message": "「Windows™ タスクバー通知」または「Mac OS Dock 通知」を表示します"
+  },
+  "options_notifications_12": {
+    "message": "現時点では、タスクバー通知は Linux OS ではサポートされていません。"
+  },
+  "options_notifications_13": {
+    "message": "タスクバーの通知アイコンをクリックするとツールバー パネルが開きます (Windows™ のみ、ベータ版)"
+  },
+  "options_notifications_14": {
+    "message": "この機能は極めて実験的なもので、Firefox ブラウザが不安定になる可能性があります。[再起動が必要です]。"
+  },
+  "options_notifications_15": {
+    "message": "デフォルトのサウンド通知:"
+  },
+  "options_notifications_16": {
+    "message": "Gmail™ 通知のデフォルトアラート"
+  },
+  "options_notifications_17": {
+    "message": "Checker Plus ベルアラート"
+  },
+  "options_notifications_18": {
+    "message": "Checker Plus ding アラート"
+  },
+  "options_notifications_19": {
+    "message": "Windows™ Eメールアラート"
+  },
+  "options_notifications_20": {
+    "message": "ユーザー定義のサウンド"
+  },
+  "options_notifications_21": {
+    "message": "ユーザー定義の通知音:"
+  },
+  "options_notifications_22": {
+    "message": "ブラウザでカスタム通知音が再生されない場合は、オンライン変換ツールを使用して、プレーンな WAV 形式に変換してみてください。"
+  },
+  "options_notifications_35": {
+    "message": "新しいカスタムサウンドを選択するには、まず組み込みサウンドを選択し、オプションをカスタムサウンドに変更します。"
+  },
+  "options_notifications_23": {
+    "message": "サウンド通知の音量（％）："
+  },
+  "options_notifications_24": {
+    "message": "音量は 0 ～ 100 の数値で、100 が最高音量です (デフォルト)。"
+  },
+  "options_notifications_25": {
+    "message": "Safari では、デフォルトのサウンド通知が正しく再生されない可能性が高いため、その場合は通知としてカスタム サウンド ファイルを使用してください。"
+  },
+  "options_notifications_26": {
+    "message": "トレイ通知を常に表示する (Windows™ のみ)"
+  },
+  "options_notifications_27": {
+    "message": "未読メッセージがない場合でもトレイ通知が表示されます。"
+  },
+  "options_notifications_28": {
+    "message": "カスタム期間（分単位）のすべての通知を無効にします。"
+  },
+  "options_notifications_29": {
+    "message": "このオプションは、ツールバー ボタンの右クリック メニュー -> すべての通知を無効にする -> カスタム期間に関連しています。"
+  },
+  "options_notifications_30": {
+    "message": "すべての同時デスクトップ通知を1つの通知にまとめる"
+  },
+  "options_notifications_31": {
+    "message": "カスタムサウンド通知"
+  },
+  "options_notifications_32": {
+    "message": "名前またはメールアドレス"
+  },
+  "options_notifications_33": {
+    "message": "メールの件名"
+  },
+  "options_notifications_34": {
+    "message": "メールの概要"
+  },
+  "options_notifications_36": {
+    "message": "Gmail™ に「inbox.google.com」へのリダイレクトを防止するよう依頼する"
+  },
+  "options_notifications_37": {
+    "message": "バッジに未読メール数を表示する（バッジの色を選択）"
+  },
+  "options_notifications_38": {
+    "message": "より高速なアクション（既読としてマーク、削除など）（ヘッダーを受信したときに解決されるアクションを検討してください）"
+  },
+  "options_notifications_40": {
+    "message": "通知ボックスからのクイックアクションを許可する（最大 2 つのアクション、Chrome のみ）"
+  },
+  "options_notifications_41": {
+    "message": "既読にする"
+  },
+  "options_notifications_42": {
+    "message": "アーカイブ"
+  },
+  "options_notifications_43": {
+    "message": "ゴミ箱"
+  },
+  "options_tab": {
+    "message": "タブを開く"
+  },
+  "options_tab_1": {
+    "message": "アクティブなウィンドウでのみ、開いている Gmail™ アカウントを検索します"
+  },
+  "options_tab_2": {
+    "message": "開いている Gmail™ アカウントを他のブラウザ ウィンドウで検索しないでください。アクティブ ウィンドウで Gmail™ が開いていない場合は、新しいタブを開きます。"
+  },
+  "options_tab_3": {
+    "message": "アクティブなタブの横に新しいGmail™アカウントを開く"
+  },
+  "options_tab_4": {
+    "message": "アクティブなタブでGmail™アカウントを開く"
+  },
+  "options_tab_5": {
+    "message": "Gmail™アカウントをバックグラウンドタブで開く"
+  },
+  "options_tab_6": {
+    "message": "Gmail™アカウントを新しいウィンドウで開く"
+  },
+  "options_tab_7": {
+    "message": "タブで開くが有効になっている場合は、新しいタブを開くのではなく、常に空のタブを使用します。"
+  },
+  "options_tab_8": {
+    "message": "開いている Gmail™ タブを無視する"
+  },
+  "options_tab_9": {
+    "message": "チェックされている場合、通知機能はメールを新しいブラウザ タブで開きます。チェックされていない場合は、まずアクティブ ウィンドウで既存の Gmail™ タブを検索し、そのタブに切り替えます。見つからない場合は、新しいタブを開く前に、開いている他のウィンドウを検索します。"
+  },
+  "options_tab_10": {
+    "message": "基本的なHTMLモードでメールを開く"
+  },
+  "options_tab_11": {
+    "message": "未読メールのタイトルをクリックすると、Gmail™ は INBOX フォルダではなくメール自体を開きます。"
+  },
+  "options_toolbar": {
+    "message": "ツールバー"
+  },
+  "options_toolbar_1": {
+    "message": "ツールバーボタンの動作"
+  },
+  "options_toolbar_2": {
+    "message": "メールプレビューパネルを常に開く"
+  },
+  "options_toolbar_3": {
+    "message": "ログインしているアカウントが 1 つだけの場合は Gmail™ アカウントを開きます"
+  },
+  "options_toolbar_18": {
+    "message": "Gmail™ アカウントを開く (強制)"
+  },
+  "options_toolbar_4": {
+    "message": "ツールバーパネルモード"
+  },
+  "options_toolbar_5": {
+    "message": "概要のみ表示"
+  },
+  "options_toolbar_6": {
+    "message": "全コンテンツを表示"
+  },
+  "options_toolbar_7": {
+    "message": "フルコンテンツ表示モードでのツールバー パネルの幅 (ピクセル単位):"
+  },
+  "options_toolbar_8": {
+    "message": "最小幅は500ピクセルです。"
+  },
+  "options_toolbar_9": {
+    "message": "フルコンテンツ表示モードでのツールバー パネルの高さ (ピクセル単位):"
+  },
+  "options_toolbar_10": {
+    "message": "最小の高さは500ピクセルです。"
+  },
+  "options_toolbar_11": {
+    "message": "ツールバーパネルでキーボードショートカットをサポート"
+  },
+  "options_toolbar_12": {
+    "message": "スパムとして報告: <!>、ゴミ箱: <#>、アーカイブ: 1、既読にする: <Shift + i>。"
+  },
+  "options_toolbar_13": {
+    "message": "フルコンテンツモードでメールをHTMLとしてレンダリングする"
+  },
+  "options_toolbar_14": {
+    "message": "フルコンテンツ モードでテキストのみのレンダリングを希望する場合は、ボックスのチェックを外します。"
+  },
+  "options_toolbar_15": {
+    "message": "ツールバーボタンを中クリックすると"
+  },
+  "options_toolbar_16": {
+    "message": "すべてのアカウントを更新"
+  },
+  "options_toolbar_17": {
+    "message": "メインのGmail™アカウントを開く"
+  },
+  "options_misc": {
+    "message": "その他"
+  },
+  "options_misc_1": {
+    "message": "アカウントをアルファベット順に並べ替える"
+  },
+  "options_misc_2": {
+    "message": "デフォルトのオーダーはログインです。"
+  },
+  "options_misc_3": {
+    "message": "ツールバーボタンのカラーパターン:"
+  },
+  "options_misc_4": {
+    "message": "「未読なし」は灰色、「切断」は青色"
+  },
+  "options_misc_5": {
+    "message": "「未読なし」は青色、「切断」は灰色"
+  },
+  "options_misc_9": {
+    "message": "未読なし」は赤色、「切断」は灰色"
+  },
+  "options_misc_6": {
+    "message": "Gmail™ がアクティブなタブで既に開かれていることを警告するデスクトップ通知を表示します"
+  },
+  "options_misc_7": {
+    "message": "アップグレード時にウェルカムページを表示する"
+  },
+  "options_misc_8": {
+    "message": "すべての設定を工場出荷時の状態に戻す"
+  },
+  "options_misc_10": {
+    "message": "メールが次の時間 (分単位) 以内に到着した場合にのみ、デスクトップ通知とサウンド通知を起動します:"
+  },
+  "options_misc_11": {
+    "message": "この設定をゼロに設定すると、デスクトップ通知もサウンド通知も受信されなくなりますが、バッジ通知は引き続き受信されます。"
+  },
+  "options_misc_12": {
+    "message": "ツールチップテキストにログイン詳細を含めないでください"
+  },
+  "options_misc_13": {
+    "message": "デフォルトでは、通知機能はツールバー ボタンのツールチップ テキストをログイン情報で更新します。このオプションをオフにすると、ツールチップ テキストはデフォルト値のままになります。"
+  },
+  "options_misc_14": {
+    "message": "未読メールの数が 999 を超える場合、正確なバッジ番号を表示しない"
+  },
+  "options_misc_15": {
+    "message": "アップデートに関するFAQページを開く"
+  },
+  "options_misc_16": {
+    "message": "パネルのカラーテーマ:"
+  },
+  "options_misc_17": {
+    "message": "ライトテーマ"
+  },
+  "options_misc_18": {
+    "message": "ダークテーマ"
+  },
+  "options_misc_19": {
+    "message": "システムテーマ"
+  },
+  "options_plugins": {
+    "message": "プラグイン"
+  },
+  "options_plugins_1": {
+    "message": "Gmail™ ラベルとスターボタン (試験的)"
+  },
+  "options_plugins_2": {
+    "message": "このプラグインは、ポップアップにスターボタンとスレッドのラベルを表示します (拡張モードのみ)。"
+  },
+  "options_styling": {
+    "message": "スタイリング"
+  },
+  "options_styling_0": {
+    "message": "メールの表示を（0.5～4）で拡大する"
+  },
+  "options_styling_1": {
+    "message": "トップパネルのカスタム CSS ルール"
+  },
+  "options_styling_2": {
+    "message": "メールビューのカスタム CSS ルール"
+  },
+  "options_px": {
+    "message": "px"
+  },
+  "options_empty": {
+    "message": "未定義"
+  },
+  "options_button_test": {
+    "message": "サウンドを再生する ►"
+  },
+  "options_button_reset": {
+    "message": "設定をリセット"
+  },
+  "popup_settings": {
+    "message": "設定"
+  },
+  "popup_of": {
+    "message": "of"
+  },
+  "popup_wait": {
+    "message": "Wait..."
+  },
+  "popup_date_format": {
+    "message": "%mm %dd, %yy"
+  },
+  "popup_no_subject": {
+    "message": "（件名なし）"
+  },
+  "popup_open_settings": {
+    "message": "設定を開く"
+  },
+  "popup_open_inbox": {
+    "message": "受信トレイを開く"
+  },
+  "popup_archive": {
+    "message": "アーカイブ"
+  },
+  "popup_spam": {
+    "message": "スパム"
+  },
+  "popup_trash": {
+    "message": "ゴミ箱"
+  },
+  "popup_refresh": {
+    "message": "更新"
+  },
+  "popup_read": {
+    "message": "既読にする"
+  },
+  "popup_read_all": {
+    "message": "すべて既読にする"
+  },
+  "popup_toggle_dark": {
+    "message": "ダークテーマのオン/オフを切り替え"
+  },
+  "popup_msg_1": {
+    "message": "ちょうど今"
+  },
+  "popup_msg_2": {
+    "message": "1 分前"
+  },
+  "popup_msg_3_format": {
+    "message": "%d 分前"
+  },
+  "popup_msg_4": {
+    "message": "1 時間前"
+  },
+  "popup_msg_5": {
+    "message": "数時間前"
+  },
+  "popup_msg_6": {
+    "message": "昨日"
+  },
+  "popup_msg_7_format": {
+    "message": "%d 日前"
+  },
+  "popup_msg_8_format": {
+    "message": "%d 週間前"
+  },
+  "popup_msg_9_format": {
+    "message": "%d か月前"
+  },
+  "popup_msg_10": {
+    "message": "1月"
+  },
+  "popup_msg_11": {
+    "message": "2月"
+  },
+  "popup_msg_12": {
+    "message": "3月"
+  },
+  "popup_msg_13": {
+    "message": "4月"
+  },
+  "popup_msg_14": {
+    "message": "5月"
+  },
+  "popup_msg_15": {
+    "message": "6月"
+  },
+  "popup_msg_16": {
+    "message": "7月"
+  },
+  "popup_msg_17": {
+    "message": "8月"
+  },
+  "popup_msg_18": {
+    "message": "9月"
+  },
+  "popup_msg_19": {
+    "message": "10月"
+  },
+  "popup_msg_20": {
+    "message": "11月"
+  },
+  "popup_msg_21": {
+    "message": "12月"
+  },
+  "settings_open_title": {
+    "message": "オプション（設定）ページを開く"
+  },
+  "settings_open_label": {
+    "message": "オプションを開く"
+  }
+}

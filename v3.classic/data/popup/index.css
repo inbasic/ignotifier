@@ -189,7 +189,7 @@ body[data-labels=true] #content div[name=labels] {
 #content div[name="info"] {
   display: flex;
   flex-direction: row;
-  padding-top: 5px;
+  padding-block: 5px;
 }
 #content div[name="info"] div[name="sender"] {
   min-width: 40px;
@@ -211,7 +211,7 @@ body[data-labels=true] #content div[name=labels] {
 #content div[name="body"] > iframe {
   --scale: 1.0;
 
-  border-width: 0;
+  border: solid 1px transparent; /* Firefox */
   box-sizing: border-box;
   scale: var(--scale);
   transform-origin: top left;
