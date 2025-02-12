@@ -4,7 +4,9 @@
   const parseUri = str => {
     const uri = new URL(str);
     if (uri.hostname.startsWith('mail.google')) {
-      uri.messageId = (/message_id=([^&]*)|#[^/]*\/([^&]*)/.exec(uri.href) || [])[1] || uri.hash.split('/').pop();
+      // https://mail.google.com/mail/u/0/#inbox
+      // https://mail.google.com/mail/u/0/#inbox/TEST_MESSAGE_ID
+      uri.messageId = (/message_id=([^&]*)|#[^/]*\/([^&]*)/.exec(uri.href) || [])[1] || uri.hash.split('/')[1] || '';
       {
         const a = uri.hash.substr(1).replace('label/', '').split('/');
         a.pop();
@@ -79,7 +81,11 @@
 
           if (tab.active && !reload) {
             if (prefs.onGmailNotification) {
-              toast(chrome.i18n.getMessage('msg_1'));
+              chrome.windows.getCurrent().then(w => {
+                if (w.id === tab.windowId) {
+                  toast(chrome.i18n.getMessage('msg_1'));
+                }
+              });
             }
           }
           const options = {
