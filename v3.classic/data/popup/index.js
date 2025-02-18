@@ -482,12 +482,12 @@ const scheme = {
   },
   light() {
     document.documentElement.classList.remove('dark');
-    qs('iframe').contentDocument.documentElement.classList.remove('dark');
+    qs('iframe').contentDocument.documentElement?.classList?.remove('dark');
   }
 };
 qs('iframe').addEventListener('load', () => {
   if (document.documentElement.classList.contains('dark')) {
-    qs('iframe').contentDocument.documentElement.classList.add('dark');
+    qs('iframe').contentDocument.documentElement?.classList?.add('dark');
   }
 }, {
   once: true
