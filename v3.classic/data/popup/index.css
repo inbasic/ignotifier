@@ -129,9 +129,10 @@ header div[name="nav"] div[name="next"] {
   border-top: 1px solid #dcdcdc;
   border-bottom: 1px solid #dcdcdc;
   padding: 0 5px;
+  overflow: auto;
 }
 #content[loading] {
-  background: #fff url(fetch.gif) no-repeat center center;
+  background: #fff url("fetch.gif") no-repeat center center;
 }
 #content div[name="title"] {
   font-size: 150%;
@@ -207,6 +208,7 @@ body[data-labels=true] #content div[name=labels] {
 #content div[name="body"] {
   flex: auto;
   flex-direction: column;
+  overflow: hidden;
 }
 #content div[name="body"] > iframe {
   --scale: 1.0;
