@@ -290,6 +290,21 @@
   "options_notifications_43": {
     "message": "Trash"
   },
+  "options_notifications_44": {
+    "message": "Play sound notification on the following states:"
+  },
+  "options_notifications_45": {
+    "message": "Active"
+  },
+  "options_notifications_46": {
+    "message": "Idle"
+  },
+  "options_notifications_47": {
+    "message": "Locked"
+  },
+  "options_notifications_48": {
+    "message": "Display desktop notification on the following states:"
+  },
   "options_tab": {
     "message": "Tab Opening"
   },

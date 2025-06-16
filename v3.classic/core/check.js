@@ -38,8 +38,24 @@ if (typeof importScripts !== 'undefined') {
       return;
     }
     const p1 = await read({
-      'notificationTime': 30 // seconds
+      'notificationTime': 30, // seconds
+      'notification.state.active': true,
+      'notification.state.idle': true,
+      'notification.state.locked': true
     }, 'local');
+
+    if (
+      p1['notification.state.active'] === false ||
+      p1['notification.state.idle'] === false ||
+      p1['notification.state.locked'] === false
+    ) {
+      const state = await chrome.idle.queryState(5 * 60);
+      if (p1['notification.state.' + state] === false) {
+        log('[feed]', 'notification is aborted', text, title);
+        return;
+      }
+    }
+
     let isArray = Array.isArray(text);
     if (isArray && text.length === 1) {
       isArray = false;

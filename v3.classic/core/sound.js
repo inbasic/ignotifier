@@ -11,6 +11,9 @@ sound.play = (entries = [], error = () => {}) => new Promise((resolve, reject) =
       return;
     }
     chrome.storage.local.get({
+      'sound.state.active': true,
+      'sound.state.idle': true,
+      'sound.state.locked': true,
       'notification.sound.media.default.type': 0,
       'notification.sound.media.custom0.type': 0,
       'notification.sound.media.custom1.type': 0,
@@ -35,7 +38,19 @@ sound.play = (entries = [], error = () => {}) => new Promise((resolve, reject) =
       'notification.sound.media.custom4.file': null,
       'alert': true,
       'soundVolume': 80
-    }, prefs => {
+    }, async prefs => {
+      if (
+        prefs['sound.state.active'] === false ||
+        prefs['sound.state.idle'] === false ||
+        prefs['sound.state.locked'] === false
+      ) {
+        const state = await chrome.idle.queryState(5 * 60);
+        if (prefs['sound.state.' + state] === false) {
+          log('[play]', 'aborted', 'unmatched idle state');
+          return;
+        }
+      }
+
       const media = {
         default: {
           get type() { // 0-3: built-in, 4: user defined

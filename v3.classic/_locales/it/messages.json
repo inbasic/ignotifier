@@ -90,7 +90,7 @@
     "message": "Supporto allo sviluppo"
   },
   "options_timings": {
-    "message": "Orari:"
+    "message": "Orari"
   },
   "options_timings_l1": {
     "message": "Controlla le nuove e-mail ogni (in secondi):"
@@ -117,7 +117,7 @@
     "message": "Impostare il valore su zero per non controllare le e-mail fino al primo aggiornamento manuale [Non disponibile su Safari]."
   },
   "options_gmail": {
-    "message": "Gmail™:"
+    "message": "Gmail™"
   },
   "options_gmail_1": {
     "message": "Account primario (/mail/u/0/)"
@@ -174,7 +174,7 @@
     "message": "Questa opzione potrebbe non funzionare a seconda del sistema operativo in uso."
   },
   "options_notifications_4": {
-    "message": "Formato di notifica"
+    "message": "Formato di notifica:"
   },
   "options_notifications_5": {
     "message": "Variabili disponibili:"
@@ -207,7 +207,7 @@
     "message": "Questa funzione è altamente sperimentale e potrebbe rendere instabile il browser Firefox. [È necessario un riavvio.]"
   },
   "options_notifications_15": {
-    "message": "La notifica sonora predefinita è"
+    "message": "La notifica sonora predefinita è:"
   },
   "options_notifications_16": {
     "message": "Avviso predefinito di Gmail™ Notifier"
@@ -276,10 +276,10 @@
     "message": "Mostra il numero di e-mail non lette sul badge (e scegli il colore del badge)"
   },
   "options_notifications_38": {
-    "message": "Azioni più rapide (segnare come letto, cancellare, ...) (Considerare le azioni da risolvere quando si ricevono le intestazioni)"
+    "message": "Solo per Chrome: consenti azioni più veloci (contrassegna come letto, elimina, ...) (Considera azioni per risolvere la ricezione delle intestazioni)"
   },
   "options_notifications_40": {
-    "message": "Consentire azioni rapide dalla casella di notifica (massimo due azioni) (solo Chrome)"
+    "message": "Solo per Chrome e se sono consentite azioni rapide per la casella di notifica (scegliere massimo 2 azioni):"
   },
   "options_notifications_41": {
     "message": "Segna come letto"
@@ -291,7 +291,7 @@
     "message": "Cestina"
   },
   "options_tab": {
-    "message": "Apertura della scheda:"
+    "message": "Apertura della scheda"
   },
   "options_tab_1": {
     "message": "Cerca un account Gmail™ aperto solo nella finestra attiva"
@@ -327,10 +327,10 @@
     "message": "Aprire l'ultima email non letta invece di aprire la cartella INBOX"
   },
   "options_toolbar": {
-    "message": "Barra degli strumenti:"
+    "message": "Barra degli strumenti"
   },
   "options_toolbar_1": {
-    "message": "Comportamento dei pulsanti della barra degli strumenti"
+    "message": "Comportamento dei pulsanti della barra degli strumenti:"
   },
   "options_toolbar_2": {
     "message": "Pannello di anteprima delle e-mail sempre aperto"
@@ -342,7 +342,7 @@
     "message": "Apri un account Gmail™ (forzato)"
   },
   "options_toolbar_4": {
-    "message": "Modalità pannello della barra degli strumenti"
+    "message": "Modalità pannello della barra degli strumenti:"
   },
   "options_toolbar_5": {
     "message": "Mostra solo il riepilogo"
@@ -357,19 +357,19 @@
     "message": "La larghezza minima è di 500px."
   },
   "options_toolbar_9": {
-    "message": "L'altezza del pannello della barra degli strumenti nella modalità di visualizzazione a contenuto completo è (in pixel):"
+    "message": "Altezza del pannello della barra degli strumenti nella modalità di visualizzazione a contenuto completo è (in pixel):"
   },
   "options_toolbar_10": {
     "message": "L'altezza minima è di 500px."
   },
   "options_toolbar_11": {
-    "message": "Supporto delle scorciatoie da tastiera sul pannello della barra degli strumenti"
+    "message": "Supporta le scorciatoie da tastiera nel pannello della barra degli strumenti"
   },
   "options_toolbar_12": {
     "message": "Segnala come spam: < ! >, Cestino: < # >, Archivia: < e >, Segna come letto: < Maiusc + i >,"
   },
   "options_toolbar_13": {
-    "message": "Rendering delle e-mail come HTML in modalità full-content"
+    "message": "Visualizza le e-mail con rendering HTML in modalità contenuto completo"
   },
   "options_toolbar_14": {
     "message": "Se si preferisce il rendering di solo testo nella modalità a contenuto completo, deselezionare la casella."
@@ -384,7 +384,7 @@
     "message": "Apri account Gmail™ principale"
   },
   "options_misc": {
-    "message": "Varie:"
+    "message": "Varie"
   },
   "options_misc_1": {
     "message": "Ordinare i conti in ordine alfabetico"
@@ -414,7 +414,7 @@
     "message": "Ripristinare tutte le impostazioni di fabbrica"
   },
   "options_misc_10": {
-    "message": "Avviare le notifiche sul desktop e quelle sonore solo quando le e-mail sono arrivate in meno di (in minuti): "
+    "message": "Avviare le notifiche sul desktop e quelle sonore solo quando le e-mail sono arrivate in meno di (in minuti):"
   },
   "options_misc_11": {
     "message": "Impostando questa preferenza su zero, non si riceveranno né le notifiche sul desktop né quelle sonore, ma si riceveranno comunque le notifiche dei badge."
@@ -432,7 +432,7 @@
     "message": "Aprire la pagina delle FAQ sugli aggiornamenti"
   },
   "options_misc_16": {
-    "message": "Tema colore del pannello: "
+    "message": "Tema colore predefinito per il pannello:"
   },
   "options_misc_17": {
     "message": "Tema chiaro"
@@ -444,13 +444,25 @@
     "message": "Tema del sistema"
   },
   "options_plugins": {
-    "message": "Plug-ins:"
+    "message": "Plug-ins"
   },
   "options_plugins_1": {
     "message": "Etichette Gmail™ e pulsante a forma di stella (sperimentale)"
   },
   "options_plugins_2": {
     "message": "Questo plugin visualizza il pulsante della stella e le etichette delle discussioni nel popup (solo in modalità estesa)."
+  },
+  "options_styling": {
+    "message": "Stile"
+  },
+  "options_styling_0": {
+    "message": "Scala la visualizzazione dell'e-mail di (0,5-4)"
+  },
+  "options_styling_1": {
+    "message": "Regole CSS personalizzate per il pannello superiore"
+  },
+  "options_styling_2": {
+    "message": "Regole CSS personalizzate per la visualizzazione delle e-mail"
   },
   "options_px": {
     "message": "px"

@@ -2,7 +2,7 @@
   "name": "Notifier for Gmail™",
   "description": "__MSG_description__",
   "author": "InBasic",
-  "version": "1.2.0",
+  "version": "1.2.0.1",
   "manifest_version": 3,
   "default_locale": "en",
   "permissions": [

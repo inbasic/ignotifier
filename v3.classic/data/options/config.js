@@ -20,7 +20,9 @@ config.map = {
     'newWindow', 'keyUp', 'render', 'doReadOnArchive', 'inboxRedirection',
     'alphabetic', 'onGmailNotification', 'minimal', 'welcome', 'badge',
     'plug-in/labels', 'express', 'basic.html', 'smartOpen',
-    'notification.buttons.markasread', 'notification.buttons.archive', 'notification.buttons.trash'
+    'notification.buttons.markasread', 'notification.buttons.archive', 'notification.buttons.trash',
+    'notification.state.active', 'notification.state.idle', 'notification.state.locked',
+    'sound.state.active', 'sound.state.idle', 'sound.state.locked'
   ]
 };
 
@@ -56,6 +58,12 @@ config.prefs = {
   'notification.sound.media.custom2.filter': '',
   'notification.sound.media.custom3.filter': '',
   'notification.sound.media.custom4.filter': '',
+  'notification.state.active': true,
+  'notification.state.idle': true,
+  'notification.state.locked': true,
+  'sound.state.active': true,
+  'sound.state.idle': true,
+  'sound.state.locked': true,
   'soundVolume': 80,
   'silentTime': 10, // minutes
   'combined': navigator.userAgent.indexOf('Firefox') !== -1,
