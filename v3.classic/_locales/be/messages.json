@@ -290,6 +290,21 @@
   "options_notifications_43": {
     "message": "У сметніцу"
   },
+  "options_notifications_44": {
+    "message": "Прайграваць гукавое апавяшчэнне ў наступных станах:"
+  },
+  "options_notifications_45": {
+    "message": "Актыўны"
+  },
+  "options_notifications_46": {
+    "message": "Рэжым чакання"
+  },
+  "options_notifications_47": {
+    "message": "Заблакіраваны"
+  },
+  "options_notifications_48": {
+    "message": "Паказваць апавяшчэнне на працоўным стале ў наступных станах:"
+  },
   "options_tab": {
     "message": "Адкрыццё ўкладкі:"
   },
