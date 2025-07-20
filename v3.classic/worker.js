@@ -25,7 +25,7 @@ const onClicked = link => {
     return;
   }
   chrome.storage.local.get({
-    'url': 'https://mail.google.com/mail/u/0',
+    'url': 'https://mail.google.com/mail/u/0/',
     'smartOpen': true
   }, async prefs => {
     if (prefs.smartOpen) {
