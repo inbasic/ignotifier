@@ -22,7 +22,7 @@ config.map = {
     'plug-in/labels', 'express', 'basic.html', 'smartOpen',
     'notification.buttons.markasread', 'notification.buttons.archive', 'notification.buttons.trash',
     'notification.state.active', 'notification.state.idle', 'notification.state.locked',
-    'sound.state.active', 'sound.state.idle', 'sound.state.locked'
+    'sound.state.active', 'sound.state.idle', 'sound.state.locked', 'network.watch'
   ]
 };
 
@@ -102,5 +102,8 @@ config.prefs = {
   // styling
   'scale': 1,
   'styling_top': 'ddd',
-  'styling_body': 'mmm'
+  'styling_body': 'mmm',
+  // watch
+  'network.watch': true,
+  'idle.watch': true
 };

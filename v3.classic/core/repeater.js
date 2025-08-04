@@ -64,16 +64,39 @@ chrome.runtime.onStartup.addListener(() => repeater.build('normal', 'startup'));
 chrome.runtime.onInstalled.addListener(() => repeater.build('normal', 'startup'));
 
 /* idle */
-chrome.runtime.onStartup.addListener(() => chrome.storage.local.get({
-  'idle-detection': 5 // minutes
-}, prefs => {
-  chrome.idle.setDetectionInterval(prefs['idle-detection'] * 60);
-}));
-chrome.idle.onStateChanged.addListener(name => {
-  if (name === 'active') {
-    repeater.reset('exit.idle');
-  }
-});
+{
+  const observe = name => {
+    if (name === 'active') {
+      repeater.reset('exit.idle');
+    }
+  };
+
+  const run = b => {
+    chrome.idle.onStateChanged.removeListener(observe);
+    if (b) {
+      chrome.idle.onStateChanged.addListener(observe);
+    }
+  };
+
+  chrome.storage.local.get({
+    'idle.watch': true
+  }).then(prefs => {
+    run(prefs['idle.watch']);
+  });
+
+  chrome.storage.onChanged.addListener(ps => {
+    if ('idle.watch' in ps) {
+      run(ps['idle.watch'].newValue);
+    }
+  });
+
+  chrome.runtime.onStartup.addListener(() => chrome.storage.local.get({
+    'idle-detection': 5 // minutes
+  }, prefs => {
+    chrome.idle.setDetectionInterval(prefs['idle-detection'] * 60);
+  }));
+}
+
 /* pref changes */
 chrome.storage.onChanged.addListener(prefs => {
   if (prefs.minimal ||
