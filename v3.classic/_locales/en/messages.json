@@ -66,7 +66,10 @@
     "message": "Open FAQs"
   },
   "label_14": {
-    "message": "Logged-in accounts"
+    "message": "Open Gmail"
+  },
+  "label_15": {
+    "message": "Included Accounts"
   },
   "unknown": {
     "message": "unknown"
@@ -463,6 +466,12 @@
   },
   "options_misc_19": {
     "message": "System theme"
+  },
+  "options_misc_20": {
+    "message": "Reset history for \"Included Accounts\""
+  },
+  "options_misc_21": {
+    "message": "Reset Accounts"
   },
   "options_plugins": {
     "message": "Plug-ins"

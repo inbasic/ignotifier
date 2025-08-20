@@ -3,9 +3,20 @@
 
 // https://github.com/inbasic/ignotifier/issues/620
 const once = () => {
+  if (once.done) {
+    return;
+  }
+  once.done = true;
+
   chrome.contextMenus.create({
     id: 'root.ctx',
     title: chrome.i18n.getMessage('label_14'),
+    contexts: ['action'],
+    enabled: false
+  }, () => chrome.runtime.lastError);
+  chrome.contextMenus.create({
+    id: 'ignored.ctx',
+    title: chrome.i18n.getMessage('label_15'),
     contexts: ['action'],
     enabled: false
   }, () => chrome.runtime.lastError);
@@ -49,20 +60,24 @@ const once = () => {
     contexts: ['action'],
     id: 'label_1'
   }, () => chrome.runtime.lastError);
-  chrome.contextMenus.create({
-    title: chrome.i18n.getMessage('label_12'),
-    contexts: ['action'],
-    id: 'label_12'
-  }, () => chrome.runtime.lastError);
+  // chrome.contextMenus.create({
+  //   title: chrome.i18n.getMessage('label_12'),
+  //   contexts: ['action'],
+  //   id: 'label_12'
+  // }, () => chrome.runtime.lastError);
 };
 chrome.runtime.onInstalled.addListener(once);
-chrome.runtime.onStartup.addListener(once); // for Firefox
+chrome.runtime.onStartup.addListener(once);
 
 /* public methods */
 self.context = {};
 self.context.accounts = async reason => {
   const accounts = new Map();
+  const emails = new Set();
   for (const o of await checkEmails.getCached()) {
+    if (o.xml?.title) {
+      emails.add(o.xml.title);
+    }
     const href = o.xml?.rootLink.replace(/\?.*/, '');
     if (href) {
       accounts.set(href, {
@@ -75,7 +90,6 @@ self.context.accounts = async reason => {
   });
   // create a unique key to determine whether context menu needs update or not
   const keys = [...accounts.keys()];
-
   chrome.storage.session.get({
     'accounts.keys': []
   }, prefs => {
@@ -93,22 +107,13 @@ self.context.accounts = async reason => {
       chrome.contextMenus.remove(key, () => chrome.runtime.lastError);
     }
     // add new items
-    if (accounts.size === 1) {
-      const o = accounts.values().next().value;
-      chrome.contextMenus.update('root.ctx', o);
-    }
-    else {
-      chrome.contextMenus.update('root.ctx', {
-        title: chrome.i18n.getMessage('label_14')
-      });
-      for (const [id, o] of accounts) {
-        chrome.contextMenus.create({
-          ...o,
-          id,
-          parentId: 'root.ctx',
-          contexts: ['action']
-        }, () => chrome.runtime.lastError);
-      }
+    for (const [id, {title}] of accounts) {
+      chrome.contextMenus.create({
+        title,
+        id,
+        parentId: 'root.ctx',
+        contexts: ['action']
+      }, () => chrome.runtime.lastError);
     }
   });
 };
@@ -155,7 +160,16 @@ self.context.accounts = async reason => {
     const method = info.menuItemId;
 
     if (method.startsWith('http')) {
-      self.openLink(method);
+      // convert /u/0 to /u/0/
+      self.openLink(method + (/\/u\/\d$/.test(method) ? '/' : ''));
+    }
+    else if (method.startsWith('ignored:')) {
+      chrome.storage.local.get({
+        accounts: {}
+      }).then(prefs => {
+        prefs.accounts[method.replace('ignored:', '')].ignored = info.checked === false;
+        chrome.storage.local.set(prefs);
+      });
     }
     else if (method === 'root.ctx') {
       chrome.storage.session.get({
@@ -207,4 +221,64 @@ self.context.accounts = async reason => {
       self.openLink(chrome.runtime.getManifest().homepage_url);
     }
   });
+}
+
+// ignored list
+{
+  const update = () => chrome.storage.local.get({
+    accounts: {}
+  }).then(prefs => {
+    const entries = Object.entries(prefs.accounts);
+
+    for (const [title, o] of entries) {
+      chrome.contextMenus.create({
+        title,
+        contexts: ['action'],
+        id: 'ignored:' + title,
+        parentId: 'ignored.ctx',
+        type: 'checkbox',
+        checked: o.ignored !== true
+      }, () => chrome.runtime.lastError);
+    }
+    chrome.contextMenus.update('ignored.ctx', {
+      enabled: entries.length > 0
+    });
+  });
+  chrome.storage.onChanged.addListener(ps => {
+    if ('accounts' in ps) {
+      ps.accounts.newValue = ps.accounts.newValue || {};
+
+      // remove removed emails
+      if (ps.accounts.oldValue) {
+        const oldKeys = Object.keys(ps.accounts.oldValue);
+        for (const key of oldKeys) {
+          if (!(key in ps.accounts.newValue)) {
+            chrome.contextMenus.remove('ignored:' + key);
+          }
+        }
+        const newKeys = Object.keys(ps.accounts.newValue);
+        let check = false;
+        for (const key of newKeys) {
+          if (oldKeys.includes(key) === false) {
+            check = true;
+            break;
+          }
+        }
+        if (check === false) {
+          return;
+        }
+      }
+      update();
+    }
+  });
+
+  const once = () => {
+    if (once.done) {
+      return;
+    }
+    once.done = true;
+    update();
+  };
+  chrome.runtime.onInstalled.addListener(once);
+  chrome.runtime.onStartup.addListener(once);
 }

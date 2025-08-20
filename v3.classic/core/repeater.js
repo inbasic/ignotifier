@@ -60,8 +60,17 @@ chrome.alarms.onAlarm.addListener(o => {
   }
 });
 /* startup */
-chrome.runtime.onStartup.addListener(() => repeater.build('normal', 'startup'));
-chrome.runtime.onInstalled.addListener(() => repeater.build('normal', 'startup'));
+{
+  const once = () => {
+    if (once.done) {
+      return;
+    }
+    once.done = true;
+    repeater.build('normal', 'startup');
+  };
+  chrome.runtime.onStartup.addListener(once);
+  chrome.runtime.onInstalled.addListener(once);
+}
 
 /* idle */
 {
@@ -90,11 +99,22 @@ chrome.runtime.onInstalled.addListener(() => repeater.build('normal', 'startup')
     }
   });
 
-  chrome.runtime.onStartup.addListener(() => chrome.storage.local.get({
-    'idle-detection': 5 // minutes
-  }, prefs => {
-    chrome.idle.setDetectionInterval(prefs['idle-detection'] * 60);
-  }));
+  {
+    const once = () => {
+      if (once.done) {
+        return;
+      }
+      once.done = true;
+
+      chrome.storage.local.get({
+        'idle-detection': 5 // minutes
+      }, prefs => {
+        chrome.idle.setDetectionInterval(prefs['idle-detection'] * 60);
+      });
+    };
+    chrome.runtime.onStartup.addListener(once);
+    chrome.runtime.onInstalled.addListener(once);
+  }
 }
 
 /* pref changes */
@@ -113,5 +133,8 @@ chrome.storage.onChanged.addListener(prefs => {
   }
   if (prefs.oldFashion) {
     repeater.reset('options.changes');
+  }
+  if (prefs.accounts) {
+    repeater.reset('change.of.ignored.list');
   }
 });

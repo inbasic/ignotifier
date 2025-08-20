@@ -25,7 +25,7 @@ if (typeof importScripts !== 'undefined') {
 
   const isPrivate = false;
 
-  const read = (prefs, type = 'local') => new Promise(resolve => chrome.storage[type].get(prefs, resolve));
+  const read = (prefs, type = 'local') => chrome.storage[type].get(prefs);
 
   const notify = async (text, title, click = {}, buttons = []) => {
     title = title || chrome.i18n.getMessage('gmail');
@@ -290,8 +290,10 @@ if (typeof importScripts !== 'undefined') {
       'notification.buttons.archive': true,
       'notification.buttons.trash': false,
       'alert': true,
-      'notificationFormat': chrome.i18n.getMessage('notification')
+      'notificationFormat': chrome.i18n.getMessage('notification'),
+      'accounts': {}
     });
+
     const controller = self.checkEmails.controller = new AbortController();
     const signal = controller.signal;
 
@@ -331,6 +333,19 @@ if (typeof importScripts !== 'undefined') {
         if (r && r.xml) {
           // only add logged-in accounts
           if (r.network && !r.notAuthorized && r.xml && r.xml.entries) {
+            // meta
+            if (r.xml?.title) {
+              if (r.xml.title in prefs.accounts) {
+                r.meta = prefs.accounts[r.xml.title];
+              }
+              if (!r.meta) {
+                r.meta = {};
+                prefs.accounts[r.xml.title] = {};
+                chrome.storage.local.set({
+                  accounts: prefs.accounts
+                });
+              }
+            }
             objs.push(r);
           }
         }
@@ -402,9 +417,12 @@ if (typeof importScripts !== 'undefined') {
       }
 
       // New total count number
-      const anyNewEmails = objs.some(c => c.newIDs.length !== 0);
+      const anyNewEmails = objs.filter(c => c.meta.ignored !== true).some(c => c.newIDs.length !== 0);
       let newCount = 0;
       for (const obj of objs) {
+        if (obj.meta.ignored === true) {
+          continue;
+        }
         newCount += obj.xml.fullcount;
       }
 
@@ -441,6 +459,10 @@ if (typeof importScripts !== 'undefined') {
       // Preparing the report
       const reportArray = [];
       for (const o of objs) {
+        if (o.meta.ignored === true) {
+          continue;
+        }
+
         (o.xml && o.xml.entries ? o.xml.entries : []).filter(e => {
           if (anyNewEmails) {
             return o.newIDs.includes(e.id);
@@ -468,7 +490,7 @@ if (typeof importScripts !== 'undefined') {
       }
       // Preparing the tooltip
       button.label = chrome.i18n.getMessage('gmail') + '\n\n' +
-        objs.reduce((p, c) => {
+        objs.filter(c => c.meta.ignored !== true).reduce((p, c) => {
           return p +=
             c.xml.title +
             (c.xml.label ? ' [' + c.xml.label + ']' : '') +
@@ -476,7 +498,8 @@ if (typeof importScripts !== 'undefined') {
         }, '').replace(/\n$/, '');
 
       const singleAccount = prefs.oldFashion === 1 ?
-        objs.map(o => o.xml.rootLink).filter((s, i, l) => l.indexOf(s) === i).length === 1 :
+        objs.filter(c => c.meta.ignored !== true)
+          .map(o => o.xml.rootLink).filter((s, i, l) => l.indexOf(s) === i).length === 1 :
         prefs.oldFashion === 2;
       //
       if (!forced && !anyNewEmails) {

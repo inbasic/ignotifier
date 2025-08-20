@@ -133,6 +133,8 @@ document.getElementById('reset').addEventListener('click', () => {
   }).catch(() => {});
 });
 
+document.getElementById('reset-accounts').onclick = () => chrome.storage.local.remove('accounts');
+
 document.getElementById('test-play').addEventListener('click', () => chrome.runtime.sendMessage({
   method: 'test-play'
 }));

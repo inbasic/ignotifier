@@ -114,9 +114,16 @@ const button = {
 
 // once
 {
-  const once = () => chrome.storage.local.get({
-    'backgroundColor': '#6e6e6e'
-  }, prefs => button.color = prefs.backgroundColor);
+  const once = () => {
+    if (once.done) {
+      return;
+    }
+    once.done = true;
+
+    chrome.storage.local.get({
+      'backgroundColor': '#6e6e6e'
+    }).then(prefs => button.color = prefs.backgroundColor);
+  };
   chrome.runtime.onStartup.addListener(once);
   chrome.runtime.onInstalled.addListener(once);
 }
