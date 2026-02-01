@@ -85,7 +85,8 @@ chrome.runtime.onMessage.addListener(({request, method}, sender, response) => {
       gmail.search(request.request).then(response).catch(e => {
         console.error(e);
         response({
-          message: e.message
+          message: e.message,
+          details: e.details
         });
       }).finally(() => {
         ids.delete(request.id);

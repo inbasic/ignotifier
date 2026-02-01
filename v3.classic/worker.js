@@ -108,9 +108,7 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
           // do we have access to the basic HTML view?
           if (e.details && e.details.links && e.details.links.length) {
             self.openLink(e.details.links[0]);
-            toast(`To run Gmail Notifier actions on this account, please allow Basic HTML view in Gmail.
-
-After granting access / making the change, restart the notifier.`);
+            toast(chrome.i18n.getMessage('msg_6'));
           }
           else {
             toast(e.message || 'Unknown Error - 1');
@@ -132,6 +130,11 @@ After granting access / making the change, restart the notifier.`);
         console.error('Empty response from offscreen');
       }
       else if (r.message) {
+        // do we have access to the basic HTML view?
+        if (r.details && r.details.links && r.details.links.length) {
+          self.openLink(r.details.links[0]);
+          toast(chrome.i18n.getMessage('msg_6'));
+        }
         response();
         console.error(r);
       }

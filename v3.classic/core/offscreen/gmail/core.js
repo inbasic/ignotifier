@@ -117,11 +117,16 @@ gmail.search = async ({url, query}) => {
       throw Error('core.js -> body: ' + r.status);
     }
     const content = await r.text();
-    const parts = content.split(/\d+&/);
+    // do we have access to the basic HTML
+    if (!content || content.includes('/spreauth')) {
+      const links = content.match(/\bhttps?:\/\/[^\s<>"'()]+/gi) || [];
+      const e = new Error('core.js -> permission_error');
+      e.details = {links};
 
-    console.log(r);
-    console.log(href);
-    console.log(content);
+      throw e;
+    }
+
+    const parts = content.split(/\d+&/);
 
     const results = parts[2];
     const j = JSON.parse(results);

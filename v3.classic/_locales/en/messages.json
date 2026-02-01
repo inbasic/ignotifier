@@ -26,6 +26,9 @@
   "msg_5": {
     "message": "Select an audio sound file"
   },
+  "msg_6": {
+    "message": "To run Gmail Notifier actions on this account, please allow Basic HTML view in Gmail. After granting access, restart the notifier."
+  },
   "label_1": {
     "message": "Refresh"
   },
