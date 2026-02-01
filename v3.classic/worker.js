@@ -105,7 +105,16 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
         }
         else {
           console.error(e);
-          toast(e.message || 'Unknown Error - 1');
+          // do we have access to the basic HTML view?
+          if (e.details && e.details.links && e.details.links.length) {
+            self.openLink(e.details.links[0]);
+            toast(`To run Gmail Notifier actions on this account, please allow Basic HTML view in Gmail.
+
+After granting access / making the change, restart the notifier.`);
+          }
+          else {
+            toast(e.message || 'Unknown Error - 1');
+          }
           response(e);
         }
       }).finally(() => repeater.reset('popup.action', 500));

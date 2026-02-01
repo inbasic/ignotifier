@@ -118,6 +118,11 @@ gmail.search = async ({url, query}) => {
     }
     const content = await r.text();
     const parts = content.split(/\d+&/);
+
+    console.log(r);
+    console.log(href);
+    console.log(content);
+
     const results = parts[2];
     const j = JSON.parse(results);
     const entries = j[1][0][2][5].map(a => {
@@ -160,6 +165,7 @@ gmail.action = async ({links, cmd, prefs}) => {
       return m.groups;
     }
   }).filter(o => o);
+
   if (a.length) {
     const at = await gmail.at(a[0].n);
 
@@ -219,11 +225,22 @@ gmail.action = async ({links, cmd, prefs}) => {
     ], 2, null, null, null, ik]));
 
     const href = `https://mail.google.com/mail/u/${a[0].n}/s/?v=or&ik=${ik}&at=${at}&subui=chrome&hl=en&ts=` + Date.now();
-    return fetch(href, {
+    const r = await fetch(href, {
       method: 'POST',
       credentials: 'include',
       body
     });
+    // do we have permission to do the action?
+    const content = await r.text();
+    if (!content || content.includes('/spreauth')) {
+      const links = content.match(/\bhttps?:\/\/[^\s<>"'()]+/gi) || [];
+      const e = new Error('core.js -> permission_error');
+      e.details = {links};
+
+      throw e;
+    }
+
+    return r;
   }
   throw Error('core.js -> no_links');
 };

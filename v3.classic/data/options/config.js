@@ -38,7 +38,7 @@ config.prefs = {
   'feeds_5': '',
   'feeds_custom': '',
   'notification': true,
-  'notificationTime': 30, // seconds
+  'notificationTime': 10, // seconds
   'notificationFormat': chrome.i18n.getMessage('notification'),
   'notificationTruncate': 70,
   'alert': true,

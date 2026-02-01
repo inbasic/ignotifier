@@ -38,7 +38,7 @@ if (typeof importScripts !== 'undefined') {
       return;
     }
     const p1 = await read({
-      'notificationTime': 30, // seconds
+      'notificationTime': 10, // seconds
       'notification.state.active': true,
       'notification.state.idle': true,
       'notification.state.locked': true
