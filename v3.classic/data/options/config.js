@@ -19,7 +19,7 @@ config.map = {
     'relatedToCurrent', 'currentTab', 'background', 'useBlankTabs',
     'newWindow', 'keyUp', 'render', 'doReadOnArchive', 'inboxRedirection',
     'alphabetic', 'onGmailNotification', 'minimal', 'welcome', 'badge',
-    'plug-in/labels', 'express', 'basic.html', 'smartOpen',
+    'plug-in/labels', 'express', 'basic.html', 'smartOpen', 'doReadOnOpen',
     'notification.buttons.markasread', 'notification.buttons.archive', 'notification.buttons.trash',
     'notification.state.active', 'notification.state.idle', 'notification.state.locked',
     'sound.state.active', 'sound.state.idle', 'sound.state.locked', 'network.watch'
@@ -96,6 +96,7 @@ config.prefs = {
   'notification.buttons.trash': false,
   'basic.html': false,
   'smartOpen': true,
+  'doReadOnOpen': true,
   'dark': false, // true, false, auto
   // plug-ins
   'plug-in/labels': true,

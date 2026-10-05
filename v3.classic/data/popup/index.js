@@ -333,6 +333,14 @@ new Listen('accounts', 'click', ({target}) => {
 });
 new Listen('next', 'click', () => update(false, true));
 new Listen('previous', 'click', () => update(true, false));
+// https://github.com/inbasic/ignotifier/issues/710
+chrome.storage.local.get({
+  doReadOnOpen: true
+}, prefs => {
+  if (prefs.doReadOnOpen) {
+    new Listen('title', 'click', () => action('rd'));
+  }
+});
 
 // The panel can only display an account that still has a listed entry
 const showObjs = list => {

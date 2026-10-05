@@ -353,6 +353,9 @@
   "options_tab_11": {
     "message": "Clicking on the title of an unread email opens Gmail™ to the email itself instead of opening to the INBOX folder"
   },
+  "options_tab_12": {
+    "message": "Mark the email as read in Gmail™ when its title is clicked in the toolbar panel"
+  },
   "options_toolbar": {
     "message": "Toolbar"
   },
