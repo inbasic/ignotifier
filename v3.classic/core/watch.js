@@ -11,8 +11,6 @@
         (d.url.includes('/sync/u/') && d.method === 'POST') ||
         (d.url.includes('/mail/u/') && d.method === 'POST')
       ) {
-        console.log(d.url);
-
         repeater.reset('webrequest', 1000);
       }
     }

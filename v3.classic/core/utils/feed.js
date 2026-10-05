@@ -128,6 +128,15 @@ class Feed {
 
           return Math.max(one, two);
         },
+        // snapshot time; the entry level MODIFIED is read one level deeper
+        get modified() {
+          for (const node of tree.children) {
+            if (node.name === 'MODIFIED') {
+              return node.text;
+            }
+          }
+          return '';
+        },
         get id() {
           return uid;
         },

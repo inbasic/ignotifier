@@ -1,7 +1,8 @@
-/* global gmail, locale, utils */
+/* global gmail, locale, utils, Resolved */
 'use strict';
 
 var objs;
+var resolved = [];
 var contentCache = [];
 var selected = {};
 var api = {
@@ -333,22 +334,9 @@ new Listen('accounts', 'click', ({target}) => {
 new Listen('next', 'click', () => update(false, true));
 new Listen('previous', 'click', () => update(true, false));
 
-// Remove the entries an action has just resolved,
-// so the panel can advance to the next mail or close
-// without waiting for a background check.
-const removeEntriesAndUpdatePanel = links => {
-  const done = new Set(typeof links === 'string' ? [links] : links);
-
-  for (const o of objs) {
-    const entries = o.xml.entries.filter(e => done.has(e.link) === false);
-    o.xml.fullcount = Math.max(0, o.xml.fullcount - (o.xml.entries.length - entries.length));
-    o.xml.entries = entries;
-  }
-  // the panel can only display an account that still has a listed entry
-  objs = objs.filter(o => o.xml.entries.length);
-  chrome.storage.session.set({
-    'cached-objects': objs
-  });
+// The panel can only display an account that still has a listed entry
+const showObjs = list => {
+  objs = Resolved.apply(list, resolved).filter(o => o.xml.entries.length);
 
   if (objs.length) {
     update();
@@ -358,15 +346,23 @@ const removeEntriesAndUpdatePanel = links => {
   }
 };
 
+// The background stores the entries an action has resolved; the panel hides
+// them in its own copy until the feed stops reporting them.
+const applyResolved = list => {
+  resolved = list || [];
+  if (objs === undefined || objs.length === 0) {
+    // nothing is displayed yet; the stored list is used on the next update
+    return;
+  }
+  showObjs(objs);
+};
+
 const action = (cmd, links = selected.entry.link, callback = () => {}) => {
   chrome.runtime.sendMessage({
     method: 'gmail.action',
     cmd,
     links
-  }, error => {
-    // an empty response means the worker resolved with no error
-    // a closed message channel also arrives empty but reports itself through lastError
-    const ok = !chrome.runtime.lastError && !error;
+  }, () => {
     callback();
     if (cmd === 'rd') {
       qs('read').textContent = locale.get('popup_read');
@@ -399,10 +395,6 @@ const action = (cmd, links = selected.entry.link, callback = () => {}) => {
     chrome.runtime.sendMessage({
       method: 'update'
     });
-    // Only optimistically update the panel if background check returns no error
-    if (ok) {
-      removeEntriesAndUpdatePanel(links);
-    }
   });
 };
 
@@ -605,19 +597,21 @@ chrome.storage.onChanged.addListener(prefs => {
   if (prefs.dark) {
     scheme[prefs.dark.newValue ? 'dark' : 'light']();
   }
+  if (prefs[Resolved.KEY]) {
+    // an action has been resolved, advance without waiting for a check
+    applyResolved(prefs[Resolved.KEY].newValue);
+  }
 });
 
 // communication
 chrome.runtime.onMessage.addListener(request => {
   if (request.method === 'validate-current') {
     if (selected.parent.xml.fullcount === 20) {
-      objs = request.data;
-      update();
+      showObjs(request.data);
     }
   }
   else if (request.method === 'update') {
-    objs = request.data;
-    update();
+    showObjs(request.data);
   }
   else if (request.method === 'update-date') {
     // This function is called on every server response.
@@ -633,11 +627,15 @@ chrome.runtime.onMessage.addListener(request => {
 
 // init
 whenFrameReady(() => chrome.storage.session.get({
-  'cached-objects': []
+  'cached-objects': [],
+  [Resolved.KEY]: []
 }, prefs => {
-  objs = prefs['cached-objects'];
+  resolved = prefs[Resolved.KEY];
+  // the panel can only display an account that still has a listed entry
+  objs = Resolved.apply(prefs['cached-objects'], resolved)
+    .filter(o => o.xml.entries.length);
 
-  if (objs && objs.length) {
+  if (objs.length) {
     // Selected account
     const unreadEntries = objs.map(obj => obj.xml.entries
       .filter(e => obj.newIDs.indexOf(e.id) !== -1))

@@ -39,6 +39,7 @@
       "/core/sound.js",
       "/core/utils/sax.js",
       "/core/utils/feed.js",
+      "/core/utils/resolved.js",
       "/core/check.js",
       "/core/repeater.js",
       "/core/watch.js",

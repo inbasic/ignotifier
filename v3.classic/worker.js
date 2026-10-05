@@ -1,4 +1,4 @@
-/* global checkEmails, repeater, sound, offscreen */
+/* global checkEmails, repeater, sound, offscreen, Resolved */
 
 if (typeof importScripts !== 'undefined') {
   self.importScripts('/core/utils/log.js');
@@ -42,11 +42,14 @@ const onClicked = link => {
               return d1 < d2;
             })[0];
             if (newestEntry) {
+              self.checkEmails.opened(newestEntry.link);
               return self.openLink(newestEntry.link);
             }
           }
           try {
-            return self.openLink(objs[0].xml.entries[0].link);
+            const link = objs[0].xml.entries[0].link;
+            self.checkEmails.opened(link);
+            return self.openLink(link);
           }
           catch (e) {}
         }
@@ -78,20 +81,24 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
     else if (url.button === 2 || !url.link) {
       return;
     }
-    else if (url.button === 0 && (url.ctrlKey || url.metaKey)) {
-      self.openLink(url.link, true, null, url.isPrivate);
-    }
-    else if (url.button === 1) {
-      self.openLink(url.link, true, null, url.isPrivate);
-    }
     else {
-      self.openLink(url.link, null, null, url.isPrivate);
+      // opening a mail marks it as read
+      if (url.isPrivate !== true) {
+        self.checkEmails.opened(url.link);
+      }
+      if (url.button === 1 || (url.button === 0 && (url.ctrlKey || url.metaKey))) {
+        self.openLink(url.link, true, null, url.isPrivate);
+      }
+      else {
+        self.openLink(url.link, null, null, url.isPrivate);
+      }
     }
   }
   else if (method === 'test-play') {
     sound.play().catch(e => toast(e.message));
   }
   else if (method === 'gmail.action') {
+    const {cmd, links} = request;
     chrome.storage.local.get({
       doReadOnArchive: true
     }, prefs => {
@@ -102,6 +109,11 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
       }).then(e => {
         if (e === true) {
           response();
+          // the feed cannot report it yet; store the links and let the panel
+          // and the badge hide them until it does
+          if (cmd !== 'st' && cmd !== 'xst') {
+            Resolved.record(links).then(() => self.checkEmails.refresh());
+          }
         }
         else {
           console.error(e);

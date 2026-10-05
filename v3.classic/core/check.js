@@ -1,7 +1,8 @@
-/* global log, button, context, Feed, repeater, sound, offscreen, toast */
+/* global log, button, context, Feed, repeater, sound, offscreen, toast, Resolved */
 
 if (typeof importScripts !== 'undefined') {
   self.importScripts('/core/utils/feed.js');
+  self.importScripts('/core/utils/resolved.js');
 }
 
 {
@@ -19,6 +20,35 @@ if (typeof importScripts !== 'undefined') {
       const m = href.match(/message_id=(?<thread>[^&]+)/);
       if (m) {
         return m.groups.thread;
+      }
+    },
+    /*
+     * The thread of a link, no matter how it is printed. A label feed prints
+     * its entries as <account>/?shva=1#label/<label>/<thread>, so the last part
+     * of the hash is the thread and not the first one.
+     */
+    threadId(href) {
+      const m = /[?&]message_id=([^&#]*)/.exec(href);
+      if (m && m[1]) {
+        return m[1];
+      }
+      const hash = /#([^#]*)$/.exec(href);
+      return hash ? decodeURIComponent(hash[1].split('/').pop() || '') : '';
+    },
+    /*
+     * Date.parse() returns NaN for anything it cannot read and throws only for
+     * symbols; the type check plus the try/catch makes a malformed clock
+     * impossible to turn into anything but NaN, whatever session storage holds.
+     */
+    time(value) {
+      if (typeof value !== 'string' || value === '') {
+        return NaN;
+      }
+      try {
+        return Date.parse(value);
+      }
+      catch (e) {
+        return NaN;
       }
     }
   };
@@ -124,6 +154,8 @@ if (typeof importScripts !== 'undefined') {
             url,
             active: false
           }));
+          // every mail of the report is open now
+          self.checkEmails.opened(links);
         }
         else {
           console.error('No action', click);
@@ -166,11 +198,20 @@ if (typeof importScripts !== 'undefined') {
           Promise.all(requests.map(request => offscreen.command({
             cmd: 'gmail.action',
             request
-          }))).then(arr => {
+          }))).then(async arr => {
             const errors = arr.filter(o => o !== true);
             if (errors.length) {
               console.error(errors);
               toast(errors.map(e => e.message).join('\n\n'));
+            }
+            // every button of a notification reduces the count, so the panel and
+            // the badge can be updated without waiting for the next check
+            const resolved = requests.filter((request, i) => arr[i] === true);
+            for (const request of resolved) {
+              await Resolved.record(request.links);
+            }
+            if (resolved.length) {
+              await self.checkEmails.refresh();
             }
           }).finally(() => repeater.reset('action.command', 500));
         });
@@ -258,6 +299,91 @@ if (typeof importScripts !== 'undefined') {
         'cached-objects': []
       }, 'session').then(prefs => prefs['cached-objects']);
     }
+  };
+  // Show the accounts as they are now: the badge, the panel and, when nothing
+  // is left to read, the panel itself. The given objects are expected to be
+  // already filtered by Resolved.apply().
+  self.checkEmails.publish = async objs => {
+    self.checkEmails.cached = objs;
+
+    const active = objs.filter(c => c.meta?.ignored !== true);
+    const count = active.reduce((p, c) => p + c.xml.fullcount, 0);
+
+    chrome.storage.session.set({count});
+    if (count) {
+      button.icon = 'red';
+      button.badge = count;
+    }
+    else {
+      button.icon = 'gray';
+      button.badge = 0;
+    }
+    chrome.runtime.sendMessage({
+      method: 'update',
+      data: objs
+    }, () => chrome.runtime.lastError);
+
+    const {oldFashion} = await chrome.storage.local.get({
+      oldFashion: 0
+    });
+    const singleAccount = oldFashion === 2 ||
+      (oldFashion === 1 && active.map(o => o.xml.rootLink).filter((s, i, l) => l.indexOf(s) === i).length === 1);
+
+    if (singleAccount || count === 0) {
+      detach();
+    }
+    else {
+      attach();
+    }
+    return count;
+  };
+  // Apply the resolved entries to the cached accounts and publish the result,
+  // so the panel and the badge do not wait for the next check
+  self.checkEmails.refresh = async () => {
+    const objs = Resolved.apply(await self.checkEmails.getCached(), await Resolved.read());
+    return self.checkEmails.publish(objs);
+  };
+  /*
+   * Opening a mail marks it as read in Gmail, so it has to leave the panel and
+   * the badge. The feed cannot report it yet, therefore the link is stored like
+   * a resolved one and is forgotten as soon as the feed agrees.
+   * Only a listed entry counts: the link of the account, a mailto or a link of
+   * the mail body is not a mail the user has read.
+   */
+  self.checkEmails.opened = async links => {
+    if (typeof links === 'string') {
+      links = [links];
+    }
+    if (!links || links.length === 0) {
+      return;
+    }
+    const wanted = links.filter(l => typeof l === 'string').map(link => ({
+      link,
+      account: helper.id(link),
+      thread: helper.threadId(link)
+    }));
+    if (wanted.length === 0) {
+      return;
+    }
+    const done = new Set();
+    for (const o of await self.checkEmails.getCached()) {
+      for (const e of o.xml.entries) {
+        const account = helper.id(e.link);
+        const thread = helper.threadId(e.link);
+        if (wanted.some(w => w.link === e.link ||
+          // the same thread of the same account, however it is printed
+          (w.account !== undefined && w.account === account && w.thread !== '' && w.thread === thread))) {
+          done.add(e.link);
+        }
+      }
+    }
+    if (done.size === 0) {
+      return;
+    }
+    // Gmail marks a mail read by itself when it is opened in a tab, which takes
+    // longer to reach the feed than an action sent to the server
+    await Resolved.record([...done], 20000);
+    return self.checkEmails.refresh();
   };
   self.checkEmails.execute = async forced => {
     if (forced) {
@@ -364,7 +490,8 @@ if (typeof importScripts !== 'undefined') {
           button.badge = 0;
           chrome.storage.session.set({count: -1});
           chrome.storage.session.set({
-            'cached-objects': []
+            'cached-objects': [],
+            [Resolved.KEY]: []
           });
           if (self.checkEmails.cached) {
             self.checkEmails.cached.length = 0;
@@ -394,32 +521,43 @@ if (typeof importScripts !== 'undefined') {
         return 0;
       });
       // simplified version of objs for storing and sending between contexts
-      const cachedObjs = objs.map(o => {
+      const cachedObjs = Resolved.apply(objs.map(o => {
         const xml = {
           ...o.xml
         };
         delete xml.parent;
         return {
           newIDs: o.newIDs,
+          meta: o.meta,
           xml
         };
-      });
+      }), await Resolved.prune(objs));
+
+      self.checkEmails.cached = cachedObjs;
 
       // Update cache (only copy a minimal object)
       chrome.storage.session.set({
-        'cached-objects': cachedObjs
+        'cached-objects': cachedObjs,
+        // Snapshot clock per mailbox, kept from the run that just finished.
+        // A feed that has not been regenerated cannot report anything we do
+        // not already know, so it can be skipped on the next run.
+        'feed.modified': objs.reduce((p, o) => {
+          if (o.xml.modified) {
+            p[o.xml.link] = o.xml.modified;
+          }
+          return p;
+        }, {})
       });
 
-      self.checkEmails.cached = objs;
       // save new emails
       for (const o of objs) {
         o.commit();
       }
 
       // New total count number
-      const anyNewEmails = objs.filter(c => c.meta.ignored !== true).some(c => c.newIDs.length !== 0);
+      const anyNewEmails = cachedObjs.filter(c => c.meta.ignored !== true).some(c => c.newIDs.length !== 0);
       let newCount = 0;
-      for (const obj of objs) {
+      for (const obj of cachedObjs) {
         if (obj.meta.ignored === true) {
           continue;
         }
@@ -458,7 +596,9 @@ if (typeof importScripts !== 'undefined') {
       context.accounts('new.email');
       // Preparing the report
       const reportArray = [];
-      for (const o of objs) {
+      // an entry must not be modified, it is shared with the cached objects
+      const parents = new Map();
+      for (const o of cachedObjs) {
         if (o.meta.ignored === true) {
           continue;
         }
@@ -469,7 +609,7 @@ if (typeof importScripts !== 'undefined') {
           }
           return o.xml.fullcount !== 0;
         }).forEach(e => {
-          e.parent = o;
+          parents.set(e, o);
           reportArray.push(e);
         });
       }
@@ -490,52 +630,27 @@ if (typeof importScripts !== 'undefined') {
       }
       // Preparing the tooltip
       button.label = chrome.i18n.getMessage('gmail') + '\n\n' +
-        objs.filter(c => c.meta.ignored !== true).reduce((p, c) => {
+        cachedObjs.filter(c => c.meta.ignored !== true).reduce((p, c) => {
           return p +=
             c.xml.title +
             (c.xml.label ? ' [' + c.xml.label + ']' : '') +
             ' (' + c.xml.fullcount + ')\n';
         }, '').replace(/\n$/, '');
-
-      const singleAccount = prefs.oldFashion === 1 ?
-        objs.filter(c => c.meta.ignored !== true)
-          .map(o => o.xml.rootLink).filter((s, i, l) => l.indexOf(s) === i).length === 1 :
-        prefs.oldFashion === 2;
       //
       if (!forced && !anyNewEmails) {
-        if (newCount) {
-          button.icon = 'red';
-          button.badge = newCount;
-          chrome.storage.session.set({count: newCount});
-
-          chrome.runtime.sendMessage({
-            method: 'update',
-            data: cachedObjs
-          }, () => chrome.runtime.lastError);
-          if (singleAccount) {
-            detach();
-          }
-          else {
-            attach();
-          }
-        }
-        else {
-          button.icon = 'gray';
-          button.badge = 0;
-          chrome.storage.session.set({count: 0});
-          detach();
-        }
+        self.checkEmails.publish(cachedObjs);
       }
       else if (forced && !newCount) {
-        button.icon = 'gray';
-        button.badge = 0;
-        chrome.storage.session.set({count: 0});
-        detach();
+        self.checkEmails.publish(cachedObjs);
       }
       else {
         button.icon = 'new';
         button.badge = newCount;
         chrome.storage.session.set({count: newCount});
+        const singleAccount = prefs.oldFashion === 1 ?
+          cachedObjs.filter(c => c.meta.ignored !== true)
+            .map(o => o.xml.rootLink).filter((s, i, l) => l.indexOf(s) === i).length === 1 :
+          prefs.oldFashion === 2;
         if (singleAccount) {
           detach();
         }
@@ -580,14 +695,15 @@ if (typeof importScripts !== 'undefined') {
           const links = [];
           for (const o of reportArray) {
             try {
+              const account = parents.get(o);
               const base = helper.base(o.link);
               const thread = helper.thread(o.link);
 
-              if (thread && o.parent.xml.link.indexOf('#') === -1) {
+              if (thread && account.xml.link.indexOf('#') === -1) {
                 links.push(base + '/?shva=1#inbox/' + thread);
               }
               else if (thread) {
-                links.push(o.parent.xml.link + '/' + thread);
+                links.push(account.xml.link + '/' + thread);
               }
               else {
                 links.push(o.link);
@@ -605,7 +721,7 @@ if (typeof importScripts !== 'undefined') {
         }
         if (prefs.alert) {
           const entries = []; // new entries only
-          for (const o of objs) {
+          for (const o of cachedObjs) {
             if (o.xml && o.newIDs.length) {
               for (const entry of o.xml.entries) {
                 if (o.newIDs.includes(entry.id)) {
