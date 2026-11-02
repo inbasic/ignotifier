@@ -447,10 +447,10 @@
     "message": "プラグイン"
   },
   "options_plugins_1": {
-    "message": "Gmail™ ラベルとスターボタン (試験的)"
+    "message": "Gmail™ スターボタン (試験的)"
   },
   "options_plugins_2": {
-    "message": "このプラグインは、ポップアップにスターボタンとスレッドのラベルを表示します (拡張モードのみ)。"
+    "message": "ポップアップにスターボタンを表示します (「全コンテンツを表示」モードのみ)。\nこのアカウントで Gmail の基本的なHTMLモードを許可した後にのみ動作します: \nhttps://mail.google.com/mail/u/[アカウント番号 - 1]/spreauth"
   },
   "options_styling": {
     "message": "スタイリング"

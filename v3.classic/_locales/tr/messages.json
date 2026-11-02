@@ -584,11 +584,11 @@
         "description": ""
     },
     "options_plugins_1": {
-        "message": "Gmail labels and star button (experimental)",
+        "message": "Gmail™ yıldız düğmesi (deneysel)",
         "description": ""
     },
     "options_plugins_2": {
-        "message": "This plugin displays the star button as well as thread's labels in the popup (expanded mode only).",
+        "message": "Yıldız düğmesini açılır pencerede gösterir (yalnızca \"Tam içeriği göster\" modunda). \nYalnızca hesap için Gmail'in temel HTML moduna izin verdikten sonra çalışır: \nhttps://mail.google.com/mail/u/[hesap numarası - 1]/spreauth",
         "description": ""
     },
     "options_px": {

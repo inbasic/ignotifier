@@ -588,11 +588,11 @@
         "description": ""
     },
     "options_plugins_1": {
-        "message": "Gmail 标签及星标按钮（实验性）",
+        "message": "Gmail™ 星标按钮（实验性）",
         "description": ""
     },
     "options_plugins_2": {
-        "message": "此插件在弹出窗口中显示星标按钮和主题的标签（仅限扩展模式）。",
+        "message": "在弹出窗口中显示星标按钮（仅限“显示完整内容”模式）。\n仅在您为该账户允许 Gmail 的基本 HTML 模式后才能使用，地址：\nhttps://mail.google.com/mail/u/[账户序号 - 1]/spreauth",
         "description": ""
     },
     "options_px": {

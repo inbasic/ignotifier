@@ -584,11 +584,11 @@
         "description": ""
     },
     "options_plugins_1": {
-        "message": "Gmail labels and star button (experimental)",
+        "message": "Κουμπί αστεριού του Gmail™ (πειραματικό)",
         "description": ""
     },
     "options_plugins_2": {
-        "message": "This plugin displays the star button as well as thread's labels in the popup (expanded mode only).",
+        "message": "Εμφανίζει το κουμπί αστεριού στο αναδυόμενο παράθυρο (μόνο στη λειτουργία «Εμφάνιση πλήρους περιεχομένου»). \nΛειτουργεί μόνο αφού επιτρέψετε την βασική λειτουργία HTML του Gmail για τον λογαριασμό στη διεύθυνση: \nhttps://mail.google.com/mail/u/[αριθμός λογαριασμού - 1]/spreauth",
         "description": ""
     },
     "options_px": {

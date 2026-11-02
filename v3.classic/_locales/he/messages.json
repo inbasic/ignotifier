@@ -584,11 +584,11 @@
         "description": ""
     },
     "options_plugins_1": {
-        "message": "התוויות של ג'ימייל וכפתור הכוכב (נסיוני)",
+        "message": "כפתור הכוכב של Gmail™ (נסיוני)",
         "description": ""
     },
     "options_plugins_2": {
-        "message": "פלאגאין זה מציג את כפתור הכוכב וכן את תוויות המייל (נסיוני)",
+        "message": "מציג את כפתור הכוכב בחלונית הקופצת (במצב \"הצג את כל התוכן\" בלבד). \nפועל רק לאחר שתאפשרו את מוד HTML בסיסי של Gmail עבור החשבון בכתובת: \nhttps://mail.google.com/mail/u/[מספר החשבון - 1]/spreauth",
         "description": ""
     },
     "options_px": {

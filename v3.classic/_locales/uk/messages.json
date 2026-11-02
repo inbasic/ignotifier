@@ -584,11 +584,11 @@
         "description": ""
     },
     "options_plugins_1": {
-        "message": "Gmail labels and star button (experimental)",
+        "message": "Кнопка зірочки Gmail™ (експериментальна)",
         "description": ""
     },
     "options_plugins_2": {
-        "message": "This plugin displays the star button as well as thread's labels in the popup (expanded mode only).",
+        "message": "Показує кнопку зірочки у спливаючому вікні (лише в режимі «Show full content»). \nПрацює лише після того, як ви дозволите режим базового HTML у Gmail для облікового запису за адресою: \nhttps://mail.google.com/mail/u/[номер облікового запису - 1]/spreauth",
         "description": ""
     },
     "options_px": {

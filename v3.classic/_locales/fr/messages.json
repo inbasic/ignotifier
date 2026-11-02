@@ -447,10 +447,10 @@
     "message": "Plug-ins"
   },
   "options_plugins_1": {
-    "message": "Libellés Gmail™ et bouton étoile (expérimental)"
+    "message": "Bouton étoile Gmail™ (expérimental)"
   },
   "options_plugins_2": {
-    "message": "Ce plugin affiche le bouton étoile ainsi que les libellés des fils de discussion dans la fenêtre contextuelle (mode étendu uniquement)."
+    "message": "Affiche le bouton étoile dans la fenêtre contextuelle (mode « Afficher la totalité du contenu » uniquement). \nNe fonctionne qu'après avoir autorisé le mode HTML basique de Gmail pour le compte à l'adresse : \nhttps://mail.google.com/mail/u/[numéro du compte - 1]/spreauth"
   },
   "options_styling": {
     "message": "Mise en Style"

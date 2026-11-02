@@ -584,11 +584,11 @@
         "description": ""
     },
     "options_plugins_1": {
-        "message": "Gmail-Labels und Sternschaltfläche (experimentell)",
+        "message": "Gmail™-Sternschaltfläche (experimentell)",
         "description": ""
     },
     "options_plugins_2": {
-        "message": "Dieses Plugin zeigt sowohl die Sternschaltfläche als auch die Thread-Labels im Popup an (nur erweiterter Modus).",
+        "message": "Zeigt die Sternschaltfläche im Popup an (nur im Modus „Gesamten Inhalt anzeigen“). \nFunktioniert erst, nachdem Sie den Basis-HTML-Modus von Gmail für das Konto erlaubt haben: \nhttps://mail.google.com/mail/u/[Kontonummer - 1]/spreauth",
         "description": ""
     },
     "options_px": {
