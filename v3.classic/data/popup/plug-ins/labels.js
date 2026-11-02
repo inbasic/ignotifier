@@ -50,6 +50,8 @@
   }, r => {
     if (!r || r instanceof Error) {
       console.error(r);
+      // a failed lookup must not block the lookup of the next account
+      inprogress = '';
     }
     else {
       response = r;
