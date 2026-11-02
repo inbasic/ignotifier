@@ -30,7 +30,8 @@ const onClicked = link => {
   }, async prefs => {
     if (prefs.smartOpen) {
       try {
-        const objs = await checkEmails.getCached();
+        // accounts unchecked under "Included Accounts" are not opened from the toolbar
+        const objs = (await checkEmails.getCached()).filter(o => o.meta?.ignored !== true);
         if (objs && objs.length) {
           // Selected account
           const unreadEntries = [].concat([], ...objs.map(obj => obj.xml.entries));

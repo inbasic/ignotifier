@@ -342,9 +342,9 @@ chrome.storage.local.get({
   }
 });
 
-// The panel can only display an account that still has a listed entry
+// The panel can only display an included account that still has a listed entry
 const showObjs = list => {
-  objs = Resolved.apply(list, resolved).filter(o => o.xml.entries.length);
+  objs = Resolved.apply(list, resolved).filter(o => o.xml.entries.length && o.meta?.ignored !== true);
 
   if (objs.length) {
     update();
@@ -639,9 +639,9 @@ whenFrameReady(() => chrome.storage.session.get({
   [Resolved.KEY]: []
 }, prefs => {
   resolved = prefs[Resolved.KEY];
-  // the panel can only display an account that still has a listed entry
+  // the panel can only display an included account that still has a listed entry
   objs = Resolved.apply(prefs['cached-objects'], resolved)
-    .filter(o => o.xml.entries.length);
+    .filter(o => o.xml.entries.length && o.meta?.ignored !== true);
 
   if (objs.length) {
     // Selected account
