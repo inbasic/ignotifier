@@ -143,11 +143,8 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
         console.error('Empty response from offscreen');
       }
       else if (r.message) {
-        // do we have access to the basic HTML view?
-        if (r.details && r.details.links && r.details.links.length) {
-          self.openLink(r.details.links[0]);
-          toast(chrome.i18n.getMessage('msg_6'));
-        }
+        // missing basic HTML access is reported when the user runs an action (gmail.action)
+        // reporting it here would cause interruption when the preview panel is displayed
         response();
         console.error(r);
       }

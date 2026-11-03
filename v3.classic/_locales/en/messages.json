@@ -483,10 +483,10 @@
     "message": "Plug-ins"
   },
   "options_plugins_1": {
-    "message": "Gmail™ labels and star button (experimental)"
+    "message": "Gmail™ star button (experimental)"
   },
   "options_plugins_2": {
-    "message": "This plugin displays the star button as well as thread's labels in the popup (expanded mode only)."
+    "message": "Displays the star button in the toolbar panel (\"Show full content\" mode only). \nWorks only after you allow Gmail's Basic HTML mode for the account at: \nhttps://mail.google.com/mail/u/[account number - 1]/spreauth"
   },
   "options_styling": {
     "message": "Styling"
