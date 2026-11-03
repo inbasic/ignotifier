@@ -447,10 +447,10 @@
     "message": "Plug-ins"
   },
   "options_plugins_1": {
-    "message": "Pulsante a forma di stella di Gmail™ (sperimentale)"
+    "message": "Etichette Gmail™ e pulsante a forma di stella (sperimentale)"
   },
   "options_plugins_2": {
-    "message": "Mostra il pulsante della stella nel popup (solo in modalità \"Mostra il contenuto completo\"). \nFunziona solo dopo aver consentito la modalità HTML di base di Gmail per l'account all'indirizzo: \nhttps://mail.google.com/mail/u/[numero dell'account - 1]/spreauth"
+    "message": "Questo plugin visualizza il pulsante della stella e le etichette delle discussioni nel popup (solo in modalità estesa)."
   },
   "options_styling": {
     "message": "Stile"

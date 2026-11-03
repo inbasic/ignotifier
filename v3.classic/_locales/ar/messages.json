@@ -584,11 +584,11 @@
         "description": ""
     },
     "options_plugins_1": {
-        "message": "زر النجمة في Gmail™ (تجريبي)",
+        "message": "Gmail labels and star button (experimental)",
         "description": ""
     },
     "options_plugins_2": {
-        "message": "يعرض زر النجمة في اللوحة المنبثقة (في وضع \"Show full content\" فقط). \nيعمل فقط بعد السماح بوضع HTML الأساسي في Gmail لهذا الحساب على العنوان: \nhttps://mail.google.com/mail/u/[رقم الحساب - 1]/spreauth",
+        "message": "This plugin displays the star button as well as thread's labels in the popup (expanded mode only).",
         "description": ""
     },
     "options_px": {

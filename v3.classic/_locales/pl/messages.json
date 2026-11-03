@@ -588,11 +588,11 @@
         "description": ""
     },
     "options_plugins_1": {
-        "message": "Przycisk gwiazdki Gmail™ (eksperymentalny)",
+        "message": "Etykiety Gmail oraz symbol gwiazdki (eksperymentalne)",
         "description": ""
     },
     "options_plugins_2": {
-        "message": "Wyświetla przycisk gwiazdki w panelu podglądu wiadomości (tylko w trybie „Pokazuj pełną zawartość”). \nDziała dopiero po zezwoleniu na tryb podstawowego HTML w Gmailu dla konta pod adresem: \nhttps://mail.google.com/mail/u/[numer konta - 1]/spreauth",
+        "message": "Ta wtyczka wyświetla symbol gwiazdki oraz etykiety tematu w panelu podglądu wiadomości (tylko tryb rozszerzony).",
         "description": ""
     },
     "options_px": {

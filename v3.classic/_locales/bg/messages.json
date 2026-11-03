@@ -584,11 +584,11 @@
         "description": ""
     },
     "options_plugins_1": {
-        "message": "Бутон със звезда за Gmail™ (експериментално)",
+        "message": "Gmail labels and star button (experimental)",
         "description": ""
     },
     "options_plugins_2": {
-        "message": "Показва бутона със звезда в изскачащия панел (само в режим „Показване на цялото съдържание“). \nРаботи само след като разрешите основния HTML режим в Gmail за профила на адрес: \nhttps://mail.google.com/mail/u/[номер на профила - 1]/spreauth",
+        "message": "This plugin displays the star button as well as thread's labels in the popup (expanded mode only).",
         "description": ""
     },
     "options_px": {

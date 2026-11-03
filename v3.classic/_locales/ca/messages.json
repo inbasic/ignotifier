@@ -588,11 +588,11 @@
         "description": ""
     },
     "options_plugins_1": {
-        "message": "Botó estrella de Gmail™ (experimental)",
+        "message": "Etiquetes i botó estrella de Gmail (experimental)",
         "description": ""
     },
     "options_plugins_2": {
-        "message": "Mostra el botó estrella a la finestra emergent (només en mode «Mostra tot el contingut»). \nNomés funciona després d'haver permès el mode HTML bàsic de Gmail per al compte a: \nhttps://mail.google.com/mail/u/[número del compte - 1]/spreauth",
+        "message": "Aquesta extensió mostra el botó estrella, així com les etiquets del fil a la finestra emergent (només en mode estès).",
         "description": ""
     },
     "options_px": {

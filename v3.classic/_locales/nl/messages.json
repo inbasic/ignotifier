@@ -588,11 +588,11 @@
         "description": ""
     },
     "options_plugins_1": {
-        "message": "Gmail™-sterknop (experimenteel)",
+        "message": "Gmail-labels en sterknop (experimenteel)",
         "description": ""
     },
     "options_plugins_2": {
-        "message": "Toont de sterknop in de pop-up (alleen in de modus \"Volledige inhoud tonen\"). \nWerkt pas nadat u de basis-HTML-modus van Gmail voor het account hebt toegestaan via: \nhttps://mail.google.com/mail/u/[accountnummer - 1]/spreauth",
+        "message": "Deze plug-in toont de sterknop en onderwerplabels in de pop-up (alleen in de uitgeklapte modus).",
         "description": ""
     },
     "options_px": {

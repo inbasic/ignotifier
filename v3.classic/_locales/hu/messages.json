@@ -447,10 +447,10 @@
     "message": "Bővítmények"
   },
   "options_plugins_1": {
-    "message": "Gmail™ csillag gomb (kísérleti)"
+    "message": "Gmail™ címkék és csillagok (kísérleti)"
   },
   "options_plugins_2": {
-    "message": "Megjeleníti a csillag gombot a buborékban (csak „Teljes tartalom megjelenítése” módban). \nCsak azután működik, hogy engedélyezte a Gmail alap HTML módját a fiókhoz itt: \nhttps://mail.google.com/mail/u/[fiók sorszáma - 1]/spreauth"
+    "message": "Ez a bővítmény megjeleníti a csillagot és a téma címkéit buborékban (csak kibővített módban)."
   },
   "options_px": {
     "message": "px"

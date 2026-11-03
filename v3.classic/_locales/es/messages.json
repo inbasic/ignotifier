@@ -584,11 +584,11 @@
         "description": ""
     },
     "options_plugins_1": {
-        "message": "Botón de estrella de Gmail™ (experimental)",
+        "message": "Gmail labels and star button (experimental)",
         "description": ""
     },
     "options_plugins_2": {
-        "message": "Muestra el botón de estrella en la ventana emergente (solo en el modo «Mostrar contenido completo»). \nSolo funciona después de permitir el modo HTML básico de Gmail para la cuenta en: \nhttps://mail.google.com/mail/u/[número de cuenta - 1]/spreauth",
+        "message": "This plugin displays the star button as well as thread's labels in the popup (expanded mode only).",
         "description": ""
     },
     "options_px": {
