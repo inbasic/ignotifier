@@ -240,6 +240,8 @@ if (typeof importScripts !== 'undefined') {
   chrome.storage.onChanged.addListener(ps => {
     if (ps.oldFashion) {
       self.checkEmails.getCached().then(objs => {
+        // only "Included Accounts" affect whether the panel is attached
+        objs = objs.filter(o => o.meta?.ignored !== true);
         const numberOfAccounts = objs.map(o => o.xml ? o.xml.title : null)
           .filter((o, i, a) => o && a.indexOf(o) === i).length;
         const hasUnread = objs.map(o => o.xml ? o.xml.fullcount : 0)
@@ -720,9 +722,9 @@ if (typeof importScripts !== 'undefined') {
           }, buttons.slice(0, 2));
         }
         if (prefs.alert) {
-          const entries = []; // new entries only
+          const entries = []; // new entries of included accounts only
           for (const o of cachedObjs) {
-            if (o.xml && o.newIDs.length) {
+            if (o.xml && o.newIDs.length && o.meta.ignored !== true) {
               for (const entry of o.xml.entries) {
                 if (o.newIDs.includes(entry.id)) {
                   entries.push(entry);
