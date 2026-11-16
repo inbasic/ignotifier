@@ -10,6 +10,7 @@ if (typeof importScripts !== 'undefined') {
   self.importScripts('/core/check.js');
   self.importScripts('/core/repeater.js');
   self.importScripts('/core/watch.js');
+  self.importScripts('/core/inbox.js');
 }
 
 const toast = (message = 'Unknown Error') => chrome.notifications.create({

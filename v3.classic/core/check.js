@@ -302,24 +302,162 @@ if (typeof importScripts !== 'undefined') {
       }, 'session').then(prefs => prefs['cached-objects']);
     }
   };
+  /*
+   * The badge can count only the emails that have arrived since the inbox of
+   * an account was last opened. The unread count of such a visit is stored as
+   * a baseline and only the difference is shown. The panel keeps using the raw
+   * count, so this method only answers the number the badge has to display.
+   */
+  {
+    const BASELINE = 'badge.baseline';
+    const PENDING = 'badge.pending';
+    const TTL = 5 * 60 * 1000; // pending reset of a lost check
+
+    const accountOf = link => (link || '').replace(/[?#].*$/, '').replace(/\/$/, '');
+
+    self.checkEmails.badge = async (objs, fresh = false) => {
+      const totals = new Map();
+      for (const o of (objs || [])) {
+        if (o.meta?.ignored === true) {
+          continue;
+        }
+        const key = accountOf(o.xml?.rootLink);
+        totals.set(key, (totals.get(key) || 0) + o.xml.fullcount);
+      }
+      const sum = [...totals.values()].reduce((p, c) => p + c, 0);
+
+      const prefs = await read({
+        'resetBadge': false,
+        [BASELINE]: {}
+      }, 'local');
+      if (prefs.resetBadge !== true) {
+        if (Object.keys(prefs[BASELINE] || {}).length) {
+          chrome.storage.local.remove(BASELINE);
+        }
+        return sum;
+      }
+
+      const baseline = prefs[BASELINE] || {};
+      const s = await read({
+        [PENDING]: {}
+      }, 'session');
+      const pending = s[PENDING] || {};
+      const now = Date.now();
+      let changed = false;
+
+      for (const key of Object.keys(pending)) {
+        if (now - pending[key] > TTL) {
+          delete pending[key];
+          changed = true;
+        }
+      }
+      // a visit becomes the new baseline once a fresh check confirms the count
+      if (fresh) {
+        for (const [key, total] of totals) {
+          const n = helper.id(key);
+          if (n !== undefined && n in pending) {
+            baseline[key] = total;
+            delete pending[n];
+            changed = true;
+          }
+        }
+      }
+      // reading or deleting old emails must not hide the ones that follow
+      let count = 0;
+      for (const [key, total] of totals) {
+        const b = Math.min(baseline[key] || 0, total);
+        if (baseline[key] !== b) {
+          baseline[key] = b;
+          changed = true;
+        }
+        count += Math.max(0, total - b);
+      }
+      // forget the accounts that are not listened to anymore
+      for (const key of Object.keys(baseline)) {
+        if (totals.has(key) === false) {
+          delete baseline[key];
+          changed = true;
+        }
+      }
+      if (changed) {
+        await chrome.storage.local.set({
+          [BASELINE]: baseline
+        });
+        await chrome.storage.session.set({
+          [PENDING]: pending
+        });
+      }
+      return count;
+    };
+    /*
+     * The inbox of account `n` has been opened. The cached numbers are enough
+     * to drop the badge right away; the pending entry makes the next fresh
+     * check confirm the baseline against the server. Returns true when a new
+     * visit has been recorded (so the caller may ask for a fresh check).
+     */
+    self.checkEmails.visit = async n => {
+      const prefs = await read({
+        'resetBadge': false
+      }, 'local');
+      if (prefs.resetBadge !== true) {
+        return false;
+      }
+      const p = await read({
+        [PENDING]: {}
+      }, 'session');
+      const pending = p[PENDING] || {};
+      const now = Date.now();
+      for (const key of Object.keys(pending)) {
+        if (now - pending[key] > TTL) {
+          delete pending[key];
+        }
+      }
+      const known = n in pending;
+      pending[n] = now;
+      await chrome.storage.session.set({
+        [PENDING]: pending
+      });
+
+      const objs = Resolved.apply(await self.checkEmails.getCached(), await Resolved.read());
+      const totals = new Map();
+      for (const o of objs) {
+        if (o.meta?.ignored !== true && helper.id(o.xml?.rootLink) === n) {
+          const key = accountOf(o.xml?.rootLink);
+          totals.set(key, (totals.get(key) || 0) + o.xml.fullcount);
+        }
+      }
+      if (totals.size) {
+        const b = await read({
+          [BASELINE]: {}
+        }, 'local');
+        const baseline = b[BASELINE] || {};
+        for (const [key, total] of totals) {
+          baseline[key] = total;
+        }
+        await chrome.storage.local.set({
+          [BASELINE]: baseline
+        });
+      }
+      // do not replace a state that is not known yet with an empty one
+      if (objs.length) {
+        await self.checkEmails.publish(objs);
+      }
+      return known === false;
+    };
+  }
   // Show the accounts as they are now: the badge, the panel and, when nothing
   // is left to read, the panel itself. The given objects are expected to be
   // already filtered by Resolved.apply().
-  self.checkEmails.publish = async objs => {
+  self.checkEmails.publish = async (objs, fresh = false) => {
     self.checkEmails.cached = objs;
 
     const active = objs.filter(c => c.meta?.ignored !== true);
     const count = active.reduce((p, c) => p + c.xml.fullcount, 0);
+    const badge = await self.checkEmails.badge(objs, fresh);
 
     chrome.storage.session.set({count});
-    if (count) {
-      button.icon = 'red';
-      button.badge = count;
-    }
-    else {
-      button.icon = 'gray';
-      button.badge = 0;
-    }
+    button.icon = count ? 'red' : 'gray';
+    button.badge = badge;
     chrome.runtime.sendMessage({
       method: 'update',
       data: objs
@@ -567,6 +705,8 @@ if (typeof importScripts !== 'undefined') {
       }
 
       if (!anyNewEmails && !forced && count === newCount) {
+        // a fresh check confirms the baseline of an inbox visit
+        button.badge = await self.checkEmails.badge(cachedObjs, true);
         // Updating panel if it is open
         chrome.runtime.sendMessage({
           method: 'update-date',
@@ -640,14 +780,14 @@ if (typeof importScripts !== 'undefined') {
         }, '').replace(/\n$/, '');
       //
       if (!forced && !anyNewEmails) {
-        self.checkEmails.publish(cachedObjs);
+        self.checkEmails.publish(cachedObjs, true);
       }
       else if (forced && !newCount) {
-        self.checkEmails.publish(cachedObjs);
+        self.checkEmails.publish(cachedObjs, true);
       }
       else {
         button.icon = 'new';
-        button.badge = newCount;
+        button.badge = await self.checkEmails.badge(cachedObjs, true);
         chrome.storage.session.set({count: newCount});
         const singleAccount = prefs.oldFashion === 1 ?
           cachedObjs.filter(c => c.meta.ignored !== true)

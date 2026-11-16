@@ -137,4 +137,16 @@ chrome.storage.onChanged.addListener(prefs => {
   if (prefs.accounts) {
     repeater.reset('change.of.ignored.list');
   }
+  if ('resetBadge' in prefs) {
+    if (prefs.resetBadge.newValue !== true) {
+      chrome.storage.local.remove('badge.baseline');
+      chrome.storage.session.remove('badge.pending');
+    }
+    // show the new behaviour without waiting for the next check
+    checkEmails.getCached().then(objs => {
+      if (objs && objs.length) {
+        checkEmails.refresh();
+      }
+    });
+  }
 });

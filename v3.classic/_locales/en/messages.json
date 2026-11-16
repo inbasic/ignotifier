@@ -74,6 +74,15 @@
   "label_15": {
     "message": "Included Accounts"
   },
+  "label_16": {
+    "message": "Reset badge when the inbox is opened"
+  },
+  "label_17": {
+    "message": "Notifications"
+  },
+  "label_18": {
+    "message": "Configure"
+  },
   "unknown": {
     "message": "unknown"
   },
@@ -316,6 +325,12 @@
   },
   "options_notifications_48": {
     "message": "Display desktop notification on the following states:"
+  },
+  "options_notifications_49": {
+    "message": "Reset the badge count when the inbox is opened"
+  },
+  "options_notifications_50": {
+    "message": "The badge then shows only the emails that arrive after you last opened the inbox of that account. The panel still shows the real number of unread emails. This option is disabled by default."
   },
   "options_tab": {
     "message": "Tab Opening"

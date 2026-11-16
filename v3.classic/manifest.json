@@ -43,6 +43,7 @@
       "/core/check.js",
       "/core/repeater.js",
       "/core/watch.js",
+      "/core/inbox.js",
       "/worker.js"
     ]
   },

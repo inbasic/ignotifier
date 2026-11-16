@@ -15,15 +15,27 @@ const once = () => {
     enabled: false
   }, () => chrome.runtime.lastError);
   chrome.contextMenus.create({
+    id: 'configure.ctx',
+    title: chrome.i18n.getMessage('label_18'),
+    contexts: ['action']
+  }, () => chrome.runtime.lastError);
+  chrome.contextMenus.create({
     id: 'ignored.ctx',
     title: chrome.i18n.getMessage('label_15'),
     contexts: ['action'],
+    parentId: 'configure.ctx',
     enabled: false
+  }, () => chrome.runtime.lastError);
+  chrome.contextMenus.create({
+    title: chrome.i18n.getMessage('label_17'),
+    contexts: ['action'],
+    id: 'notifications.ctx'
   }, () => chrome.runtime.lastError);
   chrome.contextMenus.create({
     title: chrome.i18n.getMessage('label_3'),
     contexts: ['action'],
-    id: 'disable.ctx'
+    id: 'disable.ctx',
+    parentId: 'notifications.ctx'
   }, () => chrome.runtime.lastError);
   for (const id of ['4', '5', '6', '7', '8', '9', '13']) {
     chrome.contextMenus.create({
@@ -42,6 +54,7 @@ const once = () => {
     type: 'checkbox',
     contexts: ['action'],
     id: 'silent.ctx',
+    parentId: 'notifications.ctx',
     checked: false
   }, () => {
     if (chrome.runtime.lastError) {
@@ -51,6 +64,19 @@ const once = () => {
     }
   });
   chrome.contextMenus.create({
+    title: chrome.i18n.getMessage('label_16'),
+    type: 'checkbox',
+    contexts: ['action'],
+    id: 'resetBadge.ctx',
+    parentId: 'configure.ctx',
+    checked: false
+  }, () => chrome.runtime.lastError);
+  chrome.storage.local.get({
+    'resetBadge': false
+  }, prefs => chrome.contextMenus.update('resetBadge.ctx', {
+    checked: prefs.resetBadge === true
+  }, () => chrome.runtime.lastError));
+  chrome.contextMenus.create({
     title: chrome.i18n.getMessage('label_11'),
     contexts: ['action'],
     id: 'label_11'
@@ -58,7 +84,8 @@ const once = () => {
   chrome.contextMenus.create({
     title: chrome.i18n.getMessage('label_1'),
     contexts: ['action'],
-    id: 'label_1'
+    id: 'label_1',
+    parentId: 'notifications.ctx'
   }, () => chrome.runtime.lastError);
   // chrome.contextMenus.create({
   //   title: chrome.i18n.getMessage('label_12'),
@@ -154,6 +181,11 @@ self.context.accounts = async reason => {
         checked: !ps.silent.newValue
       });
     }
+    if (ps.resetBadge) {
+      chrome.contextMenus.update('resetBadge.ctx', {
+        checked: ps.resetBadge.newValue === true
+      }, () => chrome.runtime.lastError);
+    }
   });
 
   chrome.contextMenus.onClicked.addListener(info => {
@@ -213,6 +245,11 @@ self.context.accounts = async reason => {
           silent: true
         });
       }
+    }
+    else if (method === 'resetBadge.ctx') {
+      chrome.storage.local.set({
+        resetBadge: info.checked === true
+      });
     }
     else if (method === 'label_1') {
       repeater.reset('user.request');
