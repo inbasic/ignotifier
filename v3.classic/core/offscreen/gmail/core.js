@@ -89,6 +89,31 @@ gmail.at = n => {
 };
 
 
+/*
+ * Gmail answers a rejected operation with HTTP 200 as well. The reply is ")]}'"
+ * followed by "<length>&<json>" chunks, and a rejected operation carries
+ * [null, "<message>", <code>] as its second item, e.g.
+ * [null,[[null,[null,"Invalid action token",10],...]],...]
+ */
+gmail.error = content => {
+  const chunks = content.replace(/^\)\]\}'\s*/, '').split(/(?<=^|\])\d+&(?=\[)/);
+  for (const chunk of chunks) {
+    let j;
+    try {
+      j = JSON.parse(chunk);
+    }
+    catch (e) {
+      continue;
+    }
+    for (const op of (Array.isArray(j?.[1]) ? j[1] : [])) {
+      const e = Array.isArray(op) ? op[1] : null;
+      if (Array.isArray(e) && typeof e[1] === 'string' && typeof e[2] === 'number') {
+        return {message: e[1], code: e[2]};
+      }
+    }
+  }
+};
+
 gmail.search = async ({url, query}) => {
   const m = url.match(/u\/(?<n>\d+)/);
   if (m) {
@@ -243,6 +268,14 @@ gmail.action = async ({links, cmd, prefs}) => {
       e.details = {links};
 
       throw e;
+    }
+    // did Gmail accept the action?
+    const error = gmail.error(content);
+    if (error) {
+      // a rejected token must not be reused by the next action
+      cache.ats.delete(a[0].n);
+      cache.iks.delete(a[0].n);
+      throw Error('core.js -> ' + error.message + ' (' + error.code + ')');
     }
 
     return r;

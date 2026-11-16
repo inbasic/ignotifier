@@ -161,7 +161,9 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
     sound.stop();
   }
   else if (method === 'get-at') {
-    chrome.cookies.get({name: 'GMAIL_AT', url: 'https://mail.google.com/mail/u/' + request.n}, o => {
+    // the cookie lives on "/mail/u/N/" (and "/mail/u/N/s/"); without the trailing
+    // slash the path does not match and the lookup comes back empty
+    chrome.cookies.get({name: 'GMAIL_AT', url: 'https://mail.google.com/mail/u/' + request.n + '/'}, o => {
       response(o?.value);
     });
     return true;
