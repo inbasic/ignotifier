@@ -74,6 +74,15 @@
   "label_15": {
     "message": "Уключаныя ўліковыя запісы"
   },
+  "label_16": {
+    "message": "Скідваць значок пры адкрыцці ўваходных паведамленняў"
+  },
+  "label_17": {
+    "message": "Апавяшчэнні"
+  },
+  "label_18": {
+    "message": "Наладзіць"
+  },
   "unknown": {
     "message": "невядомы"
   },
@@ -85,6 +94,39 @@
   },
   "notification": {
     "message": "Ад: [author_email][break] Загаловак: [title][break] Зводка: [summary]"
+  },
+  "notification_title_one": {
+    "message": "Новы ліст"
+  },
+  "notification_title_many": {
+    "message": "Новых лістоў: $COUNT$",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "notification_title_label": {
+    "message": "у $LABEL$",
+    "placeholders": {
+      "label": {
+        "content": "$1",
+        "example": "Inbox"
+      }
+    }
+  },
+  "notification_title_accounts": {
+    "message": "для ўліковых запісаў: $ACCOUNT_COUNT$",
+    "placeholders": {
+      "account_count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "notification_title_inbox": {
+    "message": "Уваходныя"
   },
   "options_title": {
     "message": "Параметры - Gmail™ Notifier"
@@ -316,6 +358,12 @@
   },
   "options_notifications_48": {
     "message": "Паказваць апавяшчэнне на працоўным стале ў наступных станах:"
+  },
+  "options_notifications_49": {
+    "message": "Скідваць значок колькасці пры адкрыцці уваходных паведамленняў"
+  },
+  "options_notifications_50": {
+    "message": "Пасля гэтага на значку будуць паказвацца толькі тыя лісты, якія прыйдуць пасля таго, як вы апошні раз адкрывалі ўваходныя гэтага ўліковага запісу. У панэлі па-ранейшаму будзе паказвацца сапраўдная колькасць непрачытаных лістоў. Гэты параметр прадвызначана адключаны."
   },
   "options_tab": {
     "message": "Адкрыццё ўкладкі:"
