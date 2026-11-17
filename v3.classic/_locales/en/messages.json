@@ -95,6 +95,39 @@
   "notification": {
     "message": "From: [author_email][break] Title: [title][break] Summary: [summary]"
   },
+  "notification_title_one": {
+    "message": "New email"
+  },
+  "notification_title_many": {
+    "message": "$COUNT$ new emails",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "notification_title_label": {
+    "message": "in $LABEL$",
+    "placeholders": {
+      "label": {
+        "content": "$1",
+        "example": "Inbox"
+      }
+    }
+  },
+  "notification_title_accounts": {
+    "message": "in $ACCOUNT_COUNT$ accounts",
+    "placeholders": {
+      "account_count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "notification_title_inbox": {
+    "message": "Inbox"
+  },
   "options_title": {
     "message": "Options Page - Gmail™ Notifier"
   },

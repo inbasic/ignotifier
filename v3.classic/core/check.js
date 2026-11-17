@@ -226,6 +226,46 @@ if (typeof importScripts !== 'undefined') {
     return str.substr(0, truncate / 2) + '...' + str.substr(str.length - truncate / 2);
   };
 
+  /*
+   * Builds the desktop notification heading from the reported emails instead of
+   * displaying the extension name. The heading contains the number of reported
+   * emails, the common label (or the number of involved accounts) and the
+   * account email when it is needed to disambiguate between accounts.
+   */
+  const buildTitle = (reportArray, parents, configuredCount, truncate) => {
+    const count = reportArray.length;
+    if (count === 0) {
+      return '';
+    }
+    const accounts = new Set();
+    const labels = new Set();
+    for (const e of reportArray) {
+      const o = parents.get(e);
+      if (o) {
+        accounts.add(o.xml.title);
+        // an empty label is the account's Inbox
+        labels.add(o.xml.label || chrome.i18n.getMessage('notification_title_inbox'));
+      }
+    }
+    const parts = [
+      chrome.i18n.getMessage(count === 1 ? 'notification_title_one' : 'notification_title_many', [String(count)])
+    ];
+    if (accounts.size > 1) {
+      parts.push(chrome.i18n.getMessage('notification_title_accounts', [String(accounts.size)]));
+    }
+    else if (labels.size === 1) {
+      parts.push(chrome.i18n.getMessage('notification_title_label', [[...labels][0]]));
+    }
+    // the account email is only appended when it disambiguates
+    if (configuredCount > 1 && accounts.size === 1) {
+      const o = parents.get(reportArray[0]);
+      if (o && o.xml.title) {
+        parts.push('— ' + o.xml.title);
+      }
+    }
+    return shorten(parts.join(' '), truncate);
+  };
+
   const attach = () => chrome.action.setPopup({
     popup: '/data/popup/index.html'
   });
@@ -856,7 +896,13 @@ if (typeof importScripts !== 'undefined') {
               links.push(o.link);
             }
           }
-          notify(report, '', {
+          const title = buildTitle(
+            reportArray,
+            parents,
+            cachedObjs.filter(c => c.meta.ignored !== true).length,
+            prefs.notificationTruncate
+          );
+          notify(report, title, {
             cmd: 'open',
             links
           }, buttons.slice(0, 2));
