@@ -8,6 +8,7 @@
   let root;
   let query;
   let inprogress = '';
+  let inprogressRoot = '';
 
   const star = url => {
     const id = gmail.get.id(url);
@@ -69,13 +70,15 @@
       labels(url);
     }
     else {
-      if (inprogress === q) {
+      if (inprogress === q && inprogressRoot === root) {
         console.info('update is rejected; duplicated');
       }
       else {
         inprogress = q;
+        inprogressRoot = root;
         update(q, () => {
           inprogress = '';
+          inprogressRoot = '';
           star(url);
           labels(url);
         });
